@@ -261,3 +261,16 @@ body > #mainWrap {
     line-height: 28px;
     font-size: 12px;
 }
+
+.humanMsg {
+    padding: 1em;
+    line-height: 28px;
+    border: thin solid lightgray; 
+    -webkit-border-radius:0.5em;
+    -moz-border-radius:0.5em;
+}
+
+.humanMsg .round {
+    border-left: none;
+    border-right: none;
+}

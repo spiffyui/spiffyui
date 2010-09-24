@@ -7,7 +7,7 @@ spiffyui = {
         /*
          * We start by adding the HTML tags our CSS depends on
          */
-        jQuery('body').append(
+        jQuery('script:last').after(
             // We add a message if the user doesn't have JavaScript turned on
             '<noscript>' + 
                 '<div id="jswarning">' +
