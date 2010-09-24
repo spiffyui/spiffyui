@@ -22,6 +22,7 @@ import com.google.gwt.core.client.EntryPoint;
 
 import com.novell.spiffyui.client.MainFooter;
 import com.novell.spiffyui.client.MainHeader;
+import com.novell.spiffyui.client.MessageUtil;
 
 
 /**
@@ -30,6 +31,16 @@ import com.novell.spiffyui.client.MainHeader;
 public class Index implements EntryPoint
 {
 
+    static {
+        /*
+         The order of the HTML elements matters here, but GWT doesn't
+         give us easy access to the element order.  We call this to make
+         sure the error panel HTML element gets added first.  Hackito
+         ergo sum.
+         */
+        Object o = MessageUtil.ERROR_PANEL;
+    }
+    
     private static Index g_index;
     
     /**
@@ -50,6 +61,8 @@ public class Index implements EntryPoint
         
         MainFooter footer = new MainFooter();
         footer.setFooterString("This is the main footer");
+        
+        MessageUtil.showError("I'm a sample error message");
         
     }
 }
