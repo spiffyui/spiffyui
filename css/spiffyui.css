@@ -135,7 +135,7 @@ body > #mainWrap {
     left: 0px;
     background: #F9F9F9;
     padding-top: 7px;
-    color: lightgray;
+    color: gray;
     bottom: 0em;
 }
 
@@ -160,7 +160,8 @@ body > #mainWrap {
  */
 #mainHeader {
     height: 55px;
-    background: lightyellow;
+    background: black;
+    color: white;
 }
 
 #mainHeader a {
@@ -174,6 +175,52 @@ body > #mainWrap {
 
 #mainHeaderContainer, #loginHeaderContainer {
     position: relative;
+}
+
+#headerstring {
+    color: white;
+    font-size: 14px;
+    margin-right: 1em;
+}
+
+#headerleft, #loginHeaderleft {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+#headerright {
+    position: absolute;
+    right: 15px;
+    top: 0px;
+}
+
+#header_actionsBlock {
+    position: absolute;
+    right: 10px;
+    top: 14px;
+    width: 35em;
+    text-align: right;
+}
+
+#headerlogo, #loginheaderlogo {
+    width: 54px;
+    height: 55px;
+    margin-left: 15px;
+}
+
+.headertitle {
+    color: white;
+    display: block;
+    font-family: Arial,Sans-serif;
+    font-size: 18px;
+    left: 60px;
+    position: relative;
+    top: -37px;
+}
+
+#mainHeaderContainer .headertitle {
+    left: 75px;
 }
 
 /*
