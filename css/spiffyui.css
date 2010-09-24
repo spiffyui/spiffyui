@@ -89,3 +89,128 @@ h1 {
 .clear {
     clear: both;
 }
+
+#mainContent {
+    float:left;
+    width:100%;
+    overflow:hidden;
+}
+
+#mainContent > div {
+    margin-bottom: 2em;
+    margin-top: 20px;
+}
+
+/*
+ * These styles are for the footer
+ */
+
+* {margin:0;padding:0;} 
+
+/* must declare 0 margins on everything, also for main layout components use padding, not 
+vertical margins (top and bottom) to add spacing, else those margins get added to total height 
+and your footer gets pushed down a bit more, creating vertical scroll bars in the browser */
+
+html, body, #mainWrap {
+    height: 100%;
+}
+
+body > #mainWrap {
+    height: auto; 
+    min-height: 100%;
+}
+
+#main {
+    padding-bottom: 28px;   /* must be same height as the footer */
+}
+
+#mainFooter {
+    position: relative;
+	margin-top: -36px; /* negative value of footer height */
+	height: 28px;
+	clear:both;
+    z-index: 101;
+    border-top: thin solid lightgray;
+    width: 100%;
+    left: 0px;
+    background: #F9F9F9;
+    padding-top: 7px;
+    color: lightgray;
+    bottom: 0em;
+}
+
+#mainFooterContainer {
+    padding-left: 20px;
+}
+
+/* CLEAR FIX*/
+.clearfix:after {content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;}
+.clearfix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix { height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+
+/*
+   Main header styles
+ */
+#mainHeader {
+    height: 55px;
+    color: lightyellow;
+}
+
+#mainHeader a {
+    color:#CFCDC6;
+    font-size:0.85em;
+}
+
+#mainHeader a:hover {
+    color: #969E47;
+}
+
+#mainHeaderContainer, #loginHeaderContainer {
+    position: relative;
+}
+
+/*
+   Navigation menu styles
+ */
+#mainNavigation {
+    clear: left;
+    float: left;
+    margin: 19px 5px 15px -175px;
+    padding-left: 5px;
+    position: relative;
+    width: 150px;
+    overflow: hidden;
+}
+
+#mainNavContainer {
+    margin-left: 10px;
+    text-indent: 5px;
+    margin-top: 3px;
+}
+
+#mainNavContainer.disabled a {
+    color: lightgray;
+    cursor: default;
+}
+
+#mainNavContainer.disabled a:hover {
+    color: lightgray;
+    text-decoration: none;
+}
+
+#mainNavContainer a {
+    width: 100%;
+    display: block;
+}
+
+#mainNavigation div {
+    line-height: 28px;
+    font-size: 12px;
+}
