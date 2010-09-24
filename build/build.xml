@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="IDM Report Generator" default="all" basedir="..">
+
+    <target name="all" depends="setup">
+        <!-- Call the Spiffy UI build -->
+        <ant antfile="${build.base}/external/spiffyui/build/build.xml" 
+             dir="${build.base}/external/spiffyui">
+            <property name="spiffy.dist" value="${root}/bin/www"/>
+        </ant>
+             
+        <antcall target="gwt-compile">
+            <param name="gwttarget" value="com.novell.spsample.index"/>
+        </antcall>
+        
+        <antcall target="package" />
+    </target>
+    
+    <target name="setup">
+        <property environment="env"/>
+
+        <!-- These are all the project relative paths.  Please add new paths
+             here so they are easier to find when they change. -->
+        <condition property="build.base" value="${env.SPSAMPLE_BASE}" else="${basedir}">
+          <isset property="${env.env.SPSAMPLE_BASE}"/>
+        </condition>
+        <property name="root" location="${build.base}"/>
+        <property name="build" location="${build.base}/build"/>
+        
+        <mkdir dir="${root}/bin"/>
+        <mkdir dir="${root}/bin/www"/>
+        <mkdir dir="${root}/dist"/>
+    </target>
+    
+    <!-- This target calls the GWT compiler inline and
+         moves the files around so we get the compiled
+         GWT without the directory with the package name -->
+    <target name="gwt-compile" description="use gwt's compiler">
+        <java classname="com.google.gwt.dev.Compiler"
+            fork="true" failonerror="true" maxmemory="256m">
+            <arg value="-style"/>
+            <arg value="PRETTY"/>
+            <arg value="-war"/>
+            <arg value="${root}/bin/www"/>
+            <arg value="${gwttarget}"/>
+            <classpath>
+                <pathelement location="${root}/src"/>
+                <pathelement location="${root}/external/spiffyui/src"/>
+                <fileset dir="${build}/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </java>
+        
+        <!-- GWT compiles files into a directory with the same
+             name as the package.  We want to strip that off. 
+             If we add more GWT modules to the project we'll 
+             need to skip this step for them. -->
+        <move todir="${root}/bin/www" failonerror="false">
+            <fileset dir="${root}/bin/www/com.novell.spsample.index" includes="**/*" />
+        </move>
+        
+        <delete dir="${root}/bin/www/com.novell.spsample.index" />
+        
+    </target>
+    
+    <target name="package" description="package everything into a WAR">
+        <!-- Create the distribution directory -->
+        <delete file="${root}/dist/spsample.war" />
+        <war destfile="${root}/dist/spsample.war" webxml="${root}/">
+            <fileset dir="${root}/bin/www"/>
+        </war>
+    </target>
+    
+    <target name="clean" depends="setup">
+        <delete dir="${root}/dist"/>
+        <delete dir="${root}/bin"/>
+    </target>
+</project>
