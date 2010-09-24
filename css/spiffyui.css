@@ -160,7 +160,7 @@ body > #mainWrap {
  */
 #mainHeader {
     height: 55px;
-    color: lightyellow;
+    background: lightyellow;
 }
 
 #mainHeader a {
@@ -196,12 +196,12 @@ body > #mainWrap {
 }
 
 #mainNavContainer.disabled a {
-    color: lightgray;
+    background: lightgray;
     cursor: default;
 }
 
 #mainNavContainer.disabled a:hover {
-    color: lightgray;
+    background: lightgray;
     text-decoration: none;
 }
 

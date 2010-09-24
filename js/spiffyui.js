@@ -7,7 +7,7 @@ spiffyui = {
         /*
          * We start by adding the HTML tags our CSS depends on
          */
-        jQuery(body).append(
+        jQuery('body').append(
             // We add a message if the user doesn't have JavaScript turned on
             '<noscript>' + 
                 '<div id="jswarning">' +
@@ -18,7 +18,7 @@ spiffyui = {
             
             '<div id="loginPanel"></div>' + 
             '<div id="mainWrap">' + 
-                '<div id="main" style="display:none;" class="clearfix">' + 
+                '<div id="main" class="clearfix">' + 
                     '<div id="mainHeader"></div>' + 
                     '<div id="mainBody">' + 
                         '<div id="mainNavigation"></div>' + 
