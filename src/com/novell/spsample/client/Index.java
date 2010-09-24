@@ -20,6 +20,9 @@ package com.novell.spsample.client;
 
 import com.google.gwt.core.client.EntryPoint;
 
+import com.novell.spiffyui.client.MainFooter;
+import com.novell.spiffyui.client.MainHeader;
+
 
 /**
  * This class is the main entry point for our GWT module. 
@@ -41,6 +44,12 @@ public class Index implements EntryPoint
     @Override
     public void onModuleLoad()
     {
+        MainHeader header = new MainHeader();
+        header.setWelcomeString("Welcome Guest");
+        header.setHeaderTitle("Spiffy UI Sample");
+        
+        MainFooter footer = new MainFooter();
+        footer.setFooterString("This is the main footer");
         
     }
 }
