@@ -1,0 +1,91 @@
+/*
+   These are basic styles for our entire page and all of our controls
+ */
+
+body {
+    background-color: white;
+}
+
+body, .gwt-TextBox, .gwt-ListBox, .gwt-PasswordTextBox, .gwt-TextArea, .gwt-SuggestBox, body, table td, select {
+    font-size: 12px;
+    line-height: 14px;
+    font-family: Verdana,Arial,Sans-serif;
+}
+
+.gwt-TextBox, .gwt-ListBox, .gwt-PasswordTextBox, .gwt-TextArea, .gwt-SuggestBox {
+    font-size: 11px;
+}
+
+.gwt-TextArea, .gwt-SuggestBox.multivalue {
+    height: 42px;
+    margin-top: -4px;
+}
+
+.gwt-TextBox, .gwt-PasswordTextBox, .gwt-SuggestBox {
+    margin-top: -6px;
+    height: 24px;
+    padding-top: 4px;
+    line-height: 14px;
+}
+
+.gwt-ListBox {
+    margin-top: -4px;	
+    line-height: 14px;
+}
+
+.gwt-ListBox.multivalue {
+    height: 42px;
+}
+
+.gwt-CheckBox label {
+    margin-left: 0.5em;
+    position: relative;
+    top: -1px;
+}
+
+.gwt-RadioButton label {
+    margin-left: 0.5em;
+}
+
+fieldset {
+    margin-bottom: 6px;
+}
+
+.textBlock {
+    font-family:Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+#mainWrap a:hover {
+    color: #D54E21;
+}
+
+#mainWrap a.disabled {
+    color: lightgray;
+}
+
+#mainWrap a.disabled:hover {
+    text-decoration: none;
+}
+
+h1 {
+    font-size:18px;
+    line-height: 28px;
+    height: 28px;
+}
+
+#main {
+    padding-bottom: 50px;
+}
+
+#mainBody {
+    clear:both;
+    margin-left:175px;
+}
+
+.clear {
+    clear: both;
+}
