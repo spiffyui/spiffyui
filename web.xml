@@ -5,4 +5,15 @@
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+    <servlet-name>VersionInfoServlet</servlet-name>
+    <servlet-class>com.novell.spssample.server.VersionInfoServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>VersionInfoServlet</servlet-name>
+    <url-pattern>/version</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
