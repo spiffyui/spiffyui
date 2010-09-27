@@ -35,7 +35,7 @@ public class Page1Panel extends HTMLPanel
      */
     public Page1Panel()
     {
-        super("div", "<h1>I'm page one</h1><br /><br />" + 
+        super("div", "<h1>Some example Widgets</h1><br /><br />" + 
                      "<div id=\"Page1LongMessage\"></div><br /><br />" + 
                      "<div>Progress bar:<br />" + 
                         "<span id=\"Page1ProgressSpan\"></span>" + 

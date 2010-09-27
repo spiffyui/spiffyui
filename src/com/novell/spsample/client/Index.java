@@ -83,8 +83,8 @@ public class Index implements EntryPoint, NavBarListener
         /*
          The page 1 panel
          */
-        NavItem item = new NavItem("page1NavItem", "Page 1",
-                                   "This is the navigation item for page 1");
+        NavItem item = new NavItem("page1NavItem", "Simple Widgets",
+                                   "This is the navigation item for the simple widgets page");
         m_navBar.add(item);
         m_panels.put(item, new Page1Panel());
         
@@ -96,18 +96,14 @@ public class Index implements EntryPoint, NavBarListener
         /*
          The page 2 panel
          */
-        item = new NavItem("page2NavItem", "Page 2",
-                           "This is the navigation item for page 2");
+        item = new NavItem("page2NavItem", "Simple Form",
+                           "This is the navigation item for the simple form page");
         m_navBar.add(item);
         m_panels.put(item, new Page2Panel());
         
         m_navBar.selectItem(m_navBar.getItem("page1NavItem"));
         
         m_navBar.addListener(this);
-        
-        
-        MessageUtil.showMessage("I'm a sample information message");
-        
     }
     
     @Override
