@@ -21,6 +21,7 @@ package com.novell.spsample.client;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import com.novell.spiffyui.client.widgets.LongMessage;
 import com.novell.spiffyui.client.widgets.ProgressBar;
 
 /**
@@ -34,15 +35,31 @@ public class Page1Panel extends HTMLPanel
      */
     public Page1Panel()
     {
-        super("div", "<h1>I'm page one</h1>" + 
-                     "<div id=\"Page1PanelContent\">Progress bar:<br /></div>");
+        super("div", "<h1>I'm page one</h1><br /><br />" + 
+                     "<div id=\"Page1LongMessage\"></div><br /><br />" + 
+                     "<div>Progress bar:<br />" + 
+                        "<span id=\"Page1ProgressSpan\"></span>" + 
+                     "</div>");
         
         getElement().setId("page1Panel");
         
         RootPanel.get("mainContent").add(this);
         
+        /*
+         Add a progress bar to our page
+         */
         ProgressBar bar = new ProgressBar("Page1PanelProgressBar");
         bar.setValue(65);
-        add(bar, "Page1PanelContent");
+        add(bar, "Page1ProgressSpan");
+        
+        /*
+         Add a long message to our page
+         */
+        LongMessage message = new LongMessage("Page1LongMessageWidget");
+        add(message, "Page1LongMessage");
+        message.setHTML("<b>Long Message</b><br />" + 
+                             "Long messages are useful for showing information messages " +
+                             "with more content than the standard messages but are still " +
+                             "transient messages.");
     }
 }
