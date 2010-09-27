@@ -19,18 +19,24 @@
 package com.novell.spiffyui.client;
 
 import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+
+import com.novell.spiffyui.client.nav.HasNavBarListenersPanel;
 
 
 /**
  * This is the header for the main page.
  *
  */
-public class MainHeader extends FlowPanel
+public class MainHeader extends HasNavBarListenersPanel
 {
+
+    /**
+     * The ID of the header actions block
+     */
+    public static final String HEADER_ACTIONS_BLOCK = "header_actionsBlock";
 
     private HTMLPanel m_panel;
     private Anchor m_logout;
@@ -68,6 +74,14 @@ public class MainHeader extends FlowPanel
     {
         return m_logout;
     }
+
+    public void setLogout(Anchor logout)
+    {
+        m_logout.removeFromParent();
+        
+        m_logout = logout;
+        m_panel.add(logout, "header_actionsBlock");
+    }
     
     /**
      * Sets the username for display in the header
@@ -92,5 +106,10 @@ public class MainHeader extends FlowPanel
     public String getHeaderTitle()
     {
         return m_panel.getElementById("header_title").getInnerText();
+    }
+
+    protected HTMLPanel getPanel()
+    {
+        return m_panel;
     }
 }

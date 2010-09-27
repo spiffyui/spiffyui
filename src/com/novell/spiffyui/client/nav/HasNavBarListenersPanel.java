@@ -57,7 +57,7 @@ public class HasNavBarListenersPanel extends FlowPanel
      * @param item   the nav item that was clicked
      * @return boolean true to continue, false to cancel
      */
-    protected boolean firePreEvent(NavItem item)
+    public boolean firePreEvent(NavItem item)
     {
         boolean go = true;
         if (m_enabled) {
@@ -75,7 +75,7 @@ public class HasNavBarListenersPanel extends FlowPanel
      * 
      * @param item   the nav item that was clicked
      */
-    protected void fireEvent(NavItem item)
+    public void fireEvent(NavItem item)
     {
         if (m_enabled) {
             for (NavBarListener listener : m_listeners) {
