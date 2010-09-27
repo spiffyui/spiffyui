@@ -77,8 +77,6 @@ public class MainHeader extends HasNavBarListenersPanel
 
     public void setLogout(Anchor logout)
     {
-        m_logout.removeFromParent();
-        
         m_logout = logout;
         m_panel.add(logout, "header_actionsBlock");
     }
