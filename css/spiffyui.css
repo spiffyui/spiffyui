@@ -346,3 +346,179 @@ body > #mainWrap {
 .spiffy-longmessage-panel p.error {
 	color: #E00000;
 }
+
+/*
+   These styles are used for the form feedback labels
+ */
+div.spiffy-formfeedback.error {
+    width: 16px;
+    height: 17px;
+    background: transparent url('images/spiffy_ui_images.png') no-repeat scroll 0 -85px;
+}
+
+div.spiffy-formfeedback.warning {
+    width: 16px;
+    height: 17px;
+    background: transparent url('images/spiffy_ui_images.png') no-repeat scroll 0 -266px;
+}
+
+div.spiffy-formfeedback.loading {
+    width: 16px;
+    height: 17px;
+    background: transparent url('images/loading_small.gif') no-repeat scroll;
+}
+
+div.spiffy-formfeedback.valid {
+    width: 16px;
+    height: 17px;
+    background: transparent url('images/spiffy_ui_images.png') no-repeat scroll 0 -174px;
+}
+
+.spiffy-formfeedback-inform {
+    position: absolute;
+    top: -2px;
+    left: 525px;
+    width: 20px;
+}
+
+.spiffy-fancy-button {
+    color: #5A79AD;
+    border: thin solid lightgray;
+    padding: 0 1em 0 1em;
+    white-space: no-wrap;
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;
+    margin-top: -2px;
+    font-size: 18px;
+    margin-right: 0.5em;
+    text-indent: 20px;
+}
+
+.spiffy-fancy-button:hover {
+    background-color: #E6EFC2;
+    border: 1px solid #C6D880;
+    color: #529214;
+}
+
+button.spiffy-fancy-button.disabled {
+    color: lightgray;
+}
+
+button.spiffy-save-button {
+    background: #EDEEEC url('images/spiffy_ui_images.png') no-repeat scroll 10px -435px;
+}
+
+button.spiffy-save-button.disabled {
+    background: #EDEEEC url('images/spiffy_ui_images.png') no-repeat scroll 10px -345px;
+}
+
+.dialogformsection {
+    list-style: none;
+}
+
+.dialogformrow {
+    position: relative;
+    height: 28px;
+}
+
+.tworowdialogformrow {
+    position: relative;
+    height: 70px;
+}
+
+.threerowdialogformrow {
+    position: relative;
+    height: 98px;
+}
+
+.textarearow {
+    position: relative;
+    height: 56px;
+}
+
+.tallformrow {
+    position: relative;
+    height: 42px;
+}
+
+.extratallformrow {
+    position: relative;
+    height: 56px;
+}
+
+.supertallformrow {
+    position: relative;
+    height: 70px;
+}
+
+.dialogformlabel {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 155px;
+    text-align: right;
+}
+
+.tworowformlabel {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    text-align: left;
+}
+
+.formcontrolssection {
+    position: absolute;
+    top: 0px;
+    left: 175px;
+    width: 30em;
+}
+
+.tworowcontrolssection {
+    position: absolute;
+    top: 28px;
+    left: 0px;
+    width: 50em;
+}
+
+.buttoncontrolssection {
+    position: absolute;
+    top: 14px;
+    left: 0px;
+    width: 50em;
+}
+
+.wideTextField {
+    width: 330px;     /* 155 + 20 + 155 */
+}
+
+.sectionTitle {
+    background-color: #EDEEEC;
+    color: black;
+    font-size: 16px;
+    margin-top: 14px;
+    margin-bottom: 22px;
+    height: 28px;
+    text-align: left;
+    text-indent: 0.2em;
+    width: 680px;
+    line-height: 28px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -moz-box-shadow: 0 2px 2px #C8C8C8;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.subSectionTitle {
+    color: black;
+    font-size: 14px;
+    height: 28px;
+    line-height: 28px;
+    margin-bottom: 21px;
+    margin-top: 0px;
+    text-align: left;
+    text-indent: 0.2em;
+    width: 660px;
+    margin-left: 20px;
+    border-bottom: thin solid lightgray;
+}
