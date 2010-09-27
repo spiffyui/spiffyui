@@ -81,7 +81,7 @@ html, body {
     text-indent:-9999px;
     width:20px;
     cursor: w-resize;
-    background: #E00000 url('images/rpt_images.png') no-repeat scroll 0 -1816px;
+    background: #E00000 url("images/spiffy_ui_images.png") no-repeat scroll 5px -500px;
 }
 
 #humanMsgClose {
