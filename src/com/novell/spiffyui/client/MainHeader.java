@@ -69,12 +69,22 @@ public class MainHeader extends HasNavBarListenersPanel
 
         
     }
-    
+
+    /**
+     * Get the Anchor object used for the logout link in the header bar
+     * 
+     * @return the logout Anchor
+     */
     public Anchor getLogout()
     {
         return m_logout;
     }
 
+    /**
+     * Set the Anchor used for the logout in the header
+     * 
+     * @param logout the logout Anchor
+     */
     public void setLogout(Anchor logout)
     {
         m_logout = logout;
@@ -84,28 +94,48 @@ public class MainHeader extends HasNavBarListenersPanel
     /**
      * Sets the username for display in the header
      * 
-     * @param name   the user name
+     * @param string the welcome string
      */
     public void setWelcomeString(String string)
     {
         m_panel.getElementById("headerstring").setInnerText(string);
     }
     
+    /**
+     * Gets the welcome string for the header
+     * 
+     * @return the welcome string
+     */
     public String getWelcomeString()
     {
         return m_panel.getElementById("headerstring").getInnerText();
     }
     
+    /**
+     * Set the main title for this header
+     * 
+     * @param string The main title for this header
+     */
     public void setHeaderTitle(String string)
     {
-        m_panel.getElementById("header_title").setInnerText(string);
+        m_panel.getElementById("header_title").setInnerHTML(string);
     }
     
+    /**
+     * Get the main title for the this header
+     * 
+     * @return The main title of this header
+     */
     public String getHeaderTitle()
     {
-        return m_panel.getElementById("header_title").getInnerText();
+        return m_panel.getElementById("header_title").getInnerHTML();
     }
 
+    /**
+     * Get the HTML panel for this header
+     * 
+     * @return the HTML panel
+     */
     protected HTMLPanel getPanel()
     {
         return m_panel;
