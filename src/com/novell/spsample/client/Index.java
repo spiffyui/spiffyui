@@ -106,7 +106,7 @@ public class Index implements EntryPoint, NavBarListener
         m_navBar.addListener(this);
         
         
-        MessageUtil.showError("I'm a sample error message");
+        MessageUtil.showMessage("I'm a sample information message");
         
     }
     

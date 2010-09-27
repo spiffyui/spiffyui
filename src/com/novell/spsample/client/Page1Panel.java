@@ -21,6 +21,8 @@ package com.novell.spsample.client;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import com.novell.spiffyui.client.widgets.ProgressBar;
+
 /**
  * This is the page 1 panel
  *
@@ -32,10 +34,15 @@ public class Page1Panel extends HTMLPanel
      */
     public Page1Panel()
     {
-        super("div", "<h1>I'm page one</h1>");
+        super("div", "<h1>I'm page one</h1>" + 
+                     "<div id=\"Page1PanelContent\">Progress bar:<br /></div>");
         
         getElement().setId("page1Panel");
         
         RootPanel.get("mainContent").add(this);
+        
+        ProgressBar bar = new ProgressBar("Page1PanelProgressBar");
+        bar.setValue(65);
+        add(bar, "Page1PanelContent");
     }
 }
