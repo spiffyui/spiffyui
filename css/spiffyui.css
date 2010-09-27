@@ -316,3 +316,33 @@ body > #mainWrap {
     -webkit-border-radius:4px;
     -moz-border-radius:4px;
 }
+
+.spiffy-longmessage-panel {
+    background: #FFFFE0;
+    border-style: solid;
+    border-width: 1px;
+    border-color:  #E6DB55;
+    font-size: 12px;
+    line-height: 28px;
+    color: #333333;
+    position: relative;
+    padding: 1em;
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;    
+    margin-right: 2em;
+    cursor: pointer;
+    width: 680px;
+}
+
+.spiffy-longmessage-panel-hide {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: transparent url('images/spiffy_ui_images.png') no-repeat scroll 0 -5px;
+    width: 22px;
+    height: 22px;    
+}
+
+.spiffy-longmessage-panel p.error {
+	color: #E00000;
+}

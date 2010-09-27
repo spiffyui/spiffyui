@@ -3,6 +3,17 @@
  */
  
 spiffyui = {
+    
+    /*
+     * These four functions are for showing different kinds of messages
+     * in the general page UI.  They are accessor methods for implementations
+     * in MessageUtil.java.  They are bound in that same class.
+     */
+    showFatalError: null,
+    showError: null,
+    showWarning: null,
+    showMessage: null,
+        
     init: function() {
         /*
          * We start by adding the HTML tags our CSS depends on

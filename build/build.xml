@@ -143,6 +143,12 @@
         <!-- Now that we have created the compressed file we don't
              need the concatenated file -->
         <delete file="${spiffy.dist}/spiffyui.css" />
+        
+        <!-- Now we copy over the images that we use for our CSS -->
+        <mkdir dir="${spiffy.dist}/images"/>
+        <copy todir="${spiffy.dist}/images">
+            <fileset dir="${spiffy.css}/images" includes="**/*" />
+        </copy>
     </target>
     
     <!-- Run JSLINT against our JavaScript -->
