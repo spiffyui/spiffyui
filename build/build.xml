@@ -25,6 +25,8 @@
         </condition>
         <property name="root" location="${build.base}"/>
         <property name="build" location="${build.base}/build"/>
+
+        <property name="tomcat.home"  location="${build.base}/../rpt/external/tomcat"/>
         
         <mkdir dir="${root}/bin"/>
         <mkdir dir="${root}/bin/www"/>
@@ -70,6 +72,45 @@
         <war destfile="${root}/dist/spsample.war" webxml="${root}/">
             <fileset dir="${root}/bin/www"/>
         </war>
+    </target>
+
+    <target name="tomcat.setup" depends="setup,tomcat.deploycheck">
+        <fail message="The spsample.war file is missing.  You must build before you can deploy.">
+            <condition>
+                <not>
+                    <available file="${root}/dist/spsample.war"/>
+                </not>
+            </condition>
+        </fail>
+
+        <echo message="catalina-ant.jar: ${tomcat.home}/lib/catalina-ant.jar" />
+        <property file="${build}/tomcat.properties"/>
+        <taskdef file="${build}/tomcatTasks.properties">
+            <classpath>
+                <pathelement path="${tomcat.home}/lib/catalina-ant.jar"/>
+            </classpath>
+        </taskdef>
+    </target>
+
+    <target name="tomcat.deploycheck">
+        <condition property="spsample.is.deployed">
+            <available file="${tomcat.home}/webapps/spsample.war"/>
+        </condition>
+    </target>
+
+    <target name="tomcat.undeploy" if="spsample.is.deployed">
+        <undeploy url="${tomcat.manager.url}"
+            username="${tomcat.username}"
+            password="${tomcat.password}"
+            path="/spsample"/>
+    </target>
+
+    <target name="deploy" depends="tomcat.setup,tomcat.undeploy">
+        <deploy url="${tomcat.manager.url}"
+            username="${tomcat.username}"
+            password="${tomcat.password}"
+            path="/spsample"
+            war="file:${root}/dist/spsample.war"/>
     </target>
     
     <target name="clean" depends="setup">
