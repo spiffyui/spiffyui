@@ -123,8 +123,8 @@
         <concat destfile="${spiffy.dist}/spiffyui.css" force="no">
             <!-- Since Cascading Style Sheets cascade the order is important here.  We need to make sure
                   That we load in the right order so different styles can be overwriten. -->
-            <fileset dir="${spiffy.css}" includes="*.css" />
             <fileset dir="${spiffy.js}/lib" includes="**/*.css" />
+            <fileset dir="${spiffy.css}" includes="*.css" />
         </concat>
         
         <java classname="com.yahoo.platform.yui.compressor.Bootstrap"
