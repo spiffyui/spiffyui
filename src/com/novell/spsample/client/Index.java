@@ -83,7 +83,7 @@ public class Index implements EntryPoint, NavBarListener
         /*
          The page 1 panel
          */
-        NavItem item = new NavItem("page1NavItem", "Simple Widgets",
+        NavItem item = new NavItem("page1NavItem", "Sample Widgets",
                                    "This is the navigation item for the simple widgets page");
         m_navBar.add(item);
         m_panels.put(item, new Page1Panel());
@@ -96,7 +96,7 @@ public class Index implements EntryPoint, NavBarListener
         /*
          The page 2 panel
          */
-        item = new NavItem("page2NavItem", "Simple Form",
+        item = new NavItem("page2NavItem", "Sample Form",
                            "This is the navigation item for the simple form page");
         m_navBar.add(item);
         m_panels.put(item, new Page2Panel());
