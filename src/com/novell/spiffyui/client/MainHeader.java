@@ -48,11 +48,11 @@ public class MainHeader extends HasNavBarListenersPanel
         String html =
             "<div id=\"headerleft\">" +
                 "<div id=\"headerlogo\"> </div>" +
-                "<span class=\"headertitle\" id=\"header_title\" >Main Header</span>" +
+                "<span class=\"headertitle\" id=\"header_title\"></span>" +
             "</div>" +
             "<div id=\"headerright\">" +
                 "<div id=\"header_actionsBlock\">" +
-                    "<span id=\"headerstring\">Welcome</span> " + 
+                    "<span id=\"headerstring\"></span> " + 
                 "</div>" +
             "</div>";
 
