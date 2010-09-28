@@ -31,7 +31,6 @@ import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.TextBox;
 
 /**
  * A set of static JavaScript utilities.
@@ -228,7 +227,8 @@ public final class JSUtil
         prependClassName(panel.getElementById(targetId), "expanded");
     }
     
-    private static void prependClassName(Element element, String classname) {
+    private static void prependClassName(Element element, String classname)
+    {
         String clazz = element.getClassName();
         int index = clazz.indexOf(classname);
         if (index > -1) {

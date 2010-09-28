@@ -43,11 +43,23 @@ public class MainFooter extends Composite
         RootPanel.get("mainFooter").add(m_html);
     }
     
-    public void setFooterString(String string) {
+    /**
+     * Set the footer string.  This string may contain HTML
+     * 
+     * @param string the footer string
+     */
+    public void setFooterString(String string)
+    {
         m_html.setHTML(string);
     }
     
-    public String getFooterString() {
+    /**
+     * Get the current string in the footer
+     * 
+     * @return the current footer string
+     */
+    public String getFooterString()
+    {
         return m_html.getHTML();
     }
     

@@ -18,11 +18,6 @@
  */
 package com.novell.spiffyui.client.rest;
 
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONString;
-import com.google.gwt.json.client.JSONValue;
-
-
 /**
  * This interface defines the necessary steps to perform a login for a REST service 
  * that follows the NCAC standard for tokenized identity 

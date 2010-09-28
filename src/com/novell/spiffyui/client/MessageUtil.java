@@ -18,11 +18,8 @@
  */
 package com.novell.spiffyui.client;
 
-import java.util.Date;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
@@ -188,6 +185,11 @@ public final class MessageUtil
         $wnd.humanMsg.log(msg);
     }-*/;
 
+    /**
+     * Set the title of the error log.  It may not contain HTML
+     * 
+     * @param title  the error log title
+     */
     public static native void setLogTitleJS(String title) /*-{
         $wnd.humanMsg.setLogTitle(title);
     }-*/;
