@@ -565,3 +565,58 @@ button.spiffy-save-button.disabled {
     height: 16px;
     background: transparent url('images/spiffy_ui_images.png') no-repeat scroll 0 -85px;
 }
+
+.pulldownprefspanel {
+    position: relative;
+    top: -20px;
+    margin-bottom: 6px;
+    width: 100%;
+}
+
+.prefspulltab {
+    float: right;
+}
+
+.prefspulltab div {
+    height: 30px;
+}
+
+.prefspulltab a {
+    text-decoration: none;
+    color: #606060;
+    padding: 2px 25px 5px 5px;
+    background-position:right bottom;
+    background-repeat:no-repeat;
+    background-color: #dedede;
+    white-space: nowrap;
+    background-image: url("images/screen-options-right.gif");
+    line-height: 22px;
+}
+
+.prefspulltabexpanded a {
+    background-image: url("images/screen-options-right-up.gif");
+}
+    
+.prefspaneltab {
+    background-color:#F9F9F9;
+    border-color:#DEDEDE;
+    -moz-border-radius:0 0 0 6px;
+    -webkit-border-radius:0 0 0 6px;
+    border-style:none solid solid;
+    border-top:0 none;
+    border-width:0 1px 1px;
+    padding:8px 12px 12px;
+}
+
+.prefspaneltab h3 {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 28px;
+    margin-top: 7px;
+}
+
+.prefspaneltab button {
+    position: relative;
+    left: 1.5em;
+}
+

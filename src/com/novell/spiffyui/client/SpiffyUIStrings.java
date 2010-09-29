@@ -31,4 +31,5 @@ public interface SpiffyUIStrings extends Messages {
     public String statusInProgress();
     public String statusFailed();
     public String statusSucceeded();
+    public String displayOptions();
 }
