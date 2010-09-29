@@ -18,11 +18,17 @@
  */
 package com.novell.spsample.client;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.widgets.LongMessage;
 import com.novell.spiffyui.client.widgets.ProgressBar;
+import com.novell.spiffyui.client.widgets.SmallLoadingIndicator;
+import com.novell.spiffyui.client.widgets.button.RefreshAnchor;
 
 /**
  * This is the page 1 panel
@@ -31,7 +37,7 @@ import com.novell.spiffyui.client.widgets.ProgressBar;
 public class Page1Panel extends HTMLPanel
 {
     /**
-     * Creates a new import panel
+     * Creates a new panel
      */
     public Page1Panel()
     {
@@ -39,7 +45,13 @@ public class Page1Panel extends HTMLPanel
                      "<div id=\"Page1LongMessage\"></div><br /><br />" + 
                      "<div>Progress bar:<br />" + 
                         "<span id=\"Page1ProgressSpan\"></span>" + 
-                     "</div>");
+                     "</div><br /><br />" +
+                     "<div>Small loading indicator:<br />" +
+                     	"<span id=\"Page1SmallLoading\"></span>" + 
+                     "</div><br /><br />" +
+                     "<div>Refresh anchor:<br />" +
+                     "<span id=\"Page1RefreshAnchor\"></span>" +
+                     "</div><br /><br />");
         
         getElement().setId("page1Panel");
         
@@ -61,5 +73,38 @@ public class Page1Panel extends HTMLPanel
                              "Long messages are useful for showing information messages " +
                              "with more content than the standard messages but are still " +
                              "transient messages.");
+        
+        /*
+         * Add a small loading indicator to our page
+         */
+        SmallLoadingIndicator loading = new SmallLoadingIndicator();
+        add(loading, "Page1SmallLoading");
+        
+        /*
+         * Add a refresh anchor to our page
+         */
+        final RefreshAnchor refresh = new RefreshAnchor("Page1_refreshAnchor");
+        refresh.setTitle("Refresh");
+        add(refresh, "Page1RefreshAnchor");
+        refresh.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) 
+            {
+            	refresh.setLoading(true);
+                MessageUtil.showMessage("Call to refresh!");
+                //a little timer to set loading back to false
+                Timer t = new Timer() {
+
+					@Override
+					public void run() {
+						refresh.setLoading(false);
+					}
+                	
+                };
+                t.schedule(2000);
+            }
+            
+        });
     }
 }
