@@ -28,6 +28,7 @@ import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.widgets.LongMessage;
 import com.novell.spiffyui.client.widgets.ProgressBar;
 import com.novell.spiffyui.client.widgets.SmallLoadingIndicator;
+import com.novell.spiffyui.client.widgets.StatusIndicator;
 import com.novell.spiffyui.client.widgets.button.RefreshAnchor;
 
 /**
@@ -49,6 +50,9 @@ public class Page1Panel extends HTMLPanel
                      "<div>Small loading indicator:<br />" +
                      	"<span id=\"Page1SmallLoading\"></span>" + 
                      "</div><br /><br />" +
+                     "<div>3 states of the status indicator:<br />" +
+                   		"<span id=\"Page1Status\"></span>" + 
+                   	 "</div><br /><br />" +
                      "<div>Refresh anchor:<br />" +
                      "<span id=\"Page1RefreshAnchor\"></span>" +
                      "</div><br /><br />");
@@ -81,10 +85,18 @@ public class Page1Panel extends HTMLPanel
         add(loading, "Page1SmallLoading");
         
         /*
+         * Add 3 status indicators 
+         */
+        StatusIndicator status1 = new StatusIndicator(StatusIndicator.IN_PROGRESS);
+        StatusIndicator status2 = new StatusIndicator(StatusIndicator.SUCCEEDED);
+        StatusIndicator status3 = new StatusIndicator(StatusIndicator.FAILED);
+        add(status1, "Page1Status");
+        add(status2, "Page1Status");
+        add(status3, "Page1Status");
+        /*
          * Add a refresh anchor to our page
          */
         final RefreshAnchor refresh = new RefreshAnchor("Page1_refreshAnchor");
-        refresh.setTitle("Refresh");
         add(refresh, "Page1RefreshAnchor");
         refresh.addClickHandler(new ClickHandler() {
 
