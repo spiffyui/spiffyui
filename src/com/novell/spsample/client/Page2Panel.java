@@ -23,13 +23,16 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.widgets.FormFeedback;
+import com.novell.spiffyui.client.widgets.SlideDownPrefsPanel;
 import com.novell.spiffyui.client.widgets.button.FancyButton;
 import com.novell.spiffyui.client.widgets.button.FancySaveButton;
 
@@ -69,7 +72,7 @@ public class Page2Panel extends HTMLPanel implements KeyUpHandler
      */
     public Page2Panel()
     {
-        super("div", "<h1>Simple Form Example</h1><br /><br />" + CONTENTS);
+        super("div", "<div id=\"Page2PrefsPanel\"></div><h1>Simple Form Example</h1><br /><br />" + CONTENTS);
         
         getElement().setId("page2Panel");
         
@@ -77,6 +80,14 @@ public class Page2Panel extends HTMLPanel implements KeyUpHandler
         
         setVisible(false);
         
+        /*
+         * SlideDownPrefsPanel
+         */
+        SlideDownPrefsPanel prefsPanel = new SlideDownPrefsPanel("Page2-prefs");
+        add(prefsPanel, "Page2PrefsPanel");
+        FlowPanel prefContents = new FlowPanel();
+        prefContents.add(new Label("Add display option labels and fields and an 'Apply' or 'Save' button."));
+        prefsPanel.setPanel(prefContents);
         /*
          Field 1
          */
