@@ -549,3 +549,20 @@ button.spiffy-save-button.disabled {
 	cursor: default;
 }
 
+.spiffy-status-succeeded {
+    width: 16px;
+    height: 16px;
+    background: transparent url('images/rpt_images.png') no-repeat scroll 0 -273px;
+}
+
+.spiffy-status-inprogress {
+    width: 16px;
+    height: 16px;
+    background: transparent url('images/loading_small.gif') no-repeat scroll;
+}
+
+.spiffy-status-failed {
+    width: 16px;
+    height: 16px;
+    background: transparent url('images/rpt_images.png') no-repeat scroll 0 -182px;
+}

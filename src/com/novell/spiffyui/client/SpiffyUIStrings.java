@@ -27,6 +27,8 @@ import com.google.gwt.i18n.client.Messages;
 public interface SpiffyUIStrings extends Messages {
 
     public String close();
-    
-    
+    public String refresh();
+    public String statusInProgress();
+    public String statusFailed();
+    public String statusSucceeded();
 }

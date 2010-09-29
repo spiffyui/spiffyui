@@ -20,15 +20,19 @@
  */
 package com.novell.spiffyui.client.widgets.button;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Anchor;
+import com.novell.spiffyui.client.SpiffyUIStrings;
 
 /**
  * This an Anchor that shows the refresh icon.  It has a disabled look as well as a loading look.
  */
 public class RefreshAnchor extends Anchor
 {
+	private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
+	
     private boolean m_enabled = true;
     private boolean m_loading = false;
     private Element m_iconDiv;
@@ -44,7 +48,7 @@ public class RefreshAnchor extends Anchor
         m_iconDiv = Document.get().createDivElement();
         m_iconDiv.setClassName("spiffy-refresh-icon");
         m_iconDiv.setId(id + "_refreshIconDiv");     
-        
+        setTitle(STRINGS.refresh());
         getElement().appendChild(m_iconDiv);
         setHref("#");
         getElement().setId(id);
