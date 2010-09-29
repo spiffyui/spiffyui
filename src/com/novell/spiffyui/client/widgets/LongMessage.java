@@ -23,6 +23,7 @@ package com.novell.spiffyui.client.widgets;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -37,6 +38,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 import com.novell.spiffyui.client.JSUtil;
+import com.novell.spiffyui.client.SpiffyUIStrings;
 
 /**
  * A class for showing messages that are wordy and take more than 
@@ -44,6 +46,8 @@ import com.novell.spiffyui.client.JSUtil;
  */
 public class LongMessage extends FlowPanel implements Event.NativePreviewHandler
 {
+    private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
+
     private HTML m_html;
     private Anchor m_close;
     
@@ -68,6 +72,7 @@ public class LongMessage extends FlowPanel implements Event.NativePreviewHandler
         m_close = new Anchor();
         m_close.getElement().setId(id + "longMsg_hide");
         m_close.setHref("#");
+        m_close.setTitle(STRINGS.close());
         m_close.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event)
             {
@@ -86,6 +91,16 @@ public class LongMessage extends FlowPanel implements Event.NativePreviewHandler
         
         //Any click anywhere will close
         Event.addNativePreviewHandler(this);
+    }
+
+    /**
+     * Set the title (tooltip) text of the close button on the LongMessage
+     * 
+     * @param title  the title
+     */
+    public void setCloseButtonTitle(String title) 
+    {
+        m_close.setTitle(title);
     }
 
     /**

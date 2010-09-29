@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2010 Unpublished Work of Novell, Inc. All Rights Reserved.
  *
