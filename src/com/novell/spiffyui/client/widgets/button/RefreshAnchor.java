@@ -23,8 +23,6 @@ package com.novell.spiffyui.client.widgets.button;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Anchor;
-import com.novell.idm.rpt.client.client.IGwtUIStringsRsrc;
-import com.novell.idm.rpt.client.client.Index;
 
 /**
  * This an Anchor that shows the refresh icon.  It has a disabled look as well as a loading look.
@@ -50,7 +48,6 @@ public class RefreshAnchor extends Anchor
         getElement().appendChild(m_iconDiv);
         setHref("#");
         getElement().setId(id);
-        setTitle(Index.STRINGS.get(IGwtUIStringsRsrc.REFRESH));
     }
     
     @Override
