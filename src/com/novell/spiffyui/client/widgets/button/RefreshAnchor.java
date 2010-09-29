@@ -42,7 +42,7 @@ public class RefreshAnchor extends Anchor
     {
         super();
         m_iconDiv = Document.get().createDivElement();
-        m_iconDiv.setClassName("rpt-refresh-icon");
+        m_iconDiv.setClassName("spiffy-refresh-icon");
         m_iconDiv.setId(id + "_refreshIconDiv");     
         
         getElement().appendChild(m_iconDiv);
@@ -57,9 +57,9 @@ public class RefreshAnchor extends Anchor
         m_enabled = enabled;
         
         if (enabled) {
-            m_iconDiv.setClassName("rpt-refresh-icon");
+            m_iconDiv.setClassName("spiffy-refresh-icon");
         } else {
-            m_iconDiv.setClassName("rpt-refresh-icon-disabled");
+            m_iconDiv.setClassName("spiffy-refresh-icon-disabled");
         }
     }
     
@@ -81,9 +81,9 @@ public class RefreshAnchor extends Anchor
         m_loading = loading;
         
         if (loading) {
-            m_iconDiv.setClassName("rpt-refresh-icon-loading");
+            m_iconDiv.setClassName("spiffy-refresh-icon-loading");
         } else {
-            m_iconDiv.setClassName("rpt-refresh-icon");
+            m_iconDiv.setClassName("spiffy-refresh-icon");
         }
     }
 

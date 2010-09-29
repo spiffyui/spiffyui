@@ -31,6 +31,6 @@ public class SmallLoadingIndicator extends FlowPanel {
      */
     public SmallLoadingIndicator()
     {
-        addStyleName("loadingSmall");
+        addStyleName("spiffy-loading-small");
     }
 }
