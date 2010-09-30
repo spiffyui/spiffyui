@@ -529,6 +529,9 @@ button.spiffy-save-button.disabled {
     background: transparent url('images/loading_small.gif') no-repeat scroll;
 }
 
+/*
+ For RefreshAnchor
+*/
 .spiffy-refresh-icon {
 	background: transparent url('images/spiffy_ui_images.png') no-repeat scroll 0 -677px;
 	width: 16px;
@@ -548,6 +551,9 @@ button.spiffy-save-button.disabled {
 	cursor: default;
 }
 
+/*
+ For StatusIndicator
+*/
 .spiffy-status-succeeded {
     width: 16px;
     height: 16px;
@@ -566,6 +572,9 @@ button.spiffy-save-button.disabled {
     background: transparent url('images/spiffy_ui_images.png') no-repeat scroll 0 -85px;
 }
 
+/*
+ For SlideDownPrefsPanel
+*/
 .pulldownprefspanel {
     position: relative;
     top: -20px;
@@ -620,3 +629,146 @@ button.spiffy-save-button.disabled {
     left: 1.5em;
 }
 
+/* For Dialog Boxes */
+.spiffy-dialog-caption {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: bold;
+    text-indent: 20px;
+}
+
+.spiffy-dialog-confirm-caption {
+    background: transparent url('images/spiffy_ui_images.png') no-repeat scroll 0 -266px;
+    color: black;
+}
+
+.spiffy-dialog-caption-close {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+
+.spiffy-dialog-caption-close-icon {
+    background: transparent url('images/spiffy_ui_images.png') no-repeat scroll 0 -10px;
+    width: 22px;
+    height: 22px;    
+    margin-top: 3px;
+    margin-right: 5px;
+}
+
+.spiffy-dialog-caption-close-icon a {
+    text-decoration: none;
+}
+.spiffy-dialog-button-bar {
+	text-align: right;
+}
+
+.spiffy-dialog-confirm-text {
+	font-size: 12px;
+	line-height: 14px;
+	padding: 4px 5px 15px 5px; 	
+	width: 400px;
+}
+
+.gwt-DialogBox .Caption {
+  background: #F1F1F1;
+  padding: 4px 4px 4px 8px;
+  cursor: default;
+  border-bottom: none;
+  border-top: none;
+}
+.gwt-DialogBox .dialogContent {
+}
+.gwt-DialogBox .dialogMiddleCenter {
+  padding: 3px;
+  background: white;
+}
+.gwt-DialogBox .dialogBottomCenter {
+    background: white;
+    border-bottom: thin solid #464646;
+}
+.gwt-DialogBox .dialogMiddleLeft {
+    background: white;
+    border-left: thin solid #464646;
+}
+.gwt-DialogBox .dialogMiddleRight {
+    background: white;
+    border-right: thin solid #464646;
+}
+.gwt-DialogBox .dialogTopLeftInner {
+  width: 5px;
+  zoom: 1;
+}
+.gwt-DialogBox .dialogTopRightInner {
+  width: 8px;
+  zoom: 1;
+}
+.gwt-DialogBox .dialogBottomLeftInner {
+  width: 5px;
+  height: 8px;
+  zoom: 1;
+}
+.gwt-DialogBox .dialogBottomRightInner {
+  width: 5px;
+  height: 8px;
+  zoom: 1;
+}
+
+.gwt-DialogBox .dialogTopCenterInner {
+    margin-top: -1px;
+    cursor: move;
+    border-top: thin solid #464646;
+}
+
+.gwt-DialogBox .dialogTopCenterInner .Caption {
+    cursor: move;
+}
+    
+
+.gwt-DialogBox .dialogTopLeft {
+    background: #F1F1F1;
+    border-left: thin solid #464646;
+    border-top: thin solid #464646;
+}
+.gwt-DialogBox .dialogTopRight {
+    background: #F1F1F1;
+    border-right: thin solid #464646;
+    border-top: thin solid #464646;
+}
+.gwt-DialogBox .dialogBottomLeft {
+    background: white;
+    border-left: thin solid #464646;
+    border-bottom: thin solid #464646;
+    -moz-border-radius-bottomleft: 0.5em;
+    -webkit-border-radius-bottomleft: 0.5em;
+}
+.gwt-DialogBox .dialogBottomRight {
+    background: white;
+    border-right: thin solid #464646;
+    border-bottom: thin solid #464646;
+    -moz-border-radius-bottomright: 0.5em;
+    -webkit-border-radius-bottomleft: 0.5em;
+}
+* html .gwt-DialogBox .dialogTopLeftInner {
+  width: 5px;
+  overflow: hidden;
+}
+* html .gwt-DialogBox .dialogTopRightInner {
+  width: 8px;
+  overflow: hidden;
+}
+* html .gwt-DialogBox .dialogBottomLeftInner {
+  width: 5px;
+  height: 8px;
+  overflow: hidden;
+}
+* html .gwt-DialogBox .dialogBottomRightInner {
+  width: 8px;
+  height: 8px;
+  overflow: hidden;
+}
+
+/*the jquery DatePicker has to be on top of a gwt-DialogBox*/
+.ui-datepicker {
+    z-index: 5050;
+}
