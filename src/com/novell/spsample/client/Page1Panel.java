@@ -23,17 +23,21 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.novell.spiffyui.client.MessageUtil;
+
+import com.novell.spiffyui.client.widgets.button.FancyButton;
+import com.novell.spiffyui.client.widgets.button.FancySaveButton;
+import com.novell.spiffyui.client.widgets.button.RefreshAnchor;
+import com.novell.spiffyui.client.widgets.dialog.ConfirmDialog;
+import com.novell.spiffyui.client.widgets.dialog.Dialog;
 import com.novell.spiffyui.client.widgets.LongMessage;
 import com.novell.spiffyui.client.widgets.ProgressBar;
 import com.novell.spiffyui.client.widgets.SmallLoadingIndicator;
 import com.novell.spiffyui.client.widgets.StatusIndicator;
-import com.novell.spiffyui.client.widgets.button.RefreshAnchor;
-import com.novell.spiffyui.client.widgets.dialog.ConfirmDialog;
-import com.novell.spiffyui.client.widgets.dialog.Dialog;
 
 /**
  * This is the page 1 panel
@@ -48,20 +52,49 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
      */
     public Page1Panel()
     {
-        super("div", "<h1>Some example Widgets</h1><br /><br />" + 
-                     "<div id=\"Page1LongMessage\"></div><br /><br />" + 
-                     "<div>Progress bar:<br />" + 
-                        "<span id=\"Page1ProgressSpan\"></span>" + 
-                     "</div><br /><br />" +
-                     "<div>Small loading indicator:<br />" +
-                     	"<span id=\"Page1SmallLoading\"></span>" + 
-                     "</div><br /><br />" +
-                     "<div>3 states of the status indicator:<br />" +
-                   		"<span id=\"Page1Status\"></span>" + 
-                   	 "</div><br /><br />" +
-                     "<div>Refresh anchor:<br />" +
-                     "<span id=\"Page1RefreshAnchor\"></span>" +
-                     "</div><br /><br />");
+        super("div", 
+             "<h1>Some example Widgets</h1><br /><br />" + 
+
+             "<div id=\"Page1LongMessage\"></div><br /><br />" + 
+
+             "<div class=\"slidegrid\">" + 
+                
+                 "<div class=\"cell weak\">" + 
+                    "<h3>Progress bar</h3>" + 
+                    "This progress bar is GWT control wrapping the progress bar control from JQuery UI.<br /><br />" + 
+                    "<span id=\"Page1ProgressSpan\"></span>" + 
+                 "</div>" +
+
+                 "<div class=\"cell weak\">" +
+                    "<h3>Small loading indicator</h3>" + 
+                    "The small loading indicator shows a loading status.<br /><br />" + 
+                    "<span id=\"Page1SmallLoading\"></span>" + 
+                 "</div>" +
+
+                 "<div class=\"cell weak\">" +
+                    "<h3>Status Indicator</h3>" + 
+                    "The status indicator shows valid, failed, and in progresss status.  It can be extended for others.<br /><br />" + 
+                    "<span id=\"Page1Status\"></span>" + 
+                 "</div>" +
+
+                 "<div class=\"cell weak\">" +
+                    "<h3>Refresh anchor</h3>" + 
+                    "The refresh anchor handles an in progress status for refreshing items with an AJAX request.<br /><br />" + 
+                    "<span id=\"Page1RefreshAnchor\"></span>" +
+                 "</div>" +
+
+                 "<div class=\"cell weak\">" +
+                    "<h3>Simple Button</h3>" + 
+                    "All buttons get special styling from the Spiffy UI framework.<br /><br />" + 
+                    "<span id=\"Page1Button\"></span>" +
+                 "</div>" + 
+
+                 "<div class=\"cell weak\">" +
+                    "<h3>Fancy Button</h3>" + 
+                    "Fancy buttons show an image and text with a disabled image and hover style.<br /><br />" + 
+                    "<span id=\"Page1FancyButton\"></span>" +
+                 "</div>" + 
+             "</div>");
         
         getElement().setId("page1Panel");
         
@@ -109,6 +142,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
         m_dlg.setText("Are you sure you want to refresh? (Doesn't make much sense as a confirm, but this is just a sample.)");
         m_dlg.addButton("btn1", "Proceed", "OK");
         m_dlg.addButton("btn2", "Cancel", "CANCEL");
+
         /*
          * Add a refresh anchor to our page
          */
@@ -125,7 +159,18 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
             }
             
         });
+
+        /*
+         * Add the simple button
+         */
+        add(new Button("Simple Button"), "Page1Button");
+
+        /*
+         * Add the fancy button
+         */
+        add(new FancySaveButton("Save"), "Page1FancyButton");
     }
+
 	@Override
 	public void onClose(CloseEvent<PopupPanel> event) {
 		Dialog dlg = (Dialog) event.getSource();
@@ -146,4 +191,15 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
         	m_refresh.setLoading(false);
         }
 	}
+
+    @Override
+    public void onAttach()
+    {
+        alignGrid();
+        super.onAttach();
+    }
+
+    private static native void alignGrid() /*-{
+        $wnd.alignGrid(250, 150, 30);
+    }-*/;
 }
