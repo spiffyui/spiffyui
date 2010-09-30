@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spssample.server;
+package com.novell.spsample.server;
 
 import java.io.IOException;
 
@@ -26,12 +26,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
-
 /**
  * This servlet shows version infromation.
  */
-public class BuildInfoServlet extends HttpServlet
+public class VersionInfoServlet extends HttpServlet
 {
 
     private static final long serialVersionUID = -1l;
@@ -44,10 +42,9 @@ public class BuildInfoServlet extends HttpServlet
         response.setContentType("application/json");
         ServletOutputStream out = response.getOutputStream();
         
-        JSONObject buildinfo = new JSONObject();
+
+        String buildinfo = "{\"version\":\"1.0\"}";
         
-        buildinfo.put("version", "1.0");
-        
-        out.println(buildinfo.toString());
+        out.println(buildinfo);
     }
 }

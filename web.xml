@@ -8,7 +8,7 @@
   
   <servlet>
     <servlet-name>VersionInfoServlet</servlet-name>
-    <servlet-class>com.novell.spssample.server.VersionInfoServlet</servlet-class>
+    <servlet-class>com.novell.spsample.server.VersionInfoServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
