@@ -26,7 +26,7 @@
         <property name="root" location="${build.base}"/>
         <property name="build" location="${build.base}/build"/>
 
-        <property name="tomcat.home"  location="${build.base}/../rpt_spiffy/external/tomcat"/>
+        <property name="tomcat.home"  location="${build.base}/../rpt/external/tomcat"/>
         
         <mkdir dir="${root}/bin"/>
         <mkdir dir="${root}/bin/www"/>

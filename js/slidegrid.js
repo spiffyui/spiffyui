@@ -125,7 +125,7 @@ function alignGrid(/*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
     
     $(".slidegrid").each(function() {
         
-        var cols = Math.floor(($(window).width() - 25) / ((cellWidth + padding)));// * getComputedEm($(this))));
+        var cols = Math.floor(($(this).width() - 25) / ((cellWidth + padding)));// * getComputedEm($(this))));
         
         $(this).css("position", "relative");
         
