@@ -20,23 +20,29 @@ package com.novell.spsample.client;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.CloseEvent;
+import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.widgets.LongMessage;
 import com.novell.spiffyui.client.widgets.ProgressBar;
 import com.novell.spiffyui.client.widgets.SmallLoadingIndicator;
 import com.novell.spiffyui.client.widgets.StatusIndicator;
 import com.novell.spiffyui.client.widgets.button.RefreshAnchor;
+import com.novell.spiffyui.client.widgets.dialog.ConfirmDialog;
+import com.novell.spiffyui.client.widgets.dialog.Dialog;
 
 /**
  * This is the page 1 panel
  *
  */
-public class Page1Panel extends HTMLPanel
+public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
 {
+	private ConfirmDialog m_dlg;
+	private RefreshAnchor m_refresh;
     /**
      * Creates a new panel
      */
@@ -93,30 +99,51 @@ public class Page1Panel extends HTMLPanel
         add(status1, "Page1Status");
         add(status2, "Page1Status");
         add(status3, "Page1Status");
+        
+        /*
+         * Add the ConfirmDialog which will show up when refresh is clicked
+         */
+        m_dlg = new ConfirmDialog("Page1ConfirmDlg", "Sample Confirm");
+        m_dlg.hide();
+        m_dlg.addCloseHandler(this);
+        m_dlg.setText("Are you sure you want to refresh? (Doesn't make much sense as a confirm, but this is just a sample.)");
+        m_dlg.addButton("btn1", "Proceed", "OK");
+        m_dlg.addButton("btn2", "Cancel", "CANCEL");
         /*
          * Add a refresh anchor to our page
          */
-        final RefreshAnchor refresh = new RefreshAnchor("Page1_refreshAnchor");
-        add(refresh, "Page1RefreshAnchor");
-        refresh.addClickHandler(new ClickHandler() {
+        m_refresh = new RefreshAnchor("Page1_refreshAnchor");
+        add(m_refresh, "Page1RefreshAnchor");
+        m_refresh.addClickHandler(new ClickHandler() {
 
             @Override
             public void onClick(ClickEvent event) 
             {
-            	refresh.setLoading(true);
-                MessageUtil.showMessage("Call to refresh!");
-                //a little timer to set loading back to false
-                Timer t = new Timer() {
-
-					@Override
-					public void run() {
-						refresh.setLoading(false);
-					}
-                	
-                };
-                t.schedule(2000);
+            	m_refresh.setLoading(true);
+                m_dlg.center();
+                m_dlg.show();
             }
             
         });
     }
+	@Override
+	public void onClose(CloseEvent<PopupPanel> event) {
+		Dialog dlg = (Dialog) event.getSource();
+        String btn = dlg.getButtonClicked();
+        if (dlg == m_dlg && "OK".equals(btn)) {
+            MessageUtil.showMessage("Refreshing!");
+            //a little timer to simulate time it takes to set loading back to false
+            Timer t = new Timer() {
+
+				@Override
+				public void run() {
+					m_refresh.setLoading(false);
+				}
+            	
+            };
+            t.schedule(2000);
+        } else {
+        	m_refresh.setLoading(false);
+        }
+	}
 }
