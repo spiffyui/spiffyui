@@ -99,7 +99,9 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
         getElement().setId("page1Panel");
         
         RootPanel.get("mainContent").add(this);
-        
+
+        setVisible(false);
+
         /*
          Add a progress bar to our page
          */

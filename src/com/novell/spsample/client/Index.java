@@ -79,19 +79,27 @@ public class Index implements EntryPoint, NavBarListener
         m_footer.setFooterString("This is the main footer");
         
         m_navBar = new MainNavBar();
-        
+
         /*
-         The page 1 panel
+         The overview panel
          */
-        NavItem item = new NavItem("page1NavItem", "Sample Widgets",
-                                   "This is the navigation item for the simple widgets page");
+        NavItem item = new NavItem("overviewNavItem", "Spiffy Overview",
+                                   "This is the navigation item for the spiffy overview page");
         m_navBar.add(item);
-        m_panels.put(item, new Page1Panel());
-        
+        m_panels.put(item, new OverviewPanel());
+
         /*
          A separator
          */
         m_navBar.add(new NavSeparator(HTMLPanel.createUniqueId()));
+        
+        /*
+         The page 1 panel
+         */
+        item = new NavItem("page1NavItem", "Sample Widgets",
+                                   "This is the navigation item for the simple widgets page");
+        m_navBar.add(item);
+        m_panels.put(item, new Page1Panel());
         
         /*
          The page 2 panel
@@ -101,7 +109,7 @@ public class Index implements EntryPoint, NavBarListener
         m_navBar.add(item);
         m_panels.put(item, new Page2Panel());
         
-        m_navBar.selectItem(m_navBar.getItem("page1NavItem"));
+        m_navBar.selectItem(m_navBar.getItem("overviewNavItem"));
         
         m_navBar.addListener(this);
     }
