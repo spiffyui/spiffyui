@@ -296,8 +296,18 @@ body > #mainWrap {
     font-weight: bold;
 }
 
+.main-menuSeparator {
+    height: 15px;
+    background: transparent url('images/arrows.png') no-repeat scroll 0 -236px;
+}
+
+.main-menuSectItem {
+    text-indent: 20px;
+    background: #F1F1F1 url('images/arrows.png') no-repeat scroll 0 -128px;
+}
+
 .main-menuSectItemExpanded {
-    background: gray;
+    background: #F1F1F1 url('images/arrows.png') no-repeat scroll 0 8px;
 }
 
 .main-menuItem {
@@ -771,4 +781,26 @@ button.spiffy-save-button.disabled {
 /*the jquery DatePicker has to be on top of a gwt-DialogBox*/
 .ui-datepicker {
     z-index: 5050;
+}
+
+h2.sectionTitle.expandable, h3.subSectionTitle.expandable {
+    cursor: pointer;
+    color: #0000AA;
+    text-indent: 20px;
+}
+
+h2.sectionTitle.expandable {
+    background: #EDEEEC url('images/arrows.png') no-repeat scroll 0 -128px;
+}
+
+h2.sectionTitle.expandable.expanded {
+    background: #EDEEEC url('images/arrows.png') no-repeat scroll 0 8px;
+}
+
+h3.subSectionTitle.expandable {
+    background: transparent url('images/arrows.png') no-repeat scroll 0 -128px;
+}
+
+h3.subSectionTitle.expandable.expanded {
+    background: transparent url('images/arrows.png') no-repeat scroll 0 8px;
 }
