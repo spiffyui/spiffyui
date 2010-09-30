@@ -53,3 +53,7 @@ h2 {
     margin-left: 3em;
     font-family:Consolas,"Andale Mono",Monaco,Courier,"Courier New",Verdana,sans-serif;
 }
+
+#mainHeaderContainer .headertitle {
+    left: 35px;
+}
