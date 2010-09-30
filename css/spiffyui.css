@@ -820,3 +820,8 @@ h3.subSectionTitle.expandable {
 h3.subSectionTitle.expandable.expanded {
     background: transparent url('images/arrows.png') no-repeat scroll 0 8px;
 }
+
+.weak {
+    color:gray;
+    font-size:0.85em;
+}
