@@ -422,6 +422,22 @@ button.spiffy-save-button.disabled {
     background: #EDEEEC url('images/spiffy_ui_images.png') no-repeat scroll 10px -345px;
 }
 
+button {
+    background: url('images/btn-back.gif') no-repeat left;
+    border: thin solid lightgray;
+    padding: 0 1em 0 1em;
+    white-space: no-wrap;
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;
+    margin-top: -3px;
+}
+
+button.inprogress {
+    background: url("images/loading.gif") no-repeat scroll center center transparent;
+    text-indent: -9999px;
+    width: 75px;
+}
+
 .dialogformsection {
     list-style: none;
 }
