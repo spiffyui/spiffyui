@@ -61,7 +61,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
                 
                  "<div class=\"cell weak\">" + 
                     "<h3>Progress bar</h3>" + 
-                    "This progress bar is GWT control wrapping the progress bar control from JQuery UI.<br /><br />" + 
+                    "This progress bar GWT control wraps the progress bar control from JQuery UI.<br /><br />" + 
                     "<span id=\"Page1ProgressSpan\"></span>" + 
                  "</div>" +
 
@@ -73,7 +73,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
 
                  "<div class=\"cell weak\">" +
                     "<h3>Status Indicator</h3>" + 
-                    "The status indicator shows valid, failed, and in progresss status.  It can be extended for others.<br /><br />" + 
+                    "The status indicator shows valid, failed, and in progress status.  It can be extended for others.<br /><br />" + 
                     "<span id=\"Page1Status\"></span>" + 
                  "</div>" +
 
@@ -114,7 +114,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
         add(message, "Page1LongMessage");
         message.setHTML("<b>Long Message</b><br />" + 
                              "Long messages are useful for showing information messages " +
-                             "with more content than the standard messages but are still " +
+                             "with more content than the standard messages but they are still " +
                              "transient messages.");
         
         /*
