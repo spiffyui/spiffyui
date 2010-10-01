@@ -1,0 +1,12 @@
+/*
+   These are special styles just for IE
+ */
+
+#mainContent {
+    width: auto;
+    margin-top: 20px;
+}
+
+.spiffy-fancy-button {
+    padding-top: 5px;
+}

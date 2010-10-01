@@ -40,7 +40,23 @@ spiffyui = {
                 '</div>' + 
             '</div>' + 
             '<div id="mainFooter"></div>');
+        
+        /*
+         * Almost all of our CSS is in spiffyui.css, but there are always a few
+         * tweaks you need to add for IE.  This special style sheet is added only
+         * if the browser is IE and contains just those tweaks.
+         */
+        if (navigator.appName == 'Microsoft Internet Explorer') {
+            jQuery("head").append("<link>");
+            css = $("head").children(":last");
+            css.attr({
+                rel:  "stylesheet",
+                type: "text/css",
+                href: "spiffyui.ie.css"
+            });
+        }
     }
+    
 };
 
 jQuery(document).ready(function() {

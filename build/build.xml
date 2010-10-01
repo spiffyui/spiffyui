@@ -124,7 +124,7 @@
             <!-- Since Cascading Style Sheets cascade the order is important here.  We need to make sure
                   That we load in the right order so different styles can be overwriten. -->
             <fileset dir="${spiffy.js}/lib" includes="**/*.css" />
-            <fileset dir="${spiffy.css}" includes="*.css" />
+            <fileset dir="${spiffy.css}" includes="*.css" excludes="spiffyui.ie.css" />
         </concat>
         
         <java classname="com.yahoo.platform.yui.compressor.Bootstrap"
@@ -148,6 +148,10 @@
         <mkdir dir="${spiffy.dist}/images"/>
         <copy todir="${spiffy.dist}/images">
             <fileset dir="${spiffy.css}/images" includes="**/*" />
+        </copy>
+        
+        <copy todir="${spiffy.dist}">
+            <fileset dir="${spiffy.css}" includes="spiffyui.ie.css" />
         </copy>
     </target>
     
