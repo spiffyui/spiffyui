@@ -144,7 +144,14 @@ public class LongMessage extends FlowPanel implements Event.NativePreviewHandler
             }
             //set the focus to m_close so that the browser window scrolls to this panel if necessary
             //and can be readily closed with a quick keyboard or click
-            m_close.setFocus(true);
+            try {
+                m_close.setFocus(true);
+            } catch (Exception e) {
+                /*
+                 This call can cause an exception in IE if the control is visible on
+                 a panel that is invisible.
+                 */
+            }
         } else {
             JSUtil.hide("#" + getElement().getId(), "fast");
         }
