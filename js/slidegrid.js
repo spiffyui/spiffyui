@@ -76,28 +76,6 @@ function styleCell(cell, x, y, cellWidth, cellHeight, /*boolean*/animate) {
         });
     }
 }
-
-
-/**
- * This is a kind of hacky function to figure out the pixel size of a single
- * EM in the current container.  I wish there was a better way to handle this, 
- * but I haven't found it yet.
- * 
- * @param el     the parent element of the grid
- */
-function getComputedEm(el) {
-    el.append("<div id=\"emtestdiv\"></div>");
-    var testel = $("#emtestdiv");
-    testel.css({
-        height: "1em",
-        position: "absolute",
-        backgroundColor: "#f00"
-    });
-    
-    var emValue = testel.height();
-    testel.remove();
-    return emValue;
-}
  
 var hasDrawn = false;
 
@@ -125,7 +103,7 @@ function alignGrid(/*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
     
     $(".slidegrid").each(function() {
         
-        var cols = Math.floor(($(this).width() - 25) / ((cellWidth + padding)));// * getComputedEm($(this))));
+        var cols = Math.floor(($(window).width() - 200) / ((cellWidth + padding)));
         
         $(this).css("position", "relative");
         
