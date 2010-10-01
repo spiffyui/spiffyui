@@ -109,6 +109,19 @@ public class Index implements EntryPoint, NavBarListener
         m_navBar.add(item);
         m_panels.put(item, new Page2Panel());
         
+        /*
+         Another separator
+         */
+        m_navBar.add(new NavSeparator(HTMLPanel.createUniqueId()));
+        
+        /*
+         The JavaDoc panel
+         */
+        item = new NavItem("javaDocNavItem", "Spiffy UI JavaDoc",
+                           "This is the navigation item for the JavaDoc page");
+        m_navBar.add(item);
+        m_panels.put(item, new JavaDocPanel());
+        
         m_navBar.selectItem(m_navBar.getItem("overviewNavItem"));
         
         m_navBar.addListener(this);

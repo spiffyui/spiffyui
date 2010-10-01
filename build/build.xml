@@ -12,6 +12,8 @@
             <param name="gwttarget" value="com.novell.spsample.index"/>
         </antcall>
         
+        <antcall target="javadoc"/>
+        
         <antcall target="package" />
     </target>
     
@@ -75,6 +77,20 @@
                 <include name="**/*.js"/>
             </zipfileset>
         </war>
+    </target>
+    
+    <target name="javadoc">
+        <mkdir dir="${root}/bin/www/javadoc"/>
+        
+        <javadoc destdir="${root}/bin/www/javadoc"
+                 author="false"
+                 version="true"
+                 use="true"
+                 windowtitle="Spiffy UI Framework API">
+            <packageset dir="${root}/external/spiffyui/src" defaultexcludes="yes">
+                <include name="com/novell/spiffyui/**"/>
+            </packageset>
+        </javadoc>
     </target>
 
     <target name="tomcat.setup" depends="setup,tomcat.deploycheck">

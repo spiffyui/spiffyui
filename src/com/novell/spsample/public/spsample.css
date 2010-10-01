@@ -57,3 +57,7 @@ h2 {
 #mainHeaderContainer .headertitle {
     left: 35px;
 }
+
+iframe {
+    border: thin solid gray;
+}
