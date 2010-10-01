@@ -104,7 +104,7 @@ public class OverviewPanel extends HTMLPanel
                   "</p>" +
     
                   "<p>" +
-                    "That's all you have to do to use this framework." +
+                    "That's all you have to do to use this framework.  Check out the <a href=\"javadoc/index.html\">Spiffy UI API</a>." +
                   "</p>" +
     
                   "<h2>The philosophy of this framework</h2>" +
