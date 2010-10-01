@@ -60,7 +60,7 @@ public class OverviewPanel extends HTMLPanel
                     "the framework and gives you a large amount of sample code." +
                   "</p>" +
     
-                  "<h2>Using the framework</h2>" +
+                  "<h2>Using spiffy</h2>" +
     
                   "<p>" +
                     "The SpiffyUI framework is included as a Subversion external reference for " +
@@ -86,7 +86,7 @@ public class OverviewPanel extends HTMLPanel
                     "UI framework is in the <code>external</code> directory." +
                   "</p>" +
     
-                  "<h2>Building the framework</h2>" +
+                  "<h2>Building spiffy</h2>" +
                   "<p>" +
                     "The Spiffy UI framework uses an Ant build script to compile and compress JavaScript " +
                     "and CSS files using the <a href=\"http://code.google.com/closure/compiler/\">Google " +
@@ -130,7 +130,7 @@ public class OverviewPanel extends HTMLPanel
                     "You're ready to check out the <a href=\"javadoc/index.html\">Spiffy UI API</a>." +
                   "</p>" +
     
-                  "<h2>The philosophy of this framework</h2>" +
+                  "<h2>Spiffy philosophy</h2>" +
                   "<p>" +
                     "The Spiffy UI framework started as part of the Identity Manager Reporting Module and was " +
                     "later extracted into a reusable framework.  The philosophy of the framework is best explained " +
