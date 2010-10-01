@@ -51,11 +51,11 @@ public class OverviewPanel extends HTMLPanel
     public OverviewPanel()
     {
         super("div", 
-             "<h1>Spiffy UI Framework Sample</h1><br /><br />" + 
+             "<h1>Spiffy UI Framework</h1><br /><br />" + 
               "<div id=\"overviewPanelText\">" + 
                   "<p>" + 
                     "Welcome to SPSample the sample application for the Spiffy UI Framework.  " +
-                    "Spiffy UI give you a place to start with GWT, JQuery, CSS, REST, security, " +
+                    "Spiffy UI gives you a place to start with GWT, JQuery, CSS, REST, security, " +
                     "and a set of helpful widgets.  This sample application shows you how to use " +
                     "the framework and gives you a large amount of sample code." +
                   "</p>" +
@@ -63,20 +63,27 @@ public class OverviewPanel extends HTMLPanel
                   "<h2>Using the framework</h2>" +
     
                   "<p>" +
-                    "The SpiffyUI framework is included as an Subversion external reference for " +
+                    "The SpiffyUI framework is included as a Subversion external reference for " +
                     "this project from <a href=\"https://svn.provo.novell.com/svn/spiffyui/trunk\">" +
                     "https://svn.provo.novell.com/svn/spiffyui/trunk</a>." +
                   "</p>" +
     
                   "<p>" +
                     "Include it in your project by setting the <code>svn:externals</code> property on " +
-                    "a directory in your project.  The command line works like this:" +
+                    "a directory in your project.  You can set the property using UI tools or with this " +
+                    "command line:" +
                   "</p>" +
     
                   "<p>" +
                       "<pre>" +
-                        "svn propset svn:externals \"spiffyui https://svn.provo.novell.com/svn/spiffyui/trunk\" &lt;your directory&gt;" +
+                        "svn propset svn:externals \"spiffyui https://svn.provo.novell.com/svn/spiffyui/trunk\" &lt;directory&gt;" +
                       "</pre>" +
+                  "</p>" +
+
+                  "<p>" +
+                    "After you set the property, check in and then update your working copy.  The Spiffy " +
+                    "UI framework will be in the directory you chose.  In this sample project the Spiffy " +
+                    "UI framework is in the <code>external</code> directory." +
                   "</p>" +
     
                   "<h2>Building the framework</h2>" +
@@ -84,7 +91,7 @@ public class OverviewPanel extends HTMLPanel
                     "The Spiffy UI framework uses an Ant build script to compile and compress JavaScript " +
                     "and CSS files using the <a href=\"http://code.google.com/closure/compiler/\">Google " +
                     "Closure Compiler</a> and the <a href=\"http://developer.yahoo.com/yui/compressor/\">YUI " +
-                    "Compressor</a>.  You must envoke this build from your own Ant build with the <code>ant</code> " +
+                    "Compressor</a>.  You must invoke this build from your own Ant build with the <code>ant</code> " +
                     "task like this:" +
                   "</p>" +
     
@@ -98,13 +105,29 @@ public class OverviewPanel extends HTMLPanel
                   "</p>" +
     
                   "<p>" +
-                    "In this sample we've places the Spiffy UI framework in the external/spiffyui folder in our " +
+                    "In this sample we've placed the Spiffy UI framework in the external/spiffyui folder in our " +
                     "project.  The <code>spiffy.dist</code> property specifies the location to generate the " +
                     "Spiffy UI framework." +
                   "</p>" +
+
+                  "<p>" +
+                    "Now the CSS and JavaScript files are included in your project when you build.  The next step " +
+                    "is to import the Spiffy UI framework GWT module.  Add the following line to your GWT module file: " +
+                  "</p>" +
+
+                  "<p>" +
+                    "<pre>" +
+                        "&lt;inherits name=\"com.novell.spiffyui.spiffyui\" /&gt;" +
+                    "</pre>" +
+                  "</p>" +
     
                   "<p>" +
-                    "That's all you have to do to use this framework.  Check out the <a href=\"javadoc/index.html\">Spiffy UI API</a>." +
+                    "That's all it takes to use this project.  Now that you've added the JavaScript and CSS to your " + 
+                    "build and imported the GWT module you can import the Spiffy UI framework and use it in your page." + 
+                  "</p>" +
+
+                  "<p>" +
+                    "You're ready to check out the <a href=\"javadoc/index.html\">Spiffy UI API</a>." +
                   "</p>" +
     
                   "<h2>The philosophy of this framework</h2>" +
