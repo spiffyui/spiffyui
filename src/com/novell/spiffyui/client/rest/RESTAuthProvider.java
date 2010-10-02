@@ -134,4 +134,13 @@ public interface RESTAuthProvider
      */
     public void login(final String username, final String password, final String authUrl,
                       final RESTObjectCallBack<String> callback);
+
+    /**
+     * Gets the servlet context from the current URL.  The context is assumed
+     * to be the string after the first single forward slash and before the next
+     * forward slash.
+     *
+     * @return the current server servlet context
+     */
+    public String getServletContext();
 }

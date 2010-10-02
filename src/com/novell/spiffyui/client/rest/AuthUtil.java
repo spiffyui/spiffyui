@@ -22,7 +22,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
-import com.novell.gwt.lib.client.GWTUtil;
+import com.google.gwt.user.client.Window;
 
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.SpiffyUIStrings;
@@ -79,7 +79,7 @@ public final class AuthUtil implements RESTAuthProvider
         credentials.put(AUTH_URL_TOKEN, new JSONString(RESTility.getTokenServerUrl()));
         credentials.put(AUTH_LOGOUT_URL_TOKEN, new JSONString(RESTility.getTokenServerLogoutUrl()));
 
-        RESTility.callREST("/" + GWTUtil.getServletContext() + "/auth", credentials.toString(), RESTility.DELETE,
+        RESTility.callREST("/" + getServletContext() + "/auth", credentials.toString(), RESTility.DELETE,
                            new RESTCallback() {
                 @Override
                 public void onSuccess(JSONValue val)
@@ -131,7 +131,7 @@ public final class AuthUtil implements RESTAuthProvider
         credentials.put(AUTH_LOGOUT_URL_TOKEN, new JSONString(RESTility.getTokenServerLogoutUrl()));
 
 
-        RESTility.callREST("/" + GWTUtil.getServletContext() + "/auth", credentials.toString(), RESTility.POST,
+        RESTility.callREST("/" + getServletContext() + "/auth", credentials.toString(), RESTility.POST,
                            new RESTCallback() {
                 @Override
                 public void onSuccess(JSONValue val)
@@ -196,6 +196,19 @@ public final class AuthUtil implements RESTAuthProvider
     public void removeLoginListener(RESTLoginCallBack callback)
     {
         RESTility.removeLoginListener(callback);
+    }
+
+    /**
+     * Gets the servlet context from the current URL.  The context is assumed
+     * to be the string after the first single forward slash and before the next
+     * forward slash.
+     *
+     * @return the current server servlet context
+     */
+    public String getServletContext() {
+        String url = Window.Location.getHref();
+        int index = url.indexOf("/", url.indexOf("//") + 2);
+        return url.substring(index + 1, url.indexOf("/", index + 2));
     }
 }
 
