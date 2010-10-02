@@ -32,4 +32,14 @@ public interface SpiffyUIStrings extends Messages {
     public String statusFailed();
     public String statusSucceeded();
     public String displayOptions();
+    public String noAuthHeader();
+    public String invalidAuthHeader(String authHeader);
+    public String noServerContact();
+    public String jsonErrorShort();
+    public String jsonError();
+    public String jsonError2(String url, String respText);
+    public String unabledAuthServer();
+    public String renew();
+    public String loginTitle();
+    public String loginDataError(String data);
 }

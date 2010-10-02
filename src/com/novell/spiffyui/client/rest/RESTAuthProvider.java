@@ -99,7 +99,7 @@ public interface RESTAuthProvider
     
     /**
      * Show the login dialog.
-     * 
+     *
      * @param callback the callback for the original REST call
      * @param tokenServerUrl
      *                 the URL for the authentication server
