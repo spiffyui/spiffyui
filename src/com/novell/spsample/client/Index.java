@@ -31,6 +31,9 @@ import com.novell.spiffyui.client.nav.MainNavBar;
 import com.novell.spiffyui.client.nav.NavBarListener;
 import com.novell.spiffyui.client.nav.NavItem;
 import com.novell.spiffyui.client.nav.NavSeparator;
+import com.novell.spiffyui.client.rest.RESTException;
+import com.novell.spiffyui.client.rest.RESTObjectCallBack;
+import com.novell.spsample.client.rest.VersionInfo;
 
 
 /**
@@ -76,7 +79,7 @@ public class Index implements EntryPoint, NavBarListener
         m_header.setHeaderTitle("Spiffy UI Sample");
         
         m_footer = new MainFooter();
-        m_footer.setFooterString("This is the main footer");
+        loadFooter();
         
         m_navBar = new MainNavBar();
 
@@ -131,4 +134,25 @@ public class Index implements EntryPoint, NavBarListener
             }
         }
     }
+
+    private void loadFooter()
+    {
+        VersionInfo.getVersionInfo(new RESTObjectCallBack<VersionInfo>() {
+            public void success(VersionInfo info)
+            {
+                m_footer.setFooterString("Version: " + info.getVersion());                        
+            }
+
+            public void error(String message)
+            {
+                MessageUtil.showFatalError(message);
+            }
+
+            public void error(RESTException e)
+            {
+                MessageUtil.showFatalError(e.getReason());
+            }
+        });
+    }
+
 }
