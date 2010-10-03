@@ -22,7 +22,7 @@ package com.novell.spiffyui.client.rest;
  * The ConcurrentRESTCallback is a special form of REST callback that can
  * handle the ETag we use for concurrency checking.
  */
-interface ConcurrentRESTCallback extends RESTCallback
+public interface ConcurrentRESTCallback extends RESTCallback
 {
     /**
      * Sets the Etag for this request.

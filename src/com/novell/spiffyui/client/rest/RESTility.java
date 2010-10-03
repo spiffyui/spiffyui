@@ -42,7 +42,7 @@ import com.novell.spiffyui.client.SpiffyUIStrings;
 /**
  * A set of utilities for calling REST from GWT.
  */
-final class RESTility
+public final class RESTility
 {
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
 

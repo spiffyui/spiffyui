@@ -23,7 +23,7 @@ import com.google.gwt.json.client.JSONValue;
 /**
  * This interface is used when calling REST APIs in conjunction with RESTility.
  */
-interface RESTCallback
+public interface RESTCallback
 {
     
     /**
