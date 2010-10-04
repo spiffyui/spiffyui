@@ -110,9 +110,27 @@ public class OverviewPanel extends HTMLPanel
                     "Spiffy UI framework." +
                   "</p>" +
 
+                  "<h2>Using spiffy</h2>" +
                   "<p>" +
                     "Now the CSS and JavaScript files are included in your project when you build.  The next step " +
-                    "is to import the Spiffy UI framework GWT module.  Add the following line to your GWT module file: " +
+                    "is to reference them in your HTML file.  The Spiffy UI framework includes many JavaScript and " +
+                    "CSS files, but they are all combined into two files for faster application loading.  Reference " +
+                    "these three files and the JQuery library in the <code>head</code> section of your HTML files " +
+                    "like this:" +
+                  "</p>" + 
+              
+                  "<p>" +
+                    "<pre>" +
+                        "&lt;link type=\"text/css\" rel=\"stylesheet\" href=\"spiffyui.min.css\" /&gt;\n" + 
+                        "&lt;script type=\"text/javascript\" src=\"jquery-1.4.2.min.js\"&gt;&lt;/script&gt;\n" + 
+                        "&lt;script type=\"text/javascript\" src=\"spiffyui.min.js\"&gt;&lt;/script&gt;" + 
+                    "</pre>" +
+                  "</p>" +
+              
+                  "<p>" + 
+              
+                    "The last step is to import the Spiffy UI framework GWT module.  Add the following line " +
+                    "to your GWT module file: " +
                   "</p>" +
 
                   "<p>" +
