@@ -22,9 +22,11 @@
         <property name="spiffy.build.lib" location="${build.spiffy.base}/build/lib"/>
         <property name="spiffy.build.classes" location="${build.spiffy.base}/build/classes"/>
         
-        <property name="spiffy.dist"  location="${build.spiffy.base}/dist"/>
+        <property name="spiffy.www"  location="${build.spiffy.base}/dist"/>
+        <property name="spiffy.classes"  location="${build.spiffy.base}/classes"/>
         
-        <mkdir dir="${spiffy.dist}"/>
+        <mkdir dir="${spiffy.www}"/>
+        <mkdir dir="${spiffy.classes}"/>
         <property name="spiffy.js"  location="${build.spiffy.base}/js"/>
         <property name="spiffy.css"  location="${build.spiffy.base}/css"/>
         
@@ -51,9 +53,8 @@
     </target>
 
     <target name="compile">
-        <mkdir dir="${spiffy.root}/bin/classes"/>
         <!-- Compile all the Java -->
-        <javac srcdir="${spiffy.root}/src/com/novell/spiffyui/server" destdir="${spiffy.root}/bin/classes"
+        <javac srcdir="${spiffy.root}/src/com/novell/spiffyui/server" destdir="${spiffy.classes}"
                target="1.5" source="1.5" debug="true" deprecation="yes"
                includeantruntime="false">
             <compilerarg value="-Xlint" />
@@ -106,7 +107,7 @@
         </taskdef>
         
         <!-- Now we compile our JavaScript. -->
-        <closure jsfile="${spiffy.dist}/spiffyui.min.js" 
+        <closure jsfile="${spiffy.www}/spiffyui.min.js" 
                  closurejar="${spiffy.build}/lib/closure-compiler.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="DEFAULT">
@@ -114,7 +115,7 @@
         </closure>
         
         <!-- We also compile our own copy of JQuery -->
-        <closure jsfile="${spiffy.dist}/jquery-1.4.2.min.js" 
+        <closure jsfile="${spiffy.www}/jquery-1.4.2.min.js" 
                  closurejar="${spiffy.build}/lib/closure-compiler.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="QUIET">
@@ -122,15 +123,15 @@
         </closure>
         
         <!-- We copy over all the JavaScript files for dev mode -->
-        <mkdir dir="${spiffy.dist}/js"/>
-        <copy todir="${spiffy.dist}/js">
+        <mkdir dir="${spiffy.www}/js"/>
+        <copy todir="${spiffy.www}/js">
             <fileset dir="${spiffy.js}" includes="**/*" />
         </copy>
         
     </target>
     
     <target name="css-min" description="Minimize the CSS with the YUI compiler">
-        <concat destfile="${spiffy.dist}/spiffyui.css" force="no">
+        <concat destfile="${spiffy.www}/spiffyui.css" force="no">
             <!-- Since Cascading Style Sheets cascade the order is important here.  We need to make sure
                   That we load in the right order so different styles can be overwriten. -->
             <fileset dir="${spiffy.js}/lib" includes="**/*.css" />
@@ -140,8 +141,8 @@
         <java classname="com.yahoo.platform.yui.compressor.Bootstrap"
             fork="true" failonerror="true" maxmemory="256m">
             <arg value="-o"/>
-            <arg value="${spiffy.dist}/spiffyui.min.css"/>
-            <arg value="${spiffy.dist}/spiffyui.css"/>
+            <arg value="${spiffy.www}/spiffyui.min.css"/>
+            <arg value="${spiffy.www}/spiffyui.css"/>
             <classpath>
                 <fileset dir="${spiffy.build}/lib">
                     <include name="**/*.jar"/>
@@ -152,15 +153,15 @@
         
         <!-- Now that we have created the compressed file we don't
              need the concatenated file -->
-        <delete file="${spiffy.dist}/spiffyui.css" />
+        <delete file="${spiffy.www}/spiffyui.css" />
         
         <!-- Now we copy over the images that we use for our CSS -->
-        <mkdir dir="${spiffy.dist}/images"/>
-        <copy todir="${spiffy.dist}/images">
+        <mkdir dir="${spiffy.www}/images"/>
+        <copy todir="${spiffy.www}/images">
             <fileset dir="${spiffy.css}/images" includes="**/*" />
         </copy>
         
-        <copy todir="${spiffy.dist}">
+        <copy todir="${spiffy.www}">
             <fileset dir="${spiffy.css}" includes="spiffyui.ie.css" />
         </copy>
     </target>
@@ -180,7 +181,7 @@
     </target>
     
     <target name="spiffy.clean" depends="setup">
-        <delete dir="${spiffy.dist}"/>
+        <delete dir="${spiffy.www}"/>
         <delete dir="${spiffy.build}/classes"/>
         <delete file="${spiffy.build}/lib/closuretask.jar" />
     </target>
