@@ -38,7 +38,7 @@ h2 {
     margin-bottom: 14px;
 }
 
-#overviewPanelText {
+#overviewPanelText, #docPanelText, #cssPanelText {
     width: 480px;
 }
 

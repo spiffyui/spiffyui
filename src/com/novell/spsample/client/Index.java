@@ -90,6 +90,22 @@ public class Index implements EntryPoint, NavBarListener
                                    "This is the navigation item for the spiffy overview page");
         m_navBar.add(item);
         m_panels.put(item, new OverviewPanel());
+        
+        /*
+         The doc panel
+         */
+        item = new NavItem("docNavItem", "Spiffy Doc",
+                           "This is the navigation item for the spiffy doc page");
+        m_navBar.add(item);
+        m_panels.put(item, new DocPanel());
+        
+        /*
+         The CSS panel
+         */
+        item = new NavItem("cssNavItem", "Spiffy CSS",
+                           "This is the navigation item for the spiffy css page");
+        m_navBar.add(item);
+        m_panels.put(item, new CSSPanel());
 
         /*
          A separator
