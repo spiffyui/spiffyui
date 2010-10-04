@@ -67,6 +67,7 @@ public final class RESTility
 
     private boolean m_hasLoggedIn = false;
 
+    private AuthUtil m_authUtil = new AuthUtil();
 
     /**
      * Gets the name of the core WAR for use with REST calls.
@@ -187,13 +188,11 @@ public final class RESTility
 
         Cookies.removeCookie(SESSION_COOKIE);
         Cookies.removeCookie(LOCALE_COOKIE);
-        //Todo: uncomment
-        //AuthUtil.showLogin(callback, loginUri, errorCode);
+        m_authUtil.showLogin(callback, loginUri, errorCode);
     }
 
     private void doConfig()
-    {
-        //todo: uncomment
+    {   //todo: fix me
         //Index.showConfig();
     }
 
@@ -687,8 +686,7 @@ public final class RESTility
                      screen.
                      */
                     if (MUST_CONFIG_CODE.equals(code)) {
-                        //todo: uncomment
-                        //doConfig();
+                        doConfig();
                         return;
                     } else if (RESTException.AUTH_SERVER_UNAVAILABLE.equals(subcode)) {
                         /*
@@ -744,7 +742,7 @@ public final class RESTility
                  * before the user has logged in.  Hackito Ergo Sum.
                  */
                 if (RESTILITY.m_callCount > 2) {
-                    //todo: uncomment
+                    //todo:fix me
                     //Index.showApplication();
                     RESTILITY.m_hasLoggedIn = true;
                 }

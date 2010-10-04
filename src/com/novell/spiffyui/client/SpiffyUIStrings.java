@@ -42,4 +42,16 @@ public interface SpiffyUIStrings extends Messages {
     public String renew();
     public String loginTitle();
     public String loginDataError(String data);
+    public String login();
+    public String username();
+    public String password();
+    public String logout();
+    public String repeatlogin();
+    public String repeatloginTwo();
+    public String invalidTSURL(String reason);
+    public String notFoundTSURL(String url);
+    public String invalidUsernamePassword();
+    public String noPrivilege(String user);
+    public String productName(String copyright);
+    public String multipleaccounts();
 }

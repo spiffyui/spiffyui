@@ -33,6 +33,13 @@ import com.novell.spiffyui.client.SpiffyUIStrings;
 public final class AuthUtil implements RESTAuthProvider
 {
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
+
+    /**
+     * constructor
+     */
+    public AuthUtil()
+    {
+    }
     /**
      * Show the login dialog.
      *
@@ -42,15 +49,12 @@ public final class AuthUtil implements RESTAuthProvider
      * @param code the error code
      */
     public void showLogin(RESTCallback callback, String tokenServerUrl, String code)
-    {
-        //todo: uncomment
-        /*if (RESTility.hasUserLoggedIn()) {
-            LoginPanel.showLoginPanel(STRINGS.renew(), callback,
-                                      tokenServerUrl, code, true, RESTility.getUsername());
+    {   //todo: fix me
+        if (RESTility.hasUserLoggedIn()) {
+            //LoginPanel.showLoginPanel(STRINGS.renew(), callback, tokenServerUrl, code, true, RESTility.getUsername());
         } else {
-            LoginPanel.showLoginPanel(STRINGS.loginTitle(), callback,
-                                      tokenServerUrl, code, false, null);
-        } */
+            //LoginPanel.showLoginPanel(STRINGS.loginTitle(), callback, tokenServerUrl, code, false, null);
+        }
 
     }
 
@@ -154,8 +158,7 @@ public final class AuthUtil implements RESTAuthProvider
                     }
 
                     RESTility.setUserToken(o.get("Token").isString().stringValue());
-
-                    //todo: uncomment
+                    //todo:fix me
                     //Index.showApplication();
                     //UserInfo.updateMainHeader();
 
