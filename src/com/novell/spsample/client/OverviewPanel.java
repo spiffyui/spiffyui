@@ -18,26 +18,8 @@
  */
 package com.novell.spsample.client;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.logical.shared.CloseEvent;
-import com.google.gwt.event.logical.shared.CloseHandler;
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.novell.spiffyui.client.MessageUtil;
-
-import com.novell.spiffyui.client.widgets.button.FancyButton;
-import com.novell.spiffyui.client.widgets.button.FancySaveButton;
-import com.novell.spiffyui.client.widgets.button.RefreshAnchor;
-import com.novell.spiffyui.client.widgets.dialog.ConfirmDialog;
-import com.novell.spiffyui.client.widgets.dialog.Dialog;
-import com.novell.spiffyui.client.widgets.LongMessage;
-import com.novell.spiffyui.client.widgets.ProgressBar;
-import com.novell.spiffyui.client.widgets.SmallLoadingIndicator;
-import com.novell.spiffyui.client.widgets.StatusIndicator;
 
 /**
  * This is the overview panel

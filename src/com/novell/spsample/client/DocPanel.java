@@ -18,26 +18,8 @@
  */
 package com.novell.spsample.client;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.logical.shared.CloseEvent;
-import com.google.gwt.event.logical.shared.CloseHandler;
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.novell.spiffyui.client.MessageUtil;
-
-import com.novell.spiffyui.client.widgets.button.FancyButton;
-import com.novell.spiffyui.client.widgets.button.FancySaveButton;
-import com.novell.spiffyui.client.widgets.button.RefreshAnchor;
-import com.novell.spiffyui.client.widgets.dialog.ConfirmDialog;
-import com.novell.spiffyui.client.widgets.dialog.Dialog;
-import com.novell.spiffyui.client.widgets.LongMessage;
-import com.novell.spiffyui.client.widgets.ProgressBar;
-import com.novell.spiffyui.client.widgets.SmallLoadingIndicator;
-import com.novell.spiffyui.client.widgets.StatusIndicator;
 
 /**
  * This is the documentation panel
@@ -98,6 +80,7 @@ public class DocPanel extends HTMLPanel
                         "&lt;ant antfile=\"${build.base}/external/spiffyui/build/build.xml\"\n" +
                         "     dir=\"${build.base}/external/spiffyui\"&gt;\n" +
                         "   &lt;property name=\"spiffy.www\" value=\"${root}/bin/www\"/&gt;\n" +
+                        "   &lt;property name=\"spiffy.classes\" value=\"${root}/bin/classes\"/&gt;\n" +
                         "&lt;/ant&gt;" +
                     "</pre>" +
                   "</p>" +
@@ -105,7 +88,9 @@ public class DocPanel extends HTMLPanel
                   "<p>" +
                     "In this sample we've placed the Spiffy UI framework in the external/spiffyui folder in our " +
                     "project.  The <code>spiffy.www</code> property specifies the location to generate the " +
-                    "Spiffy UI framework." +
+                    "Spiffy UI framework CSS, JavaScript, and image files.  The <code>spiffy.classes</code> " +
+                    "specifies the location of the class Spiffy UI class files.  These class files are a small " +
+                    "number of servlets to support the framework." + 
                   "</p>" +
 
                   "<h2>Importing spiffy</h2>" +

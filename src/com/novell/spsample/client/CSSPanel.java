@@ -20,24 +20,9 @@ package com.novell.spsample.client;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.logical.shared.CloseEvent;
-import com.google.gwt.event.logical.shared.CloseHandler;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.novell.spiffyui.client.MessageUtil;
-
-import com.novell.spiffyui.client.widgets.button.FancyButton;
-import com.novell.spiffyui.client.widgets.button.FancySaveButton;
-import com.novell.spiffyui.client.widgets.button.RefreshAnchor;
-import com.novell.spiffyui.client.widgets.dialog.ConfirmDialog;
-import com.novell.spiffyui.client.widgets.dialog.Dialog;
-import com.novell.spiffyui.client.widgets.LongMessage;
-import com.novell.spiffyui.client.widgets.ProgressBar;
-import com.novell.spiffyui.client.widgets.SmallLoadingIndicator;
-import com.novell.spiffyui.client.widgets.StatusIndicator;
 
 /**
  * This is the CSS panel
@@ -53,6 +38,15 @@ public class CSSPanel extends HTMLPanel
         super("div", 
              "<h1>Spiffy UI CSS</h1><br /><br />" + 
               "<div id=\"cssPanelText\">" + 
+                  "<p>" + 
+                    "This framework uses CSS for all layout.  That makes it easy to change the look and feel of the  " + 
+                    "application as well as the layout, the spacing, and the nature of the controls themselves.   " + 
+                  "</p>" +
+              
+                  "<p>" + 
+                    "For example: switch to <span id=\"tabnavbutton\"></span>" + 
+                  "</p>" +
+              
                   "<p>" + 
                     "The Spiffy UI framework starts with <a href=\"http://developer.yahoo.com/yui/reset/\">Reset CSS</a> " + 
                     "from YUI.  This allows us to set the CSS styles for every browser to a common starting point and " + 
@@ -125,5 +119,23 @@ public class CSSPanel extends HTMLPanel
         RootPanel.get("mainContent").add(this);
         
         setVisible(false);
+        
+        final Button b = new Button("tab navigation");
+        b.addClickHandler(new ClickHandler()
+            {
+                @Override
+                public void onClick(ClickEvent event)
+                {
+                    if (b.getText().equals("tab navigation")) {
+                        RootPanel.get("mainWrap").getElement().addClassName("tabnav");
+                        b.setText("menu navigation");
+                    } else {
+                        RootPanel.get("mainWrap").getElement().removeClassName("tabnav");
+                        b.setText("tab navigation");
+                    }
+                }
+            });
+        add(b, "tabnavbutton");
+        
     }
 }

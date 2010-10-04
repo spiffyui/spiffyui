@@ -61,3 +61,42 @@ h2 {
 iframe {
     border: thin solid gray;
 }
+
+/*
+   These styles are used for the tab navigation option
+ */
+.tabnav .main-menuItem {
+    display: inline;
+}
+
+.tabnav #mainNavigation {
+    width: 100%;
+    float: none;
+    margin: 19px 5px 15px -25px;
+    border-bottom: thin solid black;
+}
+
+.tabnav #mainContent {
+    float: none;
+}
+
+.tabnav #mainNavContainer a {
+    display: inline;
+    padding: 2em;
+    -moz-border-radius-topleft: 0.5em;
+    -webkit-border-radius-topleft: 0.5em;
+    -moz-border-radius-topright: 0.5em;
+    -webkit-border-radius-topright: 0.5em;
+}
+
+.tabnav .main-menuSeparator {
+    display: none;
+}
+
+.tabnav #mainBody {
+    margin-left: 25px;
+}
+
+.tabnav .navItemSelected a {
+    background-color: #EDEEEC;
+}
