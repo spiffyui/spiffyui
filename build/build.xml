@@ -2,6 +2,7 @@
 <project name="Spiffy UI" default="spiffy" basedir="..">
     <target name="spiffy" depends="setup">
         <!--<antcall target="js-lint" />-->
+        <antcall target="compile"/>
         <antcall target="js-min" />
         <antcall target="css-min" />
     </target>
@@ -47,6 +48,25 @@
         <xmlproperty file="build_svninfo.xml"/>
         <delete file="build_svninfo.xml"/>
         <property name="revision.number" value="${info.entry(revision)}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${spiffy.root}/bin/classes"/>
+        <!-- Compile all the Java -->
+        <javac srcdir="${spiffy.root}/src/com/novell/spiffyui/server" destdir="${spiffy.root}/bin/classes"
+               target="1.5" source="1.5" debug="true" deprecation="yes"
+               includeantruntime="false">
+            <compilerarg value="-Xlint" />
+            <classpath>
+                <fileset dir="${spiffy.root}/build/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset dir="${spiffy.root}/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </javac>
     </target>
     
     <target name="compileClosureTask.check">
