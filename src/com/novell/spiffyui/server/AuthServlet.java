@@ -49,7 +49,7 @@ import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
-//import com.novell.spiffyui.client.rest.AuthUtil;
+import com.novell.spiffyui.client.rest.util.RESTAuthConstants;
 
 /**
  * This servlet is a passthrough for authentication requests.
@@ -157,25 +157,25 @@ public class AuthServlet extends HttpServlet
             auth = out.toString("UTF-8");
         }
 
-        /*try {
+        try {
             JSONObject authObj = new JSONObject(auth);
             if (request.getMethod().equals("POST")) {
                 doLogin(request, response,
-                        authObj.getString(AuthUtil.USERNAME_TOKEN),
-                        authObj.getString(AuthUtil.PASSWORD_TOKEN),
-                        authObj.getString(AuthUtil.AUTH_URL_TOKEN),
-                        authObj.getString(AuthUtil.AUTH_LOGOUT_URL_TOKEN));
+                        authObj.getString(RESTAuthConstants.USERNAME_TOKEN),
+                        authObj.getString(RESTAuthConstants.PASSWORD_TOKEN),
+                        authObj.getString(RESTAuthConstants.AUTH_URL_TOKEN),
+                        authObj.getString(RESTAuthConstants.AUTH_LOGOUT_URL_TOKEN));
                 return;
             } else if (request.getMethod().equals("DELETE")) {
                 doLogout(request, response,
-                         authObj.getString(AuthUtil.USER_TOKEN),
-                         authObj.getString(AuthUtil.AUTH_URL_TOKEN));
+                         authObj.getString(RESTAuthConstants.USER_TOKEN),
+                         authObj.getString(RESTAuthConstants.AUTH_URL_TOKEN));
                 return;
             }
         } catch (ParseException e) {
             e.printStackTrace();
-            returnError(response, e.getMessage(), AuthUtil.INVALID_JSON);
-        }*/
+            returnError(response, e.getMessage(), RESTAuthConstants.INVALID_JSON);
+        }
     }
 
     private boolean validateURI(HttpServletRequest request, String uri)
@@ -211,23 +211,23 @@ public class AuthServlet extends HttpServlet
                          String user, String pwd, String tsUrl, String logoutUrl)
         throws ServletException, IOException
     {
-        /*ServletOutputStream out = response.getOutputStream();
+        ServletOutputStream out = response.getOutputStream();
         if (user == null || pwd == null || tsUrl == null) {
             returnError(response, "Login requires a username, password, and token server URL",
-                        AuthUtil.INVALID_LOGIN_REQUEST);
+                        RESTAuthConstants.INVALID_LOGIN_REQUEST);
             return;
         }
 
         try {
             if (!validateURI(request, tsUrl)) {
-                returnError(response, tsUrl, AuthUtil.INVALID_TS_URL);
+                returnError(response, tsUrl, RESTAuthConstants.INVALID_TS_URL);
                 return;
             }
         } catch (IllegalArgumentException iae) {
-            returnError(response, iae.getMessage(), AuthUtil.INVALID_TS_URL);
+            returnError(response, iae.getMessage(), RESTAuthConstants.INVALID_TS_URL);
             return;
         } catch (MalformedURLException iae) {
-            returnError(response, iae.getMessage(), AuthUtil.INVALID_TS_URL);
+            returnError(response, iae.getMessage(), RESTAuthConstants.INVALID_TS_URL);
             return;
         }
 
@@ -250,7 +250,7 @@ public class AuthServlet extends HttpServlet
 
         if (status == 404) {
             returnError(response, "The token server URL was not found",
-                        AuthUtil.NOTFOUND_TS_URL);
+                        RESTAuthConstants.NOTFOUND_TS_URL);
             return;
         }
 
@@ -307,7 +307,6 @@ public class AuthServlet extends HttpServlet
 
         out.flush();
         out.close();
-        */
     }
 
     private void doLogout(HttpServletRequest request,
@@ -315,16 +314,16 @@ public class AuthServlet extends HttpServlet
                          String token, String tsUrl)
         throws ServletException, IOException
     {
-        /*if (token == null || tsUrl == null) {
+        if (token == null || tsUrl == null) {
             returnError(response, "Logout requires a token and a token server URL",
-                        AuthUtil.INVALID_LOGOUT_REQUEST);
+                        RESTAuthConstants.INVALID_LOGOUT_REQUEST);
             return;
         }
 
         try {
             validateURI(request, tsUrl);
         } catch (IllegalArgumentException iae) {
-            returnError(response, iae.getMessage(), AuthUtil.INVALID_TS_URL);
+            returnError(response, iae.getMessage(), RESTAuthConstants.INVALID_TS_URL);
             return;
         }
 
@@ -344,7 +343,7 @@ public class AuthServlet extends HttpServlet
         int status = authResponse.getStatusLine().getStatusCode();
         if (status == 404) {
             returnError(response, "The token server URL was not found",
-                        AuthUtil.NOTFOUND_TS_URL);
+                        RESTAuthConstants.NOTFOUND_TS_URL);
             return;
         }
 
@@ -388,7 +387,7 @@ public class AuthServlet extends HttpServlet
         out.print(authResponseData.toString());
 
         out.flush();
-        out.close(); */
+        out.close();
     }
 
     private void returnError(HttpServletResponse response, String message, String sCode)

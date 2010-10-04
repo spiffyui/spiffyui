@@ -54,7 +54,7 @@
 
     <target name="compile">
         <!-- Compile all the Java -->
-        <javac srcdir="${spiffy.root}/src/com/novell/spiffyui/server" destdir="${spiffy.classes}"
+        <javac srcdir="${spiffy.root}/src/com/novell/spiffyui/server:${spiffy.root}/src/com/novell/spiffyui/client/rest/util" destdir="${spiffy.classes}"
                target="1.5" source="1.5" debug="true" deprecation="yes"
                includeantruntime="false">
             <compilerarg value="-Xlint" />
@@ -182,6 +182,7 @@
     
     <target name="spiffy.clean" depends="setup">
         <delete dir="${spiffy.www}"/>
+        <delete dir="${spiffy.classes}"/>
         <delete dir="${spiffy.build}/classes"/>
         <delete file="${spiffy.build}/lib/closuretask.jar" />
     </target>
