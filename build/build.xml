@@ -85,22 +85,12 @@
             </classpath>
         </taskdef>
         
-        <!-- Firefox will complain if the JavaScript libraries aren't loaded before
-             we try to access them so we build them into a separate minimized JS file. -->
-        <closure jsfile="${spiffy.dist}/spiffyui.lib.min.js" 
-                 closurejar="${spiffy.build}/lib/closure-compiler.jar"
-                 summarylevel="0"
-                 compilationLevel="SIMPLE_OPTIMIZATIONS"
-                 warninglevel="QUIET">
-            <fileset dir="${spiffy.js}/lib" includes="**/*.js" excludes="**/jquery-1.*.js, **/unittest/**" />
-        </closure>
-        
         <!-- Now we compile our JavaScript. -->
         <closure jsfile="${spiffy.dist}/spiffyui.min.js" 
                  closurejar="${spiffy.build}/lib/closure-compiler.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="DEFAULT">
-            <fileset dir="${spiffy.js}" includes="*.js" excludes="*_test.js" />
+            <fileset dir="${spiffy.js}" includes="**/*.js" excludes="**/jquery-1.*.js, **/unittest/**" />
         </closure>
         
         <!-- We also compile our own copy of JQuery -->
