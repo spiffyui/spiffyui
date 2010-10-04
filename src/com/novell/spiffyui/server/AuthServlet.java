@@ -49,7 +49,7 @@ import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
-import com.novell.spiffyui.client.rest.AuthUtil;
+//import com.novell.spiffyui.client.rest.AuthUtil;
 
 /**
  * This servlet is a passthrough for authentication requests.
@@ -157,7 +157,7 @@ public class AuthServlet extends HttpServlet
             auth = out.toString("UTF-8");
         }
 
-        try {
+        /*try {
             JSONObject authObj = new JSONObject(auth);
             if (request.getMethod().equals("POST")) {
                 doLogin(request, response,
@@ -175,7 +175,7 @@ public class AuthServlet extends HttpServlet
         } catch (ParseException e) {
             e.printStackTrace();
             returnError(response, e.getMessage(), AuthUtil.INVALID_JSON);
-        }
+        }*/
     }
 
     private boolean validateURI(HttpServletRequest request, String uri)
@@ -211,7 +211,7 @@ public class AuthServlet extends HttpServlet
                          String user, String pwd, String tsUrl, String logoutUrl)
         throws ServletException, IOException
     {
-        ServletOutputStream out = response.getOutputStream();
+        /*ServletOutputStream out = response.getOutputStream();
         if (user == null || pwd == null || tsUrl == null) {
             returnError(response, "Login requires a username, password, and token server URL",
                         AuthUtil.INVALID_LOGIN_REQUEST);
@@ -288,17 +288,17 @@ public class AuthServlet extends HttpServlet
             httpclient.getConnectionManager().shutdown();
         }
 
-        /*
-         Now we write the response back to our client.
-         */
+
+        //Now we write the response back to our client.
+
         if (authResponse.containsHeader("WWW-Authenticate")) {
-            /*
-             * If the authentication server responded with a 401 it means
-             * that the specified username and password weren't valid.  We
-             * should be returning a 401 to the client, but doing that causes
-             * Firefox to prompt for login using the default login dialog
-             * and we don't want that.
-             */
+             //
+             // If the authentication server responded with a 401 it means
+             // that the specified username and password weren't valid.  We
+             // should be returning a 401 to the client, but doing that causes
+             // Firefox to prompt for login using the default login dialog
+             // and we don't want that.
+             //
             response.setHeader("WWW-Authenticate", authResponse.getFirstHeader("WWW-Authenticate").getValue());
             status = 400;
         }
@@ -307,7 +307,7 @@ public class AuthServlet extends HttpServlet
 
         out.flush();
         out.close();
-
+        */
     }
 
     private void doLogout(HttpServletRequest request,
@@ -315,7 +315,7 @@ public class AuthServlet extends HttpServlet
                          String token, String tsUrl)
         throws ServletException, IOException
     {
-        if (token == null || tsUrl == null) {
+        /*if (token == null || tsUrl == null) {
             returnError(response, "Logout requires a token and a token server URL",
                         AuthUtil.INVALID_LOGOUT_REQUEST);
             return;
@@ -382,15 +382,13 @@ public class AuthServlet extends HttpServlet
             httpclient.getConnectionManager().shutdown();
         }
 
-        /*
-         Now we write the response back to our client.
-         */
+        //Now we write the response back to our client.
         response.setStatus(status);
         ServletOutputStream out = response.getOutputStream();
         out.print(authResponseData.toString());
 
         out.flush();
-        out.close();
+        out.close(); */
     }
 
     private void returnError(HttpServletResponse response, String message, String sCode)
