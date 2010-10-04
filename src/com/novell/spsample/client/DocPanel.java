@@ -97,14 +97,14 @@ public class DocPanel extends HTMLPanel
                     "<pre>" +
                         "&lt;ant antfile=\"${build.base}/external/spiffyui/build/build.xml\"\n" +
                         "     dir=\"${build.base}/external/spiffyui\"&gt;\n" +
-                        "   &lt;property name=\"spiffy.dist\" value=\"${root}/bin/www\"/&gt;\n" +
+                        "   &lt;property name=\"spiffy.www\" value=\"${root}/bin/www\"/&gt;\n" +
                         "&lt;/ant&gt;" +
                     "</pre>" +
                   "</p>" +
     
                   "<p>" +
                     "In this sample we've placed the Spiffy UI framework in the external/spiffyui folder in our " +
-                    "project.  The <code>spiffy.dist</code> property specifies the location to generate the " +
+                    "project.  The <code>spiffy.www</code> property specifies the location to generate the " +
                     "Spiffy UI framework." +
                   "</p>" +
 

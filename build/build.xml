@@ -5,7 +5,8 @@
         <!-- Call the Spiffy UI build -->
         <ant antfile="${build.base}/external/spiffyui/build/build.xml" 
              dir="${build.base}/external/spiffyui">
-            <property name="spiffy.dist" value="${root}/bin/www"/>
+            <property name="spiffy.www" value="${root}/bin/www"/>
+            <property name="spiffy.classes" value="${root}/bin/classes"/>
         </ant>
              
         <antcall target="gwt-compile">
@@ -98,6 +99,12 @@
             <zipfileset dir="${root}/bin/classes" prefix="WEB-INF/classes" >
                 <include name="**/*.class"/>
             </zipfileset>
+            
+            <!-- We need to add the JARs to support the spiffy framework to
+                 our WAR file -->
+            <zipfileset dir="${root}/external/spiffyui/lib" prefix="WEB-INF/lib" >
+                <include name="**/*.jar"/>
+            </zipfileset>     
         </war>
     </target>
     
