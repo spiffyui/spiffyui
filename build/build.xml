@@ -12,6 +12,8 @@
             <param name="gwttarget" value="com.novell.spsample.index"/>
         </antcall>
         
+        <antcall target="compile"/>
+        
         <antcall target="javadoc"/>
         
         <antcall target="package" />
@@ -68,13 +70,33 @@
         
     </target>
     
+    <target name="compile">
+        <mkdir dir="${root}/bin/classes"/>
+        
+        <!-- Compile all the Java -->
+        <javac srcdir="${root}/src/com/novell/spsample/server" destdir="${root}/bin/classes" 
+               target="1.5" source="1.5" debug="true" deprecation="yes"
+               includeantruntime="false">
+            <compilerarg value="-Xlint" />
+            <classpath>
+                <fileset dir="${root}/build/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </javac>
+    </target>
+    
     <target name="package" description="package everything into a WAR">
         <!-- Create the distribution directory -->
         <delete file="${root}/dist/spsample.war" />
-        <war destfile="${root}/dist/spsample.war" webxml="${root}/">
+        <war destfile="${root}/dist/spsample.war" webxml="${root}/web.xml">
             <fileset dir="${root}/bin/www"/>
             <zipfileset dir="${root}/js" prefix="js" >
                 <include name="**/*.js"/>
+            </zipfileset>
+            <zipfileset dir="${root}/bin/classes" prefix="WEB-INF/classes" >
+                <include name="**/*.class"/>
             </zipfileset>
         </war>
     </target>
