@@ -37,5 +37,10 @@
 	<classpathentry kind="lib" path="external/spiffyui/build/lib/yuicompressor-2.4.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="external/spiffyui/lib/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="external/spiffyui/lib/httpclient-4.0.1.jar"/>
+	<classpathentry kind="lib" path="external/spiffyui/lib/httpcore-4.0.1.jar"/>
+	<classpathentry kind="lib" path="external/spiffyui/lib/httpcore-nio-4.0.1.jar"/>
+	<classpathentry kind="lib" path="external/spiffyui/lib/jsonrpc.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
