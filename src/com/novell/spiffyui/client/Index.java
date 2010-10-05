@@ -28,7 +28,8 @@ public class Index implements EntryPoint
 {
 
     private static Index g_index;
-    
+    private boolean m_isVisible = false;
+
     /**
      * The Index page constructor
      */
@@ -42,5 +43,48 @@ public class Index implements EntryPoint
     public void onModuleLoad()
     {
         
+    }
+
+    /**
+     * Sets the application visible once we have logged in.
+     * People worry about security when they see controls
+     * before we've logged in.
+     */
+    public static void showApplication()
+    {
+        if (!g_index.m_isVisible) {
+            JSUtil.show("#mainFooter", "fast");
+            JSUtil.show("body > #mainWrap > #main", "fast");
+            g_index.m_isVisible = true;
+        }
+    }
+
+    /**
+     * Sets the application invisible.  This is called by the
+     * authentication framework to hide the UI when we need
+     * to show the login dialog again.
+     */
+    public static void hideApplication()
+    {
+        if (g_index.m_isVisible) {
+            JSUtil.hide("#mainFooter", "fast");
+            JSUtil.hide("body > #mainWrap > #main", "fast");
+            g_index.m_isVisible = false;
+        }
+    }
+
+    public static void showConfig()
+    {
+        //by default, do nothing
+    }
+
+     /**
+     * This is a utility method to get the name of the current logged in
+     * user and apply it to the main header of the application.
+     *
+     */
+    public static void updateMainHeader()
+    {
+        //todo: update welcome message
     }
 }

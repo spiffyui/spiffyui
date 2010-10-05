@@ -35,6 +35,7 @@ import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 
+import com.novell.spiffyui.client.Index;
 import com.novell.spiffyui.client.JSUtil;
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.SpiffyUIStrings;
@@ -67,7 +68,7 @@ public final class RESTility
 
     private boolean m_hasLoggedIn = false;
 
-    private AuthUtil m_authUtil = new AuthUtil();
+    private static RESTAuthProvider m_authProvider;
 
     /**
      * Gets the name of the core WAR for use with REST calls.
@@ -125,6 +126,10 @@ public final class RESTility
     private static final String URI_KEY = "uri";
     private static final String SIGNOFF_URI_KEY = "signoffuri";
 
+    public static final void setAuthProvider(RESTAuthProvider authProvider)
+    {
+        m_authProvider = authProvider;
+    }
 
     private void doLogin(RESTCallback callback, Response response, String url, String errorCode)
         throws RESTException
@@ -188,12 +193,12 @@ public final class RESTility
 
         Cookies.removeCookie(SESSION_COOKIE);
         Cookies.removeCookie(LOCALE_COOKIE);
-        m_authUtil.showLogin(callback, loginUri, errorCode);
+        m_authProvider.showLogin(callback, loginUri, errorCode);
     }
 
     private void doConfig()
-    {   //todo: fix me
-        //Index.showConfig();
+    {
+        Index.showConfig();
     }
 
     /**
@@ -356,7 +361,7 @@ public final class RESTility
         return BASIC_AUTH + " " + getUserToken();
     }
 
-    protected static String getUserToken()
+    public static String getUserToken()
     {
         if (RESTILITY.m_userToken != null) {
             return RESTILITY.m_userToken;
@@ -488,11 +493,12 @@ public final class RESTility
      *
      * @param callback
      */
-    protected static void getUserInfo(RESTCallback callback)
+    //todo: move this somewhere else
+    /*protected static void getUserInfo(RESTCallback callback)
     {
         callREST(RESTility.getCoreContext() + "/rpt/rptusers/" + URL.encode(RESTility.getUserToken()),
                  null, GET, callback, false, false, null);
-    }
+    }*/
 
     /**
      * Make an HTTP call and get the results as a JSON object.  This method handles
@@ -742,8 +748,7 @@ public final class RESTility
                  * before the user has logged in.  Hackito Ergo Sum.
                  */
                 if (RESTILITY.m_callCount > 2) {
-                    //todo:fix me
-                    //Index.showApplication();
+                    Index.showApplication();
                     RESTILITY.m_hasLoggedIn = true;
                 }
 
