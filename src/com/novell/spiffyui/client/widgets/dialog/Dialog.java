@@ -77,7 +77,7 @@ public abstract class Dialog extends DialogBox
         getElement().setId(m_id);             
 
         final String captionDiv = 
-            "<div class=\"spiffy-dialog-caption-close\"><a href=\"#\" id=\"" + m_id + "_close\" title=\"" + STRINGS.close() + "\">" +
+            "<div class=\"spiffy-dialog-caption-close\"><a href=\"#\" id=\"" + m_id + "_close\" title=\"" + getCloseText() + "\">" +
                 "<div class=\"spiffy-dialog-caption-close-icon\"></div></a></div>" +
             "<div id=\"" + m_id + "_title\" class=\"spiffy-dialog-caption " + titleStyle + "\">" + title + "</div>"; 
         setHTML(captionDiv);
@@ -90,6 +90,15 @@ public abstract class Dialog extends DialogBox
         m_buttonBar = new FlowPanel();
         m_buttonBar.setStyleName("spiffy-dialog-button-bar");        
         main.add(m_buttonBar);
+    }
+    
+    /**
+     * Gets the close icon's tooltip text.  Override this method for custom localization
+     * @return the close text
+     */
+    public String getCloseText()
+    {
+        return STRINGS.close();
     }
         
     /**

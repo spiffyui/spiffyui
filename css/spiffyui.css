@@ -794,6 +794,70 @@ button.inprogress {
   overflow: hidden;
 }
 
+/* MultivalueSuggestBox */
+
+.suggestPopupContent table {
+    width: 327px;
+}
+
+.gwt-SuggestBoxPopup {
+    margin-left: 0px;
+    margin-top: -7px;
+}
+
+.gwt-SuggestBoxPopup .item {
+    background: white;
+    color: black;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    padding: 0px 8px;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.gwt-SuggestBoxPopup .item-selected {
+    background-color: #7ca1c2;
+    color: white;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+
+.gwt-SuggestBoxPopup .suggestPopupContent {
+    border: thin solid #464646;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -moz-box-shadow: 0 2px 2px #C8C8C8;
+}
+
+.gwt-SuggestBoxPopup .suggestPopupTop, .gwt-SuggestBoxPopup .suggestPopupBottom, 
+.gwt-SuggestBoxPopup suggestPopupTopLeft, .gwt-SuggestBoxPopup .suggestPopupTopCenter, .gwt-SuggestBoxPopup .suggestPopupTopRight, 
+.gwt-SuggestBoxPopup .suggestPopupMiddleLeft, .gwt-SuggestBoxPopup .suggestPopupMiddleRight, 
+.gwt-SuggestBoxPopup .suggestPopupBottomLeft, .gwt-SuggestBoxPopup .suggestPopupBottomCenter, .gwt-SuggestBoxPopup .suggestPopupBottomRight,
+.gwt-SuggestBoxPopup .suggestPopupTopLeftInner, .gwt-SuggestBoxPopup .suggestPopupTopLeft {
+    display: none;
+}
+
+.autocompleterNext, .autocompleterPrev {
+    height: 14px;
+    margin-left: 85%;
+}
+
+.gwt-SuggestBoxPopup .autocompleterNext {
+    background: transparent url('images/arrows.png') no-repeat scroll 0 -557px;
+}
+
+.gwt-SuggestBoxPopup .autocompleterPrev {
+    background: transparent url('images/arrows.png') no-repeat scroll 0 -591px;
+}
+
+.gwt-SuggestBoxPopup .item-selected .autocompleterNext {
+    background: transparent url('images/arrows.png') no-repeat scroll -18px -557px;
+}
+
+.gwt-SuggestBoxPopup .item-selected .autocompleterPrev {
+    background: transparent url('images/arrows.png') no-repeat scroll -18px -591px;
+}
+
 /*the jquery DatePicker has to be on top of a gwt-DialogBox*/
 .ui-datepicker {
     z-index: 5050;
