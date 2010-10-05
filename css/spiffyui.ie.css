@@ -10,3 +10,23 @@
 .spiffy-fancy-button {
     padding-top: 5px;
 }
+
+#humanMsgLog { 
+    top: -46px;
+}
+
+#humanMsgLog ul li {
+    position: static;
+}
+
+#humanMsgClose {
+    margin-left: 8.5em;
+}
+
+#humanMsgLog p.minimized {
+    width: 40px;
+}
+
+#humanMsgLog ul {
+    padding-bottom: 4em;
+}

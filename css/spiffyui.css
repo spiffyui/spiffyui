@@ -889,3 +889,34 @@ h3.subSectionTitle.expandable.expanded {
     color:gray;
     font-size:0.85em;
 }
+
+#errorpanel {
+    background: #E6E6E6;
+    border: thin solid darkgray;
+    font-size: 18px;
+    line-height: 28px;
+    color: #E00000;
+    position: relative;
+    padding: 1em;
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;
+    margin-right: 2em;
+}
+
+#errorpanel_hide {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    text-indent: -999999px;
+    background: url("images/spiffy_ui_images.png") no-repeat scroll 0 -5px transparent;
+    width: 22px;
+    height: 22px;
+}
+
+#errorpanel_hide a {
+    text-decoration: none;
+}
+
+#errorpanel_hide a {
+    text-decoration: none;
+}
