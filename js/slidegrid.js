@@ -102,6 +102,8 @@ function alignGrid(/*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
     var usedCells = [];
     
     $(".slidegrid").each(function() {
+
+        var hasTallCell = false;
         
         var cols = Math.floor(($(window).width() - 200) / ((cellWidth + padding)));
         
@@ -151,6 +153,8 @@ function alignGrid(/*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
                     setUsed(usedCells, curCol, curRow + 1);  
                     setUsed(usedCells, curCol + 1, curRow + 1); 
                 }
+
+                hasTallCell = true;
                 
             } else if (children.eq(i).hasClass("widecell")) {
                 if (isUsed(usedCells, curCol, curRow) ||
@@ -196,6 +200,9 @@ function alignGrid(/*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
                     setUsed(usedCells, curCol, curRow); 
                     setUsed(usedCells, curCol, curRow + 1);
                 }
+
+                hasTallCell = true;
+
             } else {
                 if (isUsed(usedCells, curCol, curRow)) {
                     /* 
@@ -221,6 +228,7 @@ function alignGrid(/*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
                 curRow++;
                 x = padding / 2;
                 y += cellHeight + padding;
+                hasTallCell = false;
             } else {
                 x += cellWidth + padding;
                 curCol++;
@@ -233,11 +241,18 @@ function alignGrid(/*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
          * We need to set a height of the slidegrid div since it only has absolute 
          * height tags within it.
          */
-        if ((count % cols) === 2) {
-            $(this).css('height', (y + cellHeight + padding) + "px");
+        var height = 0;
+        if ((count % cols) !== 1) {
+            height = y + cellHeight + padding;
         } else {
-            $(this).css('height', (y + padding) + "px");
+            height = y + padding;
         }
+
+        if (hasTallCell) {
+            height += cellHeight + padding;
+        }
+
+        $(this).css('height', height + "px");
         
         
         /*
