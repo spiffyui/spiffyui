@@ -67,26 +67,29 @@ iframe {
  */
 .tabnav .main-menuItem {
     display: inline;
+    width: auto;
 }
 
 .tabnav #mainNavigation {
     width: auto;
     float: none;
     margin: -55px 5px 15px 250px;
-    border-bottom: thin solid black;
+    white-space: nowrap;
 }
 
 .tabnav #mainContent {
     float: none;
 }
 
+.tabnav #mainNavContainer {
+    border-bottom: thin solid black;
+}
+
 .tabnav #mainNavContainer a {
     display: inline;
     padding: 2em;
-    -moz-border-radius-topleft: 0.5em;
-    -webkit-border-radius-topleft: 0.5em;
-    -moz-border-radius-topright: 0.5em;
-    -webkit-border-radius-topright: 0.5em;
+    width: auto;
+    padding-bottom: 7px;
 }
 
 .tabnav .main-menuSeparator {
@@ -99,6 +102,7 @@ iframe {
 
 .tabnav .navItemSelected a {
     background-color: #EDEEEC;
+    margin-top: -25px;
 }
 
 .tabnav #mainHeaderContainer .headertitle {
