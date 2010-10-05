@@ -70,9 +70,9 @@ iframe {
 }
 
 .tabnav #mainNavigation {
-    width: 100%;
+    width: auto;
     float: none;
-    margin: 19px 5px 15px -25px;
+    margin: -55px 5px 15px 250px;
     border-bottom: thin solid black;
 }
 
@@ -94,9 +94,18 @@ iframe {
 }
 
 .tabnav #mainBody {
-    margin-left: 25px;
+    margin-left: 35px;
 }
 
 .tabnav .navItemSelected a {
     background-color: #EDEEEC;
+}
+
+.tabnav #mainHeaderContainer .headertitle {
+    color: black;
+    font-size: 24px;
+}
+
+.tabnav #mainHeader {
+    background: transparent;
 }

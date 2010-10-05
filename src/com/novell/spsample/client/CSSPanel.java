@@ -122,7 +122,7 @@ public class CSSPanel extends HTMLPanel
               "</div>"
              );
         
-        getElement().setId("overviewPanel");
+        getElement().setId("cssPanel");
         
         RootPanel.get("mainContent").add(this);
         

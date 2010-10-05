@@ -136,7 +136,7 @@ public class DocPanel extends HTMLPanel
               "</div>"
              );
         
-        getElement().setId("overviewPanel");
+        getElement().setId("docPanel");
         
         RootPanel.get("mainContent").add(this);
         
