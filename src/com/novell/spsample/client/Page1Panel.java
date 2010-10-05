@@ -27,17 +27,16 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.novell.spiffyui.client.MessageUtil;
 
-import com.novell.spiffyui.client.widgets.button.FancyButton;
-import com.novell.spiffyui.client.widgets.button.FancySaveButton;
-import com.novell.spiffyui.client.widgets.button.RefreshAnchor;
-import com.novell.spiffyui.client.widgets.dialog.ConfirmDialog;
-import com.novell.spiffyui.client.widgets.dialog.Dialog;
+import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.widgets.LongMessage;
 import com.novell.spiffyui.client.widgets.ProgressBar;
 import com.novell.spiffyui.client.widgets.SmallLoadingIndicator;
 import com.novell.spiffyui.client.widgets.StatusIndicator;
+import com.novell.spiffyui.client.widgets.button.FancySaveButton;
+import com.novell.spiffyui.client.widgets.button.RefreshAnchor;
+import com.novell.spiffyui.client.widgets.dialog.ConfirmDialog;
+import com.novell.spiffyui.client.widgets.dialog.Dialog;
 
 /**
  * This is the page 1 panel
@@ -81,6 +80,13 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
                     "<h3>Refresh anchor</h3>" + 
                     "The refresh anchor handles an in progress status for refreshing items with an AJAX request.<br /><br />" + 
                     "<span id=\"Page1RefreshAnchor\"></span>" +
+                 "</div>" +
+              
+                 "<div class=\"cell weak\">" +
+                    "<h3>Humanized Messages</h3>" + 
+                    "The Spiffy UI framework support has an integrated message framework including info messages, warnings, " + 
+                    "errors, and fatal errors<br /><br />" + 
+                    "<span id=\"Page1Messages\"></span>" +
                  "</div>" +
 
                  "<div class=\"cell weak\">" +
@@ -161,6 +167,12 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
             }
             
         });
+        
+        /*
+         Add the message buttons
+         */
+        addMessageButton();
+        
 
         /*
          * Add the simple button
@@ -171,6 +183,57 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
          * Add the fancy button
          */
         add(new FancySaveButton("Save"), "Page1FancyButton");
+    }
+    
+    private void addMessageButton()
+    {
+        Button b = new Button("Info Message");
+        add(b, "Page1Messages");
+        b.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) 
+            {
+            	MessageUtil.showMessage("This is an information message");
+            }
+            
+        });
+        
+        b = new Button("Warning Message");
+        add(b, "Page1Messages");
+        b.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) 
+            {
+            	MessageUtil.showWarning("This is a warning message", false);
+            }
+            
+        });
+        
+        b = new Button("Error Message");
+        add(b, "Page1Messages");
+        b.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) 
+            {
+            	MessageUtil.showError("This is a error message");
+            }
+            
+        });
+        
+        b = new Button("Fatal Error Message");
+        add(b, "Page1Messages");
+        b.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) 
+            {
+            	MessageUtil.showFatalError("This is a fatal error message");
+            }
+            
+        });
     }
 
 	@Override
