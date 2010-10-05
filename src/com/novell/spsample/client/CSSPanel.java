@@ -47,6 +47,8 @@ public class CSSPanel extends HTMLPanel
                     "For example: switch to <span id=\"tabnavbutton\"></span>" + 
                   "</p>" +
               
+                  "<h2>Page styles</h2>" +
+              
                   "<p>" + 
                     "The Spiffy UI framework starts with <a href=\"http://developer.yahoo.com/yui/reset/\">Reset CSS</a> " + 
                     "from YUI.  This allows us to set the CSS styles for every browser to a common starting point and " + 
@@ -54,10 +56,16 @@ public class CSSPanel extends HTMLPanel
                   "</p>" +
               
                   "<p>" + 
-                    "The Spiffy UI framework includes many helpful CSS styles.  The default CSS style is " + 
-                    "12/14 Verdana.  That means 12 pixel sized font with a 14 pixel line height using Verdana. " + 
-                    "Everything in the framework conforms to this 14 pixel line height.  That means each line " + 
-                    "is a multiple of 14 so everything lines up vertically." + 
+                    "There are four main sections in the Spiffy UI:  the header (<code>#mainHeader</code>), the navigation " +
+                    "area (<code>#mainNavigation</code>), the content area (<code>#mainContent</code>), and the footer " +
+                    "(<code>#mainFooter</code>).  These four areas make up the basic blocking of the application.  They " + 
+                    "may each be styled and position separately. " + 
+                  "</p>" +
+              
+                  "<p>" + 
+                    "The default CSS style is 12/14 Verdana.  That means 12 pixel sized font with a 14 pixel line height " + 
+                    "using Verdana.  Everything in the framework conforms to this 14 pixel line height.  That means each " + 
+                    "line is a multiple of 14 so everything lines up vertically." + 
                   "</p>" +
               
                   "<h2>Form styles</h2>" +
