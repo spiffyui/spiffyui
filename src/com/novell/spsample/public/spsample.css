@@ -62,6 +62,10 @@ iframe {
     border: thin solid gray;
 }
 
+#Page1Messages button {
+    margin: 10px;
+}
+
 /*
    These styles are used for the tab navigation option
  */
@@ -89,7 +93,7 @@ iframe {
     display: inline;
     padding: 2em;
     width: auto;
-    padding-bottom: 7px;
+    padding-bottom: 6px;
 }
 
 .tabnav .main-menuSeparator {

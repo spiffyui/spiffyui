@@ -233,7 +233,7 @@ function alignGrid(/*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
          * We need to set a height of the slidegrid div since it only has absolute 
          * height tags within it.
          */
-        if ((count % cols) === 0) {
+        if ((count % cols) === 2) {
             $(this).css('height', (y + cellHeight + padding) + "px");
         } else {
             $(this).css('height', (y + padding) + "px");

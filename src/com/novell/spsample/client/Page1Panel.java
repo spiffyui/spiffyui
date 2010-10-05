@@ -59,7 +59,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
              "<div class=\"slidegrid\">" + 
                 
                  "<div class=\"cell weak\">" + 
-                    "<h3>Progress bar</h3>" + 
+                    "<h3>JQuery UI Progress bar</h3>" + 
                     "This progress bar GWT control wraps the progress bar control from JQuery UI.<br /><br />" + 
                     "<span id=\"Page1ProgressSpan\"></span>" + 
                  "</div>" +
@@ -82,10 +82,11 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
                     "<span id=\"Page1RefreshAnchor\"></span>" +
                  "</div>" +
               
-                 "<div class=\"cell weak\">" +
+                 "<div class=\"cell tallcell weak\">" +
                     "<h3>Humanized Messages</h3>" + 
-                    "The Spiffy UI framework support has an integrated message framework including info messages, warnings, " + 
-                    "errors, and fatal errors<br /><br />" + 
+                    "The Spiffy UI framework support has an integrated message framework following the pattern of humanized " + 
+                    "messages.  These messages are non-modal and fade away on their own.  They include info messages, warnings, " + 
+                    "errors, and fatal errors.  Errors and some warnings are sent to an error log at the bottom of the screen.<br /><br />" + 
                     "<span id=\"Page1Messages\"></span>" +
                  "</div>" +
 
@@ -187,7 +188,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
     
     private void addMessageButton()
     {
-        Button b = new Button("Info Message");
+        Button b = new Button("Show Info Message");
         add(b, "Page1Messages");
         b.addClickHandler(new ClickHandler() {
 
@@ -199,7 +200,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
             
         });
         
-        b = new Button("Warning Message");
+        b = new Button("Show Warning Message");
         add(b, "Page1Messages");
         b.addClickHandler(new ClickHandler() {
 
@@ -211,7 +212,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
             
         });
         
-        b = new Button("Error Message");
+        b = new Button("Show Error Message");
         add(b, "Page1Messages");
         b.addClickHandler(new ClickHandler() {
 
@@ -223,7 +224,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
             
         });
         
-        b = new Button("Fatal Error Message");
+        b = new Button("Show Fatal Error Message");
         add(b, "Page1Messages");
         b.addClickHandler(new ClickHandler() {
 
