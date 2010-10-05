@@ -18,7 +18,10 @@
  */
 package com.novell.spiffyui.client.widgets;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.SimplePanel;
+
+import com.novell.spiffyui.client.SpiffyUIStrings;
 
 
 /**
@@ -26,6 +29,8 @@ import com.google.gwt.user.client.ui.SimplePanel;
  */
 public class ProgressBar extends SimplePanel
 {
+    private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
+    
     private int m_value = 0;
     
     /**
@@ -58,6 +63,21 @@ public class ProgressBar extends SimplePanel
     }
     
     /**
+     * Get the title (or tooltip) string for the progress bar.  This method 
+     * may be overridden to specify the value using alternative localization 
+     * mechanisms. 
+     * 
+     * @param percentCompleted
+     *               the percent completed
+     * 
+     * @return the title string with the percent completed
+     */
+    public String getTitleString(int percentCompleted)
+    {
+        return STRINGS.percentCompleted("" + percentCompleted);
+    }
+    
+    /**
      * Get the value of this progress bar
      * 
      * @param value  the bar value
@@ -66,6 +86,7 @@ public class ProgressBar extends SimplePanel
     {
         m_value = value;
         setValueJS(getElement().getId(), m_value);
+        setTitle(getTitleString(value));
     }
     
     private static native void setValueJS(String id, int barValue) /*-{

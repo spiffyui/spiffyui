@@ -58,5 +58,6 @@ public interface SpiffyUIStrings extends Messages {
     public String invalidColonReason(String value, String reason);
     public String valid();
     public String loading();
+    public String percentCompleted(String s);
 
 }
