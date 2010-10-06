@@ -73,11 +73,6 @@ public class Index implements EntryPoint
         }
     }
 
-    public static void showConfig()
-    {
-        //by default, do nothing
-    }
-
      /**
      * This is a utility method to get the name of the current logged in
      * user and apply it to the main header of the application.

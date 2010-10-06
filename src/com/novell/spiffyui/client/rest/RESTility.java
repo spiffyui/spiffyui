@@ -196,11 +196,6 @@ public final class RESTility
         m_authProvider.showLogin(callback, loginUri, errorCode);
     }
 
-    private void doConfig()
-    {
-        Index.showConfig();
-    }
-
     /**
      * Returns HTTPMethod corresponding to method name.
      * If the passed in method does not match any, GET is returned.
@@ -685,16 +680,7 @@ public final class RESTility
                             detailMap.put(key, details.get(key).isString().stringValue());
                         }
                     }
-                    /*
-                     The server must be configured before it can do much of anything.
-                     If the server needs configuration it will return an error code
-                     that indicates it needs config.  Then we should the configuration
-                     screen.
-                     */
-                    if (MUST_CONFIG_CODE.equals(code)) {
-                        doConfig();
-                        return;
-                    } else if (RESTException.AUTH_SERVER_UNAVAILABLE.equals(subcode)) {
+                    if (RESTException.AUTH_SERVER_UNAVAILABLE.equals(subcode)) {
                         /*
                          * This is a special case where the server can't connect to the
                          * authentication server to validate the token.
