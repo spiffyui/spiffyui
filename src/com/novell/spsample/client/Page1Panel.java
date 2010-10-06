@@ -206,7 +206,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
             {
                 return "/multivaluesuggestboxexample/colors?q=" + q + "&indexFrom=" + indexFrom + "&indexTo=" + indexTo;
             }
-        }, true));
+        }, true), "Page1SuggestBox");
     }
     
     private void addMessageButton()
