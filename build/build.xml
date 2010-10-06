@@ -8,6 +8,8 @@
             <property name="spiffy.www" value="${root}/bin/www"/>
             <property name="spiffy.classes" value="${root}/bin/classes"/>
         </ant>
+        
+        <antcall target="HTMLProps"/>
              
         <antcall target="gwt-compile">
             <param name="gwttarget" value="com.novell.spsample.index"/>
@@ -38,6 +40,22 @@
         <mkdir dir="${root}/dist"/>
     </target>
     
+    <target name="HTMLProps" depends="setup">
+        <taskdef name="closure" classname="com.novell.spiffyui.build.HTMLPropertiesTask">
+            <classpath>
+                <pathelement location="${root}/external/spiffyui/build/lib/closure-compiler.jar"/>
+                <pathelement location="${root}/external/spiffyui/build/lib/closuretask.jar"/>
+            </classpath>
+        </taskdef>
+        
+        <mkdir dir="${root}/bin/classes/com/novell/spsample/client"/>
+        
+        <closure properties="${root}/bin/classes/com/novell/spsample/client/SPSampleStrings.properties">
+            <fileset dir="${root}/src/com/novell/spsample/client" includes="**/*.html" />
+        </closure>
+        
+    </target>
+    
     <!-- This target calls the GWT compiler inline and
          moves the files around so we get the compiled
          GWT without the directory with the package name -->
@@ -52,6 +70,7 @@
             <classpath>
                 <pathelement location="${root}/src"/>
                 <pathelement location="${root}/external/spiffyui/src"/>
+                <pathelement location="${root}/bin/classes"/>
                 <fileset dir="${build}/lib">
                     <include name="**/*.jar"/>
                 </fileset>
@@ -165,6 +184,14 @@
     </target>
     
     <target name="clean" depends="setup">
+        <!-- Call the Spiffy UI build -->
+        <ant antfile="${build.base}/external/spiffyui/build/build.xml" 
+             dir="${build.base}/external/spiffyui"
+             target="spiffy.clean">
+            <property name="spiffy.www" value="${root}/bin/www"/>
+            <property name="spiffy.classes" value="${root}/bin/classes"/>
+        </ant>
+        
         <delete dir="${root}/dist"/>
         <delete dir="${root}/bin"/>
     </target>

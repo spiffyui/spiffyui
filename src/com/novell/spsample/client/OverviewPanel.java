@@ -18,6 +18,7 @@
  */
 package com.novell.spsample.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -27,56 +28,14 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class OverviewPanel extends HTMLPanel
 {
+    private static final SPSampleStrings STRINGS = (SPSampleStrings) GWT.create(SPSampleStrings.class);
+    
 	/**
      * Creates a new panel
      */
     public OverviewPanel()
     {
-        super("div", 
-             "<h1>Spiffy UI Framework</h1><br /><br />" + 
-              "<div id=\"overviewPanelText\">" + 
-                  "<p>" + 
-                    "Welcome to SPSample the sample application for the Spiffy UI Framework.  " +
-                    "Spiffy UI gives you a place to start with GWT, JQuery, CSS, REST, security, " +
-                    "and a set of helpful widgets.  This sample application shows you how to use " +
-                    "the framework and gives you a large amount of sample code." +
-                  "</p>" +
-    
-                  "<h2>Spiffy philosophy</h2>" +
-                  "<p>" +
-                    "The Spiffy UI framework started as part of the Identity Manager Reporting Module and was " +
-                    "later extracted into a reusable framework.  The philosophy of the framework is best explained " +
-                    "in the Spiffy UI video." +
-                  "</p>" +
-
-                  "<p>" + 
-                  "<object width=\"400\" height=\"225\"><param name=\"allowfullscreen\" value=\"true\" /><param " +
-                  "name=\"allowscriptaccess\" value=\"always\" /><param name=\"movie\" value=\"" +
-                  "http://vimeo.com/moogaloop.swf?clip_id=13950436&amp;server=vimeo.com&amp;show_title=1&amp;color=&amp;fullscreen=1&amp;autoplay=0&amp;loop=0\" />" +
-                  "<embed src=\"http://vimeo.com/moogaloop.swf?clip_id=13950436&amp;server=vimeo.com&amp;show_title=1&amp;color=&amp;fullscreen=1&amp;autoplay=0&amp;loop=0\" " +
-                  "type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" " +
-                  "width=\"580\" height=\"326\"></embed></object>" +
-                  "</p>" +
-    
-                  "<p>" +
-                    "The rules we follow in this framework are explained in <a " +
-                    "href=\"http://www.zackgrossbart.com/hackito/rpt-css/\">Fluid Grids, Vertical Rhythm, and CSS " +
-                    "Blocking</a>." +
-                  "</p>" +
-    
-                  "<p>" +
-                    "The mechanism we use for calling REST APIs from JavaScript and GWT is discussed in <a " +
-                    "href=\"http://www.zackgrossbart.com/hackito/gwt-rest/\">Calling REST from GWT with a little " +
-                    "bit of JQuery</a>." +
-                  "</p>" +
-    
-                  "<p>" +
-                    "The multi-valued auto-complete control in this framework is explained in detail in <a " +
-                    "href=\"http://www.zackgrossbart.com/hackito/gwt-rest-auto/\">Creating a Multi-Valued Auto-Complete " +
-                    "Field Using GWT SuggestBox and REST</a>" +
-                  "</p>" +
-              "</div>"
-             );
+        super("div", STRINGS.OverviewPanel_html());
         
         getElement().setId("overviewPanel");
         

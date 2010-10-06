@@ -18,29 +18,16 @@
  */
 package com.novell.spsample.client;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.i18n.client.Messages;
 
 /**
- * This is the documentation panel
+ * Localized strings for the library classes
  *
  */
-public class DocPanel extends HTMLPanel
-{
-    private static final SPSampleStrings STRINGS = (SPSampleStrings) GWT.create(SPSampleStrings.class);
-    
-	/**
-     * Creates a new panel
-     */
-    public DocPanel()
-    {
-        super("div", STRINGS.DocPanel_html());
-        
-        getElement().setId("docPanel");
-        
-        RootPanel.get("mainContent").add(this);
-        
-        setVisible(false);
-    }
+public interface SPSampleStrings extends Messages {
+
+    public String CSSPanel_html();
+    public String DocPanel_html();
+    public String OverviewPanel_html();
+
 }
