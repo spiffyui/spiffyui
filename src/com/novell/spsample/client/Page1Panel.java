@@ -37,6 +37,8 @@ import com.novell.spiffyui.client.widgets.button.FancySaveButton;
 import com.novell.spiffyui.client.widgets.button.RefreshAnchor;
 import com.novell.spiffyui.client.widgets.dialog.ConfirmDialog;
 import com.novell.spiffyui.client.widgets.dialog.Dialog;
+import com.novell.spiffyui.client.widgets.multivaluesuggest.MultivalueSuggestBox;
+import com.novell.spiffyui.client.widgets.multivaluesuggest.MultivalueSuggestRESTHelper;
 
 /**
  * This is the page 1 panel
@@ -79,6 +81,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
                  "<div class=\"cell weak\">" +
                     "<h3>Refresh anchor</h3>" + 
                     "The refresh anchor handles an in progress status for refreshing items with an AJAX request.<br /><br />" + 
+                    "This one will show an example of a confirm dialog<br /><br />" + 
                     "<span id=\"Page1RefreshAnchor\"></span>" +
                  "</div>" +
               
@@ -99,8 +102,15 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
 
                  "<div class=\"cell weak\">" +
                     "<h3>Fancy Button</h3>" + 
-                    "Fancy buttons show an image and text with a disabled image and hover style.<br /><br />" + 
+                    "Fancy buttons show an image and text with a disabled image and hover style.  It also supports an in progress state.<br /><br />" + 
                     "<span id=\"Page1FancyButton\"></span>" +
+                 "</div>" + 
+                 
+                 "<div class=\"cell weak\">" +
+                    "<h3>Multivalue Suggest Box</h3>" + 
+                    "The Multivalue suggest box is an autocompleter that allows for multiple values and browsing. It uses REST to retrieve suggestions from the server. " + 
+                    "Type blue, mac, or *.<br /><br />" + 
+                    "<span id=\"Page1SuggestBox\"></span>" +
                  "</div>" + 
              "</div>");
         
@@ -185,6 +195,18 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
          * Add the fancy button
          */
         add(new FancySaveButton("Save"), "Page1FancyButton");
+        
+        /*
+         * Add the multivalue suggest box
+         */
+        add(new MultivalueSuggestBox(new MultivalueSuggestRESTHelper("TotalSize", "Options", "DisplayName", "Value") {
+            
+            @Override
+            public String buildUrl(String q, int indexFrom, int indexTo)
+            {
+                return "/multivaluesuggestboxexample/colors?q=" + q + "&indexFrom=" + indexFrom + "&indexTo=" + indexTo;
+            }
+        }, true));
     }
     
     private void addMessageButton()

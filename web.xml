@@ -15,5 +15,9 @@
     <servlet-name>VersionInfoServlet</servlet-name>
     <url-pattern>/version</url-pattern>
   </servlet-mapping>
-  
+    
+  <servlet-mapping>
+    <servlet-name>CrayonColorsServlet</servlet-name>
+    <url-pattern>/multivaluesuggestboxexample/colors</url-pattern>
+  </servlet-mapping>
 </web-app>

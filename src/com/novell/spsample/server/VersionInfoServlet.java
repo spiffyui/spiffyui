@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * This servlet shows version infromation.
+ * This servlet shows version information.
  */
 public class VersionInfoServlet extends HttpServlet
 {
