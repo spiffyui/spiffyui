@@ -22,7 +22,6 @@ import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
 
 import com.novell.spiffyui.client.MessageUtil;
-import com.novell.spiffyui.client.rest.AuthUtil;
 import com.novell.spiffyui.client.rest.RESTCallback;
 import com.novell.spiffyui.client.rest.RESTException;
 import com.novell.spiffyui.client.rest.RESTObjectCallBack;
@@ -68,10 +67,9 @@ public final class VersionInfo
             callback.success(g_versionInfo);
             return;
         }
-        
-        RESTility.setAuthProvider(new AuthUtil());        
-        //RESTility.setAuthProvider(new SampleAuthUtil());
-        //RESTility.callREST(RESTility.getCoreContext() + "/rpt/conf", new RESTCallback() {
+
+        //Index.setAuthProvider();
+        //RESTility.callREST("/IDMRPT-CORE/rpt/conf", new RESTCallback() {
         RESTility.callREST("version", new RESTCallback() {
                 @Override
                 public void onSuccess(JSONValue val)

@@ -33,6 +33,8 @@ import com.novell.spiffyui.client.nav.NavItem;
 import com.novell.spiffyui.client.nav.NavSeparator;
 import com.novell.spiffyui.client.rest.RESTException;
 import com.novell.spiffyui.client.rest.RESTObjectCallBack;
+import com.novell.spiffyui.client.rest.RESTility;
+import com.novell.spsample.client.rest.SampleAuthUtil;
 import com.novell.spsample.client.rest.VersionInfo;
 
 
@@ -171,4 +173,7 @@ public class Index implements EntryPoint, NavBarListener
         });
     }
 
+    public static void setAuthProvider() {
+        RESTility.setAuthProvider(new SampleAuthUtil());    
+    }
 }
