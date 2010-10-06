@@ -44,7 +44,7 @@ public class Page2Panel extends HTMLPanel implements KeyUpHandler
 {
     private static final String CONTENTS =
         "<fieldset id=\"Page2Fields\">" +
-            "<h2 class=\"sectionTitle\">Simple form field set</h2>" +
+            "<h2 class=\"sectionTitle\">Sample form field set</h2>" +
             "<ol class=\"dialogformsection\">" +
                 "<li id=\"firstValueRow\" class=\"dialogformrow\"><label class=\"dialogformlabel\" for=\"firstValueTxt\">Value One: " + 
                     "</label><div id=\"firstValue\" class=\"formcontrolssection\"></div></li>" +
@@ -72,7 +72,7 @@ public class Page2Panel extends HTMLPanel implements KeyUpHandler
      */
     public Page2Panel()
     {
-        super("div", "<div id=\"Page2PrefsPanel\"></div><h1>Simple Form Example</h1><br /><br />" + CONTENTS);
+        super("div", "<div id=\"Page2PrefsPanel\"></div><h1>Sample Form Example</h1><br /><br />" + CONTENTS);
         
         getElement().setId("page2Panel");
         
