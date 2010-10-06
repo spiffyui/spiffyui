@@ -102,13 +102,16 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
 
                  "<div class=\"cell weak\">" +
                     "<h3>Fancy Button</h3>" + 
-                    "Fancy buttons show an image and text with a disabled image and hover style.  It also supports an in progress state.<br /><br />" + 
+                    "Fancy buttons show an image and text with a disabled image and hover style.  It also supports an in progress " + 
+                    "state.<br /><br />" + 
                     "<span id=\"Page1FancyButton\"></span>" +
                  "</div>" + 
                  
                  "<div class=\"cell widecell weak\">" +
                     "<h3>Multivalue Suggest Box</h3>" + 
-                    "The Multivalue suggest box is an autocompleter that allows for multiple values and browsing. It uses REST to retrieve suggestions from the server. " + 
+                    "The Multivalue suggest box is an autocompleter that allows for multiple values and browsing. It uses REST to " + 
+                    "retrieve suggestions from the server.  The full process is documented " + 
+                    "<a href=\"http://www.zackgrossbart.com/hackito/gwt-rest-auto\">here</a>. <br /><br />" + 
                     "Type blue, mac, or *.<br /><br />" + 
                     "<span id=\"Page1SuggestBox\"></span>" +
                  "</div>" + 
