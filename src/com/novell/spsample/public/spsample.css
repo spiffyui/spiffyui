@@ -3,7 +3,7 @@
     width: 85%;
 }
 
-#page2Panel {
+#formPanel {
 	padding-right: 10px;
 }
 
@@ -62,7 +62,7 @@ iframe {
     border: thin solid gray;
 }
 
-#Page1Messages button {
+#widgetsMessages button {
     margin: 10px;
 }
 

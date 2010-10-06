@@ -44,45 +44,45 @@ import com.novell.spiffyui.client.widgets.multivaluesuggest.MultivalueSuggestRES
  * This is the page 1 panel
  *
  */
-public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
+public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
 {
 	private ConfirmDialog m_dlg;
 	private RefreshAnchor m_refresh;
     /**
      * Creates a new panel
      */
-    public Page1Panel()
+    public WidgetsPanel()
     {
         super("div", 
              "<h1>Some example Widgets</h1><br /><br />" + 
 
-             "<div id=\"Page1LongMessage\"></div><br /><br />" + 
+             "<div id=\"WidgetsLongMessage\"></div><br /><br />" + 
 
              "<div class=\"slidegrid\">" + 
                 
                  "<div class=\"cell weak\">" + 
                     "<h3>JQuery UI Progress bar</h3>" + 
                     "This progress bar GWT control wraps the progress bar control from JQuery UI.<br /><br />" + 
-                    "<span id=\"Page1ProgressSpan\"></span>" + 
+                    "<span id=\"WidgetsProgressSpan\"></span>" + 
                  "</div>" +
 
                  "<div class=\"cell weak\">" +
                     "<h3>Small loading indicator</h3>" + 
                     "The small loading indicator shows a loading status.<br /><br />" + 
-                    "<span id=\"Page1SmallLoading\"></span>" + 
+                    "<span id=\"WidgetsSmallLoading\"></span>" + 
                  "</div>" +
 
                  "<div class=\"cell weak\">" +
                     "<h3>Status Indicator</h3>" + 
                     "The status indicator shows valid, failed, and in progress status.  It can be extended for others.<br /><br />" + 
-                    "<span id=\"Page1Status\"></span>" + 
+                    "<span id=\"WidgetsStatus\"></span>" + 
                  "</div>" +
 
                  "<div class=\"cell weak\">" +
                     "<h3>Refresh anchor</h3>" + 
                     "The refresh anchor handles an in progress status for refreshing items with an AJAX request.<br /><br />" + 
                     "This one will show an example of a confirm dialog<br /><br />" + 
-                    "<span id=\"Page1RefreshAnchor\"></span>" +
+                    "<span id=\"WidgetsRefreshAnchor\"></span>" +
                  "</div>" +
               
                  "<div class=\"cell tallcell weak\">" +
@@ -91,20 +91,20 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
                     "messages.  These messages are non-modal and fade away without requiring further interaction.  They " + 
                     "include info messages, warnings, errors, and fatal errors.  Errors and some warnings are sent to an error " + 
                     "log at the bottom of the screen.<br /><br />" + 
-                    "<span id=\"Page1Messages\"></span>" +
+                    "<span id=\"WidgetsMessages\"></span>" +
                  "</div>" +
 
                  "<div class=\"cell weak\">" +
                     "<h3>Simple Button</h3>" + 
                     "All buttons get special styling from the Spiffy UI framework.<br /><br />" + 
-                    "<span id=\"Page1Button\"></span>" +
+                    "<span id=\"WidgetsButton\"></span>" +
                  "</div>" + 
 
                  "<div class=\"cell weak\">" +
                     "<h3>Fancy Button</h3>" + 
                     "Fancy buttons show an image and text with a disabled image and hover style.  It also supports an in progress " + 
                     "state.<br /><br />" + 
-                    "<span id=\"Page1FancyButton\"></span>" +
+                    "<span id=\"WidgetsFancyButton\"></span>" +
                  "</div>" + 
                  
                  "<div class=\"cell widecell weak\">" +
@@ -113,11 +113,11 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
                     "retrieve suggestions from the server.  The full process is documented " + 
                     "<a href=\"http://www.zackgrossbart.com/hackito/gwt-rest-auto\">here</a>. <br /><br />" + 
                     "Type blue, mac, or *.<br /><br />" + 
-                    "<span id=\"Page1SuggestBox\"></span>" +
+                    "<span id=\"WidgetsSuggestBox\"></span>" +
                  "</div>" + 
              "</div>");
         
-        getElement().setId("page1Panel");
+        getElement().setId("WidgetsPanel");
         
         RootPanel.get("mainContent").add(this);
 
@@ -126,15 +126,15 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
         /*
          Add a progress bar to our page
          */
-        ProgressBar bar = new ProgressBar("Page1PanelProgressBar");
+        ProgressBar bar = new ProgressBar("WidgetsPanelProgressBar");
         bar.setValue(65);
-        add(bar, "Page1ProgressSpan");
+        add(bar, "WidgetsProgressSpan");
         
         /*
          Add a long message to our page
          */
-        LongMessage message = new LongMessage("Page1LongMessageWidget");
-        add(message, "Page1LongMessage");
+        LongMessage message = new LongMessage("WidgetsLongMessageWidget");
+        add(message, "WidgetsLongMessage");
         message.setHTML("<b>Long Message</b><br />" + 
                              "Long messages are useful for showing information messages " +
                              "with more content than the standard messages but they are still " +
@@ -144,7 +144,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
          * Add a small loading indicator to our page
          */
         SmallLoadingIndicator loading = new SmallLoadingIndicator();
-        add(loading, "Page1SmallLoading");
+        add(loading, "WidgetsSmallLoading");
         
         /*
          * Add 3 status indicators 
@@ -152,14 +152,14 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
         StatusIndicator status1 = new StatusIndicator(StatusIndicator.IN_PROGRESS);
         StatusIndicator status2 = new StatusIndicator(StatusIndicator.SUCCEEDED);
         StatusIndicator status3 = new StatusIndicator(StatusIndicator.FAILED);
-        add(status1, "Page1Status");
-        add(status2, "Page1Status");
-        add(status3, "Page1Status");
+        add(status1, "WidgetsStatus");
+        add(status2, "WidgetsStatus");
+        add(status3, "WidgetsStatus");
         
         /*
          * Add the ConfirmDialog which will show up when refresh is clicked
          */
-        m_dlg = new ConfirmDialog("Page1ConfirmDlg", "Sample Confirm");
+        m_dlg = new ConfirmDialog("WidgetsConfirmDlg", "Sample Confirm");
         m_dlg.hide();
         m_dlg.addCloseHandler(this);
         m_dlg.setText("Are you sure you want to refresh? (Doesn't make much sense as a confirm, but this is just a sample.)");
@@ -169,8 +169,8 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
         /*
          * Add a refresh anchor to our page
          */
-        m_refresh = new RefreshAnchor("Page1_refreshAnchor");
-        add(m_refresh, "Page1RefreshAnchor");
+        m_refresh = new RefreshAnchor("Widgets_refreshAnchor");
+        add(m_refresh, "WidgetsRefreshAnchor");
         m_refresh.addClickHandler(new ClickHandler() {
 
             @Override
@@ -192,12 +192,12 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
         /*
          * Add the simple button
          */
-        add(new Button("Simple Button"), "Page1Button");
+        add(new Button("Simple Button"), "WidgetsButton");
 
         /*
          * Add the fancy button
          */
-        add(new FancySaveButton("Save"), "Page1FancyButton");
+        add(new FancySaveButton("Save"), "WidgetsFancyButton");
         
         /*
          * Add the multivalue suggest box
@@ -211,13 +211,13 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
             }
         }, true);
         msb.getFeedback().addStyleName("msg-feedback");
-        add(msb, "Page1SuggestBox");
+        add(msb, "WidgetsSuggestBox");
     }
     
     private void addMessageButton()
     {
         Button b = new Button("Show Info Message");
-        add(b, "Page1Messages");
+        add(b, "WidgetsMessages");
         b.addClickHandler(new ClickHandler() {
 
             @Override
@@ -229,7 +229,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
         });
         
         b = new Button("Show Warning Message");
-        add(b, "Page1Messages");
+        add(b, "WidgetsMessages");
         b.addClickHandler(new ClickHandler() {
 
             @Override
@@ -241,7 +241,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
         });
         
         b = new Button("Show Error Message");
-        add(b, "Page1Messages");
+        add(b, "WidgetsMessages");
         b.addClickHandler(new ClickHandler() {
 
             @Override
@@ -253,7 +253,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
         });
         
         b = new Button("Show Fatal Error Message");
-        add(b, "Page1Messages");
+        add(b, "WidgetsMessages");
         b.addClickHandler(new ClickHandler() {
 
             @Override

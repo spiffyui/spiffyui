@@ -40,7 +40,7 @@ import com.novell.spiffyui.client.widgets.button.FancySaveButton;
  * This is the page 2 panel
  *
  */
-public class Page2Panel extends HTMLPanel implements KeyUpHandler
+public class FormPanel extends HTMLPanel implements KeyUpHandler
 {
     private static final String CONTENTS =
         "<fieldset id=\"Page2Fields\">" +
@@ -70,11 +70,11 @@ public class Page2Panel extends HTMLPanel implements KeyUpHandler
     /**
      * Creates a new import panel
      */
-    public Page2Panel()
+    public FormPanel()
     {
         super("div", "<div id=\"Page2PrefsPanel\"></div><h1>Sample Form Example</h1><br /><br />" + CONTENTS);
         
-        getElement().setId("page2Panel");
+        getElement().setId("formPanel");
         
         RootPanel.get("mainContent").add(this);
         
