@@ -11,6 +11,11 @@
     <servlet-class>com.novell.spsample.server.VersionInfoServlet</servlet-class>
   </servlet>
   
+  <servlet>
+    <servlet-name>CrayonColorsServlet</servlet-name>
+    <servlet-class>com.novell.spsample.server.CrayonColorsServlet</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
     <servlet-name>VersionInfoServlet</servlet-name>
     <url-pattern>/version</url-pattern>
