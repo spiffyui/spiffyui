@@ -5,7 +5,12 @@
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
-  
+
+  <servlet>
+    <servlet-name>AuthServlet</servlet-name>
+    <servlet-class>com.novell.spiffyui.server.AuthServlet</servlet-class>
+  </servlet>
+
   <servlet>
     <servlet-name>VersionInfoServlet</servlet-name>
     <servlet-class>com.novell.spsample.server.VersionInfoServlet</servlet-class>
@@ -15,6 +20,11 @@
     <servlet-name>CrayonColorsServlet</servlet-name>
     <servlet-class>com.novell.spsample.server.CrayonColorsServlet</servlet-class>
   </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AuthServlet</servlet-name>
+    <url-pattern>/auth/*</url-pattern>
+  </servlet-mapping>
   
   <servlet-mapping>
     <servlet-name>VersionInfoServlet</servlet-name>
