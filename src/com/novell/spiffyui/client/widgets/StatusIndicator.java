@@ -45,32 +45,28 @@ public class StatusIndicator extends FlowPanel
     
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
     
-    public StatusIndicator(int status) 
-    {
-    	this(status, null);
-    }
     /** 
      * Show the status of the report
      * @param status - int status constant
-     * @param tooltip - String tooltip to show, if null, will use the defaults
      */
-    public StatusIndicator(int status, String tooltip)
+    public StatusIndicator(int status)
     {
+        String tooltip;
         switch (status) {
         case IN_PROGRESS:
         	setStyleName("spiffy-status-inprogress");
-        	tooltip = tooltip == null ? STRINGS.statusInProgress() : tooltip;
+        	tooltip = STRINGS.statusInProgress();
             break;
         case FAILED:
             setStyleName("spiffy-status-failed");
-            tooltip = tooltip == null ? STRINGS.statusFailed() : tooltip;
+            tooltip = STRINGS.statusFailed();
             break;
         case SUCCEEDED:
             setStyleName("spiffy-status-succeeded");
-            tooltip = tooltip == null ? STRINGS.statusSucceeded() : tooltip;
+            tooltip = STRINGS.statusSucceeded();
             break;
         default:
-        	tooltip = tooltip == null ? "" : tooltip;
+        	tooltip = "";
             setStyleName("");
             break;
         }
