@@ -106,7 +106,7 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
                     "<span id=\"Page1FancyButton\"></span>" +
                  "</div>" + 
                  
-                 "<div class=\"cell weak\">" +
+                 "<div class=\"cell widecell weak\">" +
                     "<h3>Multivalue Suggest Box</h3>" + 
                     "The Multivalue suggest box is an autocompleter that allows for multiple values and browsing. It uses REST to retrieve suggestions from the server. " + 
                     "Type blue, mac, or *.<br /><br />" + 
@@ -199,14 +199,16 @@ public class Page1Panel extends HTMLPanel implements CloseHandler<PopupPanel>
         /*
          * Add the multivalue suggest box
          */
-        add(new MultivalueSuggestBox(new MultivalueSuggestRESTHelper("TotalSize", "Options", "DisplayName", "Value") {
+        MultivalueSuggestBox msb = new MultivalueSuggestBox(new MultivalueSuggestRESTHelper("TotalSize", "Options", "DisplayName", "Value") {
             
             @Override
             public String buildUrl(String q, int indexFrom, int indexTo)
             {
-                return "/multivaluesuggestboxexample/colors?q=" + q + "&indexFrom=" + indexFrom + "&indexTo=" + indexTo;
+                return "multivaluesuggestboxexample/colors?q=" + q + "&indexFrom=" + indexFrom + "&indexTo=" + indexTo;
             }
-        }, true), "Page1SuggestBox");
+        }, true);
+        msb.getFeedback().addStyleName("msg-feedback");
+        add(msb, "Page1SuggestBox");
     }
     
     private void addMessageButton()

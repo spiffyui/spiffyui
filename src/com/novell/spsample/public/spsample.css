@@ -117,3 +117,7 @@ iframe {
 .tabnav #mainHeader {
     background: transparent;
 }
+
+.msg-feedback {
+	left: 335px;
+}
