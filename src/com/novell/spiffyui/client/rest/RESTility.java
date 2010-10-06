@@ -71,16 +71,6 @@ public final class RESTility
     private static RESTAuthProvider m_authProvider;
 
     /**
-     * Gets the name of the core WAR for use with REST calls.
-     *
-     * @return the name of the core WAR
-     */
-    public static String getCoreContext()
-    {
-        return "/IDMRPT-CORE";
-    }
-
-    /**
      * This is a helper type class so we can pass the HTTP method as a type safe
      * object instead of a string.
      */
@@ -125,6 +115,11 @@ public final class RESTility
 
     private static final String URI_KEY = "uri";
     private static final String SIGNOFF_URI_KEY = "signoffuri";
+
+    static {
+        RESTAuthProvider authUtil = new AuthUtil();
+        RESTility.setAuthProvider(authUtil);
+    }
 
     public static final void setAuthProvider(RESTAuthProvider authProvider)
     {
