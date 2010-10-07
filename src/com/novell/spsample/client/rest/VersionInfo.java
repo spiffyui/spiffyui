@@ -69,8 +69,8 @@ public final class VersionInfo
         }
 
         //Index.setAuthProvider();
-        RESTility.callREST("/IDMRPT-CORE/rpt/conf", new RESTCallback() {
-        //RESTility.callREST("version", new RESTCallback() {
+        //RESTility.callREST("/IDMRPT-CORE/rpt/conf", new RESTCallback() {
+        RESTility.callREST("version", new RESTCallback() {
                 @Override
                 public void onSuccess(JSONValue val)
                 {
