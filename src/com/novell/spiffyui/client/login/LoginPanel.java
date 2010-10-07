@@ -200,8 +200,10 @@ public final class LoginPanel extends Composite implements KeyUpHandler
                 m_panel.getElementById("novelllibloginmessage").setInnerText(STRINGS.repeatloginTwo());
             }
         } else {
-            //todo: uncomment this
+            //todo: fix this
             //Index.hideApplication();
+            JSUtil.hide("#mainFooter", "fast");
+            JSUtil.hide("body > #mainWrap > #main", "fast");
             m_glassPanel.getElement().removeClassName("loginRepeatGlass");
             m_fp.getElement().removeClassName("loginRepeat");
             m_panel.getElementById("login_titlespan").setInnerText(STRINGS.login());
