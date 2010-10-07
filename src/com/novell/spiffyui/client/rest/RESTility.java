@@ -35,7 +35,6 @@ import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 
-import com.novell.spiffyui.client.Index;
 import com.novell.spiffyui.client.JSUtil;
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.SpiffyUIStrings;
@@ -46,9 +45,6 @@ import com.novell.spiffyui.client.SpiffyUIStrings;
 public final class RESTility
 {
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
-
-    public static final String MUST_CONFIG_CODE = "RequiresConfiguration";
-
     private static final String BASIC_AUTH = "X-OPAQUE";
     private static final String SESSION_COOKIE = "Novell_Reporting_Session";
     private static final String LOCALE_COOKIE = "Novell_Reporting_Locale";
@@ -62,7 +58,7 @@ public final class RESTility
 
     private static boolean g_inLoginProcess = false;
 
-    private ArrayList<RESTLoginCallBack> m_loginListeners = new ArrayList<RESTLoginCallBack>();
+    private static ArrayList<RESTLoginCallBack> m_loginListeners = new ArrayList<RESTLoginCallBack>();
 
     private int m_callCount = 0;
 
@@ -417,6 +413,10 @@ public final class RESTility
         }
     }
 
+    public static ArrayList<RESTLoginCallBack> getLoginListeners() {
+        return  m_loginListeners;
+    }
+
     /**
      * Make an HTTP call and get the results as a JSON object.  This method handles
      * cases like login, error parsing, and configuration requests.
@@ -728,9 +728,12 @@ public final class RESTility
                  * this at this level, but then the UI will flash sometimes
                  * before the user has logged in.  Hackito Ergo Sum.
                  */
+                //todo: deal with this 2
                 if (RESTILITY.m_callCount > 2) {
-                    Index.showApplication();
                     RESTILITY.m_hasLoggedIn = true;
+                    for (RESTLoginCallBack listener : m_loginListeners) {
+                        listener.onLoginSuccess();
+                    }
                 }
 
                 if (response.getHeader("ETag") != null &&
@@ -765,12 +768,12 @@ public final class RESTility
              json.replace(/"(\\.|[^"\\])*"/g, '')));
     }-*/;
 
-    static void addLoginListener(RESTLoginCallBack callback)
+    public static void addLoginListener(RESTLoginCallBack callback)
     {
         RESTILITY.m_loginListeners.add(callback);
     }
 
-    static void removeLoginListener(RESTLoginCallBack callback)
+    public static void removeLoginListener(RESTLoginCallBack callback)
     {
         RESTILITY.m_loginListeners.remove(callback);
     }

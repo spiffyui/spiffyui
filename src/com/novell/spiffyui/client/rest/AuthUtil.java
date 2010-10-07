@@ -24,7 +24,6 @@ import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Window;
 
-import com.novell.spiffyui.client.Index;
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.SpiffyUIStrings;
 import com.novell.spiffyui.client.login.LoginPanel;
@@ -35,7 +34,6 @@ import com.novell.spiffyui.client.login.LoginPanel;
 public class AuthUtil implements RESTAuthProvider
 {
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
-
     /**
      * constructor
      */
@@ -160,9 +158,9 @@ public class AuthUtil implements RESTAuthProvider
                     }
 
                     RESTility.setUserToken(o.get("Token").isString().stringValue());
-                    Index.showApplication();
-                    Index.updateMainHeader();
-
+                    for (RESTLoginCallBack listener : RESTility.getLoginListeners()) {
+                        listener.onLoginSuccess();
+                    }
                     callback.success(o.get("Token").isString().stringValue());
                 }
 

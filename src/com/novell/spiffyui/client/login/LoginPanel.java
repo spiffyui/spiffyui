@@ -37,7 +37,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 
-import com.novell.spiffyui.client.Index;
 import com.novell.spiffyui.client.JSUtil;
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.SpiffyUIStrings;
@@ -201,7 +200,8 @@ public final class LoginPanel extends Composite implements KeyUpHandler
                 m_panel.getElementById("novelllibloginmessage").setInnerText(STRINGS.repeatloginTwo());
             }
         } else {
-            Index.hideApplication();
+            //todo: uncomment this
+            //Index.hideApplication();
             m_glassPanel.getElement().removeClassName("loginRepeatGlass");
             m_fp.getElement().removeClassName("loginRepeat");
             m_panel.getElementById("login_titlespan").setInnerText(STRINGS.login());

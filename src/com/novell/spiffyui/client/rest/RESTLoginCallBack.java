@@ -33,4 +33,10 @@ public interface RESTLoginCallBack
      * separate from submitting the login or getting authenticated. 
      */
     public void loginPrompt();
+
+    /**
+     * Called when a login is successful
+     *
+     */
+    public void onLoginSuccess();
 }
