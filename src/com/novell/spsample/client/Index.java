@@ -24,6 +24,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
+import com.novell.spiffyui.client.JSUtil;
 import com.novell.spiffyui.client.MainFooter;
 import com.novell.spiffyui.client.MainHeader;
 import com.novell.spiffyui.client.MessageUtil;
@@ -31,7 +32,9 @@ import com.novell.spiffyui.client.nav.MainNavBar;
 import com.novell.spiffyui.client.nav.NavBarListener;
 import com.novell.spiffyui.client.nav.NavItem;
 import com.novell.spiffyui.client.nav.NavSeparator;
+import com.novell.spiffyui.client.rest.RESTAuthProvider;
 import com.novell.spiffyui.client.rest.RESTException;
+import com.novell.spiffyui.client.rest.RESTLoginCallBack;
 import com.novell.spiffyui.client.rest.RESTObjectCallBack;
 import com.novell.spiffyui.client.rest.RESTility;
 import com.novell.spsample.client.rest.SampleAuthUtil;
@@ -41,7 +44,7 @@ import com.novell.spsample.client.rest.VersionInfo;
 /**
  * This class is the main entry point for our GWT module. 
  */
-public class Index implements EntryPoint, NavBarListener
+public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
 {
 
     static {
@@ -53,7 +56,8 @@ public class Index implements EntryPoint, NavBarListener
          */
         Object o = MessageUtil.ERROR_PANEL;
     }
-    
+    private static RESTAuthProvider m_authUtil = new SampleAuthUtil();
+
     private static Index g_index;
     
     private MainHeader m_header;
@@ -63,6 +67,8 @@ public class Index implements EntryPoint, NavBarListener
     private MainFooter m_footer;
     
     private HashMap<NavItem, ComplexPanel> m_panels = new HashMap<NavItem, ComplexPanel>();
+
+    private boolean m_isVisible = false;
     
     /**
      * The Index page constructor
@@ -133,6 +139,7 @@ public class Index implements EntryPoint, NavBarListener
         m_navBar.selectItem(m_navBar.getItem("overviewNavItem"));
         
         m_navBar.addListener(this);
+        RESTility.addLoginListener(this);
     }
     
     @Override
@@ -173,7 +180,65 @@ public class Index implements EntryPoint, NavBarListener
         });
     }
 
+    /**
+     * Sets the application visible once we have logged in.
+     * People worry about security when they see controls
+     * before we've logged in.
+     */
+    public static void showApplication()
+    {
+        if (!g_index.m_isVisible) {
+            JSUtil.show("#mainFooter", "fast");
+            JSUtil.show("body > #mainWrap > #main", "fast");
+            g_index.m_isVisible = true;
+        }
+    }
+
+    /**
+     * Sets the application invisible.  This is called by the
+     * authentication framework to hide the UI when we need
+     * to show the login dialog again.
+     */
+    public static void hideApplication()
+    {
+        if (g_index.m_isVisible) {
+            JSUtil.hide("#mainFooter", "fast");
+            JSUtil.hide("body > #mainWrap > #main", "fast");
+            g_index.m_isVisible = false;
+        }
+    }
+
+    /**
+     * This is a utility method to get the name of the current logged in
+     * user and apply it to the main header of the application.
+     *
+     */
+    public void updateMainHeader()
+    {
+        if (RESTility.getUserToken() == null) {
+            return;
+        }
+        m_header.setWelcomeString("Welcome " + RESTility.getUserToken());
+    }
+
+    /**
+     * set the authentication provider used by REStitlity so that this authentication provider
+     * will be used instead of the default authentication provider that comes with spiffy framework
+     *
+     */
     public static void setAuthProvider() {
-        RESTility.setAuthProvider(new SampleAuthUtil());    
+        RESTility.setAuthProvider(m_authUtil);
+    }
+
+    /**
+     * When login is successful, make the application visible
+    */
+    public void onLoginSuccess() {
+        Index.showApplication();
+        updateMainHeader();
+    }
+
+    public void loginPrompt() {
+        //no-op
     }
 }
