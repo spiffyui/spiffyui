@@ -920,3 +920,142 @@ h3.subSectionTitle.expandable.expanded {
 #errorpanel_hide a {
     text-decoration: none;
 }
+
+/*
+  For Login -Begin
+*/
+#login_form {
+    position: absolute;
+    z-index: 7101;
+    border: none;
+    width: 500px;
+    left: 25%;
+    top: 15%;
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    -moz-box-shadow:0 4px 18px lightgray;
+    background-color:white;
+    border:1px solid #E5E5E5;
+}
+
+#loginHeaderContainer {
+    -moz-border-radius-topleft: 0.5em;
+    -moz-border-radius-topright: 0.5em;
+    -webkit-border-radius-topleft: 0.5em;
+    -webkit-border-radius-topright: 0.5em;
+    height: 55px;
+    background:url("images/spiffy_headerslice.png") repeat-x scroll left top transparent;
+}
+
+
+#login_username, #login_password {
+    height: 32px;
+    width: 100%;
+}
+
+#login_username_row label, #login_password_row label {
+    margin-right: 1em;
+    margin-top: -1em;
+    display: block;
+    white-space: nowrap;
+}
+
+#login_username_txt, #login_password_txt {
+    background:none repeat scroll 0 0 #FBFBFB;
+    border:1px solid #E5E5E5;
+    font-size:16px;
+    margin-bottom:16px;
+    margin-right:6px;
+    margin-top:2px;
+    padding:3px;
+    width: 97%;
+    height: 28px;
+}
+
+#login_titlespan {
+  padding-right: 40px;
+  font-size: 18px;
+}
+
+#login_glass_pane {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #F9F9F9;
+  width: 100%;
+  height: 100%;
+  z-index: 7100; /* has to be greater than gwt-DialogBox in case of token expiration */
+}
+
+#login_glass_pane.loginRepeatGlass {
+    background: black;
+    opacity: 0.1;
+}
+
+.login_content {
+  background-color:white;
+  padding:15px;
+  position:relative;
+  -moz-border-radius-bottomleft: 0.5em;
+  -moz-border-radius-bottomright: 0.5em;
+  -webkit-border-radius-bottomleft: 0.5em;
+  -webkit-border-radius-bottomright: 0.5em;
+}
+
+.logintitle {
+  color: #4D6D8B;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.logintitle a {
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  margin-left: 10px;
+}
+
+.loginDetail {
+  left:0;
+  overflow:auto;
+  position:relative;
+  width:90%;
+}
+
+#login_submit_button, #loging_logout_link {
+    float: right;
+    margin-right: 3%;
+}
+
+#loging_logout_link {
+    padding-top: 7px;
+}
+
+.loginDetail2 {
+  background-color:#ECE0C4;
+}
+
+.headTitleConfig {
+  line-height:1em;
+  color:#ECE0C4;
+  font-size:1em;
+}
+
+#loginmessage {
+  color:gray;
+  font-size:0.85em;
+}
+
+.marginleft1 {
+  margin-left: 5.5em;
+}
+
+.loginDetail table {
+    margin-top: 1em;
+}
+
+.copyrightsymbol {
+    font-size: 9px;
+    font-family: Verdana,Arial,Sans-serif;
+}
+

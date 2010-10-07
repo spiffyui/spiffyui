@@ -30,3 +30,13 @@
 #humanMsgLog ul {
     padding-bottom: 4em;
 }
+
+#login_glass_pane.loginRepeatGlass {
+    opacity: 0.3;
+    filter: alpha(opacity = 30);
+}
+
+#login_username_row label, #login_password_row label {
+    margin-top: 0px;
+    position: relative;
+    top: -10px;

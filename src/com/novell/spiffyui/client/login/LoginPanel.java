@@ -50,12 +50,12 @@ import com.novell.spiffyui.client.widgets.SmallLoadingIndicator;
  *
  * The styles (css classes) that the panel uses are as follows
  * <ul>
- * <li>.novellliblogintitle - For the title of the login dialog
- * <li>.novellliblogin_username - For the username label
- * <li>.novellliblogin_username_txt - For the username text field
- * <li>.novellliblogin_password - For the password label
- * <li>.novellliblogin_password_txt - For the password text box
- * <li>.novellliblogin_submit - For the submit button on the login form
+ * <li>.logintitle - For the title of the login dialog
+ * <li>.login_username - For the username label
+ * <li>.login_username_txt - For the username text field
+ * <li>.login_password - For the password label
+ * <li>.login_password_txt - For the password text box
+ * <li>.login_submit - For the submit button on the login form
  * </ul>
  *
  */
@@ -193,11 +193,11 @@ public final class LoginPanel extends Composite implements KeyUpHandler
                  * In the case of SSO or page refreshing we won't have
                  * the user name so we have to prompt for it.
                  */
-                JSUtil.hide("#novellliblogin_username_row", "fast");
-                m_panel.getElementById("novelllibloginmessage").setInnerText(STRINGS.repeatlogin());
+                JSUtil.hide("#login_username_row", "fast");
+                m_panel.getElementById("loginmessage").setInnerText(STRINGS.repeatlogin());
             } else {
-                JSUtil.show("#novellliblogin_username_row", "fast");
-                m_panel.getElementById("novelllibloginmessage").setInnerText(STRINGS.repeatloginTwo());
+                JSUtil.show("#login_username_row", "fast");
+                m_panel.getElementById("loginmessage").setInnerText(STRINGS.repeatloginTwo());
             }
         } else {
             //todo: fix this
@@ -207,8 +207,8 @@ public final class LoginPanel extends Composite implements KeyUpHandler
             m_glassPanel.getElement().removeClassName("loginRepeatGlass");
             m_fp.getElement().removeClassName("loginRepeat");
             m_panel.getElementById("login_titlespan").setInnerText(STRINGS.login());
-            m_panel.getElementById("novelllibloginmessage").setInnerText("");
-            JSUtil.show("#novellliblogin_username_row", "fast");
+            m_panel.getElementById("loginmessage").setInnerText("");
+            JSUtil.show("#login_username_row", "fast");
         }
     }
 
@@ -236,29 +236,28 @@ public final class LoginPanel extends Composite implements KeyUpHandler
                     "<span class=\"headertitle\">" + STRINGS.productName("<span class=\"copyrightsymbol\">&reg;</span>") + "</span>" +
                 "</div>" +
             "</div>" +
-            "<div class=\"content\">" +
+            "<div class=\"login_content\">" +
                 "<div style=\"display: block;\" id=\"contentDetail\">" +
                 "<div id=\"login_titlediv\" class=\"logintitle\"><span id=\"login_titlespan\">" + title + "</span></div>" +
                     "<div id=\"loginDetailsId\" class=\"loginDetail\">" +
-                        "<div id=\"novelllibloginmessage\"></div>" +
+                        "<div id=\"loginmessage\"></div>" +
                         "<table cellspacing=\"4\" border=\"0\" style=\"display: block;\">" +
                             "<tbody>" +
-                                "<tr id=\"novellliblogin_username_row\">" +
+                                "<tr id=\"login_username_row\">" +
                                     "<td><label>" + STRINGS.username() + "</label></td>" +
-                                    "<td id=\"novellliblogin_username\"></td>" +
+                                    "<td id=\"login_username\"></td>" +
                                 "</tr>" +
-                                "<tr id=\"novellliblogin_password_row\">" +
-                                    "<td><label id=\"novellliblogin_password_label\">" + STRINGS.password() + "</label></td>" +
-                                    "<td id=\"novellliblogin_password\"></td>" +
+                                "<tr id=\"login_password_row\">" +
+                                    "<td><label>" + STRINGS.password() + "</label></td>" +
+                                    "<td id=\"login_password\"></td>" +
                                 "</tr>" +
                                 "<tr><td/>" +
                                     "<td id=\"gwtsubmit\"></td>" +
                                 "</tr>" +
                             "</tbody>" +
                         "</table>" +
-                        "<div style=\"margin-top: 2em;\" class=\"marginleft1\" id=\"novelllibloginconfig\"></div>" +
+                        "<div style=\"margin-top: 2em;\" class=\"marginleft1\" id=\"loginconfig\"></div>" +
                     "</div>" +
-//                    "<div class=\"copyright\">" + Index.STRINGS.copyright() + "</div>" +
                 "</div>" +
             "</div>";
 
@@ -268,21 +267,21 @@ public final class LoginPanel extends Composite implements KeyUpHandler
         m_fp.setWidget(m_panel);
 
         m_message = new HTML();
-        m_panel.add(m_message, "novelllibloginmessage");
+        m_panel.add(m_message, "loginmessage");
 
         //username
         m_username = new TextBox();
         m_username.setName("login_panel_user");
         m_username.addKeyUpHandler(this);
-        m_username.getElement().setId("novellliblogin_username_txt");
-        m_panel.add(m_username, "novellliblogin_username");
+        m_username.getElement().setId("login_username_txt");
+        m_panel.add(m_username, "login_username");
 
         // password
         m_pwd = new PasswordTextBox();
         m_pwd.setName("login_panel_pwd");
         m_pwd.addKeyUpHandler(this);
-        m_pwd.getElement().setId("novellliblogin_password_txt");
-        m_panel.add(m_pwd, "novellliblogin_password");
+        m_pwd.getElement().setId("login_password_txt");
+        m_panel.add(m_pwd, "login_password");
 
         // login button
         m_submit = new Button(STRINGS.login(), new ClickHandler() {
@@ -292,11 +291,11 @@ public final class LoginPanel extends Composite implements KeyUpHandler
                 }
         });
 
-        m_submit.getElement().setId("novellliblogin_submit_button");
+        m_submit.getElement().setId("login_submit_button");
         m_panel.add(m_submit, "gwtsubmit");
 
         m_logout = new Anchor(STRINGS.logout());
-        m_logout.getElement().setId("novelllibloging_logout_link");
+        m_logout.getElement().setId("loging_logout_link");
         m_logout.addClickHandler(new ClickHandler() {
                 public void onClick(ClickEvent event)
                 {
