@@ -162,7 +162,7 @@
         </copy>
         
         <copy todir="${spiffy.www}">
-            <fileset dir="${spiffy.css}" includes="spiffyui.ie.css" />
+            <fileset dir="${spiffy.css}" includes="*.css" />
         </copy>
     </target>
     
