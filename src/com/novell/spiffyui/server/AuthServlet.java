@@ -213,6 +213,7 @@ public class AuthServlet extends HttpServlet
     {
         ServletOutputStream out = response.getOutputStream();
         if (user == null || pwd == null || tsUrl == null) {
+            //todo:localize
             returnError(response, "Login requires a username, password, and token server URL",
                         RESTAuthConstants.INVALID_LOGIN_REQUEST);
             return;
@@ -249,6 +250,7 @@ public class AuthServlet extends HttpServlet
         int status = authResponse.getStatusLine().getStatusCode();
 
         if (status == 404) {
+            //todo:localize
             returnError(response, "The token server URL was not found",
                         RESTAuthConstants.NOTFOUND_TS_URL);
             return;

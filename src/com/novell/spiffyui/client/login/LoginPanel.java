@@ -116,7 +116,8 @@ public final class LoginPanel extends Composite implements KeyUpHandler
 
         g_loginPanel.setCallbackKey(callbackKey);
         g_loginPanel.setTokenServerUrl(tokenServerUrl);
-
+        
+        //todo: move this block somewhere else
         final String user = getUsernameFromCookie();
         final String pwd = getPasswordFromCookie();
 
@@ -162,7 +163,7 @@ public final class LoginPanel extends Composite implements KeyUpHandler
         }
 
     }
-
+    //todo: move this somewhere else
     private static String getUsernameFromCookie()
     {
         String user = Cookies.getCookie(RBPM_USER_COOKIE);
@@ -170,7 +171,8 @@ public final class LoginPanel extends Composite implements KeyUpHandler
 
         return user;
     }
-
+  
+    //todo: move this somewhere else
     private static String getPasswordFromCookie()
     {
         String pwd = Cookies.getCookie(RBPM_PWD_COOKIE);

@@ -306,6 +306,7 @@ public final class RESTility
      *
      * @param locale the locale
      */
+    //todo: move this somewhere else
     public static void setBestLocale(String locale)
     {
         if (getBestLocale() != null) {
@@ -481,7 +482,7 @@ public final class RESTility
 
     /**
      * Getting the current user information is a different kind of REST call.  The
-     * issue is that is has the user token as part of the URL.  This is a problem
+     * issue is that it has the user token as part of the URL.  This is a problem
      * because of the following scenario:
      *
      * 1. Login and get a token.
@@ -499,7 +500,7 @@ public final class RESTility
      *
      * @param callback
      */
-    //todo: move this somewhere else
+    //todo: do I need to move this somewhere else
     public static void getUserInfo(RESTCallback callback)
     {
         callREST(RESTility.getCoreContext() + "/rpt/rptusers/" + URL.encode(RESTility.getUserToken()),
@@ -710,7 +711,7 @@ public final class RESTility
 
             if (response.getStatusCode() == Response.SC_UNAUTHORIZED) {
                 /*
-                 * For other return values of 401 we need to show the login dialog
+                 * For return values of 401 we need to show the login dialog
                  */
                 try {
                     for (RESTLoginCallBack listener : m_loginListeners) {
@@ -786,12 +787,12 @@ public final class RESTility
 
     public static void addLoginListener(RESTLoginCallBack callback)
     {
-        RESTILITY.m_loginListeners.add(callback);
+        RESTility.m_loginListeners.add(callback);
     }
 
     public static void removeLoginListener(RESTLoginCallBack callback)
     {
-        RESTILITY.m_loginListeners.remove(callback);
+	    RESTility.m_loginListeners.remove(callback);
     }
 }
 
