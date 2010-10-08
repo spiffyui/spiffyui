@@ -412,7 +412,7 @@ public final class LoginPanel extends Composite implements KeyUpHandler
 
     private void show()
     {
-        JSUtil.hide("main", "fast");
+        JSUtil.hide("#main", "fast");
         m_glassPanel.setVisible(true);
         m_fp.setVisible(true);
 
@@ -433,7 +433,7 @@ public final class LoginPanel extends Composite implements KeyUpHandler
     {
         m_glassPanel.setVisible(false);
         m_fp.setVisible(false);
-        JSUtil.show("main", "fast");
+        JSUtil.show("#main", "fast");
     }
 
     @Override
