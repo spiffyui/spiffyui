@@ -158,9 +158,9 @@ public class AuthUtil implements RESTAuthProvider
                     }
 
                     RESTility.setUserToken(o.get("Token").isString().stringValue());
-                    for (RESTLoginCallBack listener : RESTility.getLoginListeners()) {
-                        listener.onLoginSuccess();
-                    }
+                    //for (RESTLoginCallBack listener : RESTility.getLoginListeners()) {
+                        //listener.onLoginSuccess();
+                    //}
                     callback.success(o.get("Token").isString().stringValue());
                 }
 
@@ -184,10 +184,10 @@ public class AuthUtil implements RESTAuthProvider
      *
      * @param callback the callback
      */
-    public void addLoginListener(RESTLoginCallBack callback)
+    /*public void addLoginListener(RESTLoginCallBack callback)
     {
         RESTility.addLoginListener(callback);
-    }
+    }*/
 
     /**
      * Removes the specified login callback from the list of callbacks when the user is
@@ -195,10 +195,10 @@ public class AuthUtil implements RESTAuthProvider
      *
      * @param callback the callback
      */
-    public void removeLoginListener(RESTLoginCallBack callback)
+    /*public void removeLoginListener(RESTLoginCallBack callback)
     {
         RESTility.removeLoginListener(callback);
-    }
+    }*/
 
     /**
      * Gets the servlet context from the current URL.  The context is assumed
