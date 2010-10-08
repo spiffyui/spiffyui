@@ -116,12 +116,20 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         m_panels.put(item, new CSSPanel());
 
         /*
+         The build info panel
+         */
+        item = new NavItem("buildNavItem", "Spiffy Build",
+                           "This is the navigation item for the spiffy build page");
+        m_navBar.add(item);
+        m_panels.put(item, new BuildPanel());
+
+        /*
          A separator
          */
         m_navBar.add(new NavSeparator(HTMLPanel.createUniqueId()));
         
         /*
-         The page 1 panel
+         The sample widgets panel
          */
         item = new NavItem("page1NavItem", "Sample Widgets",
                                    "This is the navigation item for the simple widgets page");
@@ -129,7 +137,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         m_panels.put(item, new WidgetsPanel());
         
         /*
-         The page 2 panel
+         The sample form panel
          */
         item = new NavItem("page2NavItem", "Sample Form",
                            "This is the navigation item for the simple form page");

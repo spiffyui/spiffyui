@@ -1,0 +1,150 @@
+<h1>Spiffy UI Ant Tasks</h1><br />
+<br />
+<div id="antPanelText">
+    <p>
+    The Spiffy UI Framework also includes Ant tasks to build and compile JavaScript, CSS, HTML, and some other formats.  These tasks may be reused in any project that uses the framework.
+    </p>
+
+    <h2>Google Closure Compiler</h2>
+
+    <p>
+    The Spiffy UI Framework uses the <a href="http://code.google.com/closure/compiler/">Google Closure Compiler</a> for checking and compressing JavaScript files.  To compress the JavaScript files in your project you must first define the Closure task like this:
+    </p>
+
+    <p>
+    <pre>
+    &lt;taskdef name="closure" classname="com.novell.spiffyui.build.ClosureTask"&gt;
+        &lt;classpath&gt;
+            &lt;pathelement location="${spiffy.build}/lib/closure-compiler.jar"/&gt;
+            &lt;pathelement path="${spiffy.build}/lib/closuretask.jar"/&gt;
+        &lt;/classpath&gt;
+    &lt;/taskdef&gt;
+    </pre>
+    </p>
+
+    <p>
+    Once this task is defined you can call it on any JavaScript files you want to compress like this:
+    </p>
+
+    <p>
+    <pre>
+    &lt;closure jsfile="myjs.min.js" 
+             closurejar="${spiffy.build}/lib/closure-compiler.jar"
+             compilationLevel="SIMPLE_OPTIMIZATIONS"
+             warninglevel="DEFAULT"&gt;
+        &lt;fileset dir="/" includes="**/*.js" /&gt;
+    &lt;/closure&gt;
+
+    </pre>
+    </p>
+
+    <p>
+        This task supports the full Ant path and fileset syntax for specifying the input files.  <a href="http://code.google.com/closure/compiler/docs/api-tutorial3.html">Advanced Compilation and Externs</a> has documentation on the meaning of the other options.
+    </p>
+
+    <h2>JSLint</h2>
+    <p>
+    JSLint is a JavaScript static code analysis tool.  It will check your JavaScript and find common errors and bad practices.  All JavaScript in the Spiffy UI framework is checked with JSLint as part of the normal build.
+    </p>
+
+    <p>
+    To use JSLint start by defining the jslint task:
+    </p>
+
+    <p>
+    <pre>
+    &lt;taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask"&gt;
+        &lt;classpath&gt;
+            &lt;pathelement path="${spiffy.build}/lib/jslint4java-1.3.3.jar"/&gt;
+        &lt;/classpath&gt;
+    &lt;/taskdef&gt;
+
+    </pre>
+    </p>
+
+    <p>
+    Once you define the task you can use it at any point in your build like this:
+    </p>
+
+    <p>
+    <pre>
+    &lt;jslint&gt;
+        &lt;formatter type="plain" /&gt;
+        &lt;fileset dir="/" includes="**/*.js" /&gt;
+    &lt;/jslint&gt;
+    </pre>
+    </p>
+
+    <p>
+    This task supports the full Ant path and fileset syntax for specifying the input files.  More information about the JSLint task can be found at the <a href="http://code.google.com/p/jslint4java/">jslint4java</a> project page.
+    </p>
+
+    <h2>HTMLProps</h2>
+    <p>
+    The HTML properties task allows you to embed the contents of an HTML file into your GWT application.  This is very useful for pages like this one which use large chunks of content in HTML.  This task is not used in the Spiffy UI framework, but it powers many of the pages in the SPSample application.
+    </p>
+
+    <p>
+    The first step is to define this task:
+    </p>
+
+    <p>
+    <pre>
+    &lt;taskdef name="htmlprops" classname="com.novell.spiffyui.build.HTMLPropertiesTask"&gt;
+        &lt;classpath&gt;
+            &lt;pathelement location="${root}/external/spiffyui/build/lib/closure-compiler.jar"/&gt;
+            &lt;pathelement location="${root}/external/spiffyui/build/lib/closuretask.jar"/&gt;
+        &lt;/classpath&gt;
+    &lt;/taskdef&gt;
+
+    </pre>
+    </p>
+
+    <p>
+    Once you define the task you can use it like this:
+    </p>
+
+    <p>
+    <pre>
+    &lt;htmlprops properties="MyStrings.properties"&gt;
+        &lt;fileset dir="/" includes="**/*.html" /&gt;
+    &lt;/htmlprops&gt;
+
+    </pre>
+    </p>
+
+    <p>
+    This task supports the full Ant path and fileset syntax for specifying the input files.  It will take all HTML files and format them into a properties file conforming with the java.util.Properties format.  Each property has the key of the file name and the value of the HTML file contents.  The contents are reformatted to conform to the properties file standard.
+    </p>
+
+    <p>
+    Once this properties file is generate you can access it with a <a href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.0/com/google/gwt/i18n/client/Messages.html">GWT Messages</a> class.  
+    </p>
+
+    <p>
+    For example, if you have an HTML file name myfile.html and it has the following contents:
+    </p>
+
+    <p>
+    <pre>
+    &lt;h1&gt;
+        This is my file
+    &lt;/h1&gt;
+
+    </pre>
+    </p>
+
+    <p>
+    This file will generate a properties file like this:
+    </p>
+
+    <p>
+    <pre>
+    myfile_html=&lt;h1&gt;\r\nThis is my file\r\n&lt;/h1&gt;
+    </pre>
+    </p>
+
+    <p>
+    You can see an example of using this task in the SPSample project.
+    </p>
+</div>

@@ -41,18 +41,17 @@
     </target>
     
     <target name="HTMLProps" depends="setup">
-        <taskdef name="closure" classname="com.novell.spiffyui.build.HTMLPropertiesTask">
+        <taskdef name="htmlprops" classname="com.novell.spiffyui.build.HTMLPropertiesTask">
             <classpath>
-                <pathelement location="${root}/external/spiffyui/build/lib/closure-compiler.jar"/>
                 <pathelement location="${root}/external/spiffyui/build/lib/closuretask.jar"/>
             </classpath>
         </taskdef>
         
         <mkdir dir="${root}/bin/classes/com/novell/spsample/client"/>
         
-        <closure properties="${root}/bin/classes/com/novell/spsample/client/SPSampleStrings.properties">
+        <htmlprops properties="${root}/bin/classes/com/novell/spsample/client/SPSampleStrings.properties">
             <fileset dir="${root}/src/com/novell/spsample/client" includes="**/*.html" />
-        </closure>
+        </htmlprops>
         
     </target>
     

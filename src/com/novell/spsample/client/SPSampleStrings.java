@@ -26,6 +26,7 @@ import com.google.gwt.i18n.client.Messages;
  */
 public interface SPSampleStrings extends Messages {
 
+    public String BuildPanel_html();
     public String CSSPanel_html();
     public String DocPanel_html();
     public String OverviewPanel_html();
