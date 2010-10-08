@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Spiffy UI" default="spiffy" basedir="..">
     <target name="spiffy" depends="setup">
-        <!--<antcall target="js-lint" />-->
         <antcall target="compile"/>
+        <antcall target="js-lint" />
         <antcall target="js-min" />
         <antcall target="css-min" />
     </target>
