@@ -102,7 +102,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         /*
          The doc panel
          */
-        item = new NavItem("docNavItem", "Spiffy Doc",
+        item = new NavItem("docNavItem", "Get Started",
                            "This is the navigation item for the spiffy doc page");
         m_navBar.add(item);
         m_panels.put(item, new DocPanel());
