@@ -41,8 +41,10 @@ import com.novell.spiffyui.client.JSUtil;
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.SpiffyUIStrings;
 import com.novell.spiffyui.client.rest.AuthUtil;
+import com.novell.spiffyui.client.rest.RESTAuthProvider;
 import com.novell.spiffyui.client.rest.RESTException;
 import com.novell.spiffyui.client.rest.RESTObjectCallBack;
+import com.novell.spiffyui.client.rest.RESTility;
 import com.novell.spiffyui.client.widgets.SmallLoadingIndicator;
 
 /**
@@ -61,11 +63,13 @@ import com.novell.spiffyui.client.widgets.SmallLoadingIndicator;
  */
 public final class LoginPanel extends Composite implements KeyUpHandler
 {
+    //todo: move this specific string somewhere else
     private static final String RBPM_USER_COOKIE = "novell-rbpm-login-user";
     private static final String RBPM_PWD_COOKIE = "novell-rbpm-login-pwd";
 
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
-    private AuthUtil m_authUtil = new AuthUtil();
+
+    private RESTAuthProvider m_authUtil = RESTility.getAuthProvider();
 
     private static LoginPanel g_loginPanel;
 
@@ -202,8 +206,10 @@ public final class LoginPanel extends Composite implements KeyUpHandler
         } else {
             //todo: fix this
             //Index.hideApplication();
-            JSUtil.hide("#mainFooter", "fast");
-            JSUtil.hide("body > #mainWrap > #main", "fast");
+            if (JSUtil.isVisible("body > #mainWrap > #main")) {
+                JSUtil.hide("#mainFooter", "fast");
+                JSUtil.hide("body > #mainWrap > #main", "fast");
+            }
             m_glassPanel.getElement().removeClassName("loginRepeatGlass");
             m_fp.getElement().removeClassName("loginRepeat");
             m_panel.getElementById("login_titlespan").setInnerText(STRINGS.login());

@@ -133,6 +133,11 @@ public final class RESTility
         m_authProvider = authProvider;
     }
 
+    public static final RESTAuthProvider getAuthProvider()
+    {
+        return m_authProvider;
+    }
+
     private void doLogin(RESTCallback callback, Response response, String url, String errorCode)
         throws RESTException
     {
@@ -301,7 +306,7 @@ public final class RESTility
      *
      * @param locale the locale
      */
-    protected static void setBestLocale(String locale)
+    public static void setBestLocale(String locale)
     {
         if (getBestLocale() != null) {
             if (!getBestLocale().equals(locale)) {
@@ -353,7 +358,7 @@ public final class RESTility
         return RESTILITY.m_hasLoggedIn;
     }
 
-    protected static String getFullAuthToken()
+    public static String getFullAuthToken()
     {
         return BASIC_AUTH + " " + getUserToken();
     }
@@ -495,11 +500,11 @@ public final class RESTility
      * @param callback
      */
     //todo: move this somewhere else
-    /*protected static void getUserInfo(RESTCallback callback)
+    public static void getUserInfo(RESTCallback callback)
     {
         callREST(RESTility.getCoreContext() + "/rpt/rptusers/" + URL.encode(RESTility.getUserToken()),
                  null, GET, callback, false, false, null);
-    }*/
+    }
 
     /**
      * Make an HTTP call and get the results as a JSON object.  This method handles

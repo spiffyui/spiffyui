@@ -91,7 +91,7 @@ public class RESTException extends Exception
      *                the HTTP response code
      * @param url     the URL for this exception
      */
-    protected RESTException(String code, String subcode, String reason, 
+    public RESTException(String code, String subcode, String reason, 
                             HashMap<String, String> details, int responseCode,
                             String url)
     {
