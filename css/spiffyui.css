@@ -16,6 +16,10 @@ body, .gwt-TextBox, .gwt-ListBox, .gwt-PasswordTextBox, .gwt-TextArea, .gwt-Sugg
     font-size: 11px;
 }
 
+.gwt-TextBox {
+    padding: 2px;
+}
+
 .gwt-TextArea, .gwt-SuggestBox.multivalue {
     height: 42px;
     margin-top: -4px;
@@ -274,6 +278,10 @@ body > #mainWrap {
 .humanMsg .round {
     border-left: none;
     border-right: none;
+}
+
+.humanMsgLog {
+    display: none;
 }
 
 .main-menuSeparator {
