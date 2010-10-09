@@ -131,13 +131,13 @@
     </target>
     
     <target name="css-min" description="Minimize the CSS with the YUI compiler">
-        <concat destfile="${spiffy.www}/spiffyui.css" force="no">
+        <concat destfile="${spiffy.www}/spiffyui.css" force="yes">
             <!-- Since Cascading Style Sheets cascade the order is important here.  We need to make sure
                   That we load in the right order so different styles can be overwriten. -->
-            <fileset dir="${spiffy.js}/lib" includes="**/*.css" />
+            <fileset dir="${spiffy.js}" includes="**/*.css" />
             <fileset dir="${spiffy.css}" includes="*.css" excludes="spiffyui.ie.css" />
         </concat>
-        
+
         <java classname="com.yahoo.platform.yui.compressor.Bootstrap"
             fork="true" failonerror="true" maxmemory="256m">
             <arg value="-o"/>
@@ -150,7 +150,7 @@
                 <pathelement path="${java.class.path}"/>
             </classpath>
         </java>
-        
+
         <!-- Now that we have created the compressed file we don't
              need the concatenated file -->
         <delete file="${spiffy.www}/spiffyui.css" />
