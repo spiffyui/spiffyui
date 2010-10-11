@@ -1,7 +1,8 @@
 /*
-   These are basic styles for our entire page and all of our controls
+   These are basic styles for our entire page and all of our controls.  They keep all of the 
+   control spaced properly in our grid which has 14 pixel rows and 155 pixel columns with a 
+   20 pixels spacer between columns.
  */
-
 body {
     background-color: white;
 }
