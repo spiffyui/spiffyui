@@ -21,7 +21,6 @@ package com.novell.spiffyui.build;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -185,7 +184,7 @@ public class HTMLPropertiesTask extends Task
                     in = new InputStreamReader(new FileInputStream(f), "UTF-8");
                     StringBuffer sb = new StringBuffer();
                     int c = -1;
-                    while((c = in.read()) > -1) {
+                    while ((c = in.read()) > -1) {
                         if (c == '\'') {
                             sb.append("&#39;");
                         } else if (c == '{' ||

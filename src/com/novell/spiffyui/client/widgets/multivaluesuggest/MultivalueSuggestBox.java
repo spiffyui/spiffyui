@@ -61,7 +61,7 @@ import com.novell.spiffyui.client.widgets.FormFeedback;
 * { 
 *  "TotalSize" : 133, 
 *  "Options" : [
-*  	{"Value" : "#EFDECD", "DisplayName" : "Almond"},
+*   {"Value" : "#EFDECD", "DisplayName" : "Almond"},
 *   {"Value" : "#CD9575", "DisplayName" : "Antique Brass"},
 *   {"Value" : "#FDD9B5", "DisplayName" : "Apricot"}
 *  ]
@@ -171,7 +171,9 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
    public void updateFormFeedback(int status, String tooltip)
    {
        m_feedback.setStatus(status);
-       if (tooltip != null) m_feedback.setTitle(tooltip);
+       if (tooltip != null) {
+           m_feedback.setTitle(tooltip);
+       }
        
        TextBoxBase textBox = m_field.getTextBox();
        if (FormFeedback.LOADING == status) {
@@ -245,12 +247,13 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
    
    /**
     * @param valueMap the valueMap to set
-	*/
-	public void setValueMap(Map<String, String> valueMap) {
-		m_valueMap = valueMap;
-	}
-	
-	/**
+    */
+    public void setValueMap(Map<String, String> valueMap)
+    {
+        m_valueMap = valueMap;
+    }
+    
+    /**
     * If there is more than one key in the text field,
     * check that every key has a value in the map.
     * For any that do not, try to find its exact match.
@@ -299,11 +302,9 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
    {
        updateFormFeedback(FormFeedback.LOADING, m_loadingText);
        
-       queryOptions( 
-           displayValue,
-               0,
-               m_findExactMatchQueryLimit, //return a relatively small amount in case wanted "Red" and "Brick Red" is the first thing returned               
-           new RESTObjectCallBack<OptionResultSet>() {
+       queryOptions(displayValue, 0, 
+                    m_findExactMatchQueryLimit, //return a relatively small amount in case wanted "Red" and "Brick Red" is the first thing returned               \
+                    new RESTObjectCallBack<OptionResultSet>() {
 
                @Override
                public void error(String message)
@@ -460,7 +461,7 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
     */
    public String getText()
    {
-	   return m_field.getText();
+       return m_field.getText();
    }
 
    /**
@@ -469,7 +470,7 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
     */
    public void setText(String text)
    {
-	   m_field.setText(text);
+       m_field.setText(text);
    }
    
    @Override
@@ -504,7 +505,8 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
     * @param handler to add
     * @return the HandlerRegistration
     */
-   public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+   public HandlerRegistration addKeyUpHandler(KeyUpHandler handler)
+   {
        return m_field.addKeyUpHandler(handler);
    }
    
@@ -631,50 +633,50 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
     */
    private void queryOptions(final String query, final int from, final int to, final RESTObjectCallBack<OptionResultSet> callback)
    {
-	   
-	   String url = m_restHelper.buildUrl(query, from, to);
-	   RESTility.callREST(url, null, RESTility.GET, new RESTCallback() {
-		    
-		    @Override
-		    public void onSuccess(JSONValue val) 
-		    {
-		        JSONObject obj = val.isObject();
-		        int totSize = JSUtil.getIntValue(obj, m_restHelper.getTotalSizeKey());
-		        OptionResultSet options = new OptionResultSet(totSize);
-		        JSONArray optionsArray = JSUtil.getJSONArray(obj, m_restHelper.getOptionsKey());
-		
-		        if (options.getTotalSize() > 0 && optionsArray != null) {
-		            
-		            for (int i = 0; i < optionsArray.size(); i++) {
-		                if (optionsArray.get(i) == null) {
-		                    /*
-		                     This happens when a JSON array has an invalid trailing comma
-		                     */
-		                    continue;
-		                }
-		                
-		                JSONObject jsonOpt = optionsArray.get(i).isObject();
-		                Option option = new Option();
-		                option.setName(JSUtil.getStringValue(jsonOpt, m_restHelper.getNameKey()));
-		                option.setValue(JSUtil.getStringValue(jsonOpt, m_restHelper.getValueKey()));
-		                options.addOption(option);
-		            }
-		        }                    
-		        callback.success(options);
-		    }
-		    
-		    @Override
-		    public void onError(int statusCode, String errorResponse) 
-		    {
-		        callback.error(errorResponse);
-		    }
-		    
-		    @Override
-		    public void onError(RESTException e) 
-		    {
-		        callback.error(e);
-		    }
-		});
+       
+       String url = m_restHelper.buildUrl(query, from, to);
+       RESTility.callREST(url, null, RESTility.GET, new RESTCallback() {
+            
+            @Override
+            public void onSuccess(JSONValue val) 
+            {
+                JSONObject obj = val.isObject();
+                int totSize = JSUtil.getIntValue(obj, m_restHelper.getTotalSizeKey());
+                OptionResultSet options = new OptionResultSet(totSize);
+                JSONArray optionsArray = JSUtil.getJSONArray(obj, m_restHelper.getOptionsKey());
+        
+                if (options.getTotalSize() > 0 && optionsArray != null) {
+                    
+                    for (int i = 0; i < optionsArray.size(); i++) {
+                        if (optionsArray.get(i) == null) {
+                            /*
+                             This happens when a JSON array has an invalid trailing comma
+                             */
+                            continue;
+                        }
+                        
+                        JSONObject jsonOpt = optionsArray.get(i).isObject();
+                        Option option = new Option();
+                        option.setName(JSUtil.getStringValue(jsonOpt, m_restHelper.getNameKey()));
+                        option.setValue(JSUtil.getStringValue(jsonOpt, m_restHelper.getValueKey()));
+                        options.addOption(option);
+                    }
+                }                    
+                callback.success(options);
+            }
+            
+            @Override
+            public void onError(int statusCode, String errorResponse) 
+            {
+                callback.error(errorResponse);
+            }
+            
+            @Override
+            public void onError(RESTException e) 
+            {
+                callback.error(e);
+            }
+        });
    }
 
 /*
@@ -749,11 +751,7 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
                //JSUtil.println("getting Suggestions for: " + query);
                updateFormFeedback(FormFeedback.LOADING, m_loadingText);               
                                            
-               queryOptions( 
-                       query,
-                       m_indexFrom,
-                       m_indexTo,
-                   new RestSuggestCallback(m_request, m_callback, query));
+               queryOptions(query, m_indexFrom, m_indexTo, new RestSuggestCallback(m_request, m_callback, query));
            }
        }
    
@@ -838,17 +836,17 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
            m_callback.onSuggestionsReady(m_request, resp);
        }
 
-		@Override
-		public void error(String message) 
-		{
-			updateFormFeedback(FormFeedback.ERROR, getInvalidReason(m_query, message));
-		}
-	
-		@Override
-		public void error(RESTException e) 
-		{
-			updateFormFeedback(FormFeedback.ERROR, getInvalidReason(m_query, e.getReason()));
-		}	   
+        @Override
+        public void error(String message) 
+        {
+            updateFormFeedback(FormFeedback.ERROR, getInvalidReason(m_query, message));
+        }
+    
+        @Override
+        public void error(RESTException e) 
+        {
+            updateFormFeedback(FormFeedback.ERROR, getInvalidReason(m_query, e.getReason()));
+        }      
    }
 
    /**

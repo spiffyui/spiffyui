@@ -25,7 +25,8 @@ import com.google.gwt.user.client.ui.FlowPanel;
  * This is a reusable loading icon widget
  *
  */
-public class SmallLoadingIndicator extends FlowPanel {
+public class SmallLoadingIndicator extends FlowPanel
+{
     /**
      * Creates a new SmallLoadingIndicator
      */

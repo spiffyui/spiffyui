@@ -54,8 +54,8 @@ public class StatusIndicator extends FlowPanel
         String tooltip;
         switch (status) {
         case IN_PROGRESS:
-        	setStyleName("spiffy-status-inprogress");
-        	tooltip = STRINGS.statusInProgress();
+            setStyleName("spiffy-status-inprogress");
+            tooltip = STRINGS.statusInProgress();
             break;
         case FAILED:
             setStyleName("spiffy-status-failed");
@@ -66,7 +66,7 @@ public class StatusIndicator extends FlowPanel
             tooltip = STRINGS.statusSucceeded();
             break;
         default:
-        	tooltip = "";
+            tooltip = "";
             setStyleName("");
             break;
         }

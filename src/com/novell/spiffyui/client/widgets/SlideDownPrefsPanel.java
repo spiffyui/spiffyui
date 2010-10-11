@@ -48,7 +48,7 @@ public class SlideDownPrefsPanel extends HTMLPanel
      */
     public SlideDownPrefsPanel(String id)
     {
-    	this(id, null);
+        this(id, null);
     }
     
     /**
@@ -58,7 +58,7 @@ public class SlideDownPrefsPanel extends HTMLPanel
      * @param headerText - String the title of the panel and the label on the pull down tab, if null will use the default.
      */
     public SlideDownPrefsPanel(String id, String headerText)
-    {    	
+    {       
         super("div", "<div style=\"display: none;\" id=\"" + id + "-panel\" class=\"prefspaneltab\">" +
                          "<h3>" + (headerText == null ? STRINGS.displayOptions() : headerText) + "</h3>" + 
                      "</div>" + 

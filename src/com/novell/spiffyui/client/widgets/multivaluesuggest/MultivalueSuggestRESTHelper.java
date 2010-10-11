@@ -110,6 +110,15 @@ public abstract class MultivalueSuggestRESTHelper
         m_valueKey = valueKey;
     }
 
+    /**
+     * Build the REST URL with the specified parameters
+     * 
+     * @param q         the query
+     * @param indexFrom the starting index
+     * @param indexTo   the ending index
+     * 
+     * @return the URL with the specified parameters
+     */
     public abstract String buildUrl(String q, int indexFrom, int indexTo);
 
 }

@@ -41,8 +41,8 @@ import com.novell.spiffyui.client.SpiffyUIStrings;
  */
 public abstract class Dialog extends DialogBox
 {
-	private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
-	
+    private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
+    
     private String m_buttonClicked = "";
     private FlowPanel m_buttonBar;
     private HTMLPanel m_dialogBody;

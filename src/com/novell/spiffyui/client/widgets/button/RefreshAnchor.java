@@ -31,8 +31,8 @@ import com.novell.spiffyui.client.SpiffyUIStrings;
  */
 public class RefreshAnchor extends Anchor
 {
-	private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
-	
+    private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
+    
     private boolean m_enabled = true;
     private boolean m_loading = false;
     private Element m_iconDiv;

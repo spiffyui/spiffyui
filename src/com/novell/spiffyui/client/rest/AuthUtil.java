@@ -207,7 +207,8 @@ public class AuthUtil implements RESTAuthProvider
      *
      * @return the current server servlet context
      */
-    public String getServletContext() {
+    public String getServletContext()
+    {
         String url = Window.Location.getHref();
         int index = url.indexOf("/", url.indexOf("//") + 2);
         return url.substring(index + 1, url.indexOf("/", index + 2));

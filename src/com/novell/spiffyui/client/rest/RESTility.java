@@ -58,13 +58,13 @@ public final class RESTility
 
     private static boolean g_inLoginProcess = false;
 
-    private static ArrayList<RESTLoginCallBack> m_loginListeners = new ArrayList<RESTLoginCallBack>();
+    private static ArrayList<RESTLoginCallBack> g_loginListeners = new ArrayList<RESTLoginCallBack>();
 
     private int m_callCount = 0;
 
     private boolean m_hasLoggedIn = false;
 
-    private static RESTAuthProvider m_authProvider;
+    private static RESTAuthProvider g_authProvider;
 
     /**
      * Gets the name of the core WAR for use with REST calls.
@@ -130,12 +130,12 @@ public final class RESTility
 
     public static final void setAuthProvider(RESTAuthProvider authProvider)
     {
-        m_authProvider = authProvider;
+        g_authProvider = authProvider;
     }
 
     public static final RESTAuthProvider getAuthProvider()
     {
-        return m_authProvider;
+        return g_authProvider;
     }
 
     private void doLogin(RESTCallback callback, Response response, String url, String errorCode)
@@ -200,7 +200,7 @@ public final class RESTility
 
         Cookies.removeCookie(SESSION_COOKIE);
         Cookies.removeCookie(LOCALE_COOKIE);
-        m_authProvider.showLogin(callback, loginUri, errorCode);
+        g_authProvider.showLogin(callback, loginUri, errorCode);
     }
 
     /**
@@ -430,8 +430,9 @@ public final class RESTility
         }
     }
 
-    public static ArrayList<RESTLoginCallBack> getLoginListeners() {
-        return  m_loginListeners;
+    public static ArrayList<RESTLoginCallBack> getLoginListeners()
+    {
+        return  g_loginListeners;
     }
 
     /**
@@ -714,7 +715,7 @@ public final class RESTility
                  * For return values of 401 we need to show the login dialog
                  */
                 try {
-                    for (RESTLoginCallBack listener : m_loginListeners) {
+                    for (RESTLoginCallBack listener : g_loginListeners) {
                         listener.loginPrompt();
                     }
 
@@ -748,7 +749,7 @@ public final class RESTility
                 //todo: deal with this 2
                 if (RESTILITY.m_callCount > 2) {
                     RESTILITY.m_hasLoggedIn = true;
-                    for (RESTLoginCallBack listener : m_loginListeners) {
+                    for (RESTLoginCallBack listener : g_loginListeners) {
                         listener.onLoginSuccess();
                     }
                 }
@@ -787,12 +788,12 @@ public final class RESTility
 
     public static void addLoginListener(RESTLoginCallBack callback)
     {
-        RESTility.m_loginListeners.add(callback);
+        RESTility.g_loginListeners.add(callback);
     }
 
     public static void removeLoginListener(RESTLoginCallBack callback)
     {
-	    RESTility.m_loginListeners.remove(callback);
+        RESTility.g_loginListeners.remove(callback);
     }
 }
 
