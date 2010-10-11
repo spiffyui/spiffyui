@@ -18,9 +18,11 @@
  */
 package com.novell.spsample.client.rest;
 
+import java.util.Date;
+
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
-
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.rest.RESTCallback;
 import com.novell.spiffyui.client.rest.RESTException;
@@ -36,10 +38,13 @@ public final class VersionInfo
     private static VersionInfo g_versionInfo;
 
     private String m_version;
+    private String m_user;
+    private String m_rev;
+    private Date m_date;
 
-    private VersionInfo(String version)
+    private VersionInfo()
     {
-        m_version = version;
+        
     }
 
     /**
@@ -50,6 +55,21 @@ public final class VersionInfo
     public String getVersion()
     {
         return m_version;
+    }
+    
+    public String getUser()
+    {
+        return m_user;
+    }
+    
+    public String getRevision()
+    {
+        return m_rev;
+    }
+    
+    public Date getDate()
+    {
+        return m_date;
     }
 
     /**
@@ -79,7 +99,24 @@ public final class VersionInfo
                         MessageUtil.showError("An error occurred trying to get version info.");
                         return;
                     }
-                    g_versionInfo = new VersionInfo(bi.get("version").isString().stringValue());
+                    g_versionInfo = new VersionInfo();
+                    
+                    g_versionInfo.m_version = bi.get("version").isString().stringValue();
+                    g_versionInfo.m_user = bi.get("user").isString().stringValue();
+                    g_versionInfo.m_rev = bi.get("rev").isString().stringValue();
+                    
+                    Date date = null;
+                    try {
+                        date = DateTimeFormat.getMediumDateTimeFormat().
+                            parse(bi.get("date").isString().stringValue());
+                    } catch (Exception e) {
+                        MessageUtil.showError("Invalid version date: " + bi.get("date").isString().stringValue());
+                    }
+                    
+                    g_versionInfo.m_date = date;
+                    
+                    
+                    
                     callback.success(g_versionInfo);
                 }
 

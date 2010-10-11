@@ -21,9 +21,9 @@ package com.novell.spsample.client;
 import java.util.HashMap;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
-
 import com.novell.spiffyui.client.JSUtil;
 import com.novell.spiffyui.client.MainFooter;
 import com.novell.spiffyui.client.MainHeader;
@@ -173,7 +173,9 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         VersionInfo.getVersionInfo(new RESTObjectCallBack<VersionInfo>() {
             public void success(VersionInfo info)
             {
-                m_footer.setFooterString("Version: " + info.getVersion());                        
+                m_footer.setFooterString("Spiffy UI Sample version " + info.getVersion() +
+                                         " was built on " + DateTimeFormat.getFullDateFormat().format(info.getDate()) +
+                                         " from revision " + info.getRevision());
             }
 
             public void error(String message)

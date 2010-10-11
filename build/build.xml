@@ -9,6 +9,8 @@
             <property name="spiffy.classes" value="${root}/bin/classes"/>
         </ant>
         
+        <antcall target="addVersionInfo"/>
+        
         <antcall target="HTMLProps"/>
              
         <antcall target="gwt-compile">
@@ -35,7 +37,21 @@
 
         <property name="tomcat.home"  location="${build.base}/../rpt/external/tomcat"/>
         
+        <tstamp>
+            <format property="builddate" pattern="HH:mm d-MMMM-yyyy"/>
+        </tstamp>
+
+        <exec executable="svn" output="build_svninfo.xml">
+            <arg line="info --xml ${root}"/>
+        </exec>
+
+        <!-- We also store the current revision from Subversion -->
+        <xmlproperty file="build_svninfo.xml"/>
+        <delete file="build_svninfo.xml"/>
+        <property name="revision.number" value="${info.entry(revision)}"/>
+        
         <mkdir dir="${root}/bin"/>
+        <mkdir dir="${root}/bin/classes"/>
         <mkdir dir="${root}/bin/www"/>
         <mkdir dir="${root}/dist"/>
     </target>
@@ -89,9 +105,19 @@
         
     </target>
     
-    <target name="compile">
-        <mkdir dir="${root}/bin/classes"/>
+    <target name="addVersionInfo">
+        <mkdir dir="${root}/bin/classes/com/novell/spsample/server"/>
         
+        <propertyfile file="${root}/bin/classes/com/novell/spsample/server/buildnum.properties">
+            <entry  key="build.date" type="date" value="now" pattern="MMM d, yyyy h:mm:ss a"/>
+            <entry  key="build.user" value="${user.name}"/>
+            <entry  key="build.revision" value="${revision.number}"/>
+            <entry  key="build.version" value="0.8"/>
+            <entry  key="build.dir" value="${root}"/>
+        </propertyfile>
+    </target>
+    
+    <target name="compile">
         <!-- Compile all the Java -->
         <javac srcdir="${root}/src/com/novell/spsample/server" destdir="${root}/bin/classes" 
                target="1.5" source="1.5" debug="true" deprecation="yes"
@@ -118,7 +144,7 @@
                 <include name="**/*.js"/>
             </zipfileset>
             <zipfileset dir="${root}/bin/classes" prefix="WEB-INF/classes" >
-                <include name="**/*.class"/>
+                <include name="**/*"/>
             </zipfileset>
             
             <!-- We need to add the JARs to support the spiffy framework to
