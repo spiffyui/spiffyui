@@ -38,7 +38,7 @@
         <property name="tomcat.home"  location="${build.base}/../rpt/external/tomcat"/>
         
         <tstamp>
-            <format property="builddate" pattern="HH:mm d-MMMM-yyyy"/>
+            <format property="builddate" pattern="MMM d, yyyy h:mm:ss a"/>
         </tstamp>
 
         <exec executable="svn" output="build_svninfo.xml">
@@ -107,14 +107,14 @@
     
     <target name="addVersionInfo">
         <mkdir dir="${root}/bin/classes/com/novell/spsample/server"/>
-        
-        <propertyfile file="${root}/bin/classes/com/novell/spsample/server/buildnum.properties">
-            <entry  key="build.date" type="date" value="now" pattern="MMM d, yyyy h:mm:ss a"/>
-            <entry  key="build.user" value="${user.name}"/>
-            <entry  key="build.revision" value="${revision.number}"/>
-            <entry  key="build.version" value="0.8"/>
-            <entry  key="build.dir" value="${root}"/>
-        </propertyfile>
+
+        <echo file="${root}/bin/classes/com/novell/spsample/server/buildnum.properties">
+build.date=${builddate}
+build.user=${user.name}
+build.version=0.8
+build.revision=${revision.number}
+build.dir=${root}
+        </echo>
     </target>
     
     <target name="compile">
