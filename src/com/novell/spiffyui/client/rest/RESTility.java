@@ -50,10 +50,21 @@ public final class RESTility
     private static final String LOCALE_COOKIE = "Novell_Reporting_Locale";
 
     private static final RESTility RESTILITY = new RESTility();
-
+    /**
+     * HTTP GET
+     */
     public static final HTTPMethod GET = RESTILITY.new HTTPMethod("GET");
+    /**
+     * HTTP PUT
+     */
     public static final HTTPMethod PUT = RESTILITY.new HTTPMethod("PUT");
+    /**
+     * HTTP POST
+     */
     public static final HTTPMethod POST = RESTILITY.new HTTPMethod("POST");
+    /**
+     * HTTP DELETE
+     */
     public static final HTTPMethod DELETE = RESTILITY.new HTTPMethod("DELETE");
 
     private static boolean g_inLoginProcess = false;
@@ -224,6 +235,9 @@ public final class RESTility
         }
     }
 
+    /**
+     * Upon logout, delete cookie and clear out all member variables
+     */
     public static void doLocalLogout()
     {
         RESTILITY.m_hasLoggedIn = false;
@@ -253,6 +267,7 @@ public final class RESTility
     /**
      * This function calls out to JQuery to make the REST call.
      *
+     * @param callback the callback to invoke
      * @param url    the REST url to call
      */
     public static void callREST(String url, RESTCallback callback)
@@ -266,12 +281,17 @@ public final class RESTility
      *
      * @param url    the REST url to call
      * @param data   the data to pass to the URL
+     * @param callback the callback to invoke
      */
     public static void callREST(String url, String data, RESTCallback callback)
     {
         callREST(url, data, RESTility.GET, callback);
     }
 
+    /**
+     * Set the user token and save in cookie
+     * @param token  user token
+     */
     protected static void setUserToken(String token)
     {
         g_inLoginProcess = false;
@@ -279,18 +299,30 @@ public final class RESTility
         setSessionToken();
     }
 
+    /**
+     * Set the authentication server url and save in cookie
+     * @param url  authentication server url
+     */
     protected static void setTokenServerURL(String url)
     {
         RESTILITY.m_tokenServerUrl = url;
         setSessionToken();
     }
 
+    /**
+     * Set the user name and save in cookie
+     * @param username  user name
+     */
     protected static void setUsername(String username)
     {
         RESTILITY.m_username = username;
         setSessionToken();
     }
 
+    /**
+     * Set the authentication server logout url and save in cookie
+     * @param url  authentication server logout url
+     */
     protected static void setTokenServerLogoutURL(String url)
     {
         RESTILITY.m_tokenServerLogoutUrl = url;
@@ -354,16 +386,31 @@ public final class RESTility
         }
     }
 
+    /**
+     * Returns a boolean flag indicating whether user has logged in or not
+     *
+     * @return boolean indicating whether user has logged in or not
+     */
     protected static boolean hasUserLoggedIn()
     {
         return RESTILITY.m_hasLoggedIn;
     }
 
+    /**
+     * Returns user's full authentication token, prefixed with "X-OPAQUE"
+     *
+     * @return user's full authentication token prefixed with "X-OPAQUE"
+     */
     public static String getFullAuthToken()
     {
         return BASIC_AUTH + " " + getUserToken();
     }
 
+    /**
+     * Returns user's authentication token
+     *
+     * @return user's authentication token
+     */
     public static String getUserToken()
     {
         if (RESTILITY.m_userToken != null) {
@@ -378,6 +425,11 @@ public final class RESTility
         }
     }
 
+    /**
+     * Returns the authentication server url
+     *
+     * @return authentication server url
+     */
     protected static String getTokenServerUrl()
     {
         if (RESTILITY.m_tokenServerUrl != null) {
@@ -392,6 +444,11 @@ public final class RESTility
         }
     }
 
+    /**
+     * Returns authentication server logout url
+     *
+     * @return authentication server logout url
+     */
     protected static String getTokenServerLogoutUrl()
     {
         if (RESTILITY.m_tokenServerLogoutUrl != null) {
@@ -406,6 +463,10 @@ public final class RESTility
         }
     }
 
+    /**
+     * Returns user name
+     * @return  user name
+     */
     protected static String getUsername()
     {
         if (RESTILITY.m_username != null) {
@@ -420,6 +481,11 @@ public final class RESTility
         }
     }
 
+    /**
+     * Returns best matched locale
+     *
+     * @return best matched locale
+     */
     protected static String getBestLocale()
     {
         if (RESTILITY.m_bestLocale != null) {
@@ -499,7 +565,7 @@ public final class RESTility
      * OK since we will call it again after the user successfully logs in.  To handle
      * all of that we have this special method.
      *
-     * @param callback
+     * @param callback callback to be invoked
      */
     //todo: do I need to move this somewhere else
     public static void getUserInfo(RESTCallback callback)
@@ -786,11 +852,21 @@ public final class RESTility
              json.replace(/"(\\.|[^"\\])*"/g, '')));
     }-*/;
 
+    /**
+     * Add login listeners
+     *
+     * @param callback listeners to be added
+     */
     public static void addLoginListener(RESTLoginCallBack callback)
     {
         RESTility.g_loginListeners.add(callback);
     }
 
+    /**
+     * Remove login listeners
+     *
+     * @param callback listeners to be removed
+     */
     public static void removeLoginListener(RESTLoginCallBack callback)
     {
         RESTility.g_loginListeners.remove(callback);
