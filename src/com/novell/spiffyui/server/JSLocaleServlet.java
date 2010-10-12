@@ -23,7 +23,6 @@ import java.util.Locale;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,8 +35,6 @@ import com.novell.spiffyui.server.i18n.BasicBestLocaleMatcher;
  */
 public class JSLocaleServlet extends HttpServlet
 {
-
-
     /**
      * Comment for <code>serialVersionUID</code>
      */
@@ -48,7 +45,6 @@ public class JSLocaleServlet extends HttpServlet
      * which application/javascript lacks (IE does not support it)
      */
     private static final String CONTENT_TYPE_JS = "text/javascript";
-    private static final String CONTENT_TYPE_PLAIN = "text/plain";
 
 
     @Override
@@ -58,10 +54,6 @@ public class JSLocaleServlet extends HttpServlet
 
         Locale bestMatchLocale = getBestMatchLocale(request, response, getServletConfig().getServletContext());
         response.setContentType(CONTENT_TYPE_JS);
-
-        System.out.println("servlet path = " + request.getServletPath());
-        System.out.println("request uri = " + request.getRequestURI());
-        System.out.println("context path = " + request.getContextPath());
 
         String resourceName = request.getServletPath().indexOf("jquery.ui.datepicker") > 0 ?
             "jquery.ui.datepicker" : "date";
