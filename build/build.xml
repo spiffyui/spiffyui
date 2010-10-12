@@ -111,7 +111,7 @@
                  closurejar="${spiffy.build}/lib/closure-compiler.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="DEFAULT">
-            <fileset dir="${spiffy.js}" includes="**/*.js" excludes="**/jquery-1.*.js, **/unittest/**" />
+            <fileset dir="${spiffy.js}" includes="**/*.js" excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**" />
         </closure>
         
         <!-- We also compile our own copy of JQuery -->
