@@ -38,16 +38,16 @@ h2 {
     margin-bottom: 14px;
 }
 
-#overviewPanelText, #docPanelText, #cssPanelText, #antPanelText, #authPanelText, #datePanelText {
+.documentationPanel {
     width: 480px;
 }
 
-#overviewPanelText p {
+.documentationPanel p {
     font-size: 14px;
     line-height: 18px;
 }
 
-#overviewPanelText pre {
+.documentationPanel pre {
     font-size: 12px;
     line-height: 14px;
     margin-left: 3em;
