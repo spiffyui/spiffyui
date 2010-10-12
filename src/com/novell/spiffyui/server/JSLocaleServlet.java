@@ -102,8 +102,9 @@ public class JSLocaleServlet extends HttpServlet
      * @param response - the HttpServletResponse
      * @param context - the ServletContext
      * @return the best match Locale
+     * @throws ServletException thrown in case of error 
      */
-    protected Locale getBestMatchLocale(HttpServletRequest request, HttpServletResponse response, ServletContext context)
+    protected Locale getBestMatchLocale(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException
     {
         return BasicBestLocaleMatcher.getBestMatchLocale(request, response, context);
     }
