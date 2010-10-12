@@ -26,11 +26,14 @@ import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * A basic implementation for matching a list of locales from the request
+ * and finding a best corresponding supported locale.
+ */
 public class BasicBestLocaleMatcher
 {
     private static final String NOVELL_SPIFFY_LOCALE = "Novell_Spiffy_Locale";
@@ -63,10 +66,8 @@ public class BasicBestLocaleMatcher
      * @param response - the HttpServletResponse
      * @param context - the ServletContext
      * @return the best match Locale
-     * @throws ServletException
      */
     public static Locale getBestMatchLocale(HttpServletRequest request, HttpServletResponse response, ServletContext context)
-            throws ServletException
     {
         // Use the Novell_Spiffy_Locale cookie if it exists -- but where is this cookie set???
         Cookie[] cookies = request.getCookies();

@@ -29,10 +29,6 @@ import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.novell.idm.rpt.client.server.i18n.RptLocaleChooserFactory;
 
 /**
  * The JSLocaleUtil can handle finding the right filename of a JavaScript
