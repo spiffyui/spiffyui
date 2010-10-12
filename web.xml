@@ -44,7 +44,7 @@
   
   <servlet-mapping>
     <servlet-name>JSLocaleServlet</servlet-name>
-    <url-pattern>/date</url-pattern>
+    <url-pattern>/js/lib/i18n/date</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>

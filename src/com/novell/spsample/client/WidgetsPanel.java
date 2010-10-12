@@ -62,11 +62,58 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
 
              "<div class=\"slidegrid\">" + 
                 
+                 "<div class=\"cell tallcell weak\">" +
+                     "<h3>Date Picker</h3>" + 
+                     "Date Picker shows a calendar for easy date selection.  It also allows you to type directly into the text field. " + 
+                     "Other useful features include being able to specify the minimum and maximum dates allowed and getting the " +
+                     "selected date as a java.util.Date." +
+                     "It is localized.  Try changing your browser locale and refreshing your browser.<br /><br />" + 
+                     "<span id=\"WidgetsDatePicker\"></span>" +
+                 "</div>" + 
+              
+                 "<div class=\"cell weak\">" +
+                    "<h3>Fancy Button</h3>" + 
+                    "Fancy buttons show an image and text with a disabled image and hover style.  It also supports an in progress " + 
+                    "state.<br /><br />" + 
+                    "<span id=\"WidgetsFancyButton\"></span>" +
+                 "</div>" + 
+              
+                 "<div class=\"cell tallcell weak\">" +
+                    "<h3>Humanized Messages</h3>" + 
+                    "The Spiffy UI framework support has an integrated message framework following the pattern of humanized " + 
+                    "messages.  These messages are non-modal and fade away without requiring further interaction.  They " + 
+                    "include info messages, warnings, errors, and fatal errors.  Errors and some warnings are sent to an error " + 
+                    "log at the bottom of the screen.<br /><br />" + 
+                    "<span id=\"WidgetsMessages\"></span>" +
+                 "</div>" +
+              
+                 "<div class=\"cell widecell weak\">" +
+                    "<h3>Multivalue Suggest Box</h3>" + 
+                    "The Multivalue suggest box is an autocompleter that allows for multiple values and browsing. It uses REST to " + 
+                    "retrieve suggestions from the server.  The full process is documented " + 
+                    "<a href=\"http://www.zackgrossbart.com/hackito/gwt-rest-auto\">here</a>. <br /><br />" + 
+                    "Type blue, mac, or *.<br /><br />" + 
+                    "<span id=\"WidgetsSuggestBox\"></span>" +
+                 "</div>" + 
+
                  "<div class=\"cell weak\">" + 
-                    "<h3>JQuery UI Progress bar</h3>" + 
+                    "<h3>Progress bar</h3>" + 
                     "This progress bar GWT control wraps the progress bar control from JQuery UI.<br /><br />" + 
                     "<span id=\"WidgetsProgressSpan\"></span>" + 
                  "</div>" +
+              
+                 "<div class=\"cell weak\">" +
+                    "<h3>Refresh anchor</h3>" + 
+                    "The refresh anchor handles an in progress status for refreshing items with an AJAX request.<br /><br />" + 
+                    "This one will show an example of a confirm dialog<br /><br />" + 
+                    "<span id=\"WidgetsRefreshAnchor\"></span>" +
+                 "</div>" +
+              
+                 "<div class=\"cell weak\">" +
+                    "<h3>Simple Button</h3>" + 
+                    "All buttons get special styling from the Spiffy UI framework.<br /><br />" + 
+                    "<span id=\"WidgetsButton\"></span>" +
+                 "</div>" + 
 
                  "<div class=\"cell weak\">" +
                     "<h3>Small loading indicator</h3>" + 
@@ -78,56 +125,9 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
                     "<h3>Status Indicator</h3>" + 
                     "The status indicator shows valid, failed, and in progress status.  It can be extended for others.<br /><br />" + 
                     "<span id=\"WidgetsStatus\"></span>" + 
-                 "</div>" +
-
-                 "<div class=\"cell weak\">" +
-                    "<h3>Refresh anchor</h3>" + 
-                    "The refresh anchor handles an in progress status for refreshing items with an AJAX request.<br /><br />" + 
-                    "This one will show an example of a confirm dialog<br /><br />" + 
-                    "<span id=\"WidgetsRefreshAnchor\"></span>" +
-                 "</div>" +
-              
-                 "<div class=\"cell tallcell weak\">" +
-                    "<h3>Humanized Messages</h3>" + 
-                    "The Spiffy UI framework support has an integrated message framework following the pattern of humanized " + 
-                    "messages.  These messages are non-modal and fade away without requiring further interaction.  They " + 
-                    "include info messages, warnings, errors, and fatal errors.  Errors and some warnings are sent to an error " + 
-                    "log at the bottom of the screen.<br /><br />" + 
-                    "<span id=\"WidgetsMessages\"></span>" +
-                 "</div>" +
-
-                 "<div class=\"cell weak\">" +
-                    "<h3>Simple Button</h3>" + 
-                    "All buttons get special styling from the Spiffy UI framework.<br /><br />" + 
-                    "<span id=\"WidgetsButton\"></span>" +
-                 "</div>" + 
-
-                 "<div class=\"cell weak\">" +
-                    "<h3>Fancy Button</h3>" + 
-                    "Fancy buttons show an image and text with a disabled image and hover style.  It also supports an in progress " + 
-                    "state.<br /><br />" + 
-                    "<span id=\"WidgetsFancyButton\"></span>" +
                  "</div>" + 
                  
-                 "<div class=\"cell widecell weak\">" +
-                    "<h3>Multivalue Suggest Box</h3>" + 
-                    "The Multivalue suggest box is an autocompleter that allows for multiple values and browsing. It uses REST to " + 
-                    "retrieve suggestions from the server.  The full process is documented " + 
-                    "<a href=\"http://www.zackgrossbart.com/hackito/gwt-rest-auto\">here</a>. <br /><br />" + 
-                    "Type blue, mac, or *.<br /><br />" + 
-                    "<span id=\"WidgetsSuggestBox\"></span>" +
-                 "</div>" + 
-                 
-                 "<div class=\"cell tallcell weak\">" +
-                     "<h3>Date Picker</h3>" + 
-                     "Date Picker shows a calendar for easy date selection.  It also allows you to type directly into the text field. " + 
-                     "Other useful features include being able to specify the minimum and maximum dates allowed and getting the " +
-                     "selected date as a java.util.Date." +
-                     "It is localized.  Try changing your browser locale and refreshing your browser.<br /><br />" + 
-                     "<span id=\"WidgetsDatePicker\"></span>" +
-                  "</div>" + 
-              
-                  "<div class=\"cell weak\">" +
+                 "<div class=\"cell weak\">" +
                       "<h3>Time Picker</h3>" + 
                       "Time Picker shows a time dropdown for easy selection.  It also allows you to type directly into the text field. " + 
                       "The time step is set to 30 min but can be configured.  It is localized. " + 

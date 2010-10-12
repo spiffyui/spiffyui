@@ -153,7 +153,7 @@ function alignGrid(/*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
                     setUsed(usedCells, curCol, curRow + 1);  
                     setUsed(usedCells, curCol + 1, curRow + 1); 
                 }
-
+                
                 hasTallCell = true;
                 
             } else if (children.eq(i).hasClass("widecell")) {
@@ -200,7 +200,7 @@ function alignGrid(/*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
                     setUsed(usedCells, curCol, curRow); 
                     setUsed(usedCells, curCol, curRow + 1);
                 }
-
+                
                 hasTallCell = true;
 
             } else {
@@ -228,6 +228,7 @@ function alignGrid(/*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
                 curRow++;
                 x = padding / 2;
                 y += cellHeight + padding;
+            } else if ((count % cols) === 0) {
                 hasTallCell = false;
             } else {
                 x += cellWidth + padding;
@@ -247,7 +248,7 @@ function alignGrid(/*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
         } else {
             height = y + padding;
         }
-
+        
         if (hasTallCell) {
             height += cellHeight + padding;
         }
