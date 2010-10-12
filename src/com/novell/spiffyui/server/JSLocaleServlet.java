@@ -31,8 +31,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.novell.spiffyui.server.i18n.BasicBestLocaleMatcher;
 
 /**
- * This servlet redirect to a specific locale version of the 
- * JQuery date picker, date.js or returns the best match locale. 
+ * This servlet redirect to a specific locale version of the
+ * JQuery date picker, date.js or returns the best match locale.
  */
 public class JSLocaleServlet extends HttpServlet
 {
@@ -55,44 +55,21 @@ public class JSLocaleServlet extends HttpServlet
     public void service(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        
+
         Locale bestMatchLocale = getBestMatchLocale(request, response, getServletConfig().getServletContext());
         response.setContentType(CONTENT_TYPE_JS);
 
         System.out.println("servlet path = " + request.getServletPath());
         System.out.println("request uri = " + request.getRequestURI());
         System.out.println("context path = " + request.getContextPath());
-        
+
         String resourceName = request.getServletPath().indexOf("jquery.ui.datepicker") > 0 ?
             "jquery.ui.datepicker" : "date";
         String file = JSLocaleUtil.getFile(resourceName, bestMatchLocale, getServletConfig().getServletContext());
 
 
-        if (resourceName.equals("date")) {
-            String type = request.getParameter("type");
-            boolean sendJS;
-            if (type.equalsIgnoreCase("js")) {
-                sendJS = true;
-                response.setContentType(CONTENT_TYPE_JS);
-            } else {
-                sendJS = false;
-                response.setContentType(CONTENT_TYPE_PLAIN);
-            }
-            if (file != null) {
-                if (sendJS) {
-                    response.sendRedirect("js/lib/i18n/" + file);
-                } else {
-                    ServletOutputStream out = response.getOutputStream();
-    
-                    // Get the localeString from file name. file name is e.g. "date-zh-CN.js"  then localeString would be "zh-CN";
-                    String localeString = file.substring(5, file.indexOf("."));
-                    out.print(localeString);
-                }
-            }
-        } else {
-            if (file != null) {
-                response.sendRedirect(file);
-            }            
+        if (file != null) {
+            response.sendRedirect(file);
         }
     }
 
@@ -102,7 +79,7 @@ public class JSLocaleServlet extends HttpServlet
      * @param response - the HttpServletResponse
      * @param context - the ServletContext
      * @return the best match Locale
-     * @throws ServletException thrown in case of error 
+     * @throws ServletException thrown in case of error
      */
     protected Locale getBestMatchLocale(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException
     {
