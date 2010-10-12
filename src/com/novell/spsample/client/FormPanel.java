@@ -177,6 +177,6 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
     
     private void save()
     {
-        MessageUtil.showError("This form doesn't save anything.");
+        MessageUtil.showMessage("This form doesn't save anything.");
     }
 }
