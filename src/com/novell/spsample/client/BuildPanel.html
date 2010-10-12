@@ -34,49 +34,11 @@
              warninglevel="DEFAULT"&gt;
         &lt;fileset dir="/" includes="**/*.js" /&gt;
     &lt;/closure&gt;
-
     </pre>
     </p>
 
     <p>
         This task supports the full Ant path and fileset syntax for specifying the input files.  <a href="http://code.google.com/closure/compiler/docs/api-tutorial3.html">Advanced Compilation and Externs</a> has documentation on the meaning of the other options.
-    </p>
-
-    <h2>JSLint</h2>
-    <p>
-    JSLint is a JavaScript static code analysis tool.  It will check your JavaScript and find common errors and bad practices.  All JavaScript in the Spiffy UI framework is checked with JSLint as part of the normal build.
-    </p>
-
-    <p>
-    To use JSLint start by defining the jslint task:
-    </p>
-
-    <p>
-    <pre>
-    &lt;taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask"&gt;
-        &lt;classpath&gt;
-            &lt;pathelement path="${root}/external/spiffyui/build/lib/jslint4java-1.3.3.jar"/&gt;
-        &lt;/classpath&gt;
-    &lt;/taskdef&gt;
-
-    </pre>
-    </p>
-
-    <p>
-    Once you define the task you can use it at any point in your build like this:
-    </p>
-
-    <p>
-    <pre>
-    &lt;jslint&gt;
-        &lt;formatter type="plain" /&gt;
-        &lt;fileset dir="/" includes="**/*.js" /&gt;
-    &lt;/jslint&gt;
-    </pre>
-    </p>
-
-    <p>
-    This task supports the full Ant path and fileset syntax for specifying the input files.  More information about the JSLint task can be found at the <a href="http://code.google.com/p/jslint4java/">jslint4java</a> project page.
     </p>
 
     <h2>HTMLProps</h2>
@@ -96,7 +58,6 @@
             &lt;pathelement location="${root}/external/spiffyui/build/lib/closuretask.jar"/&gt;
         &lt;/classpath&gt;
     &lt;/taskdef&gt;
-
     </pre>
     </p>
 
@@ -109,7 +70,6 @@
     &lt;htmlprops properties="MyStrings.properties"&gt;
         &lt;fileset dir="/" includes="**/*.html" /&gt;
     &lt;/htmlprops&gt;
-
     </pre>
     </p>
 
@@ -130,7 +90,6 @@
     &lt;h1&gt;
         This is my file
     &lt;/h1&gt;
-
     </pre>
     </p>
 
@@ -147,4 +106,89 @@
     <p>
     You can see an example of using this task in the SPSample project.
     </p>
+
+    <h2>JSLint</h2>
+    <p>
+    JSLint is a JavaScript static code analysis tool.  It will check your JavaScript and find common errors and bad practices.  All JavaScript in the Spiffy UI framework is checked with JSLint as part of the normal build.
+    </p>
+
+    <p>
+    To use JSLint start by defining the jslint task:
+    </p>
+
+    <p>
+    <pre>
+    &lt;taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask"&gt;
+        &lt;classpath&gt;
+            &lt;pathelement path="${root}/external/spiffyui/build/lib/jslint4java-1.3.3.jar"/&gt;
+        &lt;/classpath&gt;
+    &lt;/taskdef&gt;
+    </pre>
+    </p>
+
+    <p>
+    Once you define the task you can use it at any point in your build like this:
+    </p>
+
+    <p>
+    <pre>
+    &lt;jslint&gt;
+        &lt;formatter type="plain" /&gt;
+        &lt;fileset dir="/" includes="**/*.js" /&gt;
+    &lt;/jslint&gt;
+    </pre>
+    </p>
+
+    <p>
+    This task supports the full Ant path and fileset syntax for specifying the input files.  More information about the JSLint task can be found at the <a href="http://code.google.com/p/jslint4java/">jslint4java</a> project page.
+    </p>
+
+    
+
+    <h2>YUI Compressor</h2>
+
+    <p>
+    The <a href="http://developer.yahoo.com/yui/compressor/">YUI Compressor</a> can compress CSS and JavaScript files.  The Spiffy UI framework only uses the YUI Compressor for CSS since the Google Closure compiler is more efficient on compressing JavaScript.  
+    </p>
+
+    <p>
+    The YUI compressor does not have a separate Ant task, but can be called using the Ant <code>java</code> task.  The first step is to concatenate the CSS files you want to compress since YUI can only compress single files.  The order the files are concatenated is important since CSS cascades the style rules.
+    </p>
+
+    <p>
+    Ant provides a <code>concat</code> task to combine the files.  It can be used like this:
+    </p>
+
+    <p>
+    <pre>
+    &lt;concat destfile="mystyles.css" force="no"&gt;
+        &lt;fileset dir="css" includes="**/*.css" /&gt;
+    &lt;/concat&gt;
+    </pre>
+    </p>
+
+    <p>
+    Once you have built the mystyles.css file you can use YUI Compressor to compress it like this:
+    </p>
+
+    <p>
+    <pre>
+    &lt;java classname="com.yahoo.platform.yui.compressor.Bootstrap"
+        fork="true" failonerror="true" maxmemory="256m"&gt;
+        &lt;arg value="-o"/&gt;
+        &lt;arg value="mystyles.min.css"/&gt;
+        &lt;arg value="mystyles.css"/&gt;
+        &lt;classpath&gt;
+            &lt;fileset dir="${root}/external/spiffyui/build/lib"&gt;
+                &lt;include name="**/*.jar"/&gt;
+            &lt;/fileset&gt;
+        &lt;/classpath&gt;
+    &lt;/java&gt;
+    </pre>
+    </p>
+
+    <p>
+    This will call the YUI Compressor to compress the mystyles.css file into mystyles.min.css.  You can now include mystyles.min.css in your WAR file and reference it like a standard CSS file.
+    </p>
+
 </div>
