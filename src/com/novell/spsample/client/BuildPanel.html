@@ -120,7 +120,9 @@
     <pre>
     &lt;taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask"&gt;
         &lt;classpath&gt;
-            &lt;pathelement path="${root}/external/spiffyui/build/lib/jslint4java-1.3.3.jar"/&gt;
+            &lt;fileset dir="${root}/external/spiffyui/build/lib"&gt;
+                &lt;include name="**/*.jar"/&gt;
+            &lt;/fileset&gt;
         &lt;/classpath&gt;
     &lt;/taskdef&gt;
     </pre>
