@@ -132,6 +132,14 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         m_panels.put(item, new AuthPanel());
 
         /*
+        The date info panel
+        */
+        item = new NavItem("dateNavItem", "Spiffy Dates",
+                          "This is the navigation item for the spiffy date localization page");
+        m_navBar.add(item);
+        m_panels.put(item, new DatePanel());
+       
+        /*
          A separator
          */
         m_navBar.add(new NavSeparator(HTMLPanel.createUniqueId()));

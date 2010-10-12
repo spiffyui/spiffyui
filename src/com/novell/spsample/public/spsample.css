@@ -38,7 +38,7 @@ h2 {
     margin-bottom: 14px;
 }
 
-#overviewPanelText, #docPanelText, #cssPanelText, #antPanelText, #authPanelText {
+#overviewPanelText, #docPanelText, #cssPanelText, #antPanelText, #authPanelText, #datePanelText {
     width: 480px;
 }
 
