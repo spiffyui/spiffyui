@@ -20,6 +20,11 @@
     <servlet-name>CrayonColorsServlet</servlet-name>
     <servlet-class>com.novell.spsample.server.CrayonColorsServlet</servlet-class>
   </servlet>
+  
+  <servlet>
+    <servlet-name>JSLocaleServlet</servlet-name>
+    <servlet-class>com.novell.spiffyui.server.JSLocaleServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>AuthServlet</servlet-name>
@@ -34,5 +39,16 @@
   <servlet-mapping>
     <servlet-name>CrayonColorsServlet</servlet-name>
     <url-pattern>/multivaluesuggestboxexample/colors</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet-mapping>
+    <servlet-name>JSLocaleServlet</servlet-name>
+    <url-pattern>/date</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>JSLocaleServlet</servlet-name>
+    <url-pattern>/js/lib/i18n/jquery.ui.datepicker.js</url-pattern>
   </servlet-mapping>
 </web-app>

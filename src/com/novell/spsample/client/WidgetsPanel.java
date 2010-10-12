@@ -29,10 +29,12 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import com.novell.spiffyui.client.MessageUtil;
+import com.novell.spiffyui.client.widgets.DatePickerTextBox;
 import com.novell.spiffyui.client.widgets.LongMessage;
 import com.novell.spiffyui.client.widgets.ProgressBar;
 import com.novell.spiffyui.client.widgets.SmallLoadingIndicator;
 import com.novell.spiffyui.client.widgets.StatusIndicator;
+import com.novell.spiffyui.client.widgets.TimePickerTextBox;
 import com.novell.spiffyui.client.widgets.button.FancySaveButton;
 import com.novell.spiffyui.client.widgets.button.RefreshAnchor;
 import com.novell.spiffyui.client.widgets.dialog.ConfirmDialog;
@@ -115,6 +117,24 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
                     "Type blue, mac, or *.<br /><br />" + 
                     "<span id=\"WidgetsSuggestBox\"></span>" +
                  "</div>" + 
+                 
+                 "<div class=\"cell tallcell weak\">" +
+                     "<h3>Date Picker</h3>" + 
+                     "Date Picker shows a calendar for easy date selection.  It also allows you to type directly into the text field. " + 
+                     "Other useful features include being able to specify the minimum and maximum dates allowed and getting the " +
+                     "selected date as a java.util.Date." +
+                     "It is localized.  Try changing your browser locale and refreshing your browser.<br /><br />" + 
+                     "<span id=\"WidgetsDatePicker\"></span>" +
+                  "</div>" + 
+              
+                  "<div class=\"cell weak\">" +
+                      "<h3>Time Picker</h3>" + 
+                      "Time Picker shows a time dropdown for easy selection.  It also allows you to type directly into the text field. " + 
+                      "The time step is set to 30 min but can be configured.  It is localized. " + 
+                      "Try changing your browser locale and refreshing your browser.<br /><br />" + 
+                      "<span id=\"WidgetsTimePicker\"></span>" +
+                   "</div>" + 
+           
              "</div>");
         
         getElement().setId("WidgetsPanel");
@@ -212,6 +232,15 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         }, true);
         msb.getFeedback().addStyleName("msg-feedback");
         add(msb, "WidgetsSuggestBox");
+        
+        /*
+         * Add the date picker
+         */
+        add(new DatePickerTextBox("datepicker"), "WidgetsDatePicker");
+        /*
+         * Add the time picker
+         */
+        add(new TimePickerTextBox("timepicker"), "WidgetsTimePicker");
     }
     
     private void addMessageButton()
