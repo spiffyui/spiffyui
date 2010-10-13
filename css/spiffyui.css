@@ -1096,3 +1096,12 @@ h3.subSectionTitle.expandable.expanded {
     font-family: Verdana,Arial,Sans-serif;
 }
 
+/* For sliding grid */
+.cell {
+    background: white;
+    border: 1px solid #DFDFDF;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    padding: 10px;
+}
+
