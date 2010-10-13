@@ -120,3 +120,9 @@ iframe {
 .msg-feedback {
 	left: 335px;
 }
+
+.columns {
+    -moz-column-gap: 20px;
+    -moz-column-width: 120px;
+    
+}
