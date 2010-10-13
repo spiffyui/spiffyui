@@ -113,11 +113,17 @@ iframe {
 	left: 335px;
 }
 
-.columns {
+#localesTable {
+    -moz-border-radius: 4px;
     -moz-column-gap: 20px;
     -moz-column-width: 120px;
+    -webkit-border-radius: 4px;
     -webkit-column-gap: 20px; 
     -webkit-column-width: 120px;
+    background-color: #F9F9F9;
+    border: thin solid lightgray;
     column-gap: 20px; 
     column-width: 120px; 
+    font-size: 12px;
+    padding: 14px;
 }
