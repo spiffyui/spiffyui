@@ -84,7 +84,7 @@ public class BasicBestLocaleMatcher
     private static Locale matchSupportedLocale(Locale loc, ServletContext context)
     {
         ArrayList<Locale> supportedLocales = JSLocaleUtil.getMinimumSupportedLocales(context);
-
+        
         for (Locale supportedLocale : supportedLocales) {
             if (supportedLocale.equals(loc)) {
                 //exact match found

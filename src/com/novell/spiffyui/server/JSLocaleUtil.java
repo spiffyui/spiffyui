@@ -58,12 +58,13 @@ public final class JSLocaleUtil
      * (which was already determined to be the best match locale).
      * 
      * @param resourceName
-     *                 The resource name.  If your looking for a file like date-en-US.js the the resource name is date
-     * @param request  the HTTP request
-     * @param response the HTTP response
-     * @param context  the servlet context
+     *                The resource name.  If your looking for a file like date-en-US.js the the resource name is date
+     * @param locale  The locale of the requested file
+     * @param context the servlet context
      * 
      * @return the file name
+     * @exception ServletException
+     *                   if there is an error accessing the servlet context
      */
     public static String getFile(String resourceName, Locale locale, ServletContext context)
         throws ServletException
@@ -76,7 +77,7 @@ public final class JSLocaleUtil
             return resource;
         } else if (ALL_RESOURCES.contains(resource.replace('_', '-'))) {
             /*
-             * I wish every would agree if it is en-US or en_US
+             * I wish everyone would agree if it is en-US or en_US
              */
             return resource.replace('_', '-');
         } else if (ALL_RESOURCES.contains(resourceName + "-" + locale.getLanguage() + ".js")) {
@@ -87,6 +88,22 @@ public final class JSLocaleUtil
              */
             return resourceName + "-" + locale.getLanguage() + ".js";
         } else {
+            /*
+             There is the possibility that the browser is asking for a language
+             without a country and we only have the file with a language and a
+             country.
+     
+             For example, the user could request a Finnish file as fi which
+             would result in a resource like date-fi.js when we only have
+             date-fi-FI.js.  In this case we will find the first file that matches
+             the language code with any country.
+             */
+            for (String f : ALL_RESOURCES) {
+                if (f.startsWith(resourceName + "-" + locale.getLanguage())) {
+                    return f;
+                }
+            }
+            
             /*
              If we don't have the file that we want then we return English
              */
@@ -188,6 +205,8 @@ public final class JSLocaleUtil
      * Get the list of minimum supported locales.  This list is the smallest number of
      * locales supported by one of the JavaScript files is the js/lib/i18n directory.
      * 
+     * @param context the servlet context for loading the available locales
+     * 
      * @return The minimum list of supported locales
      */
     public static ArrayList<Locale> getMinimumSupportedLocales(ServletContext context)
@@ -200,7 +219,7 @@ public final class JSLocaleUtil
 
             if (map == null) {
                 map = m;
-            } else if (m.size() < map.size()) {
+            } else if (m.size() > 1 && m.size() < map.size()) {
                 map = m;
             }
         }
