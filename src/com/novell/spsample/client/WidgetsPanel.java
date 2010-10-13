@@ -139,7 +139,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         /*
          * Add the options slide down panel
          */
-        SlideDownPrefsPanel prefsPanel = new SlideDownPrefsPanel("WidgetsPrefs");
+        SlideDownPrefsPanel prefsPanel = new SlideDownPrefsPanel("WidgetsPrefs", "Slide Down Prefs Panel");
         add(prefsPanel, "WidgetsPrefsPanel");
         FlowPanel prefContents = new FlowPanel();
         prefContents.add(new Label("Add display option labels and fields and an 'Apply' or 'Save' button."));
