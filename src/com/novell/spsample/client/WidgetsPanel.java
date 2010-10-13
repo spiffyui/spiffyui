@@ -90,7 +90,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         /*
          * Create the sliding grid
          */
-        m_slideGridPanel = new SlidingGridPanel("SlidingGridPanel");
+        m_slideGridPanel = new SlidingGridPanel();
         
         /*
          * Add widgets to the sliding grid in alphabetical order
