@@ -2,20 +2,17 @@
 <br />
 <div id="datePanelText" class="documentationPanel">
     <p>
-    The Spiffy UI Framework includes internationalized date and time utility based on <a href="http://www.datejs.com/">Datejs</a>.
-    In addition, it includes date and time widgets based on <a href="http://jqueryui.com/demos/datepicker/">jQuery UI Datepicker</a>
-    and a <a href="http://code.google.com/p/jquery-timepicker/">jQuery Time Picker</a>, respectively.
-    
-    To use them you need to include the JSLocaleServlet in your project.  You can extend the JSLocaleServlet to suite our own localization needs.
+    The Spiffy UI Framework includes internationalized date and time utilities based on <a href="http://www.datejs.com/">Datejs</a>.  In addition, it includes date and time widgets which wrap the <a href="http://jqueryui.com/demos/datepicker/">JQuery UI Datepicker</a> and a <a href="http://code.google.com/p/jquery-timepicker/">JQuery Time Picker</a>.
+    </p>
+
+    <p>
+    These utilities are optional and require an additional servlet to support localized date formats.  To use them you need to include the JSLocaleServlet in your project.  You can extend the JSLocaleServlet to provide custom localizations.
     </p>
 
     <h2>Adding the JSLocaleServlet</h2>
 
     <p>
-    The JSLocaleServlet will redirect the browser to the best matching localized JS file for date.js or jquery.ui.datepicker.js.  Spiffy UI includes a basic
-    algorithm for determining the best matching locale by looping through the requested browser locales and attempting to match them against one of the 
-    supported locales.  It first attempts to match exactly, then by language and country, then by language.  If it doesn't find a match it will return
-    the the English version of the javascript file requested.  The supported locales are:
+    The JSLocaleServlet will redirect the browser to the best matching localized JS file for date.js or jquery.ui.datepicker.js.  Spiffy UI includes a basic algorithm for determining the best matching locale by looping through the requested browser locales and attempting to match them against one of the supported locales.  It first attempts to match exactly, then by language and country, then by language.  If it doesn't find a match it will return the the English version of the javascript file requested.  The supported locales are:
     </p>
 
     <p>
@@ -59,59 +56,55 @@
     </pre>
     </p>
 
-    <h2>Extending JSLocaleServlet</h2>
+    <h2>Referencing the JSLocaleServlet</h2>
+
     <p>
-    If your application requires a customized best matching locale routine, you may extend JSLocaleServlet, override getBestMatchLocale, then
-    include your class in web.xml instead.  For example:
+    The JSLocaleServlet returns JavaScript files supporting the date formats.  This servlet must be referenced in the <code>head</code> section of your HTML file like this:
     </p>
 
     <p>
     <pre>
-    /**
-     * This is RPT's version of the JSLocaleServlet so that
-     * localization can include preferred locale.
-     */
-    public class RPTLocaleServlet extends JSLocaleServlet
+    &lt;script type="text/javascript" src="js/lib/i18n/date"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/lib/i18n/jquery.ui.datepicker.js"&gt;&lt;/script&gt;
+    </pre>
+    </p>
+
+    <h2>Extending JSLocaleServlet</h2>
+    <p>
+    If your application requires a customized best matching locale routine, you may extend JSLocaleServlet, override getBestMatchLocale, then include your class in web.xml instead.  For example:
+    </p>
+
+    <p>
+    <pre>
+    public class MyLocaleServlet extends JSLocaleServlet
     {
     
         private static final long serialVersionUID = 1L;
-        private static final RptLocaleChooserFactory LOCALE_FACTORY = new RptLocaleChooserFactory();
-        /**
-         * Overriding this method to use RBPM's soa i18n package
-         * @param request - the HttpServletRequest
-         * @param response - the HttpServletResponse
-         * @param context - the ServletContext
-         * @return the best match Locale
-         * @throws ServletException thrown in case of error
-         */
-        protected Locale getBestMatchLocale(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException 
+        private static final RptLocaleChooserFactory LOCALE_FACTORY = 
+            new RptLocaleChooserFactory();
+        
+        @Override
+        protected Locale getBestMatchLocale(HttpServletRequest request, 
+                                            HttpServletResponse response, 
+                                            ServletContext context) throws ServletException 
         {
-            return LOCALE_FACTORY.getBestLocaleChooser(context, "reporting").getBestLocale(request, response, context);
+            return LOCALE_FACTORY.getBestLocaleChooser(context, "reporting").
+                getBestLocale(request, response, context);
         }
     }    
     </pre>
     </p>
 
     <p>
-    Your web.xml would be the same as above except the servlet-class would be your class.
+    Your then need to add your class to the web.xml file instead of the Spiffy UI framework version.
     </p>
     
     <p>
     <pre>
     &lt;servlet&gt;
         &lt;servlet-name&gt;JSLocaleServlet&lt;/servlet-name&gt;
-        &lt;servlet-class&gt;com.novell.idm.rpt.client.server.RPTLocaleServlet&lt;/servlet-class&gt;
+        &lt;servlet-class&gt;com.myco.MyLocaleServlet&lt;/servlet-class&gt;
     &lt;/servlet&gt;
-        
-    &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;JSLocaleServlet&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/js/lib/i18n/date&lt;/url-pattern&gt;
-    &lt;/servlet-mapping&gt;
-
-    &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;JSLocaleServlet&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/js/lib/i18n/jquery.ui.datepicker.js&lt;/url-pattern&gt;
-    &lt;/servlet-mapping&gt;
     </pre>
     </p>
 
