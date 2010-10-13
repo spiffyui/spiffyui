@@ -26,7 +26,6 @@ import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,7 +37,6 @@ import com.novell.spiffyui.server.JSLocaleUtil;
  */
 public class BasicBestLocaleMatcher
 {
-    private static final String NOVELL_SPIFFY_LOCALE = "Novell_Spiffy_Locale";
     private static final ConcurrentHashMap<String, Locale> LOCALE_CACHE = new ConcurrentHashMap<String, Locale>();
     
     /**
@@ -52,16 +50,6 @@ public class BasicBestLocaleMatcher
      */
     public static Locale getBestMatchLocale(HttpServletRequest request, HttpServletResponse response, ServletContext context)
     {
-        // Use the Novell_Spiffy_Locale cookie if it exists -- but where is this cookie set???
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(NOVELL_SPIFFY_LOCALE)) {
-                    return getLocaleFromCode(cookie.getValue());
-                }
-            }
-        }
-
         // If the Locale wasn't found yet, use the browser's locale list to find the best match
         @SuppressWarnings("unchecked")
         ArrayList<Locale> requestLocales = Collections.list(request.getLocales());
@@ -153,13 +141,6 @@ public class BasicBestLocaleMatcher
                     locale = new Locale(locStr.toLowerCase(), ctryCd.toUpperCase(), variant);
             }
             LOCALE_CACHE.putIfAbsent(localeCode, locale);
-//            Locale oldLoc = LOCALE_CACHE.putIfAbsent(localeCode, locale);
-//            if (oldLoc != null && !locale.equals(oldLoc)) {
-//                @SuppressWarnings("ThrowableInstanceNeverThrown")
-//                LocalizationException le = new LocalizationException(LocalizationRsrc.BUNDLE_ID, LocalizationRsrc.ERROR_LOCALE_MAPPING,
-//                        localeCode, locale.toString(), oldLoc.toString());
-//                LOGGER.warn(le);
-//            }
             return locale;
         }
     }
