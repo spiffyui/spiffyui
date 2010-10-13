@@ -124,5 +124,8 @@ iframe {
 .columns {
     -moz-column-gap: 20px;
     -moz-column-width: 120px;
-    
+    -webkit-column-gap: 20px; 
+    -webkit-column-width: 120px;
+    column-gap: 20px; 
+    column-width: 120px; 
 }
