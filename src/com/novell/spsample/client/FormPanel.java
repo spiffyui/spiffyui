@@ -72,7 +72,7 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
      */
     public FormPanel()
     {
-        super("div", "<div id=\"Page2PrefsPanel\"></div><h1>Sample Form Example</h1><br /><br />" + CONTENTS);
+        super("div", "<h1>Sample Form Example</h1><br /><br />" + CONTENTS);
         
         getElement().setId("formPanel");
         
@@ -80,14 +80,6 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
         
         setVisible(false);
         
-        /*
-         * SlideDownPrefsPanel
-         */
-        SlideDownPrefsPanel prefsPanel = new SlideDownPrefsPanel("Page2-prefs");
-        add(prefsPanel, "Page2PrefsPanel");
-        FlowPanel prefContents = new FlowPanel();
-        prefContents.add(new Label("Add display option labels and fields and an 'Apply' or 'Save' button."));
-        prefsPanel.setPanel(prefContents);
         /*
          Field 1
          */

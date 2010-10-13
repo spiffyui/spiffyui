@@ -3,16 +3,8 @@
     width: 85%;
 }
 
-#formPanel {
+#WidgetsPanel {
 	padding-right: 10px;
-}
-
-.cell {
-    background: white;
-    border: 1px solid #DFDFDF;
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-    padding: 10px;
 }
 
 .slidegrid {
