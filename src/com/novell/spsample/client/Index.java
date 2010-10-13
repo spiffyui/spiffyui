@@ -124,13 +124,13 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         m_panels.put(item, new BuildPanel());
         
         /*
-         The authentication info panel
-         */
-        item = new NavItem("authNavItem", "Spiffy Security",
-                           "This is the navigation item for the spiffy authentication page");
-        m_navBar.add(item);
-        m_panels.put(item, new AuthPanel());
-
+        The authentication info panel
+        */
+       item = new NavItem("authNavItem", "Spiffy Authentication",
+                          "This is the navigation item for the spiffy authentication page");
+       m_navBar.add(item);
+       m_panels.put(item, new AuthPanel());
+       
         /*
         The date info panel
         */

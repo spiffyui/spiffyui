@@ -1,8 +1,63 @@
-<h1>Spiffy UI Security Information</h1><br />
+<h1>Spiffy UI Authentication</h1><br />
 <br />
 <div id="authPanelText" class="documentationPanel">
-    
     <p>
-    We are still working on adding security information.
+        The Spiffy UI framework comes with a built-in authentication mechanism.
+        You can also use your own authentication method to override the spiffy's default mechanism.
     </p>
+
+    <h2>Authentication Process</h2>
+    <p>
+        REST is stateless. Any client request to a server URL that requires authentication will need to carry an authentication token.
+    </p>
+
+    <p>1. Client makes a request to server url http://host:post/data-server-war-context/path-require-auth in order to access some resources.</p>
+
+    <p>2. Server looks for specific authentication header, since it is not found, it returns back JSON indicating no authentication information available.
+        It will also send back WWW-Authenticate response header, with authentication server url information, letting client know to authenticate.</p>
+        <p>
+    <pre>WWW-Authenticate  X-OPAQUE uri="http://host2:port2/auth-server-war-context/auth-path", signOffUri=""</pre>
+    <p>
+
+    <p>3. Due to same origin policy, client can not directly contact the authentication server which is on a different server.
+        So client contacts a servlet (AuthServlet) that is in the same client war, forwarding on user credentials.
+        The servlet, which acts as a proxy, then contacts the authentication server at http://host2:port2/auth-server-war-context/auth-path to ask for
+        authentication token to access data server resources. To use the proxy servlet, it must be added to the web.xml of the client war.</p>
+      <p>
+      <pre>
+        &lt;servlet&gt;
+          &lt;servlet-name&gt;AuthServlet&lt;/servlet-name&gt;
+          &lt;servlet-class&gt;com.novell.spiffyui.server.AuthServlet&lt;/servlet-class&gt;
+        &lt;/servlet&gt;
+
+        &lt;servlet-mapping&gt;
+          &lt;servlet-name&gt;AuthServlet&lt;/servlet-name&gt;
+          &lt;url-pattern&gt;/auth/*&lt;/url-pattern&gt;
+        &lt;/servlet-mapping&gt;
+      </pre>
+
+    <p>4. If user's credentials is sufficient, authentication server will return back an authentication token in JSON format, such as:</p>
+    <p>
+    <pre>{"Token":"NOVELLIDMRPT:24536904-cad8-4202-b70c-5c02aae89999:1286997128984"} </pre>
+    <p>
+    <p> to the proxy servlet, which then forwards the token back to client to be saved in browser cookie.</p>
+
+    <p>5. Client can now make the request to access the resources again on the data server at original url:  http://host:post/data-server-war-context/path-require-auth,
+        carrying authentication token in request header "Authorization":
+    <p>
+    <pre> Authorization	X-OPAQUE NOVELLIDMRPT:24536904-cad8-4202-b70c-5c02aae89999:1286997128984 </pre>
+    <p>
+
+    <p>6. Data server checks and validates the authentication token, then returns back requested resources.</p>
+
+    <h2>An example used in sample project</h2>
+    <p>
+        In spsample project, we have provided a sample servlet (SampleAuthServer), which acts as a stub authorization server.
+        Upon client request with user credentials, the servlet will return an authentication token, which is the user name.
+        We then provide a sample widget (Sample Authentication Widget on Sample Widgets page) to demostrate authentication and access to protected resources.
+        When the sample widget is clicked, it will try to access a resource that requires authentication (implemented by another servlet SampleDataServlet) on the server.
+        Login panel will be presented to prompt for user credentials. Upon successful authentication and logging in, the resources will be returned back to the client.
+    </p>
+
 </div>
+
