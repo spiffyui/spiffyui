@@ -34,7 +34,7 @@ import javax.servlet.ServletException;
  * The JSLocaleUtil can handle finding the right filename of a JavaScript
  * library for a given locale.
  */
-final class JSLocaleUtil 
+public final class JSLocaleUtil 
 {
     
     private JSLocaleUtil()
@@ -68,13 +68,7 @@ final class JSLocaleUtil
     public static String getFile(String resourceName, Locale locale, ServletContext context)
         throws ServletException
     {
-        if (RESOURCES.size() == 0) {
-            /*
-             * We want to do this check here so we can avoid the
-             * synchronized block on most requests.
-             */
-            populateMap(context);
-        }
+        populateMap(context);
 
         String resource = resourceName + "-" + locale.toString() + ".js";
         
@@ -102,14 +96,14 @@ final class JSLocaleUtil
 
     private static void populateMap(ServletContext context)
     {
-        synchronized (RESOURCES) {
-            if (RESOURCES.size() > 0) {
-                /*
-                 * Then we have already populated the map
-                 */
-                return;
-            }
+        if (RESOURCES.size() > 0) {
+            /*
+             * Then we have already populated the map
+             */
+            return;
+        }
 
+        synchronized (RESOURCES) {
             Set set = context.getResourcePaths("/js/lib/i18n");
             Iterator iter = set.iterator();
             while (iter.hasNext()) {
@@ -188,6 +182,36 @@ final class JSLocaleUtil
                 }
             }
         }
+    }
+
+    /**
+     * Get the list of minimum supported locales.  This list is the smallest number of
+     * locales supported by one of the JavaScript files is the js/lib/i18n directory.
+     * 
+     * @return The minimum list of supported locales
+     */
+    public static ArrayList<Locale> getMinimumSupportedLocales(ServletContext context)
+    {
+        populateMap(context);
+        Map<Locale, String> map = null;
+
+        for (String file : RESOURCES.keySet()) {
+            Map<Locale, String> m = RESOURCES.get(file);
+
+            if (map == null) {
+                map = m;
+            } else if (m.size() < map.size()) {
+                map = m;
+            }
+        }
+
+        ArrayList<Locale> locales = new ArrayList<Locale>();
+
+        for (Locale l : map.keySet()) {
+            locales.add(l);
+        }
+
+        return locales;
     }
 
     private static Map<Locale, String> getMap(String fileName)

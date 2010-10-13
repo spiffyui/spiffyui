@@ -30,6 +30,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.novell.spiffyui.server.JSLocaleUtil;
+
 /**
  * A basic implementation for matching a list of locales from the request
  * and finding a best corresponding supported locale.
@@ -38,25 +40,6 @@ public class BasicBestLocaleMatcher
 {
     private static final String NOVELL_SPIFFY_LOCALE = "Novell_Spiffy_Locale";
     private static final ConcurrentHashMap<String, Locale> LOCALE_CACHE = new ConcurrentHashMap<String, Locale>();
-    private static ArrayList<Locale> g_supportedLocales;
-    
-    static {
-        // TODO: replace hard-coded locales below with a REST API call to get the information from the System Preferences
-        g_supportedLocales = new ArrayList<Locale>();
-        g_supportedLocales.add(Locale.SIMPLIFIED_CHINESE);
-        g_supportedLocales.add(Locale.TRADITIONAL_CHINESE);
-        g_supportedLocales.add(Locale.ENGLISH);
-        g_supportedLocales.add(new Locale("da")); // Danish
-        g_supportedLocales.add(new Locale("nl")); // Dutch
-        g_supportedLocales.add(Locale.FRENCH);
-        g_supportedLocales.add(Locale.GERMAN);
-        g_supportedLocales.add(Locale.ITALIAN);
-        g_supportedLocales.add(Locale.JAPANESE);
-        g_supportedLocales.add(new Locale("pt")); // Portuguese
-        g_supportedLocales.add(new Locale("ru")); // Russian
-        g_supportedLocales.add(new Locale("es")); // Spanish
-        g_supportedLocales.add(new Locale("sv")); // Swedish
-    }
     
     /**
      * Return the best match locale by getting a list of requested locales from the request.
@@ -88,7 +71,7 @@ public class BasicBestLocaleMatcher
         //then by lang
         //then by next locale
         for (Locale requestLocale : requestLocales) {
-            Locale matchLocale = matchSupportedLocale(requestLocale);
+            Locale matchLocale = matchSupportedLocale(requestLocale, context);
             if (matchLocale != null) {
                 return matchLocale;
             }
@@ -98,9 +81,11 @@ public class BasicBestLocaleMatcher
         return Locale.ENGLISH;
     }
     
-    private static Locale matchSupportedLocale(Locale loc)
+    private static Locale matchSupportedLocale(Locale loc, ServletContext context)
     {
-        for (Locale supportedLocale : g_supportedLocales) {
+        ArrayList<Locale> supportedLocales = JSLocaleUtil.getMinimumSupportedLocales(context);
+
+        for (Locale supportedLocale : supportedLocales) {
             if (supportedLocale.equals(loc)) {
                 //exact match found
                 return supportedLocale;
@@ -111,7 +96,7 @@ public class BasicBestLocaleMatcher
         int locStrLen = locStr.length();
         //bust on exact match, if it's lang-country-variant, try matching on just lang-country
         if (locStrLen >= 5) {
-            for (Locale supportedLocale : g_supportedLocales) {
+            for (Locale supportedLocale : supportedLocales) {
                 if (supportedLocale.getLanguage().equals(loc.getLanguage()) && 
                         supportedLocale.getCountry().equals(loc.getCountry())) {
                     //lang-country found
@@ -121,7 +106,7 @@ public class BasicBestLocaleMatcher
         }
         
         //bust on lang-country, try matching on just lang
-        for (Locale supportedLocale : g_supportedLocales) {
+        for (Locale supportedLocale : supportedLocales) {
             if (supportedLocale.getLanguage().equals(loc.getLanguage())) {
                 //lang found
                 return supportedLocale;

@@ -888,6 +888,7 @@ button.inprogress {
 /*the jquery DatePicker has to be on top of a gwt-DialogBox*/
 .ui-datepicker {
     z-index: 5050;
+    display: none;
 }
 
 /*

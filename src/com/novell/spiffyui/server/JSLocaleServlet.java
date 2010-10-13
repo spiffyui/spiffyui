@@ -51,7 +51,6 @@ public class JSLocaleServlet extends HttpServlet
     public void service(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-
         Locale bestMatchLocale = getBestMatchLocale(request, response, getServletConfig().getServletContext());
         response.setContentType(CONTENT_TYPE_JS);
 
