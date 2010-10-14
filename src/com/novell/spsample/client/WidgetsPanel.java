@@ -91,7 +91,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
          * Create the sliding grid and add its big cell
          */
         m_slideGridPanel = new SlidingGridPanel();
-        m_slideGridPanel.setGridOffset(185);
+        m_slideGridPanel.setGridOffset(175);
         addToSlidingGrid(null, "WidgetsSlidingGridCell", "Sliding Grid Panel", 
             "All the cells here are layed out using the sliding grid panel. This panel is a wrapper for slidegrid.js, which automatically " +
             "moves cells to fit nicely on the screen for any browser window size.<br /><br />  Resize your browser to see it in action.<br /><br /> " +
