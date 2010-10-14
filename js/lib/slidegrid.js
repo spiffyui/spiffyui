@@ -21,6 +21,11 @@ Description:    for more information see http://www.zackgrossbart.com/hackito/sl
 slidegrid = {
 	hasDrawn: false,
 	windowWidth: 0,
+	cellWidth: 250,
+	cellHeight: 150,
+	padding: 30,
+	gridOffset: 0,
+	
 	/**
 	 * Adds a specific cell to the set of used cells.  Used cells are skipped 
 	 * when laying cells out in the future.
@@ -83,11 +88,17 @@ slidegrid = {
 	/**
 	 * Aligns a set of elements in a resizable grid.
 	 * 
-	 * @param cellWidth  the width of each cell in EMs
-	 * @param cellHeight the height of each cell in EMs
-	 * @param padding    the paddin between each cell in EMs
+	 * @param cellWidth  the width of each cell in px
+	 * @param cellHeight the height of each cell in px
+	 * @param padding    the padding between each cell in px
+	 * @param gridOffset the offset width of the grid in px
 	 */
-	alignGrid: function(/*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
+	alignGrid: function(/*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding, /*int*/ gridOffset) {
+		slidegrid.cellWidth = cellWidth;
+		slidegrid.cellHeight = cellHeight;
+		slidegrid.padding = padding;
+		slidegrid.gridOffset = gridOffset;
+		
 	    var x = padding / 2;
 	    var y = 0;
 	    var count = 1;
@@ -106,7 +117,7 @@ slidegrid = {
 
 	        var hasTallCell = false;
 	        
-	        var cols = Math.floor(($(window).width() - 200) / ((cellWidth + padding)));
+	        var cols = Math.floor(($(window).width() - gridOffset) / ((cellWidth + padding)));
 	        
 	        $(this).css("position", "relative");
 	        
@@ -267,9 +278,10 @@ slidegrid = {
 	    
 	    slidegrid.hasDrawn = true;
 	},
+	
 	resizeWindow: function(e) {
         if (slidegrid.windowWidth != $(window).width()) {
-            slidegrid.alignGrid(250, 150, 30);
+            slidegrid.alignGrid(slidegrid.cellWidth, slidegrid.cellHeight, slidegrid.padding, slidegrid.gridOffset);
             slidegrid.windowWidth = $(window).width();
         }
     }
