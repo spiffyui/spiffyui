@@ -113,7 +113,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         /*
          The CSS panel
          */
-        item = new NavItem("cssNavItem", "Spiffy CSS",
+        item = new NavItem("cssNavItem", "CSS",
                            "This is the navigation item for the spiffy css page");
         m_navBar.add(item);
         m_panels.put(item, new CSSPanel());
@@ -121,7 +121,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         /*
          The build info panel
          */
-        item = new NavItem("buildNavItem", "Spiffy Build",
+        item = new NavItem("buildNavItem", "Build",
                            "This is the navigation item for the spiffy build page");
         m_navBar.add(item);
         m_panels.put(item, new BuildPanel());
@@ -129,7 +129,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         /*
         The authentication info panel
         */
-       item = new NavItem("authNavItem", "Spiffy Authentication",
+       item = new NavItem("authNavItem", "Authentication",
                           "This is the navigation item for the spiffy authentication page");
        m_navBar.add(item);
        m_panels.put(item, new AuthPanel());
@@ -137,7 +137,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         /*
         The date info panel
         */
-        item = new NavItem("dateNavItem", "Spiffy Dates",
+        item = new NavItem("dateNavItem", "Dates",
                           "This is the navigation item for the spiffy date localization page");
         m_navBar.add(item);
         m_panels.put(item, new DatePanel());
