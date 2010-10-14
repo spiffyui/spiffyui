@@ -234,10 +234,10 @@ body > #mainWrap {
 #mainNavigation {
     clear: left;
     float: left;
-    margin: 19px 5px 15px -190px;
+    margin: 19px 5px 15px -175px;
     padding-left: 5px;
     position: relative;
-    width: 170px;
+    width: 150px;
     overflow: hidden;
 }
 
