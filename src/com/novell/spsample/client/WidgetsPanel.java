@@ -59,6 +59,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
 	
 	private static final int TALL = 1;
 	private static final int WIDE = 2;
+	private static final int BIG = 3;
     /**
      * Creates a new panel
      */
@@ -66,7 +67,6 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
     {
         super("div", 
              "<div id=\"WidgetsPrefsPanel\"></div><h1>Some Sample Widgets</h1><br /><br />" + 
-             "<p>The widgets below the Long Message are layed out using the SlidingGridPanel widget.  Resize your browser to see it in action.</p>" +
              "<div id=\"WidgetsLongMessage\"></div><br /><br />" + 
              "<div id=\"WidgetsSlidingGrid\"></div>" +           
              "</div>");
@@ -88,10 +88,15 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
                              "transient messages.");
         
         /*
-         * Create the sliding grid
+         * Create the sliding grid and add its big cell
          */
         m_slideGridPanel = new SlidingGridPanel();
-        
+        m_slideGridPanel.setGridOffset(185);
+        addToSlidingGrid(null, "WidgetsSlidingGridCell", "Sliding Grid Panel", 
+            "All the cells here are layed out using the sliding grid panel. This panel is a wrapper for slidegrid.js, which automatically " +
+            "moves cells to fit nicely on the screen for any browser window size.<br /><br />  Resize your browser to see it in action.<br /><br /> " +
+            "More information on the sliding grid can be found <a href=\"http://www.zackgrossbart.com/hackito/slidegrid/\">here</a>.",
+            TALL);
         /*
          * Add widgets to the sliding grid in alphabetical order
          */
@@ -100,17 +105,36 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
          * Add the date picker
          */
         addToSlidingGrid(new DatePickerTextBox("datepicker"), "WidgetsDatePicker", "Date Picker",
-            "Date Picker shows a calendar for easy date selection.  It also allows you to type directly into the text field. " + 
-            "Other useful features include being able to specify the minimum and maximum dates allowed and getting the " +
-            "selected date as a java.util.Date. " +
-            "It is localized.  Try changing your browser locale and refreshing your browser.",
+            "Date Picker shows a calendar for easy date selection.  It wraps the JQuery UI Date Picker so it includes many " + 
+            "features including being able to specify the minimum and maximum dates and being internationalized." +
+            "Try changing your browser locale and refreshing your browser. In addition, since it is a GWT widget, you may get the " +
+            "selected date value as a java.util.Date.",
             TALL);
                 
         /*
          * Add the fancy button
          */
-        addToSlidingGrid(new FancySaveButton("Save"), "WidgetsFancyButton", "Fancy Save Button", 
-            "Fancy buttons show an image and text with a disabled image and hover style.  It also supports an in progress state.");
+        final FancySaveButton fancy = new FancySaveButton("Save");
+        fancy.addClickHandler(new ClickHandler() {
+            
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                fancy.setInProgress(true);
+                //a little timer to simulate time it takes to set loading back to false
+                Timer t = new Timer() {
+
+                    @Override
+                    public void run() {
+                        fancy.setInProgress(false);
+                    }
+                    
+                };
+                t.schedule(2000);
+            }
+        });
+        addToSlidingGrid(fancy, "WidgetsFancyButton", "Fancy Save Button", 
+            "Fancy buttons show an image and text with a disabled image and hover style.  Click to demonstrate its in progress state.");
         
         /*
          *Add the message buttons
@@ -144,8 +168,8 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         FlowPanel prefContents = new FlowPanel();
         prefContents.add(new Label("Add display option labels and fields and an 'Apply' or 'Save' button."));
         prefsPanel.setPanel(prefContents);
-        addToSlidingGrid(new Label(), "WidgetsDisplayOptions", "Options Slide Down Panel", 
-            "Click the Display Options slide-down tab at the top of the page to view an example of this widget.");
+        addToSlidingGrid(null, "WidgetsDisplayOptions", "Options Slide Down Panel", 
+            "Click the 'Slide Down Prefs Panel' slide-down tab at the top of the page to view an example of this widget.");
 
         /*
          * Add a progress bar to our page
@@ -211,7 +235,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
          * Add the time picker
          */
         addToSlidingGrid(new TimePickerTextBox("timepicker"), "WidgetsTimePicker", "Time Picker",
-            "Time Picker shows a time dropdown for easy selection.  It also allows you to type directly into the text field. " + 
+            "Time Picker shows a time dropdown for easy selection. It is a wrapper for a JQuery time picker. " + 
             "The time step is set to 30 min but can be configured.  It is localized. " + 
             "Try changing your browser locale and refreshing your browser.");
         
@@ -234,8 +258,9 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
             "<br /><br />" + 
             "<span id=\"" + id + "\"></span>");
         
-        p.add(widget, id);
-        
+        if (widget != null) {
+            p.add(widget, id);
+        }
         p.addStyleName("weak");
         
         switch (type) {
@@ -244,6 +269,9 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
                 break;
             case TALL:
                 m_slideGridPanel.addTall(p);
+                break;
+            case BIG:
+                m_slideGridPanel.addBig(p);
                 break;
             default:
                 m_slideGridPanel.add(p);
