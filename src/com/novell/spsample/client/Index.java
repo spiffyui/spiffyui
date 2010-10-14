@@ -24,6 +24,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
+
 import com.novell.spiffyui.client.JSUtil;
 import com.novell.spiffyui.client.MainFooter;
 import com.novell.spiffyui.client.MainHeader;
@@ -37,6 +38,7 @@ import com.novell.spiffyui.client.rest.RESTException;
 import com.novell.spiffyui.client.rest.RESTLoginCallBack;
 import com.novell.spiffyui.client.rest.RESTObjectCallBack;
 import com.novell.spiffyui.client.rest.RESTility;
+import com.novell.spsample.client.rest.SampleAuthBean;
 import com.novell.spsample.client.rest.SampleAuthUtil;
 import com.novell.spsample.client.rest.VersionInfo;
 
@@ -88,6 +90,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         
         m_footer = new MainFooter();
         loadFooter();
+        //loadFooter2();
         
         m_navBar = new MainNavBar();
 
@@ -192,6 +195,27 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
                 m_footer.setFooterString("Spiffy UI Sample version " + info.getVersion() +
                                          " was built on " + DateTimeFormat.getFullDateFormat().format(info.getDate()) +
                                          " from revision " + info.getRevision());
+            }
+
+            public void error(String message)
+            {
+                MessageUtil.showFatalError(message);
+            }
+
+            public void error(RESTException e)
+            {
+                MessageUtil.showFatalError(e.getReason());
+            }
+        });
+    }
+
+    private void loadFooter2()
+    {
+        SampleAuthBean.getSampleAuthData(new RESTObjectCallBack<SampleAuthBean>() {
+            public void success(SampleAuthBean info)
+            {
+                m_footer.setFooterString("Result: " + info.getMessage() +
+                                         " received on " + DateTimeFormat.getFullDateFormat().format(info.getDate()));
             }
 
             public void error(String message)

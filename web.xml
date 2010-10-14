@@ -30,6 +30,16 @@
     <servlet-name>AuthServlet</servlet-name>
     <url-pattern>/auth/*</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>SampleAuthServer</servlet-name>
+    <servlet-class>com.novell.spsample.server.SampleAuthServer</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>SampleDataServlet</servlet-name>
+    <servlet-class>com.novell.spsample.server.SampleDataServlet</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>VersionInfoServlet</servlet-name>
@@ -51,4 +61,16 @@
     <servlet-name>JSLocaleServlet</servlet-name>
     <url-pattern>/js/lib/i18n/jquery.ui.datepicker.js</url-pattern>
   </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SampleAuthServer</servlet-name>
+    <url-pattern>/authserver</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SampleDataServlet</servlet-name>
+    <url-pattern>/authdata</url-pattern>
+  </servlet-mapping>
+
+
 </web-app>
