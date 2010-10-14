@@ -92,11 +92,18 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
          */
         m_slideGridPanel = new SlidingGridPanel();
         m_slideGridPanel.setGridOffset(175);
-        addToSlidingGrid(null, "WidgetsSlidingGridCell", "Sliding Grid Panel", 
-            "All the cells here are layed out using the sliding grid panel. This panel is a wrapper for slidegrid.js, which automatically " +
-            "moves cells to fit nicely on the screen for any browser window size.<br /><br />  Resize your browser to see it in action.<br /><br /> " +
-            "More information on the sliding grid can be found <a href=\"http://www.zackgrossbart.com/hackito/slidegrid/\">here</a>.",
-            TALL);
+        addToSlidingGrid(null, "WidgetsSlidingGridCell", "Sliding Grid Panel",
+            "<p>" +  
+                "All the cells here are layed out using the sliding grid panel. This panel is a wrapper for slidegrid.js, " + 
+                "which automatically moves cells to fit nicely on the screen for any browser window size." + 
+            "</p>" + 
+            "<p>" + 
+                "Resize your browser window to see it in action." +
+            "</p>" + 
+            "<p>" + 
+                "More information on the sliding grid can be found in <a href=\"http://www.zackgrossbart.com/hackito/slidegrid/\">" + 
+                "Create Your Own Sliding Resizable Grid</a>." + 
+            "</p>", TALL);
         /*
          * Add widgets to the sliding grid in alphabetical order
          */
@@ -105,11 +112,16 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
          * Add the date picker
          */
         addToSlidingGrid(new DatePickerTextBox("datepicker"), "WidgetsDatePicker", "Date Picker",
-            "Date Picker shows a calendar for easy date selection.  It wraps the JQuery UI Date Picker so it includes many " + 
-            "features including being able to specify the minimum and maximum dates and being internationalized." +
-            "Try changing your browser locale and refreshing your browser. In addition, since it is a GWT widget, you may get the " +
-            "selected date value as a java.util.Date.",
-            TALL);
+            "<p>" + 
+                "DatePickerTextBox shows a calendar for easy date selection.  It wraps the <a href=\"http://jqueryui.com/demos/datepicker\">" + 
+                "JQuery UI Date Picker</a> which is better tested, has more features, and is easier to style than the GWT date " + 
+                "picker control.  The JQuery Date Picker includes many features including the ablility to specify the minimum " + 
+                "and maximum dates and changing the way to pick months and years." +
+            "</p>" + 
+            "<p>" +
+                "The Spiffy UI Framework is localized into 53 languages.  Try changing your browser locale and refreshing your " + 
+                "this page. In addition, since it is a GWT widget, you may get the selected date value as a java.util.Date." + 
+            "</p>", TALL);
                 
         /*
          * Add the fancy button
