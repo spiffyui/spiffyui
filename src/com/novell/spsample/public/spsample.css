@@ -23,7 +23,7 @@ p {
 }
 
 h2 {
-    color: #CC0000;
+    color: #bb3a38;
     font-size: 16px;
     font-weight: normal;
     line-height: 28px;
@@ -47,6 +47,17 @@ h2 {
 
 #mainHeaderContainer .headertitle {
     left: 35px;
+    color: #bb3a38;
+    font-size: 24px;
+}
+
+#mainHeader {
+    background: url("images/header_back.png") repeat-x scroll left top transparent;
+    height: 61px;
+}
+
+#headerstring {
+    color: black;
 }
 
 iframe {

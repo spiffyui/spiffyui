@@ -85,7 +85,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     {
         m_header = new MainHeader();
         m_header.setWelcomeString("Welcome Guest");
-        m_header.setHeaderTitle("Spiffy UI Sample");
+        m_header.setHeaderTitle("The Spiffy UI Framework");
         
         m_footer = new MainFooter();
         loadFooter();
