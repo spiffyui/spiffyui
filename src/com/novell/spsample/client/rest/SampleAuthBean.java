@@ -21,7 +21,6 @@ package com.novell.spsample.client.rest;
 
 import java.util.Date;
 
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
 
@@ -40,11 +39,13 @@ public final class SampleAuthBean
     private static SampleAuthBean g_sampleAuthBean;
 
     private String m_message;
+    private String m_name;
     private Date m_date;
 
-    private SampleAuthBean(String message, Date date)
+    private SampleAuthBean(String message, String name, Date date)
     {
         m_message = message;
+        m_name = name;
         m_date = date;
     }
 
@@ -56,6 +57,16 @@ public final class SampleAuthBean
     public String getMessage()
     {
         return m_message;
+    }
+
+    /**
+     * Gets the user name
+     *
+     * @return the user name
+     */
+    public String getName()
+    {
+        return m_name;
     }
 
     /**
@@ -98,7 +109,9 @@ public final class SampleAuthBean
                     } catch (Exception e) {
                         MessageUtil.showError("Invalid date: " + info.get("date").isString().stringValue());
                     }
-                    g_sampleAuthBean = new SampleAuthBean(info.get("message").isString().stringValue(), date);
+                    g_sampleAuthBean = new SampleAuthBean(info.get("message").isString().stringValue(),
+                                                          info.get("name").isString().stringValue(),
+                                                          date);
                     callback.success(g_sampleAuthBean);
                 }
 

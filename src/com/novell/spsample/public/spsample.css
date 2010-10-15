@@ -127,3 +127,7 @@ iframe {
     font-size: 12px;
     padding: 14px;
 }
+
+#testAuthResult {
+    font-weight:bold;
+}

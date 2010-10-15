@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SampleDataServlet extends HttpServlet
 {
-    private static final long serialVersionUID = -1l;
+    private static final long serialVersionUID = -1L;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -57,8 +57,10 @@ public class SampleDataServlet extends HttpServlet
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             buff.append(generateFault("Sender", "NoAuthHeader", ""));
         } else {
+            String token = authToken.replace("X-OPAQUE", "").trim(); //remove X-OPAQUE
             Date date = new Date();
-            buff.append("{\"message\":\""  + "success\",").
+            buff.append("{\"message\":\""  + "Authenticated data received\",").
+                 append("\"name\":\""  + token + "\",").
                  append("\"date\":\"" + DateFormat.getDateInstance(DateFormat.SHORT).format(date) + "\"}");
         }
         out.println(buff.toString());

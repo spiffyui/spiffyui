@@ -19,8 +19,18 @@
 package com.novell.spsample.client;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+
+import com.novell.spiffyui.client.MessageUtil;
+import com.novell.spiffyui.client.rest.RESTException;
+import com.novell.spiffyui.client.rest.RESTObjectCallBack;
+import com.novell.spsample.client.rest.SampleAuthBean;
 
 /**
  * This is the authentication documentation panel
@@ -29,8 +39,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class AuthPanel extends HTMLPanel
 {
     private static final SPSampleStrings STRINGS = (SPSampleStrings) GWT.create(SPSampleStrings.class);
+    private static AuthPanel g_authPanel;
     
-	/**
+    /**
      * Creates a new panel
      */
     public AuthPanel()
@@ -40,7 +51,53 @@ public class AuthPanel extends HTMLPanel
         getElement().setId("authPanel");
         
         RootPanel.get("mainContent").add(this);
-        
+
         setVisible(false);
+
+        final FancyTestButton authTestButton = new FancyTestButton("Login and Get Data");
+
+        authTestButton.getElement().setId("authTestBtn");
+        this.add(authTestButton, "testAuth");
+
+        authTestButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                authTestButton.setInProgress(true);
+                //a little timer to simulate time it takes to set loading back to false
+                Timer t = new Timer() {
+                    @Override
+                    public void run()
+                    {
+                        authTestButton.setInProgress(false);
+                    }
+
+                };
+                t.schedule(2000);
+                getData();
+            }
+        });
+        g_authPanel = this;
     }
+
+    private void getData()
+    {
+        SampleAuthBean.getSampleAuthData(new RESTObjectCallBack<SampleAuthBean>() {
+            public void success(SampleAuthBean info)
+            {
+                String data = info.getMessage() + " by " + info.getName() + " on " + DateTimeFormat.getFullDateFormat().format(info.getDate());
+                g_authPanel.add(new HTML(data), "testAuthResult");
+            }
+
+            public void error(String message)
+            {
+                MessageUtil.showFatalError(message);
+            }
+
+            public void error(RESTException e)
+            {
+                MessageUtil.showFatalError(e.getReason());
+            }
+        });
+   }
 }

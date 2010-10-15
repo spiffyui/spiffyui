@@ -38,7 +38,6 @@ import com.novell.spiffyui.client.rest.RESTException;
 import com.novell.spiffyui.client.rest.RESTLoginCallBack;
 import com.novell.spiffyui.client.rest.RESTObjectCallBack;
 import com.novell.spiffyui.client.rest.RESTility;
-import com.novell.spsample.client.rest.SampleAuthBean;
 import com.novell.spsample.client.rest.SampleAuthUtil;
 import com.novell.spsample.client.rest.VersionInfo;
 
@@ -58,7 +57,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
          */
         Object o = MessageUtil.ERROR_PANEL;
     }
-    private static RESTAuthProvider m_authUtil = new SampleAuthUtil();
+    private static RESTAuthProvider g_authUtil = new SampleAuthUtil();
 
     private static Index g_index;
     
@@ -90,7 +89,6 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         
         m_footer = new MainFooter();
         loadFooter();
-        //loadFooter2();
         
         m_navBar = new MainNavBar();
 
@@ -209,27 +207,6 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         });
     }
 
-    private void loadFooter2()
-    {
-        SampleAuthBean.getSampleAuthData(new RESTObjectCallBack<SampleAuthBean>() {
-            public void success(SampleAuthBean info)
-            {
-                m_footer.setFooterString("Result: " + info.getMessage() +
-                                         " received on " + DateTimeFormat.getFullDateFormat().format(info.getDate()));
-            }
-
-            public void error(String message)
-            {
-                MessageUtil.showFatalError(message);
-            }
-
-            public void error(RESTException e)
-            {
-                MessageUtil.showFatalError(e.getReason());
-            }
-        });
-    }
-
     /**
      * Sets the application visible once we have logged in.
      * People worry about security when they see controls
@@ -276,19 +253,25 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
      * will be used instead of the default authentication provider that comes with spiffy framework
      *
      */
-    public static void setAuthProvider() {
-        RESTility.setAuthProvider(m_authUtil);
+    public static void setAuthProvider()
+    {
+        RESTility.setAuthProvider(g_authUtil);
     }
 
     /**
      * When login is successful, make the application visible
     */
-    public void onLoginSuccess() {
+    public void onLoginSuccess()
+    {
         Index.showApplication();
         updateMainHeader();
     }
 
-    public void loginPrompt() {
+    /**
+     * do nothing
+    */
+    public void loginPrompt()
+    {
         //no-op
     }
 }

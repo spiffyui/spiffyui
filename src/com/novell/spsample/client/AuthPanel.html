@@ -52,11 +52,13 @@
 
     <h2>An example used in sample project</h2>
     <p>
-        In spsample project, we have provided a sample servlet (SampleAuthServer), which acts as a stub authorization server.
+        In spsample project, we have provided a stub servlet (SampleAuthServer), which acts as a stub authorization server.
         Upon client request with user credentials, the servlet will return an authentication token, which is the user name.
-        We then provide a sample widget (Sample Authentication Widget on Sample Widgets page) to demostrate authentication and access to protected resources.
-        When the sample widget is clicked, it will try to access a resource that requires authentication (implemented by another servlet SampleDataServlet) on the server.
-        Login panel will be presented to prompt for user credentials. Upon successful authentication and logging in, the resources will be returned back to the client.
+        You can click on the "Login and Get Data" button below to see an authentication and access to protected data  live in action.
+        When the button is clicked, it will try to access a resource that requires authentication (implemented by SampleDataServlet) on the server.
+        Login panel will be presented to prompt for user credentials. Upon successfu logging in, data will be returned back from server.
+        <p><div id="testAuth"></div>
+        <p><div id="testAuthResult"></div>
     </p>
 
 </div>
