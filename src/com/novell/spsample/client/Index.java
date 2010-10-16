@@ -240,12 +240,13 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
      * user and apply it to the main header of the application.
      *
      */
-    public void updateMainHeader()
+    public static void updateMainHeader()
     {
         if (RESTility.getUserToken() == null) {
             return;
         }
-        m_header.setWelcomeString("Welcome " + RESTility.getUserToken());
+        g_index.m_header.setWelcomeString("Welcome " + RESTility.getUserToken());
+        JSUtil.bounce("#" + MainHeader.HEADER_ACTIONS_BLOCK, 4, 300, 40);
     }
 
     /**
