@@ -442,6 +442,10 @@ button.spiffy-save-button.disabled {
     background: #EDEEEC url('images/spiffy_ui_images.png') no-repeat scroll 10px -345px;
 }
 
+button.spiffy-fancy-button.inprogress {
+    background: #EDEEEC url('images/loading_small.gif') no-repeat scroll 10px 5px;
+}
+
 button {
     background: url('images/btn-back.gif') no-repeat left;
     border: thin solid lightgray;
@@ -452,7 +456,7 @@ button {
     margin-top: -3px;
 }
 
-button.inprogress {
+button.spiffy-inprogress {
     background: url("images/loading.gif") no-repeat scroll center center transparent;
     text-indent: -9999px;
     width: 75px;

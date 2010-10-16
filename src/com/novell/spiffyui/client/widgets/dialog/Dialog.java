@@ -129,8 +129,6 @@ public abstract class Dialog extends DialogBox
     {
         Button btn = new Button(text);
         btn.getElement().setId(id);
-        btn.setStyleName("rpt-button");
-        btn.addStyleName("rpt-button-margin-left");
         if (null == handler) {
             btn.addClickHandler(new ClickHandler() {
     

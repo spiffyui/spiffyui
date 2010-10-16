@@ -66,7 +66,7 @@ public abstract class FancyButton extends Button
     public void setInProgress(boolean inprogress)
     {
         m_inProgress = inprogress;
-        //setEnabled(!inprogress);
+        setEnabled(!inprogress);
         
         if (inprogress) {
             getElement().addClassName("inprogress");
