@@ -986,6 +986,7 @@ h3.subSectionTitle.expandable.expanded {
     -webkit-border-radius-topright: 0.5em;
     height: 55px;
     background:url("images/spiffy_headerslice.png") repeat-x scroll left top transparent;
+    /*background: none repeat scroll 0 0 black;*/
 }
 
 
@@ -1045,6 +1046,7 @@ h3.subSectionTitle.expandable.expanded {
 
 .logintitle {
   color: #4D6D8B;
+  /*color: black;*/
   margin-bottom: 15px;
   position: relative;
 }

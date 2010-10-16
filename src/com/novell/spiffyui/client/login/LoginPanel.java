@@ -241,7 +241,7 @@ public final class LoginPanel extends Composite implements KeyUpHandler
             "<div id=\"loginHeaderContainer\">" +
                 "<div id=\"loginHeaderleft\">" +
                     "<div id=\"loginHeaderlogo\"> </div>" +
-                    "<span class=\"headertitle\">" + STRINGS.productName("<span class=\"copyrightsymbol\">&reg;</span>") + "</span>" +
+                    "<span class=\"headertitle\">" + STRINGS.productName() + "</span>" +
                 "</div>" +
             "</div>" +
             "<div class=\"login_content\">" +

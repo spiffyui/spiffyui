@@ -52,7 +52,7 @@ public interface SpiffyUIStrings extends Messages {
     public String notFoundTSURL(String url);
     public String invalidUsernamePassword();
     public String noPrivilege(String user);
-    public String productName(String copyright);
+    public String productName();
     public String multipleaccounts();
     public String invalidColon(String value);
     public String invalidColonReason(String value, String reason);
