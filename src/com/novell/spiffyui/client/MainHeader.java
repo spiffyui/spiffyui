@@ -31,6 +31,15 @@ import com.novell.spiffyui.client.nav.HasNavBarListenersPanel;
  */
 public class MainHeader extends HasNavBarListenersPanel
 {
+    /**
+     * The ID of the header string section.  This section is often used for a welcome message.
+     */
+    public static final String HEADER_STRING = "headerstring";
+    
+    /**
+     * The ID of the header title section
+     */
+    public static final String HEADER_TITLE = "header_title";
 
     /**
      * The ID of the header actions block
@@ -48,11 +57,11 @@ public class MainHeader extends HasNavBarListenersPanel
         String html =
             "<div id=\"headerleft\">" +
                 "<div id=\"headerlogo\"> </div>" +
-                "<span class=\"headertitle\" id=\"header_title\"></span>" +
+                "<span class=\"headertitle\" id=\"" + HEADER_TITLE + "\"></span>" +
             "</div>" +
             "<div id=\"headerright\">" +
-                "<div id=\"header_actionsBlock\">" +
-                    "<span id=\"headerstring\"></span> " + 
+                "<div id=\"" + HEADER_ACTIONS_BLOCK + "\">" +
+                    "<span id=\"" + HEADER_STRING + "\"></span> " + 
                 "</div>" +
             "</div>";
 
@@ -61,7 +70,7 @@ public class MainHeader extends HasNavBarListenersPanel
         
         Anchor logout = new Anchor();
         logout.getElement().setId("header_logout");
-        m_panel.add(logout, "header_actionsBlock");
+        m_panel.add(logout, HEADER_ACTIONS_BLOCK);
 
         add(m_panel);
         RootPanel.get("mainHeader").add(this);
@@ -87,7 +96,7 @@ public class MainHeader extends HasNavBarListenersPanel
     public void setLogout(Anchor logout)
     {
         m_logout = logout;
-        m_panel.add(logout, "header_actionsBlock");
+        m_panel.add(logout, HEADER_ACTIONS_BLOCK);
     }
     
     /**
@@ -97,7 +106,7 @@ public class MainHeader extends HasNavBarListenersPanel
      */
     public void setWelcomeString(String string)
     {
-        m_panel.getElementById("headerstring").setInnerText(string);
+        m_panel.getElementById(HEADER_STRING).setInnerText(string);
     }
     
     /**
@@ -107,7 +116,7 @@ public class MainHeader extends HasNavBarListenersPanel
      */
     public String getWelcomeString()
     {
-        return m_panel.getElementById("headerstring").getInnerText();
+        return m_panel.getElementById(HEADER_STRING).getInnerText();
     }
     
     /**
@@ -117,7 +126,7 @@ public class MainHeader extends HasNavBarListenersPanel
      */
     public void setHeaderTitle(String string)
     {
-        m_panel.getElementById("header_title").setInnerHTML(string);
+        m_panel.getElementById(HEADER_TITLE).setInnerHTML(string);
     }
     
     /**
@@ -127,7 +136,7 @@ public class MainHeader extends HasNavBarListenersPanel
      */
     public String getHeaderTitle()
     {
-        return m_panel.getElementById("header_title").getInnerHTML();
+        return m_panel.getElementById(HEADER_TITLE).getInnerHTML();
     }
 
     /**

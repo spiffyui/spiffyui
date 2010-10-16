@@ -96,12 +96,25 @@ public final class JSUtil
         doToggleSlide(id, speed);
     }
 
-    private static native String doToggleSlide(String id, String speed) /*-{
+    private static native void doToggleSlide(String id, String speed) /*-{
         if ($wnd.$(id).is(':visible')) {
             $wnd.$(id).slideUp(speed);
         } else {
             $wnd.$(id).slideDown(speed);
         }
+    }-*/;
+    
+    /**
+     * Causes the specified element to bounce the specified number of times 
+     * at the specified speed. 
+     * 
+     * @param id the ID of the element to bounce
+     * @param times the number of times to bounce the element
+     * @param speed the speed of the bounce animation in milliseconds 
+     * @param distance the distance in pixels to bounds the element - default is 20 
+     */
+    public static native void bounce(String id, int times, int speed, int distance)  /*-{
+        $wnd.$(id).effect("bounce", { times:times, distance: distance }, speed);
     }-*/;
     
     /**
