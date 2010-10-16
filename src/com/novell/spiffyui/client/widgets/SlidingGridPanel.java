@@ -52,6 +52,10 @@ public class SlidingGridPanel extends ComplexPanel
         addWidget(w, "widecell");
     }
     
+    /**
+     * Add a widget to a big cell (tall and wide)
+     * @param w Widget
+     */
     public void addBig(Widget w)
     {
         addWidget(w, "bigcell");
