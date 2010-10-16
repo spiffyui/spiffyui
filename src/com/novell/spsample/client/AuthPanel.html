@@ -1,8 +1,10 @@
 <h1>Spiffy UI Authentication</h1>
 <div id="authPanelText" class="documentationPanel">
     <p>
-        The Spiffy UI framework comes with a built-in authentication mechanism.
-        You can also use your own authentication method to override the spiffy's default mechanism.
+        The Spiffy UI framework comes with a built-in authentication mechanism, which can be overridden by your own.
+        You can see it in action by clicking the "Login & Get Data" button below.
+        <p><div id="testAuth"></div>
+        <p><div id="testAuthResult"></div>
     </p>
 
     <h2>Authentication Process</h2>
@@ -37,28 +39,41 @@
 
     <p>4. If user's credentials is sufficient, authentication server will return back an authentication token in JSON format, such as:</p>
     <p>
-    <pre>{"Token":"NOVELLIDMRPT:24536904-cad8-4202-b70c-5c02aae89999:1286997128984"} </pre>
+    <pre>{"Token":"demouser"} </pre>
     <p>
     <p> to the proxy servlet, which then forwards the token back to client to be saved in browser cookie.</p>
 
     <p>5. Client can now make the request to access the resources again on the data server at original url:  http://host:post/data-server-war-context/path-require-auth,
         carrying authentication token in request header "Authorization":
     <p>
-    <pre> Authorization	X-OPAQUE NOVELLIDMRPT:24536904-cad8-4202-b70c-5c02aae89999:1286997128984 </pre>
+    <pre> Authorization	X-OPAQUE demouser </pre>
     <p>
 
     <p>6. Data server checks and validates the authentication token, then returns back requested resources.</p>
 
-    <h2>An example used in sample project</h2>
-    <p>
-        In spsample project, we have provided a stub servlet (SampleAuthServer), which acts as a stub authorization server.
-        Upon client request with user credentials, the servlet will return an authentication token, which is the user name.
-        You can click on the "Login and Get Data" button below to see an authentication and access to protected data  live in action.
-        When the button is clicked, it will try to access a resource that requires authentication (implemented by SampleDataServlet) on the server.
-        Login panel will be presented to prompt for user credentials. Upon successfu logging in, data will be returned back from server.
-        <p><div id="testAuth"></div>
-        <p><div id="testAuthResult"></div>
-    </p>
+    <h2>Login example explained</h2>
+    <p>Here is what happens when you click the "Login & Get Data" button.</p>
+
+    <p>1. Browser sends "GET" request to http://localhost:8081/spsample/authdata (implemented by SampleDataServlet).</p>
+
+    <p>2. Server returns Unauthorized with NoAuthHeader fault payload, and WWW-Authenticate response header
+X-OPAQUE uri="http://localhost:8081/spsample/authserver", signOffUri=""</p>
+
+    <p>3. Browser shows Login Panel, prompting user for credentials user name and password. </p>
+
+    <p>4. User enters user name and password (any string would be fine), upon submit,
+        brower contacts proxy server AuthServlet at http://localhost:8081/spsample/auth, forwarding on user credentials.</p>
+
+    <p>5. Proxy server AuthServlet contacts authentication server (implemented by SampleAuthServer)
+        at http://localhost:8081/spsample/authserver to ask for authentication token.</p>
+
+    <p>6. Authentication server grants authentication token for any user credentials received, and returns back authentication token: {"Token":username}.  </p>
+
+    <p>7. Proxy server sends the authentication token back to browser, which in trun is saved in browser cookie.</p>
+
+    <p>8. Original url  http://localhost:8081/spsample/authdata is requested again, carrying authentication token (got from browser cookie) in request header "Authorization".</p>
+
+    <p>9. Server returns back data.</p>   
 
 </div>
 

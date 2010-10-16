@@ -59,7 +59,7 @@ public class SampleDataServlet extends HttpServlet
         } else {
             String token = authToken.replace("X-OPAQUE", "").trim(); //remove X-OPAQUE
             Date date = new Date();
-            buff.append("{\"message\":\""  + "Authenticated data received\",").
+            buff.append("{\"message\":\""  + "received a security token.\",").
                  append("\"name\":\""  + token + "\",").
                  append("\"date\":\"" + DateFormat.getDateInstance(DateFormat.SHORT).format(date) + "\"}");
         }

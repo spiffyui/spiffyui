@@ -21,7 +21,6 @@ package com.novell.spsample.client;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -85,7 +84,9 @@ public class AuthPanel extends HTMLPanel
         SampleAuthBean.getSampleAuthData(new RESTObjectCallBack<SampleAuthBean>() {
             public void success(SampleAuthBean info)
             {
-                String data = info.getMessage() + " by " + info.getName() + " on " + DateTimeFormat.getFullDateFormat().format(info.getDate());
+                String data = "You have logged in as " + info.getName() +
+                              //" on " + DateTimeFormat.getFullDateFormat().format(info.getDate()) +
+                              " and " + info.getMessage();
                 g_authPanel.add(new HTML(data), "testAuthResult");
             }
 
