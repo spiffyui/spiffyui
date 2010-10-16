@@ -30,7 +30,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.widgets.DatePickerTextBox;
 import com.novell.spiffyui.client.widgets.LongMessage;
@@ -42,6 +41,7 @@ import com.novell.spiffyui.client.widgets.StatusIndicator;
 import com.novell.spiffyui.client.widgets.TimePickerTextBox;
 import com.novell.spiffyui.client.widgets.button.FancySaveButton;
 import com.novell.spiffyui.client.widgets.button.RefreshAnchor;
+import com.novell.spiffyui.client.widgets.button.SimpleButton;
 import com.novell.spiffyui.client.widgets.dialog.ConfirmDialog;
 import com.novell.spiffyui.client.widgets.dialog.Dialog;
 import com.novell.spiffyui.client.widgets.multivaluesuggest.MultivalueSuggestBox;
@@ -113,13 +113,13 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
          */
         addToSlidingGrid(new DatePickerTextBox("datepicker"), "WidgetsDatePicker", "Date Picker",
             "<p>" + 
-                "DatePickerTextBox shows a calendar for easy date selection.  It wraps the <a href=\"http://jqueryui.com/demos/datepicker\">" + 
+                "Spiffy UI's date picker shows a calendar for easy date selection.  It wraps the <a href=\"http://jqueryui.com/demos/datepicker\">" + 
                 "JQuery UI Date Picker</a> which is better tested, has more features, and is easier to style than the GWT date " + 
                 "picker control.  The JQuery Date Picker includes many features including the ablility to specify the minimum " + 
                 "and maximum dates and changing the way to pick months and years." +
             "</p>" + 
             "<p>" +
-                "The Spiffy UI Framework is localized into 53 languages.  Try changing your browser locale and refreshing your " + 
+                "The Spiffy UI Framework is localized into 53 languages.  Try changing your browser locale and refreshing " + 
                 "this page. In addition, since it is a GWT widget, you may get the selected date value as a java.util.Date." + 
             "</p>", TALL);
                 
@@ -146,7 +146,9 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
             }
         });
         addToSlidingGrid(fancy, "WidgetsFancyButton", "Fancy Save Button", 
-            "Fancy buttons show an image and text with a disabled image and hover style.  Click to demonstrate its in progress state.");
+            "<p>" +            
+                "Fancy buttons show an image and text with a disabled image and hover style.  Click to demonstrate its in progress status." +
+            "</p>");
         
         /*
          *Add the message buttons
@@ -166,10 +168,15 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         }, true);
         msb.getFeedback().addStyleName("msg-feedback");
         addToSlidingGrid(msb, "WidgetsSuggestBox", "Multivalue Suggest Box",
-            "The Multivalue suggest box is an autocompleter that allows for multiple values and browsing. It uses REST to " + 
-            "retrieve suggestions from the server.  The full process is documented " + 
-            "<a href=\"http://www.zackgrossbart.com/hackito/gwt-rest-auto\">here</a>. <br /><br />" + 
-            "Type blue, mac, or * to search for crayon colors.",
+            "<p>" +                        
+                "The Multivalue suggest box is an autocompleter that allows for multiple values and browsing. It uses REST to " + 
+                "retrieve suggestions from the server.  The full process is documented in " + 
+                "<a href=\"http://www.zackgrossbart.com/hackito/gwt-rest-auto\">" +
+                "Creating a Multi-Valued Auto-Complete Field Using GWT SuggestBox and REST</a>." +
+            "</p>" +        
+            "<p>" +              
+                "Type blue, mac, or * to search for crayon colors." +
+            "</p>",
             WIDE);
         
         /*
@@ -180,15 +187,21 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         FlowPanel prefContents = new FlowPanel();
         prefContents.add(new Label("Add display option labels and fields and an 'Apply' or 'Save' button."));
         prefsPanel.setPanel(prefContents);
-        addToSlidingGrid(null, "WidgetsDisplayOptions", "Options Slide Down Panel", 
-            "Click the 'Slide Down Prefs Panel' slide-down tab at the top of the page to view an example of this widget.");
+        addToSlidingGrid(null, "WidgetsDisplayOptions", "Options Slide Down Panel",
+            "<p>" +              
+                "Click the 'Slide Down Prefs Panel' slide-down tab at the top of the page to view an example of this widget." +
+            "</p>");
 
         /*
          * Add a progress bar to our page
          */
         ProgressBar bar = new ProgressBar("WidgetsPanelProgressBar");
         bar.setValue(65);
-        addToSlidingGrid(bar, "WidgetsProgressSpan", "Progress Bar", "This progress bar GWT control wraps the progress bar control from JQuery UI.");        
+        addToSlidingGrid(bar, "WidgetsProgressSpan", "Progress Bar", 
+            "<p>" +  
+                "This progress bar GWT control wraps the " +
+                "<a href=\"http://jqueryui.com/demos/progressbar/\">JQuery UI Progressbar</a>." +
+            "</p>");        
         
         /*
          * Add the ConfirmDialog which will show up when refresh is clicked
@@ -205,8 +218,13 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
          */
         m_refresh = new RefreshAnchor("Widgets_refreshAnchor");
         addToSlidingGrid(m_refresh, "WidgetsRefreshAnchor", "Refresh Anchor<br/><br/>Confirm Dialog", 
-            "The refresh anchor handles an in progress status for refreshing items with an AJAX request. Click it to show an example of a confirm dialog.<br /><br />" + 
-            "Dialogs are keyboard accessible and support autohide and modal properties.",
+            "<p>" +             
+                "The refresh anchor handles an in progress status for refreshing items with an AJAX request. Click to show its in progress status and " +
+                "open an example of a confirm dialog." +
+            "</p>" +
+            "<p>" +              
+                "Dialogs are keyboard accessible and support autohide and modal properties." +
+            "</p>",
             TALL);
         
         m_refresh.addClickHandler(new ClickHandler() {
@@ -224,13 +242,35 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         /*
          * Add the simple button
          */
-        addToSlidingGrid(new Button("Simple Button"), "WidgetsButton", "Simple Button", "All buttons get special styling from the Spiffy UI framework.");
+        final SimpleButton simple = new SimpleButton("Simple Button");
+        simple.addClickHandler(new ClickHandler() {
+            
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                simple.setInProgress(true);
+                //a little timer to simulate time it takes to set loading back to false
+                Timer t = new Timer() {
+
+                    @Override
+                    public void run() {
+                        simple.setInProgress(false);
+                    }
+                    
+                };
+                t.schedule(2000);
+            }
+        });
+        addToSlidingGrid(simple, "WidgetsButton", "Simple Button", 
+            "<p>" +              
+                "All buttons get special styling from the Spiffy UI framework. Click to demonstrate its in progress status." +
+            "</p>");
 
         /*
          * Add a small loading indicator to our page
          */
         SmallLoadingIndicator loading = new SmallLoadingIndicator();
-        addToSlidingGrid(loading, "WidgetsSmallLoading", "Small Loading Indicator", "This indicator shows a loading status.");  
+        addToSlidingGrid(loading, "WidgetsSmallLoading", "Small Loading Indicator", "<p>This indicator shows a loading status.</p>");  
         
         /*
          * Add 3 status indicators 
@@ -239,7 +279,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         StatusIndicator status2 = new StatusIndicator(StatusIndicator.SUCCEEDED);
         StatusIndicator status3 = new StatusIndicator(StatusIndicator.FAILED);
         HTMLPanel statusPanel = addToSlidingGrid(status1, "WidgetsStatus", "Status Indicator", 
-            "The status indicator shows valid, failed, and in progress status.  It can be extended for others.");
+            "<p>The status indicator shows valid, failed, and in progress status.  It can be extended for others.</p>");
         statusPanel.add(status2, "WidgetsStatus");
         statusPanel.add(status3, "WidgetsStatus");        
         
@@ -247,9 +287,12 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
          * Add the time picker
          */
         addToSlidingGrid(new TimePickerTextBox("timepicker"), "WidgetsTimePicker", "Time Picker",
-            "Time Picker shows a time dropdown for easy selection. It is a wrapper for a JQuery time picker. " + 
-            "The time step is set to 30 min but can be configured.  It is localized. " + 
-            "Try changing your browser locale and refreshing your browser.");
+            "<p>" +
+                "Time Picker shows a time dropdown for easy selection. It is a wrapper for a " +
+                "<a href=\"http://code.google.com/p/jquery-timepicker/\">JQuery time picker</a>. " + 
+                "The time step is set to 30 min but can be configured.  It is localized. " + 
+                "Try changing your browser locale and refreshing your browser." +
+            "</p>");
         
         /*
          * Add the sliding grid here.  This call must go last so that the onAttach of the SlidingGridPanel can do its thing.
@@ -267,7 +310,6 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         HTMLPanel p = new HTMLPanel("div", 
             "<h3>" + title + "</h3>" + 
             htmlText + 
-            "<br /><br />" + 
             "<span id=\"" + id + "\"></span>");
         
         if (widget != null) {
@@ -296,10 +338,13 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
     {        
         Button b = new Button("Show Info Message");
         HTMLPanel p = addToSlidingGrid(b, "WidgetsMessages", "Humanized Messages", 
-            "The Spiffy UI framework support has an integrated message framework following the pattern of humanized " + 
-            "messages.  These messages are non-modal and fade away without requiring further interaction.  They " + 
-            "include info messages, warnings, errors, and fatal errors.  Errors and some warnings are sent to an error " + 
-            "log at the bottom of the screen.",
+            "<p>" +            
+                "The Spiffy UI framework support has an integrated message framework following the pattern of " +
+                "<a href=\"http://code.google.com/p/humanmsg/\">Humanized Messages</a>.  " + 
+                "These messages are non-modal and fade away without requiring further interaction.  They " + 
+                "include info messages, warnings, errors, and fatal errors.  Errors and some warnings are sent to an error " + 
+                "log at the bottom of the screen." +
+            "</p>",
             TALL);
         
         b.addClickHandler(new ClickHandler() {
