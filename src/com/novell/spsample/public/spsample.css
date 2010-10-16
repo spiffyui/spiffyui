@@ -22,6 +22,10 @@ p {
     margin-bottom: 14px;
 }
 
+h1 {
+    margin-bottom: 14px;
+}
+
 h2 {
     color: #bb3a38;
     font-size: 16px;
@@ -47,8 +51,7 @@ h2 {
 
 #mainHeaderContainer .headertitle {
     left: 35px;
-    color: #bb3a38;
-    font-size: 24px;
+    color: white;
 }
 
 #mainHeader {
@@ -56,8 +59,16 @@ h2 {
     height: 61px;
 }
 
-#headerstring {
-    color: black;
+.headertitle {
+    font-size: 24px;
+}
+
+#headerleft {
+    top: 8px;
+}
+
+#headerright {
+    top: 15px;
 }
 
 iframe {
@@ -141,4 +152,8 @@ iframe {
 
 #testAuthResult {
     font-weight:bold;
+}
+
+#mainBody {
+    margin-top: -5px;
 }
