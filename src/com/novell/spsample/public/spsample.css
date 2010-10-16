@@ -161,6 +161,14 @@ iframe {
     margin-top: -5px;
 }
 
-.optionalText {
+.optionalText, .comment {
     color: rgb(0,128,0);
+}
+
+.keyword {
+    color: blue;
+}
+
+.string {
+    color: #e3003a;
 }
