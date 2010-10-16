@@ -142,11 +142,14 @@ iframe {
     -webkit-border-radius: 4px;
     -webkit-column-gap: 20px; 
     -webkit-column-width: 120px;
-    background-color: #F9F9F9;
-    border: thin solid lightgray;
     column-gap: 20px; 
     column-width: 120px; 
     font-size: 12px;
+}
+
+.highlightSection {
+    background-color: #F9F9F9;
+    border: thin solid lightgray;
     padding: 14px;
 }
 
@@ -156,4 +159,8 @@ iframe {
 
 #mainBody {
     margin-top: -5px;
+}
+
+.optionalText {
+    color: rgb(0,128,0);
 }

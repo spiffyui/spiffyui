@@ -53,7 +53,7 @@ public class AuthPanel extends HTMLPanel
 
         setVisible(false);
 
-        final FancyTestButton authTestButton = new FancyTestButton("Login and Get Data");
+        final FancyTestButton authTestButton = new FancyTestButton("Login and Get Data Some Data");
 
         authTestButton.getElement().setId("authTestBtn");
         this.add(authTestButton, "testAuth");
