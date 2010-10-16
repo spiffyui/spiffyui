@@ -111,8 +111,8 @@
         <echo file="${root}/bin/classes/com/novell/spsample/server/buildnum.properties">
 build.date=${builddate}
 build.user=${user.name}
-build.version=0.8
-build.revision=${revision.number}
+build.version=0.6
+build.revision=${revision.number} 
 build.dir=${root}
         </echo>
     </target>
