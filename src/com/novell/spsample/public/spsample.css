@@ -148,6 +148,8 @@ iframe {
 }
 
 .highlightSection {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
     background-color: #F9F9F9;
     border: thin solid lightgray;
     padding: 14px;
