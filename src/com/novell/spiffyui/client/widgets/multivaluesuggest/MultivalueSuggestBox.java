@@ -44,6 +44,7 @@ import com.google.gwt.user.client.ui.TextBoxBase;
 import com.google.gwt.user.client.ui.SuggestOracle.Callback;
 import com.google.gwt.user.client.ui.SuggestOracle.Request;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
+import com.novell.spiffyui.client.JSONUtil;
 import com.novell.spiffyui.client.JSUtil;
 import com.novell.spiffyui.client.SpiffyUIStrings;
 import com.novell.spiffyui.client.rest.RESTCallback;
@@ -641,9 +642,9 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
             public void onSuccess(JSONValue val) 
             {
                 JSONObject obj = val.isObject();
-                int totSize = JSUtil.getIntValue(obj, m_restHelper.getTotalSizeKey());
+                int totSize = JSONUtil.getIntValue(obj, m_restHelper.getTotalSizeKey());
                 OptionResultSet options = new OptionResultSet(totSize);
-                JSONArray optionsArray = JSUtil.getJSONArray(obj, m_restHelper.getOptionsKey());
+                JSONArray optionsArray = JSONUtil.getJSONArray(obj, m_restHelper.getOptionsKey());
         
                 if (options.getTotalSize() > 0 && optionsArray != null) {
                     
@@ -657,8 +658,8 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
                         
                         JSONObject jsonOpt = optionsArray.get(i).isObject();
                         Option option = new Option();
-                        option.setName(JSUtil.getStringValue(jsonOpt, m_restHelper.getNameKey()));
-                        option.setValue(JSUtil.getStringValue(jsonOpt, m_restHelper.getValueKey()));
+                        option.setName(JSONUtil.getStringValue(jsonOpt, m_restHelper.getNameKey()));
+                        option.setValue(JSONUtil.getStringValue(jsonOpt, m_restHelper.getValueKey()));
                         options.addOption(option);
                     }
                 }                    
