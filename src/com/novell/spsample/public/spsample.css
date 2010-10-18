@@ -1,3 +1,9 @@
+body, .gwt-TextBox, .gwt-ListBox, .gwt-PasswordTextBox, .gwt-TextArea, .gwt-SuggestBox, body, table td, select {
+    font-family: Helvetica,Arial,Verdana,Sans-serif;
+    font-size: 12px;
+    line-height: 14px;
+}
+
 .ui-progressbar {
     height: 12px;
     width: 85%;
@@ -13,9 +19,9 @@
 
 h3 {
     font-size: 16px;
+    color: #1795c6;
     font-weight: bold;
     margin-bottom: 14px;
-    color: black;
 }
 
 p {
@@ -23,15 +29,14 @@ p {
 }
 
 h1 {
-    margin-bottom: 14px;
+    color: #1795c6;
 }
 
 h2 {
-    color: #bb3a38;
+    color: #1795c6;
     font-size: 16px;
     font-weight: normal;
     line-height: 28px;
-    margin-bottom: 14px;
 }
 
 .documentationPanel {
@@ -46,16 +51,37 @@ h2 {
 .documentationPanel pre {
     font-size: 12px;
     line-height: 14px;
-    font-family:Consolas,"Andale Mono",Monaco,Courier,"Courier New",Verdana,sans-serif;
+    font-family: Consolas,"Andale Mono",Monaco,Courier,"Courier New",Verdana,sans-serif;
+}
+
+.documentationPanel p a, .documentationPanel p a:visited {
+    color: #4eadd3;
+}
+
+.documentationPanel ul {
+    list-style: square outside none;
 }
 
 #mainHeaderContainer .headertitle {
-    left: 35px;
-    color: white;
+    left: 20px;
+    color: #636363;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+#mainsubtitle {
+    display: block;
+    font-size: 24px;
+    left: 110px;
+    margin-left: 2em;
+    position: absolute;
+    text-transform: uppercase;
+    top: 5px;
+    white-space: nowrap;
 }
 
 #mainHeader {
-    background: url("images/header_back.png") repeat-x scroll left top transparent;
+    background: #dddddd;
     height: 61px;
 }
 
@@ -77,6 +103,18 @@ iframe {
 
 #widgetsMessages button {
     margin: 10px;
+}
+
+#mainFooter {
+    margin-left: 28px;
+    margin-right: 28px;
+    width: auto;
+}
+
+#mainNavContainer a, #mainNavContainer a:visited {
+    color: #636363;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 /*
@@ -122,6 +160,10 @@ iframe {
     margin-top: -25px;
 }
 
+.navitemSelected {
+    background-color: #efd137;
+}
+
 .tabnav #mainHeaderContainer .headertitle {
     color: black;
     font-size: 24px;
@@ -163,6 +205,17 @@ iframe {
     margin-top: -5px;
 }
 
+#main {
+    margin-left: 28px;
+    margin-right: 28px;
+    background: white;
+    padding-bottom: 10em;
+}
+
+#mainWrap {
+    background: #dddddd;
+}
+
 .optionalText, .comment {
     color: rgb(0,128,0);
 }
@@ -173,4 +226,26 @@ iframe {
 
 .string {
     color: #e3003a;
+}
+
+.prefspulltab a {
+    background-color: #dddddd;
+}
+
+.prefspulltab div {
+    margin-top: 3px;
+}
+
+.prefspaneltab {
+    position: relative;
+    top: 5px;
+}
+
+#WidgetsSlidingGrid p {
+    color: black;
+}
+
+.main-menuSeparator {
+    background: url("images/sep_dash.png") no-repeat scroll 0 0 transparent;
+    height:15px;
 }
