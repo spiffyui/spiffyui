@@ -28,6 +28,7 @@ h1 {
     color: #1795C6;
     line-height: 36px;
     margin-top: -4px;
+    margin-bottom: 18px;
 }
 
 h2 {
@@ -42,7 +43,7 @@ h2 {
 }
 
 .documentationPanel p, .documentationPanel ul {
-    font-size: 18px;
+    font-size: 14px;
     line-height: 18px;
     margin-bottom: 18px;
 }
