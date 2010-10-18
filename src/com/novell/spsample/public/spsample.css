@@ -193,6 +193,9 @@ iframe {
     column-gap: 20px; 
     column-width: 120px; 
     font-size: 12px;
+    background-color: #F9F9F9;
+    border: thin solid lightgray;
+    padding: 14px;
 }
 
 .highlightSection {
@@ -209,6 +212,7 @@ iframe {
 
 #mainBody {
     margin-top: -5px;
+    height: 82%;
 }
 
 #main {
