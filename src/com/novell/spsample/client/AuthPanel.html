@@ -2,7 +2,7 @@
 <div id="authPanelText" class="documentationPanel">
     
     <p>
-        All REST calls are anonymous by default.  The Spiffy UI framework offers login based on a scheme we've developed here at Novell called tokenized identity.  This token-base security model support simple authentication, single sign-on, and stateless security models. 
+        All REST calls are anonymous by default.  The Spiffy UI framework offers login based on a scheme we've developed at Novell called tokenized identity.  This token-base security model support simple authentication, single sign-on, and stateless security models. 
     </p>
     
     <div class="highlightSection">
@@ -58,15 +58,15 @@
 
     <p>1. Client makes a request to server url http://host:post/data-server-war-context/path-require-auth in order to access some resources.</p>
 
-    <p>2. Server looks for specific authentication header, since it is not found, it returns back JSON indicating no authentication information available.
-        It will also send back WWW-Authenticate response header, with authentication server url information, letting client know to authenticate.</p>
+    <p>2. Server looks for specific authentication header.  When it is not found, it returns back JSON indicating no authentication information is available.
+        It will also send back a WWW-Authenticate response header, with the authentication server url information, letting the client know it needs to authenticate and how.</p>
         <p>
     <pre>WWW-Authenticate  X-OPAQUE uri="http://host2:port2/auth-server-war-context/auth-path", signOffUri=""</pre>
     <p>
 
-    <p>3. Due to same origin policy, client can not directly contact the authentication server which is on a different server.
-        So client contacts a servlet (AuthServlet) that is in the same client war, forwarding on user credentials.
-        The servlet, which acts as a proxy, then contacts the authentication server at http://host2:port2/auth-server-war-context/auth-path to ask for
+    <p>3. Due to same origin policy, client can not directly contact the authentication server, which is on a different server.
+        The client instead contacts a servlet (AuthServlet) that is in the same client war, forwarding on user credentials.
+        The servlet, which acts as a proxy, then contacts the authentication server at http://host2:port2/auth-server-war-context/auth-path to ask for an 
         authentication token to access data server resources. To use the proxy servlet, it must be added to the web.xml of the client war.</p>
       <p>
       <pre>
@@ -81,14 +81,14 @@
       &lt;/servlet-mapping&gt;
       </pre>
 
-    <p>4. If user's credentials is sufficient, authentication server will return back an authentication token in JSON format, such as:</p>
+    <p>4. If user's credentials is sufficient, the authentication server will return back an authentication token in JSON format, such as:</p>
     <p>
     <pre>{"Token":"demo_user"} </pre>
     <p>
-    <p> to the proxy servlet, which then forwards the token back to client to be saved in browser cookie.</p>
+    <p> to the proxy servlet, which then forwards the token back to the client to be saved in browser cookie.</p>
 
     <p>5. Client can now make the request to access the resources again on the data server at original url:  http://host:post/data-server-war-context/path-require-auth,
-        carrying authentication token in request header "Authorization":
+        carrying a valid authentication token in the request header "Authorization":
     <p>
     <pre> Authorization	X-OPAQUE demouser </pre>
     <p>
@@ -108,7 +108,7 @@
     <p>2. Server returns 401 (Unauthorized) with the NoAuthHeader fault payload, and WWW-Authenticate response header
 X-OPAQUE uri="http://localhost:8081/spsample/authserver", signOffUri=""</p>
 
-    <p>3. Browser shows Login Panel, prompting user for credentials user name and password and sends those credentials to the authentication proxy at http://localhost:8081/spsample/auth. </p>
+    <p>3. Browser shows Login Panel, prompting user for credentials user name and password and sends those credentials to the authentication proxy at http://localhost:8081/spsample/auth. Any username and password work in this sample.</p>
 
     <p>4. Proxy server <code>AuthServlet</code> contacts authentication server (implemented by SampleAuthServer)
         at http://localhost:8081/spsample/authserver to ask for authentication token.</p>

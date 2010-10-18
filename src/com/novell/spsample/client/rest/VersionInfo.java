@@ -23,6 +23,7 @@ import java.util.Date;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
+import com.novell.spiffyui.client.JSONUtil;
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.rest.RESTCallback;
 import com.novell.spiffyui.client.rest.RESTException;
@@ -88,8 +89,6 @@ public final class VersionInfo
             return;
         }
 
-        //Index.setAuthProvider();
-        //RESTility.callREST("/IDMRPT-CORE/rpt/conf", new RESTCallback() {
         RESTility.callREST("version", new RESTCallback() {
                 @Override
                 public void onSuccess(JSONValue val)
@@ -101,21 +100,14 @@ public final class VersionInfo
                     }
                     g_versionInfo = new VersionInfo();
                     
-                    g_versionInfo.m_version = bi.get("version").isString().stringValue();
-                    g_versionInfo.m_user = bi.get("user").isString().stringValue();
-                    g_versionInfo.m_rev = bi.get("rev").isString().stringValue();
+                    g_versionInfo.m_version = JSONUtil.getStringValue(bi, "version");
+                    g_versionInfo.m_user = JSONUtil.getStringValue(bi, "user");
+                    g_versionInfo.m_rev = JSONUtil.getStringValue(bi, "rev");
                     
-                    Date date = null;
-                    try {
-                        date = DateTimeFormat.getMediumDateTimeFormat().
-                            parse(bi.get("date").isString().stringValue());
-                    } catch (Exception e) {
-                        MessageUtil.showError("Invalid version date: " + bi.get("date").isString().stringValue());
+                    g_versionInfo.m_date = JSONUtil.getDateValueFromMediumDateTime(bi, "date");
+                    if (g_versionInfo.m_date == null) {
+                        MessageUtil.showError("Invalid version date: " + JSONUtil.getStringValue(bi, "date"));
                     }
-                    
-                    g_versionInfo.m_date = date;
-                    
-                    
                     
                     callback.success(g_versionInfo);
                 }

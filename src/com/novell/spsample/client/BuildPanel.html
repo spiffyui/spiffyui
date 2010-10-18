@@ -22,7 +22,7 @@
     </p>
 
     <p>
-    Once this task is defined you can call it on any JavaScript files you want to compress like this:
+    Once this task is defined you can call it on all JavaScript files you want to compress like this:
     </p>
 
     <p>
@@ -42,7 +42,7 @@
 
     <h2>HTMLProps</h2>
     <p>
-    The HTML properties task allows you to embed the contents of an HTML file into your GWT application.  This is very useful for pages like this one which use large chunks of content in HTML.  This task is not used in the Spiffy UI framework, but it powers many of the pages in the SPSample application.
+    The HTML properties task allows you to embed the contents of an HTML file into your GWT application.  This is very useful for pages like this one which has large chunks of content in HTML.  This task is not used in the Spiffy UI framework, but it powers many of the pages in the SPSample application.
     </p>
 
     <p>
@@ -73,7 +73,7 @@
     </p>
 
     <p>
-    This task supports the full Ant path and fileset syntax for specifying the input files.  It will take all HTML files and format them into a properties file conforming with the java.util.Properties format.  Each property has the key of the file name and the value of the HTML file contents.  The contents are reformatted to conform to the properties file standard.
+    This task supports the full Ant path and fileset syntax for specifying the input files.  It will take all HTML files and format them into a properties file conforming with the <code>java.util.Properties</code> format.  Each property has the key of the file name and the value of the HTML file contents.  The contents are reformatted to conform to the properties file standard.
     </p>
 
     <p>
@@ -81,7 +81,7 @@
     </p>
 
     <p>
-    For example, if you have an HTML file name myfile.html and it has the following contents:
+    For example, suppose you have an HTML file name myfile.html and it has the following contents:
     </p>
 
     <p>
@@ -93,7 +93,7 @@
     </p>
 
     <p>
-    This file will generate a properties file like this:
+    An entry will be added to your properties file with new-line characters escaped like this:
     </p>
 
     <p>
@@ -103,22 +103,22 @@
     </p>
 
     <p>
-    You can then access the information in this properties files with a Messages class like this:
+    You can then access the information in this properties file with a Messages class like this:
     </p>
     
     <p>
     <pre>
-    import com.google.gwt.i18n.client.Messages;
+    <span class="keyword">import</span> com.google.gwt.i18n.client.Messages;
 
-    public interface MyStrings extends Messages {
+    <span class="keyword">public</span> <span class="keyword">interface</span> MyStrings <span class="keyword">extends</span> Messages {
     
-        public String myfile_html();
+        <span class="keyword">public</span> String myfile_html();
     }
     </pre>
     </p>
     
     <p>
-    The MyStrings class can be accessed from any GWT class like this:
+    The <code>MyStrings</code> class can be accessed from any GWT class like this:
     </p>
     
     <p>
@@ -129,7 +129,7 @@
     </p>
     
     <p>
-    A common use of this architecture is to set this string as the content of an <a href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.0/com/google/gwt/user/client/ui/HTMLPanel.html">HTMLPanel</a>.  BuildPanel.java from the SPSample project has an example of using this technique.
+    A common use of this architecture is to set this string as the content of an <a href="http://google-web-toolkit.googlecode.com/svn/javadoc/2.0/com/google/gwt/user/client/ui/HTMLPanel.html">HTMLPanel</a>.  <code>BuildPanel.java</code> from the SPSample project has an example of using this technique.
     </p>
     
     

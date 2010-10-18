@@ -29,7 +29,7 @@
     </p>
     
     <p>
-        <code>success</code> is called when your REST call return successfully.  You get back a Java object with the data from the server.  The first <code>error</code> method is called when there is generic error like an unplugged network cable.  The second <code>error</code> method happens with more expected errors like passing invalid data to the server.
+        <code>success</code> is called when your REST call returns successfully.  You get back a Java object with the data from the server.  The first <code>error</code> method is called when there is a generic error like an unplugged network cable.  The second <code>error</code> method happens with more expected errors like passing invalid data to the server.
     </p>
     
     <h2>RESTility</h2>
@@ -53,7 +53,8 @@
     </p>
     
     <p>
-        The <code>success</code> method takes JSON data and is responsible for parsing that data into a reasonable format.  How you handle that JSON is up to you.  You can use <a href="http://code.google.com/p/google-web-toolkit/wiki/OverlayTypes">GWT Overlay types</a>, return the <code>JSONValue</code> object, or parse the JSON manually into a Java object.  In practice most REST calls return simple JSON data and is easy to parse manually.  
+        The <code>onSuccess</code> method takes JSON data and is responsible for parsing that data into a reasonable format.  How you handle that JSON is up to you.  You can use <a href="http://code.google.com/p/google-web-toolkit/wiki/OverlayTypes">GWT Overlay types</a>, return the <code>JSONValue</code> object, or parse the JSON manually into a Java object.  In practice most REST calls return simple JSON data and is easy to parse manually.  
+        Spiffy UI's <code>JSONUtil</code> provides utility methods for safely getting values or objects from a <code>JSONObject</code>.  
     </p>
     
     <h2>Putting it all together</h2>
@@ -72,33 +73,37 @@
     <pre>
     <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> getVersionInfo(<span class="keyword">final</span> RESTObjectCallBack&lt;VersionInfo&gt; callback)
     {
+        if (g_versionInfo != <span class="keyword">null</span>) {
+            <span class="comment">/*
+             The version info doesn't change while the page is still running
+             so we can cache it and save an HTTP call.
+             */</span>
+            callback.success(g_versionInfo);
+            <span class="keyword">return</span>;
+        }
+
         RESTility.callREST(<span class="string">"version"</span>, <span class="keyword">new</span> RESTCallback() {
-            @Override
-            <span class="keyword">public</span> <span class="keyword">void</span> onSuccess(JSONValue val)
-            {
-                JSONObject bi = val.isObject();
-                if (bi == <span class="keyword">null</span>) {
-                    MessageUtil.showError(<span class="string">"An error occurred trying to get version info."</span>);
-                    <span class="keyword">return</span>;
+                @Override
+                <span class="keyword">public</span> <span class="keyword">void</span> onSuccess(JSONValue val)
+                {
+                    JSONObject bi = val.isObject();
+                    <span class="keyword">if</span> (bi == <span class="keyword">null</span>) {
+                        MessageUtil.showError(<span class="string">"An error occurred trying to get version info."</span>);
+                        <span class="keyword">return</span>;
+                    }
+                    g_versionInfo = <span class="keyword">new</span> VersionInfo();
+                    
+                    g_versionInfo.m_version = JSONUtil.getStringValue(bi, <span class="string">"version"</span>);
+                    g_versionInfo.m_user = JSONUtil.getStringValue(bi, <span class="string">"user"</span>);
+                    g_versionInfo.m_rev = JSONUtil.getStringValue(bi, <span class="string">"rev"</span>);
+                    
+                    g_versionInfo.m_date = JSONUtil.getDateValueFromMediumDateTime(bi, <span class="string">"date"</span>);
+                    <span class="keyword">if</span> (g_versionInfo.m_date == <span class="keyword">null</span>) {
+                        MessageUtil.showError(<span class="string">"Invalid version date: "</span> + JSONUtil.getStringValue(bi, <span class="string">"date"</span>));
+                    }
+                    
+                    callback.success(g_versionInfo);
                 }
-                VersionInfo info = <span class="keyword">new</span> VersionInfo();
-                
-                info.m_version = bi.get(<span class="string">"version"</span>).isString().stringValue();
-                info.m_user = bi.get(<span class="string">"user"</span>).isString().stringValue();
-                info.m_rev = bi.get(<span class="string">"rev"</span>).isString().stringValue();
-                
-                Date date = null;
-                <span class="keyword">try</span> {
-                    date = DateTimeFormat.getMediumDateTimeFormat().
-                        parse(bi.get(<span class="string">"date"</span>).isString().stringValue());
-                } <span class="keyword">catch</span> (Exception e) {
-                    MessageUtil.showError(<span class="string">"Invalid version date: "</span> + 
-                                          bi.get(<span class="string">"date"</span>).isString().stringValue());
-                }
-                
-                info.m_date = date;
-                callback.success(info);
-            }
 
             @Override
             <span class="keyword">public</span> <span class="keyword">void</span> onError(<span class="keyword">int</span> statusCode, String errorResponse)
@@ -121,7 +126,7 @@
     </p>
     
     <p>
-        In this case the URL of <code>version</code> will become http://localhost/spsample/version.  You can specify any URL you want as long as it doesn't violate the <a href="http://en.wikipedia.org/wiki/Same_origin_policy">same origin policy</a>.
+        In this case the URL of <code>version</code> will become http://localhost:8081/spsample/version.  You can specify any URL you want as long as it doesn't violate the <a href="http://en.wikipedia.org/wiki/Same_origin_policy">same origin policy</a>.
     </p>
     
     <p>
@@ -183,13 +188,13 @@
     </p>
     
     <p>
-    If your REST endpoints return errors in this format that <code>RESTility</code> will handle the automatically and return a <code>RESTException</code> object with this data.  If not then it will treat error messages like any other server response and allow you to handle them in your implementation of <code>success</code>.
+    If your REST endpoints return errors in this format then <code>RESTility</code> will handle them automatically and return a <code>RESTException</code> object with this data.  If not, then it will treat error messages like any other server response and allow you to handle them in your implementation of <code>success</code>.
     </p>
     
     <h2>See it in action</h2>
     
     <p>
-        The <code>VersionInfo</code> object is included in the SPSample project and populates the footer of this page.  An easy way to see it in action is with the <a href="http://getfirebug.com/">Firebug</a> console.  This console will show you every REST request made by this sample and the data it sends back and forth.
+        The <code>VersionInfo</code> object is included in the SPSample project and populates the footer of this page.  An easy way to see it in action is with the <a href="http://getfirebug.com/">Firebug</a> console.  This console will show you every REST request made by this sample and the data sent to and from the client.
     </p>
 
     
