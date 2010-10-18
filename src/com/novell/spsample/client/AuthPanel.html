@@ -100,7 +100,7 @@
     <p>The authentication proxy is just a helper in this process.  The real work happens in the token exchange.  You can skip the proxy if you're calling from Java or any other language that doesn't use the same origin policy.  Here's what happens when you click the login button above.</p>
     
     <p>
-        <img src="images/login.png" />
+        <img id="loginImage" src="images/login.png" />
     </p>
 
     <p>1. Browser sends "GET" request to http://localhost:8081/spsample/authdata (implemented by SampleDataServlet).</p>
