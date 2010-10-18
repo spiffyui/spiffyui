@@ -43,7 +43,7 @@ h2 {
     width: 480px;
 }
 
-.documentationPanel p {
+.documentationPanel p, .documentationPanel ul {
     font-size: 14px;
     line-height: 18px;
 }
@@ -55,12 +55,18 @@ h2 {
 }
 
 .documentationPanel p a, .documentationPanel p a:visited {
-    color: #4eadd3;
+    color: #289bc8;
 }
 
 .documentationPanel ul {
-    list-style: square outside none;
+    list-style: square inside none;
+    margin-bottom: 18px;
 }
+
+.documentationPanel li {
+    list-style: disc inside none;
+}
+    
 
 #mainHeaderContainer .headertitle {
     left: 20px;
