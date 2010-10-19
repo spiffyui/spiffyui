@@ -84,10 +84,16 @@ public class AuthPanel extends HTMLPanel
         SampleAuthBean.getSampleAuthData(new RESTObjectCallBack<SampleAuthBean>() {
             public void success(SampleAuthBean info)
             {
-                String data = "You have logged in as " + info.getName() +
+                String data = "You've logged in as " + info.getName() +
                               //" on " + DateTimeFormat.getFullDateFormat().format(info.getDate()) +
                               " and " + info.getMessage();
                 g_authPanel.add(new HTML(data), "testAuthResult");
+                
+                
+                /*
+                 Add a yellow highlight to show that you've logged in
+                 */
+                RootPanel.get("loginSection").getElement().addClassName("yellowHighlightSection");
             }
 
             public void error(String message)

@@ -258,7 +258,6 @@ iframe {
 
 #WidgetsSlidingGrid p {
     color: black;
-    margin-bottom: 14px;
 }
 
 .main-menuSeparator {
@@ -273,4 +272,20 @@ iframe {
 
 #loginImage {
     margin-bottom: 14px;
+}
+
+#loginHeaderContainer {
+    background: #dddddd;
+}
+
+.headertitle {
+    left: 10px;
+    color: #636363;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.yellowHighlightSection {
+    border: 1px solid #E6DB55;
+    background-color: #FFFFE0;
 }
