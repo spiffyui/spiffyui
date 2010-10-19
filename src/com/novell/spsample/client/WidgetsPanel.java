@@ -48,7 +48,7 @@ import com.novell.spiffyui.client.widgets.multivaluesuggest.MultivalueSuggestBox
 import com.novell.spiffyui.client.widgets.multivaluesuggest.MultivalueSuggestRESTHelper;
 
 /**
- * This is the page 1 panel
+ * This is the widgets sample panel
  *
  */
 public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
@@ -66,7 +66,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
     public WidgetsPanel()
     {
         super("div", 
-             "<div id=\"WidgetsPrefsPanel\"></div><h1>Some Sample Widgets</h1><br /><br />" + 
+             "<div id=\"WidgetsPrefsPanel\"></div><h1>Spiffy Widgets</h1><br /><br />" + 
              "<div id=\"WidgetsLongMessage\"></div><br /><br />" + 
              "<div id=\"WidgetsSlidingGrid\"></div>" +           
              "</div>");

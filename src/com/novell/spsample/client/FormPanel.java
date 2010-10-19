@@ -71,7 +71,7 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
      */
     public FormPanel()
     {
-        super("div", "<h1>Sample Form</h1>" + STRINGS.FormPanel_html() + CONTENTS);
+        super("div", "<h1>Spiffy Forms</h1>" + STRINGS.FormPanel_html() + CONTENTS);
         
         getElement().setId("formPanel");
         
