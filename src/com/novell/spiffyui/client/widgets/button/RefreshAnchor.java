@@ -50,7 +50,6 @@ public class RefreshAnchor extends Anchor
         m_iconDiv.setId(id + "_refreshIconDiv");     
         setTitle(STRINGS.refresh());
         getElement().appendChild(m_iconDiv);
-        setHref("#");
         getElement().setId(id);
     }
     
