@@ -50,6 +50,15 @@ public class RefreshAnchor extends Anchor
         m_iconDiv.setId(id + "_refreshIconDiv");     
         setTitle(STRINGS.refresh());
         getElement().appendChild(m_iconDiv);
+      
+        /*
+         * Set the href so that the anchor is keyboard accessible (user can tab to it).
+         * Using "#" will make the browser page scroll back to the top if the anchor low,
+         * and using ("#" + id) will set focus to the anchor, which would remove focus
+         * being set to something else during the onclick event (for example the default
+         * button on a ConfirmDialog).
+         */
+        setHref("javascript:"); 
         getElement().setId(id);
     }
     
