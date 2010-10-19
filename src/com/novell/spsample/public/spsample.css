@@ -54,7 +54,7 @@ h2 {
     font-family: Consolas,"Andale Mono",Monaco,Courier,"Courier New",Verdana,sans-serif;
 }
 
-.documentationPanel p a, .documentationPanel p a:visited {
+.documentationPanel a, .documentationPanel a:visited {
     color: #289bc8;
 }
 

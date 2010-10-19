@@ -47,12 +47,13 @@ public class OverviewPanel extends HTMLPanel
         /*
          * Add the REST anchor
          */
-        Anchor rest = new Anchor("Framework and patterns for calling REST with JSON");
+        Anchor rest = new Anchor("Framework and patterns for calling REST with JSON", "RESTPanel");
         rest.addClickHandler(new ClickHandler() {
             
             @Override
             public void onClick(ClickEvent event)
             {
+                event.preventDefault();
                 Index.selectItem(Index.REST_NAV_ITEM_ID);
             }
         });
@@ -61,12 +62,13 @@ public class OverviewPanel extends HTMLPanel
         /*
          * Add the REST error handling anchor
          */
-        Anchor restError = new Anchor("REST error handling framework");
+        Anchor restError = new Anchor("REST error handling framework", "RESTPanel");
         restError.addClickHandler(new ClickHandler() {
             
             @Override
             public void onClick(ClickEvent event)
             {
+                event.preventDefault();
                 Index.selectItem(Index.REST_NAV_ITEM_ID);
             }
         });
@@ -78,12 +80,13 @@ public class OverviewPanel extends HTMLPanel
         /*
          * Add the authentication anchor
          */
-        Anchor auth = new Anchor("Authentication and security UI and infrastructure");
+        Anchor auth = new Anchor("Authentication and security UI and infrastructure", "AuthPanel");
         auth.addClickHandler(new ClickHandler() {
             
             @Override
             public void onClick(ClickEvent event)
             {
+                event.preventDefault();
                 Index.selectItem(Index.AUTH_NAV_ITEM_ID);
             }
         });
@@ -92,12 +95,13 @@ public class OverviewPanel extends HTMLPanel
         /*
          * Add the css anchor
          */
-        Anchor css = new Anchor("CSS templates and reusable styles");
+        Anchor css = new Anchor("CSS templates and reusable styles", "CSSPanel");
         css.addClickHandler(new ClickHandler() {
             
             @Override
             public void onClick(ClickEvent event)
             {
+                event.preventDefault();
                 Index.selectItem(Index.CSS_NAV_ITEM_ID);
             }
         });
@@ -106,12 +110,13 @@ public class OverviewPanel extends HTMLPanel
         /*
          * Add the date anchor
          */
-        Anchor dates = new Anchor("Date handling and localization");
+        Anchor dates = new Anchor("Date handling and localization", "DatesPanel");
         dates.addClickHandler(new ClickHandler() {
             
             @Override
             public void onClick(ClickEvent event)
             {
+                event.preventDefault();
                 Index.selectItem(Index.DATES_NAV_ITEM_ID);
             }
         });
@@ -120,12 +125,13 @@ public class OverviewPanel extends HTMLPanel
         /*
          * Add the form anchor
          */
-        Anchor form = new Anchor("Form layouts");
+        Anchor form = new Anchor("Form layouts", "FormPanel");
         form.addClickHandler(new ClickHandler() {
             
             @Override
             public void onClick(ClickEvent event)
             {
+                event.preventDefault();
                 Index.selectItem(Index.FORM_NAV_ITEM_ID);
             }
         });
@@ -134,12 +140,13 @@ public class OverviewPanel extends HTMLPanel
         /*
          * Add the widgets anchor
          */
-        Anchor widgets = new Anchor("Reusable widgets");
+        Anchor widgets = new Anchor("Reusable widgets", "WidgetsPanel");
         widgets.addClickHandler(new ClickHandler() {
             
             @Override
             public void onClick(ClickEvent event)
             {
+                event.preventDefault();
                 Index.selectItem(Index.WIDGETS_NAV_ITEM_ID);
             }
         });
@@ -148,12 +155,13 @@ public class OverviewPanel extends HTMLPanel
         /*
          * Add the build anchor
          */
-        Anchor build = new Anchor("Build integration with JavaScript and CSS compression");
+        Anchor build = new Anchor("Build integration with JavaScript and CSS compression", "BuildPanel");
         build.addClickHandler(new ClickHandler() {
             
             @Override
             public void onClick(ClickEvent event)
             {
+                event.preventDefault();
                 Index.selectItem(Index.BUILD_NAV_ITEM_ID);
             }
         });
@@ -162,12 +170,13 @@ public class OverviewPanel extends HTMLPanel
         /*
          * Add the get started anchor
          */
-        Anchor getStarted = new Anchor("getting started");
+        Anchor getStarted = new Anchor("getting started", "GetStartedPanel");
         getStarted.addClickHandler(new ClickHandler() {
             
             @Override
             public void onClick(ClickEvent event)
             {
+                event.preventDefault();
                 Index.selectItem(Index.GET_STARTED_NAV_ITEM_ID);
             }
         });
