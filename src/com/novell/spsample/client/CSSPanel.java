@@ -54,9 +54,11 @@ public class CSSPanel extends HTMLPanel
                 {
                     if (b.getText().equals("tab navigation")) {
                         RootPanel.get("mainWrap").getElement().addClassName("tabnav");
+                        RootPanel.get("mainFooter").getElement().addClassName("tabnav");
                         b.setText("menu navigation");
                     } else {
                         RootPanel.get("mainWrap").getElement().removeClassName("tabnav");
+                        RootPanel.get("mainFooter").getElement().removeClassName("tabnav");
                         b.setText("tab navigation");
                     }
                 }

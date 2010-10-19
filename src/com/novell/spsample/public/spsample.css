@@ -10,7 +10,7 @@ body, .gwt-TextBox, .gwt-ListBox, .gwt-PasswordTextBox, .gwt-TextArea, .gwt-Sugg
 }
 
 #WidgetsPanel {
-	padding-right: 10px;
+    padding-right: 10px;
 }
 
 .slidegrid {
@@ -127,6 +127,28 @@ iframe {
     font-weight: bold;
 }
 
+
+#mainBody {
+    margin-top: -2px;
+    height: 82%;
+}
+
+#main {
+    margin-left: 28px;
+    margin-right: 28px;
+    background: white;
+    padding-bottom: 10em;
+}
+
+#mainWrap {
+    background: #dddddd;
+}
+
+.navitemSelected {
+    background-color: #efd137;
+}
+
+
 /*
    These styles are used for the tab navigation option
  */
@@ -138,7 +160,7 @@ iframe {
 .tabnav #mainNavigation {
     width: auto;
     float: none;
-    margin: -55px 5px 15px 250px;
+    margin: -55px 5px 15px 75px;
     white-space: nowrap;
 }
 
@@ -165,13 +187,14 @@ iframe {
     margin-left: 35px;
 }
 
+.tabnav #mainsubtitle {
+    left: -35px;
+    top: 24px;
+}
+
 .tabnav .navItemSelected a {
     background-color: #EDEEEC;
     margin-top: -25px;
-}
-
-.navitemSelected {
-    background-color: #efd137;
 }
 
 .tabnav #mainHeaderContainer .headertitle {
@@ -183,8 +206,30 @@ iframe {
     background: transparent;
 }
 
+#mainFooter.tabnav  {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: auto;
+}
+
+.tabnav #mainBody {
+    height: auto;
+}
+
+.tabnav #main {
+    margin-left: 0px;
+    margin-right: 0px;
+    background: white;
+    padding-bottom: 10em;
+}
+
+#mainWrap.tabnav {
+    background: white;
+}
+
+
 .msg-feedback {
-	left: 335px;
+    left: 335px;
 }
 
 #localesTable {
@@ -215,22 +260,6 @@ iframe {
     font-weight:bold;
 }
 
-#mainBody {
-    margin-top: -2px;
-    height: 82%;
-}
-
-#main {
-    margin-left: 28px;
-    margin-right: 28px;
-    background: white;
-    padding-bottom: 10em;
-}
-
-#mainWrap {
-    background: #dddddd;
-}
-
 .optionalText, .comment {
     color: rgb(0,128,0);
 }
@@ -258,6 +287,7 @@ iframe {
 
 #WidgetsSlidingGrid p {
     color: black;
+    padding-bottom: 14px;
 }
 
 .main-menuSeparator {

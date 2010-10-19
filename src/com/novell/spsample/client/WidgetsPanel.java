@@ -315,7 +315,6 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         if (widget != null) {
             p.add(widget, id);
         }
-        p.addStyleName("weak");
         
         switch (type) {
             case WIDE:
@@ -393,7 +392,6 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
             
         });
         
-        p.addStyleName("weak");
     }
 
 	@Override
