@@ -86,6 +86,7 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler
     @Override
     public void onClick(ClickEvent event)
     {
+        event.preventDefault();
         if (!isEnabled()) {
             return;
         }
