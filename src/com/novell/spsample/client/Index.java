@@ -71,6 +71,25 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
 
     private boolean m_isVisible = false;
     
+    /** NavItem ID for Overview */
+    public static final String OVERVIEW_NAV_ITEM_ID = "overviewNavItem";
+    /** NavItem ID for Get Started */
+    public static final String GET_STARTED_NAV_ITEM_ID = "docNavItem";
+    /** NavItem ID for CSS */
+    public static final String CSS_NAV_ITEM_ID = "cssNavItem";
+    /** NavItem ID for Build */
+    public static final String BUILD_NAV_ITEM_ID = "buildNavItem";
+    /** NavItem ID for REST */
+    public static final String REST_NAV_ITEM_ID = "restNavItem";
+    /** NavItem ID for Authentication */
+    public static final String AUTH_NAV_ITEM_ID = "authNavItem";
+    /** NavItem ID for Dates */
+    public static final String DATES_NAV_ITEM_ID = "dateNavItem";
+    /** NavItem ID for Form */
+    public static final String FORM_NAV_ITEM_ID = "page2NavItem";
+    /** NavItem ID for Widgets */
+    public static final String WIDGETS_NAV_ITEM_ID = "page1NavItem";
+    
     /**
      * The Index page constructor
      */
@@ -95,7 +114,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         /*
          The overview panel
          */
-        NavItem item = new NavItem("overviewNavItem", "Spiffy Overview",
+        NavItem item = new NavItem(OVERVIEW_NAV_ITEM_ID, "Spiffy Overview",
                                    "This is the navigation item for the spiffy overview page");
         m_navBar.add(item);
         m_panels.put(item, new OverviewPanel());
@@ -103,51 +122,51 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         /*
          The doc panel
          */
-        item = new NavItem("docNavItem", "Get Started",
+        item = new NavItem(GET_STARTED_NAV_ITEM_ID, "Get Started",
                            "This is the navigation item for the spiffy doc page");
         m_navBar.add(item);
         m_panels.put(item, new DocPanel());
         
         /*
+        The authentication info panel
+        */
+        item = new NavItem(AUTH_NAV_ITEM_ID, "Authentication",
+                          "This is the navigation item for the spiffy authentication page");
+        m_navBar.add(item);
+        m_panels.put(item, new AuthPanel());
+ 
+        /*
+        The build info panel
+        */
+        item = new NavItem(BUILD_NAV_ITEM_ID, "Build",
+                          "This is the navigation item for the spiffy build page");
+        m_navBar.add(item);
+        m_panels.put(item, new BuildPanel());
+       
+        /*
          The CSS panel
          */
-        item = new NavItem("cssNavItem", "CSS",
+        item = new NavItem(CSS_NAV_ITEM_ID, "CSS",
                            "This is the navigation item for the spiffy css page");
         m_navBar.add(item);
         m_panels.put(item, new CSSPanel());
 
         /*
-         The build info panel
-         */
-        item = new NavItem("buildNavItem", "Build",
-                           "This is the navigation item for the spiffy build page");
-        m_navBar.add(item);
-        m_panels.put(item, new BuildPanel());
-        
-        /*
-         The rest info panel
-         */
-        item = new NavItem("restNavItem", "REST",
-                           "This is the navigation item for the spiffy REST page");
-        m_navBar.add(item);
-        m_panels.put(item, new RESTPanel());
-        
-        /*
-        The authentication info panel
-        */
-       item = new NavItem("authNavItem", "Authentication",
-                          "This is the navigation item for the spiffy authentication page");
-       m_navBar.add(item);
-       m_panels.put(item, new AuthPanel());
-       
-        /*
         The date info panel
         */
-        item = new NavItem("dateNavItem", "Dates",
+        item = new NavItem(DATES_NAV_ITEM_ID, "Dates",
                           "This is the navigation item for the spiffy date localization page");
         m_navBar.add(item);
         m_panels.put(item, new DatePanel());
        
+        /*
+         The rest info panel
+         */
+        item = new NavItem(REST_NAV_ITEM_ID, "REST",
+                           "This is the navigation item for the spiffy REST page");
+        m_navBar.add(item);
+        m_panels.put(item, new RESTPanel());
+        
         /*
          A separator
          */
@@ -156,7 +175,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         /*
          The sample widgets panel
          */
-        item = new NavItem("page1NavItem", "Spiffy Widgets",
+        item = new NavItem(WIDGETS_NAV_ITEM_ID, "Spiffy Widgets",
                                    "This is the navigation item for the simple widgets page");
         m_navBar.add(item);
         m_panels.put(item, new WidgetsPanel());
@@ -164,7 +183,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         /*
          The sample form panel
          */
-        item = new NavItem("page2NavItem", "Spiffy Forms",
+        item = new NavItem(FORM_NAV_ITEM_ID, "Spiffy Form",
                            "This is the navigation item for the simple form page");
         m_navBar.add(item);
         m_panels.put(item, new FormPanel());
@@ -193,6 +212,16 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         }
     }
 
+    /**
+     * Select the NavItem
+     * @param itemId - ID of the NavItem to select
+     */
+    public static void selectItem(String itemId)
+    {
+        NavItem item = g_index.m_navBar.getItem(itemId);
+        g_index.m_navBar.selectItem(item);
+    } 
+    
     private void loadFooter()
     {
         VersionInfo.getVersionInfo(new RESTObjectCallBack<VersionInfo>() {
