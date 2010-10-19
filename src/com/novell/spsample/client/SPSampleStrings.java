@@ -31,6 +31,7 @@ public interface SPSampleStrings extends Messages {
     public String CSSPanel_html();
     public String DatePanel_html();
     public String DocPanel_html();
+    public String FormPanel_html();
     public String OverviewPanel_html();
     public String RESTPanel_html();
     

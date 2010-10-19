@@ -18,30 +18,29 @@
  */
 package com.novell.spsample.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.widgets.FormFeedback;
-import com.novell.spiffyui.client.widgets.SlideDownPrefsPanel;
 import com.novell.spiffyui.client.widgets.button.FancyButton;
 import com.novell.spiffyui.client.widgets.button.FancySaveButton;
 
 /**
- * This is the page 2 panel
+ * This is the form sample panel
  *
  */
 public class FormPanel extends HTMLPanel implements KeyUpHandler
 {
+    private static final SPSampleStrings STRINGS = (SPSampleStrings) GWT.create(SPSampleStrings.class);
+    
     private static final String CONTENTS =
         "<fieldset id=\"Page2Fields\">" +
             "<h2 class=\"sectionTitle\">Sample form field set</h2>" +
@@ -72,7 +71,7 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
      */
     public FormPanel()
     {
-        super("div", "<h1>Sample Form Example</h1><br /><br />" + CONTENTS);
+        super("div", "<h1>Sample Form</h1>" + STRINGS.FormPanel_html() + CONTENTS);
         
         getElement().setId("formPanel");
         
