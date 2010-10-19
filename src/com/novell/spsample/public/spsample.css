@@ -162,6 +162,7 @@ iframe {
     float: none;
     margin: -55px 5px 15px 75px;
     white-space: nowrap;
+    font-size: 12px;
 }
 
 .tabnav #mainContent {
@@ -174,7 +175,7 @@ iframe {
 
 .tabnav #mainNavContainer a {
     display: inline;
-    padding: 2em;
+    padding: 1em;
     width: auto;
     padding-bottom: 6px;
 }
@@ -188,8 +189,7 @@ iframe {
 }
 
 .tabnav #mainsubtitle {
-    left: -35px;
-    top: 24px;
+    display: none
 }
 
 .tabnav .navItemSelected a {
