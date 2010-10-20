@@ -217,13 +217,14 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
          * Add a refresh anchor to our page
          */
         m_refresh = new RefreshAnchor("Widgets_refreshAnchor");
-        addToSlidingGrid(m_refresh, "WidgetsRefreshAnchor", "Refresh Anchor<br/><br/>Confirm Dialog", 
+        addToSlidingGrid(m_refresh, "WidgetsRefreshAnchor", "Refresh Anchor &nbsp; &nbsp;Confirm Dialog", 
             "<p>" +             
-                "The refresh anchor handles an in progress status for refreshing items with an AJAX request. Click to show its in progress status and " +
+                "The refresh anchor shows an in progress status for refreshing items with an AJAX request. Click to show its in progress status and " +
                 "open an example of a confirm dialog." +
             "</p>" +
             "<p>" +              
-                "Dialogs are keyboard accessible and support autohide and modal properties." +
+                "Dialogs are keyboard accessible.  They also support autohide and modal properties.  You can also override the dialog class and " + 
+                "supply your own implementation of the dialog." +
             "</p>",
             TALL);
         

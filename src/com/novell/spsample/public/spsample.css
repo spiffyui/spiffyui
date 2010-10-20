@@ -62,7 +62,7 @@ h2 {
     font-family: Consolas,"Andale Mono",Monaco,Courier,"Courier New",Verdana,sans-serif;
 }
 
-.documentationPanel a, .documentationPanel a:visited {
+.documentationPanel a, .documentationPanel a:visited, .slidegrid a, .slidegrid a:visited {
     color: #289bc8;
 }
 
