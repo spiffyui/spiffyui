@@ -27,6 +27,7 @@ import com.google.gwt.user.client.Window;
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.SpiffyUIStrings;
 import com.novell.spiffyui.client.login.LoginPanel;
+import com.novell.spiffyui.client.login.LoginStringHelper;
 
 /**
  * A utility class for login and logout.
@@ -34,6 +35,14 @@ import com.novell.spiffyui.client.login.LoginPanel;
 public class AuthUtil implements RESTAuthProvider
 {
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
+
+
+    /**
+     * The string helper for providing strings to the login dialog
+     */
+    protected static final LoginStringHelper HELPER = new LoginStringHelper();
+
+
     /**
      * constructor
      */
@@ -51,9 +60,9 @@ public class AuthUtil implements RESTAuthProvider
     public void showLogin(RESTCallback callback, String tokenServerUrl, String code)
     {
         if (RESTility.hasUserLoggedIn()) {
-            LoginPanel.showLoginPanel(STRINGS.renew(), callback, tokenServerUrl, code, true, RESTility.getUsername());
+            LoginPanel.showLoginPanel(HELPER, STRINGS.renew(), callback, tokenServerUrl, code, true, RESTility.getUsername());
         } else {
-            LoginPanel.showLoginPanel(STRINGS.loginTitle(), callback, tokenServerUrl, code, false, null);
+            LoginPanel.showLoginPanel(HELPER, STRINGS.loginTitle(), callback, tokenServerUrl, code, false, null);
         }
 
     }

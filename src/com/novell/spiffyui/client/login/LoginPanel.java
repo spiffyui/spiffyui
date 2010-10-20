@@ -18,7 +18,6 @@
  */
 package com.novell.spiffyui.client.login;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -39,7 +38,6 @@ import com.google.gwt.user.client.ui.TextBox;
 
 import com.novell.spiffyui.client.JSUtil;
 import com.novell.spiffyui.client.MessageUtil;
-import com.novell.spiffyui.client.SpiffyUIStrings;
 import com.novell.spiffyui.client.rest.AuthUtil;
 import com.novell.spiffyui.client.rest.RESTAuthProvider;
 import com.novell.spiffyui.client.rest.RESTException;
@@ -67,8 +65,6 @@ public final class LoginPanel extends Composite implements KeyUpHandler
     private static final String RBPM_USER_COOKIE = "novell-rbpm-login-user";
     private static final String RBPM_PWD_COOKIE = "novell-rbpm-login-pwd";
 
-    private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
-
     private RESTAuthProvider m_authUtil = RESTility.getAuthProvider();
 
     private static LoginPanel g_loginPanel;
@@ -93,10 +89,13 @@ public final class LoginPanel extends Composite implements KeyUpHandler
 
     private Anchor m_logout;
 
+    private LoginStringHelper m_helper;
+
     /**
      * Show the login panel.  This should only be called from AuthUtil
      *
-     * @param title    the title of the panel
+     * @param helper    the string helper for this login panel
+     * @param title     the title of this login dialog
      * @param callbackKey
      *                 the callback key used to replay the REST call that caused the need for login
      * @param tokenServerUrl
@@ -105,11 +104,11 @@ public final class LoginPanel extends Composite implements KeyUpHandler
      * @param isRepeat true if this login request is a repeat because of token time out, false otherwise
      * @param username the username of the currently logged in user.  This parameter is optional.
      */
-    public static void showLoginPanel(String title, Object callbackKey, String tokenServerUrl,
+    public static void showLoginPanel(LoginStringHelper helper, String title, Object callbackKey, String tokenServerUrl,
                                       String code, boolean isRepeat, String username)
     {
         if (g_loginPanel == null) {
-            g_loginPanel = new LoginPanel(title);
+            g_loginPanel = new LoginPanel(title, helper);
         }
 
         g_loginPanel.setIsRepeat(isRepeat);
@@ -159,7 +158,8 @@ public final class LoginPanel extends Composite implements KeyUpHandler
              * valid, but the user doesn't have permission to access
              * the application.
              */
-            MessageUtil.showWarning(STRINGS.noPrivilege(g_loginPanel.m_username.getText()), false);
+            MessageUtil.showWarning(g_loginPanel.m_helper.getString(LoginStrings.NO_PRIVILEGE, 
+                                                                    g_loginPanel.m_username.getText()), false);
         }
 
     }
@@ -192,7 +192,7 @@ public final class LoginPanel extends Composite implements KeyUpHandler
         if (isRepeat) {
             m_glassPanel.getElement().addClassName("loginRepeatGlass");
             m_fp.getElement().addClassName("loginRepeat");
-            m_panel.getElementById("login_titlespan").setInnerText(STRINGS.renew());
+            m_panel.getElementById("login_titlespan").setInnerText(m_helper.getString(LoginStrings.RENEW));
             if (m_username.getText() != null &&
                 m_username.getText().length() > 0) {
                 /*
@@ -200,10 +200,10 @@ public final class LoginPanel extends Composite implements KeyUpHandler
                  * the user name so we have to prompt for it.
                  */
                 JSUtil.hide("#login_username_row", "fast");
-                m_panel.getElementById("loginmessage").setInnerText(STRINGS.repeatlogin());
+                m_panel.getElementById("loginmessage").setInnerText(m_helper.getString(LoginStrings.REPEAT_LOGIN));
             } else {
                 JSUtil.show("#login_username_row", "fast");
-                m_panel.getElementById("loginmessage").setInnerText(STRINGS.repeatloginTwo());
+                m_panel.getElementById("loginmessage").setInnerText(m_helper.getString(LoginStrings.REPEAT_LOGIN_TWO));
             }
         } else {
             //todo: fix this
@@ -214,7 +214,7 @@ public final class LoginPanel extends Composite implements KeyUpHandler
             }
             m_glassPanel.getElement().removeClassName("loginRepeatGlass");
             m_fp.getElement().removeClassName("loginRepeat");
-            m_panel.getElementById("login_titlespan").setInnerText(STRINGS.login());
+            m_panel.getElementById("login_titlespan").setInnerText(m_helper.getString(LoginStrings.LOGIN));
             m_panel.getElementById("loginmessage").setInnerText("");
             JSUtil.show("#login_username_row", "fast");
         }
@@ -223,8 +223,10 @@ public final class LoginPanel extends Composite implements KeyUpHandler
     /**
      * Create a new LoginPanel.
      */
-    private LoginPanel(String title)
+    private LoginPanel(String title, LoginStringHelper helper)
     {
+        m_helper = helper;
+
         m_glassPanel = new SimplePanel();
         RootPanel.get("loginPanel").add(m_glassPanel);
         m_glassPanel.setVisible(false);
@@ -241,7 +243,7 @@ public final class LoginPanel extends Composite implements KeyUpHandler
             "<div id=\"loginHeaderContainer\">" +
                 "<div id=\"loginHeaderleft\">" +
                     "<div id=\"loginHeaderlogo\"> </div>" +
-                    "<span class=\"headertitle\">" + STRINGS.productName() + "</span>" +
+                    "<span class=\"headertitle\">" + m_helper.getString(LoginStrings.PRODUCT_NAME) + "</span>" +
                 "</div>" +
             "</div>" +
             "<div class=\"login_content\">" +
@@ -252,11 +254,11 @@ public final class LoginPanel extends Composite implements KeyUpHandler
                         "<table cellspacing=\"4\" border=\"0\" style=\"display: block;\">" +
                             "<tbody>" +
                                 "<tr id=\"login_username_row\">" +
-                                    "<td><label>" + STRINGS.username() + "</label></td>" +
+                                    "<td><label>" + m_helper.getString(LoginStrings.USERNAME) + "</label></td>" +
                                     "<td id=\"login_username\"></td>" +
                                 "</tr>" +
                                 "<tr id=\"login_password_row\">" +
-                                    "<td><label>" + STRINGS.password() + "</label></td>" +
+                                    "<td><label>" + m_helper.getString(LoginStrings.PASSWORD) + "</label></td>" +
                                     "<td id=\"login_password\"></td>" +
                                 "</tr>" +
                                 "<tr><td/>" +
@@ -292,7 +294,7 @@ public final class LoginPanel extends Composite implements KeyUpHandler
         m_panel.add(m_pwd, "login_password");
 
         // login button
-        m_submit = new Button(STRINGS.login(), new ClickHandler() {
+        m_submit = new Button(m_helper.getString(LoginStrings.LOGIN), new ClickHandler() {
                 public void onClick(ClickEvent event)
                 {
                     doRequest();
@@ -302,7 +304,7 @@ public final class LoginPanel extends Composite implements KeyUpHandler
         m_submit.getElement().setId("login_submit_button");
         m_panel.add(m_submit, "gwtsubmit");
 
-        m_logout = new Anchor(STRINGS.logout());
+        m_logout = new Anchor(m_helper.getString(LoginStrings.LOGOUT));
         m_logout.getElement().setId("loging_logout_link");
         m_logout.addClickHandler(new ClickHandler() {
                 public void onClick(ClickEvent event)
@@ -383,17 +385,17 @@ public final class LoginPanel extends Composite implements KeyUpHandler
                 m_inRequest = false;
 
                 if (AuthUtil.INVALID_TS_URL.equals(e.getCode())) {
-                    MessageUtil.showError(STRINGS.invalidTSURL(e.getReason()));
+                    MessageUtil.showError(m_helper.getString(LoginStrings.INVALID_TS_URL, e.getReason()));
                 } else if (AuthUtil.NOTFOUND_TS_URL.equals(e.getCode())) {
-                    MessageUtil.showError(STRINGS.notFoundTSURL(e.getUrl()));
+                    MessageUtil.showError(m_helper.getString(LoginStrings.NOT_FOUND_TS_URL, e.getUrl()));
                 } else if (AuthUtil.MULTIPLE_ACCOUNTS.equals(e.getCode())) {
-                    MessageUtil.showWarning(STRINGS.multipleaccounts(), false);
+                    MessageUtil.showWarning(m_helper.getString(LoginStrings.MULTIPLE_ACCOUNTS), false);
                 } else if (AuthUtil.INVALID_INPUT.equals(e.getSubcode())) {
                     /*
                      * This is a very common error.  It means the username
                      * and password were incorrect.
                      */
-                    MessageUtil.showWarning(STRINGS.invalidUsernamePassword(), false);
+                    MessageUtil.showWarning(m_helper.getString(LoginStrings.INVALID_USERNAME_PASSWORD), false);
                 } else {
                     MessageUtil.showError(e.getReason());
                 }

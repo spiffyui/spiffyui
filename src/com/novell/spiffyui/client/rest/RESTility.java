@@ -391,7 +391,7 @@ public final class RESTility
      *
      * @return boolean indicating whether user has logged in or not
      */
-    protected static boolean hasUserLoggedIn()
+    public static boolean hasUserLoggedIn()
     {
         return RESTILITY.m_hasLoggedIn;
     }
@@ -464,10 +464,12 @@ public final class RESTility
     }
 
     /**
-     * Returns user name
+     * Returns the name of the currently logged in user or null
+     * if the current user is not logged in.
+     * 
      * @return  user name
      */
-    protected static String getUsername()
+    public static String getUsername()
     {
         if (RESTILITY.m_username != null) {
             return RESTILITY.m_username;
