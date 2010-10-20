@@ -35,13 +35,21 @@ h2 {
     color: #1795c6;
     font-size: 16px;
     font-weight: normal;
-    line-height: 18px;
+    line-height: 30px;
+    margin-bottom: 6px;     /* 36 / 18 = 2 */
 }
 
 .documentationPanel {
     width: 480px;
 }
 
+/*
+   Most of the time we have a font size of 12 pixels.  This smaller
+   font works well for form labels, but that doesn't work well for
+   pages with larger blocks of text.  For the documentation panels
+   in the SPSample application 12 pixels is too small.  For those 
+   panels we use 14 pixel fonts with an 18 pixel line height.
+ */
 .documentationPanel p, .documentationPanel ul {
     font-size: 14px;
     line-height: 18px;
