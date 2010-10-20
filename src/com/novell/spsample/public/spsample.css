@@ -200,6 +200,7 @@ iframe {
 .tabnav #mainHeaderContainer .headertitle {
     color: black;
     font-size: 24px;
+    top: -50px;
 }
 
 .tabnav #mainHeader {

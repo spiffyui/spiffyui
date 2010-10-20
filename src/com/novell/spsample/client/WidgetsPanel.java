@@ -235,6 +235,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
                 m_refresh.setLoading(true);
                 m_dlg.center();
                 m_dlg.show();
+                event.preventDefault();
             }
             
         });

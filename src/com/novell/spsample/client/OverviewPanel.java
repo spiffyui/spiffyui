@@ -73,9 +73,6 @@ public class OverviewPanel extends HTMLPanel
             }
         });
         add(restError, "overviewRestError");
-        //Scroll down to error handling on the REST page.  This should work because
-        //href is done after onClick returns
-        restError.setHref("#RestErrorHandling");
      
         /*
          * Add the authentication anchor
