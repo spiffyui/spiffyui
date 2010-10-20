@@ -56,9 +56,11 @@ public class RefreshAnchor extends Anchor
          * Using "#" will make the browser page scroll back to the top if the anchor low,
          * and using ("#" + id) will set focus to the anchor, which would remove focus
          * being set to something else during the onclick event (for example the default
-         * button on a ConfirmDialog).
+         * button on a ConfirmDialog).  Call setHref if something different is needed.
+         * From the onclick event you may call event.preventDefault() to prevent
+         * the href event.
          */
-        setHref("javascript:"); 
+        setHref("#"); 
         getElement().setId(id);
     }
     

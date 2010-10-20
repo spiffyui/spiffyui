@@ -145,10 +145,10 @@ public class SlidingGridPanel extends ComplexPanel
     }
 
     @Override
-    public void onAttach()
+    public void onLoad()
     {
         alignGrid(m_cellWidth, m_cellHeight, m_padding, m_offset);
-        super.onAttach();
+        super.onLoad();
     }
 
     private static native void alignGrid(int cellWidth, int cellHeight, int padding, int gridOffset) /*-{
