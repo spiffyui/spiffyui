@@ -57,8 +57,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
          */
         Object o = MessageUtil.ERROR_PANEL;
     }
-    private static RESTAuthProvider g_authUtil = new SampleAuthUtil();
-
+    
     private static Index g_index;
     
     private MainHeader m_header;
@@ -102,6 +101,14 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     @Override
     public void onModuleLoad()
     {
+        /*
+         We are setting a custom authentication provider.  Custom authentication
+         providers can override the UI of the login or provide access to totally
+         new authentication mechanisms.  Ours just overrides a string in the
+         login panel
+         */
+        RESTility.setAuthProvider(new SampleAuthUtil());
+        
         m_header = new MainHeader();
         m_header.setWelcomeString("");
         m_header.setHeaderTitle("SPIFFY <span id=\"mainsubtitle\">The UI/UX framework</span>");
@@ -284,16 +291,6 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         }
         g_index.m_header.setWelcomeString("Welcome " + RESTility.getUserToken());
         JSUtil.bounce("#" + MainHeader.HEADER_ACTIONS_BLOCK, 4, 300, 40);
-    }
-
-    /**
-     * set the authentication provider used by REStitlity so that this authentication provider
-     * will be used instead of the default authentication provider that comes with spiffy framework
-     *
-     */
-    public static void setAuthProvider()
-    {
-        RESTility.setAuthProvider(g_authUtil);
     }
 
     /**
