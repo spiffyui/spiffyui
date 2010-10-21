@@ -60,11 +60,21 @@ public class AuthUtil implements RESTAuthProvider
     public void showLogin(RESTCallback callback, String tokenServerUrl, String code)
     {
         if (RESTility.hasUserLoggedIn()) {
-            LoginPanel.showLoginPanel(HELPER, STRINGS.renew(), callback, tokenServerUrl, code, true, RESTility.getUsername());
+            LoginPanel.showLoginPanel(getStringHelper(), STRINGS.renew(), callback, tokenServerUrl, code, true, RESTility.getUsername());
         } else {
-            LoginPanel.showLoginPanel(HELPER, STRINGS.loginTitle(), callback, tokenServerUrl, code, false, null);
+            LoginPanel.showLoginPanel(getStringHelper(), STRINGS.loginTitle(), callback, tokenServerUrl, code, false, null);
         }
 
+    }
+    
+    /**
+     * Provide the LoginStringHelper class for use with the login panel.
+     * 
+     * @return the LoginStringHelper
+     */
+    protected LoginStringHelper getStringHelper()
+    {
+        return HELPER;
     }
 
     /**

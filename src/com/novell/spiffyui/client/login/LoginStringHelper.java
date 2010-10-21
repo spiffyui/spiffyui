@@ -62,7 +62,8 @@ public class LoginStringHelper
             return STRINGS.repeatlogin();
         } else if (msgKey.equals(LoginStrings.REPEAT_LOGIN_TWO)) {
             return STRINGS.repeatloginTwo();
-        } else if (msgKey.equals(LoginStrings.LOGIN)) {
+        } else if (msgKey.equals(LoginStrings.LOGIN) ||
+                   msgKey.equals(LoginStrings.LOGIN_TITLE)) {
             return STRINGS.login();
         } else if (msgKey.equals(LoginStrings.PRODUCT_NAME)) {
             return STRINGS.productName();

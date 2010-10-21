@@ -214,7 +214,7 @@ public final class LoginPanel extends Composite implements KeyUpHandler
             }
             m_glassPanel.getElement().removeClassName("loginRepeatGlass");
             m_fp.getElement().removeClassName("loginRepeat");
-            m_panel.getElementById("login_titlespan").setInnerText(m_helper.getString(LoginStrings.LOGIN));
+            m_panel.getElementById("login_titlespan").setInnerText(m_helper.getString(LoginStrings.LOGIN_TITLE));
             m_panel.getElementById("loginmessage").setInnerText("");
             JSUtil.show("#login_username_row", "fast");
         }

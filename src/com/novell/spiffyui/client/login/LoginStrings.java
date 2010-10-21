@@ -52,6 +52,11 @@ public enum LoginStrings
      * This is the login title
      */
     LOGIN(),
+    
+    /**
+     * This is the title of the login panel
+     */
+    LOGIN_TITLE(),
 
     /**
      * The product name is used for the title of the login panel
