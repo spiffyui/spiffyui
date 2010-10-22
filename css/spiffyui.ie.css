@@ -123,21 +123,6 @@ button..rpt-fancy-button {
     width: 100%;
 }
 
-button.rpt-save-button {
-    background: #EDEEEC url('images/save.gif') no-repeat scroll 10px 0px;
-}
-
-button.rpt-save-button.disabled {
-    background: #EDEEEC url('images/save.gif') no-repeat scroll 10px -30px;
-}
-
-button.rpt-run-button {
-    background: #EDEEEC url('images/run.gif') no-repeat scroll 10px 0px;
-}
-
-button.rpt-fancy-button.inprogress {
-    background: #EDEEEC url('images/loading_small.gif') no-repeat scroll 10px 0px;
-}
 
 /*
   margin-right is causing the close icon to show up outside of the error/longmessage in ie

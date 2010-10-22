@@ -17,7 +17,7 @@ body, .gwt-TextBox, .gwt-ListBox, .gwt-PasswordTextBox, .gwt-TextArea, .gwt-Sugg
     font-size: 11px;
 }
 
-.gwt-TextBox {
+.gwt-TextBox, .gwt-TextArea {
     padding: 2px;
 }
 
@@ -495,6 +495,13 @@ button.spiffy-inprogress {
     height: 42px;
 }
 
+.formcontrolslabel {
+    position: absolute;
+    top: 56px;
+    left: 0px;
+    width: 505px;
+}
+
 .extratallformrow {
     position: relative;
     height: 56px;
@@ -525,6 +532,10 @@ button.spiffy-inprogress {
     top: 0px;
     left: 175px;
     width: 30em;
+}
+
+.formbuttons {
+    padding-top: 3px;
 }
 
 .tworowcontrolssection {
