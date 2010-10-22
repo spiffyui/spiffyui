@@ -46,24 +46,41 @@ public class CSSPanel extends HTMLPanel
         
         setVisible(false);
         
-        final Button b = new Button("tab navigation");
-        b.addClickHandler(new ClickHandler()
+        final Button tabNavButton = new Button("tab navigation");
+        tabNavButton.addClickHandler(new ClickHandler()
             {
                 @Override
                 public void onClick(ClickEvent event)
                 {
-                    if (b.getText().equals("tab navigation")) {
+                    if (tabNavButton.getText().equals("tab navigation")) {
                         RootPanel.get("mainWrap").getElement().addClassName("tabnav");
                         RootPanel.get("mainFooter").getElement().addClassName("tabnav");
-                        b.setText("menu navigation");
+                        tabNavButton.setText("menu navigation");
                     } else {
                         RootPanel.get("mainWrap").getElement().removeClassName("tabnav");
                         RootPanel.get("mainFooter").getElement().removeClassName("tabnav");
-                        b.setText("tab navigation");
+                        tabNavButton.setText("tab navigation");
                     }
                 }
             });
-        add(b, "tabnavbutton");
+        add(tabNavButton, "tabnavbutton");
+        
+        final Button gridButton = new Button("Grid On");
+        gridButton.addClickHandler(new ClickHandler()
+            {
+                @Override
+                public void onClick(ClickEvent event)
+                {
+                    if (gridButton.getText().equals("Grid On")) {
+                        RootPanel.get("main").getElement().addClassName("grid");
+                        gridButton.setText("Grid Off");
+                    } else {
+                        RootPanel.get("main").getElement().removeClassName("grid");
+                        gridButton.setText("Grid On");
+                    }
+                }
+            });
+        add(gridButton, "gridbutton");
         
     }
 }

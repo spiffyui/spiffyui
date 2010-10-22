@@ -124,7 +124,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
          The overview panel
          */
         NavItem item = new NavItem(OVERVIEW_NAV_ITEM_ID, "Spiffy Overview",
-                                   "This is the navigation item for the spiffy overview page");
+                                   "Overview information for the Spiffy UI framework");
         m_navBar.add(item);
         m_panels.put(item, new OverviewPanel());
         
@@ -132,7 +132,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
          The doc panel
          */
         item = new NavItem(GET_STARTED_NAV_ITEM_ID, "Get Started",
-                           "This is the navigation item for the spiffy doc page");
+                           "Get started with information about how to use Spiffy UI");
         m_navBar.add(item);
         m_panels.put(item, new GetStartedPanel());
         
@@ -140,7 +140,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         The authentication info panel
         */
         item = new NavItem(AUTH_NAV_ITEM_ID, "Authentication",
-                          "This is the navigation item for the spiffy authentication page");
+                          "Spiffy UI authentication information");
         m_navBar.add(item);
         m_panels.put(item, new AuthPanel());
  
@@ -148,7 +148,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         The build info panel
         */
         item = new NavItem(BUILD_NAV_ITEM_ID, "Build",
-                          "This is the navigation item for the spiffy build page");
+                          "Spiffy UI build information");
         m_navBar.add(item);
         m_panels.put(item, new BuildPanel());
        
@@ -156,7 +156,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
          The CSS panel
          */
         item = new NavItem(CSS_NAV_ITEM_ID, "CSS",
-                           "This is the navigation item for the spiffy css page");
+                           "The Spiffy UI CSS classes and philosophy");
         m_navBar.add(item);
         m_panels.put(item, new CSSPanel());
 
@@ -164,7 +164,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         The date info panel
         */
         item = new NavItem(DATES_NAV_ITEM_ID, "Dates",
-                          "This is the navigation item for the spiffy date localization page");
+                          "Date pickers, time pickers, and localization in the Spiffy UI framework");
         m_navBar.add(item);
         m_panels.put(item, new DatePanel());
        
@@ -172,7 +172,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
          The rest info panel
          */
         item = new NavItem(REST_NAV_ITEM_ID, "REST",
-                           "This is the navigation item for the spiffy REST page");
+                           "Patterns and helpers for calling REST");
         m_navBar.add(item);
         m_panels.put(item, new RESTPanel());
         
@@ -180,7 +180,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
          The JavaDoc panel
          */
         item = new NavItem(JAVADOC_NAV_ITEM_ID, "JavaDoc",
-                           "This is the navigation item for the JavaDoc page");
+                           "Java API documentation for the Spiffy UI framework");
         m_navBar.add(item);
         m_panels.put(item, new JavaDocPanel());
         
@@ -193,7 +193,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
          The sample widgets panel
          */
         item = new NavItem(WIDGETS_NAV_ITEM_ID, "Spiffy Widgets",
-                                   "This is the navigation item for the simple widgets page");
+                                   "Take a look at the widgets that come with the Spiffy UI framework");
         m_navBar.add(item);
         m_panels.put(item, new WidgetsPanel());
         
@@ -201,7 +201,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
          The sample form panel
          */
         item = new NavItem(FORM_NAV_ITEM_ID, "Spiffy Form",
-                           "This is the navigation item for the simple form page");
+                           "Form styles and handling in the Spiffy UI framework");
         m_navBar.add(item);
         m_panels.put(item, new FormPanel());
         

@@ -215,6 +215,13 @@ iframe {
     background: transparent;
 }
 
+/*
+   We use this grid style to show the grid on the CSS page.
+ */
+#main.grid {
+    background: url("images/grid.gif") repeat-y scroll -1px -8px white;
+}
+
 #mainFooter.tabnav  {
     margin-left: 0px;
     margin-right: 0px;
@@ -262,7 +269,7 @@ iframe {
     background-color: #F9F9F9;
     border: thin solid lightgray;
     padding: 18px;
-    margin-bottom: 14px;
+    margin-bottom: 18px;
 }
 
 #testAuthResult {
@@ -327,4 +334,8 @@ iframe {
 .yellowHighlightSection {
     border: 1px solid #E6DB55;
     background-color: #FFFFE0;
+}
+
+#loginSection {
+    margin-bottom: 14px;
 }
