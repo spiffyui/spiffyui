@@ -80,6 +80,8 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     public static final String BUILD_NAV_ITEM_ID = "buildNavItem";
     /** NavItem ID for REST */
     public static final String REST_NAV_ITEM_ID = "restNavItem";
+    /** NavItem ID for JavaDoc */
+    public static final String JAVADOC_NAV_ITEM_ID = "javaDocNavItem";
     /** NavItem ID for Authentication */
     public static final String AUTH_NAV_ITEM_ID = "authNavItem";
     /** NavItem ID for Dates */
@@ -173,6 +175,14 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
                            "This is the navigation item for the spiffy REST page");
         m_navBar.add(item);
         m_panels.put(item, new RESTPanel());
+        
+        /*
+         The JavaDoc panel
+         */
+        item = new NavItem(JAVADOC_NAV_ITEM_ID, "JavaDoc",
+                           "This is the navigation item for the JavaDoc page");
+        m_navBar.add(item);
+        m_panels.put(item, new JavaDocPanel());
         
         /*
          A separator

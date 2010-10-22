@@ -18,22 +18,29 @@
  */
 package com.novell.spsample.client;
 
-import com.google.gwt.i18n.client.Messages;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 
 /**
- * Localized strings for the library classes
+ * This is the JavaDoc documentation panel
  *
  */
-public interface SPSampleStrings extends Messages {
-
-    public String AuthPanel_html();
-    public String BuildPanel_html();
-    public String CSSPanel_html();
-    public String DatePanel_html();
-    public String DocPanel_html();
-    public String FormPanel_html();
-    public String JavaDocPanel_html();
-    public String OverviewPanel_html();
-    public String RESTPanel_html();
+public class JavaDocPanel extends HTMLPanel
+{
+    private static final SPSampleStrings STRINGS = (SPSampleStrings) GWT.create(SPSampleStrings.class);
     
+	/**
+     * Creates a new panel
+     */
+    public JavaDocPanel()
+    {
+        super("div", STRINGS.JavaDocPanel_html());
+        
+        getElement().setId("javaDocPanel");
+        
+        RootPanel.get("mainContent").add(this);
+        
+        setVisible(false);
+    }
 }
