@@ -26,18 +26,18 @@ import com.google.gwt.user.client.ui.RootPanel;
  * This is the documentation panel
  *
  */
-public class DocPanel extends HTMLPanel
+public class GetStartedPanel extends HTMLPanel
 {
     private static final SPSampleStrings STRINGS = (SPSampleStrings) GWT.create(SPSampleStrings.class);
     
 	/**
      * Creates a new panel
      */
-    public DocPanel()
+    public GetStartedPanel()
     {
-        super("div", STRINGS.DocPanel_html());
+        super("div", STRINGS.GetStartedPanel_html());
         
-        getElement().setId("docPanel");
+        getElement().setId("getStartedPanel");
         
         RootPanel.get("mainContent").add(this);
         

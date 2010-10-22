@@ -30,7 +30,7 @@ public interface SPSampleStrings extends Messages {
     public String BuildPanel_html();
     public String CSSPanel_html();
     public String DatePanel_html();
-    public String DocPanel_html();
+    public String GetStartedPanel_html();
     public String FormPanel_html();
     public String JavaDocPanel_html();
     public String OverviewPanel_html();
