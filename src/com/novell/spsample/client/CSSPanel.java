@@ -27,6 +27,8 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import com.novell.spiffyui.client.JSUtil;
+
 /**
  * This is the CSS panel
  *
@@ -81,7 +83,9 @@ public class CSSPanel extends HTMLPanel
          if you switch to another panel
          */
         final FlowPanel fixedPanel = new FlowPanel();
-        final Button fixedgridButton = new Button("Off");
+        final Button fixedgridButton = new Button(" ");
+        fixedgridButton.setTitle("Turn off the grid");
+        fixedPanel.getElement().setId("fixedGridTab");
         
         gridButton.addClickHandler(new ClickHandler()
             {
@@ -91,18 +95,15 @@ public class CSSPanel extends HTMLPanel
                     if (gridButton.getText().equals("Grid On")) {
                         RootPanel.get("main").getElement().addClassName("grid");
                         gridButton.setText("Grid Off");
-                        fixedPanel.setVisible(true);
+                        JSUtil.show("#fixedGridTab", "slow");
                     } else {
                         RootPanel.get("main").getElement().removeClassName("grid");
                         gridButton.setText("Grid On");
-                        fixedPanel.setVisible(false);
+                        JSUtil.hide("#fixedGridTab", "slow");
                     }
                 }
             });
         add(gridButton, "gridbutton");
-        
-        
-        fixedPanel.add(new Label("Turn the grid"));
         
         fixedPanel.add(fixedgridButton);
         
@@ -113,10 +114,10 @@ public class CSSPanel extends HTMLPanel
                 {
                     RootPanel.get("main").getElement().removeClassName("grid");
                     gridButton.setText("Grid On");
-                    fixedPanel.setVisible(false);
+                    JSUtil.hide("#fixedGridTab", "slow");
                 }
             });
-        fixedPanel.getElement().setId("fixedGridTab");
+        
         fixedPanel.setVisible(false);
         RootPanel.get("mainWrap").add(fixedPanel);
         

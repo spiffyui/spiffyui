@@ -341,23 +341,30 @@ iframe {
 }
 
 #fixedGridTab {
-    -moz-border-radius-bottomright: 4px;
-    -moz-border-radius-topright: 4px;
-    -webkit-border-radius-bottomright: 4px;
-    -webkit-border-radius-topright: 4px;
-    background: #EFD137;
+    background: none repeat scroll 0 0 transparent;
+    left: -1px;
+    position: absolute;
+    top: 190px;
+    width: 28px;
+    background: #CCCCCC;
+    padding-top: 14px;
+    padding-bottom: 12px;
+}
+
+#fixedGridTab:hover {
+    border: 2px solid gray;
     border-left: none;
-    border: thin solid lightgra;
-    font-size: 14px;
-    left: 0px;
-    line-height: 18px;
-    padding: 5px;
-    position: fixed;
-    top: 100px;
-    width: 60px;
-    
+    padding-top: 12px;
+    padding-bottom: 10px;
 }
 
 #fixedGridTab button {
-    margin-top: 18px;
+    background: url("images/grid_tab_text.png") no-repeat scroll 3px center transparent;
+    border: none;
+    height: 192px;
+    margin-left: 3px;
+    width: 28px;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
