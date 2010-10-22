@@ -339,3 +339,25 @@ iframe {
 #loginSection {
     margin-bottom: 14px;
 }
+
+#fixedGridTab {
+    -moz-border-radius-bottomright: 4px;
+    -moz-border-radius-topright: 4px;
+    -webkit-border-radius-bottomright: 4px;
+    -webkit-border-radius-topright: 4px;
+    background: #EFD137;
+    border-left: none;
+    border: thin solid lightgra;
+    font-size: 14px;
+    left: 0px;
+    line-height: 18px;
+    padding: 5px;
+    position: fixed;
+    top: 100px;
+    width: 60px;
+    
+}
+
+#fixedGridTab button {
+    margin-top: 18px;
+}

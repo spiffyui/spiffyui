@@ -22,7 +22,9 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
@@ -46,6 +48,9 @@ public class CSSPanel extends HTMLPanel
         
         setVisible(false);
         
+        /*
+         This button handles showing and hiding the tab navigation CSS
+         */
         final Button tabNavButton = new Button("tab navigation");
         tabNavButton.addClickHandler(new ClickHandler()
             {
@@ -65,7 +70,19 @@ public class CSSPanel extends HTMLPanel
             });
         add(tabNavButton, "tabnavbutton");
         
+        /*
+         The grid button can show and hide the grid background
+         */
         final Button gridButton = new Button("Grid On");
+        
+        /*
+         The fixed grid button is a tab that sticks to the left
+         side of the window so you can switch off the grid even
+         if you switch to another panel
+         */
+        final FlowPanel fixedPanel = new FlowPanel();
+        final Button fixedgridButton = new Button("Off");
+        
         gridButton.addClickHandler(new ClickHandler()
             {
                 @Override
@@ -74,13 +91,34 @@ public class CSSPanel extends HTMLPanel
                     if (gridButton.getText().equals("Grid On")) {
                         RootPanel.get("main").getElement().addClassName("grid");
                         gridButton.setText("Grid Off");
+                        fixedPanel.setVisible(true);
                     } else {
                         RootPanel.get("main").getElement().removeClassName("grid");
                         gridButton.setText("Grid On");
+                        fixedPanel.setVisible(false);
                     }
                 }
             });
         add(gridButton, "gridbutton");
+        
+        
+        fixedPanel.add(new Label("Turn the grid"));
+        
+        fixedPanel.add(fixedgridButton);
+        
+        fixedgridButton.addClickHandler(new ClickHandler()
+            {
+                @Override
+                public void onClick(ClickEvent event)
+                {
+                    RootPanel.get("main").getElement().removeClassName("grid");
+                    gridButton.setText("Grid On");
+                    fixedPanel.setVisible(false);
+                }
+            });
+        fixedPanel.getElement().setId("fixedGridTab");
+        fixedPanel.setVisible(false);
+        RootPanel.get("mainWrap").add(fixedPanel);
         
     }
 }
