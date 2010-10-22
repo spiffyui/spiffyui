@@ -65,7 +65,7 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
                 "</li>" +
                 "<li id=\"securityAnswerRow\" class=\"dialogformrow\"><label class=\"dialogformlabel\" for=\"securityAnswerTxt\">Security Answer: " + 
                     "</label><div id=\"securityAnswer\" class=\"formcontrolssection\"></div></li>" +
-                "<li id=\"page2ButtonsRow\" class=\"dialogformrow\"><div id=\"page2Buttons\" class=\"formcontrolssection\"></div></li>" +
+                "<li id=\"page2ButtonsRow\" class=\"dialogformrow\"><div id=\"page2Buttons\" class=\"formcontrolssection formbuttons\"></div></li>" +
             "</ol>" +
         "</fieldset>";
     
@@ -296,7 +296,9 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
                           m_password.getText().length() > 2 &&
                           m_passwordRepeat.getText().length() > 2 &&
                           m_passwordRepeat.getText().equals(m_password.getText()) &&
-                          m_userDesc.getText().length() > 8);
+                          m_userDesc.getText().length() > 8 &&
+                          m_securityQuestion.getText().length() > 8 &&
+                          m_securityAnswer.getText().length() > 8);
     }
     
     private void save()
