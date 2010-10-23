@@ -35,5 +35,6 @@ public interface SPSampleStrings extends Messages {
     public String JavaDocPanel_html();
     public String OverviewPanel_html();
     public String RESTPanel_html();
+    public String WidgetsPanel_html();
     
 }

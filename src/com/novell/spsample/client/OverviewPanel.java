@@ -47,7 +47,7 @@ public class OverviewPanel extends HTMLPanel
         /*
          * Add the REST anchor
          */
-        Anchor rest = new Anchor("Framework and patterns for calling REST with JSON", "RESTPanel");
+        Anchor rest = new Anchor("Easy REST integration with GWT", "RESTPanel");
         rest.addClickHandler(new ClickHandler() {
             
             @Override
@@ -152,7 +152,7 @@ public class OverviewPanel extends HTMLPanel
         /*
          * Add the build anchor
          */
-        Anchor build = new Anchor("Build integration with JavaScript and CSS compression", "BuildPanel");
+        Anchor build = new Anchor("Super fast applications with JavaScript and CSS compression", "BuildPanel");
         build.addClickHandler(new ClickHandler() {
             
             @Override
