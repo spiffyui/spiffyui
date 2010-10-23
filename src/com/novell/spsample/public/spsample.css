@@ -343,19 +343,19 @@ iframe {
 #fixedGridTab {
     background: none repeat scroll 0 0 transparent;
     left: -1px;
-    position: absolute;
-    top: 190px;
+    position: fixed;
+    _position: absolute;
+    top: 25%;
     width: 28px;
     background: #CCCCCC;
     padding-top: 14px;
     padding-bottom: 12px;
+    border: 1px solid white;
 }
 
 #fixedGridTab:hover {
-    border: 2px solid gray;
     border-left: none;
-    padding-top: 12px;
-    padding-bottom: 10px;
+    padding-left: 5px;
 }
 
 #fixedGridTab button {

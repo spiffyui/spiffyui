@@ -95,11 +95,11 @@ public class CSSPanel extends HTMLPanel
                     if (gridButton.getText().equals("Grid On")) {
                         RootPanel.get("main").getElement().addClassName("grid");
                         gridButton.setText("Grid Off");
-                        JSUtil.show("#fixedGridTab", "slow");
+                        JSUtil.horizontalToggleSlide("#fixedGridTab");
                     } else {
                         RootPanel.get("main").getElement().removeClassName("grid");
                         gridButton.setText("Grid On");
-                        JSUtil.hide("#fixedGridTab", "slow");
+                        JSUtil.horizontalToggleSlide("#fixedGridTab");
                     }
                 }
             });
@@ -114,7 +114,7 @@ public class CSSPanel extends HTMLPanel
                 {
                     RootPanel.get("main").getElement().removeClassName("grid");
                     gridButton.setText("Grid On");
-                    JSUtil.hide("#fixedGridTab", "slow");
+                    JSUtil.horizontalToggleSlide("#fixedGridTab");
                 }
             });
         
