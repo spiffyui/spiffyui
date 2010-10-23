@@ -20,7 +20,6 @@ package com.novell.spsample.client.rest;
 
 import java.util.Date;
 
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
 import com.novell.spiffyui.client.JSONUtil;

@@ -33,7 +33,7 @@ public class OverviewPanel extends HTMLPanel
 {
     private static final SPSampleStrings STRINGS = (SPSampleStrings) GWT.create(SPSampleStrings.class);
     
-	/**
+    /**
      * Creates a new panel
      */
     public OverviewPanel()

@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 public class VersionInfoServlet extends HttpServlet
 {
 
-    private static final long serialVersionUID = -1l;
+    private static final long serialVersionUID = -1L;
     
     private static final ResourceBundle BUILD_BUNDLE = 
         ResourceBundle.getBundle("com/novell/spsample/server/buildnum", Locale.getDefault());

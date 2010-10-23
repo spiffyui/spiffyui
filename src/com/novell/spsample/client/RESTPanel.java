@@ -30,7 +30,7 @@ public class RESTPanel extends HTMLPanel
 {
     private static final SPSampleStrings STRINGS = (SPSampleStrings) GWT.create(SPSampleStrings.class);
     
-	/**
+    /**
      * Creates a new panel
      */
     public RESTPanel()

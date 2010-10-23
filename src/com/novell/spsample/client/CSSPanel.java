@@ -24,7 +24,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import com.novell.spiffyui.client.JSUtil;
@@ -37,7 +36,7 @@ public class CSSPanel extends HTMLPanel
 {
     private static final SPSampleStrings STRINGS = (SPSampleStrings) GWT.create(SPSampleStrings.class);
     
-	/**
+    /**
      * Creates a new panel
      */
     public CSSPanel()

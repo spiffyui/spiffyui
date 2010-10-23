@@ -35,14 +35,14 @@ import org.apache.commons.codec.binary.Base64;
  */
 public class SampleAuthServer extends HttpServlet
 {
-    private static final long serialVersionUID = -1l;
+    private static final long serialVersionUID = -1L;
     private static final String AUTHORIZATION = "Authorization";
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        String authHeader =request.getHeader(AUTHORIZATION);
+        String authHeader = request.getHeader(AUTHORIZATION);
         if (authHeader == null) {
             throw new IllegalArgumentException("No auth header");    
         }

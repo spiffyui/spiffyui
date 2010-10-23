@@ -33,7 +33,6 @@ import com.novell.spiffyui.client.nav.MainNavBar;
 import com.novell.spiffyui.client.nav.NavBarListener;
 import com.novell.spiffyui.client.nav.NavItem;
 import com.novell.spiffyui.client.nav.NavSeparator;
-import com.novell.spiffyui.client.rest.RESTAuthProvider;
 import com.novell.spiffyui.client.rest.RESTException;
 import com.novell.spiffyui.client.rest.RESTLoginCallBack;
 import com.novell.spiffyui.client.rest.RESTObjectCallBack;
