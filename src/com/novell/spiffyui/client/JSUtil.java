@@ -78,7 +78,7 @@ public final class JSUtil
                             }-*/;
     
     /**
-     * Toggles the visibility of the specified element with a slide effect
+     * Toggles the visibility of the specified element with a vertical slide effect
      * 
      * @param id
      *        the id for the element to show
@@ -96,6 +96,18 @@ public final class JSUtil
         } else {
             $wnd.$(id).slideDown(speed);
         }
+    }-*/;
+    
+    /**
+     * Toggles the visibility of the specified element with a horizontal slide effect 
+     * sliding from the left side. 
+     * 
+     * @param id
+     *        the id for the element to show (#myControl)
+     */
+
+    public static native void horizontalToggleSlide(String id)  /*-{
+        $wnd.$(id).animate({width: 'toggle'});
     }-*/;
     
     /**
