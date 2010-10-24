@@ -368,3 +368,16 @@ iframe {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+/*
+   Adjust the width of the error log so it fits within our main page area.
+ */
+#humanMsgLog ul {
+    left: 28px;
+    right: 28px;
+    width: auto;
+}
+
+#humanMsgLog p.minimized {
+    right: 28px;
+}
