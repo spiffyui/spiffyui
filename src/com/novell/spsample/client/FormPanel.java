@@ -262,7 +262,7 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
                 m_securityQuestionFeedback.setStatus(FormFeedback.WARNING);
             }
         } else if (w == m_securityAnswer) {
-            if (m_securityAnswer.getText().length() > 2) {
+            if (m_securityAnswer.getText().length() > 4) {
                 m_securityAnswerFeedback.setStatus(FormFeedback.VALID);
             } else {
                 m_securityAnswerFeedback.setStatus(FormFeedback.WARNING);
@@ -298,7 +298,7 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
                           m_passwordRepeat.getText().equals(m_password.getText()) &&
                           m_userDesc.getText().length() > 8 &&
                           m_securityQuestion.getText().length() > 8 &&
-                          m_securityAnswer.getText().length() > 8);
+                          m_securityAnswer.getText().length() > 4);
     }
     
     private void save()
