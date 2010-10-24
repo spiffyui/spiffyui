@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.novell.spiffyui.client.JSUtil;
 
 /**
  * This is a FlowPanel that calls events by listeners listening for changes in navigation
@@ -77,12 +78,25 @@ public class HasNavBarListenersPanel extends FlowPanel
      */
     public void fireEvent(NavItem item)
     {
+        fireEvent(item, true);
+    }
+    
+    /**
+     * Fires the click event on the specified nav item
+     * 
+     * @param item   the nav item that was clicked
+     * @param addToHistory
+     *               true if this item should be added to the browser history and false otherwise
+     */
+    protected void fireEvent(NavItem item, boolean addToHistory)
+    {
         if (m_enabled) {
             for (NavBarListener listener : m_listeners) {
                 listener.itemSelected(item);
             }
         }
     }
+    
     /**
      * Adds a NavBarListener to this navigation bar
      * 

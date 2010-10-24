@@ -26,6 +26,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.novell.spiffyui.client.JSUtil;
 
 /**
  * This is the navigation bar for the main page.
@@ -138,11 +139,27 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler
      */
     public boolean selectItem(NavItem item)
     {
+        return selectItem(item, true);
+    }
+    
+    /**
+     * Selects the specified navigation item and fires the navigation event to
+     * let all listeners know it was selected.  This intentionally does not
+     * fire a pre-event so that it cannot be intercepted. Returns true if NavItem found, false otherwise
+     * 
+     * @param item   the item to select
+     * @param addToHistory
+     *               true if this item should be added to the browser's history and false otherwise
+     * 
+     * @return true if the item is one of the NavItems of the NavBar, false if not a member such as logout
+     */
+    public boolean selectItem(NavItem item, boolean addToHistory)
+    {
         boolean found = false;
         for (NavItem ni : m_items) {
             if (ni == item) {
                 ni.addStyleName(SELECTED_CLASS);
-                fireEvent(item);
+                fireEvent(item, addToHistory);
                 found = true;
             } else {
                 ni.removeStyleName(SELECTED_CLASS);
@@ -171,7 +188,7 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler
     
     /**
      * Set the navigation bar to be enabled or disabled.  A disabled navigation bar
-     * is grey and never fires selection events.
+     * is gray and never fires selection events.
      * 
      * @param enabled true for enabled and false for disabled
      */
@@ -188,6 +205,16 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler
              is disabled.
              */
             addStyleName("disabled");
+        }
+    }
+    
+    @Override
+    public void fireEvent(NavItem item, boolean addToHistory)
+    {
+        super.fireEvent(item, addToHistory);
+        
+        if (isEnabled() && addToHistory) {
+            JSUtil.addHistoryItem(this, item.getElement().getId());
         }
     }
 

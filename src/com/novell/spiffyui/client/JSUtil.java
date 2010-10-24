@@ -25,6 +25,8 @@ import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.novell.spiffyui.client.nav.MainNavBar;
+import com.novell.spiffyui.client.nav.NavItem;
 
 /**
  * A set of static JavaScript utilities.
@@ -32,6 +34,46 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 public final class JSUtil
 {
     private static int g_uniqueCounter = 0;
+    
+    private static final JSUtil JS_UTIL = new JSUtil();
+    
+    static {
+        bindJavaScript();
+    }
+    
+    private static void doHistory(MainNavBar panel, String id)
+    {
+        NavItem item = panel.getItem(id);
+        if (item != null) {
+            panel.selectItem(item, false);
+        }
+    }
+    
+    /**
+     * Adds an item to the browser's history.  We add page changes to the browser's
+     * history so the user can use the browser forward and back buttons to move
+     * between pages in the application.  This method is called by the MainNavBar
+     * to add page changes.
+     * 
+     * @param panel  the MainNavBar panel
+     * @param id     the id of the item that was selected
+     */
+    public static native void addHistoryItem(MainNavBar panel, String id) /*-{ 
+        var item = {
+            panel: panel,
+            id: id
+        };
+        $wnd.dsHistory.addFunction($wnd.spiffyui.handleHistoryEvent, this, item); 
+    }-*/;
+    
+    private static final native void bindJavaScript() /*-{ 
+        $wnd.spiffyui.handleHistoryEvent = function(contentObject, historyObject) {
+            @com.novell.spiffyui.client.JSUtil::doHistory(Lcom/novell/spiffyui/client/nav/MainNavBar;Ljava/lang/String;)(contentObject.panel, contentObject.id);
+        }
+     
+        $wnd.dsHistory.addFunction($wnd.spiffyui.handleHistoryEvent);
+    }-*/;
+    
     
     /**
      * Generate a probably unique ID.  It is based on current time.
