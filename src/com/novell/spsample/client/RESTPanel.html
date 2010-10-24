@@ -83,27 +83,28 @@
         }
 
         RESTility.callREST(<span class="string">"version"</span>, <span class="keyword">new</span> RESTCallback() {
-                @Override
-                <span class="keyword">public</span> <span class="keyword">void</span> onSuccess(JSONValue val)
-                {
-                    JSONObject bi = val.isObject();
-                    <span class="keyword">if</span> (bi == <span class="keyword">null</span>) {
-                        MessageUtil.showError(<span class="string">"An error occurred trying to get version info."</span>);
-                        <span class="keyword">return</span>;
-                    }
-                    g_versionInfo = <span class="keyword">new</span> VersionInfo();
-                    
-                    g_versionInfo.m_version = JSONUtil.getStringValue(bi, <span class="string">"version"</span>);
-                    g_versionInfo.m_user = JSONUtil.getStringValue(bi, <span class="string">"user"</span>);
-                    g_versionInfo.m_rev = JSONUtil.getStringValue(bi, <span class="string">"rev"</span>);
-                    
-                    g_versionInfo.m_date = JSONUtil.getDateValueFromMediumDateTime(bi, <span class="string">"date"</span>);
-                    <span class="keyword">if</span> (g_versionInfo.m_date == <span class="keyword">null</span>) {
-                        MessageUtil.showError(<span class="string">"Invalid version date: "</span> + JSONUtil.getStringValue(bi, <span class="string">"date"</span>));
-                    }
-                    
-                    callback.success(g_versionInfo);
+            @Override
+            <span class="keyword">public</span> <span class="keyword">void</span> onSuccess(JSONValue val)
+            {
+                JSONObject bi = val.isObject();
+                <span class="keyword">if</span> (bi == <span class="keyword">null</span>) {
+                    MessageUtil.showError(<span class="string">"An error occurred trying to get version info."</span>);
+                    <span class="keyword">return</span>;
                 }
+                g_versionInfo = <span class="keyword">new</span> VersionInfo();
+                
+                g_versionInfo.m_version = JSONUtil.getStringValue(bi, <span class="string">"version"</span>);
+                g_versionInfo.m_user = JSONUtil.getStringValue(bi, <span class="string">"user"</span>);
+                g_versionInfo.m_rev = JSONUtil.getStringValue(bi, <span class="string">"rev"</span>);
+                
+                g_versionInfo.m_date = JSONUtil.getDateValueFromMediumDateTime(bi, <span class="string">"date"</span>);
+                <span class="keyword">if</span> (g_versionInfo.m_date == <span class="keyword">null</span>) {
+                    MessageUtil.showError(<span class="string">"Invalid version date: "</span> + 
+                                          JSONUtil.getStringValue(bi, <span class="string">"date"</span>));
+                }
+                
+                callback.success(g_versionInfo);
+            }
 
             @Override
             <span class="keyword">public</span> <span class="keyword">void</span> onError(<span class="keyword">int</span> statusCode, String errorResponse)
@@ -142,12 +143,13 @@
     VersionInfo.getVersionInfo(<span class="keyword">new</span> RESTObjectCallBack&lt;VersionInfo&gt;() {
             <span class="keyword">public</span> <span class="keyword">void</span> success(VersionInfo info)
             {
-                m_footer.setFooterString(<span class="string">"Spiffy UI Sample version "</span> + 
-                                         info.getVersion() +
-                                         <span class="string">" was built on "</span> + 
-                                         DateTimeFormat.getFullDateFormat().format(info.getDate()) +
-                                         <span class="string">" from revision "</span> + 
-                                         info.getRevision());
+                m_footer.setFooterString(
+                    <span class="string">"Spiffy UI Sample version "</span> + 
+                    info.getVersion() +
+                    <span class="string">" was built on "</span> + 
+                    DateTimeFormat.getFullDateFormat().format(info.getDate()) +
+                    <span class="string">" from revision "</span> + 
+                    info.getRevision());
             }
 
             <span class="keyword">public</span> <span class="keyword">void</span> error(String message)
