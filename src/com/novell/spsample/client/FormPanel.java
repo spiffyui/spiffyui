@@ -45,7 +45,7 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
     
     private static final String CONTENTS =
         "<fieldset id=\"Page2Fields\">" +
-            "<h2 class=\"sectionTitle\">Sample user form fieldset</h2>" +
+            "<h2 class=\"sectionTitle\">Create new user</h2>" +
             "<ol class=\"dialogformsection\">" +
                 "<li id=\"firstNameRow\" class=\"dialogformrow\"><label class=\"dialogformlabel\" for=\"firstNameTxt\">First name: " + 
                     "</label><div id=\"firstName\" class=\"formcontrolssection\"></div></li>" +
