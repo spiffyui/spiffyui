@@ -18,6 +18,8 @@
  */
 package com.novell.spiffyui.client;
 
+import java.util.Date;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.DOM;
@@ -178,7 +180,8 @@ public final class MessageUtil
         }
         s = s.replaceAll("\\<", "&lt;");
         s = s.replaceAll("\\>", "&gt;");
-        return s;
+        
+        return "<span class=\"weak\">" + JSDateUtil.getShortTime(new Date()) + "</span> " + s;
     }
 
     private static native void logErrorJS(String msg) /*-{
