@@ -63,7 +63,7 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
                 "<li id=\"securityQuestionRow\" class=\"extratallformrow\"><label class=\"dialogformlabel\" for=\"securityQuestionTxt\">Security question: " + 
                     "</label><div id=\"securityQuestion\" class=\"formcontrolssection\"></div>" + 
                 "</li>" +
-                "<li id=\"securityAnswerRow\" class=\"dialogformrow\"><label class=\"dialogformlabel\" for=\"securityAnswerTxt\">Security Answer: " + 
+                "<li id=\"securityAnswerRow\" class=\"dialogformrow\"><label class=\"dialogformlabel\" for=\"securityAnswerTxt\">Security answer: " + 
                     "</label><div id=\"securityAnswer\" class=\"formcontrolssection\"></div></li>" +
                 "<li id=\"page2ButtonsRow\" class=\"dialogformrow\"><div id=\"page2Buttons\" class=\"formcontrolssection formbuttons\"></div></li>" +
             "</ol>" +
