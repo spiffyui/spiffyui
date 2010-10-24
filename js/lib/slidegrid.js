@@ -241,8 +241,7 @@ slidegrid = {
 	                curRow++;
 	                x = padding / 2;
 	                y += cellHeight + padding;
-	            } else if ((count % cols) === 0) {
-	                hasTallCell = false;
+					hasTallCell = false;
 	            } else {
 	                x += cellWidth + padding;
 	                curCol++;
@@ -262,7 +261,7 @@ slidegrid = {
 	            height = y + padding;
 	        }
 	        
-	        if (hasTallCell) {
+			if (hasTallCell) {
 	            height += cellHeight + padding;
 	        }
 
