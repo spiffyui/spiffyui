@@ -76,6 +76,7 @@ public class LongMessage extends FlowPanel implements Event.NativePreviewHandler
         m_close.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event)
             {
+                event.preventDefault();
                 makeVisible(false);
             }
         });

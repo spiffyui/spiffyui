@@ -241,6 +241,7 @@ class ErrorPanel extends Composite implements Event.NativePreviewHandler
         clear.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event)
             {
+                event.preventDefault();
                 JSUtil.slideUp("#" + m_panel.getElement().getId(), "fast");
             }
         });

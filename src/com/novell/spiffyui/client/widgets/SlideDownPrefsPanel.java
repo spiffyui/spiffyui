@@ -75,6 +75,7 @@ public class SlideDownPrefsPanel extends HTMLPanel
                 @Override
                 public void onClick(ClickEvent event)
                 {
+                    event.preventDefault();
                     toggle();
                 }
             });
