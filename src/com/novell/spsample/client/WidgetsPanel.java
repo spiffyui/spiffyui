@@ -24,6 +24,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -31,7 +32,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-
+import com.novell.spiffyui.client.JSUtil;
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.widgets.DatePickerTextBox;
 import com.novell.spiffyui.client.widgets.LongMessage;
@@ -80,10 +81,16 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         getElement().setId("WidgetsPanel");
         
         RootPanel.get("mainContent").add(this);
+        
+        m_slideGridPanel = new SlidingGridPanel();
+        m_slideGridPanel.setGridOffset(225);
+
 
         setVisible(false);
         
         addLongMessage();
+        
+        addNavPanelInfo();
         
         addSlidingGrid();
 
@@ -304,6 +311,32 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
             "</p>", TALL);
     }
     
+    private void addNavPanelInfo()
+    {
+        Anchor css = new Anchor("CSS page", "CSSPanel");
+        css.addClickHandler(new ClickHandler() {
+            
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                event.preventDefault();
+                Index.selectItem(Index.CSS_NAV_ITEM_ID);
+            }
+        });
+        
+        HTMLPanel panel = addToSlidingGrid(null, "NavPanelGridCell", "Navigation Bar",
+            "<p>" +  
+                "The main navigation bar makes it easy to add navigation styled navigation menus to your application with " + 
+                "highlights, collabsible sections, and separators." + 
+            "</p>" + 
+            "<p>" + 
+                "The menus use CSS layout which and supports flexible layout.  See the example on the " + 
+                "<span id=\"cssPageWidgetsLink\"></span>." +
+            "</p>");
+
+        panel.add(css, "cssPageWidgetsLink");
+    }
+    
     /**
      * Create the sliding grid and set it up for the rest of the controls
      */
@@ -312,8 +345,6 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         /*
          * Create the sliding grid and add its big cell
          */
-        m_slideGridPanel = new SlidingGridPanel();
-        m_slideGridPanel.setGridOffset(225);
         addToSlidingGrid(null, "WidgetsSlidingGridCell", "Sliding Grid Panel",
             "<p>" +  
                 "All the cells here are layed out using the sliding grid panel. This panel is a wrapper for slidegrid.js, " + 
