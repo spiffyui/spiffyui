@@ -19,7 +19,7 @@
     </p>
     
     <p>
-    <pre>
+    <pre style="margin-bottom: 22px;">
     <span class="keyword">public</span> <span class="keyword">void</span> success(T o);
 
     <span class="keyword">public</span> <span class="keyword">void</span> error(String message);
@@ -63,14 +63,14 @@
     The footer in this sample application uses REST to get the version information from the server.  This is encapsulated in the <code>VersionInfo</code> object.  It uses a <code>static</code> method to instantiate the object and get the data from the REST call.  
     </p>
     
-    <img src="images/rest.png" />
+    <img style="margin-bottom: 11px;" src="images/rest.png" />
     
     <p>
     The <code>VersionInfo</code> object encapsulates this in the <code>getVersionInfo</code> method:
     </p>
     
     <p>
-    <pre>
+    <pre style="margin-bottom: -2px;">
     <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> getVersionInfo(<span class="keyword">final</span> RESTObjectCallBack&lt;VersionInfo&gt; callback)
     {
         if (g_versionInfo != <span class="keyword">null</span>) {

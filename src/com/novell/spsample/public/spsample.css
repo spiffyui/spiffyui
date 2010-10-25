@@ -406,6 +406,14 @@ iframe {
     right: 28px;
 }
 
+/*
+   Remove the gray backgrounds and the borders from the menu section titles
+ */
+.main-menuSectItem {
+    background: url("images/arrows.png") no-repeat scroll 0 -128px transparent;
+    border-bottom: none;
+}
+
 .main-menuSectItemExpanded {
     background: url("images/arrows.png") no-repeat scroll 0 8px transparent;
     border-bottom: none;
