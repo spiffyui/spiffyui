@@ -85,7 +85,7 @@ public class NavSection extends ComplexPanel
                 {
                     m_expanded = !m_expanded;
                     JSUtil.toggleSlide("#" + m_id + " .main-menuSectItems", "fast");
-                    event.stopPropagation();
+                    event.preventDefault();
 
                     if (m_expanded) {
                         m_anchor.getElement().addClassName("main-menuSectItemExpanded");
