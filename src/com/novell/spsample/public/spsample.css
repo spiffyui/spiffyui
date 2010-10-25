@@ -156,10 +156,30 @@ iframe {
     background-color: #efd137;
 }
 
+.main-menuSect .main-menuItem {
+    margin-left: 14px;
+}
+
+.main-menuSect .navItemSelected {
+    width: 89%;
+}
 
 /*
    These styles are used for the tab navigation option
  */
+.tabnav .main-menuSect {
+    display: inline;
+}
+
+.tabnav .main-menuSectItems {
+    display: inline;
+}
+
+.tabnav .main-menuSect .main-menuItem {
+    display: inline;
+    width: auto;
+}
+
 .tabnav .main-menuItem {
     display: inline;
     width: auto;
@@ -186,6 +206,10 @@ iframe {
     padding: 1em;
     width: auto;
     padding-bottom: 6px;
+}
+
+.tabnav #mainNavContainer .main-menuSect a.main-menuSectItem {
+    display: none;
 }
 
 .tabnav .main-menuSeparator {

@@ -174,6 +174,14 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
                           "Date pickers, time pickers, and localization in the Spiffy UI framework");
         featureSection.add(item);
         m_panels.put(item, new DatePanel());
+
+        /*
+        The sample form panel
+        */
+       item = new NavItem(FORM_NAV_ITEM_ID, "Form",
+                          "Form styles and handling in the Spiffy UI framework");
+        featureSection.add(item);
+        m_panels.put(item, new FormPanel());
        
         /*
          The rest info panel
@@ -184,25 +192,12 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         m_panels.put(item, new RESTPanel());
         
         /*
-         A separator
-         */
-        m_navBar.add(new NavSeparator(HTMLPanel.createUniqueId()));
-        
-        /*
          The sample widgets panel
          */
-        item = new NavItem(WIDGETS_NAV_ITEM_ID, "Spiffy Widgets",
+        item = new NavItem(WIDGETS_NAV_ITEM_ID, "Widgets",
                                    "Take a look at the widgets that come with the Spiffy UI framework");
-        m_navBar.add(item);
+        featureSection.add(item);
         m_panels.put(item, new WidgetsPanel());
-        
-        /*
-         The sample form panel
-         */
-        item = new NavItem(FORM_NAV_ITEM_ID, "Spiffy Form",
-                           "Form styles and handling in the Spiffy UI framework");
-        m_navBar.add(item);
-        m_panels.put(item, new FormPanel());
         
         /*
         Another separator

@@ -72,7 +72,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
     public WidgetsPanel()
     {
         super("div", 
-             "<div id=\"WidgetsPrefsPanel\"></div><h1>Spiffy Widgets</h1><br /><br />" + 
+             "<div id=\"WidgetsPrefsPanel\"></div><h1>Spiffy Widgets</h1>" + 
              STRINGS.WidgetsPanel_html() + 
              "<div id=\"WidgetsLongMessage\"></div><br /><br />" + 
              "<div id=\"WidgetsSlidingGrid\"></div>" +           
