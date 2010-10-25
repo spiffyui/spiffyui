@@ -32,6 +32,7 @@ import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.nav.MainNavBar;
 import com.novell.spiffyui.client.nav.NavBarListener;
 import com.novell.spiffyui.client.nav.NavItem;
+import com.novell.spiffyui.client.nav.NavSection;
 import com.novell.spiffyui.client.nav.NavSeparator;
 import com.novell.spiffyui.client.rest.RESTException;
 import com.novell.spiffyui.client.rest.RESTLoginCallBack;
@@ -136,11 +137,18 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         m_panels.put(item, new GetStartedPanel());
         
         /*
+         * Collapsible Features Nav Section
+         */
+        NavSection featureSection = new NavSection("featuresNavSection", "Features");
+        featureSection.setTitle("Spiffy UI features");
+        m_navBar.add(featureSection);
+        
+        /*
         The authentication info panel
         */
         item = new NavItem(AUTH_NAV_ITEM_ID, "Authentication",
                           "Spiffy UI authentication information");
-        m_navBar.add(item);
+        featureSection.add(item);
         m_panels.put(item, new AuthPanel());
  
         /*
@@ -148,7 +156,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         */
         item = new NavItem(BUILD_NAV_ITEM_ID, "Build",
                           "Spiffy UI build information");
-        m_navBar.add(item);
+        featureSection.add(item);
         m_panels.put(item, new BuildPanel());
        
         /*
@@ -156,7 +164,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
          */
         item = new NavItem(CSS_NAV_ITEM_ID, "CSS",
                            "The Spiffy UI CSS classes and philosophy");
-        m_navBar.add(item);
+        featureSection.add(item);
         m_panels.put(item, new CSSPanel());
 
         /*
@@ -164,7 +172,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         */
         item = new NavItem(DATES_NAV_ITEM_ID, "Dates",
                           "Date pickers, time pickers, and localization in the Spiffy UI framework");
-        m_navBar.add(item);
+        featureSection.add(item);
         m_panels.put(item, new DatePanel());
        
         /*
@@ -172,16 +180,8 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
          */
         item = new NavItem(REST_NAV_ITEM_ID, "REST",
                            "Patterns and helpers for calling REST");
-        m_navBar.add(item);
+        featureSection.add(item);
         m_panels.put(item, new RESTPanel());
-        
-        /*
-         The JavaDoc panel
-         */
-        item = new NavItem(JAVADOC_NAV_ITEM_ID, "JavaDoc",
-                           "Java API documentation for the Spiffy UI framework");
-        m_navBar.add(item);
-        m_panels.put(item, new JavaDocPanel());
         
         /*
          A separator
@@ -204,6 +204,20 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         m_navBar.add(item);
         m_panels.put(item, new FormPanel());
         
+        /*
+        Another separator
+        */
+        m_navBar.add(new NavSeparator(HTMLPanel.createUniqueId()));
+
+        /*
+        The JavaDoc panel
+        */
+        item = new NavItem(JAVADOC_NAV_ITEM_ID, "JavaDoc",
+                          "Java API documentation for the Spiffy UI framework");
+        m_navBar.add(item);
+        m_panels.put(item, new JavaDocPanel());
+       
+
         m_navBar.selectItem(m_navBar.getItem("overviewNavItem"));
         
         m_navBar.addListener(this);

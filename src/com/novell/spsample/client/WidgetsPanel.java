@@ -32,7 +32,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.novell.spiffyui.client.JSUtil;
+
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.widgets.DatePickerTextBox;
 import com.novell.spiffyui.client.widgets.LongMessage;
@@ -82,9 +82,9 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         
         RootPanel.get("mainContent").add(this);
         
+        //Create the sliding grid and set it up for the rest of the controls
         m_slideGridPanel = new SlidingGridPanel();
         m_slideGridPanel.setGridOffset(225);
-
 
         setVisible(false);
         
@@ -336,7 +336,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
                 "history while maintaining the JavaScript state of your application and keeping very fast page loading." + 
             "</p>" + 
             "<p>" + 
-                "The menus use CSS layout which and supports flexible layout.  See the example on the " + 
+                "The menus use CSS layout which supports a flexible layout.  See the example on the " + 
                 "<span id=\"cssPageWidgetsLink\"></span>." +
             "</p>", TALL);
 
@@ -344,7 +344,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
     }
     
     /**
-     * Create the sliding grid and set it up for the rest of the controls
+     * Create the sliding grid
      */
     private void addSlidingGrid()
     {
