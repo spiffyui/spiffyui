@@ -30,6 +30,7 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.novell.spiffyui.client.JSUtil;
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.widgets.FormFeedback;
 import com.novell.spiffyui.client.widgets.button.FancyButton;
@@ -244,10 +245,12 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
                 m_lastNameFeedback.setStatus(FormFeedback.WARNING);
             }
         } else if (w == m_email) {
-            if (m_email.getText().length() > 2) {
+            if (JSUtil.validateEmail(m_email.getText())) {
                 m_emailFeedback.setStatus(FormFeedback.VALID);
+                m_emailFeedback.setTitle("");
             } else {
-                m_emailFeedback.setStatus(FormFeedback.WARNING);
+                m_emailFeedback.setStatus(FormFeedback.ERROR);
+                m_emailFeedback.setTitle("Make sure the email address is in a valid format.");
             }
         } else if (w == m_password) {
             if (m_password.getText().length() > 2) {
@@ -290,15 +293,14 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
 
 
         
-        m_save.setEnabled(m_firstName.getText().length() > 2 &&
-                          m_lastName.getText().length() > 2 &&
-                          m_email.getText().length() > 2 &&
-                          m_password.getText().length() > 2 &&
-                          m_passwordRepeat.getText().length() > 2 &&
-                          m_passwordRepeat.getText().equals(m_password.getText()) &&
-                          m_userDesc.getText().length() > 8 &&
-                          m_securityQuestion.getText().length() > 8 &&
-                          m_securityAnswer.getText().length() > 4);
+        m_save.setEnabled(m_firstNameFeedback.getStatus() == FormFeedback.VALID &&
+            m_lastNameFeedback.getStatus() == FormFeedback.VALID &&
+            m_emailFeedback.getStatus() == FormFeedback.VALID &&
+            m_passwordFeedback.getStatus() == FormFeedback.VALID &&
+            m_passwordRepeatFeedback.getStatus() == FormFeedback.VALID &&
+            m_userDescFeedback.getStatus() == FormFeedback.VALID &&
+            m_securityQuestionFeedback.getStatus() == FormFeedback.VALID &&
+            m_securityAnswerFeedback.getStatus() == FormFeedback.VALID);
     }
     
     private void save()
