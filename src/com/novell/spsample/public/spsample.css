@@ -405,3 +405,8 @@ iframe {
 #humanMsgLog p.minimized {
     right: 28px;
 }
+
+.main-menuSectItemExpanded {
+    background: url("images/arrows.png") no-repeat scroll 0 8px transparent;
+    border-bottom: none;
+}
