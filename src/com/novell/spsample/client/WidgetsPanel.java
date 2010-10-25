@@ -553,7 +553,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
             @Override
             public void onClick(ClickEvent event) 
             {
-                MessageUtil.showError("This is a error message");
+                MessageUtil.showError("This is an error message");
             }
             
         });
