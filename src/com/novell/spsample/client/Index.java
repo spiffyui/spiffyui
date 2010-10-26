@@ -60,7 +60,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     
     private static Index g_index;
     
-    private MainHeader m_header;
+    private SPSampleHeader m_header;
     
     private MainNavBar m_navBar;
     
@@ -111,7 +111,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
          */
         RESTility.setAuthProvider(new SampleAuthUtil());
         
-        m_header = new MainHeader();
+        m_header = new SPSampleHeader();
         m_header.setWelcomeString("");
         m_header.setHeaderTitle("SPIFFY <span id=\"mainsubtitle\">The UI/UX framework</span>");
         

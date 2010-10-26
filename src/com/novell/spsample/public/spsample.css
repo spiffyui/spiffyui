@@ -83,8 +83,8 @@ h2 {
     font-size: 40px;
 }
 
-#headerstring {
-    color: #636363;
+#headerstring, #header_logout {
+    color: #636363 !important; /*otherwise, it gets overwritten by #mainHeader a */
 }
 
 #mainsubtitle {
@@ -400,6 +400,11 @@ iframe {
 
 #humanMsgLog p.minimized {
     right: 28px;
+}
+
+#authTestBtn {
+    font-size: 14px;
+    font-weight:bold;
 }
 
 /*

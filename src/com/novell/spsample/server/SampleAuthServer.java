@@ -76,4 +76,18 @@ public class SampleAuthServer extends HttpServlet
     {
         doGet(request, response);
     }
+
+    @Override
+    public void doDelete(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException
+    {
+        response.setContentType("application/json");
+        ServletOutputStream out = response.getOutputStream();
+
+        StringBuffer buff = new StringBuffer();
+        buff.append("{\"Status\":\"OK\"}");
+
+        out.println(buff.toString());
+    }
+    
 }

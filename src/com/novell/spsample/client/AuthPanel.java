@@ -29,6 +29,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.rest.RESTException;
 import com.novell.spiffyui.client.rest.RESTObjectCallBack;
+import com.novell.spiffyui.client.rest.RESTility;
 import com.novell.spiffyui.client.widgets.button.SimpleButton;
 import com.novell.spsample.client.rest.SampleAuthBean;
 
@@ -53,8 +54,13 @@ public class AuthPanel extends HTMLPanel
         RootPanel.get("mainContent").add(this);
 
         setVisible(false);
-
-        final SimpleButton authTestButton = new SimpleButton("Login and Get Some Data");
+        String buttonText = "";
+        if (RESTility.hasUserLoggedIn()) {
+            buttonText = "Logout";
+        } else {
+            buttonText = "Login and Get Some Data";
+        }
+        final SimpleButton authTestButton = new SimpleButton(buttonText);
 
         authTestButton.getElement().setId("authTestBtn");
         this.add(authTestButton, "testAuth");
