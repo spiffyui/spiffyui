@@ -67,10 +67,6 @@ public class MainHeader extends HasNavBarListenersPanel
 
         m_panel = new HTMLPanel("div", html);
         m_panel.getElement().setId("mainHeaderContainer");
-        
-        Anchor logout = new Anchor();
-        logout.getElement().setId("header_logout");
-        m_panel.add(logout, HEADER_ACTIONS_BLOCK);
 
         add(m_panel);
         RootPanel.get("mainHeader").add(this);
