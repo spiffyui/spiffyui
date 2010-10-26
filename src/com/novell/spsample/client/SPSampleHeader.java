@@ -24,6 +24,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 
+import com.novell.spiffyui.client.JSUtil;
 import com.novell.spiffyui.client.MainHeader;
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.rest.RESTException;
@@ -44,6 +45,7 @@ public class SPSampleHeader extends MainHeader
         Anchor logout = new Anchor("Logout", "#");
         logout.getElement().setId("header_logout");
         setLogout(logout);
+        JSUtil.hide("#header_logout", "fast");
         logout.addClickHandler(new ClickHandler() {
                 public void onClick(ClickEvent event)
                 {

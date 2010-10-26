@@ -316,6 +316,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         }
         g_index.m_header.setWelcomeString("Welcome " + RESTility.getUserToken());
         JSUtil.bounce("#" + MainHeader.HEADER_ACTIONS_BLOCK, 5, 500, 30);
+        JSUtil.show("#header_logout", "fast");
     }
 
     /**
