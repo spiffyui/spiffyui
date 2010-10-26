@@ -58,7 +58,13 @@ h2 {
 
 .documentationPanel pre {
     font-size: 12px;
-    line-height: 14px;
+    line-height: 18px;
+    font-family: Consolas,"Andale Mono",Monaco,Courier,"Courier New",Verdana,sans-serif;
+}
+
+.documentationPanel code {
+    font-size: 12px;
+    line-height: 18px;
     font-family: Consolas,"Andale Mono",Monaco,Courier,"Courier New",Verdana,sans-serif;
 }
 
@@ -357,7 +363,7 @@ iframe {
 }
 
 #loginSection {
-    margin-bottom: 14px;
+    margin-bottom: 21px;
 }
 
 #fixedGridTab {

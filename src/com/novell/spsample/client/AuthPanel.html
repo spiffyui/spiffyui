@@ -15,12 +15,6 @@
         <p><div id="testAuthResult"></div>
     </div>
     
-    <h2>Security customization</h2>
-    
-    <p>
-    Tokenized identity works for us, but it doesn't have to work for you.  When you use the Spiffy UI framework you can specify your own authentication handling.  You can customize our login dialog or write your own.  You can also skip security altogether and make your application anonymous.
-    </p>
-    
     <h2>Tokenized identity</h2>
     
     <p>
@@ -45,6 +39,26 @@
     
     <p>
     <b>Tokens can be stateless</b>.  REST has no session, your tokens shouldn't either.  Combine your tokens with <a href="http://en.wikipedia.org/wiki/SAML">SAML</a> and you'll get stateless authentication.  This scales to the cloud and keeps you logged in even if your server goes down.
+    </p>
+    
+    <h2>Don't forget the cloud</h2>
+    
+    <p>
+    There's more to authentication that just a username and password.  Most companies are very careful about where their usernames and passwords can travel.  The IT department wants to keep passwords inside the network and off of the Internet.
+    </p>
+    
+    <p>
+    Tokenized identity changes all that.  You can place the authentication server in the firewall and put the application outside.  Use SAML and they don't even have to talk to each other.  Make it possible for any company to connect to your system without risking their security.
+    </p>
+    
+    <h2>Security customization</h2>
+    
+    <p>
+    Tokenized identity works for us, but it doesn't have to work for you.  When you use the Spiffy UI framework you can specify your own authentication handling.  You can customize our login dialog or write your own.  You can also skip security altogether and make your application anonymous.
+    </p>
+    
+    <p>
+    That's the overview.  Now let's look at some of the techie details.  
     </p>
     
     <h2>Authentication proxy</h2>

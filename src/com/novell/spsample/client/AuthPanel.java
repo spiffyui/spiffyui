@@ -94,7 +94,7 @@ public class AuthPanel extends HTMLPanel
                 String data = "You've logged in as " + info.getName() +
                               //" on " + DateTimeFormat.getFullDateFormat().format(info.getDate()) +
                               " and " + info.getMessage();
-                g_authPanel.add(new HTML(data), "testAuthResult");
+                g_authPanel.add(new HTML("<p>" + data + "</p>"), "testAuthResult");
                 
                 
                 /*
