@@ -24,6 +24,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
@@ -235,14 +236,18 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
         if (w == m_firstName) {
             if (m_firstName.getText().length() > 2) {
                 m_firstNameFeedback.setStatus(FormFeedback.VALID);
+                m_firstNameFeedback.setTitle("");
             } else {
                 m_firstNameFeedback.setStatus(FormFeedback.WARNING);
+                m_firstNameFeedback.setTitle("Enter a name longer than 2 characters");
             }
         } else if (w == m_lastName) {
             if (m_lastName.getText().length() > 2) {
                 m_lastNameFeedback.setStatus(FormFeedback.VALID);
+                m_lastNameFeedback.setTitle("");
             } else {
                 m_lastNameFeedback.setStatus(FormFeedback.WARNING);
+                m_lastNameFeedback.setTitle("Enter a name longer than 2 characters");
             }
         } else if (w == m_email) {
             if (JSUtil.validateEmail(m_email.getText())) {
@@ -255,20 +260,26 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
         } else if (w == m_password) {
             if (m_password.getText().length() > 2) {
                 m_passwordFeedback.setStatus(FormFeedback.VALID);
+                m_passwordFeedback.setTitle("");
             } else {
                 m_passwordFeedback.setStatus(FormFeedback.WARNING);
+                m_passwordFeedback.setTitle("Enter a password longer than 2 characters");
             }
         } else if (w == m_securityQuestion) {
             if (m_securityQuestion.getText().length() > 2) {
                 m_securityQuestionFeedback.setStatus(FormFeedback.VALID);
+                m_securityQuestionFeedback.setTitle("");
             } else {
                 m_securityQuestionFeedback.setStatus(FormFeedback.WARNING);
+                m_securityQuestionFeedback.setTitle("Enter a question longer than 2 characters");
             }
         } else if (w == m_securityAnswer) {
             if (m_securityAnswer.getText().length() > 4) {
                 m_securityAnswerFeedback.setStatus(FormFeedback.VALID);
+                m_securityAnswerFeedback.setTitle("");
             } else {
                 m_securityAnswerFeedback.setStatus(FormFeedback.WARNING);
+                m_securityAnswerFeedback.setTitle("Enter an answer longer than 4 characters");
             }
         } else if (w == m_passwordRepeat) {
             if (m_passwordRepeat.getText().length() > 2) {
@@ -281,13 +292,15 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
                 }
             } else {
                 m_passwordRepeatFeedback.setStatus(FormFeedback.WARNING);
-                m_passwordRepeatFeedback.setTitle("");
+                m_passwordRepeatFeedback.setTitle("Enter a password longer than 2 characters");
             }
         } else if (w == m_userDesc) {
             if (m_userDesc.getText().length() > 8) {
                 m_userDescFeedback.setStatus(FormFeedback.VALID);
+                m_userDescFeedback.setTitle("");
             } else {
                 m_userDescFeedback.setStatus(FormFeedback.WARNING);
+                m_userDescFeedback.setTitle("Enter a description longer than 8 characters");
             }
         } 
 
@@ -305,6 +318,18 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
     
     private void save()
     {
+        m_save.setInProgress(true);
+        //a little timer to simulate time it takes to set loading back to false
+        Timer t = new Timer() {
+
+            @Override
+            public void run()
+            {
+                m_save.setInProgress(false);
+            }
+
+        };
+        t.schedule(2000);
         MessageUtil.showMessage("This form doesn't save anything.");
     }
 }
