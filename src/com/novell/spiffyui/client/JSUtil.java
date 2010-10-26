@@ -45,7 +45,7 @@ public final class JSUtil
     {
         NavItem item = panel.getItem(id);
         if (item != null) {
-            panel.selectItem(item, false);
+            panel.selectItem(item, false, true);
         }
     }
     

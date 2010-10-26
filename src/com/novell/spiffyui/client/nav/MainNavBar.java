@@ -139,22 +139,29 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler
      */
     public boolean selectItem(NavItem item)
     {
-        return selectItem(item, true);
+        return selectItem(item, true, false);
     }
     
     /**
      * Selects the specified navigation item and fires the navigation event to
-     * let all listeners know it was selected.  This intentionally does not
-     * fire a pre-event so that it cannot be intercepted. Returns true if NavItem found, false otherwise
+     * let all listeners know it was selected.  Returns true if NavItem found, false otherwise
      * 
      * @param item   the item to select
      * @param addToHistory
      *               true if this item should be added to the browser's history and false otherwise
+     * @param doFirePreEvent
+     *               true to allow interception and cancelling of the event, false to not fire the pre-event
      * 
      * @return true if the item is one of the NavItems of the NavBar, false if not a member such as logout
      */
-    public boolean selectItem(NavItem item, boolean addToHistory)
+    public boolean selectItem(NavItem item, boolean addToHistory, boolean doFirePreEvent)
     {
+        //if any listener wants to cancel the event
+        //then do not continue
+        if (doFirePreEvent && !firePreEvent(item)) {
+            return false;
+        }
+        
         boolean found = false;
         for (NavItem ni : m_items) {
             if (ni == item) {
