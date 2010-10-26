@@ -78,7 +78,6 @@
     These different languages are served by the <code>JSLocaleServlet</code>.  To include this in your project, add the following entries to your web.xml:
     </p>
 
-    <p>
     <pre>
     &lt;servlet&gt;
         &lt;servlet-name&gt;JSLocaleServlet&lt;/servlet-name&gt;
@@ -95,7 +94,6 @@
         &lt;url-pattern&gt;/js/lib/i18n/jquery.ui.datepicker.js&lt;/url-pattern&gt;
     &lt;/servlet-mapping&gt;
     </pre>
-    </p>
 
     <h2>Referencing the JSLocaleServlet</h2>
 
@@ -103,19 +101,16 @@
     The <code>JSLocaleServlet</code> returns JavaScript files supporting the date formats.  This servlet must be referenced in the <code>head</code> section of your HTML file like this:
     </p>
 
-    <p>
     <pre>
     &lt;script type="text/javascript" src="js/lib/i18n/date"&gt;&lt;/script&gt;
     &lt;script type="text/javascript" src="js/lib/i18n/jquery.ui.datepicker.js"&gt;&lt;/script&gt;
     </pre>
-    </p>
 
     <h2>Extending JSLocaleServlet</h2>
     <p>
     If your application requires a customized best matching locale routine, you may extend <code>JSLocaleServlet</code>, override getBestMatchLocale, then include your class in web.xml instead.  For example:
     </p>
 
-    <p>
     <pre>
     <span class="keyword">public</span> <span class="keyword">class</span> MyLocaleServlet <span class="keyword">extends</span> JSLocaleServlet
     {
@@ -134,20 +129,17 @@
         }
     }    
     </pre>
-    </p>
-
+    
     <p>
     Your then need to add your class to the web.xml file instead of the Spiffy UI framework version.
     </p>
     
-    <p>
     <pre>
     &lt;servlet&gt;
         &lt;servlet-name&gt;JSLocaleServlet&lt;/servlet-name&gt;
         &lt;servlet-class&gt;com.myco.MyLocaleServlet&lt;/servlet-class&gt;
     &lt;/servlet&gt;
     </pre>
-    </p>
 
 
 </div>
