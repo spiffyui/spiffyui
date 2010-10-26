@@ -156,12 +156,8 @@ iframe {
     background-color: #efd137;
 }
 
-.main-menuSect .main-menuItem {
-    margin-left: 14px;
-}
-
-.main-menuSect .navItemSelected {
-    width: 89%;
+.main-menuSect .main-menuItem a {
+    text-indent: 28px;
 }
 
 /*
