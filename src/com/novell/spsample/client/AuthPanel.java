@@ -29,6 +29,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.rest.RESTException;
 import com.novell.spiffyui.client.rest.RESTObjectCallBack;
+import com.novell.spiffyui.client.widgets.button.SimpleButton;
 import com.novell.spsample.client.rest.SampleAuthBean;
 
 /**
@@ -53,7 +54,7 @@ public class AuthPanel extends HTMLPanel
 
         setVisible(false);
 
-        final FancyTestButton authTestButton = new FancyTestButton("Login and Get Some Data");
+        final SimpleButton authTestButton = new SimpleButton("Login and Get Some Data");
 
         authTestButton.getElement().setId("authTestBtn");
         this.add(authTestButton, "testAuth");
@@ -63,7 +64,7 @@ public class AuthPanel extends HTMLPanel
             public void onClick(ClickEvent event)
             {
                 authTestButton.setInProgress(true);
-                //a little timer to simulate time it takes to set loading back to false
+                //a little timer to simulate time it takes to set in progress back to false
                 Timer t = new Timer() {
                     @Override
                     public void run()
