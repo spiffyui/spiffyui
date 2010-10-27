@@ -90,10 +90,19 @@ public class AuthPanel extends HTMLPanel
         g_authPanel = this;
     }
 
-    public static void getData() {
+    /**
+     * get sample authenticated data
+     */
+    public static void getData()
+    {
         getData(false);
     }
 
+    /**
+     * get sample authenticated data
+     * @param inWidgetPanel  specifies whether the login request is issued from the button in widget panel or not (the other place is auth panel)
+     *
+     */
     public static void getData(final boolean inWidgetPanel)
     {
         SampleAuthBean.getSampleAuthData(new RESTObjectCallBack<SampleAuthBean>() {

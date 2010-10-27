@@ -494,7 +494,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
             "<p>" +
                 "Login Panel displays a login dialog. Try click the button below to show the login panel and login to access some secure data. You can login with any user name and password." +
             "</p>");
-        loginButtonPanel.add ((new HTML("<p><div id=\"loginResult\"></div>")), "WidgetsLoginPanel");
+        loginButtonPanel.add((new HTML("<p><div id=\"loginResult\"></div>")), "WidgetsLoginPanel");
     }
 
     

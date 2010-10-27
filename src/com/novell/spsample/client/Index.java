@@ -318,9 +318,14 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         JSUtil.show("#header_logout", "fast");
     }
 
-    public static boolean userLoggedIn() {
+    /**
+     * returns whether the  user is logged in or not
+     * @return true if the user is logged in (browser cookie is there)
+     */
+    public static boolean userLoggedIn()
+    {
         String userToken = RESTility.getUserToken();
-        if ((userToken == null) || (userToken.length() <=0 )) {
+        if ((userToken == null) || (userToken.length() <= 0)) {
             return false;
         }
         return true;
@@ -345,11 +350,13 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         //no-op
     }
 
-    private void updateAuthTestButton () {
+    private void updateAuthTestButton()
+    {
       JSUtil.setText("#authTestBtn", "Logout");
     }
 
-    private void updateLoginWidgetButton () {
+    private void updateLoginWidgetButton()
+    {
       JSUtil.setText("#doLoginBtn", "Logout");
     }
 }
