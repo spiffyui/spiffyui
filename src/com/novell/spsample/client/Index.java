@@ -112,7 +112,6 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         RESTility.setAuthProvider(new SampleAuthUtil());
         
         m_header = new SPSampleHeader();
-        m_header.setWelcomeString("");
         m_header.setHeaderTitle("SPIFFY <span id=\"mainsubtitle\">The UI/UX framework</span>");
         
         m_footer = new MainFooter();
@@ -317,6 +316,14 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         g_index.m_header.setWelcomeString("Welcome " + RESTility.getUserToken());
         JSUtil.bounce("#" + MainHeader.HEADER_ACTIONS_BLOCK, 5, 500, 30);
         JSUtil.show("#header_logout", "fast");
+    }
+
+    public static boolean userLoggedIn() {
+        String userToken = RESTility.getUserToken();
+        if ((userToken == null) || (userToken.length() <=0 )) {
+            return false;
+        }
+        return true;
     }
 
     /**

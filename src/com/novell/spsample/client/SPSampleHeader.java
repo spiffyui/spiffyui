@@ -45,7 +45,12 @@ public class SPSampleHeader extends MainHeader
         Anchor logout = new Anchor("Logout", "#");
         logout.getElement().setId("header_logout");
         setLogout(logout);
-        JSUtil.hide("#header_logout", "fast");
+        if (!Index.userLoggedIn()) {
+            JSUtil.hide("#header_logout", "fast");
+            setWelcomeString("");            
+        } else {
+            setWelcomeString("Welcome " + RESTility.getUserToken());            
+        }
         logout.addClickHandler(new ClickHandler() {
                 public void onClick(ClickEvent event)
                 {
