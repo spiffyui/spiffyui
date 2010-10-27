@@ -82,31 +82,32 @@
     2. Server looks for specific authentication header.  When it is not found, it returns back JSON indicating no authentication information is available. It will also send back a WWW-Authenticate response header, with the authentication server url information, letting the client know it needs to authenticate and how.
     </p>
 
-    <pre>WWW-Authenticate  X-OPAQUE uri="http://host2:port2/auth-server-war-context/auth-path", signOffUri=""</pre>
-
+    <pre>    WWW-Authenticate  X-OPAQUE uri="http://host2:port2/auth-server-war-context/auth-path", signOffUri=""</pre>
 
     <p>
     3. Due to same origin policy, client can not directly contact the authentication server, which is on a different server. The client instead contacts a servlet (AuthServlet) that is in the same client war, forwarding on user credentials.
-    The servlet, which acts as a proxy, then contacts the authentication server at http://host2:port2/auth-server-war-context/auth-path to ask for an
-    authentication token to access data server resources. To use the proxy servlet, it must be added to the web.xml of the client war.
+    </p>
+
+    <p>
+    The servlet, which acts as a proxy, then contacts the authentication server at http://host2:port2/auth-server-war-context/auth-path to ask for an authentication token to access data server resources. To use the proxy servlet, it must be added to the web.xml of the client war.
     </p>
     <pre>
-      &lt;servlet&gt;
-        &lt;servlet-name&gt;AuthServlet&lt;/servlet-name&gt;
-        &lt;servlet-class&gt;com.novell.spiffyui.server.AuthServlet&lt;/servlet-class&gt;
-      &lt;/servlet&gt;
+    &lt;servlet&gt;
+      &lt;servlet-name&gt;AuthServlet&lt;/servlet-name&gt;
+      &lt;servlet-class&gt;com.novell.spiffyui.server.AuthServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
 
-      &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;AuthServlet&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/auth/*&lt;/url-pattern&gt;
-      &lt;/servlet-mapping&gt;
-      </pre>
+    &lt;servlet-mapping&gt;
+      &lt;servlet-name&gt;AuthServlet&lt;/servlet-name&gt;
+      &lt;url-pattern&gt;/auth/*&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+    </pre>
 
     <p>
     4. If user's credentials is sufficient, the authentication server will return back an authentication token in JSON format, such as:
     </p>
 
-    <pre>{"Token":"demo_user"} </pre>
+    <pre>    {"Token":"demo_user"} </pre>
 
     <p>
     to the proxy servlet, which then forwards the token back to the client to be saved in browser cookie.
@@ -115,14 +116,14 @@
     <p>
     5. Client can now make the request to access the resources again on the data server at original url:  http://host:post/data-server-war-context/path-require-auth, carrying a valid authentication token in the request header "Authorization":
 
-    <pre> Authorization	X-OPAQUE demouser </pre>
+    <pre>    Authorization	X-OPAQUE demouser </pre>
 
 
     <p>
     6. Data server checks and validates the authentication token, then returns back requested resources.
     </p>
 
-    <h2>Detailed authentication example</h2>
+    <h2>Login</h2>
 
     <p>
     The authentication proxy is just a helper in this process.  The real work happens in the token exchange.  You can skip the proxy if you're calling from Java or any other language that doesn't use the same origin policy.  Here's what happens when you click the login button above.
@@ -183,6 +184,40 @@
 
     <p>
     Now that the token exchange has been established the browser can request data from the REST server without using the AuthServlet or the authentication server.
+    </p>
+
+    <h2>Logout</h2>
+
+    <p>
+    <img id="logoutImage" src="images/logout.png" />
+    </p>
+
+    <p>
+    1. The browser sends a request to the <code>AuthServlet</code> to perform the logout.  The logout uses the token to remove the session
+    </p>
+
+    <p>
+    2. The <code>AuthServlet</code> makes the call to <code>/auth/tokens/{authtoken}</code>.
+    </p>
+
+    <p class="optionalText">
+    3. The authentication server may optionally call the the specified sign-off URI to invalidate any cached tokens on the REST server
+    </p>
+
+    <p class="optionalText">
+    4. The REST server with a 200 if the server has been successfully removed from the cache or a 404 if the token isn't found.
+    </p>
+
+    <p>
+    5. The Authentication server returns a response 200 to the <code>AuthServlet</code>.
+    </p>
+
+    <p>
+    6. The <code>AuthServlet</code> returns the 200 response to the browser.
+    </p>
+
+    <p>
+    7. The browser receives the logout response, removes any cookies associated with the token, and refreshes the page to clear out all JavaScript memory.
     </p>
 </div>
 

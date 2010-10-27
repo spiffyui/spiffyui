@@ -60,6 +60,7 @@ h2 {
     font-size: 12px;
     line-height: 18px;
     font-family: Consolas,"Andale Mono",Monaco,Courier,"Courier New",Verdana,sans-serif;
+    margin-bottom: 18px;
 }
 
 .documentationPanel code {
@@ -342,7 +343,7 @@ iframe {
     margin-top: 18px;
 }
 
-#loginImage {
+#loginImage, #logoutImage {
     margin-bottom: 14px;
 }
 
