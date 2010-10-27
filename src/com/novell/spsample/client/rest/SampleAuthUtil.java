@@ -14,7 +14,7 @@ public class SampleAuthUtil extends AuthUtil
     {
         return new SPSampleStringHelper();
     }
-    
+
     /**
      * This class provides a string for the title of the login dialog
      */
@@ -34,7 +34,7 @@ public class SampleAuthUtil extends AuthUtil
             } else {
                 return super.getString(msgKey, arg1);
             }
-    
+
         }
     }
 }

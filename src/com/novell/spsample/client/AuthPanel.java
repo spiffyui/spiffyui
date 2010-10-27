@@ -26,6 +26,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import com.novell.spiffyui.client.JSUtil;
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.rest.RESTException;
 import com.novell.spiffyui.client.rest.RESTObjectCallBack;
@@ -89,7 +90,11 @@ public class AuthPanel extends HTMLPanel
         g_authPanel = this;
     }
 
-    private void getData()
+    public static void getData() {
+        getData(false);
+    }
+
+    public static void getData(final boolean inWidgetPanel)
     {
         SampleAuthBean.getSampleAuthData(new RESTObjectCallBack<SampleAuthBean>() {
             public void success(SampleAuthBean info)
@@ -97,8 +102,11 @@ public class AuthPanel extends HTMLPanel
                 String data = "You've logged in as " + info.getName() +
                               //" on " + DateTimeFormat.getFullDateFormat().format(info.getDate()) +
                               " and " + info.getMessage();
-                g_authPanel.add(new HTML("<p>" + data + "</p>"), "testAuthResult");
-                
+                if (!inWidgetPanel) {
+                    g_authPanel.add(new HTML("<p>" + data + "</p>"), "testAuthResult");
+                } else {
+                    JSUtil.setText("#loginResult", data);
+                }                
                 
                 /*
                  Add a yellow highlight to show that you've logged in

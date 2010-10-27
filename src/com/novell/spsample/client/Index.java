@@ -334,6 +334,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         Index.showApplication();
         updateMainHeader();
         updateAuthTestButton();
+        updateLoginWidgetButton();
     }
 
     /**
@@ -346,5 +347,9 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
 
     private void updateAuthTestButton () {
       JSUtil.setText("#authTestBtn", "Logout");
+    }
+
+    private void updateLoginWidgetButton () {
+      JSUtil.setText("#doLoginBtn", "Logout");
     }
 }

@@ -27,6 +27,7 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -101,6 +102,8 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         addDatePicker();
         
         addFancyButton();
+
+        addLoginPanel();
                 
         addMessageButton();
         
@@ -448,6 +451,52 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
                 "Fancy buttons show an image and text with a disabled image and hover style.  Click to demonstrate its in progress status." +
             "</p>");
     }
+
+    /**
+     * Create login panel and add it to the sliding grid
+     */
+    private void addLoginPanel()
+    {
+       String buttonText = "";
+        if (Index.userLoggedIn()) {
+            buttonText = "Logout";
+        } else {
+            buttonText = "Login and Get Some Data";
+        }
+        final SimpleButton doLoginButton = new SimpleButton(buttonText);
+
+        doLoginButton.getElement().setId("doLoginBtn");
+
+        doLoginButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                doLoginButton.setInProgress(true);
+                //a little timer to simulate time it takes to set in progress back to false
+                Timer t = new Timer() {
+                    @Override
+                    public void run()
+                    {
+                        doLoginButton.setInProgress(false);
+                    }
+
+                };
+                t.schedule(2000);
+                if (Index.userLoggedIn()) {
+                   SPSampleHeader.doLogout();
+                } else {
+                    AuthPanel.getData(true);
+                }
+            }
+        });
+
+        HTMLPanel loginButtonPanel = addToSlidingGrid(doLoginButton, "WidgetsLoginPanel", "Login Panel",
+            "<p>" +
+                "Login Panel displays a login dialog. Try click the button below to show the login panel and login to access some secure data. You can login with any user name and password." +
+            "</p>");
+        loginButtonPanel.add ((new HTML("<p><div id=\"loginResult\"></div>")), "WidgetsLoginPanel");
+    }
+
     
     /**
      * A helper method that adds a widget and some HTML description to the sliding
