@@ -815,7 +815,6 @@ public final class RESTility
                  * this at this level, but then the UI will flash sometimes
                  * before the user has logged in.  Hackito Ergo Sum.
                  */
-                //todo: deal with this 2
                 if (RESTILITY.m_callCount > 2) {
                     RESTILITY.m_hasLoggedIn = true;
                     for (RESTLoginCallBack listener : g_loginListeners) {
