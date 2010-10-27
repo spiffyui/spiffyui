@@ -80,7 +80,11 @@ public class AuthPanel extends HTMLPanel
 
                 };
                 t.schedule(2000);
-                getData();
+                if (RESTility.hasUserLoggedIn()) {
+                   SPSampleHeader.doLogout(); 
+                } else {
+                    getData();
+                }
             }
         });
         g_authPanel = this;
