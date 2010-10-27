@@ -60,6 +60,21 @@ public class OverviewPanel extends HTMLPanel
         add(rest, "overviewRest");
         
         /*
+         * Add the REST multi-language anchor
+         */
+        Anchor restMulti = new Anchor("Access to REST endpoints from any technology", "RESTPanel");
+        restMulti.addClickHandler(new ClickHandler() {
+            
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                event.preventDefault();
+                Index.selectItem(Index.REST_NAV_ITEM_ID);
+            }
+        });
+        add(restMulti, "overviewRestMulti");
+        
+        /*
          * Add the REST error handling anchor
          */
         Anchor restError = new Anchor("REST error handling framework", "RESTPanel");
