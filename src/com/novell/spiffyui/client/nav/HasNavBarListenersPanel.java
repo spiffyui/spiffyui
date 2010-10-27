@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.novell.spiffyui.client.JSUtil;
 
 /**
  * This is a FlowPanel that calls events by listeners listening for changes in navigation

@@ -34,13 +34,19 @@ import com.novell.spiffyui.client.nav.NavItem;
 public final class JSUtil
 {
     private static int g_uniqueCounter = 0;
-    
-    private static final JSUtil JS_UTIL = new JSUtil();
-    
+      
     static {
         bindJavaScript();
     }
     
+    /**
+     * This method is the listener that responds to events in the browser
+     * history like the user moving forward or back.  This method is called
+     * from JavaScript.
+     * 
+     * @param panel the main nav bar panel to move
+     * @param id the id of the item to select
+     */
     private static void doHistory(MainNavBar panel, String id)
     {
         NavItem item = panel.getItem(id);

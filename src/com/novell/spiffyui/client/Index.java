@@ -27,14 +27,11 @@ import com.google.gwt.core.client.EntryPoint;
 public class Index implements EntryPoint
 {
 
-    private static Index g_index;
-
     /**
      * The Index page constructor
      */
     public Index()
-    {
-        g_index = this;
+    {        
     }
     
     
