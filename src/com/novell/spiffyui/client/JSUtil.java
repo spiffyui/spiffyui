@@ -178,8 +178,20 @@ public final class JSUtil
     }-*/;
     
     /**
-     * Shows an element with a fade effect.
+     * Set the text for an element
      * 
+     * @param id
+     *        the id for the element
+     * @param txt
+     *        text to set for the element
+     */
+    public static native void setText(String id, String txt) /*-{
+        $wnd.$(id).text(txt);
+    }-*/;
+
+    /**
+     * Shows an element with a fade effect.
+     *
      * @param id
      *        the id for the element to show
      * @param speed
