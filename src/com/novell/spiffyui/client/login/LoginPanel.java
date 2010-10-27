@@ -23,7 +23,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
@@ -59,12 +58,8 @@ import com.novell.spiffyui.client.widgets.SmallLoadingIndicator;
  * </ul>
  *
  */
-public final class LoginPanel extends Composite implements KeyUpHandler
+public class LoginPanel extends Composite implements KeyUpHandler
 {
-    //todo: move this specific string somewhere else
-    private static final String RBPM_USER_COOKIE = "novell-rbpm-login-user";
-    private static final String RBPM_PWD_COOKIE = "novell-rbpm-login-pwd";
-
     private RESTAuthProvider m_authUtil = RESTility.getAuthProvider();
 
     private static LoginPanel g_loginPanel;
@@ -115,35 +110,6 @@ public final class LoginPanel extends Composite implements KeyUpHandler
 
         g_loginPanel.setCallbackKey(callbackKey);
         g_loginPanel.setTokenServerUrl(tokenServerUrl);
-        
-        //todo: move this block somewhere else
-        final String user = getUsernameFromCookie();
-        final String pwd = getPasswordFromCookie();
-
-        if (user != null && pwd != null) {
-            if (!g_loginPanel.m_inRequest) {
-                g_loginPanel.m_inRequest = true;
-                /**
-                 * RBPM and reporting have a simple single sign-on mechanism.
-                 * RBPM will set the user information into a cookie and we can
-                 * load it and use it to get a token.  We need to delete the
-                 * token right afterward so the user's credentials aren't hanging
-                 * around in the browser.
-                 *
-                 * However, there is a timing problem here.  The issue is that many
-                 * requests could get a 401 and start the login code path at the
-                 * same time.  We can't service multiple requests since we only
-                 * want to log in once.  The solution is to take a first request
-                 * and just ignore the others.  There is no need to try to log in
-                 * if we are already in the process of logging in.
-                 */
-                g_loginPanel.m_username.setText(user);
-                g_loginPanel.m_pwd.setText(pwd);
-                g_loginPanel.doRequest();
-            }
-
-            return;
-        }
 
         if (username != null) {
             g_loginPanel.m_username.setText(username);
@@ -163,29 +129,12 @@ public final class LoginPanel extends Composite implements KeyUpHandler
         }
 
     }
-    //todo: move this somewhere else
-    private static String getUsernameFromCookie()
-    {
-        String user = Cookies.getCookie(RBPM_USER_COOKIE);
-        Cookies.removeCookie(RBPM_USER_COOKIE);
 
-        return user;
-    }
-  
-    //todo: move this somewhere else
-    private static String getPasswordFromCookie()
-    {
-        String pwd = Cookies.getCookie(RBPM_PWD_COOKIE);
-        Cookies.removeCookie(RBPM_PWD_COOKIE);
-
-        if (pwd != null) {
-            pwd = JSUtil.base64Decode(pwd);
-        }
-
-        return pwd;
-    }
-
-    private void setIsRepeat(boolean isRepeat)
+    /**
+      * Check if this is login case or renew token case (after token has timed out) and show the login dialog differently
+      * @param isRepeat boolean indicating whether this is login or renew token case
+     */
+    public void setIsRepeat(boolean isRepeat)
     {
         m_isRepeat = isRepeat;
 
@@ -206,8 +155,6 @@ public final class LoginPanel extends Composite implements KeyUpHandler
                 m_panel.getElementById("loginmessage").setInnerText(m_helper.getString(LoginStrings.REPEAT_LOGIN_TWO));
             }
         } else {
-            //todo: fix this
-            //Index.hideApplication();
             if (JSUtil.isVisible("body > #mainWrap > #main")) {
                 JSUtil.hide("#mainFooter", "fast");
                 JSUtil.hide("body > #mainWrap > #main", "fast");
@@ -222,8 +169,10 @@ public final class LoginPanel extends Composite implements KeyUpHandler
 
     /**
      * Create a new LoginPanel.
+     * @param title  title of the login panel
+     * @param helper string helper for getting strings used in login panel
      */
-    private LoginPanel(String title, LoginStringHelper helper)
+    protected LoginPanel(String title, LoginStringHelper helper)
     {
         m_helper = helper;
 
@@ -329,12 +278,12 @@ public final class LoginPanel extends Composite implements KeyUpHandler
         enableButton();
     }
 
-    private void setCallbackKey(Object key)
+    public void setCallbackKey(Object key)
     {
         m_callbackKey = key;
     }
 
-    private void setTokenServerUrl(String url)
+    public void setTokenServerUrl(String url)
     {
         m_tokenServerUrl = url;
     }
@@ -345,7 +294,10 @@ public final class LoginPanel extends Composite implements KeyUpHandler
                             m_pwd.getText().length() > 0);
     }
 
-    private void doRequest()
+    /**
+     * perform login request
+     */
+    public void doRequest()
     {
         m_loading.setVisible(true);
         m_inRequest = true;
@@ -412,7 +364,10 @@ public final class LoginPanel extends Composite implements KeyUpHandler
         m_fp.setVisible(visible);
     }
 
-    private void show()
+    /**
+     * show the login panel
+     */
+    public void show()
     {
         JSUtil.hide("#main", "fast");
         m_glassPanel.setVisible(true);
@@ -456,5 +411,46 @@ public final class LoginPanel extends Composite implements KeyUpHandler
     {
         m_message.setHTML(message);
     }
+
+    public TextBox getUsername()
+    {
+        return m_username;
+    }
+
+    public TextBox getPwd()
+    {
+        return m_pwd;
+    }
+
+    public boolean isInRequest()
+    {
+        return m_inRequest;
+    }
+
+    public void setInRequest(boolean inRequest)
+    {
+        this.m_inRequest = inRequest;
+    }
+
+    public boolean isRepeat()
+    {
+        return m_isRepeat;
+    }
+
+    public LoginStringHelper getHelper()
+    {
+        return m_helper;
+    }
+
+    public static LoginPanel getLoginPanel()
+    {
+        return g_loginPanel;
+    }
+
+    public static void setLoginPanel(LoginPanel loginPanel)
+    {
+        g_loginPanel = loginPanel;
+    }
+
 
 }
