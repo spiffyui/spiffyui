@@ -492,7 +492,8 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
 
         HTMLPanel loginButtonPanel = addToSlidingGrid(doLoginButton, "WidgetsLoginPanel", "Login Panel",
             "<p>" +
-                "Login Panel displays a login dialog. Try click the button below to show the login panel and login to access some secure data. You can login with any user name and password." +
+                "Login Panel displays a login dialog. Click the login button to show the panel.  Login to " + 
+                "access some secure data. " +
             "</p>");
         loginButtonPanel.add((new HTML("<p><div id=\"loginResult\"></div>")), "WidgetsLoginPanel");
     }
