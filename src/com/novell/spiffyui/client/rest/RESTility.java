@@ -46,6 +46,7 @@ public final class RESTility
 {
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
     private static final String BASIC_AUTH = "X-OPAQUE";
+    //todo: change name here
     private static final String SESSION_COOKIE = "Novell_Reporting_Session";
     private static final String LOCALE_COOKIE = "Novell_Reporting_Locale";
 
