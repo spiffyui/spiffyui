@@ -42,5 +42,6 @@
 	<classpathentry kind="lib" path="external/spiffyui/lib/httpcore-4.0.1.jar"/>
 	<classpathentry kind="lib" path="external/spiffyui/lib/httpcore-nio-4.0.1.jar"/>
 	<classpathentry kind="lib" path="external/spiffyui/lib/jsonrpc.jar"/>
+	<classpathentry kind="lib" path="build/lib/gwt-user.jar"/>
 	<classpathentry kind="output" path="tempclasses"/>
 </classpath>
