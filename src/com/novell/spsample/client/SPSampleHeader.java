@@ -49,7 +49,8 @@ public class SPSampleHeader extends MainHeader
             JSUtil.hide("#header_logout", "fast");
             setWelcomeString("");            
         } else {
-            setWelcomeString("Welcome " + RESTility.getUserToken());            
+            String token = RESTility.getUserToken();
+            setWelcomeString("Welcome " + token.substring(0, token.indexOf("-")));            
         }
         logout.addClickHandler(new ClickHandler() {
                 public void onClick(ClickEvent event)
