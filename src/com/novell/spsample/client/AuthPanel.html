@@ -68,8 +68,22 @@
     <p>
     That's the overview.  Now let's look at some of the techie details.
     </p>
+    
+    <p>
+    The easiest way to watch the authentication protocol is with <a href="http://getfirebug.com/">Firebug</a>.
+    </p>
+    
+    <p>
+    <img id="firebugImage" src="images/firebug.png" />
+    </p>
+    
+    <p>
+    The first request gets a 401 response indicating that authentication is required.  The the Spiffy UI framework requests a token and includes it in future requests.  This all goes through the authentication proxy.
+    </p>
+    
 
     <h2>Authentication proxy</h2>
+    
     <p>
     All REST calls are governed by the <a href="http://en.wikipedia.org/wiki/Same_origin_policy">same origin policy</a> and may only call back to the server that served the JavaScript.  This is fine for most REST data calls, but single sign-on requires you to call to another server.
     </p>
@@ -127,14 +141,6 @@
     6. Data server checks and validates the authentication token, then returns back requested resources.
     </p>
 
-    <p>
-    Here is a screen shot of firbug console to show the entire process.
-    </p>
-
-    <p>
-    <img id="firebugImage" src="images/firebug.png" />
-    </p>
-
     <h2>Login</h2>
 
     <p>
@@ -154,7 +160,7 @@
     </p>
 
     <p>
-    3. Browser shows Login Panel, prompting user for credentials user name and password and sends those credentials to the authentication proxy at http://localhost:8081/spsample/auth. Any username and password work in this sample.
+    3. The Spiffy UI framework shows the  <code>LoginPanel</code> in the browser, prompting user for credentials user name and password and sends those credentials to the authentication proxy at http://localhost:8081/spsample/auth. Any username and password work in this sample.
     </p>
 
     <p>

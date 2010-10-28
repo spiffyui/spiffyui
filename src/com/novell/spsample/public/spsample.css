@@ -352,6 +352,10 @@ iframe {
     background: #dddddd;
 }
 
+#firebugImage {
+    margin-bottom: 2px;
+}
+
 .headertitle {
     left: 10px;
     color: #636363;
