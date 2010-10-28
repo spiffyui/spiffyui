@@ -1,6 +1,6 @@
 div.time-picker {
   position: absolute;
-  height: 200px;
+  height: 150px;
   width:6em; /* needed for IE */
   overflow: auto;
   background: #fff;

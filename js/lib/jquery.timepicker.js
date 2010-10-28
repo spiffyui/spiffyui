@@ -57,6 +57,7 @@
     $tpDiv.append($tpList);
     // Append the timPicker to the body and position it.
     var elmOffset = $(elm).offset();
+    
     $tpDiv.appendTo('body').css({
       'top':(elmOffset.top - 48) + "px", 
       'left':elmOffset.left,
@@ -92,8 +93,9 @@
       //Reposition the picker in case the page has changed (other things hidden or shown)
       //and the textbox element is no longer where it was when the tpDiv was first appended to the DOM body.
       var elmOffset = $(elm).offset();
+      
       $tpDiv.css({
-        'top':(elmOffset.top - 48) + "px", 
+        'top':(elmOffset.top + $(elm).height() + 10) + "px", 
         'left':elmOffset.left,
         'width': ($(elm).width() + 5) + "px"
       });
