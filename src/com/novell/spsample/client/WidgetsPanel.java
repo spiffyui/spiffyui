@@ -103,9 +103,9 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         
         addFancyButton();
 
-        addLoginPanel();
-                
         addMessageButton();
+        
+        addLoginPanel();
         
         addMultiValueAutoComplete();
         
@@ -280,9 +280,9 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
             }
         }, true);
         msb.getFeedback().addStyleName("msg-feedback");
-        addToSlidingGrid(msb, "WidgetsSuggestBox", "Multivalue Suggest Box",
+        addToSlidingGrid(msb, "WidgetsSuggestBox", "Multi-Valued Suggest Box",
             "<p>" +                        
-                "The Multivalue suggest box is an autocompleter that allows for multiple values and browsing. It uses REST to " + 
+                "The multi-valued suggest box is an autocompleter that allows for multiple values and browsing. It uses REST to " + 
                 "retrieve suggestions from the server.  The full process is documented in " + 
                 "<a href=\"http://www.zackgrossbart.com/hackito/gwt-rest-auto\">" +
                 "Creating a Multi-Valued Auto-Complete Field Using GWT SuggestBox and REST</a>." +
@@ -492,13 +492,17 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
 
         HTMLPanel loginButtonPanel = addToSlidingGrid(doLoginButton, "WidgetsLoginPanel", "Login Panel",
             "<p>" +
-                "Login Panel displays a login dialog. Click the button below to try to get some secure data. If you have not logged in before, the Login Panel will show for you to login. After login, you can get some secure data back." +
+            "A login dialog will display if you attempt to access secured information while unauthenticated.  Click the button below to get secured data." +
             "</p>" +
-            "<p>Please visit the <span id=\"authPanelSpan\"></span> panel for more information on how Spiffy UI handles security.</p>"
+            "<p>" +
+            "If you have a valid security token, the information will be returned immediately.  Otherwise, it will be returned immediately after successful login.  " +
+            "Once authenticated you may logout by clicking the link in the header." +
+            "</p>" +
+        	"<p>Please visit the <span id=\"authPanelSpan\"></span> for more information on how Spiffy UI handles security.</p>"
             , TALL);
         loginButtonPanel.add((new HTML("<p><div id=\"loginResult\"></div>")), "WidgetsLoginPanel");
 
-        Anchor auth = new Anchor("Authentication", "#");
+        Anchor auth = new Anchor("Authentication page", "AuthPanel");
         auth.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event)
@@ -578,7 +582,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         Button b = new Button("Show Info Message");
         HTMLPanel p = addToSlidingGrid(b, "WidgetsMessages", "Humanized Messages", 
             "<p>" +            
-                "The Spiffy UI framework support has an integrated message framework following the pattern of " +
+                "The Spiffy UI framework has an integrated message framework following the pattern of " +
                 "<a href=\"http://code.google.com/p/humanmsg/\">Humanized Messages</a>.  " + 
                 "These messages are non-modal and fade away without requiring further interaction.  They " + 
                 "include info messages, warnings, errors, and fatal errors.  Errors and some warnings are sent to an error " + 
