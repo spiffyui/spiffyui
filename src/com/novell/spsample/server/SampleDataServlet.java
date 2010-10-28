@@ -20,7 +20,6 @@
 package com.novell.spsample.server;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -58,10 +57,11 @@ public class SampleDataServlet extends HttpServlet
             buff.append(generateFault("Sender", "NoAuthHeader", ""));
         } else {
             String token = authToken.replace("X-OPAQUE", "").trim(); //remove X-OPAQUE
+            String name = token.substring(0, token.indexOf("-"));
             Date date = new Date();
-            buff.append("{\"message\":\""  + "received a security token.\",").
-                 append("\"name\":\""  + token + "\",").
-                 append("\"date\":\"" + DateFormat.getDateInstance(DateFormat.SHORT).format(date) + "\"}");
+            buff.append("{\"message\":\""  + "received Spiffy's secret slogan - Fast, Flexible, Friendly and You-Can-REST medicine!\",").
+                 append("\"name\":\""  + name + "\",").
+                 append("\"date\":\"" + date.getTime() + "\"}");
         }
         out.println(buff.toString());
     }

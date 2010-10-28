@@ -313,7 +313,9 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         if (RESTility.getUserToken() == null) {
             return;
         }
-        g_index.m_header.setWelcomeString("Welcome " + RESTility.getUserToken());
+        String token = RESTility.getUserToken();
+        String name = token.substring(0, token.indexOf("-"));
+        g_index.m_header.setWelcomeString("Welcome " + name);
         JSUtil.bounce("#" + MainHeader.HEADER_ACTIONS_BLOCK, 5, 500, 30);
         JSUtil.show("#header_logout", "fast");
     }
@@ -352,11 +354,11 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
 
     private void updateAuthTestButton()
     {
-      JSUtil.setText("#authTestBtn", "Logout");
+      JSUtil.setText("#authTestBtn", "Get More Secure Data");
     }
 
     private void updateLoginWidgetButton()
     {
-      JSUtil.setText("#doLoginBtn", "Logout");
+      JSUtil.setText("#doLoginBtn", "Get More Secure Data");
     }
 }

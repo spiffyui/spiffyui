@@ -24,7 +24,6 @@ import java.util.Date;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
 
-import com.novell.spiffyui.client.JSDateUtil;
 import com.novell.spiffyui.client.MessageUtil;
 import com.novell.spiffyui.client.rest.RESTCallback;
 import com.novell.spiffyui.client.rest.RESTException;
@@ -86,10 +85,10 @@ public final class SampleAuthBean
      */
     public static void getSampleAuthData(final RESTObjectCallBack<SampleAuthBean> callback)
     {
-        if (g_sampleAuthBean != null) {
-            callback.success(g_sampleAuthBean);
-            return;
-        }
+        //if (g_sampleAuthBean != null) {
+            //callback.success(g_sampleAuthBean);
+            //return;
+        //}
 
         RESTility.callREST("authdata", new RESTCallback() {
                 @Override
@@ -104,8 +103,7 @@ public final class SampleAuthBean
                     Date date = null;
                     try {
                         String dateString = info.get("date").isString().stringValue();
-                        //date = DateTimeFormat.getMediumDateTimeFormat().parse(dateString);
-                        date = JSDateUtil.parseShortDate(dateString);
+                        date = new Date(Long.parseLong(dateString));
                     } catch (Exception e) {
                         MessageUtil.showError("Invalid date: " + info.get("date").isString().stringValue());
                     }

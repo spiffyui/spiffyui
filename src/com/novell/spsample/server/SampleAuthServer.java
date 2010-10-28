@@ -65,7 +65,8 @@ public class SampleAuthServer extends HttpServlet
         ServletOutputStream out = response.getOutputStream();
 
         StringBuffer buff = new StringBuffer();
-        buff.append("{\"Token\":\""  + creds[0] + "\"}");
+        String random = Long.toHexString(Double.doubleToLongBits(Math.random()));
+        buff.append("{\"Token\":\""  + creds[0] + "-" + random + "\"}");
        
         out.println(buff.toString());
     }

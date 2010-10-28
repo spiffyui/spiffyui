@@ -459,9 +459,9 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
     {
        String buttonText = "";
         if (Index.userLoggedIn()) {
-            buttonText = "Logout";
+            buttonText = "Get More Secure Data";
         } else {
-            buttonText = "Login and Get Some Data";
+            buttonText = "Get Secure Data";
         }
         final SimpleButton doLoginButton = new SimpleButton(buttonText);
 
@@ -482,20 +482,32 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
 
                 };
                 t.schedule(2000);
-                if (Index.userLoggedIn()) {
-                   SPSampleHeader.doLogout();
-                } else {
+               // if (Index.userLoggedIn()) {
+                   //SPSampleHeader.doLogout();
+                //} else {
                     AuthPanel.getData(true);
-                }
+                //}
             }
         });
 
         HTMLPanel loginButtonPanel = addToSlidingGrid(doLoginButton, "WidgetsLoginPanel", "Login Panel",
             "<p>" +
-                "Login Panel displays a login dialog. Click the login button to show the panel.  Login to " + 
-                "access some secure data. " +
-            "</p>");
+                "Login Panel displays a login dialog. Click the button below to try to get some secure data. If you have not logged in before, the Login Panel will show for you to login. After login, you can get some secure data back." +
+            "</p>" +
+            "<p>Please visit the <span id=\"authPanelSpan\"></span> panel for more information on how Spiffy UI handles security.</p>"
+            , TALL);
         loginButtonPanel.add((new HTML("<p><div id=\"loginResult\"></div>")), "WidgetsLoginPanel");
+
+        Anchor auth = new Anchor("Authentication", "#");
+        auth.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                event.preventDefault();
+                Index.selectItem(Index.AUTH_NAV_ITEM_ID);
+            }
+        });
+        loginButtonPanel.add(auth, "authPanelSpan");
     }
 
     

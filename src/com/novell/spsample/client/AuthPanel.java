@@ -21,8 +21,8 @@ package com.novell.spsample.client;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -56,9 +56,9 @@ public class AuthPanel extends HTMLPanel
         setVisible(false);
         String buttonText = "";
         if (Index.userLoggedIn()) {
-            buttonText = "Logout";
+            buttonText = "Get More Secure Data";
         } else {
-            buttonText = "Login and Get Some Data";
+            buttonText = "Get Secure Data";
         }
         final SimpleButton authTestButton = new SimpleButton(buttonText);
 
@@ -80,11 +80,11 @@ public class AuthPanel extends HTMLPanel
 
                 };
                 t.schedule(2000);
-                if (Index.userLoggedIn()) {
-                   SPSampleHeader.doLogout(); 
-                } else {
+                //if (Index.userLoggedIn()) {
+                   //SPSampleHeader.doLogout();
+                //} else {
                     getData();
-                }
+                //}
             }
         });
         g_authPanel = this;
@@ -108,11 +108,11 @@ public class AuthPanel extends HTMLPanel
         SampleAuthBean.getSampleAuthData(new RESTObjectCallBack<SampleAuthBean>() {
             public void success(SampleAuthBean info)
             {
-                String data = "You've logged in as " + info.getName() +
-                              //" on " + DateTimeFormat.getFullDateFormat().format(info.getDate()) +
+                String data = "You've logged in as [" + info.getName() +
+                              "] on " + DateTimeFormat.getShortDateTimeFormat().format(info.getDate()) +
                               " and " + info.getMessage();
                 if (!inWidgetPanel) {
-                    g_authPanel.add(new HTML("<p>" + data + "</p>"), "testAuthResult");
+                    JSUtil.setText("#testAuthResult", data);
                 } else {
                     JSUtil.setText("#loginResult", data);
                 }                
