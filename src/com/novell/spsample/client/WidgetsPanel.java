@@ -498,7 +498,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
             "If you have a valid security token, the information will be returned immediately.  Otherwise, it will be returned immediately after successful login.  " +
             "Once authenticated you may logout by clicking the link in the header." +
             "</p>" +
-        	"<p>Please visit the <span id=\"authPanelSpan\"></span> for more information on how Spiffy UI handles security.</p>"
+            "<p>Please visit the <span id=\"authPanelSpan\"></span> for more information on how Spiffy UI handles security.</p>"
             , TALL);
         loginButtonPanel.add((new HTML("<p><div id=\"loginResult\"></div>")), "WidgetsLoginPanel");
 

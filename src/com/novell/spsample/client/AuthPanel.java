@@ -108,8 +108,8 @@ public class AuthPanel extends HTMLPanel
         SampleAuthBean.getSampleAuthData(new RESTObjectCallBack<SampleAuthBean>() {
             public void success(SampleAuthBean info)
             {
-                String data = "You've logged in as [" + info.getName() +
-                              "] on " + DateTimeFormat.getShortDateTimeFormat().format(info.getDate()) +
+                String data = "You logged in as " + info.getName() +
+                              " on " + DateTimeFormat.getShortDateTimeFormat().format(info.getDate()) +
                               " and " + info.getMessage();
                 if (!inWidgetPanel) {
                     JSUtil.setText("#testAuthResult", data);

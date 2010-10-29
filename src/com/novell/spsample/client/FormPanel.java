@@ -26,13 +26,15 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.novell.spiffyui.client.JSUtil;
 import com.novell.spiffyui.client.MessageUtil;
+import com.novell.spiffyui.client.widgets.DatePickerTextBox;
 import com.novell.spiffyui.client.widgets.FormFeedback;
 import com.novell.spiffyui.client.widgets.button.FancyButton;
 import com.novell.spiffyui.client.widgets.button.FancySaveButton;
@@ -55,9 +57,13 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
                     "</label><div id=\"lastName\" class=\"formcontrolssection\"></div></li>" +
                 "<li id=\"emailRow\" class=\"dialogformrow\"><label class=\"dialogformlabel\" for=\"emailTxt\">Email address: " + 
                     "</label><div id=\"email\" class=\"formcontrolssection\"></div></li>" +
+                "<li id=\"userBdayRow\" class=\"dialogformrow\"><label class=\"dialogformlabel\" for=\"userBdayTxt\">Birthday: " + 
+                    "</label><div id=\"userBday\" class=\"formcontrolssection\"></div></li>" +
+                "<li id=\"userGenderRow\" class=\"dialogformrow\"><label class=\"dialogformlabel\" for=\"userGenderTxt\">I am: " + 
+                    "</label><div id=\"userGender\" class=\"formcontrolssection\"></div></li>" +
                 "<li id=\"userDescRow\" class=\"extratallformrow\"><label class=\"dialogformlabel\" for=\"userDescTxt\">Short description: " + 
                     "</label><div id=\"userDesc\" class=\"formcontrolssection\"></div></li>" +
-                "<h3 class=\"subSectionTitle\">Passwords</h3>" +
+                "<h3 class=\"subSectionTitle\">Password</h3>" +
                 "<li id=\"passwordRow\" class=\"dialogformrow\"><label class=\"dialogformlabel\" for=\"passwordTxt\">Password: " + 
                     "</label><div id=\"password\" class=\"formcontrolssection\"></div></li>" +
                 "<li id=\"passwordRepeatRow\" class=\"dialogformrow\"><label class=\"dialogformlabel\" for=\"passwordRepeatTxt\">Repeat password: " + 
@@ -85,6 +91,12 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
     
     private TextBox m_passwordRepeat;
     private FormFeedback m_passwordRepeatFeedback;
+    
+    private DatePickerTextBox m_bDay;
+    private FormFeedback m_bDayFeedback;
+    
+    private RadioButton m_male;
+    private RadioButton m_female;
     
     private TextArea m_userDesc;
     private FormFeedback m_userDescFeedback;
@@ -145,6 +157,28 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
         
         m_emailFeedback = new FormFeedback();
         add(m_emailFeedback, "emailRow");
+        
+        /*
+         User's birthday
+         */
+        m_bDay = new DatePickerTextBox("userBdayTxt");
+        m_bDay.addKeyUpHandler(this);
+        m_bDay.getElement().addClassName("slimTextField");
+        add(m_bDay, "userBday");
+        
+        m_bDayFeedback = new FormFeedback();
+        add(m_bDayFeedback, "userBdayRow");
+        
+        /*
+         User's gender
+         */
+        m_female = new RadioButton("userGender", "Female");
+        add(m_female, "userGender");
+        
+        m_male = new RadioButton("userGender", "Male");
+        m_male.setChecked(true);
+        m_male.getElement().setId("userMale");
+        add(m_male, "userGender");
         
         /*
          User description
@@ -265,6 +299,19 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
                 m_passwordFeedback.setStatus(FormFeedback.WARNING);
                 m_passwordFeedback.setTitle("Enter a password longer than 2 characters");
             }
+        } else if (w == m_bDay) {
+            if (m_bDay.getText().length() > 2) {
+                if (m_bDay.getDateValue() != null) {
+                    m_bDayFeedback.setStatus(FormFeedback.VALID);
+                    m_bDayFeedback.setTitle("");
+                } else {
+                    m_bDayFeedback.setStatus(FormFeedback.ERROR);
+                    m_bDayFeedback.setTitle(m_bDay.getText() + " is not a valid date");
+                }
+            } else {
+                m_bDayFeedback.setStatus(FormFeedback.WARNING);
+                m_bDayFeedback.setTitle("Enter a date for your birthday");
+            }
         } else if (w == m_securityQuestion) {
             if (m_securityQuestion.getText().length() > 2) {
                 m_securityQuestionFeedback.setStatus(FormFeedback.VALID);
@@ -313,7 +360,8 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
             m_passwordRepeatFeedback.getStatus() == FormFeedback.VALID &&
             m_userDescFeedback.getStatus() == FormFeedback.VALID &&
             m_securityQuestionFeedback.getStatus() == FormFeedback.VALID &&
-            m_securityAnswerFeedback.getStatus() == FormFeedback.VALID);
+            m_securityAnswerFeedback.getStatus() == FormFeedback.VALID &&
+            m_bDay.getDateValue() != null);
     }
     
     private void save()
