@@ -140,9 +140,6 @@ build.dir=${root}
         <delete file="${root}/dist/spsample.war" />
         <war destfile="${root}/dist/spsample.war" webxml="${root}/web.xml">
             <fileset dir="${root}/bin/www"/>
-            <zipfileset dir="${root}/js" prefix="js" >
-                <include name="**/*.js"/>
-            </zipfileset>
             <zipfileset dir="${root}/bin/classes" prefix="WEB-INF/classes" >
                 <include name="**/*"/>
             </zipfileset>
