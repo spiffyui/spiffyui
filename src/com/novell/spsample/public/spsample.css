@@ -435,3 +435,7 @@ iframe {
 #userMale {
     margin-left: 1.5em;
 }
+
+#introVideo, #frameworkVideo {
+    margin-bottom: 16px;
+}
