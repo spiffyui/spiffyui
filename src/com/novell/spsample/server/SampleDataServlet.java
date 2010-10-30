@@ -57,10 +57,9 @@ public class SampleDataServlet extends HttpServlet
             buff.append(generateFault("Sender", "NoAuthHeader", ""));
         } else {
             String token = authToken.replace("X-OPAQUE", "").trim(); //remove X-OPAQUE
-            String name = token.substring(0, token.indexOf("-"));
             Date date = new Date();
-            buff.append("{\"message\":\""  + "received Spiffy's secret slogan - Fast, Flexible, Friendly and You-Can-REST medicine!\",").
-                 append("\"name\":\""  + name + "\",").
+            buff.append("{\"message\":\""  + "you received Spiffy's secret slogan - Fast, Flexible, Friendly and You-Can-REST medicine!\",").
+                 append("\"token\":\""  + token + "\",").
                  append("\"date\":\"" + date.getTime() + "\"}");
         }
         out.println(buff.toString());

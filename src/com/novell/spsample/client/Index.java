@@ -364,11 +364,11 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
 
     private void updateAuthTestButton()
     {
-      JSUtil.setText("#authTestBtn", "Get More Secure Data");
+      JSUtil.setText("#authTestBtn", "Get More Secured Data");
     }
 
     private void updateLoginWidgetButton()
     {
-      JSUtil.setText("#doLoginBtn", "Get More Secure Data");
+      JSUtil.setText("#doLoginBtn", "Get More Secured Data");
     }
 }

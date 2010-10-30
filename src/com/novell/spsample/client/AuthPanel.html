@@ -125,7 +125,7 @@
     4. If user's credentials is sufficient, the authentication server will return back an authentication token in JSON format, such as:
     </p>
 
-    <pre>    {"Token":"demouser-3fc13d389bbae518"} </pre>
+    <pre>    {"Token":"demouser-3f597a4d311a3e00"} </pre>
 
     <p>
     to the proxy servlet, which then forwards the token back to the client to be saved in browser cookie.
@@ -134,7 +134,7 @@
     <p>
     5. Client can now make the request to access the resources again on the data server at original url:  http://host:post/data-server-war-context/path-require-auth, carrying a valid authentication token in the request header "Authorization":
 
-    <pre>    Authorization	X-OPAQUE demouser-3fc13d389bbae518 </pre>
+    <pre>    Authorization	X-OPAQUE demouser-3f597a4d311a3e00 </pre>
 
 
     <p>
@@ -197,7 +197,7 @@
     </p>
 
     <p>
-    12. The REST server sends back the secure data.
+    12. The REST server sends back the secured data.
     </p>
 
     <p>

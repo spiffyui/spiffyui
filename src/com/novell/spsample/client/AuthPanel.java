@@ -56,9 +56,9 @@ public class AuthPanel extends HTMLPanel
         setVisible(false);
         String buttonText = "";
         if (Index.userLoggedIn()) {
-            buttonText = "Get More Secure Data";
+            buttonText = "Get More Secured Data";
         } else {
-            buttonText = "Get Secure Data";
+            buttonText = "Get Secured Data";
         }
         final SimpleButton authTestButton = new SimpleButton(buttonText);
 
@@ -76,15 +76,11 @@ public class AuthPanel extends HTMLPanel
                     public void run()
                     {
                         authTestButton.setInProgress(false);
+                        getData();
                     }
 
                 };
-                t.schedule(2000);
-                //if (Index.userLoggedIn()) {
-                   //SPSampleHeader.doLogout();
-                //} else {
-                    getData();
-                //}
+                t.schedule(1000);
             }
         });
         g_authPanel = this;
@@ -108,9 +104,8 @@ public class AuthPanel extends HTMLPanel
         SampleAuthBean.getSampleAuthData(new RESTObjectCallBack<SampleAuthBean>() {
             public void success(SampleAuthBean info)
             {
-                String data = "You logged in as " + info.getName() +
-                              " on " + DateTimeFormat.getShortDateTimeFormat().format(info.getDate()) +
-                              " and " + info.getMessage();
+                String data = " On " + DateTimeFormat.getFormat("h:mm:ss a").format(info.getDate()) +
+                              ", using your secret token of \"" + info.getToken() + "\", " + info.getMessage();
                 if (!inWidgetPanel) {
                     JSUtil.setText("#testAuthResult", data);
                 } else {

@@ -38,13 +38,13 @@ public final class SampleAuthBean
     private static SampleAuthBean g_sampleAuthBean;
 
     private String m_message;
-    private String m_name;
+    private String m_token;
     private Date m_date;
 
-    private SampleAuthBean(String message, String name, Date date)
+    private SampleAuthBean(String message, String token, Date date)
     {
         m_message = message;
-        m_name = name;
+        m_token = token;
         m_date = date;
     }
 
@@ -59,13 +59,13 @@ public final class SampleAuthBean
     }
 
     /**
-     * Gets the user name
+     * Gets the user token
      *
-     * @return the user name
+     * @return the user token
      */
-    public String getName()
+    public String getToken()
     {
-        return m_name;
+        return m_token;
     }
 
     /**
@@ -85,11 +85,6 @@ public final class SampleAuthBean
      */
     public static void getSampleAuthData(final RESTObjectCallBack<SampleAuthBean> callback)
     {
-        //if (g_sampleAuthBean != null) {
-            //callback.success(g_sampleAuthBean);
-            //return;
-        //}
-
         RESTility.callREST("authdata", new RESTCallback() {
                 @Override
                 public void onSuccess(JSONValue val)
@@ -108,7 +103,7 @@ public final class SampleAuthBean
                         MessageUtil.showError("Invalid date: " + info.get("date").isString().stringValue());
                     }
                     g_sampleAuthBean = new SampleAuthBean(info.get("message").isString().stringValue(),
-                                                          info.get("name").isString().stringValue(),
+                                                          info.get("token").isString().stringValue(),
                                                           date);
                     callback.success(g_sampleAuthBean);
                 }

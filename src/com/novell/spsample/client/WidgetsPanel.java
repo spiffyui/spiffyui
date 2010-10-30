@@ -459,9 +459,9 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
     {
        String buttonText = "";
         if (Index.userLoggedIn()) {
-            buttonText = "Get More Secure Data";
+            buttonText = "Get More Secured Data";
         } else {
-            buttonText = "Get Secure Data";
+            buttonText = "Get Secured Data";
         }
         final SimpleButton doLoginButton = new SimpleButton(buttonText);
 
@@ -478,15 +478,11 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
                     public void run()
                     {
                         doLoginButton.setInProgress(false);
+                        AuthPanel.getData(true);
                     }
 
                 };
-                t.schedule(2000);
-               // if (Index.userLoggedIn()) {
-                   //SPSampleHeader.doLogout();
-                //} else {
-                    AuthPanel.getData(true);
-                //}
+                t.schedule(1000);
             }
         });
 
