@@ -118,13 +118,13 @@ slidegrid = {
 	        var hasTallCell = false;
 	        
 	        var cols = Math.floor(($(window).width() - gridOffset) / ((cellWidth + padding)));
-	        
-	        $(this).css("position", "relative");
+			
+			$(this).css("position", "relative");
 	        
 	        var children = $(this).children("div");
-	        
-	        for (var i = 0; i < children.length; i++) {
-	            if (children.eq(i).hasClass("bigcell")) {
+			
+			for (var i = 0; i < children.length; i++) {
+				if (children.eq(i).hasClass("bigcell")) {
 	                if (curCol === cols - 1) {
 	                    /* 
 	                     * This means it is time to bump down to the next row
@@ -137,10 +137,10 @@ slidegrid = {
 	                    
 	                }
 
-	                if (slidegrid.isUsed(usedCells, curCol, curRow) ||
+	                if (cols > 1 && (slidegrid.isUsed(usedCells, curCol, curRow) ||
 	                    slidegrid.isUsed(usedCells, curCol + 1, curRow) ||
 	                    slidegrid.isUsed(usedCells, curCol + 1, curRow + 1) ||
-	                    slidegrid.isUsed(usedCells, curCol, curRow + 1)) {
+	                    slidegrid.isUsed(usedCells, curCol, curRow + 1))) {
 	                    /* 
 	                     * If the current cell is used we
 	                     * just want to try the next column. 
@@ -149,7 +149,7 @@ slidegrid = {
 	                     * calling the column logic and then 
 	                     * backing up the counter. 
 	                     */
-	                    i--;
+						i--;
 	                } else {
 	                    
 	                    
@@ -169,9 +169,9 @@ slidegrid = {
 	                hasTallCell = true;
 	                
 	            } else if (children.eq(i).hasClass("widecell")) {
-					if (slidegrid.isUsed(usedCells, curCol, curRow) ||
+					if (cols > 1 && (slidegrid.isUsed(usedCells, curCol, curRow) ||
 	                    slidegrid.isUsed(usedCells, curCol + 1, curRow) ||
-						curCol === cols - 1) {
+						curCol === cols - 1)) {
 	                    /* 
 	                     * If the current cell is used we
 	                     * just want to try the next column. 
@@ -180,7 +180,7 @@ slidegrid = {
 	                     * calling the column logic and then 
 	                     * backing up the counter. 
 	                     */
-	                    i--;
+						i--;
 	                    
 	                } else {
 	                    slidegrid.styleCell(children.eq(i), x, y, (cellWidth * 2) + padding, cellHeight, slidegrid.hasDrawn);
@@ -202,7 +202,7 @@ slidegrid = {
 	                     * calling the column logic and then 
 	                     * backing up the counter. 
 	                     */
-	                    i--;
+						i--;
 	                    
 	                } else {
 	                    slidegrid.styleCell(children.eq(i), x, y, cellWidth, (cellHeight * 2) + padding, slidegrid.hasDrawn);
@@ -226,7 +226,7 @@ slidegrid = {
 	                     * calling the column logic and then 
 	                     * backing up the counter. 
 	                     */
-	                    i--;
+						i--;
 	                    
 	                } else {
 	                    slidegrid.styleCell(children.eq(i), x, y, cellWidth, cellHeight, slidegrid.hasDrawn);
@@ -249,8 +249,8 @@ slidegrid = {
 	            
 	            count++;
 	        }
-
-	        /*
+			
+			/*
 	         * We need to set a height of the slidegrid div since it only has absolute 
 	         * height tags within it.
 	         */
@@ -279,10 +279,16 @@ slidegrid = {
 	    slidegrid.hasDrawn = true;
 	},
 	
+	inResize: false,
+	
 	resizeWindow: function(e) {
-        if (slidegrid.windowWidth != $(window).width()) {
-            slidegrid.alignGrid(slidegrid.cellWidth, slidegrid.cellHeight, slidegrid.padding, slidegrid.gridOffset);
-            slidegrid.windowWidth = $(window).width();
+        if (!slidegrid.inResize && slidegrid.windowWidth != $(window).width()) {
+			slidegrid.inResize = true;
+			setTimeout(function() {
+				slidegrid.alignGrid(slidegrid.cellWidth, slidegrid.cellHeight, slidegrid.padding, slidegrid.gridOffset);
+				slidegrid.windowWidth = $(window).width();
+				slidegrid.inResize = false;
+			}, 500);
         }
     }
 }
