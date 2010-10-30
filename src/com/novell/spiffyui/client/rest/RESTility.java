@@ -46,7 +46,6 @@ public final class RESTility
 {
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
     private static final String BASIC_AUTH = "X-OPAQUE";
-    //todo: change name here
     private static final String SESSION_COOKIE = "Spiffy_Session";
     private static final String LOCALE_COOKIE = "Spiffy_Locale";
 
@@ -78,17 +77,6 @@ public final class RESTility
 
     private static RESTAuthProvider g_authProvider;
 
-    /**
-     * Gets the name of the core WAR for use with REST calls.
-     *
-     * @return the name of the core WAR
-     */
-    //todo move this to rptutil
-    public static String getCoreContext()
-    {
-        return "/IDMRPT-CORE";
-    }
-    
     /**
      * This is a helper type class so we can pass the HTTP method as a type safe
      * object instead of a string.
@@ -339,7 +327,6 @@ public final class RESTility
      *
      * @param locale the locale
      */
-    //todo: move this somewhere else
     public static void setBestLocale(String locale)
     {
         if (getBestLocale() != null) {
@@ -550,32 +537,6 @@ public final class RESTility
             data.indexOf("INSERT") > -1);
     }
 
-    /**
-     * Getting the current user information is a different kind of REST call.  The
-     * issue is that it has the user token as part of the URL.  This is a problem
-     * because of the following scenario:
-     *
-     * 1. Login and get a token.
-     * 2. Restart the server or do something else to cause the token to get invalidated.
-     * 3. Issue the call to the rptusers REST endpoint.
-     * 4. The server returns 401.
-     * 5. RESTility causes the user to get prompted for login.
-     * 6. The user logs in successfully.
-     * 7. The REST request from step three gets called with the old user token.
-     * 8. The server returns a 401 and the process starts all over again at step four.
-     *
-     * To avoid this loop we must not replay the REST request to rptusers.  This is
-     * OK since we will call it again after the user successfully logs in.  To handle
-     * all of that we have this special method.
-     *
-     * @param callback callback to be invoked
-     */
-    //todo: do I need to move this somewhere else
-    public static void getUserInfo(RESTCallback callback)
-    {
-        callREST(RESTility.getCoreContext() + "/rpt/rptusers/" + URL.encode(RESTility.getUserToken()),
-                 null, GET, callback, false, false, null);
-    }
 
     /**
      * Make an HTTP call and get the results as a JSON object.  This method handles
@@ -610,7 +571,7 @@ public final class RESTility
      *                 if this request returns a 401
      * @param etag     the option etag for this request
      */
-    private static void callREST(String url, String data, RESTility.HTTPMethod method,
+    public static void callREST(String url, String data, RESTility.HTTPMethod method,
                                  RESTCallback callback, boolean isLoginRequest,
                                  boolean shouldReplay, String etag)
     {
