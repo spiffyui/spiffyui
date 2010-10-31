@@ -2,14 +2,14 @@
 <div id="authPanelText" class="documentationPanel">
 
     <p>
-    All REST calls are anonymous by default.  The Spiffy UI framework offers login based on a scheme we've developed at Novell called tokenized identity.  This token-base security model support simple authentication, single sign-on, and stateless security models.
+    REST calls are anonymous by default.  The Spiffy UI framework offers security based on a scheme we've developed at Novell called tokenized identity.  This token-base security model support simple authentication, single sign-on, and stateless security models.
     </p>
 
     <div id="loginSection" class="highlightSection">
         <h3>Try it out</h3>
 
         <p>
-        Most of this sample is available without authentication, but we've added a security example you can try.
+        Most of this sample is available without authentication, but we've added a little secure data..
         </p>
         <p>
         <div id="testAuth">
@@ -20,7 +20,11 @@
     </div>
     
     <p>
-    The Spiffy UI framework provides the client-side portion of this security model.  It can connection to any authentication server you provide that implements this REST protocol for tokenized identity.  The Spiffy UI sample application provides a simple example of logi with tokenized identity using Java servlets.  The choice of technology for the server-side authentication is totally flexible.
+    The Spiffy UI framework provides the client-side portion of this security model.  It connects to any authentication server you provide that implements this REST protocol for tokenized identity.  The Spiffy UI sample application provides a simple example of authentication with tokenized identity using Java servlets.  Java servlet filters are a popular choice for more complex applications.  
+    </p>
+    
+    <p>
+    You can extend the servlets in this example, create your own, or implement your authentication server in any other technology that supports REST.
     </p>
 
     <h2>Tokenized identity</h2>

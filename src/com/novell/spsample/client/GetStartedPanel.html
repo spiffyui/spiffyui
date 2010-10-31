@@ -57,7 +57,7 @@
 
     <h2>Building spiffy</h2>
     <p>
-    The Spiffy UI framework uses an <a href="http://ant.apache.org/">Apache Ant</a> build script to compile and compress JavaScript and CSS files using the <a href="http://code.google.com/closure/compiler/">Google Closure Compiler</a> and the <a href="http://developer.yahoo.com/yui/compressor/">YUI Compressor</a>.  You must include Ant in your build environment.  You can invoke the Spiffy UI build from your own Ant build with the <code>ant</code> task like this:
+    The Spiffy UI framework uses an <a href="http://ant.apache.org/">Apache Ant</a> build script to compile and compress JavaScript and CSS files using the <a href="http://code.google.com/closure/compiler/">Google Closure Compiler</a> and the <a href="http://developer.yahoo.com/yui/compressor/">YUI Compressor</a>.  You must include Ant in your build environment.  You can invoke the Spiffy UI build from your own Ant <code>build.xml</code> file with the <code>ant</code> task. Like this:
     </p>
 
     <pre>
@@ -69,7 +69,7 @@
     </pre>
 
     <p>
-    In this sample we've placed the Spiffy UI framework in the external/spiffyui folder in our project.  The <code>spiffy.www</code> property specifies the location to generate the Spiffy UI framework CSS, JavaScript, and image files.  The <code>spiffy.classes</code> specifies the location of the class Spiffy UI class files.  These class files are a small number of servlets to support the framework.
+    In this sample we've placed the Spiffy UI framework in the <code>external/spiffyui</code> folder of our project.  The <code>spiffy.www</code> property specifies the location to generate the Spiffy UI framework CSS, JavaScript, and image files.  The <code>spiffy.classes</code> specifies the location of the class Spiffy UI class files.  These class files are a small number of servlets to support the framework.
     </p>
 
     <h2>Importing spiffy</h2>
@@ -78,14 +78,16 @@
     </p>
 
     <pre>
-    &lt;link type="text/css" rel="stylesheet" href="spiffyui.min.css" /&gt;
+    &lt;head&gt;
+    &hellip;
     &lt;script type="text/javascript" src="jquery-1.4.2.min.js"&gt;&lt;/script&gt;
     &lt;script type="text/javascript" src="spiffyui.min.js"&gt;&lt;/script&gt;
+    &lt;/head&gt;
     </pre>
 
     <p>
 
-    Assuming that you already referencing your GWT module's nocache.js, the last step is to import the Spiffy UI framework GWT module.  Add the following line to your GWT module file:
+    The last step is to import the Spiffy UI framework GWT module.  Add the following line to your GWT module file:
     </p>
 
     <pre>
@@ -93,7 +95,7 @@
     </pre>
 
     <p>
-    That's all it takes to use this project.  Now that you've added the JavaScript and CSS to your build and imported the GWT module you can import the Spiffy UI framework and use it in your page.
+    That's all it takes.
     </p>
 
     <h2>Using spiffy</h2>

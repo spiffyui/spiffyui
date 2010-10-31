@@ -245,10 +245,15 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     public void itemSelected(NavItem item)
     {
         for (NavItem key : m_panels.keySet()) {
+            /*
+             We could hide and show these panels by just calling setVisible,
+             but that causes a redraw bug in IE 8 where the body extends for
+             for the total height of the page below the footer.
+             */
             if (key.equals(item)) {
-                m_panels.get(key).setVisible(true);
+                JSUtil.show("#" + m_panels.get(key).getElement().getId());
             } else {
-                m_panels.get(key).setVisible(false);
+                JSUtil.hide("#" + m_panels.get(key).getElement().getId());
             }
         }
     }
