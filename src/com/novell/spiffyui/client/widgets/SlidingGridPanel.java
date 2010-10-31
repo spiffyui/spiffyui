@@ -8,7 +8,10 @@ import com.google.gwt.user.client.ui.Widget;
 
 
 /**
- * A Panel that uses the slidegrid.js for layout
+ * A panel that uses a sliding grid layout based on 
+ * <a href="http://www.zackgrossbart.com/hackito/slidegrid/">this example</a> . 
+ * The sliding grid arranges a set of cells to the best width to fit the 
+ * available space and then resizes that grid when the browser window resizes. 
  */
 public class SlidingGridPanel extends ComplexPanel
 {
@@ -28,6 +31,11 @@ public class SlidingGridPanel extends ComplexPanel
         setStyleName("slidegrid");
     }
 
+    /**
+     * Add a widget to a new cell in this sliding grid
+     * 
+     * @param w      the widget to add
+     */
     @Override
     public void add(Widget w)
     {
@@ -61,6 +69,12 @@ public class SlidingGridPanel extends ComplexPanel
         addWidget(w, "bigcell");
     }
     
+    /**
+     * Add a widgets to a new cell in this sliding grid with the specified style
+     * 
+     * @param w      the widget to add
+     * @param style  the style of the widget
+     */
     private void addWidget(Widget w, String style)
     {
         SimplePanel div = new SimplePanel();
