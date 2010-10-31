@@ -1,0 +1,106 @@
+<h1>Getting Started With Spiffy UI</h1>
+<div id="docPanelText" class="documentationPanel">
+    <p>
+    The Spiffy UI framework is included as a subproject and referenced in your GWT project.  You can start using the framework in four simple steps.
+    </p>
+    
+    <h2>Requirements</h2>
+    
+    <p>
+        To run the Spiffy UI framework you'll need:
+    </p>
+    
+    <ul>
+        <li>Java 1.6 or higher</li>
+        <li>A J2EE application server <span class="weak">(only if you need the server-side parts)</span></li>
+    </ul>
+    
+    <h2>Building this sample</h2>
+    
+    <p>
+    A good place to start is by building this sample application.  It's easy.  Use the following command to check it out:
+    </p>
+    
+    <pre>
+    svn co https://svn.provo.novell.com/svn/spiffyui/sample spsample
+    </pre>
+    
+    <p>
+    This checkout includes the Spiffy UI framework and the Spiffy Sample application containing examples and documentation for the framework.  Once it is checked out execute this command line from the <code>spsample</code> directory.
+    </p>
+    
+    <pre>
+    ant
+    </pre>
+    
+    <p>
+    Once the build completes you can deploy the spsample.war file from <code>dist/spsample.war</code>.
+    </p>
+
+    <h2>Including spiffy in your project</h2>
+
+    <p>
+    The SpiffyUI framework is typically included as a Subversion external reference:  <a href="https://svn.provo.novell.com/svn/spiffyui/trunk">https://svn.provo.novell.com/svn/spiffyui/trunk</a>.
+    </p>
+
+    <p>
+    Include it in your project by setting the <code>svn:externals</code> property on a directory in your project.  You can set the property using UI tools or with this command line:
+    </p>
+
+    <pre>
+    svn propset svn:externals "spiffyui https://svn.provo.novell.com/svn/spiffyui/trunk" &lt;directory&gt;
+    </pre>
+
+    <p>
+    After you set the property, check in and then update your working copy.  The Spiffy UI framework will be in the directory you chose.  In this sample project the Spiffy UI framework is in the <code>external</code> directory.
+    </p>
+
+    <h2>Building spiffy</h2>
+    <p>
+    The Spiffy UI framework uses an <a href="http://ant.apache.org/">Apache Ant</a> build script to compile and compress JavaScript and CSS files using the <a href="http://code.google.com/closure/compiler/">Google Closure Compiler</a> and the <a href="http://developer.yahoo.com/yui/compressor/">YUI Compressor</a>.  You must include Ant in your build environment.  You can invoke the Spiffy UI build from your own Ant <code>build.xml</code> file with the <code>ant</code> task. Like this:
+    </p>
+
+    <pre>
+    &lt;ant antfile="${build.base}/external/spiffyui/build/build.xml"
+         dir="${build.base}/external/spiffyui"&gt;
+       &lt;property name="spiffy.www" value="${root}/bin/www"/&gt;
+       &lt;property name="spiffy.classes" value="${root}/bin/classes"/&gt;
+    &lt;/ant&gt;
+    </pre>
+
+    <p>
+    In this sample we've placed the Spiffy UI framework in the <code>external/spiffyui</code> folder of our project.  The <code>spiffy.www</code> property specifies the location to generate the Spiffy UI framework CSS, JavaScript, and image files.  The <code>spiffy.classes</code> specifies the location of the class Spiffy UI class files.  These class files are a small number of servlets to support the framework.
+    </p>
+
+    <h2>Importing spiffy</h2>
+    <p>
+    Now the CSS and JavaScript files are included in your project when you build.  The next step is to reference them in your HTML file.  The Spiffy UI framework includes many JavaScript and CSS files, but they are all combined into two files for faster application loading.  Reference these three files and the JQuery library in the <code>head</code> section of your HTML files like this:
+    </p>
+
+    <pre>
+    &lt;head&gt;
+    &hellip;
+    &lt;script type="text/javascript" src="jquery-1.4.2.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="spiffyui.min.js"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    </pre>
+
+    <p>
+
+    The last step is to import the Spiffy UI framework GWT module.  Add the following line to your GWT module file:
+    </p>
+
+    <pre>
+    &lt;inherits name="org.spiffyui.spiffyui" /&gt;
+    </pre>
+
+    <p>
+    That's all it takes.
+    </p>
+
+    <h2>Using spiffy</h2>
+
+    <p>
+    Most of the Spiffy UI framework is Java code written in GWT.  All of the API has Java doc in the <a href="javadoc/index.html">Spiffy UI API JavaDoc</a>.
+    </p>
+</div>

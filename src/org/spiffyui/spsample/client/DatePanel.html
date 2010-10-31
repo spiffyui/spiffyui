@@ -1,0 +1,145 @@
+<h1>Spiffy UI Date Localization</h1>
+<div id="datePanelText" class="documentationPanel">
+    <p>
+    The Spiffy UI Framework includes internationalized date and time utilities based on <a href="http://www.datejs.com/">Datejs</a>.  In addition, it includes date and time widgets which wrap the <a href="http://jqueryui.com/demos/datepicker/">JQuery UI Datepicker</a> and a <a href="http://code.google.com/p/jquery-timepicker/">JQuery Time Picker</a>.
+    </p>
+
+    <p>
+    These utilities are optional and require an additional servlet to support localized date formats.  To use them you need to include the <code>JSLocaleServlet</code> in your project.  You can extend the <code>JSLocaleServlet</code> to provide custom localizations.
+    </p>
+
+    <h2>Adding the JSLocaleServlet</h2>
+
+    <p>
+    The <code>JSLocaleServlet</code> will redirect the browser to the best matching localized JS file for date.js or jquery.ui.datepicker.js.  Spiffy UI includes a basic algorithm for determining the best matching locale by looping through the requested browser locales and attempting to match them against one of the supported locales.  It first attempts to match exactly, then by language and country, then by language.  If it doesn't find a match it will return the the English version of the javascript file requested.  
+    </p>
+    
+    <p>
+    By default the date utilities are localized in the following 53 languages:
+    </p>
+
+    <p id="localesTable">
+        Afrikaans<br />
+        Albanian<br />
+        Arabic<br />
+        Armenian<br />
+        Azerbaijani<br />
+        Basque<br />
+        Bosnian<br />
+        Bulgarian<br />
+        Catalan<br />
+        Chinese (China)<br />
+        Chinese (HK)<br />
+        Chinese (Taiwan)<br />
+        Croatian<br />
+        Czech<br />
+        Danish<br />
+        Dutch<br />
+        English (UK)<br />
+        English (US)<br />
+        Esperanto<br />
+        Estonian<br />
+        Faroese<br />
+        Finnish<br />
+        French<br />
+        French (Switzerland)<br />
+        German<br />
+        Greek<br />
+        Hebrew<br />
+        Hungarian<br />
+        Icelandic<br />
+        Indonesian<br />
+        Italian<br />
+        Japanese<br />
+        Korean<br />
+        Latvian<br />
+        Lithuanian<br />
+        Malay<br />
+        Norwegian<br />
+        Persian<br />
+        Polish<br />
+        Portuguese (Brazil)<br />
+        Romanian<br />
+        Russian<br />
+        Serbian<br />
+        Serbian (Suriname)<br />
+        Slovak<br />
+        Slovenian<br />
+        Spanish<br />
+        Swedish<br />
+        Tamil<br />
+        Thai<br />
+        Turkish<br />
+        Ukrainian<br />
+        Vietnamese<br />
+    </p>
+
+    <p>
+    These different languages are served by the <code>JSLocaleServlet</code>.  To include this in your project, add the following entries to your web.xml:
+    </p>
+
+    <pre>
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;JSLocaleServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.spiffyui.server.JSLocaleServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+        
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;JSLocaleServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/js/lib/i18n/date&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;JSLocaleServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/js/lib/i18n/jquery.ui.datepicker.js&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+    </pre>
+
+    <h2>Referencing the JSLocaleServlet</h2>
+
+    <p>
+    The <code>JSLocaleServlet</code> returns JavaScript files supporting the date formats.  This servlet must be referenced in the <code>head</code> section of your HTML file like this:
+    </p>
+
+    <pre>
+    &lt;script type="text/javascript" src="js/lib/i18n/date"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/lib/i18n/jquery.ui.datepicker.js"&gt;&lt;/script&gt;
+    </pre>
+
+    <h2>Extending JSLocaleServlet</h2>
+    <p>
+    If your application requires a customized best matching locale routine, you may extend <code>JSLocaleServlet</code>, override getBestMatchLocale, then include your class in web.xml instead.  For example:
+    </p>
+
+    <pre>
+    <span class="keyword">public</span> <span class="keyword">class</span> MyLocaleServlet <span class="keyword">extends</span> JSLocaleServlet
+    {
+    
+        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = 1L;
+        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> MyLocaleChooserFactory LOCALE_FACTORY = 
+            <span class="keyword">new</span> MyLocaleChooserFactory();
+        
+        @Override
+        <span class="keyword">protected</span> Locale getBestMatchLocale(HttpServletRequest request, 
+                                            HttpServletResponse response, 
+                                            ServletContext context) <span class="keyword">throws</span> ServletException 
+        {
+            <span class="keyword">return</span> LOCALE_FACTORY.getBestLocaleChooser(context).
+                getBestLocale(request, response, context);
+        }
+    }    
+    </pre>
+    
+    <p>
+    Your then need to add your class to the web.xml file instead of the Spiffy UI framework version.
+    </p>
+    
+    <pre>
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;JSLocaleServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;com.myco.MyLocaleServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+    </pre>
+
+
+</div>

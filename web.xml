@@ -8,22 +8,22 @@
 
   <servlet>
     <servlet-name>AuthServlet</servlet-name>
-    <servlet-class>com.novell.spiffyui.server.AuthServlet</servlet-class>
+    <servlet-class>org.spiffyui.server.AuthServlet</servlet-class>
   </servlet>
 
   <servlet>
     <servlet-name>VersionInfoServlet</servlet-name>
-    <servlet-class>com.novell.spsample.server.VersionInfoServlet</servlet-class>
+    <servlet-class>org.spiffyui.spsample.server.VersionInfoServlet</servlet-class>
   </servlet>
   
   <servlet>
     <servlet-name>CrayonColorsServlet</servlet-name>
-    <servlet-class>com.novell.spsample.server.CrayonColorsServlet</servlet-class>
+    <servlet-class>org.spiffyui.spsample.server.CrayonColorsServlet</servlet-class>
   </servlet>
   
   <servlet>
     <servlet-name>JSLocaleServlet</servlet-name>
-    <servlet-class>com.novell.spiffyui.server.JSLocaleServlet</servlet-class>
+    <servlet-class>org.spiffyui.server.JSLocaleServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -33,12 +33,12 @@
 
   <servlet>
     <servlet-name>SampleAuthServer</servlet-name>
-    <servlet-class>com.novell.spsample.server.SampleAuthServer</servlet-class>
+    <servlet-class>org.spiffyui.spsample.server.SampleAuthServer</servlet-class>
   </servlet>
 
   <servlet>
     <servlet-name>SampleDataServlet</servlet-name>
-    <servlet-class>com.novell.spsample.server.SampleDataServlet</servlet-class>
+    <servlet-class>org.spiffyui.spsample.server.SampleDataServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
