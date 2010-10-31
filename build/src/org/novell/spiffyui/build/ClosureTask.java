@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.build;
+package org.spiffyui.build;
 
 import java.io.File;
 import java.io.IOException;
