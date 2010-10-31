@@ -184,6 +184,17 @@ public final class JSUtil
     }-*/;
     
     /**
+     * Hides the specified element.
+     * 
+     * @param id
+     *        the id for the element to show
+     * 
+     */
+    public static native void hide(String id) /*-{
+        $wnd.$(id).hide();
+    }-*/;
+    
+    /**
      * Set the text for an element
      * 
      * @param id
@@ -205,6 +216,17 @@ public final class JSUtil
      */
     public static native void show(String id, String speed) /*-{
         $wnd.$(id).show(speed);
+    }-*/;
+    
+    /**
+     * Shows the specified element.
+     *
+     * @param id
+     *        the id for the element to show
+     * 
+     */
+    public static native void show(String id) /*-{
+        $wnd.$(id).show();
     }-*/;
 
     /**
