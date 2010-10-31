@@ -74,6 +74,8 @@ public final class RESTility
     private int m_callCount = 0;
 
     private boolean m_hasLoggedIn = false;
+    
+    private boolean m_logInListenerCalled = false;
 
     private static RESTAuthProvider g_authProvider;
 
@@ -230,6 +232,7 @@ public final class RESTility
     public static void doLocalLogout()
     {
         RESTILITY.m_hasLoggedIn = false;
+        RESTILITY.m_logInListenerCalled = false;
         RESTILITY.m_callCount = 0;
         RESTILITY.m_userToken = null;
         RESTILITY.m_tokenServerUrl = null;
@@ -778,8 +781,11 @@ public final class RESTility
                  */
                 if (RESTILITY.m_callCount > 2) {
                     RESTILITY.m_hasLoggedIn = true;
-                    for (RESTLoginCallBack listener : g_loginListeners) {
-                        listener.onLoginSuccess();
+                    if(!RESTILITY.m_logInListenerCalled) {
+                        for (RESTLoginCallBack listener : g_loginListeners) {                	
+                            listener.onLoginSuccess();
+                        }
+                        RESTILITY.m_logInListenerCalled = true;
                     }
                 }
 
