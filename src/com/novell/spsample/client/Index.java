@@ -253,7 +253,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
             if (key.equals(item)) {
                 JSUtil.show("#" + m_panels.get(key).getElement().getId());
             } else {
-                JSUtil.hide("#" + m_panels.get(key).getElement().getId());
+                JSUtil.hide("#" + m_panels.get(key).getElement().getId(), "fast");
             }
         }
     }
