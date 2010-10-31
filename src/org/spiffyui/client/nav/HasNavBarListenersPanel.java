@@ -18,7 +18,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.nav;
+package org.spiffyui.client.nav;
 
 import java.util.ArrayList;
 import java.util.List;

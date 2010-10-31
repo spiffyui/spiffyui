@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client;
+package org.spiffyui.client;
 
 import com.google.gwt.core.client.EntryPoint;
 

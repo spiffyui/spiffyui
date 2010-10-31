@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.login;
+package org.spiffyui.client.login;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -35,14 +35,14 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 
-import com.novell.spiffyui.client.JSUtil;
-import com.novell.spiffyui.client.MessageUtil;
-import com.novell.spiffyui.client.rest.AuthUtil;
-import com.novell.spiffyui.client.rest.RESTAuthProvider;
-import com.novell.spiffyui.client.rest.RESTException;
-import com.novell.spiffyui.client.rest.RESTObjectCallBack;
-import com.novell.spiffyui.client.rest.RESTility;
-import com.novell.spiffyui.client.widgets.SmallLoadingIndicator;
+import org.spiffyui.client.JSUtil;
+import org.spiffyui.client.MessageUtil;
+import org.spiffyui.client.rest.AuthUtil;
+import org.spiffyui.client.rest.RESTAuthProvider;
+import org.spiffyui.client.rest.RESTException;
+import org.spiffyui.client.rest.RESTObjectCallBack;
+import org.spiffyui.client.rest.RESTility;
+import org.spiffyui.client.widgets.SmallLoadingIndicator;
 
 /**
  * A reusable login dialog

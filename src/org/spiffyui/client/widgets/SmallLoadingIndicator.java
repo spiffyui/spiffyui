@@ -17,7 +17,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.widgets;
+package org.spiffyui.client.widgets;
 
 import com.google.gwt.user.client.ui.FlowPanel;
 

@@ -18,7 +18,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.server.i18n;
+package org.spiffyui.server.i18n;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +29,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.novell.spiffyui.server.JSLocaleUtil;
+import org.spiffyui.server.JSLocaleUtil;
 
 /**
  * A basic implementation for matching a list of locales from the request

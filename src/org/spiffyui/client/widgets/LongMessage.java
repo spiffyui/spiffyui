@@ -18,7 +18,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.widgets;
+package org.spiffyui.client.widgets;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,8 +37,8 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.SimplePanel;
 
-import com.novell.spiffyui.client.JSUtil;
-import com.novell.spiffyui.client.SpiffyUIStrings;
+import org.spiffyui.client.JSUtil;
+import org.spiffyui.client.SpiffyUIStrings;
 
 /**
  * A class for showing messages that are wordy and take more than 

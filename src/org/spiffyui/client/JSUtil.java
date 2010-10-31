@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client;
+package org.spiffyui.client;
 
 import java.util.Date;
 
@@ -25,8 +25,8 @@ import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.novell.spiffyui.client.nav.MainNavBar;
-import com.novell.spiffyui.client.nav.NavItem;
+import org.spiffyui.client.nav.MainNavBar;
+import org.spiffyui.client.nav.NavItem;
 
 /**
  * A set of static JavaScript utilities.
@@ -74,7 +74,7 @@ public final class JSUtil
     
     private static final native void bindJavaScript() /*-{ 
         $wnd.spiffyui.handleHistoryEvent = function(contentObject, historyObject) {
-            @com.novell.spiffyui.client.JSUtil::doHistory(Lcom/novell/spiffyui/client/nav/MainNavBar;Ljava/lang/String;)(contentObject.panel, contentObject.id);
+            @org.spiffyui.client.JSUtil::doHistory(Lorg/spiffyui/client/nav/MainNavBar;Ljava/lang/String;)(contentObject.panel, contentObject.id);
         }
      
         $wnd.dsHistory.addFunction($wnd.spiffyui.handleHistoryEvent);

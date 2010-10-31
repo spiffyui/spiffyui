@@ -16,10 +16,10 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.login;
+package org.spiffyui.client.login;
 
 import com.google.gwt.core.client.GWT;
-import com.novell.spiffyui.client.SpiffyUIStrings;
+import org.spiffyui.client.SpiffyUIStrings;
 
 
 /**

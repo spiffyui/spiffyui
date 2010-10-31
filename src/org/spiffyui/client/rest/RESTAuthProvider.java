@@ -16,9 +16,9 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.rest;
+package org.spiffyui.client.rest;
 
-import com.novell.spiffyui.client.rest.util.RESTAuthConstants;
+import org.spiffyui.client.rest.util.RESTAuthConstants;
 
 /**
  * This interface defines the necessary steps to perform a login for a REST service 

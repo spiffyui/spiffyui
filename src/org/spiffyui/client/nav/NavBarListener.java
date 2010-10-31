@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.nav;
+package org.spiffyui.client.nav;
 
 /**
  * A listener for events on the navigation bar or the header (for any panel changing including logout).

@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.rest;
+package org.spiffyui.client.rest;
 
 /**
  * This interface is implemented by request callers to get the bean or Object

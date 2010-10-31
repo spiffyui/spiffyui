@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.rest.util;
+package org.spiffyui.client.rest.util;
 
 /**
  * This interface defines the necessary constants to perform a login for a REST service

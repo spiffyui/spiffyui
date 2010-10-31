@@ -16,13 +16,13 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client;
+package org.spiffyui.client;
 
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
-import com.novell.spiffyui.client.nav.HasNavBarListenersPanel;
+import org.spiffyui.client.nav.HasNavBarListenersPanel;
 
 
 /**

@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.nav;
+package org.spiffyui.client.nav;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.novell.spiffyui.client.JSUtil;
+import org.spiffyui.client.JSUtil;
 
 /**
  * This is the navigation bar for the main page.

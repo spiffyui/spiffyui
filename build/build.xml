@@ -54,7 +54,7 @@
 
     <target name="compile">
         <!-- Compile all the Java -->
-        <javac srcdir="${spiffy.root}/src/com/novell/spiffyui/server:${spiffy.root}/src/com/novell/spiffyui/client/rest/util" destdir="${spiffy.classes}"
+        <javac srcdir="${spiffy.root}/src/org/spiffyui/server:${spiffy.root}/src/org/spiffyui/client/rest/util" destdir="${spiffy.classes}"
                target="1.5" source="1.5" debug="true" deprecation="yes"
                includeantruntime="false">
             <compilerarg value="-Xlint" />
@@ -82,7 +82,7 @@
     <target name="compileClosureTask" if="closuretask.is.compiled" depends="setup,compileClosureTask.check">
         <mkdir dir="${spiffy.build.classes}"/>
         <javac srcdir="${spiffy.build}/src" destdir="${spiffy.build.classes}" target="1.5" 
-                    includes="com/novell/spiffyui/build/**"
+                    includes="org/spiffyui/build/**"
                     source="1.5" debug="true" deprecation="yes" includeantruntime="false">
             <compilerarg value="-Xlint" />
             <classpath>
@@ -93,13 +93,13 @@
         
         <jar destfile="${spiffy.build}/lib/closuretask.jar">
             <zipfileset dir="${spiffy.build.classes}" prefix="" >
-                <include name="com/novell/spiffyui/build/*.*"/>
+                <include name="org/spiffyui/build/*.*"/>
             </zipfileset>
         </jar>
     </target>
     
     <target name="js-min" description="Minimize the JavaScript with the Closure compiler" depends="setup,js-lint,compileClosureTask.check,compileClosureTask">
-        <taskdef name="closure" classname="com.novell.spiffyui.build.ClosureTask">
+        <taskdef name="closure" classname="org.spiffyui.build.ClosureTask">
             <classpath>
                 <pathelement location="${spiffy.build}/lib/closure-compiler.jar"/>
                 <pathelement path="${spiffy.build}/lib/closuretask.jar"/>

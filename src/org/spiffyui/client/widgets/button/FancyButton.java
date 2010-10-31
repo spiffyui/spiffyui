@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.widgets.button;
+package org.spiffyui.client.widgets.button;
 
 import com.google.gwt.user.client.ui.Button;
 

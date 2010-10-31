@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.nav;
+package org.spiffyui.client.nav;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.novell.spiffyui.client.JSUtil;
+import org.spiffyui.client.JSUtil;
 
 /**
  * This widget represents a single section that contains multiple items 

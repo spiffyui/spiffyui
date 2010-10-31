@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.widgets;
+package org.spiffyui.client.widgets;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -25,8 +25,8 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
-import com.novell.spiffyui.client.JSUtil;
-import com.novell.spiffyui.client.SpiffyUIStrings;
+import org.spiffyui.client.JSUtil;
+import org.spiffyui.client.SpiffyUIStrings;
 
 /**
  * The SlideDownPrefsPanel shows a tab that sticks to the bottom of the 

@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.server;
+package org.spiffyui.server;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -49,7 +49,7 @@ import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
-import com.novell.spiffyui.client.rest.util.RESTAuthConstants;
+import org.spiffyui.client.rest.util.RESTAuthConstants;
 
 /**
  * This servlet is a passthrough for authentication requests.

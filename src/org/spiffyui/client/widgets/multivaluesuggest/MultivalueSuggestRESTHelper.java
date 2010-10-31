@@ -18,7 +18,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.widgets.multivaluesuggest;
+package org.spiffyui.client.widgets.multivaluesuggest;
 
 /**
  * An abstract class that handles building of the REST endpoint URL and 

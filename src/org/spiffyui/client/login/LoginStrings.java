@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.login;
+package org.spiffyui.client.login;
 
 /**
  * The Strings used by the login dialog

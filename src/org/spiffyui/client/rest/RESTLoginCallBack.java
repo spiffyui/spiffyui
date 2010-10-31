@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.rest;
+package org.spiffyui.client.rest;
 
 /**
  * RESTility and the AuthUtil try to make login and authentication 

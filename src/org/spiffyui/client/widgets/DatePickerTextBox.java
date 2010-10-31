@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.widgets;
+package org.spiffyui.client.widgets;
 
 import java.util.Date;
 
@@ -29,7 +29,7 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Event.NativePreviewEvent;
 import com.google.gwt.user.client.ui.TextBox;
 
-import com.novell.spiffyui.client.JSDateUtil;
+import org.spiffyui.client.JSDateUtil;
 
 /**
  * This widget uses a simple GWT TextBox and attaches the JQuery UI

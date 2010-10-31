@@ -18,7 +18,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.widgets.dialog;
+package org.spiffyui.client.widgets.dialog;
 
 import com.google.gwt.user.client.ui.HTML;
 

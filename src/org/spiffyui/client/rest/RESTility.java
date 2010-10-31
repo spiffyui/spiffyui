@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.rest;
+package org.spiffyui.client.rest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,9 +35,9 @@ import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 
-import com.novell.spiffyui.client.JSUtil;
-import com.novell.spiffyui.client.MessageUtil;
-import com.novell.spiffyui.client.SpiffyUIStrings;
+import org.spiffyui.client.JSUtil;
+import org.spiffyui.client.MessageUtil;
+import org.spiffyui.client.SpiffyUIStrings;
 
 /**
  * A set of utilities for calling REST from GWT.

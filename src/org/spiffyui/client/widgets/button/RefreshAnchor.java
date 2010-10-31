@@ -18,13 +18,13 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.widgets.button;
+package org.spiffyui.client.widgets.button;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Anchor;
-import com.novell.spiffyui.client.SpiffyUIStrings;
+import org.spiffyui.client.SpiffyUIStrings;
 
 /**
  * This an Anchor that shows the refresh icon.  It has a disabled look as well as a loading look.

@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client;
+package org.spiffyui.client;
 
 import java.util.Date;
 
@@ -199,22 +199,22 @@ public final class MessageUtil
     
     private static native void createJSFunctions() /*-{
         $wnd.spiffyui.showFatalError = function(msg) {
-            @com.novell.spiffyui.client.MessageUtil::showFatalError(Ljava/lang/String;)(msg);
+            @org.spiffyui.client.MessageUtil::showFatalError(Ljava/lang/String;)(msg);
         }
         
         $wnd.spiffyui.showError = function(msg) {
-            @com.novell.spiffyui.client.MessageUtil::showError(Ljava/lang/String;)(msg);
+            @org.spiffyui.client.MessageUtil::showError(Ljava/lang/String;)(msg);
         }
         
         $wnd.spiffyui.showWarning = function(msg, shouldLog) {
             if (shouldLog === null) {
                 shouldLog = true;
             }
-            @com.novell.spiffyui.client.MessageUtil::showWarning(Ljava/lang/String;Ljava/lang/Boolean;)(msg,shouldLog);
+            @org.spiffyui.client.MessageUtil::showWarning(Ljava/lang/String;Ljava/lang/Boolean;)(msg,shouldLog);
         }
         
         $wnd.spiffyui.showMessage = function(msg) {
-            @com.novell.spiffyui.client.MessageUtil::showMessage(Ljava/lang/String;)(msg);
+            @org.spiffyui.client.MessageUtil::showMessage(Ljava/lang/String;)(msg);
         }
     }-*/;
 }

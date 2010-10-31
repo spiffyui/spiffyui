@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.widgets.button;
+package org.spiffyui.client.widgets.button;
 
 /**
  * This widget is a fancy save button with an embedded icon

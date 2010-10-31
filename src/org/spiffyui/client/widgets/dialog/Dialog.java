@@ -18,7 +18,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.widgets.dialog;
+package org.spiffyui.client.widgets.dialog;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -32,7 +32,7 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.novell.spiffyui.client.SpiffyUIStrings;
+import org.spiffyui.client.SpiffyUIStrings;
 
 /**
  * This is a common ancestor class where we can change

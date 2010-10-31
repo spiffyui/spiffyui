@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.nav;
+package org.spiffyui.client.nav;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;

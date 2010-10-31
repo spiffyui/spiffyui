@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.widgets.multivaluesuggest;
+package org.spiffyui.client.widgets.multivaluesuggest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,14 +44,14 @@ import com.google.gwt.user.client.ui.TextBoxBase;
 import com.google.gwt.user.client.ui.SuggestOracle.Callback;
 import com.google.gwt.user.client.ui.SuggestOracle.Request;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
-import com.novell.spiffyui.client.JSONUtil;
-import com.novell.spiffyui.client.JSUtil;
-import com.novell.spiffyui.client.SpiffyUIStrings;
-import com.novell.spiffyui.client.rest.RESTCallback;
-import com.novell.spiffyui.client.rest.RESTException;
-import com.novell.spiffyui.client.rest.RESTObjectCallBack;
-import com.novell.spiffyui.client.rest.RESTility;
-import com.novell.spiffyui.client.widgets.FormFeedback;
+import org.spiffyui.client.JSONUtil;
+import org.spiffyui.client.JSUtil;
+import org.spiffyui.client.SpiffyUIStrings;
+import org.spiffyui.client.rest.RESTCallback;
+import org.spiffyui.client.rest.RESTException;
+import org.spiffyui.client.rest.RESTObjectCallBack;
+import org.spiffyui.client.rest.RESTility;
+import org.spiffyui.client.widgets.FormFeedback;
 
 /**
 * A SuggestBox that uses the rest package and allows for multiple values and autocomplete.

@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.server;
+package org.spiffyui.server;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.novell.spiffyui.server.i18n.BasicBestLocaleMatcher;
+import org.spiffyui.server.i18n.BasicBestLocaleMatcher;
 
 /**
  * This servlet redirect to a specific locale version of the

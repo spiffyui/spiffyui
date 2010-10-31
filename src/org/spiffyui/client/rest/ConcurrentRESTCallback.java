@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.rest;
+package org.spiffyui.client.rest;
 
 /**
  * The ConcurrentRESTCallback is a special form of REST callback that can

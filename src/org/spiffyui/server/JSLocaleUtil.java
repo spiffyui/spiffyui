@@ -17,7 +17,7 @@
  * ========================================================================
  */
 
-package com.novell.spiffyui.server;
+package org.spiffyui.server;
 
 import java.util.ArrayList;
 import java.util.HashMap;

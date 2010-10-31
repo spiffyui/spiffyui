@@ -10,6 +10,6 @@
     
     <set-property name="gwt.suppressNonStaticFinalFieldWarnings" value="true" /> 
     
-    <entry-point class='com.novell.spiffyui.client.Index'/>
+    <entry-point class='org.spiffyui.client.Index'/>
     
 </module>

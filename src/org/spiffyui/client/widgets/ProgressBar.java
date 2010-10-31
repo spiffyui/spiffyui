@@ -16,12 +16,12 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.widgets;
+package org.spiffyui.client.widgets;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.SimplePanel;
 
-import com.novell.spiffyui.client.SpiffyUIStrings;
+import org.spiffyui.client.SpiffyUIStrings;
 
 
 /**

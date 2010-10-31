@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package com.novell.spiffyui.client.rest;
+package org.spiffyui.client.rest;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONObject;
@@ -24,10 +24,10 @@ import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Window;
 
-import com.novell.spiffyui.client.MessageUtil;
-import com.novell.spiffyui.client.SpiffyUIStrings;
-import com.novell.spiffyui.client.login.LoginPanel;
-import com.novell.spiffyui.client.login.LoginStringHelper;
+import org.spiffyui.client.MessageUtil;
+import org.spiffyui.client.SpiffyUIStrings;
+import org.spiffyui.client.login.LoginPanel;
+import org.spiffyui.client.login.LoginStringHelper;
 
 /**
  * A utility class for login and logout.
