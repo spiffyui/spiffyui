@@ -77,7 +77,7 @@ public class OverviewPanel extends HTMLPanel
         /*
          * Add the REST error handling anchor
          */
-        Anchor restError = new Anchor("REST error handling framework", "RESTPanel");
+        Anchor restError = new Anchor("A REST error handling framework", "RESTPanel");
         restError.addClickHandler(new ClickHandler() {
             
             @Override

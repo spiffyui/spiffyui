@@ -98,7 +98,7 @@ h2 {
     display: block;
     font-size: 24px;
     left: 110px;
-    margin-left: 2em;
+    padding-left: 2em;
     position: absolute;
     text-transform: uppercase;
     top: 5px;

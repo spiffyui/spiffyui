@@ -3,11 +3,44 @@
     <p>
     The Spiffy UI framework is included as a subproject and referenced in your GWT project.  You can start using the framework in four simple steps.
     </p>
+    
+    <h2>Requirements</h2>
+    
+    <p>
+        To run the Spiffy UI framework you'll need:
+    </p>
+    
+    <ul>
+        <li>Java 1.6 or higher</li>
+        <li>A J2EE application server <span class="weak">(only if you need the server-side parts)</span></li>
+    </ul>
+    
+    <h2>Building this sample</h2>
+    
+    <p>
+    A good place to start is by building this sample application.  It's easy.  Use the following command to check it out:
+    </p>
+    
+    <pre>
+    svn co https://svn.provo.novell.com/svn/spiffyui/sample spsample
+    </pre>
+    
+    <p>
+    This checkout includes the Spiffy UI framework and the Spiffy Sample application containing examples and documentation for the framework.  Once it is checked out execute this command line from the <code>spsample</code> directory.
+    </p>
+    
+    <pre>
+    ant
+    </pre>
+    
+    <p>
+    Once the build completes you can deploy the spsample.war file from <code>dist/spsample.war</code>.
+    </p>
 
-    <h2>Including spiffy</h2>
+    <h2>Including spiffy in your project</h2>
 
     <p>
-    The SpiffyUI framework is included as a Subversion external reference for this project from <a href="https://svn.provo.novell.com/svn/spiffyui/trunk">https://svn.provo.novell.com/svn/spiffyui/trunk</a>.
+    The SpiffyUI framework is typically included as a Subversion external reference:  <a href="https://svn.provo.novell.com/svn/spiffyui/trunk">https://svn.provo.novell.com/svn/spiffyui/trunk</a>.
     </p>
 
     <p>
@@ -24,7 +57,7 @@
 
     <h2>Building spiffy</h2>
     <p>
-    The Spiffy UI framework uses an Ant build script to compile and compress JavaScript and CSS files using the <a href="http://code.google.com/closure/compiler/">Google Closure Compiler</a> and the <a href="http://developer.yahoo.com/yui/compressor/">YUI Compressor</a>.  You must include Ant in your build environment.  You can invoke the Spiffy UI build from your own Ant build with the <code>ant</code> task like this:
+    The Spiffy UI framework uses an <a href="http://ant.apache.org/">Apache Ant</a> build script to compile and compress JavaScript and CSS files using the <a href="http://code.google.com/closure/compiler/">Google Closure Compiler</a> and the <a href="http://developer.yahoo.com/yui/compressor/">YUI Compressor</a>.  You must include Ant in your build environment.  You can invoke the Spiffy UI build from your own Ant build with the <code>ant</code> task like this:
     </p>
 
     <pre>
