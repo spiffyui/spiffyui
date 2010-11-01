@@ -77,9 +77,7 @@
     The easiest way to watch the authentication protocol is with <a href="http://getfirebug.com/">Firebug</a>.
     </p>
     
-    <p>
-    <img id="firebugImage" src="images/firebug.png" />
-    </p>
+    <div id="firebugImage"></div>
     
     <p>
     The first request gets a 401 response indicating that authentication is required.  The the Spiffy UI framework requests a token and includes it in future requests.  This all goes through the authentication proxy.
@@ -151,9 +149,7 @@
     The authentication proxy is just a helper in this process.  The real work happens in the token exchange.  You can skip the proxy if you're calling from Java or any other language that doesn't use the same origin policy.  Here's what happens when you click the login button above.
     </p>
 
-    <p>
-    <img id="loginImage" src="images/login.png" />
-    </p>
+    <div id="loginImage"></div>
 
     <p>
     1. Browser sends "GET" request to http://localhost:8081/spsample/authdata (implemented by SampleDataServlet).
@@ -211,7 +207,7 @@
     <h2>Logout</h2>
 
     <p>
-    <img id="logoutImage" src="images/logout.png" />
+    <div id="logoutImage"></div>
     </p>
 
     <p>

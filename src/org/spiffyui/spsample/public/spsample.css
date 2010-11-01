@@ -339,13 +339,27 @@ iframe {
 }
 
 #cssSampleImage {
-    margin-bottom: 10px;
+    background: url("images/spiffysprites.png") no-repeat scroll 0 0 transparent;
+    width: 650px; 
+    height: 240px;
+    margin-bottom: 12px;
     margin-top: 18px;
 }
 
 #loginImage, #logoutImage {
-    margin-bottom: 5px;
     margin-top: 5px;
+    width: 492px; 
+    height: 332px;
+}
+
+#loginImage {
+    background: url("images/spiffysprites.png") no-repeat scroll 0 -2148px transparent;
+    margin-bottom: 10px;
+}
+
+#logoutImage {
+    background: url("images/spiffysprites.png") no-repeat scroll 0 -2630px transparent;
+    margin-bottom: 32px;
 }
 
 #loginHeaderContainer {
@@ -353,7 +367,10 @@ iframe {
 }
 
 #firebugImage {
-    margin-bottom: 2px;
+    background: url("images/spiffysprites.png") no-repeat scroll 0 -390px transparent;
+    width: 515px; 
+    height: 346px;
+    margin-bottom: 14px;
 }
 
 .headertitle {
@@ -391,7 +408,7 @@ iframe {
 }
 
 #fixedGridTab button {
-    background: url("images/grid_tab_text.png") no-repeat scroll 3px center transparent;
+    background: url("images/spiffysprites.png") no-repeat scroll 3px -1054px transparent;
     border: none;
     height: 192px;
     margin-left: 3px;
@@ -438,4 +455,18 @@ iframe {
 
 #introVideo, #frameworkVideo {
     margin-bottom: 16px;
+}
+
+#javaDocImage {
+    background: url("images/spiffysprites.png") no-repeat scroll 0 -1396px transparent;
+    width: 592px; 
+    height: 602px;
+    display: block;
+}
+
+#restImage {
+    background: url("images/spiffysprites.png") no-repeat scroll 0 -3112px transparent;
+    width: 478px; 
+    height: 241px;
+    margin-bottom: 21px;
 }
