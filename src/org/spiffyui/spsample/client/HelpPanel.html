@@ -12,23 +12,29 @@
     </p>
     
     <p>
-    It's quick.  Use the following command to check it out:
+    1. Use the following command to check out the Spiffy Sample application which also includes the Spiffy UI framework:
     </p>
-    
     <pre>
     svn co https://svn.provo.novell.com/svn/spiffyui/sample spsample
     </pre>
-    
+        
     <p>
-    This checkout includes the Spiffy UI framework and the Spiffy Sample application.  Once it is checked out execute this command line from the <code>spsample</code> directory.
+    2. Set the environment variable <code>JAVA_HOME</code> to the location of your JDK (1.6 or higher).
     </p>
     
-    <pre>
-    ant
-    </pre>
-    
     <p>
-    Once the build completes you can deploy the spsample.war file from <code>dist/spsample.war</code>.
+    3. Place the <code>external/ant/bin</code> directory in your path <span class="weak">(optional)</span>.
+    </p>
+
+    <p>
+    4. Execute this command line from the <code>spsample</code> directory:   
+    </p>
+    <pre>
+    ant <span class="weak">(if not on your path then: <code>external/ant/bin/ant</code>)</span>
+    </pre>
+        
+    <p>
+    5. Once the build completes you can deploy the spsample.war file from <code>dist/spsample.war</code>.
     </p>
     
     <h2>Contact</h2>
