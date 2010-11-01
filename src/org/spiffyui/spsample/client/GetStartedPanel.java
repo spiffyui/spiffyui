@@ -19,6 +19,9 @@
 package org.spiffyui.spsample.client;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -42,5 +45,20 @@ public class GetStartedPanel extends HTMLPanel
         RootPanel.get("mainContent").add(this);
         
         setVisible(false);
+        
+        /*
+         * Add the get help anchor
+         */
+        Anchor getHelp = new Anchor("Get Help page", "GetHelpPanel");
+        getHelp.addClickHandler(new ClickHandler() {
+            
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                event.preventDefault();
+                Index.selectItem(Index.HELP_NAV_ITEM_ID);
+            }
+        });
+        add(getHelp, "getStartedGetHelp");
     }
 }

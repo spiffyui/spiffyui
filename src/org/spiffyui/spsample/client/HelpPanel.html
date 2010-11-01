@@ -4,40 +4,43 @@
     We're working on making the Spiffy UI framework open source, but for now it is available only to Novell projects.  You can use the Spiffy UI framework for your project.  We support new projects and all of the open source code included in this project has been reviewed by the Novell open source review board.
     </p>
     
-    <h2>Try it out</h2>
+    <h2>Try out the sample application</h2>
     
     <p>
-    Trying the Spiffy UI framework is easy.  You can check it out anonymously and build it in about a minute.  It deploys to any J2EE application server you want.  
+    Downloading and trying out this entire website, built on the Spiffy UI framework, is a fast and easy way to get plenty of sample code and documentation.  
+    You can check it out anonymously and build it in about a minute.  It deploys to any J2EE application server you want.  
     </p>
     
     <p>
-    Get all the information you need to try the framework on the <a href="https://twiki.innerweb.novell.com/bin/view/IDApps/IDMSpiffyUI"> Spiffy UI Build Setup</a> page.
+    It's quick.  Use the following command to check it out:
     </p>
+    
+    <pre>
+    svn co https://svn.provo.novell.com/svn/spiffyui/sample spsample
+    </pre>
     
     <p>
-    If you have more questions about the framework or want to talk about how to use it in your project please contact Zack Grossbart <a href="mailto:zgrossbart@novell.com">zgrossbart@novell.com</a>.
+    This checkout includes the Spiffy UI framework and the Spiffy Sample application.  Once it is checked out execute this command line from the <code>spsample</code> directory.
     </p>
     
-    <h2>Included libraries</h2>
+    <pre>
+    ant
+    </pre>
     
     <p>
-    The Spiffy UI framework includes code from the following open source projects:
+    Once the build completes you can deploy the spsample.war file from <code>dist/spsample.war</code>.
     </p>
     
-    <ul>
-        <li><a href="http://commons.apache.org/codec/">Apache Commons Codec</a> version 1.4</li>
-        <li><a href="http://hc.apache.org/">Apache HTTP Client</a> version 4.1</li>
-        <li><a href="http://www.webtoolkit.info">Base64 encode / decode</a></li>
-        <li><a href="http://www.datejs.com/">DateJS</a> version 1.0 alpha</li>
-        <li><a href="http://code.google.com/p/dshistory/">dshistory</a></li>
-        <li><a href="https://jersey.dev.java.net/">GlassFish Jersey</a></li>
-        <li><a href="http://code.google.com/p/humanmsg/">Humanized Messages</a></li>
-        <li><a href="http://jquery.com/">jQuery</a> version 1.4.2</li>
-        <li><a href="http://github.com/perifer/timePicker">jQuery Time Picker</a> version 0.2</li>
-        <li><a href="http://jqueryui.com/">jQuery UI</a> version 1.8</li>
-        <li><a href="http://developer.yahoo.net/yui/license.txt">reset.css</a> version 2.8.0r4</li>
-        <li><a href="http://www.zackgrossbart.com/hackito/slidegrid/">Sliding Grid</a></li>
-    </ul>
+    <h2>Contact</h2>
+    <p>
+    If you have more questions about the framework or want to talk about how to use it in your project, please contact Zack Grossbart <a href="mailto:zgrossbart@novell.com">zgrossbart@novell.com</a>.
+    </p>
+        
+    <h2>Using spiffy</h2>
+
+    <p>
+    Most of the Spiffy UI framework is Java code written in GWT.  All of the API has Java doc in the <a href="javadoc/index.html">Spiffy UI API JavaDoc</a>.
+    </p>
     
     <p>
     Thank you for taking a look at the framework.  We hope it helps your project.

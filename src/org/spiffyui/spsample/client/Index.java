@@ -83,7 +83,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     /** NavItem ID for JavaDoc */
     public static final String JAVADOC_NAV_ITEM_ID = "javaDocNavItem";
     /** NavItem ID for Help */
-    public static final String HELP_ITEM_ID = "helpNavItem";
+    public static final String HELP_NAV_ITEM_ID = "helpNavItem";
     /** NavItem ID for Authentication */
     public static final String AUTH_NAV_ITEM_ID = "authNavItem";
     /** NavItem ID for Dates */
@@ -223,7 +223,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         /*
         The help panel
         */
-        item = new NavItem(HELP_ITEM_ID, "Get Help",
+        item = new NavItem(HELP_NAV_ITEM_ID, "Get Help",
                           "Get help with the Spiffy UI framework");
         m_navBar.add(item);
         m_panels.put(item, new HelpPanel());
