@@ -23,6 +23,8 @@ import com.google.gwt.core.client.EntryPoint;
 
 /**
  * This class is the main entry point for our GWT module. 
+ * It is mostly used for the entry point of this module and 
+ * isn't part of the API. 
  */
 public class Index implements EntryPoint
 {

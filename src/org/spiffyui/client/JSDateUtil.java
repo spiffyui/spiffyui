@@ -25,11 +25,19 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 /**
  * This is a collection of utility methods for manipulating dates in the browser.
  * All of these methods are locale aware and use the current locale of the browser. 
- * These date functions use the libraries from http://www.datejs.com/.  This package 
- * has much better date support than the current GWT date support. 
+ * These date functions use the libraries from <a href="http://www.datejs.com">http://www.datejs.com</a>. 
+ * This package has much better date support than the current GWT date support. 
  */
 public final class JSDateUtil
 {
+    
+    /**
+     * Making sure this class can't be instantiated.
+     */
+    private JSDateUtil()
+    {
+    }
+    
     /**
      * Convert java.util.Date to Date format in the current locale
      * @param date - the Date object to convert

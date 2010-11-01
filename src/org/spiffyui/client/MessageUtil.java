@@ -34,10 +34,18 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 /**
  * This class is a set of static utility methods for showing messages and errors
- * to the end user.
+ * in the browser and handle them all in a consistent way.
  */
 public final class MessageUtil
 {
+    
+    /**
+     * Making sure this class can't be instantiated.
+     */
+    private MessageUtil()
+    {
+    }
+    
     static {
         createJSFunctions();
     }

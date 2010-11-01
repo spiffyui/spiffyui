@@ -29,10 +29,18 @@ import org.spiffyui.client.nav.MainNavBar;
 import org.spiffyui.client.nav.NavItem;
 
 /**
- * A set of static JavaScript utilities.
+ * A set of static JavaScript utilities that provide access to functions from 
+ * JQuery and some other JavaScript libraries. 
  */
 public final class JSUtil
 {
+    /**
+     * Making sure this class can't be instantiated.
+     */
+    private JSUtil()
+    {
+    }
+    
     private static int g_uniqueCounter = 0;
       
     static {

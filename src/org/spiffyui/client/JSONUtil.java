@@ -29,10 +29,17 @@ import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
 
 /**
- * A set of static JavaScript utilities.
+ * A set of static JavaScript utilities for handling JSON data structures.
  */
 public final class JSONUtil
 {
+    
+    /**
+     * Making sure this class can't be instantiated.
+     */
+    private JSONUtil()
+    {
+    }
 
     /**
      * Get a string from the JSON object or null if it doesn't exist or
