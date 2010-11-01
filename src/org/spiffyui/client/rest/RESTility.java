@@ -781,8 +781,8 @@ public final class RESTility
                  */
                 if (RESTILITY.m_callCount > 2) {
                     RESTILITY.m_hasLoggedIn = true;
-                    if(!RESTILITY.m_logInListenerCalled) {
-                        for (RESTLoginCallBack listener : g_loginListeners) {                	
+                    if (!RESTILITY.m_logInListenerCalled) {
+                        for (RESTLoginCallBack listener : g_loginListeners) {
                             listener.onLoginSuccess();
                         }
                         RESTILITY.m_logInListenerCalled = true;
