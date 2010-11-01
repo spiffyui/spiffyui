@@ -136,13 +136,10 @@
     VersionInfo.getVersionInfo(<span class="keyword">new</span> RESTObjectCallBack&lt;VersionInfo&gt;() {
             <span class="keyword">public</span> <span class="keyword">void</span> success(VersionInfo info)
             {
-                m_footer.setFooterString(
-                    <span class="string">"Spiffy UI Sample version "</span> + 
-                    info.getVersion() +
-                    <span class="string">" was built on "</span> + 
+                m_footer.setFooterString(<span class="string">"Spiffy UI Sample version "</span> + 
+                    info.getVersion() + <span class="string">" was built on "</span> + 
                     DateTimeFormat.getFullDateFormat().format(info.getDate()) +
-                    <span class="string">" from revision "</span> + 
-                    info.getRevision());
+                    <span class="string">" from revision "</span> + info.getRevision());
             }
 
             <span class="keyword">public</span> <span class="keyword">void</span> error(String message)
