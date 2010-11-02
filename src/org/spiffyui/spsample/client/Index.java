@@ -229,7 +229,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         m_panels.put(item, new HelpPanel());
        
 
-        m_navBar.selectItem(m_navBar.getItem("overviewNavItem"));
+        m_navBar.selectItem(m_navBar.getItem(OVERVIEW_NAV_ITEM_ID));
         
         m_navBar.addListener(this);
         RESTility.addLoginListener(this);
