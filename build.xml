@@ -49,18 +49,15 @@
             <format property="builddate" pattern="MMM d, yyyy h:mm:ss a"/>
         </tstamp>
 
-        <!-- Not using svn for the moment
+        <!-- Not using svn for the moment -->
         <exec executable="svn" output="build_svninfo.xml">
-            <arg line="info - -xml ${root}"/>
+            <arg line="info --xml ${root}"/>
         </exec>
-        -->
 
-        <!-- We also store the current revision from Subversion
+        <!-- We also store the current revision from Subversion -->
         <xmlproperty file="build_svninfo.xml"/>
         <delete file="build_svninfo.xml"/>
         <property name="revision.number" value="${info.entry(revision)}"/>
-        -->
-        <property name="revision.number" value="241"/>
         
         <mkdir dir="${sample.out}"/>
         <mkdir dir="${sample.out.classes}"/>
