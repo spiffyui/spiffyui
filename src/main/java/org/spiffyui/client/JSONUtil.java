@@ -238,31 +238,4 @@ public final class JSONUtil
         
         return null;
     }
-    
-    /**
-     * Get a java.util.Date from the JSON object in medium date time format
-     * or return null if it doesn't exist or to a Date
-     * 
-     * @param obj    the object with the value
-     * @param key    the key for the object
-     * 
-     * @return the value or null it could not be decoded/converted
-     */
-    public static Date getDateValueFromMediumDateTime(JSONObject obj, String key) 
-    {
-        JSONValue v = obj.get(key);
-        if (v != null) {
-            JSONString s = v.isString();
-            if (s != null) {
-                try {
-                    return DateTimeFormat.getMediumDateTimeFormat().parse(s.stringValue());
-                } catch (Exception e) {
-                    return null;
-                }
-            }
-        }
-        return null;
-    }
-    
-    
 }

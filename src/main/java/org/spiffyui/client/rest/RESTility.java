@@ -692,7 +692,7 @@ public final class RESTility
             if (response.getText() != null &&
                 response.getText().trim().length() > 1) {
                 try {
-                    val = JSONParser.parse(response.getText());
+                    val = JSONParser.parseStrict(response.getText());
                 } catch (JavaScriptException e) {
                     /*
                      This means we couldn't parse the response this is unlikely
