@@ -22,12 +22,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.novell.spiffyui</groupId>
+  <groupId>org.spiffyui</groupId>
   <artifactId>spiffyui</artifactId>
   <packaging>jar</packaging>
   <version>1.0.0-SNAPSHOT</version>
   <name>spiffyui</name>
-  <url>http://maven.apache.org</url>
+  <url>http://www.spiffyui.org/</url>
   
   <properties>
     <project.build.java.target>1.6</project.build.java.target>
@@ -68,6 +68,11 @@
         <groupId>com.metaparadigm</groupId>
         <artifactId>json-rpc</artifactId>
         <version>1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.ant</groupId>
+        <artifactId>ant</artifactId>
+        <version>1.7.1</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -120,7 +125,7 @@
         <executions>
           <execution>
             <configuration>
-              <module>com.novell.spiffyui.spiffyui</module>
+              <module>org.spiffyui.spiffyui</module>
             </configuration>
             <goals>
               <goal>resources</goal>
@@ -152,10 +157,25 @@
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
           <execution>
+            <id>clean-ant</id>
+            <phase>clean</phase>
+            <configuration>
+              <target>
+                <ant antfile="${basedir}/build/build.xml">
+                  <target name="spiffy.clean"/>
+                </ant>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
             <id>js-min-ant</id>
             <phase>process-resources</phase>
             <configuration>
               <target>
+                <property name="compile_classpath" refid="maven.compile.classpath"/>
                 <ant antfile="${basedir}/build/build.xml">
                   <target name="js-min"/>
                 </ant>
@@ -258,9 +278,12 @@
     <dependency>
       <groupId>com.metaparadigm</groupId>
       <artifactId>json-rpc</artifactId>
-      <version>1.0</version>
       <type>jar</type>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.ant</groupId>
+      <artifactId>ant</artifactId>
     </dependency>
   </dependencies>
 

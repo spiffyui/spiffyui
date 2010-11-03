@@ -88,11 +88,14 @@
         <mkdir dir="${spiffy.build.classes}"/>
         <javac srcdir="${spiffy.build}/src" destdir="${spiffy.build.classes}" target="1.5" 
                     includes="org/spiffyui/build/**"
-                    source="1.5" debug="true" deprecation="yes" includeantruntime="false">
+                    source="1.5" debug="true" deprecation="yes" includeantruntime="false"
+                    fork="true">
             <compilerarg value="-Xlint" />
             <classpath>
                 <pathelement location="${spiffy.build}/lib/closure-compiler.jar"/>
                 <pathelement path="${java.class.path}"/>
+                <!-- Adding this so that maven builds will include the necessary ant dependencies -->
+                <pathelement path="${compile_classpath}"/>
             </classpath>
         </javac>
         
