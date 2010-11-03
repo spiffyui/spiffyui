@@ -85,8 +85,7 @@
         <mkdir dir="${spiffy.build.classes}"/>
         <javac srcdir="${spiffy.build}/src" destdir="${spiffy.build.classes}" target="1.5" 
                     includes="org/spiffyui/build/**"
-                    source="1.5" debug="true" deprecation="yes" includeantruntime="false"
-                    fork="true">
+                    source="1.5" debug="true" deprecation="yes" includeantruntime="false">
             <compilerarg value="-Xlint" />
             <classpath>
                 <pathelement location="${spiffy.build}/lib/closure-compiler.jar"/>
