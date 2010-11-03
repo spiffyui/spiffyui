@@ -22,7 +22,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.novell.spiffyui</groupId>
+  <groupId>org.spiffyui</groupId>
   <artifactId>spiffyui-sample</artifactId>
   <packaging>war</packaging>
   <version>1.0.0-SNAPSHOT</version>
@@ -43,7 +43,7 @@
         <version>3.8.1</version>
       </dependency>
       <dependency>
-        <groupId>com.novell.spiffyui</groupId>
+        <groupId>org.spiffyui</groupId>
         <artifactId>spiffyui</artifactId>
         <version>1.0.0-SNAPSHOT</version>
       </dependency>
@@ -197,7 +197,7 @@
             <phase>process-resources</phase>
             <configuration>
               <target>
-                <ant antfile="${basedir}/build/build.xml">
+                <ant antfile="${basedir}/build.xml">
                   <target name="HTMLProps"/>
                 </ant>
               </target>
@@ -211,7 +211,7 @@
             <phase>process-resources</phase>
             <configuration>
               <target>
-                <ant antfile="${basedir}/build/build.xml">
+                <ant antfile="${basedir}/build.xml">
                   <target name="addVersionInfo"/>
                 </ant>
               </target>
@@ -228,7 +228,7 @@
         <executions>
           <execution>
             <configuration>
-              <module>com.novell.spsample.index</module>
+              <module>org.spiffyui.spsample.index</module>
               <style>PRETTY</style>
               <webappDirectory>${project.build.directory}/www/</webappDirectory>
               <soyc>false</soyc>
@@ -253,7 +253,7 @@
           <webResources>
             <resource>
               <!-- this is relative to the pom.xml directory -->
-              <directory>${project.build.directory}/www/com.novell.spsample.index</directory>
+              <directory>${project.build.directory}/www/org.spiffyui.spsample.index</directory>
             </resource>
             <resource>
               <!-- this is relative to the pom.xml directory -->
@@ -295,12 +295,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.novell.spiffyui</groupId>
+      <groupId>org.spiffyui</groupId>
       <artifactId>spiffyui</artifactId>
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>com.novell.spiffyui</groupId>
+      <groupId>org.spiffyui</groupId>
       <artifactId>spiffyui</artifactId>
       <version>1.0.0-SNAPSHOT</version>
       <classifier>dist</classifier>
