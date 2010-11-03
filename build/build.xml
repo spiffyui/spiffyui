@@ -135,7 +135,7 @@
         
     </target>
     
-    <target name="css-min" description="Minimize the CSS with the YUI compiler">
+    <target name="css-min" description="Minimize the CSS with the YUI compiler" depends="setup">
         <concat destfile="${spiffy.www}/spiffyui.css" force="yes">
             <!-- Since Cascading Style Sheets cascade the order is important here.  We need to make sure
                   That we load in the right order so different styles can be overwriten. -->
