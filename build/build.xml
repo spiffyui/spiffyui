@@ -44,7 +44,7 @@
 
         <!-- Not using svn for the moment -->
         <exec executable="svn" output="build_svninfo.xml">
-            <arg line="info - -xml ${build.spiffy.base}"/>
+            <arg line="info --xml ${build.spiffy.base}"/>
         </exec>
 
         <!-- We also store the current revision from Subversion -->
