@@ -22,13 +22,13 @@
         <property name="spiffy.build.lib" location="${build.spiffy.base}/build/lib"/>
         <property name="spiffy.build.classes" location="${build.spiffy.base}/build/classes"/>
         
-        <property name="spiffy.www"  location="${build.spiffy.base}/dist"/>
-        <property name="spiffy.classes"  location="${build.spiffy.base}/classes"/>
+        <property name="spiffy.www"  location="${build.spiffy.base}/target/dist"/>
+        <property name="spiffy.classes"  location="${build.spiffy.base}/target/classes"/>
         
         <mkdir dir="${spiffy.www}"/>
         <mkdir dir="${spiffy.classes}"/>
-        <property name="spiffy.js"  location="${build.spiffy.base}/js"/>
-        <property name="spiffy.css"  location="${build.spiffy.base}/css"/>
+        <property name="spiffy.js"  location="${build.spiffy.base}/src/main/js"/>
+        <property name="spiffy.css"  location="${build.spiffy.base}/src/main/css"/>
         
         <property name="gwt.compiler.output" value="OBF"/>
         
@@ -42,19 +42,24 @@
             <format property="builddate" pattern="HH:mm d-MMMM-yyyy"/>
         </tstamp>
 
+        <!-- Not using svn for the moment
         <exec executable="svn" output="build_svninfo.xml">
-            <arg line="info --xml ${build.spiffy.base}"/>
+            <arg line="info - -xml ${build.spiffy.base}"/>
         </exec>
+        -->
 
-        <!-- We also store the current revision from Subversion -->
+        <!-- We also store the current revision from Subversion
         <xmlproperty file="build_svninfo.xml"/>
         <delete file="build_svninfo.xml"/>
         <property name="revision.number" value="${info.entry(revision)}"/>
+        -->
+        <property name="revision.number" value="215"/>
     </target>
 
     <target name="compile">
         <!-- Compile all the Java -->
-        <javac srcdir="${spiffy.root}/src/org/spiffyui/server:${spiffy.root}/src/org/spiffyui/client/rest/util" destdir="${spiffy.classes}"
+        <javac
+        srcdir="${spiffy.root}/src/main/java/org/spiffyui/server:${spiffy.root}/src/main/java/org/spiffyui/client/rest/util" destdir="${spiffy.classes}"
                target="1.5" source="1.5" debug="true" deprecation="yes"
                includeantruntime="false">
             <compilerarg value="-Xlint" />
