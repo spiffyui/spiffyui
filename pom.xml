@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ ========================================================================
+
+ Copyright (c) 2010 Unpublished Work of Novell, Inc. All Rights Reserved.
+ 
+ THIS WORK IS AN UNPUBLISHED WORK AND CONTAINS CONFIDENTIAL,
+ PROPRIETARY AND TRADE SECRET INFORMATION OF NOVELL, INC. ACCESS TO
+ THIS WORK IS RESTRICTED TO (I) NOVELL, INC. EMPLOYEES WHO HAVE A NEED
+ TO KNOW HOW TO PERFORM TASKS WITHIN THE SCOPE OF THEIR ASSIGNMENTS AND
+ (II) ENTITIES OTHER THAN NOVELL, INC. WHO HAVE ENTERED INTO
+ APPROPRIATE LICENSE AGREEMENTS. NO PART OF THIS WORK MAY BE USED,
+ PRACTICED, PERFORMED, COPIED, DISTRIBUTED, REVISED, MODIFIED,
+ TRANSLATED, ABRIDGED, CONDENSED, EXPANDED, COLLECTED, COMPILED,
+ LINKED, RECAST, TRANSFORMED OR ADAPTED WITHOUT THE PRIOR WRITTEN
+ CONSENT OF NOVELL, INC. ANY USE OR EXPLOITATION OF THIS WORK WITHOUT
+ AUTHORIZATION COULD SUBJECT THE PERPETRATOR TO CRIMINAL AND CIVIL
+ LIABILITY.
+
+ ========================================================================
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.novell.spiffyui</groupId>
+  <artifactId>spiffyui-sample</artifactId>
+  <packaging>war</packaging>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>spiffyui-sample</name>
+  <url>http://maven.apache.org</url>
+  
+  <properties>
+    <project.build.java.target>1.6</project.build.java.target>
+    <gwt.version>2.0.4</gwt.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.novell.spiffyui</groupId>
+        <artifactId>spiffyui</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.gwt</groupId>
+        <artifactId>gwt-servlet</artifactId>
+        <version>${gwt.version}</version>
+        <scope>compile</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.gwt</groupId>
+        <artifactId>gwt-user</artifactId>
+        <version>${gwt.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>1.4</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>4.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.metaparadigm</groupId>
+        <artifactId>json-rpc</artifactId>
+        <version>1.0</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <!-- To define the plugin version in your parent POM -->
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>gwt-maven-plugin</artifactId>
+          <version>1.3-SNAPSHOT</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>2.3.2</version>
+          <configuration>
+            <source>1.6</source>
+            <target>1.6</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>net.alchim31.maven</groupId>
+          <artifactId>yuicompressor-maven-plugin</artifactId>
+          <version>1.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>1.6</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>2.2-beta-5</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>2.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>2.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>tomcat-maven-plugin</artifactId>
+          <version>1.1</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>unpack-js-resources</id>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <!-- Output files to the folder where the GWT compilation output will occur -->
+              <outputDirectory>${project.build.directory}/imported-resources</outputDirectory>
+              <includeGroupIds>${project.groupId}</includeGroupIds>
+              <includeArtifacIds>spiffyui</includeArtifacIds>
+              <classifier>dist</classifier>
+              <type>zip</type>
+              <excludeTransitive>true</excludeTransitive>
+              <!--use as much as needed to be specific...also scope,type,classifier etc-->
+            </configuration>
+          </execution>
+          <execution>
+            <id>unpack-javadoc-resources</id>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <!-- Output files to the folder where the GWT compilation output will occur -->
+              <outputDirectory>${project.build.directory}/imported-resources/javadoc</outputDirectory>
+              <includeGroupIds>${project.groupId}</includeGroupIds>
+              <includeArtifacIds>spiffyui</includeArtifacIds>
+              <classifier>javadoc</classifier>
+              <type>jar</type>
+              <overWriteSnapshots>true</overWriteSnapshots>
+              <excludeTransitive>true</excludeTransitive>
+              <!--use as much as needed to be specific...also scope,type,classifier etc-->
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-compile</id>
+            <phase>compile</phase>
+            <configuration>
+              <includes>
+                <include>**/server/*.java</include>
+              </includes>
+            </configuration> 
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>                  
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>html-props-ant</id>
+            <phase>process-resources</phase>
+            <configuration>
+              <target>
+                <ant antfile="${basedir}/build/build.xml">
+                  <target name="HTMLProps"/>
+                </ant>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>versioninfo-props-ant</id>
+            <phase>process-resources</phase>
+            <configuration>
+              <target>
+                <ant antfile="${basedir}/build/build.xml">
+                  <target name="addVersionInfo"/>
+                </ant>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <configuration>
+              <module>com.novell.spsample.index</module>
+              <style>PRETTY</style>
+              <webappDirectory>${project.build.directory}/www/</webappDirectory>
+              <soyc>false</soyc>
+            </configuration>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!--
+          If you want to use the target/web.xml file mergewebxml produces,
+          tell the war plugin to use it. 
+          Also, exclude what you want from the final artifact here. 
+          -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <!-- <webXml>target/web.xml</webXml>-->
+          <warSourceExcludes>.gwt-tmp/**</warSourceExcludes>
+          <webResources>
+            <resource>
+              <!-- this is relative to the pom.xml directory -->
+              <directory>${project.build.directory}/www/com.novell.spsample.index</directory>
+            </resource>
+            <resource>
+              <!-- this is relative to the pom.xml directory -->
+              <directory>${project.build.directory}/imported-resources</directory>
+            </resource>
+          </webResources>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>tomcat-maven-plugin</artifactId>
+        <configuration>
+          <url>http://localhost:28080/manager</url>
+          <path>/spsample</path>
+          <username>admin</username>
+          <password>admin</password>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <!-- GWT dependencies (from maven "central" repo) -->
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-servlet</artifactId>
+      <version>${gwt.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <version>${gwt.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.novell.spiffyui</groupId>
+      <artifactId>spiffyui</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.novell.spiffyui</groupId>
+      <artifactId>spiffyui</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <classifier>dist</classifier>
+      <type>zip</type>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <type>jar</type>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <type>jar</type>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.metaparadigm</groupId>
+      <artifactId>json-rpc</artifactId>
+      <version>1.0</version>
+      <type>jar</type>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>2.5.1</version>
+        <configuration>
+          <requirements>
+            <jdk>${maven.compiler.target}</jdk>
+          </requirements>
+        </configuration>
+      </plugin>    
+    </plugins>
+  </reporting>
+
+</project>
