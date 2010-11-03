@@ -20,14 +20,16 @@ package org.spiffyui.spsample.client.rest;
 
 import java.util.Date;
 
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONValue;
 import org.spiffyui.client.JSONUtil;
 import org.spiffyui.client.MessageUtil;
 import org.spiffyui.client.rest.RESTCallback;
 import org.spiffyui.client.rest.RESTException;
 import org.spiffyui.client.rest.RESTObjectCallBack;
 import org.spiffyui.client.rest.RESTility;
+
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONValue;
 
 
 /**
@@ -103,7 +105,7 @@ public final class VersionInfo
                     g_versionInfo.m_user = JSONUtil.getStringValue(bi, "user");
                     g_versionInfo.m_rev = JSONUtil.getStringValue(bi, "rev");
                     
-                    g_versionInfo.m_date = JSONUtil.getDateValueFromMediumDateTime(bi, "date");
+                    g_versionInfo.m_date = DateTimeFormat.getFormat("MMM d, yyyy h:mm:ss a").parse(JSONUtil.getStringValue(bi, "date"));
                     if (g_versionInfo.m_date == null) {
                         MessageUtil.showError("Invalid version date: " + JSONUtil.getStringValue(bi, "date"));
                     }

@@ -20,11 +20,7 @@ package org.spiffyui.spsample.client;
 
 import java.util.HashMap;
 
-import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.HTMLPanel;
-
+import org.spiffyui.client.JSDateUtil;
 import org.spiffyui.client.JSUtil;
 import org.spiffyui.client.MainFooter;
 import org.spiffyui.client.MainHeader;
@@ -40,6 +36,10 @@ import org.spiffyui.client.rest.RESTObjectCallBack;
 import org.spiffyui.client.rest.RESTility;
 import org.spiffyui.spsample.client.rest.SampleAuthUtil;
 import org.spiffyui.spsample.client.rest.VersionInfo;
+
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.HTMLPanel;
 
 
 /**
@@ -274,7 +274,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
             public void success(VersionInfo info)
             {
                 m_footer.setFooterString("Spiffy UI Sample version " + info.getVersion() +
-                                         " was built on " + DateTimeFormat.getFullDateFormat().format(info.getDate()) +
+                                         " was built on " + JSDateUtil.getLongDate(info.getDate().getTime() + "") +
                                          " from revision " + info.getRevision());
             }
 
