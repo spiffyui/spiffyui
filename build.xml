@@ -5,8 +5,8 @@
         <!-- Call the Spiffy UI build -->
         <ant antfile="${build.base}/external/spiffyui/build/build.xml" 
              dir="${build.base}/external/spiffyui">
-            <property name="spiffy.www" value="${root}/bin/www"/>
-            <property name="spiffy.classes" value="${root}/bin/classes"/>
+            <property name="spiffy.www" value="${sample.out.www}"/>
+            <property name="spiffy.classes" value="${sample.out.classes}"/>
         </ant>
         
         <antcall target="addVersionInfo"/>
@@ -33,7 +33,15 @@
           <isset property="${env.env.SPSAMPLE_BASE}"/>
         </condition>
         <property name="root" location="${build.base}"/>
+        <property name="spiffyui" location="${root}/external/spiffyui"/>
         <property name="build" location="${build.base}/build"/>
+        <property name="sample.src" location="${root}/src/main/java"/>
+        <property name="sample.web.src" location="${root}/src/main/webapp"/>
+        <property name="sample.out" location="${root}/target"/>
+        <property name="sample.dist" location="${sample.out}/dist"/>
+        <property name="sample.out.www" location="${sample.out}/www"/>
+        <property name="sample.out.classes" location="${sample.out}/classes"/>
+
 
         <property name="tomcat.home"  location="${build.base}/../rpt/external/tomcat"/>
         
@@ -41,32 +49,36 @@
             <format property="builddate" pattern="MMM d, yyyy h:mm:ss a"/>
         </tstamp>
 
+        <!-- Not using svn for the moment
         <exec executable="svn" output="build_svninfo.xml">
-            <arg line="info --xml ${root}"/>
+            <arg line="info - -xml ${root}"/>
         </exec>
+        -->
 
-        <!-- We also store the current revision from Subversion -->
+        <!-- We also store the current revision from Subversion
         <xmlproperty file="build_svninfo.xml"/>
         <delete file="build_svninfo.xml"/>
         <property name="revision.number" value="${info.entry(revision)}"/>
+        -->
+        <property name="revision.number" value="241"/>
         
-        <mkdir dir="${root}/bin"/>
-        <mkdir dir="${root}/bin/classes"/>
-        <mkdir dir="${root}/bin/www"/>
-        <mkdir dir="${root}/dist"/>
+        <mkdir dir="${sample.out}"/>
+        <mkdir dir="${sample.out.classes}"/>
+        <mkdir dir="${sample.out.www}"/>
+        <mkdir dir="${sample.dist}"/>
     </target>
     
     <target name="HTMLProps" depends="setup" description="Combine the HTML files in this project into a GWT message bundle">
         <taskdef name="htmlprops" classname="org.spiffyui.build.HTMLPropertiesTask">
             <classpath>
-                <pathelement location="${root}/external/spiffyui/build/lib/closuretask.jar"/>
+                <pathelement location="${spiffyui}/build/lib/closuretask.jar"/>
             </classpath>
         </taskdef>
         
-        <mkdir dir="${root}/bin/classes/org/spiffyui/spsample/client"/>
+        <mkdir dir="${sample.out.classes}/org/spiffyui/spsample/client"/>
         
-        <htmlprops properties="${root}/bin/classes/org/spiffyui/spsample/client/SPSampleStrings.properties">
-            <fileset dir="${root}/src/org/spiffyui/spsample/client" includes="**/*.html" />
+        <htmlprops properties="${sample.out.classes}/org/spiffyui/spsample/client/SPSampleStrings.properties">
+            <fileset dir="${sample.src}/org/spiffyui/spsample/client" includes="**/*.html" />
         </htmlprops>
         
     </target>
@@ -80,12 +92,12 @@
             <arg value="-style"/>
             <arg value="PRETTY"/>
             <arg value="-war"/>
-            <arg value="${root}/bin/www"/>
+            <arg value="${sample.out.www}"/>
             <arg value="${gwttarget}"/>
             <classpath>
-                <pathelement location="${root}/src"/>
-                <pathelement location="${root}/external/spiffyui/src"/>
-                <pathelement location="${root}/bin/classes"/>
+                <pathelement location="${sample.src}"/>
+                <pathelement location="${spiffyui}/src/main/java"/>
+                <pathelement location="${sample.out.classes}"/>
                 <fileset dir="${build}/lib">
                     <include name="**/*.jar"/>
                 </fileset>
@@ -97,18 +109,18 @@
              name as the package.  We want to strip that off. 
              If we add more GWT modules to the project we'll 
              need to skip this step for them. -->
-        <move todir="${root}/bin/www" failonerror="false">
-            <fileset dir="${root}/bin/www/org.spiffyui.spsample.index" includes="**/*" />
+        <move todir="${sample.out.www}" failonerror="false">
+            <fileset dir="${sample.out.www}/org.spiffyui.spsample.index" includes="**/*" />
         </move>
         
-        <delete dir="${root}/bin/www/org.spiffyui.spsample.index" />
+        <delete dir="${sample.out.www}/org.spiffyui.spsample.index" />
         
     </target>
     
     <target name="addVersionInfo" description="Generate the buildnum.properties file with build information">
-        <mkdir dir="${root}/bin/classes/org/spiffyui/spsample/server"/>
+        <mkdir dir="${sample.out.classes}/org/spiffyui/spsample/server"/>
 
-        <echo file="${root}/bin/classes/org/spiffyui/spsample/server/buildnum.properties">
+        <echo file="${sample.out.classes}/org/spiffyui/spsample/server/buildnum.properties">
 build.date=${builddate}
 build.user=${user.name}
 build.version=0.6
@@ -119,7 +131,7 @@ build.dir=${root}
     
     <target name="compile" description="Call the Java compiler for this project">
         <!-- Compile all the Java -->
-        <javac srcdir="${root}/src/org/spiffyui/spsample/server" destdir="${root}/bin/classes" 
+        <javac srcdir="${sample.src}/org/spiffyui/spsample/server" destdir="${sample.out.classes}" 
                target="1.5" source="1.5" debug="true" deprecation="yes"
                includeantruntime="false">
             <compilerarg value="-Xlint" />
@@ -127,7 +139,7 @@ build.dir=${root}
                 <fileset dir="${root}/build/lib">
                     <include name="**/*.jar"/>
                 </fileset>
-                <fileset dir="${root}/external/spiffyui/lib">
+                <fileset dir="${spiffyui}/lib">
                     <include name="**/*.jar"/>
                 </fileset>
                 <pathelement path="${java.class.path}"/>
@@ -137,30 +149,33 @@ build.dir=${root}
     
     <target name="package" description="Package the contents of this project into spsample.war">
         <!-- Create the distribution directory -->
-        <delete file="${root}/dist/spsample.war" />
-        <war destfile="${root}/dist/spsample.war" webxml="${root}/web.xml">
-            <fileset dir="${root}/bin/www"/>
-            <zipfileset dir="${root}/bin/classes" prefix="WEB-INF/classes" >
+        <delete file="${sample.dist}/spsample.war" />
+        <war destfile="${sample.dist}/spsample.war" webxml="${sample.web.src}/WEB-INF/web.xml">
+            <fileset dir="${sample.out.www}"/>
+            <zipfileset dir="${root}/js" prefix="js" >
+                <include name="**/*.js"/>
+            </zipfileset>
+            <zipfileset dir="${sample.out.classes}" prefix="WEB-INF/classes" >
                 <include name="**/*"/>
             </zipfileset>
             
             <!-- We need to add the JARs to support the spiffy framework to
                  our WAR file -->
-            <zipfileset dir="${root}/external/spiffyui/lib" prefix="WEB-INF/lib" >
+            <zipfileset dir="${spiffyui}/lib" prefix="WEB-INF/lib" >
                 <include name="**/*.jar"/>
             </zipfileset>     
         </war>
     </target>
     
     <target name="javadoc" description="Generate JavaDoc for this project">
-        <mkdir dir="${root}/bin/www/javadoc"/>
+        <mkdir dir="${sample.out.www}/javadoc"/>
         
-        <javadoc destdir="${root}/bin/www/javadoc"
+        <javadoc destdir="${sample.out.www}/javadoc"
                  author="false"
                  version="true"
                  use="true"
                  windowtitle="Spiffy UI Framework API">
-            <packageset dir="${root}/external/spiffyui/src" defaultexcludes="yes">
+            <packageset dir="${spiffyui}/src/main/java" defaultexcludes="yes">
                 <include name="org/spiffyui/**"/>
             </packageset>
         </javadoc>
@@ -170,7 +185,7 @@ build.dir=${root}
         <fail message="The spsample.war file is missing.  You must build before you can deploy.">
             <condition>
                 <not>
-                    <available file="${root}/dist/spsample.war"/>
+                    <available file="${sample.dist}/spsample.war"/>
                 </not>
             </condition>
         </fail>
@@ -202,19 +217,19 @@ build.dir=${root}
             username="${tomcat.username}"
             password="${tomcat.password}"
             path="/spsample"
-            war="file:${root}/dist/spsample.war"/>
+            war="file:${sample.dist}/spsample.war"/>
     </target>
     
     <target name="clean" depends="setup" description="Remove the artifacts generated by this build">
         <!-- Call the Spiffy UI build -->
-        <ant antfile="${build.base}/external/spiffyui/build/build.xml" 
-             dir="${build.base}/external/spiffyui"
+        <ant antfile="${spiffyui}/build/build.xml" 
+             dir="${spiffyui}"
              target="spiffy.clean">
-            <property name="spiffy.www" value="${root}/bin/www"/>
-            <property name="spiffy.classes" value="${root}/bin/classes"/>
+            <property name="spiffy.www" value="${sample.out.www}"/>
+            <property name="spiffy.classes" value="${sample.out.classes}"/>
         </ant>
         
-        <delete dir="${root}/dist"/>
-        <delete dir="${root}/bin"/>
+        <delete dir="${sample.dist}"/>
+        <delete dir="${sample.out}"/>
     </target>
 </project>
