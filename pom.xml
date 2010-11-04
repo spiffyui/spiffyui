@@ -23,11 +23,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.spiffyui</groupId>
-  <artifactId>spiffyui-sample</artifactId>
-  <packaging>war</packaging>
+  <artifactId>spiffyui</artifactId>
+  <packaging>jar</packaging>
   <version>1.0.0-SNAPSHOT</version>
-  <name>spiffyui-sample</name>
-  <url>http://maven.apache.org</url>
+  <name>spiffyui</name>
+  <url>http://www.spiffyui.org/</url>
   
   <properties>
     <project.build.java.target>1.6</project.build.java.target>
@@ -38,31 +38,14 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>3.8.1</version>
-      </dependency>
-      <dependency>
-        <groupId>org.spiffyui</groupId>
-        <artifactId>spiffyui</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.gwt</groupId>
-        <artifactId>gwt-user</artifactId>
-        <version>${gwt.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.google.gwt</groupId>
-        <artifactId>gwt-dev</artifactId>
-        <version>${gwt.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
         <groupId>commons-codec</groupId>
         <artifactId>commons-codec</artifactId>
         <version>1.4</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.httpcomponents</groupId>
@@ -73,6 +56,17 @@
         <groupId>com.metaparadigm</groupId>
         <artifactId>json-rpc</artifactId>
         <version>1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.ant</groupId>
+        <artifactId>ant</artifactId>
+        <version>1.7.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.gwt</groupId>
+        <artifactId>gwt-user</artifactId>
+        <version>${gwt.version}</version>
+        <scope>compile</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -112,83 +106,42 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-war-plugin</artifactId>
-          <version>2.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-dependency-plugin</artifactId>
-          <version>2.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>tomcat-maven-plugin</artifactId>
-          <version>1.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.mortbay.jetty</groupId>
-          <artifactId>jetty-maven-plugin</artifactId>
-          <version>7.1.6.v20100715</version>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.7</version>
         </plugin>
       </plugins>
     </pluginManagement>
     
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
         <executions>
           <execution>
-            <id>unpack-js-resources</id>
-            <goals>
-              <goal>unpack-dependencies</goal>
-            </goals>
-            <phase>generate-resources</phase>
             <configuration>
-              <!-- Output files to the folder where the GWT compilation output will occur -->
-              <outputDirectory>${project.build.directory}/imported-resources</outputDirectory>
-              <includeGroupIds>${project.groupId}</includeGroupIds>
-              <includeArtifacIds>spiffyui</includeArtifacIds>
-              <classifier>dist</classifier>
-              <type>zip</type>
-              <excludeTransitive>true</excludeTransitive>
-              <!--use as much as needed to be specific...also scope,type,classifier etc-->
+              <module>org.spiffyui.spiffyui</module>
             </configuration>
-          </execution>
-          <execution>
-            <id>unpack-javadoc-resources</id>
             <goals>
-              <goal>unpack-dependencies</goal>
+              <goal>resources</goal>
             </goals>
-            <phase>generate-resources</phase>
-            <configuration>
-              <!-- Output files to the folder where the GWT compilation output will occur -->
-              <outputDirectory>${project.build.directory}/imported-resources/javadoc</outputDirectory>
-              <includeGroupIds>${project.groupId}</includeGroupIds>
-              <includeArtifacIds>spiffyui</includeArtifacIds>
-              <classifier>javadoc</classifier>
-              <type>jar</type>
-              <overWriteSnapshots>true</overWriteSnapshots>
-              <excludeTransitive>true</excludeTransitive>
-              <!--use as much as needed to be specific...also scope,type,classifier etc-->
-            </configuration>
           </execution>
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <executions>
+      	<groupId>org.apache.maven.plugins</groupId>
+      	<artifactId>maven-compiler-plugin</artifactId>
+      	<executions>
           <execution>
             <id>default-compile</id>
             <phase>compile</phase>
             <configuration>
               <includes>
+                <include>**/client/rest/util/*.java</include>
                 <include>**/server/*.java</include>
               </includes>
             </configuration> 
             <goals>
-              <goal>compile</goal>
+              <goal>testCompile</goal>
             </goals>
           </execution>                  
         </executions>
@@ -198,12 +151,12 @@
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
           <execution>
-            <id>html-props-ant</id>
-            <phase>process-resources</phase>
+            <id>clean-ant</id>
+            <phase>clean</phase>
             <configuration>
               <target>
-                <ant antfile="${basedir}/build.xml">
-                  <target name="HTMLProps"/>
+                <ant antfile="${basedir}/build/build.xml">
+                  <target name="spiffy.clean"/>
                 </ant>
               </target>
             </configuration>
@@ -212,12 +165,28 @@
             </goals>
           </execution>
           <execution>
-            <id>versioninfo-props-ant</id>
+            <id>js-min-ant</id>
             <phase>process-resources</phase>
             <configuration>
               <target>
-                <ant antfile="${basedir}/build.xml">
-                  <target name="addVersionInfo"/>
+                <property name="compile_classpath" refid="maven.compile.classpath"/>
+                <property name="build.from.maven" value="true"/>
+                <ant antfile="${basedir}/build/build.xml">
+                  <target name="js-min"/>
+                </ant>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>css-min-ant</id>
+            <phase>process-resources</phase>
+            <configuration>
+              <target>
+                <ant antfile="${basedir}/build/build.xml">
+                  <target name="css-min"/>
                 </ant>
               </target>
             </configuration>
@@ -227,99 +196,60 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>gwt-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <configuration>
-              <module>org.spiffyui.spsample.index</module>
-              <style>PRETTY</style>
-              <webappDirectory>${project.build.directory}/www/</webappDirectory>
-              <soyc>false</soyc>
-            </configuration>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <!--
-          If you want to use the target/web.xml file mergewebxml produces,
-          tell the war plugin to use it. 
-          Also, exclude what you want from the final artifact here. 
-          -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <configuration>
-          <!-- <webXml>target/web.xml</webXml>-->
-          <warSourceExcludes>.gwt-tmp/**</warSourceExcludes>
-          <webResources>
-            <resource>
-              <!-- this is relative to the pom.xml directory -->
-              <directory>${project.build.directory}/www/org.spiffyui.spsample.index</directory>
-            </resource>
-            <resource>
-              <!-- this is relative to the pom.xml directory -->
-              <directory>${project.build.directory}/imported-resources</directory>
-            </resource>
-          </webResources>
-        </configuration>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>make dist resources</id>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+              <descriptors>
+                <descriptor>src/main/assembly/resources.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>tomcat-maven-plugin</artifactId>
-        <configuration>
-          <url>http://localhost:28080/manager</url>
-          <path>/spsample</path>
-          <username>admin</username>
-          <password>admin</password>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <configuration>
-          <webAppConfig>
-            <contextPath>/spsample</contextPath>
-          </webAppConfig>
-        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>javadoc-archive</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/client/**/*.java</include>
+          <include>**/client/**/*.properties</include>
+          <include>**/*.gwt.xml</include>
+        </includes>
+      </resource>
+    </resources>
   </build>
 
   <dependencies>
     <!-- GWT dependencies (from maven "central" repo) -->
     <dependency>
       <groupId>com.google.gwt</groupId>
-      <artifactId>gwt-servlet</artifactId>
-      <version>${gwt.version}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.gwt</groupId>
       <artifactId>gwt-user</artifactId>
-      <version>${gwt.version}</version>
-      <scope>provided</scope>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.spiffyui</groupId>
-      <artifactId>spiffyui</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>org.spiffyui</groupId>
-      <artifactId>spiffyui</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-      <classifier>dist</classifier>
-      <type>zip</type>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>commons-codec</groupId>
@@ -336,9 +266,12 @@
     <dependency>
       <groupId>com.metaparadigm</groupId>
       <artifactId>json-rpc</artifactId>
-      <version>1.0</version>
       <type>jar</type>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.ant</groupId>
+      <artifactId>ant</artifactId>
     </dependency>
   </dependencies>
 

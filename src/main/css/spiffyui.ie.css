@@ -1,0 +1,180 @@
+/*
+   These are special styles just for IE
+ */
+
+#mainContent {
+    width: auto;
+    margin-top: 20px;
+}
+
+.spiffy-fancy-button {
+    padding-top: 5px;
+}
+
+#humanMsgLog { 
+    top: -46px;
+}
+
+#humanMsgLog ul li {
+    position: static;
+}
+
+#humanMsgClose {
+    margin-left: 8.5em;
+}
+
+#humanMsgLog p.minimized {
+    width: 40px;
+}
+
+#humanMsgLog ul {
+    padding-bottom: 4em;
+}
+
+#login_glass_pane.loginRepeatGlass {
+    opacity: 0.3;
+    filter: alpha(opacity = 30);
+}
+
+#login_username_row label, #login_password_row label {
+    margin-top: 0px;
+    position: relative;
+    top: -10px;
+}
+
+#mainsubtitle {
+    left: 130px;
+    line-height: 48px;
+}
+
+#main {
+    height: 100%;
+}
+
+
+/*
+ * CSS properties for IE 7
+ */
+ 
+#mainBody {
+    width: 100%;
+}
+
+#main {
+    height: 98%;
+}
+
+
+#humanMsgLog { 
+    top: -46px;
+}
+
+#humanMsgLog ul li {
+    position: static;
+}
+
+/*
+   IE cuts the top off of text fields if they have a negative top margin
+ */
+.gwt-TextBox, .gwt-ListBox, .gwt-PasswordTextBox, .gwt-TextArea, .gwt-SuggestBox {
+    margin-top: 0px;
+}
+
+/*
+   IE cuts the top off of buttons if they have a negative top margin
+ */
+.rpt-button, .rpt-fancy-button {
+    margin-top: 0px;
+    padding: 0 0.25em 0 0.25em;
+}
+
+button..rpt-fancy-button {
+    font-size: 16px;
+    line-height: 16px;
+}
+    
+
+.rpt-button {
+    background: url('images/btn-back.gif') no-repeat left;
+    border: thin solid gray;
+    padding: 0 1em 0 1em;
+    white-space: no-wrap;
+    margin-top: 0px;
+}
+
+.rpt-dialog-button-bar.button.rpt-button {
+    font-size: 12px;
+}
+
+
+/*
+   If we don't do this then IE cuts off the border on the
+   bottom of the button.
+ */
+#configPanelActionButtonsSet, #generalPanelActionButtonsSet {
+    height: 55px;
+}
+
+#reportTemplates .rowFormatterOdd td, #reportTemplates .rowFormatterEven td {
+    padding-bottom: 15px;
+}
+
+.daylabel {
+    width: 100%;
+}
+
+
+/*
+  margin-right is causing the close icon to show up outside of the error/longmessage in ie
+*/
+#errorpanel_hide {
+    right: 45px;
+}
+.rpt-longmessage-panel-hide {
+    right: 5px;
+}
+
+.gwt-DialogBox .dialogTopCenterInner {
+    margin-top: 0px;
+}
+
+#humanMsgClose {
+    margin-left: 8.5em;
+}
+
+#edcal_weeks_pref {
+    padding-top: 6px;
+}
+
+#tooltipHeading {
+    border: none;
+    margin-left: 1px;
+    margin-right: 1px;
+    margin-top: 1px;
+}
+
+.pulldownprefspanel {
+    top: 0px;
+}
+
+.prefspulltab {
+    width: 15em;
+    
+}
+
+#schedule_refresh {
+    padding-top: 30px;
+}
+
+#humanMsgLog p.minimized {
+    width: 40px;
+}
+
+#humanMsgLog ul {
+    padding-bottom: 4em;
+}
+
+#mainFooter {
+    margin-top: -28px;
+}
+

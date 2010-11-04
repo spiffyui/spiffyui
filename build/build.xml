@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Spiffy UI" default="spiffy" basedir="..">
+    <target name="spiffy" depends="setup">
+        <antcall target="compile"/>
+        <antcall target="js-lint" />
+        <antcall target="js-min" />
+        <antcall target="css-min" />
+    </target>
+    
+    <target name="setup">
+        <property environment="env"/>
+
+        <!-- These are all the project relative paths.  Please add new paths
+             here so they are easier to find when they change. -->
+        <condition property="build.spiffy.base" value="${env.SPIFFY_BASE}" else="${basedir}">
+          <isset property="${env.SPIFFY_BASE}"/>
+        </condition>
+    	
+    	<!-- Establish a "run from maven" property so that conditional logic
+    	     can be added when out-of-the box ant does not work in the same way
+    	     as maven-antrun-plugin -->
+    	<condition property="build.javac.fork" value="${build.from.maven}" else="false">
+          <isset property="build.from.maven"/>
+        </condition>
+        
+        <echo message="Spffy UI base directory: ${build.spiffy.base}" />
+        <property name="spiffy.root" location="${build.spiffy.base}"/>
+        <property name="spiffy.build" location="${build.spiffy.base}/build"/>
+        <property name="spiffy.build.lib" location="${build.spiffy.base}/build/lib"/>
+        <property name="spiffy.build.classes" location="${build.spiffy.base}/build/classes"/>
+        
+        <property name="spiffy.www"  location="${build.spiffy.base}/target/dist"/>
+        <property name="spiffy.classes"  location="${build.spiffy.base}/target/classes"/>
+        
+        <mkdir dir="${spiffy.www}"/>
+        <mkdir dir="${spiffy.classes}"/>
+        <property name="spiffy.js"  location="${build.spiffy.base}/src/main/js"/>
+        <property name="spiffy.css"  location="${build.spiffy.base}/src/main/css"/>
+        
+        <property name="gwt.compiler.output" value="OBF"/>
+        
+        <property name="ant.home" location="${build.rpt.base}/external/ant"/>
+        <property name="ant.lib" location="${build.rpt.base}/external/ant/lib"/>
+
+        
+
+        <!-- Values for the WAR's manifest file -->
+        <tstamp>
+            <format property="builddate" pattern="HH:mm d-MMMM-yyyy"/>
+        </tstamp>
+
+        <!-- Not using svn for the moment -->
+        <exec executable="svn" output="build_svninfo.xml">
+            <arg line="info --xml ${build.spiffy.base}"/>
+        </exec>
+
+        <!-- We also store the current revision from Subversion -->
+        <xmlproperty file="build_svninfo.xml"/>
+        <delete file="build_svninfo.xml"/>
+        <property name="revision.number" value="${info.entry(revision)}"/>
+    </target>
+
+    <target name="compile">
+        <!-- Compile all the Java -->
+        <javac
+        srcdir="${spiffy.root}/src/main/java/org/spiffyui/server:${spiffy.root}/src/main/java/org/spiffyui/client/rest/util" destdir="${spiffy.classes}"
+               target="1.5" source="1.5" debug="true" deprecation="yes"
+               includeantruntime="false">
+            <compilerarg value="-Xlint" />
+            <classpath>
+                <fileset dir="${spiffy.root}/build/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset dir="${spiffy.root}/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </javac>
+    </target>
+    
+    <target name="compileClosureTask.check">
+        <condition property="closuretask.is.compiled">
+            <not>
+                <available file="${spiffy.build}/lib/closuretask.jar"/>
+            </not>
+        </condition>
+    </target>
+    
+    <!--  The compile closure task. -->
+    <target name="compileClosureTask" if="closuretask.is.compiled" depends="setup,compileClosureTask.check">
+        <mkdir dir="${spiffy.build.classes}"/>
+        <javac srcdir="${spiffy.build}/src" destdir="${spiffy.build.classes}" target="1.5" 
+                    includes="org/spiffyui/build/**"
+                    source="1.5" debug="true" deprecation="yes" includeantruntime="false"
+        	        fork="${build.javac.fork}">
+            <compilerarg value="-Xlint" />
+            <classpath>
+                <pathelement location="${spiffy.build}/lib/closure-compiler.jar"/>
+                <pathelement path="${java.class.path}"/>
+                <!-- Adding this so that maven builds will include the necessary ant dependencies -->
+                <pathelement path="${compile_classpath}"/>
+            </classpath>
+        </javac>
+        
+        <jar destfile="${spiffy.build}/lib/closuretask.jar">
+            <zipfileset dir="${spiffy.build.classes}" prefix="" >
+                <include name="org/spiffyui/build/*.*"/>
+            </zipfileset>
+        </jar>
+    </target>
+    
+    <target name="js-min" description="Minimize the JavaScript with the Closure compiler" depends="setup,js-lint,compileClosureTask.check,compileClosureTask">
+        <taskdef name="closure" classname="org.spiffyui.build.ClosureTask">
+            <classpath>
+                <pathelement location="${spiffy.build}/lib/closure-compiler.jar"/>
+                <pathelement path="${spiffy.build}/lib/closuretask.jar"/>
+            </classpath>
+        </taskdef>
+        
+        <!-- Now we compile our JavaScript. -->
+        <closure jsfile="${spiffy.www}/spiffyui.min.js" 
+                 closurejar="${spiffy.build}/lib/closure-compiler.jar"
+                 compilationLevel="SIMPLE_OPTIMIZATIONS"
+                 warninglevel="DEFAULT">
+            <fileset dir="${spiffy.js}" includes="**/*.js" excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**" />
+        </closure>
+        
+        <!-- We also compile our own copy of JQuery -->
+        <closure jsfile="${spiffy.www}/jquery-1.4.3.min.js" 
+                 closurejar="${spiffy.build}/lib/closure-compiler.jar"
+                 compilationLevel="SIMPLE_OPTIMIZATIONS"
+                 warninglevel="QUIET">
+            <fileset dir="${spiffy.js}/lib" includes="jquery-1.4.3.js" />
+        </closure>
+        
+        <!-- We copy over all the JavaScript files for dev mode -->
+        <mkdir dir="${spiffy.www}/js"/>
+        <copy todir="${spiffy.www}/js">
+            <fileset dir="${spiffy.js}" includes="**/*" />
+        </copy>
+        
+    </target>
+    
+    <target name="css-min" description="Minimize the CSS with the YUI compiler" depends="setup">
+        <concat destfile="${spiffy.www}/spiffyui.css" force="yes">
+            <!-- Since Cascading Style Sheets cascade the order is important here.  We need to make sure
+                  That we load in the right order so different styles can be overwriten. -->
+            <fileset dir="${spiffy.js}" includes="**/*.css" />
+            <fileset dir="${spiffy.css}" includes="*.css" excludes="spiffyui.ie.css" />
+        </concat>
+
+        <java classname="com.yahoo.platform.yui.compressor.Bootstrap"
+            fork="true" failonerror="true" maxmemory="256m">
+            <arg value="-o"/>
+            <arg value="${spiffy.www}/spiffyui.min.css"/>
+            <arg value="${spiffy.www}/spiffyui.css"/>
+            <classpath>
+                <fileset dir="${spiffy.build}/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </java>
+
+        <!-- Now that we have created the compressed file we don't
+             need the concatenated file -->
+        <delete file="${spiffy.www}/spiffyui.css" />
+        
+        <!-- Now we copy over the images that we use for our CSS -->
+        <mkdir dir="${spiffy.www}/images"/>
+        <copy todir="${spiffy.www}/images">
+            <fileset dir="${spiffy.css}/images" includes="**/*" />
+        </copy>
+        
+        <copy todir="${spiffy.www}">
+            <fileset dir="${spiffy.css}" includes="*.css" />
+        </copy>
+    </target>
+    
+    <!-- Run JSLINT against our JavaScript -->
+    <target name="js-lint">
+        <taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask">
+            <classpath>
+                <pathelement path="${spiffy.build}/lib/jslint4java-1.3.3.jar"/>
+            </classpath>
+        </taskdef>
+        
+        <jslint>
+            <formatter type="plain" />
+            <fileset dir="${spiffy.js}" includes="**/*.js" excludes="**/jquery-1.*.js, **/lib/**,**/unittest/**" />
+        </jslint>
+    </target>
+    
+    <target name="spiffy.clean" depends="setup">
+        <delete dir="${spiffy.www}"/>
+        <delete dir="${spiffy.classes}"/>
+        <delete dir="${spiffy.build}/classes"/>
+        <delete file="${spiffy.build}/lib/closuretask.jar" />
+    </target>
+</project>
+
+
