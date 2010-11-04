@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Spiffy UI" default="spiffy" basedir="..">
-    <target name="spiffy" depends="setup">
+<project name="Spiffy UI" xmlns:ivy="antlib:org.apache.ivy.ant" default="spiffy" basedir="..">
+    <target name="spiffy" depends="setup,resolve">
         <antcall target="compile"/>
         <antcall target="js-lint" />
         <antcall target="js-min" />
         <antcall target="css-min" />
+    </target>
+    
+    <target name="resolve" description="--> retrieve dependencies with ivy">
+        <ivy:retrieve file="${spiffy.root}/ivy.xml" />
+        
+        <subant antfile="build2.xml"
+                buildpath="${spiffy.root}/build/">
+            <property name="spiffy.root" value="${spiffy.root}"/>
+        </subant>
     </target>
     
     <target name="setup">
@@ -28,6 +37,8 @@
         <property name="spiffy.build" location="${build.spiffy.base}/build"/>
         <property name="spiffy.build.lib" location="${build.spiffy.base}/build/lib"/>
         <property name="spiffy.build.classes" location="${build.spiffy.base}/build/classes"/>
+        
+        <ivy:settings file="${spiffy.build}/ivysettings.xml" />
         
         <property name="spiffy.www"  location="${build.spiffy.base}/target/dist"/>
         <property name="spiffy.classes"  location="${build.spiffy.base}/target/classes"/>
@@ -182,7 +193,9 @@
     <target name="js-lint">
         <taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask">
             <classpath>
-                <pathelement path="${spiffy.build}/lib/jslint4java-1.3.3.jar"/>
+                <fileset dir="${spiffy.build}/lib">
+                    <include name="*.jar"/>
+                </fileset>
             </classpath>
         </taskdef>
         
@@ -196,7 +209,9 @@
         <delete dir="${spiffy.www}"/>
         <delete dir="${spiffy.classes}"/>
         <delete dir="${spiffy.build}/classes"/>
+        <delete dir="${spiffy.root}/lib"/>
         <delete file="${spiffy.build}/lib/closuretask.jar" />
+        
     </target>
 </project>
 

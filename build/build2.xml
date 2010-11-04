@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Spiffy UI Resolver" xmlns:ivy="antlib:org.apache.ivy.ant" default="resolve" basedir="..">
+    <target name="resolve" description="--> retrieve dependencies with ivy">
+        <property name="ivy.lib.dir" value="${spiffy.root}/build/lib"/>
+        <ivy:retrieve file="${spiffy.root}/ivy_build.xml" />
+    </target>
+</project>
+
+

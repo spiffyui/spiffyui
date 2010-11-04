@@ -1,0 +1,10 @@
+<ivy-module version="2.0">
+    <info organisation="spiffyui" module="spiffy-ivy"/>
+    <dependencies>
+        <dependency org="commons-logging" name="commons-logging" rev="1.1.1"/>
+        <dependency org="commons-codec" name="commons-codec" rev="1.4"/>
+        <dependency org="com.metaparadigm" name="json-rpc" rev="1.0"/>
+        <dependency org="org.apache.httpcomponents" name="httpclient" rev="4.0.1"/>
+
+    </dependencies>
+</ivy-module>
