@@ -31,7 +31,7 @@
   
   <properties>
     <project.build.java.target>1.6</project.build.java.target>
-    <gwt.version>2.0.4</gwt.version>
+    <gwt.version>2.1.0</gwt.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -176,6 +176,7 @@
             <configuration>
               <target>
                 <property name="compile_classpath" refid="maven.compile.classpath"/>
+                <property name="build.from.maven" value="true"/>
                 <ant antfile="${basedir}/build/build.xml">
                   <target name="js-min"/>
                 </ant>
