@@ -1,12 +1,14 @@
 <ivysettings>
-  <settings defaultResolver="ulna"/>
+  <settings defaultResolver="main"/>
   <resolvers>
-    <url name="ulna" m2compatible="true">
+    <url name="main" m2compatible="true">
       <ivy pattern="http://ulna.qalab.cam.novell.com:8081/nexus/content/groups/public/[module]/[revision]/ivy-[revision].xml" />
       <artifact pattern="http://ulna.qalab.cam.novell.com:8081/nexus/content/groups/public/[module]/[revision]/[artifact]-[revision].[ext]" />
       <artifact pattern="http://ulna.qalab.cam.novell.com:8081/nexus/content/groups/public/[module]/[revision]/[artifact].[ext]" />
       <artifact pattern="http://ulna.qalab.cam.novell.com:8081/nexus/content/groups/public/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
       <artifact pattern="http://ulna.qalab.cam.novell.com:8081/nexus/content/groups/public/[organisation]/[module]/[revision]/[artifact].[ext]" />
     </url>
+    
+    <ibiblio name="default" m2compatible="true"/>
   </resolvers>
 </ivysettings>

@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Spiffy UI Resolver" xmlns:ivy="antlib:org.apache.ivy.ant" default="resolve" basedir="..">
+    <!--
+        Spiffy UI basically has two lib directories.  The default lib 
+        directory and a special one called build/lib.  The first one
+        contains JARs which must be included in the WAR file and the
+        second one contains JARs that are only needed for building.
+        I haven't figured out a way to make Apache Ivy recognize
+        different lib directories for different artifacts, so we have
+        to load the files in this subproject.
+        
+        This is pretty hacky.  I wish I had a better way to do this.
+    -->
     <target name="resolve" description="--> retrieve dependencies with ivy">
         <property name="ivy.lib.dir" value="${spiffy.root}/build/lib"/>
         <ivy:retrieve file="${spiffy.root}/ivy_build.xml" log="download-only" />
