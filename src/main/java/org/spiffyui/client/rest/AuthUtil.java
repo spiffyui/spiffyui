@@ -18,16 +18,17 @@
  */
 package org.spiffyui.client.rest;
 
+import org.spiffyui.client.JSUtil;
+import org.spiffyui.client.MessageUtil;
+import org.spiffyui.client.SpiffyUIStrings;
+import org.spiffyui.client.login.LoginPanel;
+import org.spiffyui.client.login.LoginStringHelper;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Window;
-
-import org.spiffyui.client.MessageUtil;
-import org.spiffyui.client.SpiffyUIStrings;
-import org.spiffyui.client.login.LoginPanel;
-import org.spiffyui.client.login.LoginStringHelper;
 
 /**
  * A utility class for login and logout.
@@ -102,7 +103,7 @@ public class AuthUtil implements RESTAuthProvider
         credentials.put(AUTH_URL_TOKEN, new JSONString(RESTility.getTokenServerUrl()));
         credentials.put(AUTH_LOGOUT_URL_TOKEN, new JSONString(RESTility.getTokenServerLogoutUrl()));
 
-        RESTility.callREST("/" + getServletContext() + "/auth", credentials.toString(), RESTility.DELETE,
+        RESTility.callREST(getServletContext() + "/auth", credentials.toString(), RESTility.DELETE,
                            new RESTCallback() {
                 @Override
                 public void onSuccess(JSONValue val)
@@ -154,7 +155,7 @@ public class AuthUtil implements RESTAuthProvider
         credentials.put(AUTH_LOGOUT_URL_TOKEN, new JSONString(RESTility.getTokenServerLogoutUrl()));
 
 
-        RESTility.callREST("/" + getServletContext() + "/auth", credentials.toString(), RESTility.POST,
+        RESTility.callREST(getServletContext() + "/auth", credentials.toString(), RESTility.POST,
                            new RESTCallback() {
                 @Override
                 public void onSuccess(JSONValue val)
@@ -230,7 +231,12 @@ public class AuthUtil implements RESTAuthProvider
     {
         String url = Window.Location.getHref();
         int index = url.indexOf("/", url.indexOf("//") + 2);
-        return url.substring(index + 1, url.indexOf("/", index + 2));
+        String context = url.substring(index + 1, url.indexOf("/", index + 2));
+        if (context.length() > 0) {
+            return "/" + context;
+        } else {
+            return "";
+        }
     }
 }
 
