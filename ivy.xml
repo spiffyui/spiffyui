@@ -5,6 +5,7 @@
         <dependency org="commons-codec" name="commons-codec" rev="1.4"/>
         <dependency org="com.metaparadigm" name="json-rpc" rev="1.0"/>
         <dependency org="org.apache.httpcomponents" name="httpclient" rev="4.0.1"/>
+        <dependency org="org.apache.httpcomponents" name="httpcore" rev="4.0.1"/>
 
     </dependencies>
 </ivy-module>
