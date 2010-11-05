@@ -7,13 +7,17 @@
         <antcall target="css-min" />
     </target>
     
-    <target name="resolve" description="--> retrieve dependencies with ivy">
+    <target name="resolve" description="--> retrieve dependencies with ivy" unless="build.from.maven" depends="ivySettings">
         <ivy:retrieve file="${spiffy.root}/ivy.xml" log="download-only" />
         
         <subant antfile="build2.xml"
                 buildpath="${spiffy.root}/build/">
             <property name="spiffy.root" value="${spiffy.root}"/>
         </subant>
+    </target>
+    
+    <target name="ivySettings" description="--> Setup ivy settings" unless="build.from.maven">
+        <ivy:settings file="${spiffy.build}/ivysettings.xml" />
     </target>
     
     <target name="setup">
@@ -37,8 +41,6 @@
         <property name="spiffy.build" location="${build.spiffy.base}/build"/>
         <property name="spiffy.build.lib" location="${build.spiffy.base}/build/lib"/>
         <property name="spiffy.build.classes" location="${build.spiffy.base}/build/classes"/>
-        
-        <ivy:settings file="${spiffy.build}/ivysettings.xml" />
         
         <property name="spiffy.www"  location="${build.spiffy.base}/target/dist"/>
         <property name="spiffy.classes"  location="${build.spiffy.base}/target/classes"/>
@@ -171,6 +173,8 @@
                     <include name="**/*.jar"/>
                 </fileset>
                 <pathelement path="${java.class.path}"/>
+                <!-- Adding this so that maven builds will include the necessary ant dependencies -->
+                <pathelement path="${compile_classpath}"/>
             </classpath>
         </java>
 

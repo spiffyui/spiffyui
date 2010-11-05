@@ -63,6 +63,11 @@
         <version>1.7.1</version>
       </dependency>
       <dependency>
+        <groupId>com.yahoo.platform.yui</groupId>
+        <artifactId>yuicompressor</artifactId>
+        <version>2.4.2</version>
+      </dependency>
+      <dependency>
         <groupId>com.google.gwt</groupId>
         <artifactId>gwt-user</artifactId>
         <version>${gwt.version}</version>
@@ -185,6 +190,8 @@
             <phase>process-resources</phase>
             <configuration>
               <target>
+                <property name="compile_classpath" refid="maven.compile.classpath"/>
+                <property name="build.from.maven" value="true"/>
                 <ant antfile="${basedir}/build/build.xml">
                   <target name="css-min"/>
                 </ant>
@@ -272,6 +279,11 @@
     <dependency>
       <groupId>org.apache.ant</groupId>
       <artifactId>ant</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.yahoo.platform.yui</groupId>
+      <artifactId>yuicompressor</artifactId>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 
