@@ -8,7 +8,7 @@
     </target>
     
     <target name="resolve" description="--> retrieve dependencies with ivy">
-        <ivy:retrieve file="${spiffy.root}/ivy.xml" />
+        <ivy:retrieve file="${spiffy.root}/ivy.xml" log="download-only" />
         
         <subant antfile="build2.xml"
                 buildpath="${spiffy.root}/build/">
