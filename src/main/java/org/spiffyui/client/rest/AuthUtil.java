@@ -231,12 +231,18 @@ public class AuthUtil implements RESTAuthProvider
     {
         String url = Window.Location.getHref();
         int index = url.indexOf("/", url.indexOf("//") + 2);
-        String context = url.substring(index + 1, url.indexOf("/", index + 2));
-        if (context.length() > 0) {
-            return "/" + context;
+        //Fix array out of bound error in GWT hosted mode by checking if index2 is -1
+        int index2 = url.indexOf("/", index + 2);
+        if (index2 != -1) {
+            String context = url.substring(index + 1, index2);
+            if (context.length() > 0) {
+                return "/" + context;
+            } else {
+                return "";
+            }
         } else {
             return "";
-        }
+        }        
     }
 }
 
