@@ -20,7 +20,6 @@ package org.spiffyui.client;
 
 import java.util.Date;
 
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONBoolean;
 import com.google.gwt.json.client.JSONNumber;
@@ -40,7 +39,7 @@ public final class JSONUtil
     private JSONUtil()
     {
     }
-
+    
     /**
      * Get a string from the JSON object or null if it doesn't exist or
      * isn't a string
@@ -48,9 +47,24 @@ public final class JSONUtil
      * @param obj    the object with the value
      * @param key    the key for the object
      * 
-     * @return the value or null it could not be decoded
+     * @return the value or null if it could not be decoded
      */
     public static String getStringValue(JSONObject obj, String key) 
+    {
+        return getStringValue(obj, key, null);
+    }
+
+    /**
+     * Get a string from the JSON object or defaultValue if it doesn't exist or
+     * isn't a string
+     * 
+     * @param obj    the object with the value
+     * @param key    the key for the object 
+     * @param defaultValue  the default value to return if the key could not be found 
+     * 
+     * @return the value or the defaultValue if it could not be decoded
+     */
+    public static String getStringValue(JSONObject obj, String key, String defaultValue) 
     {
         if (!obj.containsKey(key)) {
             return null;
@@ -78,6 +92,21 @@ public final class JSONUtil
      */
     public static String getStringValueIgnoreCase(JSONObject obj, String key) 
     {
+        return getStringValueIgnoreCase(obj, key, null);
+    }
+    
+    /**
+     * Get a string from the JSON object or defaultValue if it doesn't exist or
+     * isn't a string
+     * 
+     * @param obj    the object with the value
+     * @param key    the key for the object 
+     * @param defaultValue  the default value to return if the key could not be found 
+     * 
+     * @return the value or the defaultValue if it could not be decoded
+     */
+    public static String getStringValueIgnoreCase(JSONObject obj, String key, String defaultValue) 
+    {
         JSONValue v = obj.get(key);
         
         if (v == null) {
@@ -97,7 +126,7 @@ public final class JSONUtil
             }
         }
         
-        return null;
+        return defaultValue;
     }
     
     /**
@@ -105,14 +134,29 @@ public final class JSONUtil
      * isn't a boolean
      * 
      * @param obj    the object with the value
-     * @param key    the key for the object
-     * 
-     * @return the value or false it could not be decoded
+     * @param key    the key for the object 
+      
+     * @return the value or false if it could not be decoded
      */
     public static boolean getBooleanValue(JSONObject obj, String key) 
     {
+        return getBooleanValue(obj, key, false);
+    }
+    
+    /**
+     * Get a boolean from the JSON object or defaultValue if it doesn't exist or
+     * isn't a boolean
+     * 
+     * @param obj    the object with the value
+     * @param key    the key for the object 
+     * @param defaultValue  the default value if the key can not be found  
+     * 
+     * @return the value or false it could not be decoded
+     */
+    public static boolean getBooleanValue(JSONObject obj, String key, boolean defaultValue) 
+    {
         if (!obj.containsKey(key)) {
-            return false;
+            return defaultValue;
         }
 
         JSONValue v = obj.get(key);
@@ -128,7 +172,7 @@ public final class JSONUtil
             }
         }
         
-        return false;
+        return defaultValue;
     }
     
     /**
@@ -152,8 +196,9 @@ public final class JSONUtil
         
         return null;
     }
+    
     /**
-     * Get a int from the JSON object or -1 if it doesn't exist or
+     * Get an int from the JSON object or -1 if it doesn't exist or
      * isn't an int.  This will handle JSON numbers like this:
      * 
      *      "val": 5
@@ -165,12 +210,33 @@ public final class JSONUtil
      * @param obj    the object with the value
      * @param key    the key for the object
      * 
-     * @return the value or -1 it could not be decoded
+     * @return the value or -1 if it could not be decoded
      */
     public static int getIntValue(JSONObject obj, String key) 
     {
+        return getIntValue(obj, key, -1);
+    }
+    
+    /**
+     * Get an int from the JSON object or the defaultValue if it doesn't exist or
+     * isn't an int.  This will handle JSON numbers like this:
+     * 
+     *      "val": 5
+     * 
+     * It will also handle numbers in strings like:
+     * 
+     *      "val": "5"
+     * 
+     * @param obj    the object with the value
+     * @param key    the key for the object 
+     * @param defaultValue the default value if the specified key isn't found. 
+     * 
+     * @return the value or the defaultValue if it could not be decoded
+     */
+    public static int getIntValue(JSONObject obj, String key, int defaultValue) 
+    {
         if (!obj.containsKey(key)) {
-            return -1;
+            return defaultValue;
         }
 
         try {
@@ -191,7 +257,70 @@ public final class JSONUtil
             JSUtil.println(e.getMessage());
         }
         
-        return -1;
+        return defaultValue;
+    }
+    
+    /**
+     * Get a long from the JSON object or -1 if it doesn't exist or
+     * isn't a long.  This will handle JSON numbers like this:
+     * 
+     *      "val": 5
+     * 
+     * It will also handle numbers in strings like:
+     * 
+     *      "val": "5"
+     * 
+     * @param obj    the object with the value
+     * @param key    the key for the object
+     * 
+     * @return the value or -1 if it could not be decoded
+     */
+    public static long getLongValue(JSONObject obj, String key) 
+    {
+        return getLongValue(obj, key, -1L);
+    }
+    
+    /**
+     * Get a long from the JSON object or the defaultValue if it doesn't exist or
+     * isn't a long.  This will handle JSON numbers like this:
+     * 
+     *      "val": 5
+     * 
+     * It will also handle numbers in strings like:
+     * 
+     *      "val": "5"
+     * 
+     * @param obj    the object with the value
+     * @param key    the key for the object 
+     * @param defaultValue the default value if the specified key isn't found. 
+     * 
+     * @return the value or the defaultValue if it could not be decoded
+     */
+    public static long getLongValue(JSONObject obj, String key, long defaultValue) 
+    {
+        if (!obj.containsKey(key)) {
+            return defaultValue;
+        }
+
+        try {
+            JSONValue v = obj.get(key);
+            if (v != null) {
+                JSONNumber n = v.isNumber();
+                if (n != null) {
+                    return (long) n.doubleValue();
+                } else {
+                    /*
+                     * If this isn't a number, then it might be a string
+                     * like "5" so we try to parse it as a number.
+                     */
+                    return Long.parseLong(getStringValue(obj, key));
+                }
+            }
+        } catch (Exception e) {
+            JSUtil.println(e.getMessage());
+        }
+        
+        return defaultValue;
     }
     
     /**
