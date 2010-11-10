@@ -67,7 +67,7 @@ public final class JSONUtil
     public static String getStringValue(JSONObject obj, String key, String defaultValue) 
     {
         if (!obj.containsKey(key)) {
-            return null;
+            return defaultValue;
         }
 
         JSONValue v = obj.get(key);
@@ -78,7 +78,7 @@ public final class JSONUtil
             }
         }
         
-        return null;
+        return defaultValue;
     }
     
     /**
