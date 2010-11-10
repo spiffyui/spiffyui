@@ -13,6 +13,9 @@ spiffyui = {
     showError: null,
     showWarning: null,
     showMessage: null,
+
+    autoloadCSS: true,
+    autoloadHTML: true,
     
     /**
      * Gets a string of the date formatted into the short date 
@@ -153,70 +156,68 @@ spiffyui = {
     },
     
     init: function() {
-        /*
-         * We start by adding the HTML tags our CSS depends on
-         */
-        jQuery('script:last').after(
-            // We add a message if the user doesn't have JavaScript turned on
-            '<noscript>' + 
-                '<div id="jswarning">' +
-                    'Your browser does not support JavaScript.  You must enable JavaScript ' + 
-                    'and refresh this page to use this tool.' + 
-                '</div>' + 
-            '</noscript>' + 
-            
-            '<div id="loginPanel"></div>' + 
-            '<div id="mainWrap">' + 
-                '<div id="main" class="clearfix">' + 
-                    '<div id="mainHeader"></div>' + 
-                    '<div id="mainBody">' + 
-                        '<div id="mainNavigation"></div>' + 
-                        '<div id="mainContent"></div>' + 
+
+        if (spiffyui.autoloadHTML) {
+         
+            /*
+             * We start by adding the HTML tags our CSS depends on
+             */
+            jQuery('script:last').after(
+                '<div id="loginPanel"></div>' + 
+                '<div id="mainWrap">' + 
+                    '<div id="main" class="clearfix">' + 
+                        '<div id="mainHeader"></div>' + 
+                        '<div id="mainBody">' + 
+                            '<div id="mainNavigation"></div>' + 
+                            '<div id="mainContent"></div>' + 
+                            '<div class="clear"></div>' + 
+                        '</div>' + 
                         '<div class="clear"></div>' + 
                     '</div>' + 
-                    '<div class="clear"></div>' + 
                 '</div>' + 
-            '</div>' + 
-            '<div id="mainFooter"></div>');
-        
-        /*
-         * Almost all of our CSS is in spiffyui.css, but there are always a few
-         * tweaks you need to add for IE.  This special style sheet is added only
-         * if the browser is IE and contains just those tweaks.
-         */
-        if (navigator.appName == 'Microsoft Internet Explorer') {
-            jQuery("head").prepend("<link>");
-            css = $("head").children(":first");
-            css.attr({
-                rel:  "stylesheet",
-                type: "text/css",
-                href: "spiffyui.ie.css"
-            });
+                '<div id="mainFooter"></div>');
         }
-        
-        /*
-         * Now we add the spiffyui.min.css file.  If the URL ends with -debug.html
-         * then we'll add the uncompressed version.  We add these files dynamically
-         * so users of the framework have less to add to their page and because IE8
-         * give precedence to files loaded in the page over those added with JavaScript
-         * and we can't do that because we override styles in spiffyui.ie.css.
-         */
-        if (window.location.href.substr(-11) === "-debug.html") {
-            jQuery("head").prepend("<link>");
-            css = $("head").children(":first");
-            css.attr({
-                rel:  "stylesheet",
-                type: "text/css",
-                href: "spiffyui.css"
-            });
-        } else {
-            jQuery("head").prepend("<link>");
-            css = $("head").children(":first");
-            css.attr({
-                rel:  "stylesheet",
-                type: "text/css",
-                href: "spiffyui.min.css"
-            });
+
+        if (spiffyui.autoloadCSS) {
+            /*
+             * Almost all of our CSS is in spiffyui.css, but there are always a few
+             * tweaks you need to add for IE.  This special style sheet is added only
+             * if the browser is IE and contains just those tweaks.
+             */
+            if (navigator.appName == 'Microsoft Internet Explorer') {
+                jQuery("head").prepend("<link>");
+                css = $("head").children(":first");
+                css.attr({
+                    rel:  "stylesheet",
+                    type: "text/css",
+                    href: "spiffyui.ie.css"
+                });
+            }
+            
+            /*
+             * Now we add the spiffyui.min.css file.  If the URL ends with -debug.html
+             * then we'll add the uncompressed version.  We add these files dynamically
+             * so users of the framework have less to add to their page and because IE8
+             * give precedence to files loaded in the page over those added with JavaScript
+             * and we can't do that because we override styles in spiffyui.ie.css.
+             */
+            if (window.location.href.substr(-11) === "-debug.html") {
+                jQuery("head").prepend("<link>");
+                css = $("head").children(":first");
+                css.attr({
+                    rel:  "stylesheet",
+                    type: "text/css",
+                    href: "spiffyui.css"
+                });
+            } else {
+                jQuery("head").prepend("<link>");
+                css = $("head").children(":first");
+                css.attr({
+                    rel:  "stylesheet",
+                    type: "text/css",
+                    href: "spiffyui.min.css"
+                });
+            }
         }
     }
     
