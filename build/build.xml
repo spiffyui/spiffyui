@@ -120,17 +120,21 @@
             <zipfileset dir="${spiffy.build.classes}" prefix="" >
                 <include name="org/spiffyui/build/*.*"/>
             </zipfileset>
+            <zipfileset dir="${spiffy.build}/src" prefix="" >
+                <include name="tasks.properties"/>
+            </zipfileset>
         </jar>
     </target>
-    
-    <target name="js-min" description="Minimize the JavaScript with the Closure compiler" depends="setup,js-lint,compileClosureTask.check,compileClosureTask">
-        <taskdef name="closure" classname="org.spiffyui.build.ClosureTask">
+
+    <target name="taskdefs">
+        <taskdef resource="tasks.properties">
             <classpath>
-                <pathelement location="${spiffy.build}/lib/closure-compiler.jar"/>
-                <pathelement path="${spiffy.build}/lib/closuretask.jar"/>
+                <fileset dir="${spiffy.build}/lib" includes="*.jar"/>
             </classpath>
         </taskdef>
-        
+    </target>
+    
+    <target name="js-min" description="Minimize the JavaScript with the Closure compiler" depends="setup,js-lint,compileClosureTask.check,compileClosureTask,taskdefs">
         <!-- Now we compile our JavaScript. -->
         <closure jsfile="${spiffy.www}/spiffyui.min.js" 
                  closurejar="${spiffy.build}/lib/closure-compiler.jar"
