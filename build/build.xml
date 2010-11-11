@@ -138,6 +138,9 @@
                  warninglevel="DEFAULT">
             <fileset dir="${spiffy.js}" includes="**/*.js" excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**" />
         </closure>
+
+        <!-- Then we GZIP it for web servers that support GZIP -->
+        <gzip src="${spiffy.www}/spiffyui.min.js" destfile="${spiffy.www}/spiffyui.min.js.gz"/>
         
         <!-- We also compile our own copy of JQuery -->
         <closure jsfile="${spiffy.www}/jquery-1.4.3.min.js" 
@@ -146,6 +149,9 @@
                  warninglevel="QUIET">
             <fileset dir="${spiffy.js}/lib" includes="jquery-1.4.3.js" />
         </closure>
+
+        <!-- Then we GZIP JQuery for web servers that support GZIP -->
+        <gzip src="${spiffy.www}/jquery-1.4.3.min.js" destfile="${spiffy.www}/jquery-1.4.3.min.js.gz"/>
         
         <!-- We copy over all the JavaScript files for dev mode -->
         <mkdir dir="${spiffy.www}/js"/>
@@ -181,6 +187,9 @@
         <!-- Now that we have created the compressed file we don't
              need the concatenated file -->
         <delete file="${spiffy.www}/spiffyui.css" />
+
+        <!-- Then we can GZIP the file -->
+        <gzip src="${spiffy.www}/spiffyui.min.css" destfile="${spiffy.www}/spiffyui.min.css.gz"/>
         
         <!-- Now we copy over the images that we use for our CSS -->
         <mkdir dir="${spiffy.www}/images"/>
