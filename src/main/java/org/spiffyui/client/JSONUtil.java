@@ -362,6 +362,11 @@ public final class JSONUtil
             JSONNumber n = v.isNumber();
             if (n != null) {
                 return new Date(Double.valueOf(n.doubleValue()).longValue());
+            } else {
+                String s = getStringValue(obj, key);
+                if (s != null) {
+                    return new Date(Long.parseLong(s));
+                }
             }
         }
         

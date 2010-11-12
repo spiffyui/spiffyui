@@ -76,7 +76,7 @@ public interface RESTCallback
     /**
      * <p>
      * Called if the REST endpoint returns a valid response with an 
-     * error message encoded in the 
+     * error message following in the 
      * <a href="http://www.w3.org/TR/soap12-part1/#soapfault">SOAP error 
      * format</a> encoded in JSON.
      * </p>

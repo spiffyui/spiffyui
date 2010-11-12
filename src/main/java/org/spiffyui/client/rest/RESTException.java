@@ -21,17 +21,45 @@ package org.spiffyui.client.rest;
 import java.util.HashMap;
 
 /**
+ * <p>
  * This exception represents a successful return from a REST call with an error
  * payload.  This exception parses the payload and returns all the parts of the
  * exception.
+ * </p>
  * 
- * This exception follows the SOAP fault format.
- * http://www.w3.org/TR/soap12-part1/#soapfault
+ * <p> 
+ * This exception follows the <a href="http://www.w3.org/TR/soap12-part1/#soapfault">SOAP fault format</a>.
+ * The basic structure looks like this:
+ * </p>
+ * 
+ * <pre>
+ * {
+ *     "Fault": {
+ *         "Code": {
+ *             "Value": "Sender",
+ *             "Subcode": {
+ *                 "Value": "MessageTimeout" 
+ *             } 
+ *         },
+ *         "Reason": {
+ *             "Text": "Sender Timeout" 
+ *         },
+ *         "Detail": {
+ *             "MaxTime": "P5M" 
+ *         } 
+ *     }
+ * }
+ * </pre>
+ * 
+ * <p>
+ * The fields in this class map to this JSON structure.
+ * </p>
+ * 
  */
 public class RESTException extends Exception
 {
     /**
-     * This is a constant error code to indicate we couldn't parse the JSON response
+     * This is a constant error code to indicate the response was not well formed JSON
      */
     public static final String UNPARSABLE_RESPONSE = "UnparsableJSONResponse";
     

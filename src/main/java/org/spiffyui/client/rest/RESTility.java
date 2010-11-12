@@ -50,20 +50,24 @@ public final class RESTility
     private static final String LOCALE_COOKIE = "Spiffy_Locale";
 
     private static final RESTility RESTILITY = new RESTility();
+
     /**
-     * HTTP GET
+     * This method represents an HTTP GET request
      */
     public static final HTTPMethod GET = RESTILITY.new HTTPMethod("GET");
+
     /**
-     * HTTP PUT
+     * This method represents an HTTP PUT request
      */
     public static final HTTPMethod PUT = RESTILITY.new HTTPMethod("PUT");
+
     /**
-     * HTTP POST
+     * This method represents an HTTP POST request
      */
     public static final HTTPMethod POST = RESTILITY.new HTTPMethod("POST");
+
     /**
-     * HTTP DELETE
+     * This method represents an HTTP DELETE request
      */
     public static final HTTPMethod DELETE = RESTILITY.new HTTPMethod("DELETE");
 
@@ -130,11 +134,31 @@ public final class RESTility
         RESTility.setAuthProvider(authUtil);
     }
 
+    /**
+     * <p>
+     * Sets the authentication provider used for future REST requests.
+     * </p>
+     * 
+     * <p>
+     * By default authentication is provided by the AuthUtil class, but this
+     * class may be replaced to provide support for custom authentication schemes.
+     * </p>
+     * 
+     * @param authProvider
+     *               the new authentication provider
+     * 
+     * @see AuthUtil
+     */
     public static final void setAuthProvider(RESTAuthProvider authProvider)
     {
         g_authProvider = authProvider;
     }
 
+    /**
+     * Gets the current auth provider which will be used for future REST calls.
+     * 
+     * @return The current auth provider
+     */
     public static final RESTAuthProvider getAuthProvider()
     {
         return g_authProvider;
@@ -257,7 +281,7 @@ public final class RESTility
     }
 
     /**
-     * This function calls out to JQuery to make the REST call.
+     * Make a rest call using an HTTP GET to the specified URL.
      *
      * @param callback the callback to invoke
      * @param url    the REST url to call
@@ -268,8 +292,8 @@ public final class RESTility
     }
 
     /**
-     * This function calls out to JQuery to make the REST call. This
-     * still needs some work.
+     * Make a rest call using an HTTP GET to the specified URL including
+     * the specified data..
      *
      * @param url    the REST url to call
      * @param data   the data to pass to the URL
@@ -281,7 +305,7 @@ public final class RESTility
     }
 
     /**
-     * Set the user token and save in cookie
+     * Set the user token in JavaScript memory and and saves it in a cookie.
      * @param token  user token
      */
     protected static void setUserToken(String token)
@@ -292,7 +316,7 @@ public final class RESTility
     }
 
     /**
-     * Set the authentication server url and save in cookie
+     * Set the authentication server url in JavaScript memory and and saves it in a cookie.
      * @param url  authentication server url
      */
     protected static void setTokenServerURL(String url)
@@ -302,7 +326,7 @@ public final class RESTility
     }
 
     /**
-     * Set the user name and save in cookie
+     * Set the user name in JavaScript memory and and saves it in a cookie.
      * @param username  user name
      */
     protected static void setUsername(String username)
@@ -312,7 +336,7 @@ public final class RESTility
     }
 
     /**
-     * Set the authentication server logout url and save in cookie
+     * Set the authentication server logout url in JavaScript memory and and saves it in a cookie.
      * @param url  authentication server logout url
      */
     protected static void setTokenServerLogoutURL(String url)
