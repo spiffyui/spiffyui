@@ -40,7 +40,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  * 
  * <p>
  * Many of the methods use the Humnized Message Panels and require the Spiffy UI
- * JavaScript libraries. 
+ * JavaScript libraries.  This class also depends on the Spiffy UI HTML structure.
  * </p>
  */
 public final class MessageUtil

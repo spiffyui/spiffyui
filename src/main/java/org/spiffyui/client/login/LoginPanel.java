@@ -45,9 +45,14 @@ import org.spiffyui.client.rest.RESTility;
 import org.spiffyui.client.widgets.SmallLoadingIndicator;
 
 /**
- * A reusable login dialog
+ * <p>
+ * A reusable login dialog.
+ * </p>
  *
- * The styles (css classes) that the panel uses are as follows
+ * <p>
+ * The styles (css classes) that the panel uses are as follows:
+ * </p>
+ * 
  * <ul>
  * <li>.logintitle - For the title of the login dialog
  * <li>.login_username - For the username label
