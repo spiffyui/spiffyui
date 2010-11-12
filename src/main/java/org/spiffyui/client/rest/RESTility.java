@@ -176,7 +176,6 @@ public final class RESTility
          */
         String auth = response.getHeader("WWW-Authenticate");
         if (auth == null) {
-            MessageUtil.showError(STRINGS.noAuthHeader());
             throw new RESTException(RESTException.NO_AUTH_HEADER,
                                     "", STRINGS.noAuthHeader(),
                                     new HashMap<String, String>(),
@@ -209,7 +208,6 @@ public final class RESTility
         }
 
         if (loginUri == null || logoutUri == null) {
-            MessageUtil.showError(STRINGS.invalidAuthHeader(response.getHeader("WWW-Authenticate")));
             throw new RESTException(RESTException.INVALID_AUTH_HEADER,
                                     "", STRINGS.invalidAuthHeader(response.getHeader("WWW-Authenticate")),
                                     new HashMap<String, String>(),
@@ -688,7 +686,6 @@ public final class RESTility
                  server is down or that we have a network timeout
                  */
                 RESTCallStruct struct = RESTILITY.m_restCalls.remove(m_origCallback);
-                MessageUtil.showFatalError(STRINGS.noServerContact());
                 m_origCallback.onError(new RESTException(RESTException.NO_SERVER_RESPONSE,
                                                          "", STRINGS.noServerContact(),
                                                          new HashMap<String, String>(),
@@ -699,9 +696,6 @@ public final class RESTility
 
             if (!checkJSON(response.getText())) {
                 RESTCallStruct struct = RESTILITY.m_restCalls.remove(m_origCallback);
-                MessageUtil.showError(
-                    STRINGS.jsonErrorShort(),
-                    STRINGS.jsonError2(struct.getUrl(), response.getText()));
                 m_origCallback.onError(new RESTException(RESTException.UNPARSABLE_RESPONSE,
                                                          "", "", new HashMap<String, String>(),
                                                          response.getStatusCode(),
