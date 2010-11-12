@@ -30,7 +30,16 @@ import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Window;
 
 /**
- * A utility class for login and logout.
+ * <p> 
+ * This is the default class for handling authentication during REST calls. 
+ * </p> 
+ *  
+ * <p> 
+ * The default authentication handler follows the Novell standards for REST 
+ * authentication.  This class implements that handler.  You can override this 
+ * class and create your own authentication handler to satisfy any authentication 
+ * scheme your application may require. 
+ * </p> 
  */
 public class AuthUtil implements RESTAuthProvider
 {
@@ -44,10 +53,11 @@ public class AuthUtil implements RESTAuthProvider
 
 
     /**
-     * constructor
+     * Create a new AuthUtil
      */
     public AuthUtil()
     {
+        
     }
     /**
      * Show the login dialog.
@@ -196,28 +206,6 @@ public class AuthUtil implements RESTAuthProvider
                 }
             }, true, null);
     }
-
-    /**
-     * Adds a login listener to all REST calls.  This listener will get called every time
-     * the user logs in.
-     *
-     * @param callback the callback
-     */
-    /*public void addLoginListener(RESTLoginCallBack callback)
-    {
-        RESTility.addLoginListener(callback);
-    }*/
-
-    /**
-     * Removes the specified login callback from the list of callbacks when the user is
-     * prompted to login.
-     *
-     * @param callback the callback
-     */
-    /*public void removeLoginListener(RESTLoginCallBack callback)
-    {
-        RESTility.removeLoginListener(callback);
-    }*/
 
     /**
      * Gets the servlet context from the current URL.  The context is assumed
