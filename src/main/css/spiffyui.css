@@ -957,6 +957,7 @@ h3.subSectionTitle.expandable.expanded {
     -webkit-border-radius:6px;
     -moz-border-radius:6px;
     margin-right: 2em;
+    display: none;
 }
 
 #errorpanel_hide {

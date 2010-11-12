@@ -169,7 +169,9 @@ spiffyui = {
                         '<div id="mainHeader"></div>' + 
                         '<div id="mainBody">' + 
                             '<div id="mainNavigation"></div>' + 
-                            '<div id="mainContent"></div>' + 
+                            '<div id="mainContent">' + 
+                                '<div id="errorpanel"></div>' + 
+                            '</div>' + 
                             '<div class="clear"></div>' + 
                         '</div>' + 
                         '<div class="clear"></div>' + 

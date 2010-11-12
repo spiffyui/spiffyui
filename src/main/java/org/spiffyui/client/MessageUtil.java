@@ -33,8 +33,15 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
+ * <p>
  * This class is a set of static utility methods for showing messages and errors
  * in the browser and handle them all in a consistent way.
+ * </p>
+ * 
+ * <p>
+ * Many of the methods use the Humnized Message Panels and require the Spiffy UI
+ * JavaScript libraries. 
+ * </p>
  */
 public final class MessageUtil
 {
@@ -60,7 +67,7 @@ public final class MessageUtil
     }
 
     /**
-     * Show a fatal error message
+     * Show a fatal error message in the error panel with the ID errorPanel.
      * 
      * @param msg
      *        the message to show
@@ -234,13 +241,16 @@ class ErrorPanel extends Composite implements Event.NativePreviewHandler
 {
 
     private Label m_label;
-    private FlowPanel m_panel;
+    private RootPanel m_panel;
 
     public ErrorPanel()
     {
-        m_panel = new FlowPanel();
-        m_panel.getElement().setId("errorpanel");
+        m_panel = RootPanel.get("errorpanel");
 
+        if (m_panel == null) {
+            throw new IllegalStateException("Unable to find the DOM element with the ID errorpanel");
+        }
+        
         m_label = new Label("", true);
         m_panel.add(m_label);
 
@@ -255,8 +265,6 @@ class ErrorPanel extends Composite implements Event.NativePreviewHandler
         });
         m_panel.add(clear);
 
-        RootPanel placeHolder = RootPanel.get("mainContent");
-        placeHolder.add(m_panel);
         m_panel.setVisible(false);
 
         //Any click anywhere will close

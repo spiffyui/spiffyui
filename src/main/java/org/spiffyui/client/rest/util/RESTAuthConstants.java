@@ -20,7 +20,7 @@ package org.spiffyui.client.rest.util;
 
 /**
  * This interface defines the necessary constants to perform a login for a REST service
- * that follows the NCAC standard for tokenized identity
+ * that follows the Novell architecture council standard for tokenized identity
  */
 public interface RESTAuthConstants
 {
