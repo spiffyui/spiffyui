@@ -19,10 +19,22 @@
 package org.spiffyui.client.rest;
 
 /**
+ * <p>
  * This interface is implemented by request callers to get the bean or Object
- * back from a REST call. 
- *  
- * @param <T> - The object type for the callback 
+ * back from a REST call.
+ * </p>
+ * 
+ * <p>
+ * RESTObjectCallBack is an optional interface.  You can just implement RESTCallBack.
+ * The purpose of the RESTObjectCallBack object is to abstract away the knowledge
+ * of JSON, HTTP, or AJAX REST.  A class calling the RESTObjectCallBack only has
+ * to deal with well formed Java objects in GWT and doesn't need to parse JSON
+ * or handle HTTP errors.
+ * </p>
+ * 
+ * @param <T> - The object type for the callback
+ * @see RESTCallBack
+ * @see RESTility
  */
 public interface RESTObjectCallBack<T>
 {
