@@ -164,6 +164,22 @@ public final class RESTility
         return g_authProvider;
     }
 
+    /**
+     * Make a login request using RESTility authentication framework.
+     * 
+     * @param callback  the rest callback called when the login is complete
+     * @param response  the response from the server requiring the login
+     * @param url       the URL of the authentication server
+     * @param errorCode the error code from the server returned with the 401
+     * 
+     * @exception RESTException
+     */
+    public static void login(RESTCallback callback, Response response, String url, String errorCode)
+        throws RESTException
+    {
+        RESTILITY.doLogin(callback, response, url, errorCode);
+    }
+
     private void doLogin(RESTCallback callback, Response response, String url, String errorCode)
         throws RESTException
     {
@@ -720,7 +736,7 @@ public final class RESTility
                     exception = new RESTException(RESTException.UNPARSABLE_RESPONSE,
                                                   "", "", new HashMap<String, String>(),
                                                   response.getStatusCode(),
-                                                  struct.getUrl());;
+                                                  struct.getUrl());
                 }
 
                 if (val.isObject() != null &&
