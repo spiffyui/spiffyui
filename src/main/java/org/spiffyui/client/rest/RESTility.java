@@ -173,6 +173,7 @@ public final class RESTility
      * @param errorCode the error code from the server returned with the 401
      * 
      * @exception RESTException
+     *                   if there was an exception when making the login request
      */
     public static void login(RESTCallback callback, Response response, String url, String errorCode)
         throws RESTException
