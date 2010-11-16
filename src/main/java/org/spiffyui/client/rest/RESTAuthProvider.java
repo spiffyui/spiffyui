@@ -21,13 +21,23 @@ package org.spiffyui.client.rest;
 import org.spiffyui.client.rest.util.RESTAuthConstants;
 
 /**
+ * <p> 
  * This interface defines the necessary steps to perform a login for a REST service 
- * that follows the NCAC standard for tokenized identity 
+ * that follows the Novell architecture council standard for tokenized identity. 
+ * </p> 
  */
 public interface RESTAuthProvider extends RESTAuthConstants
 {
     /**
-     * Show the login dialog.
+     * <p> 
+     * Show the login dialog. 
+     * </p> 
+     *  
+     * <p> 
+     * This method is called when a REST call results in a 401 which requires login. 
+     * The default implementation of this method shows a login dialog, but it could 
+     * redirect to another page or simply show an error message. 
+     * </p> 
      *
      * @param callback the callback for the original REST call
      * @param tokenServerUrl
@@ -37,8 +47,16 @@ public interface RESTAuthProvider extends RESTAuthConstants
     public void showLogin(RESTCallback callback, String tokenServerUrl, String code);
     
     /**
+     * <p> 
      * Once the login is completed we need to perform the original REST request
-     * with the new user token.
+     * with the new user token. 
+     * </p> 
+     *  
+     * <p> 
+     * This gives the framework a chance to repeat the request with the new token 
+     * and have it complete successfully.  This method is called after all of the 
+     * login exchange is completed. 
+     * </p> 
      * 
      * @param callBackKey
      *               the callback object of the original REST call
@@ -46,15 +64,29 @@ public interface RESTAuthProvider extends RESTAuthConstants
     public void finishRESTCall(Object callBackKey);
     
     /**
-     * Logout the current user.  This clears all local variables, removes the 
-     * session cookie, and issues the logout request to the server.
+     * <p> 
+     * Logout the current user. 
+     * </p> 
+     *  
+     * <p> 
+     * This method clears all local variables, removes the session cookie, and issues 
+     * the logout request to the server.  The logout request to the server is typically 
+     * a REST request made to the same URL as the login request but using an HTTP DELETE. 
+     * </p> 
      * 
      * @param callback the REST callback to indicate the call is completed
      */
     public void logout(final RESTObjectCallBack<String> callback);
     
     /**
-     * Performs login for the specified user credentials.
+     * <p> 
+     * Perform login for the specified user credentials. 
+     * </p> 
+     *  
+     * <p> 
+     * This method makes a REST request to the authentication server (through the authentication) 
+     * proxy and gets the token based on the specified credentials. 
+     * </p> 
      * 
      * @param username the username
      * @param password the password
