@@ -54,23 +54,6 @@
         
         <property name="ant.home" location="${build.rpt.base}/external/ant"/>
         <property name="ant.lib" location="${build.rpt.base}/external/ant/lib"/>
-
-        
-
-        <!-- Values for the WAR's manifest file -->
-        <tstamp>
-            <format property="builddate" pattern="HH:mm d-MMMM-yyyy"/>
-        </tstamp>
-
-        <!-- Not using svn for the moment -->
-        <exec executable="svn" output="build_svninfo.xml">
-            <arg line="info --xml ${build.spiffy.base}"/>
-        </exec>
-
-        <!-- We also store the current revision from Subversion -->
-        <xmlproperty file="build_svninfo.xml"/>
-        <delete file="build_svninfo.xml"/>
-        <property name="revision.number" value="${info.entry(revision)}"/>
     </target>
 
     <target name="compile">
