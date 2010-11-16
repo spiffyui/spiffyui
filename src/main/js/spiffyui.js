@@ -143,6 +143,14 @@ spiffyui = {
             return date.addWeeks(amt).days().getTime();
         } else if (unit == "MONTH") {
             return date.addMonths(amt).days().getTime();
+        } else if (unit == "HOUR") {
+            return date.addHours(amt).days().getTime();
+        } else if (unit == "MINUTE") {
+            return date.addMinutes(amt).days().getTime();
+        } else if (unit == "SECOND") {
+            return date.addSeconds(amt).days().getTime();
+        } else if (unit == "YEAR") {
+            return date.addHours(amt).days().getTime();
         } else {
             return date.add(amt).days().getTime();
         }

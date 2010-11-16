@@ -257,7 +257,7 @@ public final class JSDateUtil
      * Add to a specified date
      * @param date - a Date to start
      * @param amt - the amount to add
-     * @param unit - the unit to add.  Can be WEEK, MONTH or defaults to DAY
+     * @param unit - the unit to add.  Can be WEEK, MONTH, YEAR, HOUR, MINUTE, SECOND or defaults to DAY
      * @return the new date
      */
     public static Date dateAdd(Date date, int amt, String unit)
@@ -269,7 +269,7 @@ public final class JSDateUtil
      * Add to a specified epoch date
      * @param epochDate - the time in milliseconds since Jan , 1, 1970
      * @param amt - the amount to add
-     * @param unit - the unit to add.  Can be WEEK, MONTH or defaults to DAY
+     * @param unit - the unit to add.  Can be WEEK, MONTH, YEAR, HOUR, MINUTE, SECOND or defaults to DAY
      * @return the new date as an epoch 
      */    
     public static native String dateAdd(String epochDate, int amt, String unit) /*-{
