@@ -42,7 +42,7 @@ public class NavHeader extends Widget
     public NavHeader(String text)
     {
         setElement(Document.get().createHElement(2));
-        getElement().setNodeValue(text);
+        getElement().setInnerText(text);
         setStyleName("main-menuHeader");
     }
 
@@ -53,7 +53,7 @@ public class NavHeader extends Widget
      */
     public void setText(String text)
     {
-        getElement().setNodeValue(text);
+        getElement().setInnerText(text);
     }
 
     /**
@@ -63,6 +63,6 @@ public class NavHeader extends Widget
      */
     public String getText()
     {
-        return getElement().getNodeValue();
+        return getElement().getInnerText();
     }
 }
