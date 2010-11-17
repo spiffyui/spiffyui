@@ -37,10 +37,32 @@ public class NavHeader extends Widget
     /**
      * Creates a new navigation header
      * 
+     * @param text   the text for the header element
      */
-    public NavHeader()
+    public NavHeader(String text)
     {
         setElement(Document.get().createHElement(2));
+        getElement().setNodeValue(text);
         setStyleName("main-menuHeader");
+    }
+
+    /**
+     * Set the text of this header item.
+     * 
+     * @param text   the text to set
+     */
+    public void setText(String text)
+    {
+        getElement().setNodeValue(text);
+    }
+
+    /**
+     * Get the text of this item.
+     * 
+     * @return the text of the item
+     */
+    public String getText()
+    {
+        return getElement().getNodeValue();
     }
 }
