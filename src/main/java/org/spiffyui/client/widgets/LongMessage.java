@@ -129,6 +129,16 @@ public class LongMessage extends FlowPanel implements Event.NativePreviewHandler
     }
 
     /**
+     * Get the current HTML conents of this long message.
+     * 
+     * @return the html contents
+     */
+    public String getHTML()
+    {
+        return m_html.getHTML();
+    }
+
+    /**
      * Clears the error panel. This method will make the panel invisible.
      */
     public void clear()

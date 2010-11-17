@@ -19,6 +19,7 @@
 package org.spiffyui.client.rest;
 
 import org.spiffyui.client.MessageUtil;
+import org.spiffyui.client.JSUtil;
 import org.spiffyui.client.SpiffyUIStrings;
 import org.spiffyui.client.login.LoginPanel;
 import org.spiffyui.client.login.LoginStringHelper;
@@ -161,8 +162,11 @@ public class AuthUtil implements RESTAuthProvider
         credentials.put(USERNAME_TOKEN, new JSONString(username));
         credentials.put(PASSWORD_TOKEN, new JSONString(password));
         credentials.put(AUTH_URL_TOKEN, new JSONString(authUrl));
-        credentials.put(AUTH_LOGOUT_URL_TOKEN, new JSONString(RESTility.getTokenServerLogoutUrl()));
-
+        if (RESTility.getTokenServerLogoutUrl() != null) {
+            credentials.put(AUTH_LOGOUT_URL_TOKEN, new JSONString(RESTility.getTokenServerLogoutUrl()));
+        } else {
+            credentials.put(AUTH_LOGOUT_URL_TOKEN, new JSONString(authUrl));
+        }
 
         RESTility.callREST(getServletContext() + "/auth", credentials.toString(), RESTility.POST,
                            new RESTCallback() {
