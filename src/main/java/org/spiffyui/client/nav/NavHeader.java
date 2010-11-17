@@ -23,31 +23,24 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * <p>
- * This widget represents a single separator item on the navigation menu.
+ * This widget represents a single header element <code>H2</code> to the navigation menu.
  * </p>
  * 
  * <h3>CSS Style Rules</h3>
  * 
  * <ul>
- * <li>.main-menuSeparator { primry style }</li>
+ * <li>.main-menuHeader { primry style }</li>
  * </ul>
  */
-
-public class NavSeparator extends Widget
+public class NavHeader extends Widget
 {
-    private String m_id;
-    
     /**
-     * Creates a new navigation separator
+     * Creates a new navigation header
      * 
-     * @param id     the id of the separator
      */
-    public NavSeparator(String id)
+    public NavHeader()
     {
-        m_id = id;
-        
-        setElement(Document.get().createDivElement());
-        getElement().setId(m_id);
-        setStyleName("main-menuSeparator");
+        setElement(Document.get().createHElement(2));
+        setStyleName("main-menuHeader");
     }
 }
