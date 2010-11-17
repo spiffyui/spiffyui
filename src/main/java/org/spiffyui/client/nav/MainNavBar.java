@@ -57,6 +57,7 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler
     {
         if ((w instanceof NavItem) ||
             (w instanceof NavSection) ||
+            (w instanceof NavHeader) ||
             (w instanceof NavSeparator)) {
             super.add(w);
             
@@ -67,7 +68,7 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler
                 ((NavSection) w).setNavBar(this);
             }
         } else {
-            throw new IllegalArgumentException("You can only add NavItem, NavSection, or NavSeparator to this class");
+            throw new IllegalArgumentException("You can only add NavItem, NavHeader, NavSection, or NavSeparator to this class");
         }
     }
     
