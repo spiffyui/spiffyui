@@ -45,7 +45,6 @@ import org.spiffyui.client.SpiffyUIStrings;
 public final class RESTility
 {
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
-    private static final String BASIC_AUTH = "X-OPAQUE";
     private static final String SESSION_COOKIE = "Spiffy_Session";
     private static final String LOCALE_COOKIE = "Spiffy_Locale";
 
@@ -114,6 +113,7 @@ public final class RESTility
 
     private HashMap<RESTCallback, RESTCallStruct> m_restCalls = new HashMap<RESTCallback, RESTCallStruct>();
     private String m_userToken = null;
+    private String m_tokenType = null;
     private String m_tokenServerUrl = null;
     private String m_username = null;
     private String m_tokenServerLogoutUrl = null;
@@ -209,10 +209,14 @@ public final class RESTility
          *
          * First we'll remove the token type
          */
+        
+        String tokenType = auth.substring(0, auth.indexOf(' ')).trim();
+        
         auth = auth.substring(auth.indexOf(' ') + 1);
 
         String props[] = auth.split(",");
 
+        
         String loginUri = null;
         String logoutUri = null;
 
@@ -236,6 +240,7 @@ public final class RESTility
             logoutUri = loginUri;
         }
 
+        setTokenType(tokenType);
         setTokenServerURL(loginUri);
         setTokenServerLogoutURL(logoutUri);
 
@@ -339,6 +344,12 @@ public final class RESTility
         RESTILITY.m_tokenServerUrl = url;
         setSessionToken();
     }
+    
+    private static void setTokenType(String type)
+    {
+        RESTILITY.m_tokenType = type;
+        setSessionToken();
+    }
 
     /**
      * Set the user name in JavaScript memory and and saves it in a cookie.
@@ -409,7 +420,8 @@ public final class RESTility
 
     private static void setSessionToken()
     {
-        Cookies.setCookie(SESSION_COOKIE, RESTILITY.m_userToken + "," + RESTILITY.m_tokenServerUrl + "," +
+        Cookies.setCookie(SESSION_COOKIE, RESTILITY.m_tokenType + "," +
+                          RESTILITY.m_userToken + "," + RESTILITY.m_tokenServerUrl + "," +
                           RESTILITY.m_tokenServerLogoutUrl + "," + RESTILITY.m_username);
         if (RESTILITY.m_bestLocale != null) {
             Cookies.setCookie(LOCALE_COOKIE, RESTILITY.m_bestLocale);
@@ -433,7 +445,7 @@ public final class RESTility
      */
     public static String getFullAuthToken()
     {
-        return BASIC_AUTH + " " + getUserToken();
+        return getTokenType() + " " + getUserToken();
     }
 
     /**
@@ -445,6 +457,25 @@ public final class RESTility
     {
         if (RESTILITY.m_userToken != null) {
             return RESTILITY.m_userToken;
+        } else {
+            String session = Cookies.getCookie(SESSION_COOKIE);
+            if (session == null) {
+                return null;
+            } else {
+                return session.split(",")[1];
+            }
+        }
+    }
+    
+    /**
+     * Returns user's authentication token type
+     *
+     * @return user's authentication token type
+     */
+    public static String getTokenType()
+    {
+        if (RESTILITY.m_tokenType != null) {
+            return RESTILITY.m_tokenType;
         } else {
             String session = Cookies.getCookie(SESSION_COOKIE);
             if (session == null) {
@@ -469,7 +500,7 @@ public final class RESTility
             if (session == null) {
                 return null;
             } else {
-                return session.split(",")[1];
+                return session.split(",")[2];
             }
         }
     }
@@ -488,7 +519,7 @@ public final class RESTility
             if (session == null) {
                 return null;
             } else {
-                return session.split(",")[2];
+                return session.split(",")[3];
             }
         }
     }
@@ -508,7 +539,7 @@ public final class RESTility
             if (session == null) {
                 return null;
             } else {
-                return session.split(",")[3];
+                return session.split(",")[4];
             }
         }
     }
