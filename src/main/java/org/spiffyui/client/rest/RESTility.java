@@ -766,7 +766,7 @@ public final class RESTility
                      */
                     RESTCallStruct struct = RESTILITY.m_restCalls.get(m_origCallback);
                     exception = new RESTException(RESTException.UNPARSABLE_RESPONSE,
-                                                  "", "", new HashMap<String, String>(),
+                                                  "", response.getText(), new HashMap<String, String>(),
                                                   response.getStatusCode(),
                                                   struct.getUrl());
                 }
