@@ -19,7 +19,6 @@
 package org.spiffyui.client.rest;
 
 import org.spiffyui.client.MessageUtil;
-import org.spiffyui.client.JSUtil;
 import org.spiffyui.client.SpiffyUIStrings;
 import org.spiffyui.client.login.LoginPanel;
 import org.spiffyui.client.login.LoginStringHelper;

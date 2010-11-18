@@ -73,7 +73,9 @@ public class AuthServlet extends HttpServlet
     static {
         setHostnameVerifier();
     }
-
+    
+    private static AuthURLValidator g_validator;
+    
     private static void setHostnameVerifier()
     {
         /*
@@ -108,6 +110,16 @@ public class AuthServlet extends HttpServlet
                     //no-op
                 }
             });
+    }
+    
+    /**
+     * Sets the URL validator for this authentication servlet.
+     * 
+     * @param validator the validator
+     */
+    public static void setUrlValidator(AuthURLValidator validator)
+    {
+        g_validator = validator;
     }
 
     @Override
@@ -181,30 +193,34 @@ public class AuthServlet extends HttpServlet
     private boolean validateURI(HttpServletRequest request, String uri)
         throws MalformedURLException
     {
-        /*
-         The server trusts the client to pass the authentication URL.
-         If the client is compromised (like with an XSS attack) then
-         it could pass the URL to a bogus authentication server and
-         get this servlet to forward the user's credentials there.
-
-         This is especially dangerous since this serverlet is not
-         governed by the same origin policy.  To protect against
-         this we are using a white list of approved authentication
-         servers.  Right now that list is just the server containing
-         the client WAR.
-
-         In the future we may support hosting the authentication server
-         on a different server and then we will need a more fully featured
-         white list.
-         */
-        URI.create(uri);
-
-        URL tsUrl = new URL(uri);
-        URL serverUrl = new URL(request.getRequestURL().toString());
-
-        return tsUrl.getHost().equals(serverUrl.getHost()) &&
-            tsUrl.getPort() == serverUrl.getPort() &&
-            tsUrl.getProtocol().equals(serverUrl.getProtocol());
+        if (g_validator != null) {
+            return g_validator.validateURI(request, uri);
+        } else {
+            /*
+             The server trusts the client to pass the authentication URL.
+             If the client is compromised (like with an XSS attack) then
+             it could pass the URL to a bogus authentication server and
+             get this servlet to forward the user's credentials there.
+    
+             This is especially dangerous since this serverlet is not
+             governed by the same origin policy.  To protect against
+             this we are using a white list of approved authentication
+             servers.  Right now that list is just the server containing
+             the client WAR.
+    
+             In the future we may support hosting the authentication server
+             on a different server and then we will need a more fully featured
+             white list.
+             */
+            URI.create(uri);
+    
+            URL tsUrl = new URL(uri);
+            URL serverUrl = new URL(request.getRequestURL().toString());
+    
+            return tsUrl.getHost().equals(serverUrl.getHost()) &&
+                tsUrl.getPort() == serverUrl.getPort() &&
+                tsUrl.getProtocol().equals(serverUrl.getProtocol());
+        }
     }
 
     private void doLogin(HttpServletRequest request, HttpServletResponse response,
