@@ -279,6 +279,7 @@ public final class RESTility
         RESTILITY.m_logInListenerCalled = false;
         RESTILITY.m_callCount = 0;
         RESTILITY.m_userToken = null;
+        RESTILITY.m_tokenType = null;
         RESTILITY.m_tokenServerUrl = null;
         RESTILITY.m_tokenServerLogoutUrl = null;
         Cookies.removeCookie(SESSION_COOKIE);
@@ -345,7 +346,20 @@ public final class RESTility
         setSessionToken();
     }
     
-    private static void setTokenType(String type)
+    /**
+     * <p>
+     * Set the type of token RESTility will pass.
+     * </p>
+     * 
+     * <p>
+     * Most of the time the token type is specified by the REST server and the
+     * client does not have to specify this value.  This method is mostly used
+     * for testing.
+     * </p>
+     * 
+     * @param type   the token type
+     */
+    public static void setTokenType(String type)
     {
         RESTILITY.m_tokenType = type;
         setSessionToken();
