@@ -425,4 +425,25 @@ public final class JSUtil
         } 
         return s;
     }
+    
+    
+    /**
+     * Get the height of an element
+     * @param id - the id of the element
+     * @return int the height without "px"
+     */
+    public static native int getHeight(String id) /*-{
+        return $wnd.$("#" + id).height();
+    }-*/;
+    
+    /**
+     * Get the width of an element
+     * @param id - the id of the element
+     * @return int the height without "px"
+     */
+    public static native int getWidth(String id) /*-{
+        return $wnd.$("#" + id).width();
+    }-*/;
+    
+
 }
