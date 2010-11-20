@@ -128,9 +128,9 @@ spiffyui = {
         return Date.today().getTime();
     },
     /**
-     * Adds the specified number of days to this instance. The number can be positive or negative. 
+     * Adds the 1 day to today.
      */    
-    nextDay: function(date) {
+    nextDay: function() {
         return Date.today().add(1).days().getTime();
     },    
     
