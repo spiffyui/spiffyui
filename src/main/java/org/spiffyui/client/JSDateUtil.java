@@ -78,9 +78,9 @@ public final class JSDateUtil
     }-*/;
     
     /**
-     * Convert UTC epoch format to Date format in the current locale 
+     * Adds the 1 day to today 
      *  
-     * @return - Date format in String
+     * @return - epochDate time in milliseconds String
      */    
     public static native String nextDay() /*-{
         return String($wnd.spiffyui.nextDay());
@@ -168,6 +168,18 @@ public final class JSDateUtil
         return $wnd.Date.CultureInfo.formatPatterns.longDate;
     }-*/;
 
+
+    /**
+     * Gets the month day format string in the current locale.  In en-US 
+     * this is MMMM dd in fr_FR it is d MMMM
+     *
+     * @return - The date format
+     */    
+    public static native String getMonthDayFormat() /*-{
+        return $wnd.Date.CultureInfo.formatPatterns.monthDay;
+    }-*/;
+
+    
     /**
      * Gets the short time format string in the current locale.  In en-US 
      * this is h:mm tt in fr_FR it is HH:mm 
@@ -276,4 +288,15 @@ public final class JSDateUtil
         return String($wnd.spiffyui.dateAdd(parseInt(epochDate), amt, unit));
     }-*/;
 
+    /**
+     * Convert UTC epoch format to Month Day format in the current locale 
+     *  
+     * @param epochDate - the time in milliseconds since Jan , 1, 1970
+     * @param abbrev - if true, the abbreviate the month
+     * @return - Date format in String
+     */    
+    public static native String getMonthDay(String epochDate, boolean abbrev) /*-{
+        return $wnd.spiffyui.getMonthDay(parseInt(epochDate), abbrev);
+    }-*/;
+    
 }

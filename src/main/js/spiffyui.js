@@ -34,7 +34,22 @@ spiffyui = {
         var dateVal = new Date(epoch);
         return dateVal.toString(Date.CultureInfo.formatPatterns.longDate);
     },
+
+    /**
+     * Gets a string of the date formatted into the month day 
+     * format in the current locale. If abbrev = true, the use the 
+     * abbreviation for month.
+     */
+    getMonthDay: function(/*int*/ epoch, /*boolean*/ abbrev) {
+        var dateVal = new Date(epoch);
+        var dateFormat = Date.CultureInfo.formatPatterns.monthDay;
+        if (abbrev) {
+            dateFormat = dateFormat.replace("MMMM", "MMM");
+        }
+        return dateVal.toString(dateFormat);
+    },
     
+
     /**
      * Gets a string of the time formatted into the short time 
      * format in the current locale. 
