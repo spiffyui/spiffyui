@@ -292,11 +292,23 @@ public final class JSDateUtil
      * Convert UTC epoch format to Month Day format in the current locale 
      *  
      * @param epochDate - the time in milliseconds since Jan , 1, 1970
-     * @param abbrev - if true, the abbreviate the month
+     * @param abbrev - if true, then abbreviate the month
      * @return - Date format in String
      */    
     public static native String getMonthDay(String epochDate, boolean abbrev) /*-{
         return $wnd.spiffyui.getMonthDay(parseInt(epochDate), abbrev);
     }-*/;
     
+    /**
+     * Convert UTC epoch format to Month Day format in the current locale 
+     * concatenated with the Short Time
+     *  
+     * @param epochDate - the time in milliseconds since Jan , 1, 1970
+     * @param abbrev - if true, the abbreviate the month
+     * @return - Date format in String
+     */    
+    public static String getShortMonthDayTime(String epochDate) 
+    {
+        return getMonthDay(epochDate, true) + " " + getShortTime(epochDate);
+    }
 }
