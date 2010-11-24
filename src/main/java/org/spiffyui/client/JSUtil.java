@@ -20,13 +20,15 @@ package org.spiffyui.client;
 
 import java.util.Date;
 
+import org.spiffyui.client.nav.MainNavBar;
+import org.spiffyui.client.nav.NavItem;
+
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import org.spiffyui.client.nav.MainNavBar;
-import org.spiffyui.client.nav.NavItem;
 
 /**
  * A set of static JavaScript utilities that provide access to functions from 
@@ -443,6 +445,15 @@ public final class JSUtil
      */
     public static native int getWidth(String id) /*-{
         return $wnd.$("#" + id).width();
+    }-*/;
+
+    /**
+     * Get the javascript object
+     * @param jsonString - the json string to parse
+     * @return int the height without "px"
+     */
+    public static native JavaScriptObject parseJSON(String jsonString) /*-{
+        return $wnd.jQuery.parseJSON(jsonString);
     }-*/;
     
 

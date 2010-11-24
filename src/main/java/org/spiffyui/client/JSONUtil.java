@@ -259,6 +259,70 @@ public final class JSONUtil
         
         return defaultValue;
     }
+
+/**
+     * Get a double from the JSON object or 0 if it doesn't exist or
+     * isn't a double.  This will handle JSON numbers like this:
+     *
+     *      "val": 0.5 or "val": -0.5 or "val": +0.5
+     *
+     * It will also handle numbers in strings like:
+     *
+     *      "val": "0.5" or "val": "-0.5"  or "val": "+0.5"
+     *
+     * @param obj    the object with the value
+     * @param key    the key for the object
+     *
+     * @return the value or 0 if it could not be decoded
+     */
+    public static double getDoubleValue(JSONObject obj, String key)
+    {
+        return getDoubleValue(obj, key, 0);
+    }
+
+    /**
+     * Get a double from the JSON object or the defaultValue if it doesn't exist or
+     * isn't a double.  This will handle JSON numbers like this:
+     *
+     *      "val": 0.5 or "val": -0.5 or "val": +0.5
+     *
+     * It will also handle numbers in strings like:
+     *
+     *      "val": "0.5" or "val": "-0.5" or "val": "+0.5"
+     *
+     * @param obj    the object with the value
+     * @param key    the key for the object
+     * @param defaultValue the default value if the specified key isn't found.
+     *
+     * @return the value or the defaultValue if it could not be decoded
+     */
+    public static double getDoubleValue(JSONObject obj, String key, double defaultValue)
+    {
+        if (!obj.containsKey(key)) {
+            return defaultValue;
+        }
+
+        try {
+            JSONValue v = obj.get(key);
+            if (v != null) {
+                JSONNumber n = v.isNumber();
+                if (n != null) {
+                    return (double) n.doubleValue();
+                } else {
+                    /*
+                     * If this isn't a number, then it might be a string
+                     * like "5" so we try to parse it as a number.
+                     */
+                    return Double.parseDouble(getStringValue(obj, key));
+                }
+            }
+        } catch (Exception e) {
+            JSUtil.println(e.getMessage());
+        }
+
+        return defaultValue;
+    }
+
     
     /**
      * Get a long from the JSON object or -1 if it doesn't exist or
