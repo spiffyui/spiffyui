@@ -177,6 +177,18 @@ spiffyui = {
         var epochObj = new Date(formattedDate);
         return epochObj.getTime();
     },
+
+    /**
+     * Format the ID for a JQuery selector.  This function adds a pound
+     * sign to the beginning of the string if there isn't on already
+     */
+    formatId: function(/*string*/ id) {
+         if (id.indexOf('#') === 0) {
+             return id;
+         } else {
+             return '#' + id;
+         }
+    },
     
     init: function() {
 

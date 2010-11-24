@@ -96,7 +96,7 @@ public class SlideDownPrefsPanel extends HTMLPanel
     
     private void toggle()
     {
-        JSUtil.toggleSlide("#" + SlideDownPrefsPanel.this.getElement().getId() + "-panel", "");
+        JSUtil.toggleSlide(SlideDownPrefsPanel.this.getElement().getId() + "-panel", "");
         m_visible = !m_visible;
         
         if (m_visible) {

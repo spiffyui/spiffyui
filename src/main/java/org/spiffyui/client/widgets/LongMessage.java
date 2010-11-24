@@ -151,7 +151,7 @@ public class LongMessage extends FlowPanel implements Event.NativePreviewHandler
     {
         if (visible) {
             if (!isVisible()) {
-                JSUtil.show("#" + getElement().getId(), "fast");
+                JSUtil.show(getElement().getId(), "fast");
             }
             //set the focus to m_close so that the browser window scrolls to this panel if necessary
             //and can be readily closed with a quick keyboard or click

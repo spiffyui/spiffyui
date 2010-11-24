@@ -115,7 +115,7 @@ public final class JSUtil
     }
 
     private static native void doSlideDown(String id, String speed) /*-{
-                                $wnd.$(id).slideDown(speed);
+                                $wnd.$($wnd.spiffyui.formatId(id)).slideDown(speed);
                             }-*/;
 
     /**
@@ -132,7 +132,7 @@ public final class JSUtil
     }
 
     private static native void doSlideUp(String id, String speed) /*-{
-                                $wnd.$(id).slideUp(speed);
+                                $wnd.$($wnd.spiffyui.formatId(id)).slideUp(speed);
                             }-*/;
     
     /**
@@ -149,10 +149,10 @@ public final class JSUtil
     }
 
     private static native void doToggleSlide(String id, String speed) /*-{
-        if ($wnd.$(id).is(':visible')) {
-            $wnd.$(id).slideUp(speed);
+        if ($wnd.$($wnd.spiffyui.formatId(id)).is(':visible')) {
+            $wnd.$($wnd.spiffyui.formatId(id)).slideUp(speed);
         } else {
-            $wnd.$(id).slideDown(speed);
+            $wnd.$($wnd.spiffyui.formatId(id)).slideDown(speed);
         }
     }-*/;
     
@@ -165,7 +165,7 @@ public final class JSUtil
      */
 
     public static native void horizontalToggleSlide(String id)  /*-{
-        $wnd.$(id).animate({width: 'toggle'});
+        $wnd.$($wnd.spiffyui.formatId(id)).animate({width: 'toggle'});
     }-*/;
     
     /**
@@ -178,7 +178,7 @@ public final class JSUtil
      * @param distance the distance in pixels to bounds the element - default is 20 
      */
     public static native void bounce(String id, int times, int speed, int distance)  /*-{
-        $wnd.$(id).effect("bounce", { times:times, distance: distance }, speed);
+        $wnd.$($wnd.spiffyui.formatId(id)).effect("bounce", { times:times, distance: distance }, speed);
     }-*/;
     
     /**
@@ -190,7 +190,7 @@ public final class JSUtil
      *        the speed to fade in. options are slow, normal, fast or a number
      */
     public static native void hide(String id, String speed) /*-{
-        $wnd.$(id).hide(speed);
+        $wnd.$($wnd.spiffyui.formatId(id)).hide(speed);
     }-*/;
     
     /**
@@ -201,7 +201,7 @@ public final class JSUtil
      * 
      */
     public static native void hide(String id) /*-{
-        $wnd.$(id).hide();
+        $wnd.$($wnd.spiffyui.formatId(id)).hide();
     }-*/;
     
     /**
@@ -213,7 +213,7 @@ public final class JSUtil
      *        text to set for the element
      */
     public static native void setText(String id, String txt) /*-{
-        $wnd.$(id).text(txt);
+        $wnd.$($wnd.spiffyui.formatId(id)).text(txt);
     }-*/;
 
     /**
@@ -311,7 +311,12 @@ public final class JSUtil
                                                    target))) {
             return false;
         }
-        if (JSUtil.isVisible("#" + sectionId)) {
+
+        if (!sectionId.startsWith("#")) {
+            sectionId = "#" + sectionId;
+        }
+
+        if (JSUtil.isVisible(sectionId)) {
             collapseSection(panel, targetId, sectionId, true);
         } else {
             expandSection(panel, targetId, sectionId, true);
@@ -329,7 +334,7 @@ public final class JSUtil
     public static void expandSection(HTMLPanel panel, String targetId, String sectionId, boolean animate)
     {
         if (animate) {
-            JSUtil.slideDown("#" + sectionId, "fast");
+            JSUtil.slideDown(sectionId, "fast");
         } else {
             Style style = panel.getElementById(sectionId).getStyle();
             style.setDisplay(Display.BLOCK);
@@ -354,14 +359,14 @@ public final class JSUtil
     /**
      * Collapses a section
      * @param panel - HTMLPanel holding the target
-     * @param targetId - the ID of the target (not the selector so no # necessary)
+     * @param targetId - the ID of the target
      * @param sectionId - the ID of the section to toggle (not the selector so no # necessary)
      * @param animate - boolean true to use slide down effect, false to just display:none
      */
     public static void collapseSection(HTMLPanel panel, String targetId, String sectionId, boolean animate)
     {
         if (animate) {
-            JSUtil.slideUp("#" + sectionId, "fast");
+            JSUtil.slideUp(sectionId, "fast");
         } else {
             Style style = panel.getElementById(sectionId).getStyle();
             style.setDisplay(Display.NONE);
@@ -444,7 +449,7 @@ public final class JSUtil
      * @return the height of the element
      */
     public static native int getHeight(String id) /*-{
-        return $wnd.$("#" + id).height();
+        return $wnd.$($wnd.spiffyui.formatId(id)).height();
     }-*/;
     
     /**
@@ -462,7 +467,7 @@ public final class JSUtil
      * @return the width of the element
      */
     public static native int getWidth(String id) /*-{
-        return $wnd.$("#" + id).width();
+        return $wnd.$($wnd.spiffyui.formatId(id)).width();
     }-*/;
 
     /**

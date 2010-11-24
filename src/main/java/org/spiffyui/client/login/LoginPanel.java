@@ -153,10 +153,10 @@ public class LoginPanel extends Composite implements KeyUpHandler
                  * In the case of SSO or page refreshing we won't have
                  * the user name so we have to prompt for it.
                  */
-                JSUtil.hide("#login_username_row", "fast");
+                JSUtil.hide("login_username_row", "fast");
                 m_panel.getElementById("loginmessage").setInnerText(m_helper.getString(LoginStrings.REPEAT_LOGIN));
             } else {
-                JSUtil.show("#login_username_row", "fast");
+                JSUtil.show("login_username_row", "fast");
                 m_panel.getElementById("loginmessage").setInnerText(m_helper.getString(LoginStrings.REPEAT_LOGIN_TWO));
             }
         } else {
@@ -168,7 +168,7 @@ public class LoginPanel extends Composite implements KeyUpHandler
             m_fp.getElement().removeClassName("loginRepeat");
             m_panel.getElementById("login_titlespan").setInnerText(m_helper.getString(LoginStrings.LOGIN_TITLE));
             m_panel.getElementById("loginmessage").setInnerText("");
-            JSUtil.show("#login_username_row", "fast");
+            JSUtil.show("login_username_row", "fast");
         }
     }
 
@@ -395,7 +395,7 @@ public class LoginPanel extends Composite implements KeyUpHandler
     {
         m_glassPanel.setVisible(false);
         m_fp.setVisible(false);
-        JSUtil.show("#main", "fast");
+        JSUtil.show("main", "fast");
     }
 
     @Override
