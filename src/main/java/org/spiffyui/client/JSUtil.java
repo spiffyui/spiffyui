@@ -430,27 +430,55 @@ public final class JSUtil
     
     
     /**
-     * Get the height of an element
-     * @param id - the id of the element
-     * @return int the height without "px"
+     * <p>
+     * Get the height of the element with the specified ID.
+     * </p>
+     * 
+     * <p>
+     * This method gets the height of the specified element on the screen including padding
+     * and margins.  The element must be visible and attached to the page.
+     * </p>
+     * 
+     * @param id     the id of the element example: myElement
+     * 
+     * @return the height of the element
      */
     public static native int getHeight(String id) /*-{
         return $wnd.$("#" + id).height();
     }-*/;
     
     /**
-     * Get the width of an element
-     * @param id - the id of the element
-     * @return int the height without "px"
+     * <p>
+     * Get the width of the element with the specified ID.
+     * </p>
+     * 
+     * <p>
+     * This method gets the width of the specified element on the screen including padding
+     * and margins.  The element must be visible and attached to the page.
+     * </p>
+     * 
+     * @param id     the id of the element example: myElement
+     * 
+     * @return the width of the element
      */
     public static native int getWidth(String id) /*-{
         return $wnd.$("#" + id).width();
     }-*/;
 
     /**
-     * Get the javascript object
-     * @param jsonString - the json string to parse
-     * @return int the height without "px"
+     * <p>
+     * Parse the specified JSON string into a JavaScript object.
+     * </p>
+     * 
+     * <p>
+     * This method parses the specified string of well-formed JSON and returns 
+     * a JavaScript object.  It calls JSON.parse when it is available and calls 
+     * eval only on older browsers which don't support JSON.parse.
+     * </p>
+     * 
+     * @param jsonString the json string to parse
+     * 
+     * @return the JavaScript object representig the JSON string
      */
     public static native JavaScriptObject parseJSON(String jsonString) /*-{
         return $wnd.jQuery.parseJSON(jsonString);
