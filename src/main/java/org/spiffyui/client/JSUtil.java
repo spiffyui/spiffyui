@@ -161,7 +161,7 @@ public final class JSUtil
      * sliding from the left side. 
      * 
      * @param id
-     *        the id for the element to show (#myControl)
+     *        the id for the element to show
      */
 
     public static native void horizontalToggleSlide(String id)  /*-{
@@ -301,8 +301,8 @@ public final class JSUtil
      * Toggle hiding or showing a section
      * @param target - the event's onclick target
      * @param panel - the parent HTMLPanel of the target
-     * @param targetId - the ID of the target (not the selector so no # necessary)
-     * @param sectionId - the ID of the section to toggle (not the selector so no # necessary)
+     * @param targetId - the ID of the target
+     * @param sectionId - the ID of the section to toggle
      * @return boolean true if the target does match the element with the targetId
      */
     public static boolean toggleSection(Element target, HTMLPanel panel, String targetId, String sectionId)
@@ -327,8 +327,8 @@ public final class JSUtil
     /**
      * Expands a section
      * @param panel - HTMLPanel holding the target
-     * @param targetId - the ID of the target (not the selector so no # necessary)
-     * @param sectionId - the ID of the section to toggle (not the selector so no # necessary)
+     * @param targetId - the ID of the target
+     * @param sectionId - the ID of the section to toggle
      * @param animate - boolean true to use slide down effect, false to just display:none
      */
     public static void expandSection(HTMLPanel panel, String targetId, String sectionId, boolean animate)
@@ -360,7 +360,7 @@ public final class JSUtil
      * Collapses a section
      * @param panel - HTMLPanel holding the target
      * @param targetId - the ID of the target
-     * @param sectionId - the ID of the section to toggle (not the selector so no # necessary)
+     * @param sectionId - the ID of the section to toggle
      * @param animate - boolean true to use slide down effect, false to just display:none
      */
     public static void collapseSection(HTMLPanel panel, String targetId, String sectionId, boolean animate)
