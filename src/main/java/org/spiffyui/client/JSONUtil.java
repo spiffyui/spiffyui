@@ -307,7 +307,7 @@ public final class JSONUtil
             if (v != null) {
                 JSONNumber n = v.isNumber();
                 if (n != null) {
-                    return (double) n.doubleValue();
+                    return n.doubleValue();
                 } else {
                     /*
                      * If this isn't a number, then it might be a string
