@@ -130,7 +130,7 @@
         <gzip src="${spiffy.www}/spiffyui.min.js" destfile="${spiffy.www}/spiffyui.min.js.gz"/>
         
         <!-- We also compile our own copy of JQuery -->
-        <closure jsfile="${spiffy.www}/jquery-1.4.4.min.js" 
+        <closure jsfile="${spiffy.www}/jquery.min.js" 
                  closurejar="${spiffy.build}/lib/closure-compiler.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="QUIET">
@@ -138,7 +138,7 @@
         </closure>
 
         <!-- Then we GZIP JQuery for web servers that support GZIP -->
-        <gzip src="${spiffy.www}/jquery-1.4.4.min.js" destfile="${spiffy.www}/jquery-1.4.4.min.js.gz"/>
+        <gzip src="${spiffy.www}/jquery.min.js" destfile="${spiffy.www}/jquery.min.js.gz"/>
         
         <!-- We copy over all the JavaScript files for dev mode -->
         <mkdir dir="${spiffy.www}/js"/>
