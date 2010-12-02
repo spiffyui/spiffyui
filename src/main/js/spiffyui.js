@@ -155,17 +155,17 @@ spiffyui = {
     dateAdd: function(/*int*/ epochDate, /*int*/amt, /*String*/unit) {
         var date = new Date(epochDate);
         if (unit == "WEEK") {
-            return date.addWeeks(amt).days().getTime();
+            return date.addWeeks(amt).getTime();
         } else if (unit == "MONTH") {
-            return date.addMonths(amt).days().getTime();
+            return date.addMonths(amt).getTime();
         } else if (unit == "HOUR") {
-            return date.addHours(amt).days().getTime();
+            return date.addHours(amt).getTime();
         } else if (unit == "MINUTE") {
-            return date.addMinutes(amt).days().getTime();
+            return date.addMinutes(amt).getTime();
         } else if (unit == "SECOND") {
-            return date.addSeconds(amt).days().getTime();
+            return date.addSeconds(amt).getTime();
         } else if (unit == "YEAR") {
-            return date.addHours(amt).days().getTime();
+            return date.addHours(amt).getTime();
         } else {
             return date.add(amt).days().getTime();
         }
