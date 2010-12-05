@@ -118,6 +118,7 @@ public final class RESTility
     private String m_username = null;
     private String m_tokenServerLogoutUrl = null;
     private String m_bestLocale = null;
+    private boolean m_checkedCookie = false;
 
     /**
      * Just to make sure that nobody else can instatiate this object.
@@ -246,6 +247,7 @@ public final class RESTility
 
         Cookies.removeCookie(SESSION_COOKIE);
         Cookies.removeCookie(LOCALE_COOKIE);
+        
         g_authProvider.showLogin(callback, loginUri, errorCode);
     }
 
@@ -282,6 +284,7 @@ public final class RESTility
         RESTILITY.m_tokenType = null;
         RESTILITY.m_tokenServerUrl = null;
         RESTILITY.m_tokenServerLogoutUrl = null;
+        RESTILITY.m_username = null;
         Cookies.removeCookie(SESSION_COOKIE);
         Cookies.removeCookie(LOCALE_COOKIE);
     }
@@ -461,6 +464,39 @@ public final class RESTility
     {
         return getTokenType() + " " + getUserToken();
     }
+    
+    private static void checkSessionCookie()
+    {
+		 String sessionCookie = Cookies.getCookie(SESSION_COOKIE);
+		 if (sessionCookie != null && sessionCookie.length() > 0) {
+		 	 
+		 	 // If the cookie value is quoted, strip off the enclosing quotes
+		 	 if (sessionCookie.length() > 2 && 
+		 	 	  sessionCookie.charAt( 0) == '"' && 
+		 	  	  sessionCookie.charAt( sessionCookie.length() - 1) == '"') {
+		 	 	 sessionCookie = sessionCookie.substring( 1, sessionCookie.length() - 1);
+		 	 }
+			 String sessionCookiePieces [] = sessionCookie.split(",");
+				
+			 if (sessionCookiePieces != null) {
+				 if (sessionCookiePieces.length >= 1) {
+					 RESTILITY.m_tokenType = sessionCookiePieces [0];
+				 }
+				 if (sessionCookiePieces.length >= 2) {
+					 RESTILITY.m_userToken = sessionCookiePieces [1];
+				 }
+				 if (sessionCookiePieces.length >= 3) {
+					 RESTILITY.m_tokenServerUrl = sessionCookiePieces [2];
+				 }
+				 if (sessionCookiePieces.length >= 4) {
+					 RESTILITY.m_tokenServerLogoutUrl = sessionCookiePieces [3];
+				 }
+				 if (sessionCookiePieces.length >= 5) {
+					 RESTILITY.m_username = sessionCookiePieces [4];
+				 }
+			 }
+		 }
+    }
 
     /**
      * Returns user's authentication token
@@ -469,16 +505,10 @@ public final class RESTility
      */
     public static String getUserToken()
     {
-        if (RESTILITY.m_userToken != null) {
-            return RESTILITY.m_userToken;
-        } else {
-            String session = Cookies.getCookie(SESSION_COOKIE);
-            if (session == null) {
-                return null;
-            } else {
-                return session.split(",")[1];
-            }
-        }
+		if (RESTILITY.m_userToken == null) {
+			checkSessionCookie();
+		}
+		return RESTILITY.m_userToken;
     }
     
     /**
@@ -488,16 +518,10 @@ public final class RESTility
      */
     public static String getTokenType()
     {
-        if (RESTILITY.m_tokenType != null) {
-            return RESTILITY.m_tokenType;
-        } else {
-            String session = Cookies.getCookie(SESSION_COOKIE);
-            if (session == null) {
-                return null;
-            } else {
-                return session.split(",")[0];
-            }
-        }
+		if (RESTILITY.m_tokenType == null) {
+			checkSessionCookie();
+		}
+		return RESTILITY.m_tokenType;
     }
 
     /**
@@ -507,16 +531,10 @@ public final class RESTility
      */
     protected static String getTokenServerUrl()
     {
-        if (RESTILITY.m_tokenServerUrl != null) {
-            return RESTILITY.m_tokenServerUrl;
-        } else {
-            String session = Cookies.getCookie(SESSION_COOKIE);
-            if (session == null) {
-                return null;
-            } else {
-                return session.split(",")[2];
-            }
-        }
+		if (RESTILITY.m_tokenServerUrl == null) {
+			checkSessionCookie();
+		}
+		return RESTILITY.m_tokenServerUrl;
     }
 
     /**
@@ -526,16 +544,10 @@ public final class RESTility
      */
     protected static String getTokenServerLogoutUrl()
     {
-        if (RESTILITY.m_tokenServerLogoutUrl != null) {
-            return RESTILITY.m_tokenServerLogoutUrl;
-        } else {
-            String session = Cookies.getCookie(SESSION_COOKIE);
-            if (session == null) {
-                return null;
-            } else {
-                return session.split(",")[3];
-            }
-        }
+		if (RESTILITY.m_tokenServerLogoutUrl == null) {
+			checkSessionCookie();
+		}
+		return RESTILITY.m_tokenServerLogoutUrl;
     }
 
     /**
@@ -546,16 +558,10 @@ public final class RESTility
      */
     public static String getUsername()
     {
-        if (RESTILITY.m_username != null) {
-            return RESTILITY.m_username;
-        } else {
-            String session = Cookies.getCookie(SESSION_COOKIE);
-            if (session == null) {
-                return null;
-            } else {
-                return session.split(",")[4];
-            }
-        }
+		if (RESTILITY.m_username == null) {
+			checkSessionCookie();
+		}
+		return RESTILITY.m_username;
     }
 
     /**
