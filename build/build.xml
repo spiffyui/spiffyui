@@ -62,7 +62,7 @@
     <target name="compile">
         <!-- Compile all the Java -->
         <javac
-        srcdir="${spiffy.root}/src/main/java/org/spiffyui/server:${spiffy.root}/src/main/java/org/spiffyui/client/rest/util" destdir="${spiffy.classes}"
+        srcdir="${spiffy.root}/src/main/java" destdir="${spiffy.classes}"
                target="1.5" source="1.5" debug="true" deprecation="yes"
                includeantruntime="false">
             <compilerarg value="-Xlint" />
