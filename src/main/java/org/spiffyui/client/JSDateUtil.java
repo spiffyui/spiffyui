@@ -304,7 +304,6 @@ public final class JSDateUtil
      * concatenated with the Short Time
      *  
      * @param epochDate - the time in milliseconds since Jan , 1, 1970
-     * @param abbrev - if true, the abbreviate the month
      * @return - Date format in String
      */    
     public static String getShortMonthDayTime(String epochDate) 
