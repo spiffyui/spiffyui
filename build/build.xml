@@ -5,6 +5,7 @@
         <antcall target="js-lint" />
         <antcall target="js-min" />
         <antcall target="css-min" />
+        <antcall target="package" />
     </target>
     
     <target name="resolve" description="--> retrieve dependencies with ivy" unless="build.from.maven" depends="ivySettings">
@@ -39,6 +40,7 @@
         <echo message="Spffy UI base directory: ${build.spiffy.base}" />
         <property name="spiffy.root" location="${build.spiffy.base}"/>
         <property name="spiffy.build" location="${build.spiffy.base}/build"/>
+        <property name="spiffy.dist" location="${build.spiffy.base}/dist"/>
         <property name="spiffy.build.lib" location="${build.spiffy.base}/build/lib"/>
         <property name="spiffy.build.classes" location="${build.spiffy.base}/build/classes"/>
         
@@ -47,6 +49,7 @@
         
         <mkdir dir="${spiffy.www}"/>
         <mkdir dir="${spiffy.classes}"/>
+        <mkdir dir="${spiffy.dist}"/>
         <property name="spiffy.js"  location="${build.spiffy.base}/src/main/js"/>
         <property name="spiffy.css"  location="${build.spiffy.base}/src/main/css"/>
         
@@ -78,7 +81,7 @@
     <target name="compileClosureTask.check">
         <condition property="closuretask.is.compiled">
             <not>
-                <available file="${spiffy.build}/lib/closuretask.jar"/>
+                <available file="${spiffy.dist}/spiffytasks.jar"/>
             </not>
         </condition>
     </target>
@@ -99,7 +102,7 @@
             </classpath>
         </javac>
         
-        <jar destfile="${spiffy.build}/lib/closuretask.jar">
+        <jar destfile="${spiffy.dist}/spiffytasks.jar">
             <zipfileset dir="${spiffy.build.classes}" prefix="" >
                 <include name="org/spiffyui/build/*.*"/>
             </zipfileset>
@@ -112,6 +115,7 @@
     <target name="taskdefs">
         <taskdef resource="tasks.properties">
             <classpath>
+                <fileset dir="${spiffy.dist}" includes="*.jar"/>
                 <fileset dir="${spiffy.build}/lib" includes="*.jar"/>
             </classpath>
         </taskdef>
@@ -208,11 +212,25 @@
     <target name="spiffy.clean" depends="setup">
         <delete dir="${spiffy.www}"/>
         <delete dir="${spiffy.classes}"/>
+        <delete dir="${spiffy.dist}"/>
         <delete dir="${spiffy.build}/classes"/>
         <delete dir="${spiffy.root}/lib"/>
-        <delete file="${spiffy.build}/lib/closuretask.jar" />
-        
     </target>
+
+    <target name="package">
+        <jar destfile="${spiffy.dist}/spiffyui.jar">
+            <zipfileset dir="${spiffy.classes}" prefix="" >
+                <include name="**/*.*"/>
+            </zipfileset>
+            <zipfileset dir="${spiffy.www}" prefix="org/spiffyui/public" >
+                <include name="**/*.*"/>
+            </zipfileset>
+            <zipfileset dir="${spiffy.root}/src/main/java" prefix="" >
+                <include name="**/*.*"/>
+            </zipfileset>
+        </jar>
+    </target>
+
 </project>
 
 
