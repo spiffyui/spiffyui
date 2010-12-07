@@ -35,8 +35,12 @@ import org.spiffyui.server.JSLocaleUtil;
  * A basic implementation for matching a list of locales from the request
  * and finding a best corresponding supported locale.
  */
-public class BasicBestLocaleMatcher
+public final class BasicBestLocaleMatcher
 {
+    private BasicBestLocaleMatcher()
+    {
+    }
+    
     private static final ConcurrentHashMap<String, Locale> LOCALE_CACHE = new ConcurrentHashMap<String, Locale>();
     
     /**
@@ -80,15 +84,15 @@ public class BasicBestLocaleMatcher
             }
         }
         
-        Locale supportedLocal = matchSupportedLocaleExact(loc, context, supportedLocales);
+        Locale supportedLocal = matchSupportedLocaleExact(loc, supportedLocales);
         if (supportedLocal != null) {
             return supportedLocal;
         } else {
-            return matchSupportedLocaleFuzzy(loc, context, supportedLocales);
+            return matchSupportedLocaleFuzzy(loc, supportedLocales);
         }
     }
     
-    private static Locale matchSupportedLocaleFuzzy(Locale loc, ServletContext context, ArrayList<Locale> supportedLocales)
+    private static Locale matchSupportedLocaleFuzzy(Locale loc, ArrayList<Locale> supportedLocales)
     {
         //bust on lang-country, try matching on just lang
         for (Locale supportedLocale : supportedLocales) {
@@ -101,7 +105,7 @@ public class BasicBestLocaleMatcher
         return null;
     }
     
-    private static Locale matchSupportedLocaleExact(Locale loc, ServletContext context, ArrayList<Locale> supportedLocales)
+    private static Locale matchSupportedLocaleExact(Locale loc, ArrayList<Locale> supportedLocales)
     {
         String locStr = loc.toString();
         int locStrLen = locStr.length();
