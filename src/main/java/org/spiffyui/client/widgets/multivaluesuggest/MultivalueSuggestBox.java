@@ -326,67 +326,72 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
                @Override
                public void success(OptionResultSet optResults)
                {
-                   int totSize = optResults.getTotalSize();
-                   if (totSize == 1) {
-                       //an exact match was found, so place it in the value map
-                       Option option = optResults.getOptions()[0];                        
-                       extactMatchFound(position, option);
-                   } else {
-                       //try to find the exact matches within the results
-                       boolean found = false;
-                       for (Option option : optResults.getOptions()) {
-                           if (displayValue.equalsIgnoreCase(option.getName())) {
-                               extactMatchFound(position, option);
-                               found = true;
-                               break;
-                           }                            
-                       }
-                       if (!found) {
-                           m_findExactMatchesNot.add(displayValue);
-                           JSUtil.println("RestExactMatchCallback -- exact match not found for displ = " + displayValue);
-                       }
-                   }
-                   finalizeFindExactMatches();                    
+                   handleExactMatch(displayValue, position, optResults);
                }
-
-               private void extactMatchFound(final int position, Option option)
-               {
-                   putValue(option.getName(), option.getValue());
-                   JSUtil.println("extactMatchFound ! exact match found for displ = " + displayValue);
-
-                   //and replace the text
-                   String text = m_field.getText();
-                   String[] keys = text.split(m_displaySeparator.trim());
-                   keys[position] = option.getName();
-                   String join = "";
-                   for (String n : keys) {
-                       join += n.trim() + m_displaySeparator;
-                   }
-                   join = trimLastDelimiter(join, m_displaySeparator);
-                   m_field.setText(join);
-                   
-                   m_findExactMatchesFound++;
-               }
-               
-               private void finalizeFindExactMatches()
-               {
-                   if (m_findExactMatchesFound + m_findExactMatchesNot.size() == m_findExactMatchesTotal) {
-                       //when the found + not = total, we're done
-                       if (m_findExactMatchesNot.size() > 0) {
-                           String join = "";
-                           for (String val : m_findExactMatchesNot) {
-                               join += val.trim() + m_displaySeparator;
-                           }
-                           join = trimLastDelimiter(join, m_displaySeparator);                                
-                           updateFormFeedback(FormFeedback.ERROR, getInvalidText(join));
-                       } else {
-                           updateFormFeedback(FormFeedback.VALID, m_validText);
-                       }
-                   }
-               }
-
            });
    }
+   
+   private void handleExactMatch(String displayValue, int position, OptionResultSet optResults)
+   {
+       int totSize = optResults.getTotalSize();
+       if (totSize == 1) {
+           //an exact match was found, so place it in the value map
+           Option option = optResults.getOptions()[0];                        
+           extactMatchFound(displayValue, position, option);
+       } else {
+           //try to find the exact matches within the results
+           boolean found = false;
+           for (Option option : optResults.getOptions()) {
+               if (displayValue.equalsIgnoreCase(option.getName())) {
+                   extactMatchFound(displayValue, position, option);
+                   found = true;
+                   break;
+               }                            
+           }
+           if (!found) {
+               m_findExactMatchesNot.add(displayValue);
+               JSUtil.println("RestExactMatchCallback -- exact match not found for displ = " + displayValue);
+           }
+       }
+       finalizeFindExactMatches();
+       
+   }
+   
+   private void extactMatchFound(String displayValue, final int position, Option option)
+   {
+       putValue(option.getName(), option.getValue());
+       JSUtil.println("extactMatchFound ! exact match found for displ = " + displayValue);
+    
+       //and replace the text
+       String text = m_field.getText();
+       String[] keys = text.split(m_displaySeparator.trim());
+       keys[position] = option.getName();
+       String join = "";
+       for (String n : keys) {
+           join += n.trim() + m_displaySeparator;
+       }
+       join = trimLastDelimiter(join, m_displaySeparator);
+       m_field.setText(join);
+       
+       m_findExactMatchesFound++;
+    }
+    
+    private void finalizeFindExactMatches()
+    {
+       if (m_findExactMatchesFound + m_findExactMatchesNot.size() == m_findExactMatchesTotal) {
+           //when the found + not = total, we're done
+           if (m_findExactMatchesNot.size() > 0) {
+               String join = "";
+               for (String val : m_findExactMatchesNot) {
+                   join += val.trim() + m_displaySeparator;
+               }
+               join = trimLastDelimiter(join, m_displaySeparator);                                
+               updateFormFeedback(FormFeedback.ERROR, getInvalidText(join));
+           } else {
+               updateFormFeedback(FormFeedback.VALID, m_validText);
+           }
+       }
+    }
    
 
    /**
@@ -398,9 +403,10 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
    private static String trimLastDelimiter(String s, String delim)
    {
        if (s.length() > 0) {
-           s = s.substring(0, s.length() - delim.length());
-       } 
-       return s;
+           return s.substring(0, s.length() - delim.length());
+       } else {
+           return s;
+       }
    }
 
 
@@ -442,15 +448,16 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
    
    private String getFullReplaceText(String displ, String replacePre)
    {
+       String replaceText = replacePre;
        //replace the last bit after the last comma
-       if (replacePre.lastIndexOf(m_displaySeparator) > 0) {
-           replacePre = replacePre.substring(0, replacePre.lastIndexOf(m_displaySeparator)) + m_displaySeparator;
+       if (replaceText.lastIndexOf(m_displaySeparator) > 0) {
+           replaceText = replaceText.substring(0, replaceText.lastIndexOf(m_displaySeparator)) + m_displaySeparator;
        } else {
-           replacePre = "";
+           replaceText = "";
        }
        //then add a comma
        if (m_isMultivalued) {
-           return replacePre + displ + m_displaySeparator;
+           return replaceText + displ + m_displaySeparator;
        } else {
            return displ;
        }
@@ -641,29 +648,7 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
             @Override
             public void onSuccess(JSONValue val) 
             {
-                JSONObject obj = val.isObject();
-                int totSize = JSONUtil.getIntValue(obj, m_restHelper.getTotalSizeKey());
-                OptionResultSet options = new OptionResultSet(totSize);
-                JSONArray optionsArray = JSONUtil.getJSONArray(obj, m_restHelper.getOptionsKey());
-        
-                if (options.getTotalSize() > 0 && optionsArray != null) {
-                    
-                    for (int i = 0; i < optionsArray.size(); i++) {
-                        if (optionsArray.get(i) == null) {
-                            /*
-                             This happens when a JSON array has an invalid trailing comma
-                             */
-                            continue;
-                        }
-                        
-                        JSONObject jsonOpt = optionsArray.get(i).isObject();
-                        Option option = new Option();
-                        option.setName(JSONUtil.getStringValue(jsonOpt, m_restHelper.getNameKey()));
-                        option.setValue(JSONUtil.getStringValue(jsonOpt, m_restHelper.getValueKey()));
-                        options.addOption(option);
-                    }
-                }                    
-                callback.success(options);
+                handleQueryResponse(callback, val);
             }
             
             @Override
@@ -678,6 +663,33 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
                 callback.error(e);
             }
         });
+   }
+   
+   private void handleQueryResponse(RESTObjectCallBack<OptionResultSet> callback, JSONValue val)
+   {
+       JSONObject obj = val.isObject();
+        int totSize = JSONUtil.getIntValue(obj, m_restHelper.getTotalSizeKey());
+        OptionResultSet options = new OptionResultSet(totSize);
+        JSONArray optionsArray = JSONUtil.getJSONArray(obj, m_restHelper.getOptionsKey());
+
+        if (options.getTotalSize() > 0 && optionsArray != null) {
+            
+            for (int i = 0; i < optionsArray.size(); i++) {
+                if (optionsArray.get(i) == null) {
+                    /*
+                     This happens when a JSON array has an invalid trailing comma
+                     */
+                    continue;
+                }
+                
+                JSONObject jsonOpt = optionsArray.get(i).isObject();
+                Option option = new Option();
+                option.setName(JSONUtil.getStringValue(jsonOpt, m_restHelper.getNameKey()));
+                option.setValue(JSONUtil.getStringValue(jsonOpt, m_restHelper.getValueKey()));
+                options.addOption(option);
+            }
+        }                    
+        callback.success(options);
    }
 
 /*
@@ -699,22 +711,29 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
                @Override
                public void run()
                {
-                   /*
-                    * The reason we check for empty string is found at
-                    * http://development.lombardi.com/?p=39 --
-                    * paraphrased, if you backspace quickly the contents of the field are emptied but a query for a single character is still executed.
-                    * Workaround for this is to check for an empty string field here.
-                    */
-                   
-                   if (!m_field.getText().trim().isEmpty()) {
-                       if (m_isMultivalued) {
-                           //calling this here in case a user is trying to correct the "kev" value of Allison Andrews, Kev, Josh Nolan or pasted in multiple values
-                           findExactMatches();                    
-                       }                    
-                       getSuggestions();                    
-                   }
+                   getSuggestionsFromTimer();
                }
            };
+       }
+       
+       private void getSuggestionsFromTimer()
+       {
+           /*
+            * The reason we check for empty string is found at
+            * http://development.lombardi.com/?p=39 --
+            * paraphrased, if you backspace quickly the contents of the field are
+            * emptied but a query for a single character is still executed.
+            * Workaround for this is to check for an empty string field here.
+            */
+           
+           if (!m_field.getText().trim().isEmpty()) {
+               if (m_isMultivalued) {
+                   //calling this here in case a user is trying to correct the "kev" 
+                   //value of Allison Andrews, Kev, Josh Nolan or pasted in multiple values
+                   findExactMatches();                    
+               }                    
+               getSuggestions();                    
+           }
        }
 
        @Override
@@ -987,7 +1006,7 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
    /**
     * Bean for total size and options
     */
-   private class OptionResultSet
+   private final class OptionResultSet
    {
        private final List<Option> m_options = new ArrayList<Option>();
        private int m_totalSize;
@@ -999,7 +1018,7 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
         */
        public OptionResultSet(int totalSize)
        {
-           setTotalSize(totalSize);
+           m_totalSize = totalSize;
        }
 
        /**

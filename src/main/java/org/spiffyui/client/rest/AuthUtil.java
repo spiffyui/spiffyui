@@ -131,19 +131,24 @@ public class AuthUtil implements RESTAuthProvider
                 @Override
                 public void onError(RESTException e)
                 {
-                    RESTility.doLocalLogout();
-                    if (e.getSubcode().equals(GONE)) {
-                        /*
-                         * This means the token has timed out.  That makes the logout
-                         * extraneous, but we want to handle it like a normal logout
-                         * in the UI.
-                         */
-                        callback.success("");
-                    } else {
-                        callback.error(e);
-                    }
+                    handleLogoutError(callback, e);
                 }
             });
+    }
+    
+    private void handleLogoutError(RESTObjectCallBack<String> callback, RESTException e)
+    {
+        RESTility.doLocalLogout();
+        if (e.getSubcode().equals(GONE)) {
+            /*
+             * This means the token has timed out.  That makes the logout
+             * extraneous, but we want to handle it like a normal logout
+             * in the UI.
+             */
+            callback.success("");
+        } else {
+            callback.error(e);
+        }
     }
 
     /**
@@ -172,28 +177,7 @@ public class AuthUtil implements RESTAuthProvider
                 @Override
                 public void onSuccess(JSONValue val)
                 {
-
-                    RESTility.setTokenServerURL(authUrl);
-                    RESTility.setUsername(username);
-
-                    if (val == null) {
-                        callback.error(STRINGS.loginDataError(""));
-                        MessageUtil.showError(STRINGS.loginDataError(""));
-                        return;
-                    }
-
-                    JSONObject o = val.isObject();
-                    if (o == null) {
-                        callback.error(STRINGS.loginDataError(val.toString()));
-                        MessageUtil.showError(STRINGS.loginDataError(val.toString()));
-                        return;
-                    }
-
-                    RESTility.setUserToken(o.get("Token").isString().stringValue());
-                    //for (RESTLoginCallBack listener : RESTility.getLoginListeners()) {
-                        //listener.onLoginSuccess();
-                    //}
-                    callback.success(o.get("Token").isString().stringValue());
+                    doLogin(callback, val, username, authUrl);
                 }
 
                 @Override
@@ -208,6 +192,31 @@ public class AuthUtil implements RESTAuthProvider
                     callback.error(e);
                 }
             }, true, null);
+    }
+    
+    private void doLogin(final RESTObjectCallBack<String> callback, JSONValue val, String username, String authUrl)
+    {
+        RESTility.setTokenServerURL(authUrl);
+        RESTility.setUsername(username);
+
+        if (val == null) {
+            callback.error(STRINGS.loginDataError(""));
+            MessageUtil.showError(STRINGS.loginDataError(""));
+            return;
+        }
+
+        JSONObject o = val.isObject();
+        if (o == null) {
+            callback.error(STRINGS.loginDataError(val.toString()));
+            MessageUtil.showError(STRINGS.loginDataError(val.toString()));
+            return;
+        }
+
+        RESTility.setUserToken(o.get("Token").isString().stringValue());
+        //for (RESTLoginCallBack listener : RESTility.getLoginListeners()) {
+            //listener.onLoginSuccess();
+        //}
+        callback.success(o.get("Token").isString().stringValue());
     }
 
     /**

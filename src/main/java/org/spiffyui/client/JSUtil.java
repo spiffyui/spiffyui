@@ -311,15 +311,17 @@ public final class JSUtil
                                                    target))) {
             return false;
         }
+        
+        String trimmedSectionId = sectionId;
 
         if (!sectionId.startsWith("#")) {
-            sectionId = "#" + sectionId;
+            trimmedSectionId = "#" + sectionId;
         }
 
-        if (JSUtil.isVisible(sectionId)) {
-            collapseSection(panel, targetId, sectionId, true);
+        if (JSUtil.isVisible(trimmedSectionId)) {
+            collapseSection(panel, targetId, trimmedSectionId, true);
         } else {
-            expandSection(panel, targetId, sectionId, true);
+            expandSection(panel, targetId, trimmedSectionId, true);
         }
         return true;
     }
@@ -428,9 +430,10 @@ public final class JSUtil
     public static String trimLastDelimiter(String s, String delim)
     {
         if (s.length() > 0) {
-            s = s.substring(0, s.length() - delim.length());
-        } 
-        return s;
+            return s.substring(0, s.length() - delim.length());
+        }  else {
+            return s;
+        }
     }
     
     

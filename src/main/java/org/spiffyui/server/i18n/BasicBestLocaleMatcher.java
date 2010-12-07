@@ -80,6 +80,29 @@ public class BasicBestLocaleMatcher
             }
         }
         
+        Locale supportedLocal = matchSupportedLocaleExact(loc, context, supportedLocales);
+        if (supportedLocal != null) {
+            return supportedLocal;
+        } else {
+            return matchSupportedLocaleFuzzy(loc, context, supportedLocales);
+        }
+    }
+    
+    private static Locale matchSupportedLocaleFuzzy(Locale loc, ServletContext context, ArrayList<Locale> supportedLocales)
+    {
+        //bust on lang-country, try matching on just lang
+        for (Locale supportedLocale : supportedLocales) {
+            if (supportedLocale.getLanguage().equals(loc.getLanguage())) {
+                //lang found
+                return supportedLocale;
+            }
+        }
+        
+        return null;
+    }
+    
+    private static Locale matchSupportedLocaleExact(Locale loc, ServletContext context, ArrayList<Locale> supportedLocales)
+    {
         String locStr = loc.toString();
         int locStrLen = locStr.length();
         //bust on exact match, if it's lang-country-variant, try matching on just lang-country
@@ -93,16 +116,8 @@ public class BasicBestLocaleMatcher
             }
         }
         
-        //bust on lang-country, try matching on just lang
-        for (Locale supportedLocale : supportedLocales) {
-            if (supportedLocale.getLanguage().equals(loc.getLanguage())) {
-                //lang found
-                return supportedLocale;
-            }
-        }
-        
-        //nothing found, return null
         return null;
+        
     }
 
     /**

@@ -192,10 +192,9 @@ public final class MessageUtil
         if (s == null) {
             return "";
         }
-        s = s.replaceAll("\\<", "&lt;");
-        s = s.replaceAll("\\>", "&gt;");
-        
-        return "<span class=\"weak\">" + JSDateUtil.getShortTime(new Date()) + "</span> " + s;
+
+        return "<span class=\"weak\">" + JSDateUtil.getShortTime(new Date()) + "</span> " + 
+            s.replaceAll("\\<", "&lt;").replaceAll("\\>", "&gt;");
     }
 
     private static native void logErrorJS(String msg) /*-{

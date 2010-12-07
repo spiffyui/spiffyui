@@ -114,6 +114,12 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler
             return;
         }
         
+        doFireEvent(event);
+        
+    }
+    
+    private void doFireEvent(ClickEvent event)
+    {
         //continue if no listener returned false on the pre-event
         for (Widget w : getChildren()) {
             if (w instanceof NavItem) {

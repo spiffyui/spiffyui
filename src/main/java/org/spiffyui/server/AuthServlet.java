@@ -78,38 +78,7 @@ public class AuthServlet extends HttpServlet
     
     private static void setHostnameVerifier()
     {
-        /*
-         * Normally the Java URL connection is very restrictive about what
-         * certificates it will accept for an SSL connection and it requires
-         * the host name and the certificate name to match exactly.  We don't
-         * want to be that strict so we had a custom host name verifier.
-         */
-        SSLSocketFactory.getSocketFactory().setHostnameVerifier(new X509HostnameVerifier()
-            {
-                @Override
-                public void verify(String host, SSLSocket ssl) throws IOException
-                {
-                    // no-op
-                }
-
-                @Override
-                public void verify(String host, X509Certificate cert) throws SSLException
-                {
-                    // no-op
-                }
-
-                @Override
-                public boolean verify(String host, SSLSession session)
-                {
-                    return true;
-                }
-
-                @Override
-                public void verify(String host, String[] cns, String[] subjectAlts) throws SSLException
-                {
-                    //no-op
-                }
-            });
+        SSLSocketFactory.getSocketFactory().setHostnameVerifier(new HostVerifier());
     }
     
     /**
@@ -426,5 +395,38 @@ public class AuthServlet extends HttpServlet
 
         base.put("Fault", fault);
         response.getOutputStream().println(base.toString());
+    }
+}
+
+/**
+ * Normally the Java URL connection is very restrictive about what
+ * certificates it will accept for an SSL connection and it requires
+ * the host name and the certificate name to match exactly.  We don't
+ * want to be that strict so we had a custom host name verifier.
+ */
+class HostVerifier implements X509HostnameVerifier
+{
+    @Override
+    public void verify(String host, SSLSocket ssl) throws IOException
+    {
+        // no-op
+    }
+
+    @Override
+    public void verify(String host, X509Certificate cert) throws SSLException
+    {
+        // no-op
+    }
+
+    @Override
+    public boolean verify(String host, SSLSession session)
+    {
+        return true;
+    }
+
+    @Override
+    public void verify(String host, String[] cns, String[] subjectAlts) throws SSLException
+    {
+        //no-op
     }
 }

@@ -110,9 +110,9 @@ public final class JSONUtil
         JSONValue v = obj.get(key);
         
         if (v == null) {
-            key = key.toLowerCase();
+            String lowerKey = key.toLowerCase();
             for (String k : obj.keySet()) {
-                if (key.equals(k.toLowerCase())) {
+                if (lowerKey.equals(k.toLowerCase())) {
                     v = obj.get(k);
                     break;
                 }

@@ -415,6 +415,7 @@ public final class RESTility
                  the best locale from the cookie then we are
                  done.
                  */
+                return;
             }
         } else {
             /*

@@ -337,28 +337,33 @@ public class LoginPanel extends Composite implements KeyUpHandler
             @Override
             public void error(RESTException e)
             {
-                m_pwd.setText("");
-                m_submit.setEnabled(false);
-                m_inRequest = false;
-
-                if (AuthUtil.INVALID_TS_URL.equals(e.getCode())) {
-                    MessageUtil.showError(m_helper.getString(LoginStrings.INVALID_TS_URL, e.getReason()));
-                } else if (AuthUtil.NOTFOUND_TS_URL.equals(e.getCode())) {
-                    MessageUtil.showError(m_helper.getString(LoginStrings.NOT_FOUND_TS_URL, e.getUrl()));
-                } else if (AuthUtil.MULTIPLE_ACCOUNTS.equals(e.getCode())) {
-                    MessageUtil.showWarning(m_helper.getString(LoginStrings.MULTIPLE_ACCOUNTS), false);
-                } else if (AuthUtil.INVALID_INPUT.equals(e.getSubcode())) {
-                    /*
-                     * This is a very common error.  It means the username
-                     * and password were incorrect.
-                     */
-                    MessageUtil.showWarning(m_helper.getString(LoginStrings.INVALID_USERNAME_PASSWORD), false);
-                } else {
-                    MessageUtil.showError(e.getReason());
-                }
-                m_loading.setVisible(false);
+                handleAuthError(e);
             }
         });
+    }
+    
+    private void handleAuthError(RESTException e)
+    {
+        m_pwd.setText("");
+        m_submit.setEnabled(false);
+        m_inRequest = false;
+
+        if (AuthUtil.INVALID_TS_URL.equals(e.getCode())) {
+            MessageUtil.showError(m_helper.getString(LoginStrings.INVALID_TS_URL, e.getReason()));
+        } else if (AuthUtil.NOTFOUND_TS_URL.equals(e.getCode())) {
+            MessageUtil.showError(m_helper.getString(LoginStrings.NOT_FOUND_TS_URL, e.getUrl()));
+        } else if (AuthUtil.MULTIPLE_ACCOUNTS.equals(e.getCode())) {
+            MessageUtil.showWarning(m_helper.getString(LoginStrings.MULTIPLE_ACCOUNTS), false);
+        } else if (AuthUtil.INVALID_INPUT.equals(e.getSubcode())) {
+            /*
+             * This is a very common error.  It means the username
+             * and password were incorrect.
+             */
+            MessageUtil.showWarning(m_helper.getString(LoginStrings.INVALID_USERNAME_PASSWORD), false);
+        } else {
+            MessageUtil.showError(e.getReason());
+        }
+        m_loading.setVisible(false);
     }
 
     @Override
