@@ -633,26 +633,26 @@ public final class RESTility
         String uppercaseData = data.toUpperCase();
         
         if (uppercaseData.indexOf("<SCRIPT") > -1) {
-            return false;
+            return true;
         }
         
         if (uppercaseData.indexOf("DELETE") > -1) {
-            return false;
+            return true;
         }
         
         if (uppercaseData.indexOf("DROP") > -1) {
-            return false;
+            return true;
         }
         
         if (uppercaseData.indexOf("UPDATE") > -1) {
-            return false;
+            return true;
         }
         
         if (uppercaseData.indexOf("INSERT") > -1) {
-            return false;
+            return true;
         }
         
-        return true;
+        return false;
     }
 
 
