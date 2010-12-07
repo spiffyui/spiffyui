@@ -92,6 +92,7 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler
         if (!isEnabled()) {
             return;
         }
+        
         NavItem navItem = null;
         for (Widget w : getChildren()) {
             if (w instanceof NavItem) {
@@ -108,18 +109,19 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler
                 }
             }
         }
+        
+        doFireEvent(event, navItem);
+        
+    }
+    
+    private void doFireEvent(ClickEvent event, NavItem navItem)
+    {
         //if any listener wants to cancel the event
         //then do not continue
         if (!firePreEvent(navItem)) {
             return;
         }
         
-        doFireEvent(event);
-        
-    }
-    
-    private void doFireEvent(ClickEvent event)
-    {
         //continue if no listener returned false on the pre-event
         for (Widget w : getChildren()) {
             if (w instanceof NavItem) {

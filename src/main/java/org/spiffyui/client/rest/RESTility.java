@@ -615,20 +615,44 @@ public final class RESTility
         callREST(url, data, method, callback, false, etag);
     }
 
-    private static boolean hasPotentialXss(String data)
+
+    /**
+     * The client can't really handle the test for all SQL injection attacks, but we can
+     * do some general sanity checking.
+     * 
+     * @param data   the data to check
+     * 
+     * @return true if the data is valid and false otherwise
+     */
+    private static boolean hasPotentialXss(final String data)
     {
         if (data == null) {
             return false;
         }
 
-        data = data.toUpperCase();
-
-        return (
-            data.indexOf("<SCRIPT") > -1 ||
-            data.indexOf("DELETE") > -1 ||
-            data.indexOf("DROP") > -1 ||
-            data.indexOf("UPDATE") > -1 ||
-            data.indexOf("INSERT") > -1);
+        String uppercaseData = data.toUpperCase();
+        
+        if (uppercaseData.indexOf("<SCRIPT") > -1) {
+            return false;
+        }
+        
+        if (uppercaseData.indexOf("DELETE") > -1) {
+            return false;
+        }
+        
+        if (uppercaseData.indexOf("DROP") > -1) {
+            return false;
+        }
+        
+        if (uppercaseData.indexOf("UPDATE") > -1) {
+            return false;
+        }
+        
+        if (uppercaseData.indexOf("INSERT") > -1) {
+            return false;
+        }
+        
+        return true;
     }
 
 
