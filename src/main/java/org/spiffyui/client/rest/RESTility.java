@@ -770,7 +770,93 @@ public final class RESTility
         {
             m_origCallback = callback;
         }
+        
+        /**
+         * Check the server response for an NCAC formatted fault and parse it into a RESTException
+         * if it is .
+         * 
+         * @param val      the JSON value returned from the server
+         * @param response the server response
+         * 
+         * @return the RESTException if the server response contains an NCAC formatted fault
+         */
+        private RESTException handleNcacFault(JSONValue val, Response response)
+        {
+            if (val.isObject() != null &&
+                val.isObject().containsKey("Fault")) {
 
+                JSONObject fault = val.isObject().get("Fault").isObject();
+                String code = fault.get("Code").isObject().get("Value").isString().stringValue();
+                String subcode = null;
+                if (fault.get("Code").isObject().get("Subcode") != null) {
+                    subcode = fault.get("Code").isObject().get("Subcode").isObject().get("Value").isString().stringValue();
+                }
+                String reason = null;
+                if (fault.get("Reason") != null && fault.get("Reason").isObject() != null &&
+                    fault.get("Reason").isObject().get("Text") != null) {
+                    reason = fault.get("Reason").isObject().get("Text").isString().stringValue();
+                }
+                HashMap<String, String> detailMap = new HashMap<String, String>();
+                if (fault.get("Detail") != null) {
+                    JSONObject details = fault.get("Detail").isObject();
+                    for (String key : details.keySet()) {
+                        detailMap.put(key, details.get(key).isString().stringValue());
+                    }
+                }
+                if (RESTException.AUTH_SERVER_UNAVAILABLE.equals(subcode)) {
+                    /*
+                     * This is a special case where the server can't connect to the
+                     * authentication server to validate the token.
+                     */
+                    MessageUtil.showFatalError(STRINGS.unabledAuthServer());
+                }
+
+                RESTCallStruct struct = RESTILITY.m_restCalls.get(m_origCallback);
+                return new RESTException(code, subcode, reason,
+                                         detailMap, response.getStatusCode(),
+                                         struct.getUrl());
+            }
+            
+            return null;
+        }
+        
+        /**
+         * Handles an unauthorized (401) response from the server
+         * 
+         * @param struct    the struct for this request
+         * @param exception the exception for this request if available
+         * @param response  the response object
+         * 
+         * @return true if this is an invalid request and false otherwise
+         */
+        private boolean handleUnauthorized(RESTCallStruct struct, RESTException exception, Response response)
+        {
+            if (response.getStatusCode() == Response.SC_UNAUTHORIZED) {
+                /*
+                 * For return values of 401 we need to show the login dialog
+                 */
+                try {
+                    for (RESTLoginCallBack listener : g_loginListeners) {
+                        listener.loginPrompt();
+                    }
+
+                    String code = null;
+                    if (exception != null) {
+                        code = exception.getSubcode();
+                    }
+
+                    doLogin(m_origCallback, response, struct.getUrl(), code);
+                } catch (RESTException e) {
+                    RESTILITY.m_restCalls.remove(m_origCallback);
+                    m_origCallback.onError(e);
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        @Override
         public void onResponseReceived(Request request, Response response)
         {
             if (response.getStatusCode() == 0) {
@@ -798,10 +884,11 @@ public final class RESTility
 
             JSONValue val = null;
             RESTException exception = null;
-
-
+            
             if (response.getText() != null &&
                 response.getText().trim().length() > 1) {
+                val = null;
+                
                 try {
                     val = JSONParser.parseStrict(response.getText());
                 } catch (JavaScriptException e) {
@@ -816,66 +903,33 @@ public final class RESTility
                                                   struct.getUrl());
                 }
 
-                if (val.isObject() != null &&
-                    val.isObject().containsKey("Fault")) {
-
-                    JSONObject fault = val.isObject().get("Fault").isObject();
-                    String code = fault.get("Code").isObject().get("Value").isString().stringValue();
-                    String subcode = null;
-                    if (fault.get("Code").isObject().get("Subcode") != null) {
-                        subcode = fault.get("Code").isObject().get("Subcode").isObject().get("Value").isString().stringValue();
-                    }
-                    String reason = null;
-                    if (fault.get("Reason") != null && fault.get("Reason").isObject() != null &&
-                        fault.get("Reason").isObject().get("Text") != null) {
-                        reason = fault.get("Reason").isObject().get("Text").isString().stringValue();
-                    }
-                    HashMap<String, String> detailMap = new HashMap<String, String>();
-                    if (fault.get("Detail") != null) {
-                        JSONObject details = fault.get("Detail").isObject();
-                        for (String key : details.keySet()) {
-                            detailMap.put(key, details.get(key).isString().stringValue());
-                        }
-                    }
-                    if (RESTException.AUTH_SERVER_UNAVAILABLE.equals(subcode)) {
-                        /*
-                         * This is a special case where the server can't connect to the
-                         * authentication server to validate the token.
-                         */
-                        MessageUtil.showFatalError(STRINGS.unabledAuthServer());
-                    }
-
-                    RESTCallStruct struct = RESTILITY.m_restCalls.get(m_origCallback);
-                    exception = new RESTException(code, subcode, reason,
-                                                  detailMap, response.getStatusCode(),
-                                                  struct.getUrl());
-                }
+                exception = handleNcacFault(val, response);
             }
+
+
+            
 
             RESTCallStruct struct = RESTILITY.m_restCalls.get(m_origCallback);
-
-            if (response.getStatusCode() == Response.SC_UNAUTHORIZED) {
+            if (handleUnauthorized(struct, exception, response)) {
                 /*
-                 * For return values of 401 we need to show the login dialog
+                 Then this is a 401 and the login will handle it
                  */
-                try {
-                    for (RESTLoginCallBack listener : g_loginListeners) {
-                        listener.loginPrompt();
-                    }
-
-                    String code = null;
-                    if (exception != null) {
-                        code = exception.getSubcode();
-                    }
-
-                    doLogin(m_origCallback, response, struct.getUrl(), code);
-                } catch (RESTException e) {
-                    RESTILITY.m_restCalls.remove(m_origCallback);
-                    m_origCallback.onError(e);
-                }
                 return;
+            } else {
+                handleSuccessfulResponse(val, exception, response);
             }
-
+        }
+        
+        /**
+         * Handle successful REST responses which have parsable JSON, aren't NCAC faults, 
+         * and don't contain login requests.
+         * 
+         * @param val       the JSON value returned from the server
+         * @param exception the exception generated by the response if available
+         * @param response  the server response
+         */
+        private void handleSuccessfulResponse(JSONValue val, RESTException exception, Response response)
+        {
             RESTILITY.m_restCalls.remove(m_origCallback);
 
             if (exception != null) {

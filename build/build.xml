@@ -215,6 +215,7 @@
         <delete dir="${spiffy.dist}"/>
         <delete dir="${spiffy.build}/classes"/>
         <delete dir="${spiffy.root}/lib"/>
+        <delete dir="${spiffy.root}/target"/>
     </target>
 
     <target name="package">

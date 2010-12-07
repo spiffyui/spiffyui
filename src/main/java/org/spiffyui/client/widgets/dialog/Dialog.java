@@ -74,8 +74,13 @@ public abstract class Dialog extends DialogBox
     {
         super(autohide, modal);
         m_id = id;
-        getElement().setId(m_id);             
-
+        getElement().setId(m_id);
+        
+        init(title, titleStyle);
+    }
+    
+    private final void init(String title, String titleStyle)
+    {
         final String captionDiv = 
             "<div class=\"spiffy-dialog-caption-close\"><a href=\"#\" id=\"" + m_id + "_close\" title=\"" + getCloseText() + "\">" +
                 "<div class=\"spiffy-dialog-caption-close-icon\"></div></a></div>" +
