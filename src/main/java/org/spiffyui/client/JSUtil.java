@@ -57,6 +57,7 @@ public final class JSUtil
      * @param panel the main nav bar panel to move
      * @param id the id of the item to select
      */
+    @SuppressWarnings("unused");
     private static void doHistory(MainNavBar panel, String id)
     {
         NavItem item = panel.getItem(id);
