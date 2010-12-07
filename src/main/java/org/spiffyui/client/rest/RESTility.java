@@ -473,9 +473,9 @@ public final class RESTility
              
              // If the cookie value is quoted, strip off the enclosing quotes
              if (sessionCookie.length() > 2 && 
-                  sessionCookie.charAt( 0) == '"' && 
-                  sessionCookie.charAt( sessionCookie.length() - 1) == '"') {
-                 sessionCookie = sessionCookie.substring( 1, sessionCookie.length() - 1);
+                  sessionCookie.charAt(0) == '"' && 
+                  sessionCookie.charAt(sessionCookie.length() - 1) == '"') {
+                 sessionCookie = sessionCookie.substring(1, sessionCookie.length() - 1);
              }
              String sessionCookiePieces [] = sessionCookie.split(",");
                 
