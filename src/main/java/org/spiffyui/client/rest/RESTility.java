@@ -325,7 +325,7 @@ public final class RESTility
                 path = "/" + path;
             }
 
-            int slashloc = path.indexOf('/', 1);
+            int slashloc = path.lastIndexOf('/');
             if (slashloc > 1){
                 path = path.substring(0, slashloc);
                 removeCookie(name, path);
