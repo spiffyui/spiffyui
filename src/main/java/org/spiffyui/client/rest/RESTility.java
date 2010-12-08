@@ -245,8 +245,8 @@ public final class RESTility
         setTokenServerURL(loginUri);
         setTokenServerLogoutURL(logoutUri);
 
-        Cookies.removeCookie(SESSION_COOKIE);
-        Cookies.removeCookie(LOCALE_COOKIE);
+        removeCookie(SESSION_COOKIE);
+        removeCookie(LOCALE_COOKIE);
         
         g_authProvider.showLogin(callback, loginUri, errorCode);
     }
@@ -285,8 +285,31 @@ public final class RESTility
         RESTILITY.m_tokenServerUrl = null;
         RESTILITY.m_tokenServerLogoutUrl = null;
         RESTILITY.m_username = null;
-        Cookies.removeCookie(SESSION_COOKIE);
-        Cookies.removeCookie(LOCALE_COOKIE);
+        removeCookie(SESSION_COOKIE);
+        removeCookie(LOCALE_COOKIE);
+    }
+
+    private static void removeCookie(String name)
+    {
+        Cookies.removeCookie(name);
+        if (Cookies.getCookie(name) != null) {
+            /*
+             * This could mean that the cookie was there,
+             * but was on a different path than the one that
+             * we get by default.
+             */
+            String path = Window.Location.getPath();
+            if (path.charAt(0) != '/') {
+                path = "/" + path;
+            }
+
+            int slashloc = path.indexOf('/', 1);
+            if (slashloc > 1){
+                path = path.substring(0, slashloc);
+            }
+
+            Cookies.removeCookie(SESSION_COOKIE, path);
+        }
     }
 
     /**
