@@ -289,6 +289,14 @@ public final class RESTility
         removeCookie(LOCALE_COOKIE);
     }
 
+    /**
+     * The normal GWT mechanism for removing cookies will remove a cookie at the path
+     * the page is on.  The is a possibility that the session cookie was set on the
+     * server with a slightly different path.  In that case we need to try to delete
+     * the cookie on all the paths of the current URL.  This method handles that case.
+     * 
+     * @param name   the name of the cookie to remove
+     */
     private static void removeCookie(String name)
     {
         Cookies.removeCookie(name);
@@ -298,7 +306,21 @@ public final class RESTility
              * but was on a different path than the one that
              * we get by default.
              */
-            String path = Window.Location.getPath();
+            removeCookie(name, Window.Location.getPath()); 
+        }
+    }
+
+    private static void removeCookie(String name, String currentPath)
+    {
+        Cookies.removeCookie(name, currentPath);
+        if (Cookies.getCookie(name) != null) {
+            /*
+             * This could mean that the cookie was there,
+             * but was on a different path than the one that
+             * we were passed.  In that case we'll bump up
+             * the path and try again.
+             */
+            String path = currentPath;
             if (path.charAt(0) != '/') {
                 path = "/" + path;
             }
@@ -306,9 +328,8 @@ public final class RESTility
             int slashloc = path.indexOf('/', 1);
             if (slashloc > 1){
                 path = path.substring(0, slashloc);
+                removeCookie(name, path);
             }
-
-            Cookies.removeCookie(SESSION_COOKIE, path);
         }
     }
 
