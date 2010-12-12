@@ -198,7 +198,7 @@
         <taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask">
             <classpath>
                 <fileset dir="${spiffy.build}/lib">
-                    <include name="jslint4java-1.3.3.jar"/>
+                    <include name="*.jar"/>
                 </fileset>
             </classpath>
         </taskdef>
