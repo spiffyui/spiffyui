@@ -22,6 +22,7 @@ package org.spiffyui.server.i18n;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -75,7 +76,7 @@ public final class BasicBestLocaleMatcher
     
     private static Locale matchSupportedLocale(Locale loc, ServletContext context)
     {
-        ArrayList<Locale> supportedLocales = JSLocaleUtil.getMinimumSupportedLocales(context);
+        List<Locale> supportedLocales = JSLocaleUtil.getMinimumSupportedLocales(context);
         
         for (Locale supportedLocale : supportedLocales) {
             if (supportedLocale.equals(loc)) {
@@ -92,7 +93,7 @@ public final class BasicBestLocaleMatcher
         }
     }
     
-    private static Locale matchSupportedLocaleFuzzy(Locale loc, ArrayList<Locale> supportedLocales)
+    private static Locale matchSupportedLocaleFuzzy(Locale loc, List<Locale> supportedLocales)
     {
         //bust on lang-country, try matching on just lang
         for (Locale supportedLocale : supportedLocales) {
@@ -105,7 +106,7 @@ public final class BasicBestLocaleMatcher
         return null;
     }
     
-    private static Locale matchSupportedLocaleExact(Locale loc, ArrayList<Locale> supportedLocales)
+    private static Locale matchSupportedLocaleExact(Locale loc, List<Locale> supportedLocales)
     {
         String locStr = loc.toString();
         int locStrLen = locStr.length();

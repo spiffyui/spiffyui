@@ -20,6 +20,8 @@ package org.spiffyui.client.rest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptException;
@@ -72,7 +74,7 @@ public final class RESTility
 
     private static boolean g_inLoginProcess = false;
 
-    private static ArrayList<RESTLoginCallBack> g_loginListeners = new ArrayList<RESTLoginCallBack>();
+    private static List<RESTLoginCallBack> g_loginListeners = new ArrayList<RESTLoginCallBack>();
 
     private int m_callCount = 0;
 
@@ -111,7 +113,7 @@ public final class RESTility
         }
     }
 
-    private HashMap<RESTCallback, RESTCallStruct> m_restCalls = new HashMap<RESTCallback, RESTCallStruct>();
+    private Map<RESTCallback, RESTCallStruct> m_restCalls = new HashMap<RESTCallback, RESTCallStruct>();
     private String m_userToken = null;
     private String m_tokenType = null;
     private String m_tokenServerUrl = null;
@@ -624,7 +626,7 @@ public final class RESTility
         }
     }
 
-    public static ArrayList<RESTLoginCallBack> getLoginListeners()
+    public static List<RESTLoginCallBack> getLoginListeners()
     {
         return  g_loginListeners;
     }

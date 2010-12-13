@@ -19,6 +19,7 @@
 package org.spiffyui.client.rest;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -106,7 +107,7 @@ public class RESTException extends Exception
     private String m_reason;
     private int m_responseCode;
     private String m_url;
-    private HashMap<String, String> m_details = new HashMap<String, String>();
+    private Map<String, String> m_details = new HashMap<String, String>();
     
     /**
      * Creates a new RESTException
@@ -120,7 +121,7 @@ public class RESTException extends Exception
      * @param url     the URL for this exception
      */
     public RESTException(String code, String subcode, String reason, 
-                            HashMap<String, String> details, int responseCode,
+                            Map<String, String> details, int responseCode,
                             String url)
     {
         m_code = code;
@@ -166,7 +167,7 @@ public class RESTException extends Exception
      * 
      * @return a map of the details for this exception
      */
-    public HashMap<String, String> getDetails()
+    public Map<String, String> getDetails()
     {
         return m_details;
     }

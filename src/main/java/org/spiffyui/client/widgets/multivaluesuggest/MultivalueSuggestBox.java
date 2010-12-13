@@ -77,7 +77,7 @@ public class MultivalueSuggestBox extends Composite implements SelectionHandler<
    private int m_indexTo = 0;
    private int m_findExactMatchesTotal = 0;
    private int m_findExactMatchesFound = 0;
-   private ArrayList<String> m_findExactMatchesNot = new ArrayList<String>();
+   private List<String> m_findExactMatchesNot = new ArrayList<String>();
    
    private String m_displaySeparator = ", ";
    private String m_valueDelim = ";"; 

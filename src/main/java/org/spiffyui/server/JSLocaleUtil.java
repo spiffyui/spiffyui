@@ -209,7 +209,7 @@ public final class JSLocaleUtil
      * 
      * @return The minimum list of supported locales
      */
-    public static ArrayList<Locale> getMinimumSupportedLocales(ServletContext context)
+    public static List<Locale> getMinimumSupportedLocales(ServletContext context)
     {
         populateMap(context);
         Map<Locale, String> map = null;
