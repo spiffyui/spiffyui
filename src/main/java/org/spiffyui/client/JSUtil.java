@@ -241,8 +241,16 @@ public final class JSUtil
     }-*/;
 
     /**
-     * Prints an info message to the Firebug console.  If the Firebug 
-     * console is not enable this method doesn't do anything. 
+     * <p>
+     * Prints an info message to the Firebug console, Chrome developer
+     * console, or Internet Explorer dev mode console.
+     * </p>
+     * 
+     * <p>
+     * This method is very useful for debugging when you aren't using GWT
+     * hosted mode.  The message print out to the console one item at a time
+     * and don't do anything if the console isn't available.
+     * </p>
      * 
      * @param msg
      *        the message to print
