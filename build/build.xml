@@ -214,6 +214,9 @@
         <delete dir="${spiffy.classes}"/>
         <delete dir="${spiffy.dist}"/>
         <delete dir="${spiffy.build}/classes"/>
+        <delete>
+            <fileset dir="${spiffy.build}/lib" includes="*.jar" excludes="*closure*.jar"/>
+        </delete>
         <delete dir="${spiffy.root}/lib"/>
         <delete dir="${spiffy.root}/target"/>
     </target>
