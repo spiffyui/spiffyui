@@ -205,22 +205,18 @@ public class LoginPanel extends Composite implements KeyUpHandler
                 "<div id=\"login_titlediv\" class=\"logintitle\"><span id=\"login_titlespan\">" + title + "</span></div>" +
                     "<div id=\"loginDetailsId\" class=\"loginDetail\">" +
                         "<div id=\"loginmessage\"></div>" +
-                        "<table cellspacing=\"4\" border=\"0\" style=\"display: block;\">" +
-                            "<tbody>" +
-                                "<tr id=\"login_username_row\">" +
-                                    "<td><label>" + m_helper.getString(LoginStrings.USERNAME) + "</label></td>" +
-                                    "<td id=\"login_username\"></td>" +
-                                "</tr>" +
-                                "<tr id=\"login_password_row\">" +
-                                    "<td><label>" + m_helper.getString(LoginStrings.PASSWORD) + "</label></td>" +
-                                    "<td id=\"login_password\"></td>" +
-                                "</tr>" +
-                                "<tr><td/>" +
-                                    "<td id=\"gwtsubmit\"></td>" +
-                                "</tr>" +
-                            "</tbody>" +
-                        "</table>" +
-                        "<div style=\"margin-top: 2em;\" class=\"marginleft1\" id=\"loginconfig\"></div>" +
+                        "<div id=\"loginFieldsContainer\" style=\"display: block;\">" +
+                                "<div id=\"login_username_row\">" +
+                                    "<label>" + m_helper.getString(LoginStrings.USERNAME) + "</label>" +
+                                    "<div id=\"login_username\"></div>" +
+                                "</div>" +
+                                "<div id=\"login_password_row\">" +
+                                    "<label>" + m_helper.getString(LoginStrings.PASSWORD) + "</label>" +
+                                    "<div id=\"login_password\"></div>" +
+                                "</div>" +
+                                "<div id=\"gwtsubmit\"></div>" +
+                        "</div>" +
+                        "<div id=\"loginconfig\"></div>" +
                     "</div>" +
                 "</div>" +
             "</div>";
