@@ -108,9 +108,9 @@ public abstract class Dialog extends DialogBox
     }
 
     /**
-     * Sets the close icon's tooltip text.\
+     * Sets this dialog's close icon's tooltip text.
      * 
-     * @return the close text
+     * @param text   the text of the close button tooltip
      */
     public void setCloseText(String text)
     {
