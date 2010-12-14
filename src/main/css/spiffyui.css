@@ -985,8 +985,8 @@ h3.subSectionTitle.expandable.expanded {
     position: absolute;
     z-index: 7101;
     border: none;
-    width: 500px;
-    left: 25%;
+    width: 275px;
+    left: 40%;
     top: 15%;
     -moz-border-radius: 1em;
     -webkit-border-radius: 1em;
@@ -1013,7 +1013,7 @@ h3.subSectionTitle.expandable.expanded {
 
 #login_username_row label, #login_password_row label {
     margin-right: 1em;
-    margin-top: -1em;
+    margin-top: 1em;
     display: block;
     white-space: nowrap;
 }
@@ -1033,6 +1033,7 @@ h3.subSectionTitle.expandable.expanded {
 #login_titlespan {
   padding-right: 40px;
   font-size: 18px;
+  line-height: 24px;
 }
 
 #login_glass_pane {
@@ -1078,12 +1079,13 @@ h3.subSectionTitle.expandable.expanded {
   left:0;
   overflow:auto;
   position:relative;
-  width:90%;
+  width:100%;
 }
 
 #login_submit_button, #loging_logout_link {
     float: right;
     margin-right: 3%;
+    margin-top: 1em;
 }
 
 #loging_logout_link {
