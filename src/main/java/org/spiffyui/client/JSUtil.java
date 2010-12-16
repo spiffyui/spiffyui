@@ -112,13 +112,29 @@ public final class JSUtil
      */
     public static void slideDown(String id, String speed)
     {
-        doSlideDown(id, speed);
+        doSlideDown(id, speed, null);
+    }
+    
+    /**
+     * Shows an element with a slide down effect.
+     * 
+     * @param id
+     *        the id for the element to show
+     * @param speed
+     *        the speed to fade in. options are slow, normal, fast or a number
+     * @param callback the callback called when the animation is complete
+     */
+    public static void slideDown(String id, String speed, JSEffectCallback callback)
+    {
+        doSlideDown(id, speed, callback);
     }
 
-    private static native void doSlideDown(String id, String speed) /*-{
-                                $wnd.$($wnd.spiffyui.formatId(id)).slideDown(speed);
-                            }-*/;
-
+    private static native void doSlideDown(String id, String speed, JSEffectCallback callback) /*-{
+        $wnd.$($wnd.spiffyui.formatId(id)).slideDown(speed, function() {
+            @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
+        });
+    }-*/;
+    
     /**
      * Hides an element with a slide up effect.
      * 
@@ -129,12 +145,28 @@ public final class JSUtil
      */
     public static void slideUp(String id, String speed)
     {
-        doSlideUp(id, speed);
+        doSlideUp(id, speed, null);
     }
 
-    private static native void doSlideUp(String id, String speed) /*-{
-                                $wnd.$($wnd.spiffyui.formatId(id)).slideUp(speed);
-                            }-*/;
+    /**
+     * Hides an element with a slide up effect.
+     * 
+     * @param id
+     *        the id for the element to show
+     * @param speed
+     *        the speed to fade in. options are slow, normal, fast or a number
+     * @param callback the callback called when the animation is complete
+     */
+    public static void slideUp(String id, String speed, JSEffectCallback callback)
+    {
+        doSlideUp(id, speed, callback);
+    }
+
+    private static native void doSlideUp(String id, String speed, JSEffectCallback callback) /*-{
+        $wnd.$($wnd.spiffyui.formatId(id)).slideUp(speed, function() {
+            @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
+        });
+    }-*/;
     
     /**
      * Toggles the visibility of the specified element with a vertical slide effect
@@ -146,15 +178,56 @@ public final class JSUtil
      */
     public static void toggleSlide(String id, String speed)
     {
-        doToggleSlide(id, speed);
+        doToggleSlide(id, speed, null);
+    }
+    
+    /**
+     * Toggles the visibility of the specified element with a vertical slide effect
+     * 
+     * @param id
+     *                 the id for the element to show
+     * @param speed
+     *                 the speed to fade in. options are slow, normal, fast or a number
+     * @param callback the callback called when the animation is complete
+     */
+    public static void toggleSlide(String id, String speed, JSEffectCallback callback)
+    {
+        doToggleSlide(id, speed, callback);
     }
 
-    private static native void doToggleSlide(String id, String speed) /*-{
+    private static native void doToggleSlide(String id, String speed, JSEffectCallback callback) /*-{ 
         if ($wnd.$($wnd.spiffyui.formatId(id)).is(':visible')) {
-            $wnd.$($wnd.spiffyui.formatId(id)).slideUp(speed);
+            $wnd.$($wnd.spiffyui.formatId(id)).slideUp(speed, function() {
+                @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
+            });
         } else {
-            $wnd.$($wnd.spiffyui.formatId(id)).slideDown(speed);
+            $wnd.$($wnd.spiffyui.formatId(id)).slideDown(speed, function() {
+                @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
+            });
         }
+    }-*/;
+    
+    private static void doCallback(JSEffectCallback callback, String id)
+    {
+        println("doCallback(" + id + ")");
+        if (callback != null) {
+            callback.effectComplete(id);
+        }
+    }
+    
+    /**
+     * Toggles the visibility of the specified element with a horizontal slide effect 
+     * sliding from the left side. 
+     * 
+     * @param id
+     *        the id for the element to show
+     * @param callback the callback called when the animation is complete
+     */
+
+    public static native void horizontalToggleSlide(String id, JSEffectCallback callback)  /*-{
+        $wnd.$($wnd.spiffyui.formatId(id)).animate({width: 'toggle'}, function() {
+            @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
+        });
     }-*/;
     
     /**
@@ -183,6 +256,22 @@ public final class JSUtil
     }-*/;
     
     /**
+     * Causes the specified element to bounce the specified number of times 
+     * at the specified speed. 
+     * 
+     * @param id the ID of the element to bounce
+     * @param times the number of times to bounce the element
+     * @param speed the speed of the bounce animation in milliseconds 
+     * @param distance the distance in pixels to bounds the element - default is 20 
+     * @param callback the callback called when the animation is complete 
+     */
+    public static native void bounce(String id, int times, int speed, int distance, JSEffectCallback callback)  /*-{
+        $wnd.$($wnd.spiffyui.formatId(id)).effect("bounce", { times:times, distance: distance }, speed, function() {
+            @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
+        });
+    }-*/;
+    
+    /**
      * Hides an element with a fade effect.
      * 
      * @param id
@@ -192,6 +281,21 @@ public final class JSUtil
      */
     public static native void hide(String id, String speed) /*-{
         $wnd.$($wnd.spiffyui.formatId(id)).hide(speed);
+    }-*/;
+    
+    /**
+     * Hides an element with a fade effect.
+     * 
+     * @param id
+     *        the id for the element to show
+     * @param speed
+     *        the speed to fade in. options are slow, normal, fast or a number
+     * @param callback the callback called when the animation is complete
+     */
+    public static native void hide(String id, String speed, JSEffectCallback callback) /*-{
+        $wnd.$($wnd.spiffyui.formatId(id)).hide(speed, function() {
+            @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
+        });
     }-*/;
     
     /**
@@ -227,6 +331,21 @@ public final class JSUtil
      */
     public static native void show(String id, String speed) /*-{
         $wnd.$($wnd.spiffyui.formatId(id)).show(speed);
+    }-*/;
+    
+    /**
+     * Shows an element with a fade effect.
+     *
+     * @param id
+     *        the id for the element to show
+     * @param speed
+     *        the speed to fade in. options are slow, normal, fast or a number
+     * @param callback the callback called when the animation is complete
+     */
+    public static native void show(String id, String speed, JSEffectCallback callback) /*-{
+        $wnd.$($wnd.spiffyui.formatId(id)).show(speed, function() {
+            @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
+        });
     }-*/;
     
     /**
