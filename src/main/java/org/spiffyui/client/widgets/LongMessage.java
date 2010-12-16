@@ -164,7 +164,7 @@ public class LongMessage extends FlowPanel implements Event.NativePreviewHandler
                  */
             }
         } else {
-            JSUtil.hide("#" + getElement().getId(), "fast");
+            JSUtil.hide(getElement().getId(), "fast");
         }
     }
 

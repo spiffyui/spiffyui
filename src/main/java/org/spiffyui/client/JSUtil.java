@@ -226,7 +226,7 @@ public final class JSUtil
      *        the speed to fade in. options are slow, normal, fast or a number
      */
     public static native void show(String id, String speed) /*-{
-        $wnd.$(id).show(speed);
+        $wnd.$($wnd.spiffyui.formatId(id)).show(speed);
     }-*/;
     
     /**
@@ -237,7 +237,7 @@ public final class JSUtil
      * 
      */
     public static native void show(String id) /*-{
-        $wnd.$(id).show();
+        $wnd.$($wnd.spiffyui.formatId(id)).show();
     }-*/;
 
     /**
