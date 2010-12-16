@@ -50,6 +50,7 @@ public class LongMessage extends FlowPanel implements Event.NativePreviewHandler
 
     private HTML m_html;
     private Anchor m_close;
+    private boolean m_madeVisible = false; //This is to toggle makeVisible effect.  isVisible on element might have it wrong depending on the spped of the effect
     
     /**
      * Constructor
@@ -150,7 +151,7 @@ public class LongMessage extends FlowPanel implements Event.NativePreviewHandler
     private void makeVisible(boolean visible)
     {
         if (visible) {
-            if (!isVisible()) {
+            if (!m_madeVisible) {
                 JSUtil.show(getElement().getId(), "fast");
             }
             //set the focus to m_close so that the browser window scrolls to this panel if necessary
@@ -166,6 +167,7 @@ public class LongMessage extends FlowPanel implements Event.NativePreviewHandler
         } else {
             JSUtil.hide(getElement().getId(), "fast");
         }
+        m_madeVisible = visible;
     }
 
     @Override
