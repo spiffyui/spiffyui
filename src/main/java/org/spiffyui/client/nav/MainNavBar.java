@@ -26,13 +26,15 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+
 import org.spiffyui.client.JSUtil;
+import org.spiffyui.client.HistoryCallback;
 
 /**
  * This is the navigation bar for the main page.
  *
  */
-public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler
+public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler, HistoryCallback
 {    
     private List<NavItem> m_items = new ArrayList<NavItem>();
     
@@ -112,6 +114,15 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler
         
         doFireEvent(event, navItem);
         
+    }
+
+    @Override
+    public void historyChanged(String id)
+    {
+        NavItem item = getItem(id);
+        if (item != null) {
+            selectItem(item, false, true);
+        }
     }
     
     private void doFireEvent(ClickEvent event, NavItem navItem)

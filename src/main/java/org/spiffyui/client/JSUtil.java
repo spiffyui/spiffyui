@@ -20,9 +20,6 @@ package org.spiffyui.client;
 
 import java.util.Date;
 
-import org.spiffyui.client.nav.MainNavBar;
-import org.spiffyui.client.nav.NavItem;
-
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Display;
@@ -55,29 +52,40 @@ public final class JSUtil
      * history like the user moving forward or back.  This method is called
      * from JavaScript.
      * 
-     * @param panel the main nav bar panel to move
+     * @param callback the history callback for this item
      * @param id the id of the item to select
      */
-    private static void doHistory(MainNavBar panel, String id)
+    private static void doHistory(HistoryCallback callback, String id)
     {
-        NavItem item = panel.getItem(id);
-        if (item != null) {
-            panel.selectItem(item, false, true);
-        }
+        callback.historyChanged(id);
     }
     
     /**
-     * Adds an item to the browser's history.  We add page changes to the browser's
-     * history so the user can use the browser forward and back buttons to move
+     * <p>
+     * Adds an item to the browser's history.  
+     * </p>
+     * 
+     * <p>
+     * History items can be added at any item with any unique ID.  When the user
+     * navigates the browser's history there will be a collection of items added
+     * programmatically and items representing traditional page changes.  When the
+     * item added with this method is reached the callback will be called with the
+     * specified ID.
+     * </p>
+     * 
+     * <p>
+     * Spiffy UI uses this method to page changes in the main navigation bar to the 
+     * browser's history so the user can use the browser forward and back buttons to move
      * between pages in the application.  This method is called by the MainNavBar
      * to add page changes.
+     * </p>
      * 
-     * @param panel  the MainNavBar panel
+     * @param callback  the history callback for this item
      * @param id     the id of the item that was selected
      */
-    public static native void addHistoryItem(MainNavBar panel, String id) /*-{ 
+    public static native void addHistoryItem(HistoryCallback callback, String id) /*-{ 
         var item = {
-            panel: panel,
+            callback: callback,
             id: id
         };
         $wnd.dsHistory.addFunction($wnd.spiffyui.handleHistoryEvent, this, item); 
@@ -85,7 +93,7 @@ public final class JSUtil
     
     private static final native void bindJavaScript() /*-{ 
         $wnd.spiffyui.handleHistoryEvent = function(contentObject, historyObject) {
-            @org.spiffyui.client.JSUtil::doHistory(Lorg/spiffyui/client/nav/MainNavBar;Ljava/lang/String;)(contentObject.panel, contentObject.id);
+            @org.spiffyui.client.JSUtil::doHistory(Lorg/spiffyui/client/HistoryCallback;Ljava/lang/String;)(contentObject.callback, contentObject.id);
         }
      
         $wnd.dsHistory.addFunction($wnd.spiffyui.handleHistoryEvent);
@@ -209,7 +217,6 @@ public final class JSUtil
     
     private static void doCallback(JSEffectCallback callback, String id)
     {
-        println("doCallback(" + id + ")");
         if (callback != null) {
             callback.effectComplete(id);
         }
