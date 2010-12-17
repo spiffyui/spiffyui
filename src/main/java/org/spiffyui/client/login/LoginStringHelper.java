@@ -65,7 +65,25 @@ public class LoginStringHelper
         } else if (msgKey.equals(LoginStrings.LOGIN) ||
                    msgKey.equals(LoginStrings.LOGIN_TITLE)) {
             return STRINGS.login();
-        } else if (msgKey.equals(LoginStrings.PRODUCT_NAME)) {
+        } else {
+            return getString2(msgKey, arg1);
+        }
+
+    }
+    
+    
+    /**
+     * This method just gets back strings based on the message key.  It could be one method,
+     * but we split it up to make it a little easier to read.
+     * 
+     * @param msgKey the message key for this string
+     * @param arg1   the string argument
+     * 
+     * @return the localized string
+     */
+    private String getString2(LoginStrings msgKey, String arg1)
+    {
+        if (msgKey.equals(LoginStrings.PRODUCT_NAME)) {
             return STRINGS.productName();
         } else if (msgKey.equals(LoginStrings.USERNAME)) {
             return STRINGS.username();
@@ -88,6 +106,5 @@ public class LoginStringHelper
              */
             return null;
         }
-
     }
 }
