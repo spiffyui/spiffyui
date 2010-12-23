@@ -25,7 +25,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 
 /**
- * This widget represents a single item on the navigation menu
+ * A NavItem represents a single item on the navigation menu
  */
 public class NavItem extends Widget
 {

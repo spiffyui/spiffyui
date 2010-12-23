@@ -245,4 +245,26 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler,
         }
     }
 
+    /**
+     * Remove all the items from this navigation bar.
+     *
+     */
+    @Override
+    public void clear() 
+    {
+        super.clear();
+        m_items.clear();
+    }
+
+    /**
+     * Remove the specified NavItem from the navigation bar.
+     * 
+     * @param item   the item to remove
+     */
+    public void remove(NavItem item)
+    {
+        super.remove(item.getAnchor());
+        m_items.remove(item);
+    }
+
 }
