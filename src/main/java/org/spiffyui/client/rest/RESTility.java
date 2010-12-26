@@ -37,6 +37,7 @@ import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 
+import org.spiffyui.client.JSONUtil;
 import org.spiffyui.client.JSUtil;
 import org.spiffyui.client.MessageUtil;
 import org.spiffyui.client.SpiffyUIStrings;
@@ -328,7 +329,7 @@ public final class RESTility
             }
 
             int slashloc = path.lastIndexOf('/');
-            if (slashloc > 1){
+            if (slashloc > 1) {
                 path = path.substring(0, slashloc);
                 removeCookie(name, path);
             }
@@ -828,42 +829,22 @@ public final class RESTility
          */
         private RESTException handleNcacFault(JSONValue val, Response response)
         {
-            if (val.isObject() != null &&
-                val.isObject().containsKey("Fault")) {
-
-                JSONObject fault = val.isObject().get("Fault").isObject();
-                String code = fault.get("Code").isObject().get("Value").isString().stringValue();
-                String subcode = null;
-                if (fault.get("Code").isObject().get("Subcode") != null) {
-                    subcode = fault.get("Code").isObject().get("Subcode").isObject().get("Value").isString().stringValue();
-                }
-                String reason = null;
-                if (fault.get("Reason") != null && fault.get("Reason").isObject() != null &&
-                    fault.get("Reason").isObject().get("Text") != null) {
-                    reason = fault.get("Reason").isObject().get("Text").isString().stringValue();
-                }
-                HashMap<String, String> detailMap = new HashMap<String, String>();
-                if (fault.get("Detail") != null) {
-                    JSONObject details = fault.get("Detail").isObject();
-                    for (String key : details.keySet()) {
-                        detailMap.put(key, details.get(key).isString().stringValue());
-                    }
-                }
-                if (RESTException.AUTH_SERVER_UNAVAILABLE.equals(subcode)) {
+            RESTCallStruct struct = RESTILITY.m_restCalls.get(m_origCallback);
+            RESTException exception = JSONUtil.getRESTException(val, response.getStatusCode(), struct.getUrl());
+            
+            if (exception == null) {
+                return null;
+            } else {
+                if (RESTException.AUTH_SERVER_UNAVAILABLE.equals(exception.getSubcode())) {
                     /*
                      * This is a special case where the server can't connect to the
                      * authentication server to validate the token.
                      */
                     MessageUtil.showFatalError(STRINGS.unabledAuthServer());
                 }
-
-                RESTCallStruct struct = RESTILITY.m_restCalls.get(m_origCallback);
-                return new RESTException(code, subcode, reason,
-                                         detailMap, response.getStatusCode(),
-                                         struct.getUrl());
+                
+                return exception;
             }
-            
-            return null;
         }
         
         /**

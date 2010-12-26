@@ -19,6 +19,7 @@
 package org.spiffyui.client;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONBoolean;
@@ -26,6 +27,8 @@ import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
+
+import org.spiffyui.client.rest.RESTException;
 
 /**
  * A set of static JavaScript utilities for handling JSON data structures.
@@ -435,5 +438,49 @@ public final class JSONUtil
         }
         
         return null;
+    }
+    
+    /**
+     * Get the RESTException containing the information in the specified JSON or null if the
+     * JSON object does not correspond to the NCAC exception format.
+     * 
+     * @param val        the JSON value containing the exception
+     * @param statusCode the status code of the response that generated this data
+     * @param url        the URL that was called to get this JSON
+     * 
+     * @return the RESTException if this JSON represented an NCAC fault or null if it wasn't an NCAC fault
+     */
+    public static RESTException getRESTException(JSONValue val, int statusCode, String url)
+    {
+        if (val.isObject() != null &&
+            val.isObject().containsKey("Fault")) {
+
+            JSONObject fault = val.isObject().get("Fault").isObject();
+            String code = fault.get("Code").isObject().get("Value").isString().stringValue();
+            String subcode = null;
+            if (fault.get("Code").isObject().get("Subcode") != null) {
+                subcode = fault.get("Code").isObject().get("Subcode").isObject().get("Value").isString().stringValue();
+            }
+
+            String reason = null;
+            if (fault.get("Reason") != null && fault.get("Reason").isObject() != null &&
+                fault.get("Reason").isObject().get("Text") != null) {
+                reason = fault.get("Reason").isObject().get("Text").isString().stringValue();
+            }
+
+            HashMap<String, String> detailMap = new HashMap<String, String>();
+            if (fault.get("Detail") != null) {
+                JSONObject details = fault.get("Detail").isObject();
+                for (String key : details.keySet()) {
+                    detailMap.put(key, details.get(key).isString().stringValue());
+                }
+            }
+            
+            
+            return new RESTException(code, subcode, reason,
+                                     detailMap, statusCode, url);
+        } else {
+            return null;
+        }
     }
 }
