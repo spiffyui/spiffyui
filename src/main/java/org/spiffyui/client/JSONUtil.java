@@ -456,16 +456,16 @@ public final class JSONUtil
             val.isObject().containsKey("Fault")) {
 
             JSONObject fault = val.isObject().get("Fault").isObject();
-            String code = fault.get("Code").isObject().get("Value").isString().stringValue();
+            String code = getStringValueIgnoreCase(fault.get("Code").isObject(), "Value");
             String subcode = null;
             if (fault.get("Code").isObject().get("Subcode") != null) {
-                subcode = fault.get("Code").isObject().get("Subcode").isObject().get("Value").isString().stringValue();
+                subcode = getStringValueIgnoreCase(fault.get("Code").isObject().get("Subcode").isObject(), "Value");
             }
 
             String reason = null;
             if (fault.get("Reason") != null && fault.get("Reason").isObject() != null &&
                 fault.get("Reason").isObject().get("Text") != null) {
-                reason = fault.get("Reason").isObject().get("Text").isString().stringValue();
+                reason = getStringValueIgnoreCase(fault.get("Reason").isObject(), "Text");
             }
 
             HashMap<String, String> detailMap = new HashMap<String, String>();
