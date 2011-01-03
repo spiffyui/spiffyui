@@ -828,10 +828,8 @@ public final class RESTility
          */
         private RESTException handleNcacFault(JSONValue val, Response response)
         {
-            JSUtil.println("handleNcacFault(" + val + ", " + response + ")");
             RESTCallStruct struct = RESTILITY.m_restCalls.get(m_origCallback);
             RESTException exception = JSONUtil.getRESTException(val, response.getStatusCode(), struct.getUrl());
-            JSUtil.println("exception: " + exception);
             
             if (exception == null) {
                 return null;
