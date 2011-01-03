@@ -476,7 +476,7 @@ public final class JSONUtil
             String lowerKey = key.toLowerCase();
             for (String k : obj.keySet()) {
                 if (lowerKey.equals(k.toLowerCase())) {
-                    return obj.get(lowerKey);
+                    return obj.get(k);
                 }
             }
         }
