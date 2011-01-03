@@ -439,6 +439,50 @@ public final class JSONUtil
         
         return null;
     }
+
+    /**
+     * Determines if the specified JSONObject contains the specified key.
+     * 
+     * @param obj    the object containing the key
+     * @param key    the key to look for
+     * 
+     * @return true if this object contains the specified key and false otherwise
+     */
+    public static boolean containsKeyIgnoreCase(JSONObject obj, String key)
+    {
+        if (obj != null) {
+            String lowerKey = key.toLowerCase();
+            for (String k : obj.keySet()) {
+                if (lowerKey.equals(k.toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+
+    /**
+     * Get the JSONValue from the specified object ignoring the case of the key.
+     * 
+     * @param obj    the object containing the value
+     * @param key    the key of the value
+     * 
+     * @return the value for the specified key or null if the key can't be found
+     */
+    public static JSONValue getIgnoreCase(JSONObject obj, String key)
+    {
+        if (obj != null) {
+            String lowerKey = key.toLowerCase();
+            for (String k : obj.keySet()) {
+                if (lowerKey.equals(k.toLowerCase())) {
+                    return obj.get(lowerKey);
+                }
+            }
+        }
+        
+        return null;
+    }
     
     /**
      * Get the RESTException containing the information in the specified JSON or null if the
@@ -453,26 +497,29 @@ public final class JSONUtil
     public static RESTException getRESTException(JSONValue val, int statusCode, String url)
     {
         if (val.isObject() != null &&
-            val.isObject().containsKey("Fault")) {
-
-            JSONObject fault = val.isObject().get("Fault").isObject();
-            String code = getStringValueIgnoreCase(fault.get("Code").isObject(), "Value");
+            containsKeyIgnoreCase(val.isObject(), "Fault")) {
+            
+            JSONObject fault = getIgnoreCase(val.isObject(), "Fault").isObject();
+            JSONObject objCode = getIgnoreCase(fault, "Code").isObject();
+            
+            String code = getStringValueIgnoreCase(objCode, "Value");
             String subcode = null;
-            if (fault.get("Code").isObject().get("Subcode") != null) {
-                subcode = getStringValueIgnoreCase(fault.get("Code").isObject().get("Subcode").isObject(), "Value");
+            
+            if (getIgnoreCase(objCode, "Subcode") != null) {
+                subcode = getStringValueIgnoreCase(getIgnoreCase(objCode, "Subcode").isObject(), "Value");
             }
 
             String reason = null;
-            if (fault.get("Reason") != null && fault.get("Reason").isObject() != null &&
-                fault.get("Reason").isObject().get("Text") != null) {
-                reason = getStringValueIgnoreCase(fault.get("Reason").isObject(), "Text");
+            if (getIgnoreCase(fault, "Reason") != null && getIgnoreCase(fault, "Reason").isObject() != null &&
+                getIgnoreCase(getIgnoreCase(fault, "Reason").isObject(), "Text") != null) {
+                reason = getStringValueIgnoreCase(getIgnoreCase(fault, "Reason").isObject(), "Text");
             }
 
             HashMap<String, String> detailMap = new HashMap<String, String>();
-            if (fault.get("Detail") != null) {
-                JSONObject details = fault.get("Detail").isObject();
+            if (getIgnoreCase(fault, "Detail") != null) {
+                JSONObject details = getIgnoreCase(fault, "Detail").isObject();
                 for (String key : details.keySet()) {
-                    detailMap.put(key, details.get(key).isString().stringValue());
+                    detailMap.put(key, getIgnoreCase(details, key).isString().stringValue());
                 }
             }
             
