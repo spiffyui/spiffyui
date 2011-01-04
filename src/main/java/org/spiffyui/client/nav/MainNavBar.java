@@ -276,7 +276,7 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler,
      */
     public void remove(NavItem item)
     {
-        super.remove(item.getAnchor());
+        super.remove(item);
         m_items.remove(item);
     }
 
