@@ -37,6 +37,7 @@ import org.spiffyui.client.HistoryCallback;
 public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler, HistoryCallback
 {    
     private List<NavItem> m_items = new ArrayList<NavItem>();
+    private NavItem m_selectedItem = null;
     
     /**
      * The class used for selected navigation items
@@ -139,6 +140,7 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler,
                 NavItem item = (NavItem) w;
                 if (item.getAnchor() == event.getSource()) {
                     item.addStyleName(SELECTED_CLASS);
+                    m_selectedItem = item;
                     fireEvent(item);
                 } else {
                     item.removeStyleName(SELECTED_CLASS);
@@ -186,6 +188,7 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler,
         for (NavItem ni : m_items) {
             if (ni == item) {
                 ni.addStyleName(SELECTED_CLASS);
+                m_selectedItem = ni;
                 fireEvent(item, addToHistory);
                 found = true;
             } else {
@@ -193,6 +196,16 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler,
             }
         }
         return found;
+    }
+
+    /**
+     * Get the currently selected navigation item in this navigation bar.
+     * 
+     * @return the currently selected navigation item or null if no items are selected
+     */
+    public NavItem getSelectedItem() 
+    {
+        return m_selectedItem;
     }
     
     /**
