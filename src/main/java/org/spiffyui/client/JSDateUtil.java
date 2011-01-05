@@ -191,15 +191,12 @@ public final class JSDateUtil
     }-*/;
 
     /**
-     * Gets the user's Locale 
+     * Gets the locale used by the datejs libraries 
      *
      * @return - The Client Locale
      */    
     public static native String getLocale() /*-{
-        if ($wnd.navigator.language)
-            return $wnd.navigator.language;
-        else if($wnd.navigator.browserLanguage)
-            return $wnd.navigator.browserLanguage;
+        return $wnd.Date.CultureInfo.name;
     }-*/;
     
     /**
