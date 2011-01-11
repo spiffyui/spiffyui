@@ -176,17 +176,21 @@ public class AuthServlet extends HttpServlet
              this we are using a white list of approved authentication
              servers.  Right now that list is just the server containing
              the client WAR.
-    
-             In the future we may support hosting the authentication server
-             on a different server and then we will need a more fully featured
-             white list.
              */
             URI.create(uri);
     
             URL tsUrl = new URL(uri);
             URL serverUrl = new URL(request.getRequestURL().toString());
+
+            /*
+             * The first test is to make sure they are using the host name
+             * or localhost
+             */
+            boolean isHostValid = tsUrl.getHost().equals(serverUrl.getHost()) ||
+                tsUrl.getHost().equals("localhost") ||
+                tsUrl.getHost().startsWith("127.0.0.");
     
-            return tsUrl.getHost().equals(serverUrl.getHost()) &&
+            return isHostValid &&
                 tsUrl.getPort() == serverUrl.getPort() &&
                 tsUrl.getProtocol().equals(serverUrl.getProtocol());
         }
