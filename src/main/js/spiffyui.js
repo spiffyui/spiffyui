@@ -197,7 +197,7 @@ spiffyui = {
             /*
              * We start by adding the HTML tags our CSS depends on
              */
-            jQuery('script:last').after(
+            jQuery('body').append(
                 '<div id="loginPanel"></div>' + 
                 '<div id="mainWrap">' + 
                     '<div id="main" class="clearfix">' + 
