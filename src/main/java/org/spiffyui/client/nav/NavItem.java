@@ -102,6 +102,18 @@ public class NavItem extends Widget
     }
 
     /**
+     * Gets the display name for this nav item
+     * 
+     * @return the display name
+     */
+    public void setDisplayName(String displayName)
+    {
+        m_displayName = displayName;
+        m_anchor.setText(displayName);
+
+    }
+
+    /**
      * Set the access key for this menu item
      * 
      * @param key    the key
