@@ -9,6 +9,7 @@
     </target>
     
     <target name="resolve" description="--> retrieve dependencies with ivy" unless="build.from.maven" depends="ivySettings">
+        <property name="ivy.lib.dir" value="${spiffy.root}/lib"/>
         <ivy:retrieve file="${spiffy.root}/ivy.xml" log="download-only" />
         
         <subant antfile="build2.xml"
