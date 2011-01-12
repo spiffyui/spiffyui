@@ -26,12 +26,19 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.text.ParseException;
-
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.logging.Logger;
 import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -47,8 +54,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.scheme.Scheme;
 import org.json.JSONObject;
-
 import org.spiffyui.client.rest.util.RESTAuthConstants;
 
 /**
@@ -56,6 +65,7 @@ import org.spiffyui.client.rest.util.RESTAuthConstants;
  */
 public class AuthServlet extends HttpServlet
 {
+    private static final Logger LOGGER = Logger.getLogger(AuthServlet.class.getName());
     private static final String BASIC_AUTH = "BASIC";
 
     /**
@@ -154,7 +164,7 @@ public class AuthServlet extends HttpServlet
                 return;
             }
         } catch (ParseException e) {
-            e.printStackTrace();
+            LOGGER.throwing(AuthServlet.class.getName(), "service", e);
             returnError(response, e.getMessage(), RESTAuthConstants.INVALID_JSON);
         }
     }
@@ -221,7 +231,15 @@ public class AuthServlet extends HttpServlet
         }
 
         HttpClient httpclient = new DefaultHttpClient();
-
+        
+        URI.create(tsUrl);
+        URL url = new URL(tsUrl);
+        
+        if (url.getProtocol() != null &&
+            url.getProtocol().toLowerCase().equals("https")) {
+            setupClientSSL(httpclient, url.getPort());
+        }
+            
         HttpPost httppost = new HttpPost(tsUrl);
 
         httppost.setHeader("Accept", "application/json");
@@ -263,6 +281,7 @@ public class AuthServlet extends HttpServlet
                 // the HTTP request in order to shut down the underlying
                 // connection and release it back to the connection manager.
                 httppost.abort();
+                LOGGER.throwing(AuthServlet.class.getName(), "doLogin", ex);
                 throw ex;
             } finally {
                 // Closing the input stream will trigger connection release
@@ -298,9 +317,73 @@ public class AuthServlet extends HttpServlet
         out.close();
     }
 
+    /**
+     * If the authentication URL uses SSL then we need to use an SSLContext to connect to 
+     * it.  The JDK provides on by default that will work fine for us, but it is possible
+     * for some code running in some other place of the JVM to set a new default and that
+     * new default might not be compatible with the type of connection we want to create.
+     * 
+     * The solution is to always set our own SSLContext.  In that case we will use a context
+     * that allows any connection since we let administrators control this connection using
+     * the whitelist so we know that we will only connect to trusted servers.
+     * 
+     * @param httpclient the HTTPClient making the connection
+     * @param port       the port of the connection
+     */
+    private void setupClientSSL(HttpClient httpclient, int port)
+    {
+        try {
+            SSLSocketFactory sslSocketFactory = null;
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            TrustManager relaxedTrustManager = new X509TrustManager()
+                {
+                    @Override
+                    public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException
+                    {
+                        /*
+                         We accept all certs so there is nothing to test here.
+                         */
+                    }
+                    
+                    @Override
+                    public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException
+                    {
+                        /*
+                         We accept all certs so there is nothing to test here.
+                         */
+                    }
+               
+                    @Override
+                    public X509Certificate[] getAcceptedIssuers()
+                    {
+                        /*
+                         This indicates that we accept all certificates
+                         */
+                        return null;
+                    }
+               };
+               
+            sslContext.init(null, new TrustManager[] {relaxedTrustManager}, new SecureRandom());
+            sslSocketFactory = new SSLSocketFactory(sslContext);
+            sslSocketFactory.setHostnameVerifier(new HostVerifier());
+            
+            /*
+             No that we've configured our SSLContext we'll make sure our request uses it.
+             */
+            ClientConnectionManager connMgr = httpclient.getConnectionManager();
+            SchemeRegistry schemeReg = connMgr.getSchemeRegistry();
+            schemeReg.unregister("https");
+            schemeReg.register(new Scheme("https", sslSocketFactory, port));
+        } catch (NoSuchAlgorithmException nsae) {
+            LOGGER.throwing(AuthServlet.class.getName(), "setupClientSSL", nsae);
+        } catch (KeyManagementException mke) {
+            LOGGER.throwing(AuthServlet.class.getName(), "setupClientSSL", mke);
+        }
+    }
+
     private void doLogout(HttpServletRequest request,
                           HttpServletResponse response,
-                         String token, String tsUrl)
+                          String token, String tsUrl)
         throws ServletException, IOException
     {
         if (token == null || tsUrl == null) {
@@ -317,6 +400,14 @@ public class AuthServlet extends HttpServlet
         }
 
         HttpClient httpclient = new DefaultHttpClient();
+        
+        URI.create(tsUrl);
+        URL url = new URL(tsUrl);
+        
+        if (url.getProtocol() != null &&
+            url.getProtocol().toLowerCase().equals("https")) {
+            setupClientSSL(httpclient, url.getPort());
+        }
 
         HttpDelete httpdel = new HttpDelete(tsUrl + "/" + token);
 
@@ -356,6 +447,7 @@ public class AuthServlet extends HttpServlet
                 // the HTTP request in order to shut down the underlying
                 // connection and release it back to the connection manager.
                 httpdel.abort();
+                LOGGER.throwing(AuthServlet.class.getName(), "doLogout", ex);
                 throw ex;
             } finally {
                 // Closing the input stream will trigger connection release

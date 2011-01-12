@@ -111,7 +111,7 @@ public final class JSLocaleUtil
         }
     }
 
-    private static void populateMap(ServletContext context)
+    private static synchronized void populateMap(ServletContext context)
     {
         if (RESOURCES.size() > 0) {
             /*
@@ -120,83 +120,81 @@ public final class JSLocaleUtil
             return;
         }
 
-        synchronized (RESOURCES) {
-            Set set = context.getResourcePaths("/js/lib/i18n");
-            Iterator iter = set.iterator();
-            while (iter.hasNext()) {
-                String file = iter.next().toString();
-                file = file.substring(file.lastIndexOf('/') + 1);
-                
-                ALL_RESOURCES.add(file);
-    
-                /*
-                 * At this point the file should look like this:
-                 * date-en-JM.js or like this date-en.js.
-                 */
-    
-                int dash = file.indexOf('-');
-    
-                String fileName = file.substring(0, dash);
-                String language = null;
-                String country = null;
-    
-                int index = dash + 1;
-                int dashCount = 0;
-    
-                for (int i = dash + 1; i < file.length(); i++) {
-                    char c = file.charAt(i);
-    
-                    if (c == '-') {
-                        if (dashCount == 0) {
-                            /*
-                             * Then we are after the first dash and before the second
-                             * one.  That makes this the language code.
-                             */
-                            language = file.substring(index, i);
-                        } else {
-                            /*
-                             * This means the file has more than two dashes.  That means
-                             * we don't know hoe to deal with it and we will ignore it.
-                             */
-    
-                            fileName = null;
-                            break;
-                        }
-    
-                        index = i + 1;
-                        dashCount++;
-                    } else if (c == '.') {
-                        if (dashCount == 0) {
-                            /*
-                             * Then we are after the first dash and before the ending
-                             * dot.  That makes this the language code in a file with 
-                             * no country code.
-                             */
-                            language = file.substring(index, i);
-                        } else if (dashCount == 1) {
-                            /*
-                             * Then we are after the second dash and before the ending
-                             * dot.  That makes this the country code
-                             */
-                            country = file.substring(index, i);
-                        }
-    
+        Set set = context.getResourcePaths("/js/lib/i18n");
+        Iterator iter = set.iterator();
+        while (iter.hasNext()) {
+            String file = iter.next().toString();
+            file = file.substring(file.lastIndexOf('/') + 1);
+            
+            ALL_RESOURCES.add(file);
+
+            /*
+             * At this point the file should look like this:
+             * date-en-JM.js or like this date-en.js.
+             */
+
+            int dash = file.indexOf('-');
+
+            String fileName = file.substring(0, dash);
+            String language = null;
+            String country = null;
+
+            int index = dash + 1;
+            int dashCount = 0;
+
+            for (int i = dash + 1; i < file.length(); i++) {
+                char c = file.charAt(i);
+
+                if (c == '-') {
+                    if (dashCount == 0) {
                         /*
-                         * Either way, when we hit the dot we are done with 
-                         * the file.
+                         * Then we are after the first dash and before the second
+                         * one.  That makes this the language code.
                          */
-    
+                        language = file.substring(index, i);
+                    } else {
+                        /*
+                         * This means the file has more than two dashes.  That means
+                         * we don't know hoe to deal with it and we will ignore it.
+                         */
+
+                        fileName = null;
                         break;
                     }
+
+                    index = i + 1;
+                    dashCount++;
+                } else if (c == '.') {
+                    if (dashCount == 0) {
+                        /*
+                         * Then we are after the first dash and before the ending
+                         * dot.  That makes this the language code in a file with 
+                         * no country code.
+                         */
+                        language = file.substring(index, i);
+                    } else if (dashCount == 1) {
+                        /*
+                         * Then we are after the second dash and before the ending
+                         * dot.  That makes this the country code
+                         */
+                        country = file.substring(index, i);
+                    }
+
+                    /*
+                     * Either way, when we hit the dot we are done with 
+                     * the file.
+                     */
+
+                    break;
                 }
-    
-                if (fileName == null) {
-                    continue;
-                } else if (country == null) {
-                    getMap(fileName).put(new Locale(language), file);
-                } else {
-                    getMap(fileName).put(new Locale(language, country), file);
-                }
+            }
+
+            if (fileName == null) {
+                continue;
+            } else if (country == null) {
+                getMap(fileName).put(new Locale(language), file);
+            } else {
+                getMap(fileName).put(new Locale(language, country), file);
             }
         }
     }
