@@ -161,7 +161,6 @@ public class LoginPanel extends Composite implements KeyUpHandler
             }
         } else {
             if (JSUtil.isVisible("body > #mainWrap > #main")) {
-                JSUtil.hide("#mainFooter", "fast");
                 JSUtil.hide("body > #mainWrap > #main", "fast");
             }
             m_glassPanel.getElement().removeClassName("loginRepeatGlass");
