@@ -18,6 +18,7 @@
  */
 package org.spiffyui.client.login;
 
+import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -395,7 +396,17 @@ public class LoginPanel extends Composite implements KeyUpHandler
     {
         m_glassPanel.setVisible(false);
         m_fp.setVisible(false);
-        JSUtil.show("main", "fast");
+        JSUtil.show("main");
+
+        /*
+         * JQuery sets the overflow property to hidden after running the show animation.
+         * I think it does this to make clean up any overflowing elements based on the 
+         * animation effect.  Firefox and Chrome have no problem with this, but IE doesn't
+         * resize the element properly and it causes the main element to get cut off just
+         * below the header.  We are seting the overflow style back so everything is
+         * displayed properly.
+         */
+        RootPanel.get("main").getElement().getStyle().setOverflow(Style.Overflow.VISIBLE);
     }
 
     @Override
