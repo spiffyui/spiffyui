@@ -25,6 +25,14 @@ spiffyui = {
         var dateVal = new Date(epoch);
         return dateVal.toString(Date.CultureInfo.formatPatterns.shortDate);
     },
+
+    /**
+     * Gets a string of the date formatted into the specified format
+     */
+    getDateString: function(/*int*/ epoch, /*string*/ format) {
+        var dateVal = new Date(epoch);
+        return dateVal.toString(format);
+    },
     
     /**
      * Gets a string of the date formatted into the long date 

@@ -55,7 +55,34 @@ public final class JSDateUtil
      * @return - Date format in String
      */    
     public static native String getDate(String epochDate) /*-{
-        return $wnd.spiffyui.getDate(parseInt(epochDate));
+        return $wnd.spiffyui.getDate(parseInt(epochDate, 10));
+    }-*/;
+
+    /**
+     * Convert UTC epoch format to a date string matching the specified format.
+     * See <a href="http://code.google.com/p/datejs/wiki/FormatSpecifiers">Format Specifiers</a>
+     * for more details
+     *  
+     * @param date - the date object to format
+     * @param format - the formatter for the date
+     * @return - Time format as a String
+     */    
+    public static String getDate(Date date, String format)
+    {
+        return getDate(date.getTime() + "", format);
+    }
+
+    /**
+     * Convert UTC epoch format to a date string matching the specified format.
+     * See <a href="http://code.google.com/p/datejs/wiki/FormatSpecifiers">Format Specifiers</a>
+     * for more details
+     *  
+     * @param epochDate - the time in milliseconds since Jan , 1, 1970
+     * @param format - the formatter for the date
+     * @return - Time format as a String
+     */    
+    public static native String getDate(String epochDate, String format) /*-{
+        return $wnd.spiffyui.getDateString(parseInt(epochDate, 10), format);
     }-*/;
     
     /**
@@ -65,7 +92,7 @@ public final class JSDateUtil
      * @return - Date format in String
      */    
     public static native String getLongDate(String epochDate) /*-{
-        return $wnd.spiffyui.getLongDate(parseInt(epochDate));
+        return $wnd.spiffyui.getLongDate(parseInt(epochDate, 10));
     }-*/;
 
     /**
@@ -104,9 +131,9 @@ public final class JSDateUtil
      * @return - Time format in String
      */    
     public static native String getShortTime(String epochDate) /*-{
-        return $wnd.spiffyui.getShortTime(parseInt(epochDate));
+        return $wnd.spiffyui.getShortTime(parseInt(epochDate, 10));
     }-*/;
-    
+
     /**
      * Convert UTC epoch format to short time format in the current locale 
      * rounded up to the nearest 30 minutes. 
@@ -115,7 +142,7 @@ public final class JSDateUtil
      * @return - Date format in String
      */    
     public static native String getShortTimeRounded(String epochDate) /*-{
-        return $wnd.spiffyui.getShortTimeRounded(parseInt(epochDate));
+        return $wnd.spiffyui.getShortTimeRounded(parseInt(epochDate, 10));
     }-*/;
     
     /**
@@ -247,7 +274,7 @@ public final class JSDateUtil
      * @return - Date Time format in String
      */    
     public static native String getFullDateTime(String epochDate) /*-{
-        return $wnd.spiffyui.getDateTime(parseInt(epochDate));
+        return $wnd.spiffyui.getDateTime(parseInt(epochDate, 10));
     }-*/;
     
     
@@ -282,7 +309,7 @@ public final class JSDateUtil
      * @return the new date as an epoch 
      */    
     public static native String dateAdd(String epochDate, int amt, String unit) /*-{
-        return String($wnd.spiffyui.dateAdd(parseInt(epochDate), amt, unit));
+        return String($wnd.spiffyui.dateAdd(parseInt(epochDate, 10), amt, unit));
     }-*/;
 
     /**
@@ -293,7 +320,7 @@ public final class JSDateUtil
      * @return - Date format in String
      */    
     public static native String getMonthDay(String epochDate, boolean abbrev) /*-{
-        return $wnd.spiffyui.getMonthDay(parseInt(epochDate), abbrev);
+        return $wnd.spiffyui.getMonthDay(parseInt(epochDate, 10), abbrev);
     }-*/;
     
     /**
