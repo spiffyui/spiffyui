@@ -51,7 +51,7 @@ public final class JSDateUtil
     /**
      * Convert UTC epoch format to Date format in the current locale 
      *  
-     * @param epochDate - the time in milliseconds since Jan , 1, 1970
+     * @param epochDate - the time in milliseconds since Jan 1, 1970
      * @return - Date format in String
      */    
     public static native String getDate(String epochDate) /*-{
@@ -88,7 +88,7 @@ public final class JSDateUtil
     /**
      * Convert UTC epoch format to Date format in the current locale 
      *  
-     * @param epochDate - the time in milliseconds since Jan , 1, 1970
+     * @param epochDate - the time in milliseconds since Jan 1, 1970
      * @return - Date format in String
      */    
     public static native String getLongDate(String epochDate) /*-{
@@ -127,7 +127,7 @@ public final class JSDateUtil
     /**
      * Convert UTC epoch format to short time format in the current locale 
      *  
-     * @param epochDate - the time in milliseconds since Jan , 1, 1970
+     * @param epochDate - the time in milliseconds since Jan 1, 1970
      * @return - Time format in String
      */    
     public static native String getShortTime(String epochDate) /*-{
@@ -138,7 +138,7 @@ public final class JSDateUtil
      * Convert UTC epoch format to short time format in the current locale 
      * rounded up to the nearest 30 minutes. 
      *  
-     * @param epochDate - the time in milliseconds since Jan , 1, 1970
+     * @param epochDate - the time in milliseconds since Jan 1, 1970
      * @return - Date format in String
      */    
     public static native String getShortTimeRounded(String epochDate) /*-{
@@ -270,7 +270,7 @@ public final class JSDateUtil
     /**
      * Convert UTC epoch format to Date Time format in the current locale 
      *  
-     * @param epochDate - the time in milliseconds since Jan , 1, 1970
+     * @param epochDate - the time in milliseconds since Jan 1, 1970
      * @return - Date Time format in String
      */    
     public static native String getFullDateTime(String epochDate) /*-{
@@ -303,7 +303,7 @@ public final class JSDateUtil
     }
     /**
      * Add to a specified epoch date
-     * @param epochDate - the time in milliseconds since Jan , 1, 1970
+     * @param epochDate - the time in milliseconds since Jan 1, 1970
      * @param amt - the amount to add
      * @param unit - the unit to add.  Can be WEEK, MONTH, YEAR, HOUR, MINUTE, SECOND or defaults to DAY
      * @return the new date as an epoch 
@@ -315,7 +315,7 @@ public final class JSDateUtil
     /**
      * Convert UTC epoch format to Month Day format in the current locale 
      *  
-     * @param epochDate - the time in milliseconds since Jan , 1, 1970
+     * @param epochDate - the time in milliseconds since Jan 1, 1970
      * @param abbrev - if true, then abbreviate the month
      * @return - Date format in String
      */    
@@ -327,11 +327,32 @@ public final class JSDateUtil
      * Convert UTC epoch format to Month Day format in the current locale 
      * concatenated with the Short Time
      *  
-     * @param epochDate - the time in milliseconds since Jan , 1, 1970
+     * @param epochDate - the time in milliseconds since Jan 1, 1970
      * @return - Date format in String
      */    
     public static String getShortMonthDayTime(String epochDate) 
     {
         return getMonthDay(epochDate, true) + " " + getShortTime(epochDate);
     }
+    
+    /**
+     * Get the Ordinal day (numeric day number) of the year, adjusted for leap year. 
+     * Returns 1 through 365 (366 in leap years). 
+     * @param date - a Date
+     * @return the day of year
+     */
+    public static int getOrdinalNumber(Date date)
+    {
+        return getOrdinalNumber(String.valueOf(date.getTime()));
+    }
+
+    /**
+     * Get the Ordinal day (numeric day number) of the year, adjusted for leap year. 
+     * Returns 1 through 365 (366 in leap years). 
+     * @param epochDate - the time in milliseconds since Jan 1, 1970
+     * @return the day of year
+     */
+    public static native int getOrdinalNumber(String epochDate) /*-{
+        return $wnd.spiffyui.getOrdinalNumber(parseInt(epochDate));
+    }-*/;
 }

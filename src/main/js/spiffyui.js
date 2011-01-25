@@ -23,7 +23,7 @@ spiffyui = {
      */
     getDate: function(/*int*/ epoch) {
         var dateVal = new Date(epoch);
-        return dateVal.toString(Date.CultureInfo.formatPatterns.shortDate);
+        return spiffyui.chineseAposWorkaround(dateVal.toString(Date.CultureInfo.formatPatterns.shortDate));
     },
 
     /**
@@ -31,7 +31,7 @@ spiffyui = {
      */
     getDateString: function(/*int*/ epoch, /*string*/ format) {
         var dateVal = new Date(epoch);
-        return dateVal.toString(format);
+        return spiffyui.chineseAposWorkaround(dateVal.toString(format));
     },
     
     /**
@@ -40,12 +40,12 @@ spiffyui = {
      */
     getLongDate: function(/*int*/ epoch) {
         var dateVal = new Date(epoch);
-        return dateVal.toString(Date.CultureInfo.formatPatterns.longDate);
+        return spiffyui.chineseAposWorkaround(dateVal.toString(Date.CultureInfo.formatPatterns.longDate));
     },
 
     /**
      * Gets a string of the date formatted into the month day 
-     * format in the current locale. If abbrev = true, the use the 
+     * format in the current locale. If abbrev = true, then use the 
      * abbreviation for month.
      */
     getMonthDay: function(/*int*/ epoch, /*boolean*/ abbrev) {
@@ -54,10 +54,22 @@ spiffyui = {
         if (abbrev) {
             dateFormat = dateFormat.replace("MMMM", "MMM");
         }
-        return dateVal.toString(dateFormat);
+        return spiffyui.chineseAposWorkaround(dateVal.toString(dateFormat));
     },
     
-
+    /**
+     * In zh locales the formatted date strings are 
+     * surrounding every Chinese character with apostrophes.
+     * For example, it is showing 1'月'4'日' but should be  1月4日,
+     * so this will remove all the apostrophes.
+     */
+    chineseAposWorkaround: function(/*String*/ dateString) {
+		if (Date.CultureInfo.name.indexOf("zh") === 0) {
+			return dateString.replace(/'/g, "");
+		}
+		return dateString;
+    },
+    
     /**
      * Gets a string of the time formatted into the short time 
      * format in the current locale. 
@@ -107,7 +119,7 @@ spiffyui = {
      */
     getDateTime: function(/*int*/ epoch) {
         var dateVal = new Date(epoch);
-        return dateVal.toString(Date.CultureInfo.formatPatterns.fullDateTime);
+        return spiffyui.chineseAposWorkaround(dateVal.toString(Date.CultureInfo.formatPatterns.fullDateTime));
     },
     
     /**
@@ -186,6 +198,15 @@ spiffyui = {
         return epochObj.getTime();
     },
 
+    /**
+     * Get the Ordinal day (numeric day number) of the year, adjusted for leap year. 
+     * Returns 1 through 365 (366 in leap years). 
+     */
+    getOrdinalNumber: function(/*int*/ epochDate) {
+        var date = new Date(epochDate);
+        return date.getOrdinalNumber();
+    },
+    
     /**
      * Format the ID for a JQuery selector.  This function adds a pound
      * sign to the beginning of the string if there isn't on already
