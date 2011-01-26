@@ -60,8 +60,8 @@ spiffyui = {
     /**
      * In zh locales the formatted date strings are 
      * surrounding every Chinese character with apostrophes.
-     * For example, it is showing 1'月'4'日' but should be  1月4日,
-     * so this will remove all the apostrophes.
+     * For example, it is showing, so this will remove all the 
+     * apostrophes. 
      */
     chineseAposWorkaround: function(/*String*/ dateString) {
 		if (Date.CultureInfo.name.indexOf("zh") === 0) {
