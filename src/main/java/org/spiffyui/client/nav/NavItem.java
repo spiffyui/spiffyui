@@ -29,14 +29,11 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class NavItem extends Widget
 {
-    private String m_id;
-    private String m_displayName;
-    
-    private Anchor m_anchor;
+    private final Anchor m_anchor;
 
     /**
      * Create a new NavItem
-     * 
+     *
      * @param id     the id of the navigator item
      * @param displayName
      *               the display name of the navigation item
@@ -45,10 +42,10 @@ public class NavItem extends Widget
     {
         this(id, displayName, null);
     }
-    
+
     /**
      * Create a new NavItem
-     * 
+     *
      * @param id     the id of the navigator item
      * @param displayName
      *               the display name of the navigation item
@@ -56,17 +53,14 @@ public class NavItem extends Widget
      */
     public NavItem(String id, String displayName, String title)
     {
-        m_id = id;
-        m_displayName = displayName;
-        
         setElement(Document.get().createDivElement());
-        getElement().setId(m_id);
+        getElement().setId(id);
         setStyleName("main-menuItem");
 
         if (title != null) {
             setTitle(title);
         }
-        
+
         /*
          The Anchor widget doesn't want to wrap an element unless it is a
          direct child of the body tag.  I'm not really sure why since it
@@ -76,47 +70,55 @@ public class NavItem extends Widget
         Element el = Document.get().getBody().appendChild(Document.get().createAnchorElement());
         m_anchor = Anchor.wrap(el);
         getElement().appendChild(el);
-        m_anchor.setText(m_displayName);
+        m_anchor.setText(displayName);
         m_anchor.setHref("#");
-        
+
     }
-    
+
+    /**
+     * Retrieve the Id for the NavItem.
+     * @return The Id value for this instance
+     */
+    public String getId()
+    {
+        return getElement().getId();
+    }
+
     /**
      * Gets the anchor for this nav item
-     * 
+     *
      * @return the anchor
      */
     public Anchor getAnchor()
     {
         return m_anchor;
     }
-    
+
     /**
      * Gets the display name for this nav item
-     * 
+     *
      * @return the display name
      */
     public String getDisplayName()
     {
-        return m_displayName;
+        return getAnchor().getText();
     }
 
     /**
      * Set the display name for this nav item
-     * 
+     *
      * @param displayName
      *               the new display name
      */
     public void setDisplayName(String displayName)
     {
-        m_displayName = displayName;
-        m_anchor.setText(displayName);
+        getAnchor().setText(displayName);
 
     }
 
     /**
      * Set the access key for this menu item
-     * 
+     *
      * @param key    the key
      */
     public void setAccessKey(char key)
@@ -125,4 +127,54 @@ public class NavItem extends Widget
             m_anchor.setAccessKey(key);
         }
     }
+
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((m_anchor.getHref() == null) ? 0 : m_anchor.getHref().hashCode());
+        result = prime * result + ((getDisplayName() == null) ? 0 : getDisplayName().hashCode());
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        NavItem other = (NavItem) obj;
+        if (m_anchor == null) {
+            if (other.m_anchor != null) {
+                return false;
+            }
+        } else if (other.m_anchor == null || !m_anchor.getHref().equals(other.m_anchor.getHref())) {
+            return false;
+        }
+        if (getDisplayName() == null) {
+            if (other.getDisplayName() != null) {
+                return false;
+            }
+        } else if (!getDisplayName().equals(other.getDisplayName())) {
+            return false;
+        }
+        if (getId() == null) {
+            if (other.getId() != null) {
+                return false;
+            }
+        } else if (!getId().equals(other.getId())) {
+            return false;
+        }
+        return true;
+    }
+
 }
