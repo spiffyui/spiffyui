@@ -52,7 +52,11 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler,
     {
         getElement().setId("mainNavContainer");
 
-        RootPanel.get("mainNavigation").add(this);
+        if (RootPanel.get("mainNavigation") != null) {
+            RootPanel.get("mainNavigation").add(this);
+        } else {
+            throw new IllegalStateException("Unable to locate the mainNavigation element.  You must import spiffyui.min.js before using this widget.");
+        }
     }
 
     @Override

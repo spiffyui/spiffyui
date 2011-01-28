@@ -45,11 +45,18 @@ public class StatusIndicator extends FlowPanel
     
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
     
+    private int m_status;
+    
     /** 
-     * Show the status of the report
+     * Show a generic status indicator
      * @param status - int status constant
      */
     public StatusIndicator(int status)
+    {
+        m_status = status;
+    }
+    
+    private void updateStatusStyles(int status)
     {
         String tooltip;
         switch (status) {
@@ -71,5 +78,25 @@ public class StatusIndicator extends FlowPanel
             break;
         }
         setTitle(tooltip);
+    }
+    
+    /**
+     * Get the current status of this status indicator.
+     * 
+     * @return the current status
+     */
+    public int getStatus()
+    {
+        return m_status;
+    }
+    
+    /**
+     * Set the status of this status indicator.
+     * 
+     * @param status the new status
+     */
+    public void setStatus(int status)
+    {
+        m_status = status;
     }
 }
