@@ -160,6 +160,12 @@ public class NavItem extends Widget
         } else if (other.m_anchor == null || !m_anchor.getHref().equals(other.m_anchor.getHref())) {
             return false;
         }
+        
+        return compareNameAndId(obj, other);
+    }
+    
+    private boolean compareNameAndId(Object obj, NavItem other)
+    {
         if (getDisplayName() == null) {
             if (other.getDisplayName() != null) {
                 return false;
@@ -167,6 +173,7 @@ public class NavItem extends Widget
         } else if (!getDisplayName().equals(other.getDisplayName())) {
             return false;
         }
+        
         if (getId() == null) {
             if (other.getId() != null) {
                 return false;

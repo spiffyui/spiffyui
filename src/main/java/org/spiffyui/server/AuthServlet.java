@@ -236,7 +236,7 @@ public class AuthServlet extends HttpServlet
         URL url = new URL(tsUrl);
         
         if (url.getProtocol() != null &&
-            url.getProtocol().toLowerCase().equals("https")) {
+            url.getProtocol().equalsIgnoreCase("https")) {
             setupClientSSL(httpclient, url.getPort());
         }
             
@@ -260,6 +260,14 @@ public class AuthServlet extends HttpServlet
                         RESTAuthConstants.NOTFOUND_TS_URL);
             return;
         }
+        
+        sendLoginResponse(response, authResponse, status, httppost, out, httpclient);
+    }
+    
+    private void sendLoginResponse(HttpServletResponse response, HttpResponse authResponse, int status,
+                                   HttpPost httppost, ServletOutputStream out, HttpClient httpclient)
+        throws ServletException, IOException
+    {
 
         // Get hold of the response entity
         HttpEntity entity = authResponse.getEntity();
@@ -405,7 +413,7 @@ public class AuthServlet extends HttpServlet
         URL url = new URL(tsUrl);
         
         if (url.getProtocol() != null &&
-            url.getProtocol().toLowerCase().equals("https")) {
+            url.getProtocol().equalsIgnoreCase("https")) {
             setupClientSSL(httpclient, url.getPort());
         }
 
