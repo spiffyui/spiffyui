@@ -69,7 +69,14 @@ public class MainHeader extends HasNavBarListenersPanel
         m_panel.getElement().setId("mainHeaderContainer");
 
         add(m_panel);
-        RootPanel.get("mainHeader").add(this);
+        
+        if (RootPanel.get("mainHeader") != null) {
+            RootPanel.get("mainHeader").add(this);
+        } else {
+            throw new IllegalStateException("Unable to locate the mainHeader element.  You must import spiffyui.min.js before using the Main Header.");
+        }
+        
+        
 
         
     }

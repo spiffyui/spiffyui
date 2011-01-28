@@ -40,7 +40,13 @@ public class MainFooter extends Composite
         m_html = new HTML();
         m_html.getElement().setId("mainFooterContainer");
         
-        RootPanel.get("mainFooter").add(m_html);
+        if (RootPanel.get("mainFooter") != null) {
+            RootPanel.get("mainFooter").add(m_html);
+        } else {
+            throw new IllegalStateException("Unable to locate the mainFooter element.  You must import spiffyui.min.js before using the Main Footer.");
+        }
+        
+        
     }
     
     /**

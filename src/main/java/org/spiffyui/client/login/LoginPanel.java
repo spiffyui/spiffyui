@@ -182,7 +182,14 @@ public class LoginPanel extends Composite implements KeyUpHandler
         m_helper = helper;
 
         m_glassPanel = new SimplePanel();
-        RootPanel.get("loginPanel").add(m_glassPanel);
+
+        if (RootPanel.get("loginPanel") != null) {
+            RootPanel.get("loginPanel").add(m_glassPanel);
+        } else {
+            throw new IllegalStateException("Unable to locate the loginPanel element.  You must import spiffyui.min.js before using the LoginPanel.");
+        }
+        
+        
         m_glassPanel.setVisible(false);
         m_glassPanel.getElement().setId("login_glass_pane");
 

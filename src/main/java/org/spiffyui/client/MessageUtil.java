@@ -246,7 +246,7 @@ class ErrorPanel extends Composite implements Event.NativePreviewHandler
         m_panel = RootPanel.get("errorpanel");
 
         if (m_panel == null) {
-            throw new IllegalStateException("Unable to find the DOM element with the ID errorpanel");
+            throw new IllegalStateException("Unable to locate the errorpanel element.  You must import spiffyui.min.js before using the MessageUtil.");
         }
         
         m_label = new Label("", true);
