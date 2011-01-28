@@ -161,10 +161,10 @@ public class NavItem extends Widget
             return false;
         }
         
-        return compareNameAndId(obj, other);
+        return compareNameAndId(other);
     }
     
-    private boolean compareNameAndId(Object obj, NavItem other)
+    private boolean compareNameAndId(NavItem other)
     {
         if (getDisplayName() == null) {
             if (other.getDisplayName() != null) {
