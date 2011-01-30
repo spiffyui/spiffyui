@@ -21,7 +21,7 @@ public class SlidingGridPanel extends ComplexPanel
     private int m_offset = 0;
 
     /**
-     * Constructor
+     * Create a new SlidingGridPanel
      */
     public SlidingGridPanel()
     {

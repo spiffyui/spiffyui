@@ -24,15 +24,25 @@ package org.spiffyui.client.widgets.button;
 public class FancySaveButton extends FancyButton
 {
     /**
+     * Create a new FancySaveButton 
+     *  
+     */
+    public FancySaveButton()
+    {
+        getElement().setClassName("spiffy-save-button");
+        getElement().addClassName("spiffy-fancy-button");
+    }
+    
+    
+    /**
      * Create a new FancySaveButton with the specified text
      * 
      * @param text   the text of the button
      */
     public FancySaveButton(String text)
     {
-        super(text);
+        this();
         
-        getElement().setClassName("spiffy-save-button");
-        getElement().addClassName("spiffy-fancy-button");
+        setText(text);
     }
 }

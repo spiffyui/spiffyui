@@ -43,6 +43,15 @@ public class SlideDownPrefsPanel extends HTMLPanel
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
     
     /**
+     * Creates a new panel with a randomly generated ID
+     * 
+     */
+    public SlideDownPrefsPanel()
+    {
+        this(HTMLPanel.createUniqueId(), null);
+    }
+    
+    /**
      * Creates a new panel
      * @param id - String the id of the panel
      */

@@ -62,7 +62,8 @@ public abstract class Dialog extends DialogBox
         this(id, title, titleStyle, false, true);
     }
     /**
-     * Constructor.
+     * Create a new dialog with the specified parameters 
+     *  
      * @param id - the id of this element
      * @param title - the title of the dialog.  Send in an empty String if the title needs to be set
      * later.  Use replaceTitle after calling show()

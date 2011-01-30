@@ -24,6 +24,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.HTMLPanel;
+
 import org.spiffyui.client.SpiffyUIStrings;
 
 /**
@@ -38,7 +40,16 @@ public class RefreshAnchor extends Anchor
     private Element m_iconDiv;
     
     /**
-     * Creates a new RefreshAnchor
+     * Creates a new RefreshAnchor with a randomly generated ID
+     *  
+     */
+    public RefreshAnchor()
+    {
+        this(HTMLPanel.createUniqueId());
+    }
+    
+    /**
+     * Creates a new RefreshAnchor with the specified ID
      * 
      * @param id - The element ID
      */

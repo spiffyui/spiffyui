@@ -30,7 +30,8 @@ public class ConfirmDialog extends Dialog
 {
     
     /**
-     * Constructor
+     * Create a new confirm dialog with the specified ID and title. 
+     *  
      * @param id - the id of this element
      * @param title - the title of the dialog, which shows up as the "caption"
      */

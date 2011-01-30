@@ -27,6 +27,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Event.NativePreviewEvent;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 import org.spiffyui.client.JSDateUtil;
@@ -42,6 +43,16 @@ public class DatePickerTextBox extends TextBox implements Event.NativePreviewHan
     private String m_maxDate;
 
     private String m_format;    
+    
+    /**
+     * Create a DatePickerTextBox with a rendomly generated ID.  The ID is required
+     * because the JQuery data picker needs a specific ID to connect to.
+     *  
+     */
+    public DatePickerTextBox()
+    {
+        this(HTMLPanel.createUniqueId());
+    }
 
     /**
      * Create a DatePickerTextBox with the specified ID.  The ID is required

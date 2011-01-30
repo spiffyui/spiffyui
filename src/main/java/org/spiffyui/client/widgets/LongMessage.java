@@ -35,6 +35,7 @@ import com.google.gwt.user.client.Event.NativePreviewEvent;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 import org.spiffyui.client.JSUtil;
@@ -53,7 +54,16 @@ public class LongMessage extends FlowPanel implements Event.NativePreviewHandler
     private boolean m_madeVisible = false; //This is to toggle makeVisible effect.  isVisible on element might have it wrong depending on the spped of the effect
     
     /**
-     * Constructor
+     * Create a new LongMessage Panel with a randomly generated ID
+     */
+    public LongMessage()
+    {
+        this(HTMLPanel.createUniqueId());
+    }
+    
+    /**
+     * Create a new LongMessage panel with the specified ID 
+     *  
      * @param id - the unique ID of this element
      */
     public LongMessage(String id)

@@ -57,6 +57,14 @@ public class StatusIndicator extends FlowPanel
         updateStatusStyles(m_status);
     }
     
+    /** 
+     * Show a generic status indicator with the default status of none
+     */
+    public StatusIndicator()
+    {
+        this(-1);
+    }
+    
     private void updateStatusStyles(int status)
     {
         String tooltip;

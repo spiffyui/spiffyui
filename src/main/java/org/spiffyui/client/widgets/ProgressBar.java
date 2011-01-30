@@ -19,6 +19,7 @@
 package org.spiffyui.client.widgets;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 import org.spiffyui.client.SpiffyUIStrings;
@@ -32,6 +33,16 @@ public class ProgressBar extends SimplePanel
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
     
     private int m_value = 0;
+    
+    /**
+     * Create a progress bar with the specified ID.  The ID is required
+     * because the progress bar needs a specific ID to connect to.
+     * 
+     */
+    public ProgressBar()
+    {
+        this(HTMLPanel.createUniqueId());
+    }
     
     /**
      * Create a progress bar with the specified ID.  The ID is required

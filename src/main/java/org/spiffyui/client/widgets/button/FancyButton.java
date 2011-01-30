@@ -30,6 +30,15 @@ public abstract class FancyButton extends Button
     
     /**
      * Creates a new FancyButton
+     *  
+     */
+    public FancyButton()
+    {
+        super();
+    }
+    
+    /**
+     * Creates a new FancyButton with the specified text
      * 
      * @param text   the text for the button
      */
