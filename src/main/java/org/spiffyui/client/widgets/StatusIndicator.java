@@ -107,5 +107,6 @@ public class StatusIndicator extends FlowPanel
     public void setStatus(int status)
     {
         m_status = status;
+        updateStatusStyles(m_status);
     }
 }
