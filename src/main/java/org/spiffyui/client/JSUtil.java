@@ -93,7 +93,9 @@ public final class JSUtil
     
     private static final native void bindJavaScript() /*-{ 
         $wnd.spiffyui.handleHistoryEvent = function(contentObject, historyObject) {
-            @org.spiffyui.client.JSUtil::doHistory(Lorg/spiffyui/client/HistoryCallback;Ljava/lang/String;)(contentObject.callback, contentObject.id);
+            if (contentObject && contentObject.callback) {
+                @org.spiffyui.client.JSUtil::doHistory(Lorg/spiffyui/client/HistoryCallback;Ljava/lang/String;)(contentObject.callback, contentObject.id);
+            }
         }
      
         $wnd.dsHistory.addFunction($wnd.spiffyui.handleHistoryEvent);
