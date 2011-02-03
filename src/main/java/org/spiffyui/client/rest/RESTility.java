@@ -663,7 +663,7 @@ public final class RESTility
 
 
     /**
-     * The client can't really handle the test for all SQL injection attacks, but we can
+     * The client can't really handle the test for all XSS attacks, but we can
      * do some general sanity checking.
      * 
      * @param data   the data to check
@@ -679,22 +679,6 @@ public final class RESTility
         String uppercaseData = data.toUpperCase();
         
         if (uppercaseData.indexOf("<SCRIPT") > -1) {
-            return true;
-        }
-        
-        if (uppercaseData.indexOf("DELETE") > -1) {
-            return true;
-        }
-        
-        if (uppercaseData.indexOf("DROP") > -1) {
-            return true;
-        }
-        
-        if (uppercaseData.indexOf("UPDATE") > -1) {
-            return true;
-        }
-        
-        if (uppercaseData.indexOf("INSERT") > -1) {
             return true;
         }
         
