@@ -57,7 +57,7 @@ import org.spiffyui.client.widgets.FormFeedback;
 * A SuggestBox that uses the rest package and allows for multiple values and autocomplete.
 * It will also allow for browsing, assuming that the REST endpoint supports idxFrom and idxTo url parameters.
 * The payload of the REST endpoint should have the following format, but the JSON keys are configurable, by specifying them in the 
-* OptionQueryRESTHelper:
+* MultivalueSuggestRESTHelper:
 * <pre>
 * { 
 *  "TotalSize" : 133, 
