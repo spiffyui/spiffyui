@@ -64,7 +64,7 @@ import org.spiffyui.client.widgets.SmallLoadingIndicator;
  * </ul>
  *
  */
-public class LoginPanel extends Composite implements KeyUpHandler
+public final class LoginPanel extends Composite implements KeyUpHandler
 {
     private RESTAuthProvider m_authUtil = RESTility.getAuthProvider();
 
