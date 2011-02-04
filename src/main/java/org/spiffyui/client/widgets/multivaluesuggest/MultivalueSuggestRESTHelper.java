@@ -24,13 +24,8 @@ package org.spiffyui.client.widgets.multivaluesuggest;
  * An abstract class that handles building of the REST endpoint URL and 
  * helps with parsing the JSON payload.
  */
-public abstract class MultivalueSuggestRESTHelper
+public abstract class MultivalueSuggestRESTHelper extends MultivalueSuggestHelper
 {
-    private String m_totalSizeKey;
-    private String m_optionsKey;
-    private String m_nameKey;
-    private String m_valueKey;
-
     /**
      * Constructor
      * @param totalSizeKey - total size JSON key
@@ -40,74 +35,7 @@ public abstract class MultivalueSuggestRESTHelper
      */
     public MultivalueSuggestRESTHelper(String totalSizeKey, String optionsKey, String nameKey, String valueKey)
     {
-        m_totalSizeKey = totalSizeKey;
-        m_optionsKey = optionsKey;
-        m_nameKey = nameKey;
-        m_valueKey = valueKey;
-    }
-
-    /**
-     * @return Returns the totalSizeKey.
-     */
-    public String getTotalSizeKey()
-    {
-        return m_totalSizeKey;
-    }
-
-    /**
-     * @param totalSizeKey The totalSizeKey to set.
-     */
-    public void setTotalSizeKey(String totalSizeKey)
-    {
-        m_totalSizeKey = totalSizeKey;
-    }
-
-    /**
-     * @return Returns the optionsKey.
-     */
-    public String getOptionsKey()
-    {
-        return m_optionsKey;
-    }
-
-    /**
-     * @param optionsKey The optionsKey to set.
-     */
-    public void setOptionsKey(String optionsKey)
-    {
-        m_optionsKey = optionsKey;
-    }
-
-    /**
-     * @return Returns the nameKey.
-     */
-    public String getNameKey()
-    {
-        return m_nameKey;
-    }
-
-    /**
-     * @param nameKey The nameKey to set.
-     */
-    public void setNameKey(String nameKey)
-    {
-        m_nameKey = nameKey;
-    }
-
-    /**
-     * @return Returns the valueKey.
-     */
-    public String getValueKey()
-    {
-        return m_valueKey;
-    }
-
-    /**
-     * @param valueKey The valueKey to set.
-     */
-    public void setValueKey(String valueKey)
-    {
-        m_valueKey = valueKey;
+        super(totalSizeKey, optionsKey, nameKey, valueKey);
     }
 
     /**
