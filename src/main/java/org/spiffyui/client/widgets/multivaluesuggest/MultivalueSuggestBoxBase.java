@@ -53,19 +53,6 @@ import org.spiffyui.client.widgets.FormFeedback;
 
 /**
 * A SuggestBox that allows for multiple values selection and autocomplete.
-* It will also allow for browsing, assuming that the REST endpoint supports idxFrom and idxTo url parameters.
-* The payload of the data to be searched on should have the following format, but the JSON keys are configurable, by specifying them in the 
-* OptionQueryRESTHelper:
-* <pre>
-* { 
-*  "TotalSize" : 133, 
-*  "Options" : [
-*   {"Value" : "#EFDECD", "DisplayName" : "Almond"},
-*   {"Value" : "#CD9575", "DisplayName" : "Antique Brass"},
-*   {"Value" : "#FDD9B5", "DisplayName" : "Apricot"}
-*  ]
-* }
-* </pre>
 */
 public abstract class MultivalueSuggestBoxBase extends Composite implements SelectionHandler<Suggestion>, Focusable, KeyUpHandler
 {
