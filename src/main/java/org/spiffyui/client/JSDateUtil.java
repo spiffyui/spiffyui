@@ -73,6 +73,33 @@ public final class JSDateUtil
     }
 
     /**
+     * Format the specified date according to the format string.
+     * See <a href="http://code.google.com/p/datejs/wiki/FormatSpecifiers">Format Specifiers</a>
+     *  
+     * @param date - the date object to format
+     * @param format - the formatter for the date
+     * 
+     * @return - the formatted string
+     */    
+    public static String format(Date date, String format)
+    {
+        return format("" + date.getTime(), format);
+    }
+
+    /**
+     * Format the specified date according to the format string.
+     * See <a href="http://code.google.com/p/datejs/wiki/FormatSpecifiers">Format Specifiers</a>
+     *  
+     * @param epochDate - the long date to format
+     * @param format - the formatter for the date
+     * 
+     * @return - the formatted string
+     */    
+    public static native String format(String epochDate, String format) /*-{
+        return new $wnd.Date(parseInt(epochDate, 10)).format(format);
+    }-*/;
+
+    /**
      * Convert UTC epoch format to a date string matching the specified format.
      * See <a href="http://code.google.com/p/datejs/wiki/FormatSpecifiers">Format Specifiers</a>
      * for more details
