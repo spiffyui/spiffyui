@@ -185,7 +185,7 @@ spiffyui = {
         } else if (unit == "SECOND") {
             return date.addSeconds(amt).getTime();
         } else if (unit == "YEAR") {
-            return date.addHours(amt).getTime();
+            return date.addYears(amt).getTime();
         } else {
             return date.add(amt).days().getTime();
         }
