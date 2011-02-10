@@ -28,8 +28,8 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
 /**
- * A set of static JavaScript utilities that provide access to functions from 
- * JQuery and some other JavaScript libraries. 
+ * A set of static JavaScript utilities that provide access to functions from
+ * JQuery and some other JavaScript libraries.
  */
 @SuppressWarnings("unused")     // supress unused private method warnings from Sonar
 public final class JSUtil
@@ -40,18 +40,18 @@ public final class JSUtil
     private JSUtil()
     {
     }
-    
+
     private static int g_uniqueCounter = 0;
-      
+
     static {
         bindJavaScript();
     }
-    
+
     /**
      * This method is the listener that responds to events in the browser
      * history like the user moving forward or back.  This method is called
      * from JavaScript.
-     * 
+     *
      * @param callback the history callback for this item
      * @param id the id of the item to select
      */
@@ -59,12 +59,12 @@ public final class JSUtil
     {
         callback.historyChanged(id);
     }
-    
+
     /**
      * <p>
-     * Adds an item to the browser's history.  
+     * Adds an item to the browser's history.
      * </p>
-     * 
+     *
      * <p>
      * History items can be added at any item with any unique ID.  When the user
      * navigates the browser's history there will be a collection of items added
@@ -72,49 +72,49 @@ public final class JSUtil
      * item added with this method is reached the callback will be called with the
      * specified ID.
      * </p>
-     * 
+     *
      * <p>
-     * Spiffy UI uses this method to page changes in the main navigation bar to the 
+     * Spiffy UI uses this method to page changes in the main navigation bar to the
      * browser's history so the user can use the browser forward and back buttons to move
      * between pages in the application.  This method is called by the MainNavBar
      * to add page changes.
      * </p>
-     * 
+     *
      * @param callback  the history callback for this item
      * @param id     the id of the item that was selected
      */
-    public static native void addHistoryItem(HistoryCallback callback, String id) /*-{ 
+    public static native void addHistoryItem(HistoryCallback callback, String id) /*-{
         var item = {
             callback: callback,
             id: id
         };
-        $wnd.dsHistory.addFunction($wnd.spiffyui.handleHistoryEvent, this, item); 
+        $wnd.dsHistory.addFunction($wnd.spiffyui.handleHistoryEvent, this, item);
     }-*/;
-    
-    private static final native void bindJavaScript() /*-{ 
+
+    private static final native void bindJavaScript() /*-{
         $wnd.spiffyui.handleHistoryEvent = function(contentObject, historyObject) {
-            if (contentObject && contentObject.callback) {
+            if (contentObject && contentObject.callback && contentObject.id) {
                 @org.spiffyui.client.JSUtil::doHistory(Lorg/spiffyui/client/HistoryCallback;Ljava/lang/String;)(contentObject.callback, contentObject.id);
             }
         }
-     
+
         $wnd.dsHistory.addFunction($wnd.spiffyui.handleHistoryEvent);
     }-*/;
-    
-    
+
+
     /**
      * Generate a probably unique ID.  It is based on current time.
-     * 
+     *
      * @return the unique ID as a string
      */
     public static final String generateUniqueId()
     {
         return Long.toHexString(new Date().getTime()) + "-" + g_uniqueCounter++;
     }
-    
+
     /**
      * Shows an element with a slide down effect.
-     * 
+     *
      * @param id
      *        the id for the element to show
      * @param speed
@@ -124,10 +124,10 @@ public final class JSUtil
     {
         doSlideDown(id, speed, null);
     }
-    
+
     /**
      * Shows an element with a slide down effect.
-     * 
+     *
      * @param id
      *        the id for the element to show
      * @param speed
@@ -144,10 +144,10 @@ public final class JSUtil
             @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
         });
     }-*/;
-    
+
     /**
      * Hides an element with a slide up effect.
-     * 
+     *
      * @param id
      *        the id for the element to show
      * @param speed
@@ -160,7 +160,7 @@ public final class JSUtil
 
     /**
      * Hides an element with a slide up effect.
-     * 
+     *
      * @param id
      *        the id for the element to show
      * @param speed
@@ -177,10 +177,10 @@ public final class JSUtil
             @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
         });
     }-*/;
-    
+
     /**
      * Toggles the visibility of the specified element with a vertical slide effect
-     * 
+     *
      * @param id
      *        the id for the element to show
      * @param speed
@@ -190,10 +190,10 @@ public final class JSUtil
     {
         doToggleSlide(id, speed, null);
     }
-    
+
     /**
      * Toggles the visibility of the specified element with a vertical slide effect
-     * 
+     *
      * @param id
      *                 the id for the element to show
      * @param speed
@@ -205,7 +205,7 @@ public final class JSUtil
         doToggleSlide(id, speed, callback);
     }
 
-    private static native void doToggleSlide(String id, String speed, JSEffectCallback callback) /*-{ 
+    private static native void doToggleSlide(String id, String speed, JSEffectCallback callback) /*-{
         if ($wnd.$($wnd.spiffyui.formatId(id)).is(':visible')) {
             $wnd.$($wnd.spiffyui.formatId(id)).slideUp(speed, function() {
                 @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
@@ -216,18 +216,18 @@ public final class JSUtil
             });
         }
     }-*/;
-    
+
     private static void doCallback(JSEffectCallback callback, String id)
     {
         if (callback != null) {
             callback.effectComplete(id);
         }
     }
-    
+
     /**
-     * Toggles the visibility of the specified element with a horizontal slide effect 
-     * sliding from the left side. 
-     * 
+     * Toggles the visibility of the specified element with a horizontal slide effect
+     * sliding from the left side.
+     *
      * @param id
      *        the id for the element to show
      * @param callback the callback called when the animation is complete
@@ -238,11 +238,11 @@ public final class JSUtil
             @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
         });
     }-*/;
-    
+
     /**
-     * Toggles the visibility of the specified element with a horizontal slide effect 
-     * sliding from the left side. 
-     * 
+     * Toggles the visibility of the specified element with a horizontal slide effect
+     * sliding from the left side.
+     *
      * @param id
      *        the id for the element to show
      */
@@ -250,39 +250,39 @@ public final class JSUtil
     public static native void horizontalToggleSlide(String id)  /*-{
         $wnd.$($wnd.spiffyui.formatId(id)).animate({width: 'toggle'});
     }-*/;
-    
+
     /**
-     * Causes the specified element to bounce the specified number of times 
-     * at the specified speed. 
-     * 
+     * Causes the specified element to bounce the specified number of times
+     * at the specified speed.
+     *
      * @param id the ID of the element to bounce
      * @param times the number of times to bounce the element
-     * @param speed the speed of the bounce animation in milliseconds 
-     * @param distance the distance in pixels to bounds the element - default is 20 
+     * @param speed the speed of the bounce animation in milliseconds
+     * @param distance the distance in pixels to bounds the element - default is 20
      */
     public static native void bounce(String id, int times, int speed, int distance)  /*-{
         $wnd.$($wnd.spiffyui.formatId(id)).effect("bounce", { times:times, distance: distance }, speed);
     }-*/;
-    
+
     /**
-     * Causes the specified element to bounce the specified number of times 
-     * at the specified speed. 
-     * 
+     * Causes the specified element to bounce the specified number of times
+     * at the specified speed.
+     *
      * @param id the ID of the element to bounce
      * @param times the number of times to bounce the element
-     * @param speed the speed of the bounce animation in milliseconds 
-     * @param distance the distance in pixels to bounds the element - default is 20 
-     * @param callback the callback called when the animation is complete 
+     * @param speed the speed of the bounce animation in milliseconds
+     * @param distance the distance in pixels to bounds the element - default is 20
+     * @param callback the callback called when the animation is complete
      */
     public static native void bounce(String id, int times, int speed, int distance, JSEffectCallback callback)  /*-{
         $wnd.$($wnd.spiffyui.formatId(id)).effect("bounce", { times:times, distance: distance }, speed, function() {
             @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
         });
     }-*/;
-    
+
     /**
      * Hides an element with a fade effect.
-     * 
+     *
      * @param id
      *        the id for the element to show
      * @param speed
@@ -291,10 +291,10 @@ public final class JSUtil
     public static native void hide(String id, String speed) /*-{
         $wnd.$($wnd.spiffyui.formatId(id)).hide(speed);
     }-*/;
-    
+
     /**
      * Hides an element with a fade effect.
-     * 
+     *
      * @param id
      *        the id for the element to show
      * @param speed
@@ -306,21 +306,21 @@ public final class JSUtil
             @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
         });
     }-*/;
-    
+
     /**
      * Hides the specified element.
-     * 
+     *
      * @param id
      *        the id for the element to show
-     * 
+     *
      */
     public static native void hide(String id) /*-{
         $wnd.$($wnd.spiffyui.formatId(id)).hide();
     }-*/;
-    
+
     /**
      * Set the text for an element
-     * 
+     *
      * @param id
      *        the id for the element
      * @param txt
@@ -341,7 +341,7 @@ public final class JSUtil
     public static native void show(String id, String speed) /*-{
         $wnd.$($wnd.spiffyui.formatId(id)).show(speed);
     }-*/;
-    
+
     /**
      * Shows an element with a fade effect.
      *
@@ -356,13 +356,13 @@ public final class JSUtil
             @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
         });
     }-*/;
-    
+
     /**
      * Shows the specified element.
      *
      * @param id
      *        the id for the element to show
-     * 
+     *
      */
     public static native void show(String id) /*-{
         $wnd.$($wnd.spiffyui.formatId(id)).show();
@@ -373,13 +373,13 @@ public final class JSUtil
      * Prints an info message to the Firebug console, Chrome developer
      * console, or Internet Explorer dev mode console.
      * </p>
-     * 
+     *
      * <p>
      * This method is very useful for debugging when you aren't using GWT
      * hosted mode.  The message print out to the console one item at a time
      * and don't do anything if the console isn't available.
      * </p>
-     * 
+     *
      * @param msg
      *        the message to print
      */
@@ -401,11 +401,11 @@ public final class JSUtil
             $wnd.console.log(o);
         }
     }-*/;
-    
+
     /**
-     * Prints an error message to the Firebug console.  If the Firebug 
-     * console is not enable this method doesn't do anything. 
-     * 
+     * Prints an error message to the Firebug console.  If the Firebug
+     * console is not enable this method doesn't do anything.
+     *
      * @param msg
      *        the message to print
      */
@@ -414,15 +414,15 @@ public final class JSUtil
             $wnd.console.error(msg);
         }
     }-*/;
-    
+
     /**
-     * Determines if the element(s) defined by the specified selector is 
-     * visible.  This doesn't always mean that is is on the screen, only 
-     * that it would be visible if it were. 
-     * 
+     * Determines if the element(s) defined by the specified selector is
+     * visible.  This doesn't always mean that is is on the screen, only
+     * that it would be visible if it were.
+     *
      * @param selector
      *        the elements to inspect
-     *  
+     *
      * @return true if any of the selected elements are visible and false otherwise
      */
     public static native boolean isVisible(String selector) /*-{
@@ -433,7 +433,7 @@ public final class JSUtil
             return false;
         }
     }-*/;
-    
+
     /**
      * Toggle hiding or showing a section
      * @param target - the event's onclick target
@@ -444,11 +444,11 @@ public final class JSUtil
      */
     public static boolean toggleSection(Element target, HTMLPanel panel, String targetId, String sectionId)
     {
-        if (!((target != null) && DOM.isOrHasChild(panel.getElementById(targetId), 
+        if (!((target != null) && DOM.isOrHasChild(panel.getElementById(targetId),
                                                    target))) {
             return false;
         }
-        
+
         String trimmedSectionId = sectionId;
 
         if (!sectionId.startsWith("#")) {
@@ -481,7 +481,7 @@ public final class JSUtil
 
         prependClassName(panel.getElementById(targetId), "expanded");
     }
-    
+
     private static void prependClassName(Element element, String classname)
     {
         String clazz = element.getClassName();
@@ -511,37 +511,37 @@ public final class JSUtil
             style.setDisplay(Display.NONE);
         }
         panel.getElementById(targetId).removeClassName("expanded");
-    }    
-    
+    }
+
     /**
      * Base64 encode a string
-     * 
+     *
      * @param s      the string to encode
-     * 
+     *
      * @return the encoded string
      */
     public static native String base64Encode(String s)  /*-{
         return $wnd.Base64.encode(s);
     }-*/;
-    
+
     /**
      * Base64 decode a string
-     * 
+     *
      * @param s      the string to decode
-     * 
+     *
      * @return the decoded string
      */
     public static native String base64Decode(String s)  /*-{
         return $wnd.Base64.decode(s);
     }-*/;
-    
+
     /**
      * Validate an email address entry such that both the
      * following will pass: Allison Blake <ablake@novell.com> or ablake@novell.com
      * @param s - the String to test
      * @return - true if valid
      */
-    public static boolean validateEmail(String s) 
+    public static boolean validateEmail(String s)
     {
         int ltIndex = s.indexOf('<');
         int gtIndex = s.indexOf('>');
@@ -552,12 +552,12 @@ public final class JSUtil
             return validateEmailAddress(s);
         }
     }
-    
+
     private static native boolean validateEmailAddress(String s) /*-{
         var filter = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
         return filter.test(s);
     }-*/;
-    
+
     /**
      * Returns a String without the last delimiter
      * @param s - String to trim
@@ -572,38 +572,38 @@ public final class JSUtil
             return s;
         }
     }
-    
-    
+
+
     /**
      * <p>
      * Get the height of the element with the specified ID.
      * </p>
-     * 
+     *
      * <p>
      * This method gets the height of the specified element on the screen including padding
      * and margins.  The element must be visible and attached to the page.
      * </p>
-     * 
+     *
      * @param id     the id of the element example: myElement
-     * 
+     *
      * @return the height of the element
      */
     public static native int getHeight(String id) /*-{
         return $wnd.$($wnd.spiffyui.formatId(id)).height();
     }-*/;
-    
+
     /**
      * <p>
      * Get the width of the element with the specified ID.
      * </p>
-     * 
+     *
      * <p>
      * This method gets the width of the specified element on the screen including padding
      * and margins.  The element must be visible and attached to the page.
      * </p>
-     * 
+     *
      * @param id     the id of the element example: myElement
-     * 
+     *
      * @return the width of the element
      */
     public static native int getWidth(String id) /*-{
@@ -614,20 +614,20 @@ public final class JSUtil
      * <p>
      * Parse the specified JSON string into a JavaScript object.
      * </p>
-     * 
+     *
      * <p>
-     * This method parses the specified string of well-formed JSON and returns 
-     * a JavaScript object.  It calls JSON.parse when it is available and calls 
+     * This method parses the specified string of well-formed JSON and returns
+     * a JavaScript object.  It calls JSON.parse when it is available and calls
      * eval only on older browsers which don't support JSON.parse.
      * </p>
-     * 
+     *
      * @param jsonString the json string to parse
-     * 
+     *
      * @return the JavaScript object representig the JSON string
      */
     public static native JavaScriptObject parseJSON(String jsonString) /*-{
         return $wnd.jQuery.parseJSON(jsonString);
     }-*/;
-    
+
 
 }
