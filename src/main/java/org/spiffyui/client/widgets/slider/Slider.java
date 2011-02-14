@@ -44,6 +44,7 @@ import com.google.gwt.user.client.ui.Widget;
  * setValues and setMinimum and setMaximum.  See SliderOptions for full list of options.
  * @see SliderOption
  */
+@SuppressWarnings("unused")     // supress unused private method warnings from Sonar
 public class Slider extends Widget
 {    
     private JSONObject m_defaultOptions;
