@@ -210,6 +210,7 @@ public class AuthServlet extends HttpServlet
                          String user, String pwd, String tsUrl, String logoutUrl)
         throws ServletException, IOException
     {
+        LOGGER.info("Making login request for " + user + " to server " + tsUrl);
         ServletOutputStream out = response.getOutputStream();
         if (user == null || pwd == null || tsUrl == null) {
             returnError(response, "Login requires a username, password, and token server URL",
@@ -400,6 +401,8 @@ public class AuthServlet extends HttpServlet
             return;
         }
 
+        LOGGER.info("Making logout request for " + token + " to server " + tsUrl);
+
         try {
             validateURI(request, tsUrl);
         } catch (IllegalArgumentException iae) {
@@ -430,6 +433,7 @@ public class AuthServlet extends HttpServlet
 
         int status = authResponse.getStatusLine().getStatusCode();
         if (status == 404) {
+            LOGGER.info("The authentication server " + tsUrl + " was not found.");
             returnError(response, "The token server URL was not found",
                         RESTAuthConstants.NOTFOUND_TS_URL);
             return;
