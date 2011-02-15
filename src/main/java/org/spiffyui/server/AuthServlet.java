@@ -26,6 +26,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.text.ParseException;
@@ -414,13 +415,15 @@ public class AuthServlet extends HttpServlet
         
         URI.create(tsUrl);
         URL url = new URL(tsUrl);
+
+        LOGGER.info("url: " + url);
         
         if (url.getProtocol() != null &&
             url.getProtocol().equalsIgnoreCase("https")) {
             setupClientSSL(httpclient, url.getPort());
         }
 
-        HttpDelete httpdel = new HttpDelete(tsUrl + "/" + token);
+        HttpDelete httpdel = new HttpDelete(tsUrl + "/" + URLEncoder.encode(token, "UTF-8"));
 
         httpdel.setHeader("Accept", "application/json");
         httpdel.setHeader("Accept-Charset", "UTF-8");
