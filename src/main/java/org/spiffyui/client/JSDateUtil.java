@@ -241,7 +241,7 @@ public final class JSDateUtil
      * @return - The time format
      */    
     public static native String getShortTimeFormat() /*-{
-        return $wnd.Date.CultureInfo.formatPatterns.longTime;
+        return $wnd.Date.CultureInfo.formatPatterns.shortTime;
     }-*/;
 
     /**
