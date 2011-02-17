@@ -83,6 +83,8 @@ public final class RESTility
     private boolean m_logInListenerCalled = false;
 
     private static RESTAuthProvider g_authProvider;
+    
+    private String m_sessionCookiePath;
 
     /**
      * This is a helper type class so we can pass the HTTP method as a type safe
@@ -481,14 +483,64 @@ public final class RESTility
             Window.Location.reload();
         }
     }
+    
+    /**
+     * <p>
+     * Set the path for the Spiffy_Session cookie.
+     * </p>
+     * 
+     * <p>
+     * When Spiffy UI uses token based authentication it saves token and user information 
+     * in a cookie named Spiffy_Session.  This cookie allows the user to remain logged in
+     * after they refresh the page the reset JavaScript memory.  
+     * </p>
+     * 
+     * <p>
+     * By default that cookie uses the path of the current page.  If an application uses 
+     * multiple pages it can make sense to use a more general path for this cookie to make
+     * it available to other URLs in the application.
+     * </p>
+     * 
+     * <p>
+     * The path must be set before the first authentication request.  If it is called 
+     * afterward the cookie path will not change.
+     * </p>
+     * 
+     * @param newPath the new path for the cookie or null if the cookie should use the path of the current page
+     */
+    public static void setSessionCookiePath(String newPath)
+    {
+        RESTILITY.m_sessionCookiePath = newPath;
+    }
+    
+    /**
+     * Get the path of the session cookie.  By default this is null indicating a path of
+     * the current page will be used.
+     * 
+     * @return the current session cookie path.
+     */
+    public static String getSessionCookiePath()
+    {
+        return RESTILITY.m_sessionCookiePath;
+    }
 
     private static void setSessionToken()
     {
-        Cookies.setCookie(SESSION_COOKIE, RESTILITY.m_tokenType + "," +
-                          RESTILITY.m_userToken + "," + RESTILITY.m_tokenServerUrl + "," +
-                          RESTILITY.m_tokenServerLogoutUrl + "," + RESTILITY.m_username);
-        if (RESTILITY.m_bestLocale != null) {
-            Cookies.setCookie(LOCALE_COOKIE, RESTILITY.m_bestLocale);
+        if (RESTILITY.m_sessionCookiePath != null) {
+            Cookies.setCookie(SESSION_COOKIE, RESTILITY.m_tokenType + "," +
+                              RESTILITY.m_userToken + "," + RESTILITY.m_tokenServerUrl + "," +
+                              RESTILITY.m_tokenServerLogoutUrl + "," + RESTILITY.m_username, 
+                              null, null, RESTILITY.m_sessionCookiePath, false);
+            if (RESTILITY.m_bestLocale != null) {
+                Cookies.setCookie(LOCALE_COOKIE, RESTILITY.m_bestLocale, null, null, RESTILITY.m_sessionCookiePath, false);
+            }
+        } else {
+            Cookies.setCookie(SESSION_COOKIE, RESTILITY.m_tokenType + "," +
+                              RESTILITY.m_userToken + "," + RESTILITY.m_tokenServerUrl + "," +
+                              RESTILITY.m_tokenServerLogoutUrl + "," + RESTILITY.m_username);
+            if (RESTILITY.m_bestLocale != null) {
+                Cookies.setCookie(LOCALE_COOKIE, RESTILITY.m_bestLocale);
+            }
         }
     }
 
