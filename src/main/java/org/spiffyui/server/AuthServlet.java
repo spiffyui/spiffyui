@@ -29,7 +29,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.text.ParseException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -58,6 +57,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.scheme.Scheme;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.spiffyui.client.rest.util.RESTAuthConstants;
 
@@ -164,7 +164,7 @@ public class AuthServlet extends HttpServlet
                          authObj.getString(RESTAuthConstants.AUTH_URL_TOKEN));
                 return;
             }
-        } catch (ParseException e) {
+        } catch (JSONException e) {
             LOGGER.throwing(AuthServlet.class.getName(), "service", e);
             returnError(response, e.getMessage(), RESTAuthConstants.INVALID_JSON);
         }
@@ -209,7 +209,7 @@ public class AuthServlet extends HttpServlet
 
     private void doLogin(HttpServletRequest request, HttpServletResponse response,
                          String user, String pwd, String tsUrl, String logoutUrl)
-        throws ServletException, IOException
+        throws ServletException, IOException, JSONException
     {
         LOGGER.info("Making login request for " + user + " to server " + tsUrl);
         ServletOutputStream out = response.getOutputStream();
@@ -268,7 +268,7 @@ public class AuthServlet extends HttpServlet
     
     private void sendLoginResponse(HttpServletResponse response, HttpResponse authResponse, int status,
                                    HttpPost httppost, ServletOutputStream out, HttpClient httpclient)
-        throws ServletException, IOException
+        throws ServletException, IOException, JSONException
     {
 
         // Get hold of the response entity
@@ -489,23 +489,30 @@ public class AuthServlet extends HttpServlet
     private void returnError(HttpServletResponse response, String message, String sCode)
         throws ServletException, IOException
     {
-        JSONObject base = new JSONObject();
-
-        JSONObject fault = new JSONObject();
-
-        JSONObject code = new JSONObject();
-        code.put("Value", sCode);
-        JSONObject subcode = new JSONObject();
-        subcode.put("Value", "");
-        code.put("Subcode", subcode);
-        fault.put("Code", code);
-
-        JSONObject reason = new JSONObject();
-        reason.put("Text", message);
-        fault.put("Reason", reason);
-
-        base.put("Fault", fault);
-        response.getOutputStream().println(base.toString());
+        try {
+            JSONObject base = new JSONObject();
+    
+            JSONObject fault = new JSONObject();
+    
+            JSONObject code = new JSONObject();
+            code.put("Value", sCode);
+            JSONObject subcode = new JSONObject();
+            subcode.put("Value", "");
+            code.put("Subcode", subcode);
+            fault.put("Code", code);
+    
+            JSONObject reason = new JSONObject();
+            reason.put("Text", message);
+            fault.put("Reason", reason);
+    
+            base.put("Fault", fault);
+            response.getOutputStream().println(base.toString());
+        } catch (JSONException e) {
+            /*
+             This should never happen
+             */
+            LOGGER.throwing(getClass().getName(), "returnError", e);
+        }
     }
 }
 
