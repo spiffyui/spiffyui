@@ -553,9 +553,9 @@ public final class JSUtil
         }
     }
 
-    private static native boolean validateEmailAddress(String s) /*-{
-        var filter = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
-        return filter.test(s);
+    private static native boolean validateEmailAddress(String email) /*-{
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ 
+        return email.match(re)
     }-*/;
 
     /**
