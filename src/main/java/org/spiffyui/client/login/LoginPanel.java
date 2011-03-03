@@ -254,6 +254,7 @@ public class LoginPanel extends Composite implements KeyUpHandler
         m_submit = new Button(m_helper.getString(LoginStrings.LOGIN), new ClickHandler() {
                 public void onClick(ClickEvent event)
                 {
+                    event.preventDefault();
                     doRequest();
                 }
         });
@@ -266,6 +267,7 @@ public class LoginPanel extends Composite implements KeyUpHandler
         m_logout.addClickHandler(new ClickHandler() {
                 public void onClick(ClickEvent event)
                 {
+                    event.preventDefault();
                     /*
                      * At this point we are already logged out, so we
                      * just need to reload the window.
