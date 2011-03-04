@@ -30,7 +30,6 @@ import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
-import com.google.gwt.http.client.URL;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Cookies;
@@ -356,7 +355,7 @@ public final class RESTility
      * Make a rest call using an HTTP GET to the specified URL.
      *
      * @param callback the callback to invoke
-     * @param url    the REST url to call
+     * @param url    the properly encoded REST url to call
      */
     public static void callREST(String url, RESTCallback callback)
     {
@@ -367,7 +366,7 @@ public final class RESTility
      * Make a rest call using an HTTP GET to the specified URL including
      * the specified data..
      *
-     * @param url    the REST url to call
+     * @param url    the properly encoded REST url to call
      * @param data   the data to pass to the URL
      * @param callback the callback to invoke
      */
@@ -687,7 +686,7 @@ public final class RESTility
      * Make an HTTP call and get the results as a JSON object.  This method handles
      * cases like login, error parsing, and configuration requests.
      *
-     * @param url      the REST url to call
+     * @param url      the properly encoded REST url to call
      * @param data     the data to pass to the URL
      * @param method   the HTTP method, defaults to GET
      * @param callback the callback object for handling the request results
@@ -701,7 +700,7 @@ public final class RESTility
      * Make an HTTP call and get the results as a JSON object.  This method handles
      * cases like login, error parsing, and configuration requests.
      *
-     * @param url      the REST url to call
+     * @param url      the properly encoded REST url to call
      * @param data     the data to pass to the URL
      * @param method   the HTTP method, defaults to GET
      * @param callback the callback object for handling the request results
@@ -742,7 +741,7 @@ public final class RESTility
      * Make an HTTP call and get the results as a JSON object.  This method handles
      * cases like login, error parsing, and configuration requests.
      *
-     * @param url      the REST url to call
+     * @param url      the properly encoded REST url to call
      * @param data     the data to pass to the URL
      * @param method   the HTTP method, defaults to GET
      * @param callback the callback object for handling the request results
@@ -761,7 +760,7 @@ public final class RESTility
      * Make an HTTP call and get the results as a JSON object.  This method handles
      * cases like login, error parsing, and configuration requests.
      *
-     * @param url      the REST url to call
+     * @param url      the properly encoded REST url to call
      * @param data     the data to pass to the URL
      * @param method   the HTTP method, defaults to GET
      * @param callback the callback object for handling the request results
@@ -785,7 +784,7 @@ public final class RESTility
 
         RESTILITY.m_restCalls.put(callback, new RESTCallStruct(url, data, method, shouldReplay, etag));
 
-        RequestBuilder builder = new RESTRequestBuilder(method.getMethod(), URL.encode(url));
+        RequestBuilder builder = new RESTRequestBuilder(method.getMethod(), url);
         /*
          Set our headers
          */
