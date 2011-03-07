@@ -73,11 +73,44 @@ public final class BasicBestLocaleMatcher
         //but here we'll assume no application default is defined anywhere, so just go with en
         return Locale.ENGLISH;
     }
+
+    /**
+     * Return the best match locale by getting a list of requested locales from the request.
+     * It will loop through the list of locales and attempt to match first exactly, then by language and country, then by country.
+     * If no match is found it will default to English.
+     * @param request - the HttpServletRequest
+     * @param response - the HttpServletResponse
+     * @param supportedLocales - the list of available locales to choose from
+     * @return the best match Locale
+     */
+    public static Locale getBestMatchLocale(HttpServletRequest request, HttpServletResponse response, List<Locale> supportedLocales)
+    {
+        // If the Locale wasn't found yet, use the browser's locale list to find the best match
+        @SuppressWarnings("unchecked")
+        ArrayList<Locale> requestLocales = Collections.list(request.getLocales());
+        //loop through the list and see if its a supported locale by 
+        //checking lang, country, variant
+        //then by checking lang, country
+        //then by lang
+        //then by next locale
+        for (Locale requestLocale : requestLocales) {
+            Locale matchLocale = matchSupportedLocale(requestLocale, supportedLocales);
+            if (matchLocale != null) {
+                return matchLocale;
+            }
+        }
+        //nothing found, go with application default
+        //but here we'll assume no application default is defined anywhere, so just go with en
+        return Locale.ENGLISH;
+    }
     
     private static Locale matchSupportedLocale(Locale loc, ServletContext context)
     {
-        List<Locale> supportedLocales = JSLocaleUtil.getMinimumSupportedLocales(context);
-        
+        return  matchSupportedLocale(loc, JSLocaleUtil.getMinimumSupportedLocales(context));
+    }
+
+    private static Locale matchSupportedLocale(Locale loc, List<Locale> supportedLocales)
+    {
         for (Locale supportedLocale : supportedLocales) {
             if (supportedLocale.equals(loc)) {
                 //exact match found
