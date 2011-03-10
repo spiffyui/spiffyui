@@ -462,6 +462,14 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     }
 
     /**
+     * Gets the SuggestBox field
+     * @return the SuggestBox component
+     */
+    public SuggestBox getSuggestBox()
+    {
+        return m_field;
+    }
+    /**
      * Gets the text within the text field of the suggest box
      * @return display text
      */

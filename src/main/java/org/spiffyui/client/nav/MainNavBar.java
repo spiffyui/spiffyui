@@ -65,7 +65,8 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler,
         if ((w instanceof NavItem) ||
             (w instanceof NavSection) ||
             (w instanceof NavHeader) ||
-            (w instanceof NavSeparator)) {
+            (w instanceof NavSeparator) ||
+            (w instanceof NavPanel)) {
             super.add(w);
 
             if (w instanceof NavItem) {
