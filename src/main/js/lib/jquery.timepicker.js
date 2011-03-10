@@ -218,7 +218,10 @@
     startTime: new Date(0, 0, 0, 0, 0, 0),
     endTime: new Date(0, 0, 0, 23, 30, 0),
     separator: ':',
-    show24Hours: true
+    show24Hours: true,
+    timeFormat: 'hh:mm tt',
+    amDesignator: 'AM',
+    pmDesignator: 'PM'
   };
 
   // Private functions.
@@ -241,7 +244,16 @@
     var hours = settings.show24Hours ? h : (((h + 11) % 12) + 1);
     hours = formatHour(hours, settings);
     var minutes = time.getMinutes();
-    return hours + settings.separator + formatNumber(minutes) + (settings.show24Hours ? '' : ((h < 12) ? ' AM' : ' PM'));
+    
+    var time = settings.timeFormat;
+    time = time.replace('hh', hours);
+    time = time.replace('h', hours);
+    time = time.replace('mm', formatNumber(minutes));
+    time = time.replace('tt', (h < 12) ? settings.amDesignator : settings.pmDesignator);
+    
+    return time;
+      
+    //return hours + settings.separator + formatNumber(minutes) + (settings.show24Hours ? '' : ((h < 12) ? ' AM' : ' PM'));
   }
 
   function formatNumber(value) {
@@ -268,10 +280,10 @@
 
       // Convert AM/PM hour to 24-hour format.
       if (!settings.show24Hours) {
-        if (hours === 12 && input.substr('AM') !== -1) {
+        if (hours === 12 && input.substr(settings.amDesignator) !== -1) {
           hours = 0;
         }
-        else if (hours !== 12 && input.indexOf('PM') !== -1) {
+        else if (hours !== 12 && input.indexOf(settings.pmDesignator) !== -1) {
           hours += 12;
         }
       }
