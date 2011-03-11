@@ -245,6 +245,8 @@
     hours = formatHour(hours, settings);
     var minutes = time.getMinutes();
     
+    // Now that we have the current time we take the time format
+    // and replace the time values into that string.
     var time = settings.timeFormat;
     time = time.replace('hh', hours);
     time = time.replace('h', hours);
@@ -252,8 +254,6 @@
     time = time.replace('tt', (h < 12) ? settings.amDesignator : settings.pmDesignator);
     
     return time;
-      
-    //return hours + settings.separator + formatNumber(minutes) + (settings.show24Hours ? '' : ((h < 12) ? ' AM' : ' PM'));
   }
 
   function formatNumber(value) {
