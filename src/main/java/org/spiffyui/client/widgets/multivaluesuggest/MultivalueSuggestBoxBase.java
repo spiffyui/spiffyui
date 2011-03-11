@@ -26,8 +26,11 @@ import java.util.Map;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
@@ -54,7 +57,7 @@ import org.spiffyui.client.widgets.FormFeedback;
 /**
 * A SuggestBox that allows for multiple values selection and autocomplete.
 */
-public abstract class MultivalueSuggestBoxBase extends Composite implements SelectionHandler<Suggestion>, Focusable, KeyUpHandler
+public abstract class MultivalueSuggestBoxBase extends Composite implements SelectionHandler<Suggestion>, Focusable, KeyUpHandler, HasValueChangeHandlers<String>
 {
     private MultivalueSuggestHelper m_helper;
 
@@ -188,6 +191,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     {
         JSUtil.println("putting key = " + key + "; value = " + value);
         m_valueMap.put(key, value);
+        ValueChangeEvent.fire(this, value);
     }
 
     /**
@@ -469,6 +473,8 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     {
         return m_field;
     }
+    
+    
     /**
      * Gets the text within the text field of the suggest box
      * @return display text
@@ -524,6 +530,12 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         return m_field.addKeyUpHandler(handler);
     }
 
+    @Override
+    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> handler)
+    {
+        return addHandler(handler, ValueChangeEvent.getType());
+    }
+    
     @Override
     public void onKeyUp(KeyUpEvent event)
     {
