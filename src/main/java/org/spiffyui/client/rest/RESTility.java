@@ -121,8 +121,7 @@ public final class RESTility
     private String m_username = null;
     private String m_tokenServerLogoutUrl = null;
     private String m_bestLocale = null;
-    private boolean m_checkedCookie = false;
-
+    
     /**
      * Just to make sure that nobody else can instatiate this object.
      */

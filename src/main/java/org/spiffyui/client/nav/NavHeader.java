@@ -32,7 +32,7 @@ import com.google.gwt.user.client.ui.Widget;
  * <li>.main-menuHeader { primry style }</li>
  * </ul>
  */
-public class NavHeader extends Widget
+public class NavHeader extends Widget implements NavWidget
 {
     /**
      * Creates a new navigation header

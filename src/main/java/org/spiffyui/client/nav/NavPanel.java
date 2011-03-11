@@ -23,6 +23,6 @@ import com.google.gwt.user.client.ui.FlowPanel;
 /**
  * A class to allow a container of objects be added to the MainNavBar
  */
-public class NavPanel extends FlowPanel
+public class NavPanel extends FlowPanel implements NavWidget
 {
 }

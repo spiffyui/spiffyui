@@ -62,11 +62,7 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler,
     @Override
     public void add(Widget w)
     {
-        if ((w instanceof NavItem) ||
-            (w instanceof NavSection) ||
-            (w instanceof NavHeader) ||
-            (w instanceof NavSeparator) ||
-            (w instanceof NavPanel)) {
+        if (w instanceof NavWidget) {
             super.add(w);
 
             if (w instanceof NavItem) {
@@ -76,7 +72,7 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler,
                 ((NavSection) w).setNavBar(this);
             }
         } else {
-            throw new IllegalArgumentException("You can only add NavItem, NavHeader, NavSection, or NavSeparator to this class");
+            throw new IllegalArgumentException("You can only add NavItem, NavHeader, NavSection, NavPanel, or NavSeparator to this class");
         }
     }
 

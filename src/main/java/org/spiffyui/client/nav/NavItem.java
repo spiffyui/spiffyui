@@ -27,7 +27,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * A NavItem represents a single item on the navigation menu
  */
-public class NavItem extends Widget
+public class NavItem extends Widget implements NavWidget
 {
     private final Anchor m_anchor;
 

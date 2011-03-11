@@ -33,7 +33,7 @@ import com.google.gwt.user.client.ui.Widget;
  * </ul>
  */
 
-public class NavSeparator extends Widget
+public class NavSeparator extends Widget implements NavWidget
 {
     private String m_id;
     

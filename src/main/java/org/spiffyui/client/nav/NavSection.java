@@ -35,7 +35,7 @@ import org.spiffyui.client.JSUtil;
  * This widget represents a single section that contains multiple items 
  * in the navigation menu. 
  */
-public class NavSection extends ComplexPanel
+public class NavSection extends ComplexPanel implements NavWidget
 {
     
     private String m_id;
