@@ -28,6 +28,7 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Event.NativePreviewEvent;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -239,16 +240,18 @@ class ErrorPanel extends Composite implements Event.NativePreviewHandler
 {
 
     private Label m_label;
-    private RootPanel m_panel;
+    private FlowPanel m_panel;
 
     public ErrorPanel()
     {
-        m_panel = RootPanel.get("errorpanel");
-
-        if (m_panel == null) {
+        RootPanel root = RootPanel.get("mainContent");
+        
+        if (root == null) {
             throw new IllegalStateException("Unable to locate the errorpanel element.  You must import spiffyui.min.js before using the MessageUtil.");
         }
-        
+        m_panel = new FlowPanel();
+        m_panel.getElement().setId("errorpanel");
+
         m_label = new Label("", true);
         m_panel.add(m_label);
 
@@ -265,6 +268,7 @@ class ErrorPanel extends Composite implements Event.NativePreviewHandler
 
         m_panel.setVisible(false);
 
+        root.insert(m_panel, 0);
         //Any click anywhere will close
         Event.addNativePreviewHandler(this);
     }
