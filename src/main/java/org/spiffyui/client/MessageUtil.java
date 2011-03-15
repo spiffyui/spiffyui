@@ -324,8 +324,9 @@ class ErrorPanel extends Composite implements Event.NativePreviewHandler
         if (null == target) {
             return;
         }
+        
         //any click on this will dismiss the panel
-        if (DOM.isOrHasChild(DOM.getElementById(m_panel.getElement().getId()), target)) {
+        if (DOM.isOrHasChild(m_panel.getElement(), target)) {
             JSUtil.slideUp("#" + m_panel.getElement().getId(), "fast");
         }
     }
