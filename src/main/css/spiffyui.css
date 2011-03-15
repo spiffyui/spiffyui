@@ -283,6 +283,7 @@ body > #mainWrap {
     width: 100%;
     -webkit-border-radius:4px;
     -moz-border-radius:4px;
+    border-radius:4px;
     border-bottom: thin solid lightgray;
     margin-bottom: -1px;
     font-weight: bold;
@@ -317,6 +318,7 @@ body > #mainWrap {
     width: 100%;
     -webkit-border-radius:4px;
     -moz-border-radius:4px;
+    border-radius:4px;
 }
 
 /*
@@ -328,6 +330,7 @@ body > #mainWrap {
     border: thin solid lightgray; 
     -webkit-border-radius:0.5em;
     -moz-border-radius:0.5em;
+    border-radius:0.5em;
     display: none;
 }
 
@@ -355,7 +358,8 @@ body > #mainWrap {
     position: relative;
     padding: 1em;
     -webkit-border-radius:6px;
-    -moz-border-radius:6px;    
+    -moz-border-radius:6px;
+    border-radius:6px;
     margin-right: 2em;
     cursor: pointer;
     width: 680px;
@@ -418,6 +422,7 @@ div.spiffy-formfeedback.valid {
     white-space: no-wrap;
     -webkit-border-radius:6px;
     -moz-border-radius:6px;
+    border-radius:6px;
     margin-top: -2px;
     font-size: 18px;
     margin-right: 0.5em;
@@ -453,6 +458,7 @@ button {
     white-space: no-wrap;
     -webkit-border-radius:6px;
     -moz-border-radius:6px;
+    border-radius:6px;
     margin-top: -3px;
 }
 
@@ -576,6 +582,7 @@ button.spiffy-inprogress {
     line-height: 28px;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
+    border-radius: 6px;
     -moz-box-shadow: 0 2px 2px #C8C8C8;
     white-space: nowrap;
     overflow: hidden;
@@ -682,6 +689,7 @@ button.spiffy-inprogress {
     background-color:#F9F9F9;
     border-color:#DEDEDE;
     -moz-border-radius:0 0 0 6px;
+    border-radius:0 0 0 6px;
     -webkit-border-radius:0 0 0 6px;
     border-style:none solid solid;
     border-top:0 none;
@@ -812,6 +820,7 @@ button.spiffy-inprogress {
     border-left: thin solid #464646;
     border-bottom: thin solid #464646;
     -moz-border-radius-bottomleft: 0.5em;
+    border-radius-bottomleft: 0.5em;
     -webkit-border-radius-bottomleft: 0.5em;
 }
 .gwt-DialogBox .dialogBottomRight {
@@ -819,6 +828,7 @@ button.spiffy-inprogress {
     border-right: thin solid #464646;
     border-bottom: thin solid #464646;
     -moz-border-radius-bottomright: 0.5em;
+    border-radius-bottomright: 0.5em;
     -webkit-border-radius-bottomleft: 0.5em;
 }
 * html .gwt-DialogBox .dialogTopLeftInner {
@@ -856,6 +866,7 @@ button.spiffy-inprogress {
     color: black;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
+    border-radius: 3px;
     padding: 0px 8px;
     font-size: 12px;
     line-height: 14px;
@@ -866,12 +877,14 @@ button.spiffy-inprogress {
     color: white;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .gwt-SuggestBoxPopup .suggestPopupContent {
     border: thin solid #464646;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
+    border-radius: 3px;
     -moz-box-shadow: 0 2px 2px #C8C8C8;
 }
 
@@ -956,6 +969,7 @@ h3.subSectionTitle.expandable.expanded {
     padding: 1em;
     -webkit-border-radius:6px;
     -moz-border-radius:6px;
+    border-radius:6px;
     margin-right: 2em;
     display: none;
 }
@@ -989,6 +1003,7 @@ h3.subSectionTitle.expandable.expanded {
     left: 40%;
     top: 15%;
     -moz-border-radius: 1em;
+    border-radius: 1em;
     -webkit-border-radius: 1em;
     -moz-box-shadow:0 4px 18px lightgray;
     background-color:white;
@@ -1000,6 +1015,8 @@ h3.subSectionTitle.expandable.expanded {
     -moz-border-radius-topright: 0.5em;
     -webkit-border-radius-topleft: 0.5em;
     -webkit-border-radius-topright: 0.5em;
+    border-radius-topleft: 0.5em;
+    border-radius-topright: 0.5em;
     height: 55px;
     background:url("images/spiffy_headerslice.png") repeat-x scroll left top transparent;
     /*background: none repeat scroll 0 0 black;*/
@@ -1059,6 +1076,8 @@ h3.subSectionTitle.expandable.expanded {
   -moz-border-radius-bottomright: 0.5em;
   -webkit-border-radius-bottomleft: 0.5em;
   -webkit-border-radius-bottomright: 0.5em;
+  border-radius-bottomleft: 0.5em;
+  border-radius-bottomright: 0.5em;
 }
 
 .logintitle {
@@ -1126,6 +1145,7 @@ h3.subSectionTitle.expandable.expanded {
     border: 1px solid #DFDFDF;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
+    border-radius: 6px;
     padding: 10px;
 }
 
