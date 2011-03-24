@@ -219,8 +219,17 @@ spiffyui = {
          }
     },
     
+    addHistoryItem: function(func, scope, item) {
+         dsHistory.addFunction(func, scope, item);
+    },
+    
+    handleHistoryEvent: function(contentObject, historyObject) {
+         if (contentObject && contentObject.callback && contentObject.id) {
+             spiffyui.doHandleHistoryEvent(contentObject, historyObject);
+         }
+    },
+    
     init: function() {
-
         if (spiffyui.autoloadHTML) {
          
             /*

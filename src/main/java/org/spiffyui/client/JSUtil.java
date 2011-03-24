@@ -57,6 +57,7 @@ public final class JSUtil
      */
     private static void doHistory(HistoryCallback callback, String id)
     {
+        JSUtil.println("doHistory(" + id + ")");
         callback.historyChanged(id);
     }
 
@@ -83,19 +84,18 @@ public final class JSUtil
      * @param callback  the history callback for this item
      * @param id     the id of the item that was selected
      */
-    public static native void addHistoryItem(HistoryCallback callback, String id) /*-{
+    public static native void addHistoryItem(HistoryCallback callback, String id) /*-{ 
         var item = {
             callback: callback,
             id: id
         };
-        $wnd.dsHistory.addFunction($wnd.spiffyui.handleHistoryEvent, this, item);
+     
+        $wnd.spiffyui.addHistoryItem($wnd.spiffyui.handleHistoryEvent, $wnd, item);
     }-*/;
 
     private static final native void bindJavaScript() /*-{
-        $wnd.spiffyui.handleHistoryEvent = function(contentObject, historyObject) {
-            if (contentObject && contentObject.callback && contentObject.id) {
-                @org.spiffyui.client.JSUtil::doHistory(Lorg/spiffyui/client/HistoryCallback;Ljava/lang/String;)(contentObject.callback, contentObject.id);
-            }
+        $wnd.spiffyui.doHandleHistoryEvent = function(contentObject, historyObject) {
+            @org.spiffyui.client.JSUtil::doHistory(Lorg/spiffyui/client/HistoryCallback;Ljava/lang/String;)(contentObject.callback, contentObject.id);
         }
 
         $wnd.dsHistory.addFunction($wnd.spiffyui.handleHistoryEvent);
@@ -388,7 +388,7 @@ public final class JSUtil
             $wnd.console.info(msg);
         }
     }-*/;
-
+    
     /**
      * logs an object to the Firebug console for debugging purposes. If the Firebug
      * console is not enabled this method doesn't do anything.
