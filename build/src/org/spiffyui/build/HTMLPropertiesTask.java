@@ -27,7 +27,9 @@ import java.io.PrintWriter;
 import java.io.Reader;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.tools.ant.BuildException;
@@ -156,6 +158,49 @@ public class HTMLPropertiesTask extends Task
         m_destinationFile = null;
     }
     
+    private Locale findLocale(String name)
+    {
+        if (name == null || name.length() < 3) {
+            return null;
+        }
+        
+        name = name.substring(0, name.lastIndexOf('.'));
+        String country = null;
+        String language = null;
+        
+        if (name.charAt(name.length() - 6) == '-' ||
+            name.charAt(name.length() - 6) == '_') {
+            language = name.substring(name.length() - 5,
+                                      name.length() - 3);
+        }
+        
+        if (name.charAt(name.length() - 3) == '-' ||
+            name.charAt(name.length() - 3) == '_') {
+            if (language == null) {
+                /*
+                 Then they specified a language without a country
+                 */
+                language = name.substring(name.length() - 2,
+                                          name.length());
+            } else {
+                /*
+                 Then we already have the language and this is the country
+                 */
+                country =  name.substring(name.length() - 2,
+                                          name.length());
+            }
+        }
+        
+        if (language == null && country == null) {
+            return null;
+        } else if (country == null) {
+            return new Locale(language);
+        } else {
+            return new Locale(language, country);
+        }
+        
+    }
+    
     /**
      * Executes this task to run the compiler.
      * 
@@ -172,11 +217,12 @@ public class HTMLPropertiesTask extends Task
             return;
         }
         
+        HashMap<String, Properties> props = new HashMap<String, Properties>();
+        
         ResourceCollection rc = getResources();
         Iterator i = rc.iterator();
         
         try {
-            Properties props = new Properties();
             while (i.hasNext()) {
                 File f = ((FileResource) i.next()).getFile();
                 Reader in = null;
@@ -197,7 +243,17 @@ public class HTMLPropertiesTask extends Task
                         }
                     }
                     
-                    props.setProperty(f.getName().replace(' ', '_').replace('.', '_'), sb.toString());
+                    Locale loc = findLocale(f.getName());
+                    String name = f.getName();
+                    if (loc != null) {
+                        /*
+                         Then we want to take the locale out of the file name
+                         */
+                        name = name.substring(0, name.lastIndexOf('.') - loc.toString().length()) + 
+                            name.substring(name.lastIndexOf('.'), name.length());
+                    }
+                    
+                    getProperties(loc, props).setProperty(f.getName().replace(' ', '_').replace('.', '_'), sb.toString());
                     
                 } finally {
                     if (in != null) {
@@ -206,17 +262,43 @@ public class HTMLPropertiesTask extends Task
                 }
             }
             
-            PrintWriter out = null;
-            try {
-                out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(m_destinationFile), "UTF-8"));
-                props.store(out, "");
-            } finally {
-                if (out != null) {
-                    out.close();
+            /*
+             Now we need to write out all the properties files
+             */
+            for (String loc : props.keySet()) {
+                PrintWriter out = null;
+                try {
+                    String name = m_destinationFile.getName();
+                    name = name.substring(0, name.lastIndexOf('.')) + loc + 
+                        name.substring(name.lastIndexOf('.'), name.length());
+                    
+                    out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(
+                        new File(m_destinationFile.getParentFile(), name)), "UTF-8"));
+                    props.get(loc).store(out, "");
+                } finally {
+                    if (out != null) {
+                        out.close();
+                    }
                 }
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
+    }
+    
+    private Properties getProperties(Locale locale, HashMap<String, Properties> props)
+    {
+        String key = null;
+        if (locale == null) {
+            key = "";
+        } else {
+            key = "_" + locale.toString();
+        }
+        
+        if (!props.containsKey(key)) {
+            props.put(key, new Properties());
+        }
+        
+        return props.get(key);
     }
 }
