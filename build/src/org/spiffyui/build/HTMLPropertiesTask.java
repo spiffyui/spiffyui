@@ -249,11 +249,11 @@ public class HTMLPropertiesTask extends Task
                         /*
                          Then we want to take the locale out of the file name
                          */
-                        name = name.substring(0, name.lastIndexOf('.') - loc.toString().length()) + 
+                        name = name.substring(0, name.lastIndexOf('.') - loc.toString().length() - 1) + 
                             name.substring(name.lastIndexOf('.'), name.length());
                     }
                     
-                    getProperties(loc, props).setProperty(f.getName().replace(' ', '_').replace('.', '_'), sb.toString());
+                    getProperties(loc, props).setProperty(name.replace(' ', '_').replace('.', '_'), sb.toString());
                     
                 } finally {
                     if (in != null) {
