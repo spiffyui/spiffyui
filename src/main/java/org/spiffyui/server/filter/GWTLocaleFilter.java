@@ -26,7 +26,6 @@ import java.util.Locale;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -75,7 +74,7 @@ public abstract class GWTLocaleFilter implements Filter
     {
         Locale bestMatchLocale = BasicBestLocaleMatcher.getBestMatchLocale(request, response, getMinimumSupportedLocales());
         String ret = origContent;
-        return ret.replace("<head>", "<head>\n\n<meta name=\"gwt:property\" content=\"locale=" + bestMatchLocale + "\">");
+        return ret.replace("<head>", "<head>\n\n\t\t<meta name=\"gwt:property\" content=\"locale=" + bestMatchLocale + "\">");
     }
 
     /**

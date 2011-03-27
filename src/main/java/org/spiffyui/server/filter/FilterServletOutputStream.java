@@ -30,7 +30,7 @@ import javax.servlet.ServletOutputStream;
  */
 public class FilterServletOutputStream extends ServletOutputStream
 {
-    private final DataOutputStream stream;
+    private final DataOutputStream m_stream;
 
     /**
      * Create a new filter servlet outputstream
@@ -39,25 +39,25 @@ public class FilterServletOutputStream extends ServletOutputStream
      */
     public FilterServletOutputStream(OutputStream output)
     {
-        stream = new DataOutputStream(output);
+        m_stream = new DataOutputStream(output);
     }
 
     @Override
     public void write(int b) throws IOException
     {
-        stream.write(b);
+        m_stream.write(b);
     }
 
     @Override
     public void write(byte[] b) throws IOException
     {
-        stream.write(b);
+        m_stream.write(b);
     }
 
     @Override
     public void write(byte[] b, int off, int len) throws IOException
     {
-        stream.write(b, off, len);
+        m_stream.write(b, off, len);
     }
 
 }
