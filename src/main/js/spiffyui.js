@@ -219,6 +219,26 @@ spiffyui = {
          }
     },
     
+    /**
+     * Get the UTC offset of the current browser timezone.  This
+     * returns a number like -5 or 6
+     */
+    getUTCOffset: function() {
+        var d = Date.today();
+        var offset = '' + d.getUTCOffset();
+        if (offset.indexOf('+') === 0) {
+            return parseInt(offset.substring(1, offset.length - 2), 10);
+        } else if (offset.indexOf('-') === 0) {
+            return 0 - parseInt(offset.substring(1, offset.length - 2), 10);
+        } else {
+            /*
+             * IE in some cases will return this value starting with undefined.  That means
+             * negative.
+             */
+            return 0 - parseInt(offset.substring(10, offset.length - 2), 10);
+        }
+    },
+    
     addHistoryItem: function(func, scope, item) {
          dsHistory.addFunction(func, scope, item);
     },

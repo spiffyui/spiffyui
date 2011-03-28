@@ -382,4 +382,14 @@ public final class JSDateUtil
     public static native int getOrdinalNumber(String epochDate) /*-{
         return $wnd.spiffyui.getOrdinalNumber(parseInt(epochDate));
     }-*/;
+    
+    /**
+     * Get the UTC offset of the current browser.  This returns 
+     * a number in hours like -5 or 8 
+     * 
+     * @return the UTC offset
+     */
+    public static native int getUTCOffset() /*-{
+        return $wnd.spiffyui.getUTCOffset();
+    }-*/;
 }
