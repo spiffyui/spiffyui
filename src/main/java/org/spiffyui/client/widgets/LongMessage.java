@@ -23,6 +23,9 @@ package org.spiffyui.client.widgets;
 import java.util.Collections;
 import java.util.List;
 
+import org.spiffyui.client.JSUtil;
+import org.spiffyui.client.i18n.SpiffyUIStrings;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Document;
@@ -37,9 +40,6 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
-
-import org.spiffyui.client.JSUtil;
-import org.spiffyui.client.SpiffyUIStrings;
 
 /**
  * A class for showing messages that are wordy and take more than 

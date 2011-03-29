@@ -19,7 +19,7 @@
 package org.spiffyui.client.login;
 
 import com.google.gwt.core.client.GWT;
-import org.spiffyui.client.SpiffyUIStrings;
+import org.spiffyui.client.i18n.SpiffyUIStrings;
 
 
 /**

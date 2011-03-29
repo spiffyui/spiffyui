@@ -18,11 +18,11 @@
  */
 package org.spiffyui.client.widgets;
 
+import org.spiffyui.client.i18n.SpiffyUIStrings;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
-
-import org.spiffyui.client.SpiffyUIStrings;
 
 
 /**

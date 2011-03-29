@@ -16,7 +16,7 @@
  *
  * ========================================================================
  */
-package org.spiffyui.client;
+package org.spiffyui.client.i18n;
 
 import com.google.gwt.i18n.client.Messages;
 
@@ -59,5 +59,8 @@ public interface SpiffyUIStrings extends Messages {
     public String valid();
     public String loading();
     public String percentCompleted(String s);
+    public String kiloAbbrev(String number);
+    public String megaAbbrev(String number);
+    public String gigaAbbrev(String number);
 
 }

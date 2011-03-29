@@ -18,9 +18,10 @@
  */
 package org.spiffyui.client.widgets;
 
+import org.spiffyui.client.i18n.SpiffyUIStrings;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.FlowPanel;
-import org.spiffyui.client.SpiffyUIStrings;
 
 /**
  * This is a reusable loading icon widget

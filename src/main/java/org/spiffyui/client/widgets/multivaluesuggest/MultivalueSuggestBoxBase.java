@@ -23,6 +23,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.spiffyui.client.JSONUtil;
+import org.spiffyui.client.JSUtil;
+import org.spiffyui.client.i18n.SpiffyUIStrings;
+import org.spiffyui.client.rest.RESTException;
+import org.spiffyui.client.rest.RESTObjectCallBack;
+import org.spiffyui.client.widgets.FormFeedback;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
@@ -41,18 +48,12 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
-import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.TextBoxBase;
 import com.google.gwt.user.client.ui.SuggestOracle.Callback;
 import com.google.gwt.user.client.ui.SuggestOracle.Request;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
-import org.spiffyui.client.JSONUtil;
-import org.spiffyui.client.JSUtil;
-import org.spiffyui.client.SpiffyUIStrings;
-import org.spiffyui.client.rest.RESTException;
-import org.spiffyui.client.rest.RESTObjectCallBack;
-import org.spiffyui.client.widgets.FormFeedback;
+import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.TextBoxBase;
 
 /**
 * A SuggestBox that allows for multiple values selection and autocomplete.

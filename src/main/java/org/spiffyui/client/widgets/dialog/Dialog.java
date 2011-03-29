@@ -20,6 +20,8 @@
  */
 package org.spiffyui.client.widgets.dialog;
 
+import org.spiffyui.client.i18n.SpiffyUIStrings;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -32,7 +34,6 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
-import org.spiffyui.client.SpiffyUIStrings;
 
 /**
  * This is a common ancestor class where we can change

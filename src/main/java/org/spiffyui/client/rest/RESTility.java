@@ -23,6 +23,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.spiffyui.client.JSONUtil;
+import org.spiffyui.client.JSUtil;
+import org.spiffyui.client.MessageUtil;
+import org.spiffyui.client.i18n.SpiffyUIStrings;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.http.client.Request;
@@ -34,11 +39,6 @@ import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
-
-import org.spiffyui.client.JSONUtil;
-import org.spiffyui.client.JSUtil;
-import org.spiffyui.client.MessageUtil;
-import org.spiffyui.client.SpiffyUIStrings;
 
 /**
  * A set of utilities for calling REST from GWT.
