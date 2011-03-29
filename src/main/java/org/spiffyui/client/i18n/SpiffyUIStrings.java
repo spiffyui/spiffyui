@@ -21,11 +21,17 @@ package org.spiffyui.client.i18n;
 import com.google.gwt.i18n.client.Messages;
 
 /**
- * Localized strings for the library classes
+ * <p> 
+ * Localized strings for the library classes 
+ * </p> 
+ *  
+ * <p> 
+ * <b>This class is not part of the public API and should not be accessed</b> 
+ * </p> 
  *
  */
-public interface SpiffyUIStrings extends Messages {
-
+public interface SpiffyUIStrings extends Messages
+{
     public String close();
     public String refresh();
     public String statusInProgress();

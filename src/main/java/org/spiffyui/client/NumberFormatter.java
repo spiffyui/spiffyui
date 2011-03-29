@@ -124,18 +124,18 @@ public final class NumberFormatter
      * @param number as a double
      * @return a formatted string
      */
-    public static String formatWithAbbreviation(double number)
+    public static String formatWithAbbreviation(final double number)
     {
         String s;
-        number = Math.abs(number);
-        if (number < 1000) {
-            s = format(number, "##0");
-        } else if (number >= 1000 && number < 1000000) {
-            s = getKiloString(format(number / 1000, "0.#"));
-        } else if (number >= 1000000 && number < 1000000000) {
-            s = getMegaString(format(number / 1000000, "0.##"));
+        double n  = Math.abs(number);
+        if (n < 1000) {
+            s = format(n, "##0");
+        } else if (n >= 1000 && n < 1000000) {
+            s = getKiloString(format(n / 1000, "0.#"));
+        } else if (n >= 1000000 && n < 1000000000) {
+            s = getMegaString(format(n / 1000000, "0.##"));
         } else {
-            s = getGigaString(format(number / 1000000000, "0.###"));
+            s = getGigaString(format(n / 1000000000, "0.###"));
         }
         return s;
     }
@@ -229,14 +229,13 @@ public final class NumberFormatter
             lang = loc;
         }
         String key = country == null ? lang : country;
-        int indexKey = getIndex(key);
-        return indexKey;
+        return getIndex(key);
     }
     
     private static String format(String number, String pattern, String decSep, String groupSep)
     {
-        int decimalPatPos = pattern.indexOf(".");
-        int decimalPos = number.indexOf(".");
+        int decimalPatPos = pattern.indexOf('.');
+        int decimalPos = number.indexOf('.');
         /*
          * handle digits before decimal
          */
@@ -244,11 +243,11 @@ public final class NumberFormatter
         int wholeNumberLen = wholeNumber.length();
                
         //Add grouping separators by traversing the number in reverse
-        String reversed = new String();
+        StringBuffer reversed = new StringBuffer();
         for (int i = 1; i <= wholeNumberLen; i++) {
-            reversed += wholeNumber.charAt(wholeNumberLen - i);
+            reversed.append(wholeNumber.charAt(wholeNumberLen - i));
             if (i < wholeNumberLen && i % 3 == 0) {
-                reversed += groupSep;
+                reversed.append(groupSep);
             }
         }
         //reverse back (reverse is undefined in GWT's StringBuffer)
@@ -299,17 +298,18 @@ public final class NumberFormatter
     }
     
 
-    private static String addZeroes(String decimalNumber, String decimalPattern)
+    private static String addZeroes(final String decimalNumber, final String decimalPattern)
     {
+        StringBuffer number = new StringBuffer(decimalNumber);
         int numberOfPlaces = decimalPattern.lastIndexOf('0') + 1;
-        int decimalLength = decimalNumber.length();
+        int decimalLength = number.length();
         if (decimalLength < numberOfPlaces) {
             int numberOfZeroes = numberOfPlaces - decimalLength;
             for (int i = 0; i < numberOfZeroes; i++) {
-                decimalNumber += "0";
+                number.append('0');
             }
         }
-        return decimalNumber;
+        return number.toString();
     }
 
     private static int getIndex(String key)
