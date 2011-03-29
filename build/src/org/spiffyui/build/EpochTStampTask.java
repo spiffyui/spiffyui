@@ -21,7 +21,6 @@ package org.spiffyui.build;
 import java.util.Date;
 
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 
 
