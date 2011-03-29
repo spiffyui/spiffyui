@@ -88,7 +88,7 @@ import com.google.gwt.core.client.GWT;
  </pre>
  **/
 
-public class NumberFormatter
+public final class NumberFormatter
 {
     private static final String[] LIKE_US_LOCS = {"AE", "AU", "CA", "CN", "EG", "GB", "HK", "IL", "IN", "JP", "TH", "TW", "US", "sk", "zh", "en", "ja"};
     private static final String[] LIKE_DE_LOCS = {"AT", "BR", "DE", "DK", "ES", "GR", "IT", "NL", "PT", "TR", "VN", "nl", "de", "pt", "es"};
@@ -148,7 +148,7 @@ public class NumberFormatter
      */
     protected static String getKiloString(String number)
     {
-    	return STRINGS.kiloAbbrev(number);
+        return STRINGS.kiloAbbrev(number);
     }
     
     /**
@@ -159,7 +159,7 @@ public class NumberFormatter
      */
     protected static String getMegaString(String number)
     {
-    	return STRINGS.megaAbbrev(number);
+        return STRINGS.megaAbbrev(number);
     }
     
     /**
@@ -170,7 +170,7 @@ public class NumberFormatter
      */
     protected static String getGigaString(String number)
     {
-    	return STRINGS.gigaAbbrev(number);
+        return STRINGS.gigaAbbrev(number);
     }
         
     /**
