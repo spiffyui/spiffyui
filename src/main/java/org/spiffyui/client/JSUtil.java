@@ -90,15 +90,27 @@ public final class JSUtil
             id: id
         };
      
-        $wnd.spiffyui.addHistoryItem($wnd.spiffyui.handleHistoryEvent, $wnd, item);
+        try { 
+            $wnd.spiffyui.addHistoryItem($wnd.spiffyui.handleHistoryEvent, $wnd, item);
+        } catch (e) {
+            // We get this exception because dhHistory doesn't support Opera
+            // That means we don't get history support on Opera.  Not much we
+            // can do about it.
+        }
     }-*/;
 
-    private static final native void bindJavaScript() /*-{
-        $wnd.spiffyui.doHandleHistoryEvent = function(contentObject, historyObject) {
-            @org.spiffyui.client.JSUtil::doHistory(Lorg/spiffyui/client/HistoryCallback;Ljava/lang/String;)(contentObject.callback, contentObject.id);
+    private static final native void bindJavaScript() /*-{ 
+        try {
+            $wnd.spiffyui.doHandleHistoryEvent = function(contentObject, historyObject) {
+                @org.spiffyui.client.JSUtil::doHistory(Lorg/spiffyui/client/HistoryCallback;Ljava/lang/String;)(contentObject.callback, contentObject.id);
+            }
+    
+            $wnd.dsHistory.addFunction($wnd.spiffyui.handleHistoryEvent);
+        } catch (e) {
+            // We get this exception because dhHistory doesn't support Opera
+            // That means we don't get history support on Opera.  Not much we
+            // can do about it.
         }
-
-        $wnd.dsHistory.addFunction($wnd.spiffyui.handleHistoryEvent);
     }-*/;
 
 
