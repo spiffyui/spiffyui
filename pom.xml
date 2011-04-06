@@ -24,11 +24,48 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.spiffyui</groupId>
   <artifactId>spiffyui</artifactId>
-  <packaging>jar</packaging>
   <version>1.0.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
   <name>spiffyui</name>
+  <description>A UI/UX framework that can help build beautiful, fast, flexible, secure, maintainable applications with GWT and REST.</description>
   <url>http://www.spiffyui.org/</url>
-  
+  <!-- Leaving license out until we get the official word
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  -->  
+  <scm>
+    <connection>scm:svn:https://svn.provo.novell.com/svn/spiffyui/trunk</connection>
+    <developerConnection>scm:svn:https://svn.provo.novell.com/svn/spiffyui/trunk</developerConnection>
+    <url>https://svn.innerweb.novell.com/viewsvn/spiffyui</url>
+  </scm>
+  <developers>
+    <developer>
+      <id>bsiegal</id>
+      <name>Bess Siegal</name>
+      <email>bsiegal@novell.com</email>
+    </developer>
+    <developer>
+      <id>iyip</id>
+      <name>Irene Yip</name>
+      <email>iyip@novell.com</email>
+    </developer>
+    <developer>
+      <id>lwashington</id>
+      <name>Lyndon Washington</name>
+      <email>lwashington@novell.com</email>
+    </developer>
+    <developer>
+      <id>zgrossbart</id>
+      <name>Zack Grossbart</name>
+      <email>zgrossbart@novell.com</email>
+    </developer>
+  </developers>
+
   <properties>
     <project.build.java.target>1.6</project.build.java.target>
     <gwt.version>2.2.0</gwt.version>
@@ -53,9 +90,9 @@
         <version>4.0.1</version>
       </dependency>
       <dependency>
-        <groupId>com.metaparadigm</groupId>
-        <artifactId>json-rpc</artifactId>
-        <version>1.0</version>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20090211</version>
       </dependency>
       <dependency>
         <groupId>org.apache.ant</groupId>
@@ -66,6 +103,13 @@
         <groupId>com.yahoo.platform.yui</groupId>
         <artifactId>yuicompressor</artifactId>
         <version>2.4.2</version>
+        <scope>compile</scope>
+      </dependency>
+      <dependency>
+        <groupId>rhino</groupId>
+        <artifactId>js</artifactId>
+        <version>1.6R7</version>
+        <scope>compile</scope>
       </dependency>
       <dependency>
         <groupId>com.google.gwt</groupId>
@@ -93,11 +137,13 @@
             <target>1.6</target>
           </configuration>
         </plugin>
+        <!-- 
         <plugin>
           <groupId>net.alchim31.maven</groupId>
           <artifactId>yuicompressor-maven-plugin</artifactId>
           <version>1.1</version>
         </plugin>
+         -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-antrun-plugin</artifactId>
@@ -201,6 +247,25 @@
             </goals>
           </execution>
         </executions>
+        <dependencies>
+          <dependency>
+            <groupId>com.googlecode.jslint4java</groupId>
+            <artifactId>jslint4java-ant</artifactId>
+            <version>1.4.7</version>
+          </dependency>
+          <!-- 
+               Fragile dependency between jslint4j and yuicompressor due to the fact that
+               this version of yuicompressor has mozilla rhino classes embedded.
+               Later versions rely on the rhino:js:1.6R7.  Unfortunately
+               jslint4j appears to be compatible with an older release of rhino and
+               starts complaining about missing method names if 1.6R7 is used.
+          -->
+          <dependency>
+            <groupId>com.yahoo.platform.yui</groupId>
+            <artifactId>yuicompressor</artifactId>
+            <version>2.4.2</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -270,9 +335,8 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>com.metaparadigm</groupId>
-      <artifactId>json-rpc</artifactId>
-      <type>jar</type>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -282,6 +346,11 @@
     <dependency>
       <groupId>com.yahoo.platform.yui</groupId>
       <artifactId>yuicompressor</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>rhino</groupId>
+      <artifactId>js</artifactId>
       <scope>compile</scope>
     </dependency>
   </dependencies>
