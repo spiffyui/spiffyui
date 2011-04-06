@@ -106,7 +106,7 @@ spiffyui = {
      * Since we're still seeing the problem, applying hackito.
      */
     midnightWorkaround: function (/*String*/ formattedString) {
-        if (formattedString.indexOf("0:") === 0 && formattedString.indexOf("AM") == 5) {
+        if (formattedString.indexOf("0:") === 0 && formattedString.indexOf("AM") === 5) {
             formattedString = formattedString.substring(2);
             formattedString = "12:" + formattedString;
         }
@@ -174,17 +174,17 @@ spiffyui = {
      */    
     dateAdd: function(/*int*/ epochDate, /*int*/amt, /*String*/unit) {
         var date = new Date(epochDate);
-        if (unit == "WEEK") {
+        if (unit === "WEEK") {
             return date.addWeeks(amt).getTime();
-        } else if (unit == "MONTH") {
+        } else if (unit === "MONTH") {
             return date.addMonths(amt).getTime();
-        } else if (unit == "HOUR") {
+        } else if (unit === "HOUR") {
             return date.addHours(amt).getTime();
-        } else if (unit == "MINUTE") {
+        } else if (unit === "MINUTE") {
             return date.addMinutes(amt).getTime();
-        } else if (unit == "SECOND") {
+        } else if (unit === "SECOND") {
             return date.addSeconds(amt).getTime();
-        } else if (unit == "YEAR") {
+        } else if (unit === "YEAR") {
             return date.addYears(amt).getTime();
         } else {
             return date.add(amt).days().getTime();
@@ -225,17 +225,17 @@ spiffyui = {
      */
     getUTCOffset: function() {
         var d = Date.today();
-        var offset = '' + d.getUTCOffset();
+        var offset = d.getUTCOffset();
         if (offset.indexOf('+') === 0) {
             return parseInt(offset.substring(1, offset.length - 2), 10);
         } else if (offset.indexOf('-') === 0) {
-            return 0 - parseInt(offset.substring(1, offset.length - 2), 10);
+            return -parseInt(offset.substring(1, offset.length - 2), 10);
         } else {
             /*
              * IE in some cases will return this value starting with undefined.  That means
              * negative.
              */
-            return 0 - parseInt(offset.substring(10, offset.length - 2), 10);
+            return -parseInt(offset.substring(10, offset.length - 2), 10);
         }
     },
     
@@ -277,7 +277,7 @@ spiffyui = {
              * tweaks you need to add for IE.  This special style sheet is added only
              * if the browser is IE and contains just those tweaks.
              */
-            if (navigator.appName == 'Microsoft Internet Explorer') {
+            if (navigator.appName === 'Microsoft Internet Explorer') {
                 jQuery("head").prepend("<link>");
                 css = $("head").children(":first");
                 css.attr({
