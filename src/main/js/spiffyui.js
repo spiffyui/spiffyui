@@ -239,14 +239,43 @@ spiffyui = {
         }
     },
     
+    /**
+     * Add an item to the browser history.  This function is just
+     * called from GWT.
+     */
     addHistoryItem: function(func, scope, item) {
          dsHistory.addFunction(func, scope, item);
     },
     
+    /**
+     * Handle a history event from the browser.  This function is
+     * just called from GWT.
+     */
     handleHistoryEvent: function(contentObject, historyObject) {
          if (contentObject && contentObject.callback && contentObject.id) {
              spiffyui.doHandleHistoryEvent(contentObject, historyObject);
          }
+    },
+    
+    /**
+     * GWT often puts output files in a path with the module name.
+     * We need to determine that path so we can figure out where to
+     * reference our CSS files from.  There isn't a great way to do
+     * this so we are looking for the nocache.js file and keying off
+     * of that path.
+     */
+    getRelativePath: function() {
+         jQuery('script').each(function() {
+             if (jQuery(this).attr('src') && jQuery(this).attr('src').indexOf('nocache.js') > -1) {
+                 if (jQuery(this).attr('src').indexOf('/') === -1) {
+                     return '';
+                 } else {
+                     return jQuery(this).attr('src').substring(0, jQuery(this).attr('src').lastIndexOf('/'));
+                 }
+             }
+         });
+         
+         return '';
     },
     
     init: function() {
@@ -270,6 +299,8 @@ spiffyui = {
                 '</div>' + 
                 '<div id="mainFooter"></div>');
         }
+        
+        var path = spiffyui.getRelativePath();
 
         if (spiffyui.autoloadCSS) {
             /*
@@ -278,12 +309,12 @@ spiffyui = {
              * if the browser is IE and contains just those tweaks.
              */
             if (navigator.appName === 'Microsoft Internet Explorer') {
-                jQuery("head").prepend("<link>");
-                css = $("head").children(":first");
+                jQuery('head').prepend('<link>');
+                css = $('head').children(':first');
                 css.attr({
-                    rel:  "stylesheet",
-                    type: "text/css",
-                    href: "spiffyui.ie.css"
+                    rel:  'stylesheet',
+                    type: 'text/css',
+                    href: path + 'spiffyui.ie.css'
                 });
             }
             
@@ -294,21 +325,21 @@ spiffyui = {
              * give precedence to files loaded in the page over those added with JavaScript
              * and we can't do that because we override styles in spiffyui.ie.css.
              */
-            if (window.location.href.substr(-11) === "-debug.html") {
-                jQuery("head").prepend("<link>");
-                css = $("head").children(":first");
+            if (window.location.href.substr(-11) === '-debug.html') {
+                jQuery('head').prepend('<link>');
+                css = $('head').children(':first');
                 css.attr({
-                    rel:  "stylesheet",
-                    type: "text/css",
-                    href: "spiffyui.css"
+                    rel:  'stylesheet',
+                    type: 'text/css',
+                    href: 'spiffyui.css'
                 });
             } else {
-                jQuery("head").prepend("<link>");
-                css = $("head").children(":first");
+                jQuery('head').prepend('<link>');
+                css = $('head').children(':first');
                 css.attr({
-                    rel:  "stylesheet",
-                    type: "text/css",
-                    href: "spiffyui.min.css"
+                    rel:  'stylesheet',
+                    type: 'text/css',
+                    href: path + 'spiffyui.min.css'
                 });
             }
         }
