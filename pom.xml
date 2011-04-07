@@ -24,7 +24,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.spiffyui</groupId>
   <artifactId>spiffyui</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>0.7.4-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>spiffyui</name>
   <description>A UI/UX framework that can help build beautiful, fast, flexible, secure, maintainable applications with GWT and REST.</description>
