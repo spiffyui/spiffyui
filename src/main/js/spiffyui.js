@@ -265,17 +265,18 @@ spiffyui = {
      * of that path.
      */
     getRelativePath: function() {
+         var path = '';
          jQuery('script').each(function() {
              if (jQuery(this).attr('src') && jQuery(this).attr('src').indexOf('nocache.js') > -1) {
                  if (jQuery(this).attr('src').indexOf('/') === -1) {
-                     return '';
+                     return;
                  } else {
-                     return jQuery(this).attr('src').substring(0, jQuery(this).attr('src').lastIndexOf('/'));
+                     path =  jQuery(this).attr('src').substring(0, jQuery(this).attr('src').lastIndexOf('/') + 1);
                  }
              }
          });
          
-         return '';
+         return path;
     },
     
     init: function() {
