@@ -168,13 +168,15 @@ public class HTMLPropertiesTask extends Task
         String country = null;
         String language = null;
         
-        if (name.charAt(name.length() - 6) == '-' ||
+        if (name.length() > 7 && 
+            name.charAt(name.length() - 6) == '-' ||
             name.charAt(name.length() - 6) == '_') {
             language = name.substring(name.length() - 5,
                                       name.length() - 3);
         }
         
-        if (name.charAt(name.length() - 3) == '-' ||
+        if (name.length() > 4 && 
+            name.charAt(name.length() - 3) == '-' ||
             name.charAt(name.length() - 3) == '_') {
             if (language == null) {
                 /*
