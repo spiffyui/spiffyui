@@ -158,9 +158,18 @@ public class HTMLPropertiesTask extends Task
         m_destinationFile = null;
     }
     
+    /**
+     * We need to figure out the locale of the file based on the file name.  The file can be
+     * something like foo.html, foo_fr.html foo_fr-FR.html, or foo_fr_FR.html.  We parse that
+     * name and create a locale object based on the language and country codes in the name
+     * 
+     * @param name   the name of the file
+     * 
+     * @return the locale for this file name
+     */
     private Locale findLocale(String name)
     {
-        if (name == null || name.length() < 3) {
+        if (name == null || name.length() < 4) {
             return null;
         }
         
@@ -169,15 +178,15 @@ public class HTMLPropertiesTask extends Task
         String language = null;
         
         if (name.length() > 7 && 
-            name.charAt(name.length() - 6) == '-' ||
-            name.charAt(name.length() - 6) == '_') {
+            (name.charAt(name.length() - 6) == '-' ||
+            name.charAt(name.length() - 6) == '_')) {
             language = name.substring(name.length() - 5,
                                       name.length() - 3);
         }
         
         if (name.length() > 4 && 
-            name.charAt(name.length() - 3) == '-' ||
-            name.charAt(name.length() - 3) == '_') {
+            (name.charAt(name.length() - 3) == '-' ||
+            name.charAt(name.length() - 3) == '_')) {
             if (language == null) {
                 /*
                  Then they specified a language without a country
@@ -194,10 +203,22 @@ public class HTMLPropertiesTask extends Task
         }
         
         if (language == null && country == null) {
+            /*
+             In this case there was no locale information and we
+             return null to indicate this is the default locale.
+             */
             return null;
         } else if (country == null) {
+            /*
+             In this case they have a language code, but no country
+             code.  This means we want a locale like French or English
+             with no country code.
+             */
             return new Locale(language);
         } else {
+            /*
+             This case is where there was a language and a country
+             */
             return new Locale(language, country);
         }
         
