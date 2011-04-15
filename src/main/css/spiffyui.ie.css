@@ -4,7 +4,7 @@
 
 #mainContent {
     width: auto;
-    margin-top: 20px;
+    padding-top: 20px;
 }
 
 .spiffy-fancy-button {
@@ -154,7 +154,7 @@ button..rpt-fancy-button {
 }
 
 .pulldownprefspanel {
-    top: 0px;
+    top: -23px;
 }
 
 .prefspulltab {
