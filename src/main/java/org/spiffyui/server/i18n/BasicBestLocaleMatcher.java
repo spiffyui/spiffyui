@@ -45,9 +45,20 @@ public final class BasicBestLocaleMatcher
     private static final ConcurrentHashMap<String, Locale> LOCALE_CACHE = new ConcurrentHashMap<String, Locale>();
     
     /**
-     * Return the best match locale by getting a list of requested locales from the request.
-     * It will loop through the list of locales and attempt to match first exactly, then by language and country, then by country.
-     * If no match is found it will default to English.
+     * <p>Return the best match locale for JavaScript dates by getting a list of requested locales from the request.</p> 
+     *  
+     * <p> 
+     * This methods builds th elist of supported locales based on the JavaScript date and time localization 
+     * classes included in the Spiffy UI framework.  It will loop through the list of locales and attempt to 
+     * match first exactly, then by language and country, then by country.  If no match is found it will 
+     * default to English. 
+     * </p> 
+     *  
+     * <p> 
+     * If your application supports a different list of locales, and most of them do, then you should call 
+     * the version of this method passing a list of locales. 
+     * </p> 
+     *  
      * @param request - the HttpServletRequest
      * @param response - the HttpServletResponse
      * @param context - the ServletContext
@@ -75,9 +86,14 @@ public final class BasicBestLocaleMatcher
     }
 
     /**
-     * Return the best match locale by getting a list of requested locales from the request.
-     * It will loop through the list of locales and attempt to match first exactly, then by language and country, then by country.
-     * If no match is found it will default to English.
+     * <p>Return the best match locale by getting a list of requested locales from the request and matching it 
+     * to the provided list of supported locales.</p> 
+     *  
+     * <p> 
+     * This method will loop through the list of locales and attempt to match first exactly, then by language 
+     * and country, then by country.  If no match is found it will default to English.   
+     * </p> 
+     *  
      * @param request - the HttpServletRequest
      * @param response - the HttpServletResponse
      * @param supportedLocales - the list of available locales to choose from
