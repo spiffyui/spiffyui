@@ -46,23 +46,28 @@ public final class BasicBestLocaleMatcher
     
     /**
      * <p>Return the best match locale for JavaScript dates by getting a list of requested locales from the request.</p> 
-     *  
-     * <p> 
-     * This methods builds th elist of supported locales based on the JavaScript date and time localization 
-     * classes included in the Spiffy UI framework.  It will loop through the list of locales and attempt to 
-     * match first exactly, then by language and country, then by country.  If no match is found it will 
-     * default to English. 
+     * 
+     * <p>
+     * This methods builds the list of supported locales based on the JavaScript date and time localization
+     * classes included in the Spiffy UI framework.  It will loop through the list of locales and attempt to
+     * match first exactly, then by language and country, then by country.  If no match is found it will
+     * default to English.
      * </p> 
      *  
-     * <p> 
-     * If your application supports a different list of locales, and most of them do, then you should call 
-     * the version of this method passing a list of locales. 
+     * <p>
+     * <b>This method should almost never be called by classes outside of the Spiffy UI framework.</b>
      * </p> 
      *  
-     * @param request - the HttpServletRequest
+     * <p>
+     * If your application supports a different list of locales, and most of them do, then you should call
+     * the version of this method passing a list of supported locales.
+     * </p>
+     * 
+     * @param request  - the HttpServletRequest
      * @param response - the HttpServletResponse
-     * @param context - the ServletContext
-     * @return the best match Locale
+     * @param context  - the ServletContext
+     * 
+     * @return the best match Locale 
      */
     public static Locale getBestMatchLocale(HttpServletRequest request, HttpServletResponse response, ServletContext context)
     {
