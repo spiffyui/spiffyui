@@ -635,10 +635,10 @@ public final class JSUtil
      *
      * @param jsonString the json string to parse
      *
-     * @return the JavaScript object representig the JSON string
+     * @return the JavaScript object representing the JSON string
      */
     public static native JavaScriptObject parseJSON(String jsonString) /*-{
-        return $wnd.jQuery.parseJSON(jsonString);
+        return $wnd.$.parseJSON(jsonString);
     }-*/;
 
 
