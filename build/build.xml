@@ -96,7 +96,7 @@
         	        fork="${build.javac.fork}">
             <compilerarg value="-Xlint" />
             <classpath>
-                <pathelement location="${spiffy.build}/lib/closure-compiler.jar"/>
+                <pathelement location="${spiffy.build}/lib/closure-compiler-r916.jar"/>
                 <pathelement path="${java.class.path}"/>
                 <!-- Adding this so that maven builds will include the necessary ant dependencies -->
                 <pathelement path="${compile_classpath}"/>
@@ -125,7 +125,7 @@
     <target name="js-min" description="Minimize the JavaScript with the Closure compiler" depends="setup,js-lint,compileClosureTask.check,compileClosureTask,taskdefs">
         <!-- Now we compile our JavaScript. -->
         <closure jsfile="${spiffy.www}/spiffyui.min.js" 
-                 closurejar="${spiffy.build}/lib/closure-compiler.jar"
+                 closurejar="${spiffy.build}/lib/closure-compiler-r916.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="DEFAULT">
             <fileset dir="${spiffy.js}" includes="**/*.js" excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**" />
@@ -136,7 +136,7 @@
         
         <!-- We also compile our own copy of JQuery -->
         <closure jsfile="${spiffy.www}/jquery.min.js" 
-                 closurejar="${spiffy.build}/lib/closure-compiler.jar"
+                 closurejar="${spiffy.build}/lib/closure-compiler-r916.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="QUIET">
             <fileset dir="${spiffy.js}/lib" includes="jquery-1.5.2.js" />
@@ -216,7 +216,7 @@
         <delete dir="${spiffy.dist}"/>
         <delete dir="${spiffy.build}/classes"/>
         <delete>
-            <fileset dir="${spiffy.build}/lib" includes="*.jar" excludes="*closure*.jar"/>
+            <fileset dir="${spiffy.build}/lib" includes="*.jar"/>
         </delete>
         <delete dir="${spiffy.root}/lib"/>
         <delete dir="${spiffy.root}/target"/>

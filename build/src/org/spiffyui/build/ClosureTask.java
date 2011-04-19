@@ -243,14 +243,23 @@ public class ClosureTask extends Task
         }
         
         CommandlineJava cmdl = new CommandlineJava();
+        cmdl.setClassname("com.google.javascript.jscomp.CommandLineRunner");
         cmdl.setCloneVm(true);
+        cmdl.createClasspath(getProject());
+        
+        /*
+         We need to find a better way to load these items on the classpath.  Hackito ergo sum
+         */
+        cmdl.getClasspath().add(new FileResource(m_closureJar));
+        cmdl.getClasspath().add(new FileResource(new File(m_closureJar.getParent(), "args4j-2.0.12.jar")));
+        cmdl.getClasspath().add(new FileResource(new File(m_closureJar.getParent(), "guava-r08.jar")));
         
         Commandline.Argument arg = cmdl.createArgument();
         
         StringBuffer sb = new StringBuffer();
         
-        sb.append("-jar ");
-        sb.append(m_closureJar.getAbsolutePath() + " ");
+        //sb.append("-jar ");
+        //sb.append(m_closureJar.getAbsolutePath() + " ");
         
         ResourceCollection c = getResources();
         Iterator i = c.iterator();
