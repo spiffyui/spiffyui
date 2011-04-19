@@ -144,6 +144,7 @@ public class SlidingGridPanel extends ComplexPanel
      * the offset width of the grid in px
      * @return the offset
      */
+    @Deprecated
     public int getGridOffset()
     {
         return m_offset;
@@ -158,6 +159,7 @@ public class SlidingGridPanel extends ComplexPanel
      *             instead of the window width.  This field will be ignored and will be removed in the
      *             next release.
      */
+    @Deprecated
     public void setGridOffset(int offset)
     {
         m_offset = offset;
