@@ -38,6 +38,7 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler,
 {
     private final List<NavItem> m_items = new ArrayList<NavItem>();
     private NavItem m_selectedItem = null;
+    private boolean m_bookmarkable = false;
 
     /**
      * The class used for selected navigation items
@@ -274,10 +275,6 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler,
         if (enabled) {
             removeStyleName("disabled");
         } else {
-            /*
-             TODO - We need to style the nav bar to it's clear to the user that it
-             is disabled.
-             */
             addStyleName("disabled");
         }
     }
@@ -310,8 +307,18 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler,
     protected void addHistoryItem(String historyToken)
     {
         if (historyToken != null && historyToken.length() > 0) {
-            JSUtil.addHistoryItem(this, historyToken);
+            JSUtil.addHistoryItem(this, historyToken, m_bookmarkable);
         }
+    }
+
+    public void setBookmarkable(boolean bookmarkable)
+    {
+        m_bookmarkable = bookmarkable;
+    }
+
+    public boolean getBookmarkable()
+    {
+        return m_bookmarkable;
     }
 
     /**

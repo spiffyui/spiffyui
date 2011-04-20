@@ -243,8 +243,13 @@ spiffyui = {
      * Add an item to the browser history.  This function is just
      * called from GWT.
      */
-    addHistoryItem: function(func, scope, item) {
-         dsHistory.addFunction(func, scope, item);
+    addHistoryItem: function(/*function*/ func, /*object*/ scope, /*array*/item, /*boolean*/ bookmarkable) {
+         if (bookmarkable) {
+             dsHistory.setQueryVar('b', item.id);
+             dsHistory.bindQueryVars(func, scope, item);
+         } else {
+             dsHistory.addFunction(func, scope, item);
+         }
     },
     
     /**

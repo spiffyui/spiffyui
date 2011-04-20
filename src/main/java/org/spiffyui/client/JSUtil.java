@@ -84,14 +84,49 @@ public final class JSUtil
      * @param callback  the history callback for this item
      * @param id     the id of the item that was selected
      */
-    public static native void addHistoryItem(HistoryCallback callback, String id) /*-{ 
+    public static void addHistoryItem(HistoryCallback callback, String id)
+    {
+        addHistoryItem(callback, id, false);
+    }
+
+    /**
+     * <p>
+     * Adds an item to the browser's history.
+     * </p>
+     *
+     * <p>
+     * History items can be added at any item with any unique ID.  When the user
+     * navigates the browser's history there will be a collection of items added
+     * programmatically and items representing traditional page changes.  When the
+     * item added with this method is reached the callback will be called with the
+     * specified ID.
+     * </p>
+     *
+     * <p>
+     * Spiffy UI uses this method to page changes in the main navigation bar to the
+     * browser's history so the user can use the browser forward and back buttons to move
+     * between pages in the application.  This method is called by the MainNavBar
+     * to add page changes.
+     * </p>
+     * 
+     * <p>
+     * This method support bookmarking.  When a history item is bookmarkable it will cause
+     * a change in the URL which can then be bookmarked by the user to return to that
+     * specific history state.
+     * </p>
+     *
+     * @param callback  the history callback for this item
+     * @param id     the id of the item that was selected
+     * @param bookmarkable  true if this history item should be bookmarkable and false otherwise
+     */
+    public static native void addHistoryItem(HistoryCallback callback, String id, boolean bookmarkable) /*-{ 
         var item = {
             callback: callback,
             id: id
         };
      
         try { 
-            $wnd.spiffyui.addHistoryItem($wnd.spiffyui.handleHistoryEvent, $wnd, item);
+            $wnd.spiffyui.addHistoryItem($wnd.spiffyui.handleHistoryEvent, $wnd, item, bookmarkable);
         } catch (e) {
             // We get this exception because dhHistory doesn't support Opera
             // That means we don't get history support on Opera.  Not much we
