@@ -21,6 +21,8 @@ package org.spiffyui.server.filter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +34,8 @@ import javax.servlet.http.HttpServletResponseWrapper;
  */
 public class GenericResponseWrapper extends HttpServletResponseWrapper
 {
+    private static final Logger LOGGER = Logger.getLogger(GWTLocaleFilter.class.getName());
+
     private final ByteArrayOutputStream m_output;
     private int m_contentLength;
     private String m_contentType;
@@ -81,7 +85,12 @@ public class GenericResponseWrapper extends HttpServletResponseWrapper
     @Override
     public String toString()
     {
-        return m_output.toString();
+        try {
+            return m_output.toString("UTF-8");
+        } catch (UnsupportedEncodingException uee) {
+            LOGGER.throwing(GenericResponseWrapper.class.getName(), "toString", uee);
+            return m_output.toString();
+        }
     }
 
     @Override
