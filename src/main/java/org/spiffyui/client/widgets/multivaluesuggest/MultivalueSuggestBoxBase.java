@@ -546,6 +546,25 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
          * Here, the FormFeedback is reset.
          */
         updateFormFeedback(FormFeedback.NONE, "");
+        deleteUnusedItems();
+    }
+    
+    /**
+     * If the user is editing the field they may remove one or more items that are in our map.
+     * In that case we need to remove those values from our map.
+     */
+    private void deleteUnusedItems()
+    {
+        ArrayList<String> displayVals = new ArrayList<String>();
+        for (String displayVal: m_field.getText().split(m_displaySeparator)) {
+            displayVals.add(displayVal.trim());
+        }
+        
+        for (String key : m_valueMap.keySet()) {
+            if (!displayVals.contains(key)) {
+                m_valueMap.remove(key);
+            }
+        }
     }
 
     /**
