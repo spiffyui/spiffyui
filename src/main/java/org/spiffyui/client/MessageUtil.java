@@ -39,7 +39,58 @@ import com.google.gwt.user.client.ui.RootPanel;
  * </p>
  * 
  * <p>
- * Many of the methods use the Humnized Message Panels and require the Spiffy UI
+ * Applications have a large variety of messages they show to users.  They can vary 
+ * from "That name is already taken" to "Your database server crashed."  These 
+ * messages have a very different level of severity.  To support that the Spiffy
+ * UI framework supports four levels of user messages.
+ * </p>
+ * 
+ * <p>
+ * <b>Informational messages</b> tell the user something they need to know but don't
+ * need to respond to.  "Your changes are saved" is a common example of this type
+ * of message.
+ * </p>
+ * 
+ * <p>
+ * <b>Warning messages</b> tell the user something they need to respond to like 
+ * "That username is already taken."  
+ * </p>
+ * 
+ * <p>
+ * <b>Error messages</b> tell the user something went wrong.  For example, 
+ * "Unable to contact your email server."
+ * </p>
+ * 
+ * <p>
+ * <b>Fatal error messages</b> tell the user something went so wrong the system
+ * probably can't continue.  "Unable to contact your server" is a typical fatal
+ * error message.
+ * </p>
+ * 
+ * <p>
+ * The first three types of messages are transient.  The UI follows the Humanized
+ * Messages idiom layed out by <a href="http://en.wikipedia.org/wiki/Jef_Raskin">
+ * Jef Raskin</a>.  They show up on top of the content and fade in a small amount 
+ * of time.  Wiggling your mouse on them will make them fade faster.  
+ * </p>
+ * 
+ * <p>
+ * Error messages and some warnings will also show up in the error log at the bottom
+ * of the page.  This makes it easy to find them again if the user needs to.
+ * </p>
+ * 
+ * <p>
+ * Fatal errors are different since they normally prevent the program from continuing.
+ * These errors show up on top of the screen and do not move until the user clicks on
+ * them.  
+ * </p>
+ * 
+ * <p>
+ * Each of these messages can be seen on the Widgets page of the Spiffy UI Application.
+ * </p>
+ * 
+ * <p>
+ * Many of the methods use the Humanized Message Panels and require the Spiffy UI
  * JavaScript libraries.  This class also depends on the Spiffy UI HTML structure.
  * </p>
  */
@@ -69,6 +120,8 @@ public final class MessageUtil
     /**
      * Show a fatal error message in the error panel with the ID errorPanel.
      * 
+     * This message has a default style of 
+     * 
      * @param msg
      *        the message to show
      */
@@ -79,7 +132,19 @@ public final class MessageUtil
     }
 
     /**
-     * Show a temporary warning message
+     * <p>
+     * Show a warning message.
+     * </p>
+     * 
+     * <p> 
+     * This message has a default style of white text with a red background.
+     * </p>
+     * 
+     * <h3>CSS Style Ryles</h3>
+     * 
+     * <ul>
+     * <li>.humanMsgErr</li>
+     * </ul>
      * 
      * @param msg
      *        the message to show
@@ -95,7 +160,19 @@ public final class MessageUtil
     }
     
     /**
-     * Show a temporary warning message
+     * <p>
+     * Show a warning message.
+     * </p>
+     * 
+     * <p> 
+     * This message has a default style of black text with a yellow background.
+     * </p>
+     * 
+     * <h3>CSS Style Ryles</h3>
+     * 
+     * <ul>
+     * <li>.humanMsgWarn</li>
+     * </ul>
      * 
      * @param msg
      *                  the message to show
@@ -115,7 +192,19 @@ public final class MessageUtil
     }-*/;
 
     /**
-     * Show a temporary message
+     * <p>
+     * Show an information message.
+     * </p>
+     * 
+     * <p> 
+     * This message has a default style of white text with a black background.
+     * </p>
+     * 
+     * <h3>CSS Style Ryles</h3>
+     * 
+     * <ul>
+     * <li>.humanMsgInfo</li>
+     * </ul>
      * 
      * @param msg
      *        the message to show
@@ -126,7 +215,19 @@ public final class MessageUtil
     }-*/;
 
     /**
-     * Show a temporary message with a specific class
+     * <p>
+     * Show an warning message.
+     * </p>
+     * 
+     * <p> 
+     * This message has a default style of white text with a black background.
+     * </p>
+     * 
+     * <h3>CSS Style Ryles</h3>
+     * 
+     * <ul>
+     * <li>.humanMsgInfo</li>
+     * </ul>
      * 
      * @param msg
      *        the message to show
@@ -152,7 +253,19 @@ public final class MessageUtil
     }
 
     /**
-     * Shows an error alert message and logs a logging message
+     * <p>
+     * Show aan error message.
+     * </p>
+     * 
+     * <p> 
+     * This message has a default style of black text with a red background.
+     * </p>
+     * 
+     * <h3>CSS Style Ryles</h3>
+     * 
+     * <ul>
+     * <li>.humanMsgErr</li>
+     * </ul>
      * 
      * @param errorMsg the error message for the alert
      * @param logMsg   the message for the error log
