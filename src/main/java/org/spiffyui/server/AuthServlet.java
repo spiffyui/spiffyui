@@ -64,7 +64,7 @@ import org.spiffyui.client.rest.util.RESTAuthConstants;
 /**
  * This servlet is a passthrough for authentication requests.
  */
-public class AuthServlet extends HttpServlet
+public final class AuthServlet extends HttpServlet
 {
     private static final Logger LOGGER = Logger.getLogger(AuthServlet.class.getName());
     private static final String BASIC_AUTH = "BASIC";
@@ -318,9 +318,11 @@ public class AuthServlet extends HttpServlet
              // and we don't want that.
              //
             response.setHeader("WWW-Authenticate", authResponse.getFirstHeader("WWW-Authenticate").getValue());
-            status = 400;
+            response.setStatus(400);
+        } else {
+            response.setStatus(status);
         }
-        response.setStatus(status);
+        
         out.print(authResponseData.toString());
 
         out.flush();

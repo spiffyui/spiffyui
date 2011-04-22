@@ -74,7 +74,6 @@ public class LoginPanel extends Composite implements KeyUpHandler
     private TextBox m_username;
     private TextBox m_pwd;
     private Button m_submit;
-    private SimplePanel m_dialog;
     private FormPanel m_fp;
 
     private SimplePanel m_glassPanel;
@@ -193,12 +192,12 @@ public class LoginPanel extends Composite implements KeyUpHandler
         m_glassPanel.setVisible(false);
         m_glassPanel.getElement().setId("login_glass_pane");
 
-        m_dialog = new SimplePanel();
-        m_dialog.getElement().setId("login_form_panel");
+        SimplePanel dialog = new SimplePanel();
+        dialog.getElement().setId("login_form_panel");
 
         m_fp = new FormPanel();
         m_fp.getElement().setId("login_form");
-        m_dialog.setWidget(m_fp);
+        dialog.setWidget(m_fp);
 
         String html =
             "<div id=\"loginHeaderContainer\">" +
@@ -283,7 +282,7 @@ public class LoginPanel extends Composite implements KeyUpHandler
         m_panel.add(m_loading, "gwtsubmit");
 
         RootPanel.get("loginPanel").add(m_fp);
-        initWidget(m_dialog);
+        initWidget(dialog);
 
         enableButton();
     }

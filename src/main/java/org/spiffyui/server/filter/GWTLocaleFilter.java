@@ -53,7 +53,7 @@ public abstract class GWTLocaleFilter implements Filter
     }
 
     @Override
-    public void doFilter(final ServletRequest request,
+    public final void doFilter(final ServletRequest request,
         final ServletResponse response, FilterChain chain) throws IOException, ServletException
     {
         PrintWriter out = new PrintWriter(response.getOutputStream());

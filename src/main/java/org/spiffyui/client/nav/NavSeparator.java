@@ -35,8 +35,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class NavSeparator extends Widget implements NavWidget
 {
-    private String m_id;
-    
     /**
      * Creates a new navigation separator
      * 
@@ -44,10 +42,8 @@ public class NavSeparator extends Widget implements NavWidget
      */
     public NavSeparator(String id)
     {
-        m_id = id;
-        
         setElement(Document.get().createDivElement());
-        getElement().setId(m_id);
+        getElement().setId(id);
         setStyleName("main-menuSeparator");
     }
 }

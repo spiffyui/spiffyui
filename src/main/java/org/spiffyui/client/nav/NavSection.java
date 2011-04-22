@@ -41,8 +41,6 @@ public class NavSection extends ComplexPanel implements NavWidget
     private String m_id;
     private String m_displayName;
     
-    private Element m_childDiv;
-    
     private MainNavBar m_navBar;
     private List<Widget> m_children = new ArrayList<Widget>();
 
@@ -95,8 +93,7 @@ public class NavSection extends ComplexPanel implements NavWidget
                 }
             });
         
-        m_childDiv = getElement().appendChild(Document.get().createDivElement());
-        m_childDiv.addClassName("main-menuSectItems");
+        getElement().appendChild(Document.get().createDivElement()).addClassName("main-menuSectItems");
         
     }
 

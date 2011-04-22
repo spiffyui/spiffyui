@@ -56,7 +56,14 @@ public class SliderEvent
     {
         m_source = source;
         m_event = event;
-        m_values = values;
+        
+        /*
+         We want to copy the array of values to make sure nobody can change
+         the array from under us.
+         */
+        m_values = new int[values.length];
+        System.arraycopy(values, 0, m_values, 0, values.length);
+
         m_hasOriginalEvent = hasOriginalEvent;
     }
     
