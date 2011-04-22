@@ -110,11 +110,7 @@ public final class MessageUtil
     }
     
     private static native void showWarningJS(String msg) /*-{
-        $wnd.$("#humanMsg").css({
-                    "background-color": "#F7F96A",
-                    "color": "black",
-                    "opacity": "0.9"
-                    });
+        $wnd.$("#humanMsg").removeClass('humanMsgErr').removeClass('humanMsgInfo').addClass('humanMsgWarn');
         $wnd.humanMsg.displayMsg(msg, false);
     }-*/;
 
@@ -125,11 +121,21 @@ public final class MessageUtil
      *        the message to show
      */
     public static native void showMessage(String msg) /*-{
-        $wnd.$("#humanMsg").css({
-                    "background-color": "black",
-                    "color": "white",
-                    "opacity": "1"
-                    });
+        $wnd.$("#humanMsg").removeClass('humanMsgErr').removeClass('humanMsgWarn').addClass('humanMsgInfo');
+        $wnd.humanMsg.displayMsg(msg, false);
+    }-*/;
+
+    /**
+     * Show a temporary message with a specific class
+     * 
+     * @param msg
+     *        the message to show
+     * 
+     * @param className
+     *        the name of the class to apply
+     */
+    public static native void showMessage(String msg, String className) /*-{
+        $wnd.$("#humanMsg").removeClass('humanMsgErr').removeClass('humanMsgWarn').removeClass('humanMsgInfo').addClass(className);
         $wnd.humanMsg.displayMsg(msg, false);
     }-*/;
 
@@ -158,11 +164,7 @@ public final class MessageUtil
     }
 
     private static native void showErrorJS(String msg) /*-{
-        $wnd.$("#humanMsg").css({
-                    "background-color": "#E00000",
-                    "color": "white",
-                    "opacity": "0"
-                    });
+        $wnd.$("#humanMsg").removeClass('humanMsgInfo').removeClass('humanMsgWarn').addClass('humanMsgErr');
         $wnd.humanMsg.displayMsg(msg, false);
     }-*/;
 
