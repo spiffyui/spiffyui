@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Unpublished Work of Novell, Inc. All Rights Reserved.
+ * Copyright (c) 2010, 2011 Unpublished Work of Novell, Inc. All Rights Reserved.
  *
  * THIS WORK IS AN UNPUBLISHED WORK AND CONTAINS CONFIDENTIAL,
  * PROPRIETARY AND TRADE SECRET INFORMATION OF NOVELL, INC. ACCESS TO
