@@ -164,6 +164,14 @@ public class SlidingGridPanel extends ComplexPanel
     {
         m_offset = offset;
     }
+    
+    /**
+     * Force the grid to redraw.
+     */
+    public void reAlignGrid()
+    {
+        alignGrid(m_cellWidth, m_cellHeight, m_padding, m_offset);
+    }
 
     @Override
     public void onLoad()
