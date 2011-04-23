@@ -22,8 +22,9 @@
         <ivy:settings file="${spiffy.build}/ivysettings.xml" />
     </target>
     
-    <target name="setup">
+    <target name="setup" unless="spiffy.hasSetup">
         <property environment="env"/>
+        <property name="spiffy.hasSetup" value="true" />
 
         <!-- These are all the project relative paths.  Please add new paths
              here so they are easier to find when they change. -->
