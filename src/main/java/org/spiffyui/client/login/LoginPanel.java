@@ -160,8 +160,8 @@ public class LoginPanel extends Composite implements KeyUpHandler
                 m_panel.getElementById("loginmessage").setInnerText(m_helper.getString(LoginStrings.REPEAT_LOGIN_TWO));
             }
         } else {
-            if (JSUtil.isVisible("body > #mainWrap > #main")) {
-                JSUtil.hide("body > #mainWrap > #main", "fast");
+            if (JSUtil.isVisible("#mainWrap")) {
+                JSUtil.hide("#mainWrap", "fast");
             }
             m_glassPanel.getElement().removeClassName("loginRepeatGlass");
             m_fp.getElement().removeClassName("loginRepeat");
@@ -383,7 +383,7 @@ public class LoginPanel extends Composite implements KeyUpHandler
      */
     public void show()
     {
-        JSUtil.hide("#main", "fast");
+        JSUtil.hide("mainWrap", "fast");
         m_glassPanel.setVisible(true);
         m_fp.setVisible(true);
 
@@ -404,7 +404,7 @@ public class LoginPanel extends Composite implements KeyUpHandler
     {
         m_glassPanel.setVisible(false);
         m_fp.setVisible(false);
-        JSUtil.show("main");
+        JSUtil.show("mainWrap");
 
         /*
          * JQuery sets the overflow property to hidden after running the show animation.
@@ -414,7 +414,7 @@ public class LoginPanel extends Composite implements KeyUpHandler
          * below the header.  We are seting the overflow style back so everything is
          * displayed properly.
          */
-        RootPanel.get("main").getElement().getStyle().setOverflow(Style.Overflow.VISIBLE);
+        RootPanel.get("mainWrap").getElement().getStyle().setOverflow(Style.Overflow.VISIBLE);
     }
 
     @Override

@@ -224,6 +224,10 @@ body > #mainWrap {
     top: -37px;
 }
 
+#loginHeaderleft .headertitle {
+    top: 15px;
+}
+
 #mainHeaderContainer .headertitle {
     left: 75px;
 }
@@ -1014,12 +1018,10 @@ h3.subSectionTitle.expandable.expanded {
   For Login -Begin
 */
 #login_form {
-    position: absolute;
     z-index: 7101;
     border: none;
     width: 275px;
-    left: 40%;
-    top: 15%;
+    margin: 15% auto;
     -moz-border-radius: 1em;
     border-radius: 1em;
     -webkit-border-radius: 1em;
@@ -1043,7 +1045,7 @@ h3.subSectionTitle.expandable.expanded {
 
 #login_username, #login_password {
     height: 32px;
-    width: 100%;
+    width: 97%;
 }
 
 #login_username_row label, #login_password_row label {
@@ -1079,6 +1081,7 @@ h3.subSectionTitle.expandable.expanded {
   width: 100%;
   height: 100%;
   z-index: 7100; /* has to be greater than gwt-DialogBox in case of token expiration */
+  display: none;
 }
 
 #login_glass_pane.loginRepeatGlass {
