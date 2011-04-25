@@ -14,8 +14,32 @@ spiffyui = {
     showWarning: null,
     showMessage: null,
 
+    /**
+     * This field controls the auto-loading of the Spiffy UI CSS
+     * references.  If this values is false those references will
+     * not load.  This value is true by default.
+     */
     autoloadCSS: true,
+        
+    /**
+     * This field controls the auto-loading of the Spiffy UI DOM
+     * elements.  If this values is false those DOM elements will 
+     * not load. This value is true by default. 
+     */
     autoloadHTML: true,
+        
+    /** 
+     * This field gives users a chance to override the determined
+     * path for the CSS files loaded by spiffyui.js.
+     * 
+     * If this value isn't specified then the CSS files will be
+     * loaded in the same path as the nocache.js file for this GWT
+     * application.
+     * 
+     * If the autoloadCSS field is set to false then this field is
+     * not used.
+     */
+    cssFilePath: null,
     
     /**
      * Gets a string of the date formatted into the short date 
@@ -270,6 +294,10 @@ spiffyui = {
      * of that path.
      */
     getRelativePath: function() {
+         if (spiffyui.cssFilePath) {
+             return spiffyui.cssFilePath;
+         }
+         
          var path = '';
          jQuery('script').each(function() {
              if (jQuery(this).attr('src') && jQuery(this).attr('src').indexOf('nocache.js') > -1) {
