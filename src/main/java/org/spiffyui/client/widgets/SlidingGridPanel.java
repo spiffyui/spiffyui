@@ -2,6 +2,7 @@ package org.spiffyui.client.widgets;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -176,7 +177,19 @@ public class SlidingGridPanel extends ComplexPanel
     @Override
     public void onLoad()
     {
-        alignGrid(m_cellWidth, m_cellHeight, m_padding, m_offset);
+        /*
+         There is a small timing issue with the sliding grid that only shows up
+         on Macs.  It causes the grid panel to get the wrong information for the
+         width of the parent container.  This delay works around the issue.
+         */
+        new Timer() {
+            @Override
+            public void run()
+            {
+                alignGrid(m_cellWidth, m_cellHeight, m_padding, m_offset);
+            }
+        }.schedule(500);
+        
         super.onLoad();
     }
 
