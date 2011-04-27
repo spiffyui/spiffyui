@@ -26,7 +26,16 @@ import com.google.gwt.json.client.JSONObject;
 
 
 /**
- * This is a convenient sub class of Slider just for ranges
+ * <p> 
+ * RangeSlider is a convenient sub class of Slider for showing ranges.
+ * </p> 
+ *  
+ * <h3>CSS Style Ryles</h3>
+ * 
+ * <ul>
+ * <li>.spiffy-rangeSliderLeft - The left-side pull tab of the slider</li>
+ * <li>.spiffy-rangeSliderRight - The right-side pull tab of the slider</li>
+ * </ul> 
  */
 public class RangeSlider extends Slider
 {    
@@ -87,5 +96,17 @@ public class RangeSlider extends Slider
     {
         setValues(new int[]{min, max});
     }
+    
+    @Override
+    protected void onLoad()
+    {
+        super.onLoad();
+        addSliderClasses(getElement().getId());
+    }
+    
+    private native void addSliderClasses(String id) /*-{
+        $wnd.$("#" + id).children('a:first').addClass('spiffy-rangeSliderLeft');
+        $wnd.$("#" + id).children('a:last').addClass('spiffy-rangeSliderRight');
+    }-*/;
     
 }
