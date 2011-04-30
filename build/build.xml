@@ -124,12 +124,21 @@
     </target>
     
     <target name="js-min" description="Minimize the JavaScript with the Closure compiler" depends="setup,js-lint,compileClosureTask.check,compileClosureTask,taskdefs">
-        <!-- Now we compile our JavaScript. -->
+        <!-- Now we compile our JavaScript.  We are compiling all the different
+             pieces of the JavaScript frameworks we use along with our JavaScript
+             to create a single file.  We need to specify the files for JQuery UI
+             in a specific order since they have loading dependencies. -->
         <closure jsfile="${spiffy.www}/spiffyui.min.js" 
                  closurejar="${spiffy.build}/lib/closure-compiler-r916.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="DEFAULT">
-            <fileset dir="${spiffy.js}" includes="**/*.js" excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**" />
+            <fileset dir="${spiffy.js}" includes="**/jquery.ui.core.js" />
+            <fileset dir="${spiffy.js}" includes="**/jquery.ui.widget.js" />
+            <fileset dir="${spiffy.js}" includes="**/jquery.effects.core.js" />
+            <fileset dir="${spiffy.js}" includes="**/jquery.ui.mouse.js" />
+                     
+            <fileset dir="${spiffy.js}" includes="**/*.js" 
+                     excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**, **/jquery.ui.core.js, **/jquery.ui.widget.js, **/jquery.effects.core.js, **/jquery.ui.mouse.js" />
         </closure>
 
         <!-- Then we GZIP it for web servers that support GZIP -->
