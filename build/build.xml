@@ -161,6 +161,10 @@
             <fileset dir="${spiffy.js}" includes="**/*" />
         </copy>
         
+        <gziplist dest="${spiffy.www}/js/lib/i18n">
+            <fileset dir="${spiffy.js}/lib/i18n" includes="*.js" />
+        </gziplist>
+        
     </target>
     
     <target name="css-min" description="Minimize the CSS with the YUI compiler" depends="setup">
