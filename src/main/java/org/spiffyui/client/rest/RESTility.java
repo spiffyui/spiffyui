@@ -394,6 +394,20 @@ public final class RESTility
         RESTILITY.m_tokenServerUrl = url;
         setSessionToken();
     }
+
+    /**
+     * Fire the login success event to all listeners if it hasn't been fired already.
+     */
+    protected static void fireLoginSuccess()
+    {
+        RESTILITY.m_hasLoggedIn = true;
+        if (!RESTILITY.m_logInListenerCalled) {
+            for (RESTLoginCallBack listener : g_loginListeners) {
+                listener.onLoginSuccess();
+            }
+            RESTILITY.m_logInListenerCalled = true;
+        }
+    }
     
     /**
      * <p>
@@ -979,7 +993,7 @@ public final class RESTility
                 handleSuccessfulResponse(val, exception, response);
             }
         }
-        
+
         /**
          * Handle successful REST responses which have parsable JSON, aren't NCAC faults, 
          * and don't contain login requests.
@@ -1005,13 +1019,7 @@ public final class RESTility
                  * before the user has logged in.  Hackito Ergo Sum.
                  */
                 if (RESTILITY.m_callCount > 2) {
-                    RESTILITY.m_hasLoggedIn = true;
-                    if (!RESTILITY.m_logInListenerCalled) {
-                        for (RESTLoginCallBack listener : g_loginListeners) {
-                            listener.onLoginSuccess();
-                        }
-                        RESTILITY.m_logInListenerCalled = true;
-                    }
+                    fireLoginSuccess();
                 }
 
                 if (response.getHeader("ETag") != null &&

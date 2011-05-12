@@ -213,9 +213,7 @@ public class AuthUtil implements RESTAuthProvider
         }
 
         RESTility.setUserToken(o.get("Token").isString().stringValue());
-        //for (RESTLoginCallBack listener : RESTility.getLoginListeners()) {
-            //listener.onLoginSuccess();
-        //}
+        RESTility.fireLoginSuccess();
         callback.success(o.get("Token").isString().stringValue());
     }
 
