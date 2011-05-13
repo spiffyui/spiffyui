@@ -18,16 +18,4 @@ This will download the required libraries, build the Spiffy UI framework, and ru
 it with an embedded web server.  It will then provide intructions for accessing
 the running application.  
 
-//
-// Problem: failed to create task or type antlib:org.apache.ivy.ant:settings
-//
 
-Spiffy UI uses Apache ant with Apache Ivy to build.  If you have Apache Ant installed
-without Apache Ivy you might see the following error:
-
-    Problem: failed to create task or type antlib:org.apache.ivy.ant:settings
-    
-The solution is to make sure you are running the correct version of Ant by using
-the full path to Ant like this:
-
-        ant all run
