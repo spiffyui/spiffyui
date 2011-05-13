@@ -3,7 +3,7 @@
     <target name="all" depends="setup,resolve" description="Build, compile, and package the entire application">
         <!-- Call the Spiffy UI build -->
         <subant antfile="build.xml"
-                buildpath="${build.base}/external/spiffyui/build/">
+                buildpath="${build.base}/../spiffyui/build/">
         </subant>
 
         <taskdef resource="tasks.properties">
@@ -55,7 +55,7 @@
           <isset property="${env.env.SPSAMPLE_BASE}"/>
         </condition>
         <property name="root" location="${build.base}"/>
-        <property name="spiffyui" location="${root}/external/spiffyui"/>
+        <property name="spiffyui" location="${root}/../spiffyui"/>
         <property name="build" location="${build.base}/build"/>
         <property name="ivy.lib.dir" value="${build}/lib"/>
         <property name="sample.src" location="${root}/src/main/java"/>
