@@ -2,19 +2,19 @@
 // Contents
 //
 
-The SPSample application is the sample for the Spiffy UI framework.
+The Spiffy UI framework is a framework for calling REST from GWT
 
 
 //
-// Building and Running SPSample
+// Building and Running Spiffy UI
 //
 
-The SPSample checkout includes a copy of Apache Ant with Apache Ivy included.  
-Using the version of Ant found in external/ant run the following command:
+The SPSample checkout includes a copy of Apache Ant included.  Execute the following
+command:
 
         ant all run
         
-This will download the required libraries, build the SPSample project, and run
+This will download the required libraries, build the Spiffy UI framework, and run
 it with an embedded web server.  It will then provide intructions for accessing
 the running application.  
 
