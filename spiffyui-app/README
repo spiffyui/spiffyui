@@ -1,0 +1,38 @@
+//
+// Contents
+//
+
+The SPSample application is the sample for the Spiffy UI framework.
+
+
+//
+// Building and Running SPSample
+//
+
+The SPSample checkout includes a copy of Apache Ant with Apache Ivy included.  
+Using the version of Ant found in external/ant run the following command:
+
+        ant all run
+        
+This will download the required libraries, build the SPSample project, and run
+it with an embedded web server.  It will then provide intructions for accessing
+the running application.  
+
+//
+// Problem: failed to create task or type antlib:org.apache.ivy.ant:settings
+//
+
+Spiffy UI uses Apache ant with Apache Ivy to build.  If you have Apache Ant installed
+without Apache Ivy you might see the following error:
+
+    Problem: failed to create task or type antlib:org.apache.ivy.ant:settings
+    
+The solution is to make sure you are running the correct version of Ant by using
+the full path to Ant like this:
+
+        external/ant/bin/ant all run
+        
+If the problem persists you may need to set a system property to provide the path
+to the correct version of Ant like this:
+
+        export ANT_HOME=<full path to Spiffy UI>/spsample/external/ant

@@ -1,0 +1,14 @@
+<ivysettings>
+  <settings defaultResolver="main"/>
+  <resolvers>
+    <url name="main" m2compatible="true">
+      <ivy pattern="https://oss.sonatype.org/service/local/repositories/central/content/[module]/[revision]/ivy-[revision].xml" />
+      <artifact pattern="http://oss.sonatype.org/service/local/repositories/central/content/[module]/[revision]/[artifact]-[revision].[ext]" />
+      <artifact pattern="http://oss.sonatype.org/service/local/repositories/central/content/[module]/[revision]/[artifact].[ext]" />
+      <artifact pattern="http://oss.sonatype.org/service/local/repositories/central/content/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+      <artifact pattern="http://oss.sonatype.org/service/local/repositories/central/content/[organisation]/[module]/[revision]/[artifact].[ext]" />
+    </url>
+    
+    <ibiblio name="default" m2compatible="true"/>
+  </resolvers>
+</ivysettings>

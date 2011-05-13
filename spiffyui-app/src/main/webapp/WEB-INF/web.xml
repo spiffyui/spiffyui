@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  
+  <listener>
+    <listener-class>org.spiffyui.spsample.server.SampleInitListener</listener-class>
+  </listener>
+  
+  <filter>
+    <description>Filter to choose the best-match locale from the supported locales for GWT</description>
+    <filter-name>SampleLocaleFilter</filter-name>
+    <filter-class>org.spiffyui.spsample.server.SampleLocaleFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>SampleLocaleFilter</filter-name>
+    <url-pattern>/</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>SampleLocaleFilter</filter-name>
+    <url-pattern>/index-debug.html</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>SampleLocaleFilter</filter-name>
+    <url-pattern>/index-test.html</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>SampleLocaleFilter</filter-name>
+    <url-pattern>/index.html</url-pattern>
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>AuthServlet</servlet-name>
+    <servlet-class>org.spiffyui.server.AuthServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>VersionInfoServlet</servlet-name>
+    <servlet-class>org.spiffyui.spsample.server.VersionInfoServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>CrayonColorsServlet</servlet-name>
+    <servlet-class>org.spiffyui.spsample.server.CrayonColorsServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>JSLocaleServlet</servlet-name>
+    <servlet-class>org.spiffyui.server.JSLocaleServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AuthServlet</servlet-name>
+    <url-pattern>/auth/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>SampleAuthServer</servlet-name>
+    <servlet-class>org.spiffyui.spsample.server.SampleAuthServer</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>SampleDataServlet</servlet-name>
+    <servlet-class>org.spiffyui.spsample.server.SampleDataServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>VersionInfoServlet</servlet-name>
+    <url-pattern>/version</url-pattern>
+  </servlet-mapping>
+    
+  <servlet-mapping>
+    <servlet-name>CrayonColorsServlet</servlet-name>
+    <url-pattern>/multivaluesuggestboxexample/colors</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet-mapping>
+    <servlet-name>JSLocaleServlet</servlet-name>
+    <url-pattern>/js/lib/i18n/date</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>JSLocaleServlet</servlet-name>
+    <url-pattern>/js/lib/i18n/jquery.ui.datepicker.js</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SampleAuthServer</servlet-name>
+    <url-pattern>/authserver/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SampleDataServlet</servlet-name>
+    <url-pattern>/authdata</url-pattern>
+  </servlet-mapping>
+
+
+</web-app>

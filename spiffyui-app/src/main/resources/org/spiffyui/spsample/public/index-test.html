@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Spiffy UI Framework</title>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <!--This property sets IE9 into IE8 compatability mode.  Without this IE9 will fail because of invalid character issues. -->
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+        
+        <!-- This is the icon that's used when the user adds your app to the home screen -->
+        <link rel="apple-touch-icon-precomposed" href="images/spiffy_logo.jpg"/>
+        
+        <!-- These properties specify the behavior on iPad and iPhone to make Spiffy UI work more like a native application -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        
+        <link rel="shortcut icon" href="favicon.ico">
+        
+        <!-- Files for the SpiffyUI framework -->
+        <script type="text/javascript" src="jquery.min.js"></script>
+        <script type="text/javascript" src="spiffyui.min.js"></script>
+        
+        <link type="text/css" rel="stylesheet" href="spsample.css">
+        
+        <script type="text/javascript" src="js/lib/i18n/date"></script>
+        <script type="text/javascript" src="js/lib/i18n/jquery.ui.datepicker.js"></script>
+        
+        <link rel="stylesheet" href="spsample_mobile.css" media="handheld, only screen and (max-width: 801px)">
+        
+        <link type="text/css" rel="stylesheet" href="js/lib/qunit.css">
+        <script type="text/javascript" src="js/lib/qunit.js"></script>
+        
+        <script type="text/javascript">
+            spiffyui.runUnitTests = true;
+        </script>
+        
+        <style type="text/css">
+            #mainWrap {
+                display: none;
+            }
+            
+            h1 {
+                width: auto;
+            }
+            
+            #unitTest-cont {
+                margin-left: 75px;
+                margin-right: 75px;
+                margin-top: 25px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <script type="text/javascript" language="javascript" src="org.spiffyui.spsample.index.nocache.js"></script>
+        
+        <div id="unitTest-cont">
+            <h1 id="qunit-header">Spiffy UI Unit Tests</h1>
+            <h2 id="qunit-banner"></h2>
+            <div id="qunit-testrunner-toolbar"></div>
+            <h2 id="qunit-userAgent"></h2>
+            <ol id="qunit-tests"></ol>
+            <div id="qunit-fixture">test markup</div>
+            
+            <div style="margin-top: 2em;" class="documentationPanel">
+                <p>
+                You're looking at the <a href="..">Spiffy UI</a> unit tests.  They help us make sure the framework keeps running well and we aren't breaking any of our APIs.  
+                </p>
+                
+                <p>
+                These tests are running in your browser right now.  If you refresh the page they will run again. You can access this page using any browser and the tests run automatically.  
+                </p>
+                
+                <p>
+                The Spiffy UI unit tests were written in GWT and use the <a href="http://docs.jquery.com/Qunit">JQuery/QUnit</a> testing framework.  
+                </p>
+                
+                <p>
+                Return to the <a href="index.html">Spiffy UI framework</a>.
+                </p>
+                
+            </div>
+        </div>
+    </body>
+</html>

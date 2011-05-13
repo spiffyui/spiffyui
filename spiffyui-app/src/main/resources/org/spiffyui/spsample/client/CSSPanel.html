@@ -1,0 +1,129 @@
+<h1 class="pageTitle">CSS</h1>
+<div id="cssPanelText" class="documentationPanel">
+    <p>
+    This framework uses CSS for all layout.  That makes it easy to change the look and feel of the application as well as the layout, the spacing, and the nature of the controls themselves.  There's a lot more detail about this layout in <a href="http://www.zackgrossbart.com/hackito/rpt-css/">Fluid Grids, Vertical Rhythm, And CSS Blocking</a>.
+    </p>
+    
+    <p>
+    Using CSS for all layout gives this framework an amazing flexibility of look and feel.  This includes changing the sizes, fonts, images, colors, and even the nature of the controls.  For example: 
+    </p>
+
+    <div class="highlightSection">
+    Switch to
+    <span id="tabnavbutton"> </span>
+    </div>
+    
+    <p>
+    Spiffy UI is so flexible that you can easily integrate totally different navigation mechanisms like Christopher Cliff's <a href="http://christophercliff.github.com/sausage/">Sausage menus</a>.  This scheme presents Spiffy UI as a single page with a contextual scrolling navigation mechanism on the right side of the page.
+    </p>
+    
+    <div class="highlightSection">
+    Turn the <span id="sausagenavbutton"></span> <span class="weak"> (it rocks, but it doesn't work on IE)</span>
+    </div>
+    
+    <h2>Sample styles</h2>
+    
+    <p>
+    Much of the way this page looks is due to the styles for this sample application.  Without any additional styles a spiffy UI application looks like this:
+    </p>
+    
+    <div id="cssSampleImage"></div>
+
+    <h2>Page styles</h2>
+
+    <p>
+    The Spiffy UI framework starts with <a href="http://developer.yahoo.com/yui/reset/">Reset CSS</a> from YUI.  This allows us to set the CSS styles for every browser to a common starting point and makes it much easier to maintain UI consistency across different browsers.
+    </p>
+
+    <p>
+    There are four main sections in the Spiffy UI:  the header (<code>#mainHeader</code>), the navigation area (<code>#mainNavigation</code>), the content area (<code>#mainContent</code>), and the footer (<code>#mainFooter</code>).  These four areas make up the basic blocking of the application.  They may each be styled and positioned separately.
+    </p>
+
+    <h2>The grid</h2>
+    
+    <p>
+    All of the styles and layout in the Spiffy UI framework support a grid.  The grid is a system of columns and rows that helps you lay out your application.  The grid makes it easier to maintain consistent pages with professional spacing and alignment.  
+    </p>
+    
+    <p>
+    The columns in this grid are 155 pixels wide with a 20 pixel spacer.  This column pattern starts on the left side of the window and continues for the width of the window.  
+    </p>
+    
+    <p>
+    The default font style is 12/14 Verdana.  That means 12 pixel sized font with a 14 pixel line height using Verdana.  That makes the rows in our grid 14 pixels tall.  Everything in the framework conforms to this 14 pixel line height.  That means each line is a multiple of 14 so everything lines up vertically, or, in other words, has <a href="http://www.gettheeye.com/vertical-rhythm/">vertical rhythm</a>.
+    </p>
+    
+    <p>
+    Changing the dimensions of the grid is easy.  Just define a grid that works for you. These documentation pages use a 14/18 pixel grid to make the large blocks of text easier to read.  The widgets page and forms page use the default 12/14 grid.
+    </p>
+    
+    <p>
+    We often use the Firefox plugin <a href="http://www.puidokas.com/portfolio/gridfox/">Gridfox</a> to help keep our UI tight to the grid.
+    </p>
+    
+    <div class="highlightSection">
+    Want to see the grid?  Turn the <span id="gridbutton"> </span>
+    </div>
+
+    <h2>Form styles</h2>
+    <p>
+    These styles are extended into forms as well.  There are styles for labels, fields, headers, and other parts of the form layout.  This styles follow the patterns of <a href="http://www.alistapart.com/articles/prettyaccessibleforms">Prettier Accessible Forms</a>.  This pattern supports flexible form layouts without <code>table</code> tags.  It also promotes consistency across all form in your application.
+    
+    </p>
+
+    <h2>CSS files</h2>
+    <p>
+    The Spiffy UI framework styles are built into <code>spiffyui.min.css</code>.  This file contains almost all of the CSS for this framework.  There are a few places where we need to add special styles to support Internet Explorer.  Those files are in <code>spiffyui.ie.css</code>.  This file is loaded dynamically if the user is using Internet Explorer.
+    </p>
+
+    <p>
+    There are more styles on the sample form page.
+    </p>
+
+    <h2>Specific styles</h2>
+
+    <p>
+    In addition to styles for the whole page, there are specific styles that are reusable in any part of the application like.
+    </p>
+
+    <p>
+    <span class="weak">
+    .weak
+    </span>
+    </p>
+
+    <h1>
+    h1
+    </h1>
+
+    <h2 class="sectionTitle" style="margin-bottom: 21px;">
+    h2
+    </h2>
+
+    <p>
+    Many of the widgets in this framework also use custom CSS.  You can see those on the sample widgets page. Explore this sample application and reuse any styles you see here.  <a href="http://getfirebug.com/">Firebug</a> is your friend.
+    </p>
+
+    <p>
+    The rules we follow in this framework are explained in <a href="http://www.zackgrossbart.com/hackito/rpt-css/">Fluid Grids, Vertical Rhythm, and CSS Blocking</a>.
+    </p>
+
+    <h2>Other CSS frameworks</h2>
+    
+    <p>
+    The Spiffy UI framework JavaScript automatically loads our flexible CSS framework, but we're happy if you want to use a different one.  The tag focused approach of Spiffy UI works well with the <a href="http://960.gs/">960 grid system</a>, <a href="http://www.blueprintcss.org/">Blueprint</a>, and any other CSS framework.
+    </p>
+
+    <p>
+    You can also take out all Spiffy UI CSS and start from scratch.  There are two properties you can set to prevent the automatic CSS loading.  The easiest place to add them is a script tag in your HTML page.  For example:
+    </p>
+
+    <pre>
+    &lt;head&gt;
+    &lt;script type="text/javascript" src="spiffyui.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+        spiffyui.autoloadCSS = false;
+        spiffyui.autoloadHTML = false;
+    &lt;/script&gt;
+    </pre>
+</div>

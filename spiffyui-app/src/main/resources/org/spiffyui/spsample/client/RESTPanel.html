@@ -1,0 +1,191 @@
+<h1 class="pageTitle">REST</h1>
+
+<div id="restPanelText" class="documentationPanel">
+    <p>
+    Spiffy UI isn't just a pretty face.  It provides a comprehensive framework for calling <a href="http://en.wikipedia.org/wiki/REST">REST</a> services from GWT and JavaScript.  This includes authentication, error handling, and utilities for handling <a href="http://en.wikipedia.org/wiki/JSON">JSON</a> data.
+    </p>
+    
+    <h2>RESTObjectCallBack</h2>
+    
+    <p>
+        REST calls are asynchronous network calls.  You request data from the server and at some point later the server responds.  In between there could be network timeouts, data corruption, and all of the uncertainty of the Internet.  Asynchronous network programming is hard so the Spiffy UI framework makes it a little easier.
+    </p>
+    
+    <p>
+        The goal of this framework is to abstract the calling code from any knowledge of Internet protocols.  From the client point of view you ask for data and it comes back.  We keep it that simple for all the code in our application.  This all starts with the <code>RESTObjectCallBack</code> interface.
+    </p>
+    
+    <p>
+        <code>RESTObjectCallBack</code> has just three methods:
+    </p>
+    
+    <pre>
+    <span class="keyword">public</span> <span class="keyword">void</span> success(T o);
+
+    <span class="keyword">public</span> <span class="keyword">void</span> error(String message);
+    
+    <span class="keyword">public</span> <span class="keyword">void</span> error(RESTException e);
+    </pre>
+    
+    <p>
+        <code>success</code> is called when your REST call returns successfully.  You get back a Java object with the data from the server.  The first <code>error</code> method is called when there is a generic error like an unplugged network cable.  The second <code>error</code> method happens with more expected errors like passing invalid data to the server.
+    </p>
+    
+    <h2>RESTility</h2>
+    
+    <p>
+        Once you've implemented the <code>RESTObjectCallBack</code> interface it's time to make your REST call.  You can do that with <code>RESTility</code>.  <code>RESTility</code> handles authentication, error handling, and all of the steps involved in making the remote connection.  It takes a <code>RESTCallback</code> and makes the REST call.  
+    </p>
+    
+    <p>
+        <code>RESTCallback</code> works similarly to <code>RESTObjectCallback</code>, but it deals with <a href="http://en.wikipedia.org/wiki/Json">JSON</a> data.  A REST call can return any type of data, but Spiffy UI focuses on JSON.  The <code>RESTCallback</code> interface looks like this:
+    </p>
+    
+    <pre>
+    <span class="keyword">public</span> <span class="keyword">void</span> onSuccess(JSONValue val);
+    
+    <span class="keyword">public</span> <span class="keyword">void</span> onError(int statusCode, String errorResponse);
+    
+    <span class="keyword">public</span> <span class="keyword">void</span> onError(RESTException e);
+    </pre>
+    
+    <p>
+        The <code>onSuccess</code> method takes JSON data and is responsible for parsing that data into a reasonable format.  How you handle that JSON is up to you.  You can use <a href="http://code.google.com/p/google-web-toolkit/wiki/OverlayTypes">GWT Overlay types</a>, return the <code>JSONValue</code> object, or parse the JSON manually into a Java object.  In practice most REST calls return simple JSON data and is easy to parse manually.  
+        Spiffy UI's <code>JSONUtil</code> provides utility methods for safely getting values or objects from a <code>JSONObject</code>.  
+    </p>
+    
+    <h2>Putting it all together</h2>
+    
+    <p>
+    The footer in this sample application uses REST to get the version information from the server.  This is encapsulated in the <code>VersionInfo</code> object.  It uses a <code>static</code> method to instantiate the object and get the data from the REST call.  
+    </p>
+    
+    <div id="restImage"></div>
+    
+    <p>
+    The <code>VersionInfo</code> object encapsulates this in the <code>getVersionInfo</code> method:
+    </p>
+    
+    <pre>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> getVersionInfo(<span class="keyword">final</span> RESTObjectCallBack&lt;VersionInfo&gt; callback)
+    {
+        if (g_versionInfo != <span class="keyword">null</span>) {
+            <span class="comment">/*
+             The version info doesn't change while the page is still running
+             so we can cache it and save an HTTP call.
+             */</span>
+            callback.success(g_versionInfo);
+            <span class="keyword">return</span>;
+        }
+
+        RESTility.callREST(<span class="string">"version"</span>, <span class="keyword">new</span> RESTCallback() {
+            @Override
+            <span class="keyword">public</span> <span class="keyword">void</span> onSuccess(JSONValue val)
+            {
+                JSONObject bi = val.isObject();
+                <span class="keyword">if</span> (bi == <span class="keyword">null</span>) {
+                    MessageUtil.showError(<span class="string">"An error occurred trying to get version info."</span>);
+                    <span class="keyword">return</span>;
+                }
+                g_versionInfo = <span class="keyword">new</span> VersionInfo();
+                
+                g_versionInfo.m_version = JSONUtil.getStringValue(bi, <span class="string">"version"</span>);
+                g_versionInfo.m_user = JSONUtil.getStringValue(bi, <span class="string">"user"</span>);
+                g_versionInfo.m_rev = JSONUtil.getStringValue(bi, <span class="string">"rev"</span>);
+                
+                g_versionInfo.m_date = JSONUtil.getDateValueFromMediumDateTime(bi, <span class="string">"date"</span>);
+                <span class="keyword">if</span> (g_versionInfo.m_date == <span class="keyword">null</span>) {
+                    MessageUtil.showError(<span class="string">"Invalid version date: "</span> + 
+                                          JSONUtil.getStringValue(bi, <span class="string">"date"</span>));
+                }
+                
+                callback.success(g_versionInfo);
+            }
+
+            @Override
+            <span class="keyword">public</span> <span class="keyword">void</span> onError(<span class="keyword">int</span> statusCode, String errorResponse)
+            {
+                callback.error(errorResponse);
+            }
+
+            @Override
+            <span class="keyword">public</span> <span class="keyword">void</span> onError(RESTException e)
+            {
+                callback.error(e);
+            }
+        });
+    }
+    </pre>
+    
+    <p>
+        The <code>getVersionInfo</code> method will make the REST call, parse the JSON, and populate the <code>VersionInfo</code> object.  Once it is returned to the <code>RESTObjectCallBack</code> you can access the <code>VersionInfo</code> object just like a JavaBean.  
+    </p>
+    
+    <p>
+        In this case the URL of <code>version</code> will become http://localhost:8081/spsample/version.  You can specify any URL you want as long as it doesn't violate the <a href="http://en.wikipedia.org/wiki/Same_origin_policy">same origin policy</a>.
+    </p>
+    
+    <p>
+        It is worth noting that this method returns <code>void</code> since this call is asynchronous and must be returned to the calling code later.  In this way the method works similarly to a listener.
+    </p>
+    
+    <p>
+        We can call our <code>VersionInfo</code> object like this:
+    </p>
+    
+    <pre>
+    VersionInfo.getVersionInfo(<span class="keyword">new</span> RESTObjectCallBack&lt;VersionInfo&gt;() {
+            <span class="keyword">public</span> <span class="keyword">void</span> success(VersionInfo info)
+            {
+                m_footer.setFooterString(<span class="string">"Spiffy UI Sample version "</span> + 
+                    info.getVersion() + <span class="string">" was built on "</span> + 
+                    DateTimeFormat.getFullDateFormat().format(info.getDate()) +
+                    <span class="string">" from revision "</span> + info.getRevision());
+            }
+
+            <span class="keyword">public</span> <span class="keyword">void</span> error(String message)
+            {
+                MessageUtil.showFatalError(message);
+            }
+
+            <span class="keyword">public</span> <span class="keyword">void</span> error(RESTException e)
+            {
+                MessageUtil.showFatalError(e.getReason());
+            }
+        });
+    </pre>
+    
+    <h2><a id="RestErrorHandling">Error Handling</a></h2>
+    
+    <p>
+        <code>RESTility</code> has built in handling for a Novell defined REST error format.  This is the error format defined for the <a href="http://en.wikipedia.org/wiki/SOAP">SOAP</a> protocol translated to JSON.  It looks like this:
+    </p>
+    
+    <pre>
+    { 
+        "Fault" : { 
+            "Code" : { 
+                "Subcode" : { 
+                    "Value" : "MyErrorSubCode" 
+                },
+                "Value" : "MyErrorCode"
+            },
+            "Reason" : { 
+                "Text" : "This is why my error happened" 
+            }
+        } 
+    }
+    </pre>
+    
+    <p>
+    If your REST endpoints return errors in this format then <code>RESTility</code> will handle them automatically and return a <code>RESTException</code> object with this data.  If not, then it will treat error messages like any other server response and allow you to handle them in your implementation of <code>success</code>.
+    </p>
+    
+    <h2>See it in action</h2>
+    
+    <p>
+        The <code>VersionInfo</code> object is included in the SPSample project and populates the footer of this page.  An easy way to see it in action is with the <a href="http://getfirebug.com/">Firebug</a> console.  This console will show you every REST request made by this sample and the data sent to and from the client.
+    </p>
+
+    
+</div>

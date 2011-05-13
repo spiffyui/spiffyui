@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Spiffy UI Framework - Debug</title>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <!--This property sets IE9 into IE8 compatability mode.  Without this IE9 will fail because of invalid character issues. -->
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+        
+        <!-- This is the icon that's used when the user adds your app to the home screen -->
+        <link rel="apple-touch-icon-precomposed" href="images/spiffy_logo.jpg"/>
+        
+        <!-- These properties specify the behavior on iPad and iPhone to make Spiffy UI work more like a native application -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        
+        <!-- Files for the SpiffyUI framework -->
+        <script type="text/javascript" src="js/lib/jquery-1.6.js"></script>
+        <script type="text/javascript" src="js/lib/base64.js"></script>
+        <script type="text/javascript" src="js/lib/dshistory.js"></script>
+        <script type="text/javascript" src="js/lib/humanmsg.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.timepicker.js"></script>
+        <script type="text/javascript" src="js/lib/i18n/jquery.ui.datepicker.js"></script>
+        <script type="text/javascript" src="js/lib/slidegrid.js"></script>
+        <script type="text/javascript" src="js/spiffyui.js"></script>
+
+        <link type="text/css" rel="stylesheet" href="js/lib/humanmsg.css">
+        <link type="text/css" rel="stylesheet" href="js/lib/timePicker.css">
+        <link type="text/css" rel="stylesheet" href="js/lib/reset.css">
+        
+        <!--  In the production version we combine all of these JavaScript files.  In this
+              debug version we reference each file directly.  This is much slower to load,
+              but it makes it easier to debug.
+         -->
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.core.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.widget.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.effects.core.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.mouse.js"></script>
+        
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.effects.blind.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.effects.bounce.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.effects.clip.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.effects.drop.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.effects.explode.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.effects.fade.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.effects.fold.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.effects.highlight.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.effects.pulsate.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.effects.scale.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.effects.shake.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.effects.slide.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.effects.transfer.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.accordion.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.autocomplete.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.button.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.datepicker.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.dialog.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.draggable.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.droppable.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.position.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.progressbar.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.resizable.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.selectable.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.slider.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.sortable.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.ui.tabs.js"></script>
+        
+        
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.bgiframe-2.1.2.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.cookie.js"></script>
+        <script type="text/javascript" src="js/lib/jqueryui/jquery.metadata.js"></script>
+        
+        <link type="text/css" rel="stylesheet" href="js/lib/jquery-ui-1.8.12.custom.css">
+
+        <link type="text/css" rel="stylesheet" href="spsample.css">
+        
+        <script type="text/javascript" src="js/lib/i18n/date"></script>
+        <script type="text/javascript" src="js/lib/i18n/jquery.ui.datepicker.js"></script>
+        <script type="text/javascript" src="js/date.extras.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.ui.widget.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.sausage.js"></script>
+        
+        <!-- This reference is for browers that are very skinny -->
+        <link rel="stylesheet" href="spsample_mobile.css" media="handheld, only screen and (max-width: 701px)">
+        <!-- This one is for iPhones and other mobile devices -->
+        <link rel="stylesheet" href="spsample_mobile.css" media="only screen and (max-device-width: 480px)">
+    </head>
+
+    <body>
+        <script type="text/javascript" language="javascript" src="org.spiffyui.spsample.index.nocache.js"></script>
+    </body>
+</html>

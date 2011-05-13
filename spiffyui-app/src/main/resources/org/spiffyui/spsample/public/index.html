@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    
+        <title>Spiffy UI Framework</title>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <!--This property sets IE9 into IE8 compatability mode.  Without this IE9 will fail because of invalid character issues. -->
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+        
+        <!-- This is the icon that's used when the user adds your app to the home screen -->
+        <link rel="apple-touch-icon-precomposed" href="images/spiffy_logo.jpg"/>
+        
+        <!-- These properties specify the behavior on iPad and iPhone to make Spiffy UI work more like a native application -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        
+        <link rel="shortcut icon" href="favicon.ico">
+        
+        <!-- Files for the SpiffyUI framework -->
+        <script type="text/javascript" src="jquery.min.js"></script>
+        <script type="text/javascript" src="spsample.min.js"></script>
+        
+        <script type="text/javascript">
+            spiffyui.autoloadCSS = false;
+        </script>
+        
+        <script type="text/javascript" src="js/lib/i18n/date"></script>
+        <script type="text/javascript" src="js/lib/i18n/jquery.ui.datepicker.js"></script>
+        
+        <!-- This reference is for browers that are very skinny -->
+        <link rel="stylesheet" href="spsample_mobile.min.css" media="handheld, only screen and (max-width: 701px)">
+        <!-- This one is for iPhones and other mobile devices -->
+        <link rel="stylesheet" href="spsample_mobile.min.css" media="only screen and (max-device-width: 480px)">
+    </head>
+    
+    <body>
+        <script type="text/javascript" language="javascript" src="org.spiffyui.spsample.index.nocache.js"></script>
+    </body>
+</html>

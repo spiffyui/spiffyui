@@ -1,0 +1,257 @@
+.main-menuSect {
+    display: block;
+}
+
+.main-menuSectItems {
+    display: inline;
+}
+
+.main-menuItem {
+    display: inline;
+    width: auto;
+}
+
+#mainNavigation {
+    width: auto;
+    float: none;
+    margin: 5px 5px 15px -10px;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+#mainNavContainer {
+    margin-left: 0px;
+    border-bottom: thin solid #DDDDDD;
+}
+
+#mainNavContainer a {
+    margin: 0 auto;
+}
+
+#mainNavContainer .main-menuSect a.main-menuSectItem {
+    display: none;
+}
+
+.main-menuSeparator {
+    display: none;
+}
+
+#mainBody {
+    margin-left: 5px;
+}
+
+#mainsubtitle {
+    display: inline;
+    position: static;
+    left: auto;
+    right: auto;
+    padding-left: 0.5em;
+}
+
+.navItemSelected a {
+    margin-top: -25px;
+}
+
+#mainHeaderContainer .headertitle {
+    font-size: 24px;
+    top: -50px;
+    left: 5px;
+}
+
+#mainHeader {
+    height: 36px;
+}
+
+#mainWrap {
+    background: transparent;
+}
+
+#main {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: auto;
+}
+
+#mainFooter {
+    margin: 0px;
+    width: auto;
+}
+
+.spiffy-longmessage-panel {
+    width: 80%;
+}
+
+#header_actionsBlock {
+    top: 0px;
+}
+
+#login_form {
+    left: 5%;
+    top: 5%;
+    width: 90%;
+}
+
+#login_titlespan {
+    font-size: 14px;
+}
+
+.documentationPanel {
+    width: 95%;
+}
+
+#login_submit_button, #loging_logout_link {
+    height: 50px;
+    float: none;
+    width: 200px;
+    color: black;
+    background: #F9F9F9;
+    font-size: 18px;
+}
+
+#mainNavContainer a, #mainNavContainer a:visited {
+    font-weight: normal;
+    white-space: normal;
+    text-align: center;
+    height: 34px;
+    padding-top: 1em;
+}
+
+#mainNavContainer {
+    position: relative;
+    height: 168px;
+    left: 5px;
+}
+
+.main-menuItem {
+    width: 19%;
+    position: absolute;
+    height: 50px;
+    background: #E9E9E9;
+    overflow: hidden;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+
+.main-menuItem.navItemSelected {
+    background-color: #EFD137;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+
+#overview {
+    top: 0px;
+    left: 0px;
+}
+
+#getStarted {
+    top: 0px;
+    left: 20%;
+}
+
+#hostedMode {
+    top: 0px;
+    left: 40%;
+}
+
+#auth {
+    top: 0px;
+    left: 60%;
+}
+
+#speed {
+    top: 0px;
+    left: 80%;
+    
+}
+
+#css {
+    top: 56px;
+    left: 0;
+}
+                
+#l10n {
+    top: 56px;
+    left: 20%;
+}
+
+#rest {
+    top: 56px;
+    left: 40%;
+}
+
+#forms {
+    top: 56px;
+    left: 60%;
+}
+
+#widgets {
+    top: 56px;
+    left: 80%;
+}
+
+#authTest {
+    top: 112px;
+    left: 0px;
+}
+
+#javaDoc {
+    top: 112px;
+    left: 20%;
+}
+
+#help {
+    top: 112px;
+    left: 40%;
+}
+
+#getInvolved {
+    top: 112px;
+    left: 60%;
+}
+
+#license {
+    top: 112px;
+    left: 80%;
+}
+
+.main-menuSect .main-menuItem a, .main-menuItem a {
+    text-indent: 0px;
+}
+
+.highlightSection {
+    width: 95%;
+}
+
+.documentationPanel li {
+    margin-left: 5px;
+}
+
+#headerlogo {
+    background: none;
+}
+
+h1 {
+    width: 95%;
+}
+
+#spiffyFeatures {
+    position: static;
+    height: auto;
+}
+
+#featuresCol1 {
+    position: static;
+    width: auto;
+}
+
+#featuresCol2 {
+    position: static;
+    width: auto;
+}
+
+.featureItem {
+    height: auto;
+    margin-bottom: 18px;
+}

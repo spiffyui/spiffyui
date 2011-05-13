@@ -1,0 +1,239 @@
+<h1 class="pageTitle">Authentication and Security</h1>
+<div id="authPanelText" class="documentationPanel">
+
+    <p>
+    REST calls are anonymous by default.  The Spiffy UI framework offers security based on a scheme we've developed at Novell called tokenized identity.  This token-base security model support simple authentication, single sign-on, and stateless security models.
+    </p>
+
+    <div id="loginSection" class="highlightSection">
+        <h3>Try it out</h3>
+
+        <p>
+        Most of this sample is available without authentication, but we've added a little secure data..
+        </p>
+        <p>
+        <div id="testAuth">
+        </div>
+        <p>
+        <div id="testAuthResult">
+        </div>
+    </div>
+    
+    <p>
+    The Spiffy UI framework provides the client-side portion of this security model.  It connects to any authentication server you provide that implements this REST protocol for tokenized identity.  The Spiffy UI sample application provides a simple example of authentication with tokenized identity using Java servlets.  Java servlet filters are a popular choice for more complex applications.  
+    </p>
+    
+    <p>
+    You can extend the servlets in this example, create your own, or implement your authentication server in any other technology that supports REST.
+    </p>
+
+    <h2>Tokenized identity</h2>
+
+    <p>
+    The broad strokes of the authentication process are very simple.  You request some data, the server tells you it requires authentication, you get a token, and you give the token back to the server to get your data.  Just like getting a key to open a door, your token gives you access to the data.
+    </p>
+
+    <p>
+    Managing the token this way has many advantages.
+    </p>
+
+    <p>
+    <b>You don't have to trust the REST server</b>.  No more giving your username and password to random web applications.  You just trust the token and never give your password to anyone else.
+    </p>
+
+    <p>
+    <b>Single sign-on</b>.  Since the tokens are generic you can reuse them for multiple servers which accept tokenized identity and only log in once.
+    </p>
+
+    <p>
+    <b>Tokens can time out</b>.  Typical J2EE sessions stay valid as long as they're actively used.  Token can add a built-in expiration date.  If a bad guy gets your token, it doesn't last.
+    </p>
+
+    <p>
+    <b>Tokens support stateless application servers</b>.  REST has no session, your tokens shouldn't either.  Combine your tokens with <a href="http://en.wikipedia.org/wiki/SAML">SAML</a> and you'll get stateless authentication.  This scales to the cloud and keeps you logged in even if your server goes down.
+    </p>
+
+    <h2>Don't forget the cloud</h2>
+
+    <p>
+    There's more to authentication that just a username and password.  Most companies are very careful about where their usernames and passwords can travel.  The IT department wants to keep passwords inside the network and off of the Internet.
+    </p>
+
+    <p>
+    Tokenized identity changes all that.  You can place the authentication server in the firewall and put the application outside.  Use SAML and they don't even have to talk to each other.  Make it possible for any company to connect to your system without risking their security.
+    </p>
+
+    <h2>Security customization</h2>
+
+    <p>
+    Tokenized identity works for us, but it doesn't have to work for you.  When you use the Spiffy UI framework you can specify your own authentication handling.  You can customize our login dialog or write your own.  You can also skip security altogether and make your application anonymous.
+    </p>
+
+    <p>
+    That's the overview.  Now let's look at some of the techie details.
+    </p>
+    
+    <p>
+    The easiest way to watch the authentication protocol is with <a href="http://getfirebug.com/">Firebug</a>.
+    </p>
+    
+    <div id="firebugImage"></div>
+    
+    <p>
+    The first request gets a 401 response indicating that authentication is required.  The the Spiffy UI framework requests a token and includes it in future requests.  This all goes through the authentication proxy.
+    </p>
+    
+
+    <h2>Authentication proxy</h2>
+    
+    <p>
+    All REST calls are governed by the <a href="http://en.wikipedia.org/wiki/Same_origin_policy">same origin policy</a> and may only call back to the server that served the JavaScript.  This is fine for most REST data calls, but single sign-on requires you to call to another server.
+    </p>
+
+    <p>
+    The Spiffy UI framework supplies a REST authentication proxy service that makes it possible to authenticate against any server.  This proxy is implemented in AuthServlet.java.  The process works like this:
+    </p>
+
+    <p>
+    1. Client makes a request to server url http://host:post/data-server-war-context/path-require-auth in order to access some resources.
+    </p>
+
+    <p>
+    2. Server looks for specific authentication header.  When it is not found, it returns back JSON indicating no authentication information is available. It will also send back a WWW-Authenticate response header, with the authentication server url information, letting the client know it needs to authenticate and how.
+    </p>
+
+    <pre>    WWW-Authenticate  X-OPAQUE uri="http://host:port/auth-path", signOffUri=""</pre>
+
+    <p>
+    3. Due to same origin policy, client can not directly contact the authentication server, which is on a different server. The client instead contacts a servlet (AuthServlet) that is in the same client war, forwarding on user credentials.
+    </p>
+
+    <p>
+    The servlet, which acts as a proxy, then contacts the authentication server at http://host2:port2/auth-server-war-context/auth-path to ask for an authentication token to access data server resources. To use the proxy servlet, it must be added to the web.xml of the client war.
+    </p>
+    <pre>
+    &lt;servlet&gt;
+      &lt;servlet-name&gt;AuthServlet&lt;/servlet-name&gt;
+      &lt;servlet-class&gt;org.spiffyui.server.AuthServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+
+    &lt;servlet-mapping&gt;
+      &lt;servlet-name&gt;AuthServlet&lt;/servlet-name&gt;
+      &lt;url-pattern&gt;/auth/*&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+    </pre>
+
+    <p>
+    4. If user's credentials is sufficient, the authentication server will return back an authentication token in JSON format, such as:
+    </p>
+
+    <pre>    {"Token":"demouser-3f597a4d311a3e00"} </pre>
+
+    <p>
+    to the proxy servlet, which then forwards the token back to the client to be saved in browser cookie.
+    </p>
+
+    <p>
+    5. Client can now make the request to access the resources again on the data server at original url:  http://host:post/data-server-war-context/path-require-auth, carrying a valid authentication token in the request header "Authorization":
+
+    <pre>    Authorization	X-OPAQUE demouser-3f597a4d311a3e00 </pre>
+
+
+    <p>
+    6. Data server checks and validates the authentication token, then returns back requested resources.
+    </p>
+
+    <h2>Login</h2>
+
+    <p>
+    The authentication proxy is just a helper in this process.  The real work happens in the token exchange.  You can skip the proxy if you're calling from Java or any other language that doesn't use the same origin policy.  Here's what happens when you click the login button above.
+    </p>
+
+    <div id="loginImage"></div>
+
+    <p class="optionalText">
+    1. (Optionally) Browser sends "GET" request to http://localhost:8080/authdata (implemented by SampleDataServlet).
+    </p>
+
+    <p class="optionalText">
+    2. (Optionally) Server returns 401 (Unauthorized) with the NoAuthHeader fault payload, and WWW-Authenticate response header X-OPAQUE uri="http://localhost:8080/authserver", signOffUri=""
+    </p>
+
+    <p>
+    3. The Spiffy UI framework shows the  <code>LoginPanel</code> in the browser, prompting user for credentials user name and password and sends those credentials to the authentication proxy at http://localhost:8080/auth. Any username and password work in this sample.
+    </p>
+
+    <p>
+    4. Proxy server <code>AuthServlet</code> contacts authentication server (implemented by SampleAuthServer)
+    at http://localhost:8080/authserver to ask for authentication token.
+    </p>
+
+    <p class="optionalText">
+    5. (Optionally) The authentication optionally rejects the authentication type.
+    </p>
+
+    <p class="optionalText">
+    6. (Optionally) The proxy resends the authentication in the proper format.
+    </p>
+
+    <p>
+    7. The authentication server generates a token and returns it to the client.  In order to make our sample easier the token is always your username followed by "-" then a random alpha numeric number.
+    </p>
+
+    <p>
+    8. The proxy server returns the token to the browser.  
+    </p>
+
+    <p>
+    9. The browser uses the token to request the data.
+    </p>
+
+    <p class="optionalText">
+    10. (Optionally) The REST server can now call back to the authentication server to verify the token.  If the token is SAML the REST server may be able to verify it without calling to a separate server.
+    </p>
+
+    <p class="optionalText">
+    11. (Optionally) The authentication server responds back that the token is valid.
+    </p>
+
+    <p>
+    12. The REST server sends back the secured data.
+    </p>
+
+    <p>
+    Now that the token exchange has been established the browser can request data from the REST server without using the AuthServlet or the authentication server.
+    </p>
+
+    <h2>Logout</h2>
+
+    <p>
+    The logout process goes through authentication proxy as well. You can skip the proxy if you're calling from Java or any other language that doesn't use the same origin policy.  Here's what happens when you click the logout button in the header.
+    </p>
+    <div id="logoutImage"></div>
+
+    <p>
+    1. The browser sends a request to the <code>AuthServlet</code> at http://localhost:8080/auth to perform the logout, passing on the user token.
+    </p>
+
+    <p>
+    2. The <code>AuthServlet</code> issues a DELETE request to the authentication server (implemented by SampleAuthServer) at http://localhost:8080/authserver, forwarding on user token.
+    </p>
+
+    <p class="optionalText">
+    3. (Optionally) The authentication server may call the the specified sign-off URI to invalidate any cached tokens on the REST server
+    </p>
+
+    <p class="optionalText">
+    4. (Optionally) The REST server replies with a response 200 if the token has been successfully removed from the cache or a 404 if the token isn't found.
+    </p>
+
+    <p>
+    5. The Authentication server returns a response 200 to the <code>AuthServlet</code>.
+    </p>
+
+    <p>
+    6. The <code>AuthServlet</code> forward back the logout reponse to the browser, the browser then removes any cookies associated with the token, and refreshes the page to clear out all JavaScript memory.
+    </p>
+
+</div>
+

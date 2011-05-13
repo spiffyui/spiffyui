@@ -1,0 +1,222 @@
+<h1 class="pageTitle">Localization</h1>
+<div id="datePanelText" class="documentationPanel">
+    <p>
+    Let's start with a quick overview.  Every time a browser makes a request to a server it specifies an HTTP header called <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a>.  This header specifies a list of <a href="http://en.wikipedia.org/wiki/Locale">locales</a> which the browser would like in preferred order.
+    </p>
+    
+    <p>
+    GWT supports localization by generating a separate HTML file for each language your application supports.  When a browser requests your application GWT looks at the request and figures out which file matches the JavaScript preferred locale.  If it can't find one it delivers the default; usually English.  But there's a problem.
+    </p>
+    
+    <p>
+    GWT code is compiled into JavaScript and it runs in the browser.  This is why we can create Spiffy UI applications that access server code written in PHP, .NET, and Erlang.  However, it also means GWT code can't access the Accept-Language header.  Instead they must rely on JavaScript to get the preferred locale by using a mechanisms like <code>navigator.language</code>, <code>navigator.systemLanguage</code>, and <code>navigator.userLanguage</code>.
+    </p>
+    
+    <p>
+    JavaScript only provides one language rather than the preferred list.  To make matters worse, many of the popular browsers supply different languages to code running on the client than to code on the server if you've specified additional preferred locales.  It's too easy for your client code to think it is running in a different locale from your server.  The result is an application that's half in French and half in Japanese.
+    </p>
+    
+    <p>
+    The solution is a special GWT property specifying the locale:
+    </p>
+    
+    <pre>    &lt;meta name=<span class="string">"gwt:property"</span> content=<span class="string">"locale=fr"</span>&gt;</pre>
+    
+    <p>
+    Spiffy UI offers a servlet filter that will compare the locales the browser requests with the locales your application supports and find the best match.  It will then output the locale GWT property and make sure the server and client in your application agree on the same locale.
+    </p>
+    
+    <h2>Using the Spiffy UI locale filter</h2>
+    
+    <p>
+    The easiest way to use the locale filter is to create a new servlet filter that extends <code>GWTLocaleBundleFilter</code>.  This filter will look in your application and determine the supported locales based on the properties files you have.  For example, if you have files named <code>Strings_fr.properties</code>, <code>Strings_de.properties</code>, and <code>Strings_en.properties</code> then your application supports French, German, and English.
+    </p>
+    
+    <p>
+    Implement the class like this:
+    </p>
+    
+    <pre>    <span class="keyword">public</span> <span class="keyword">class</span> SampleLocaleFilter <span class="keyword">extends</span> GWTLocaleBundleFilter
+    {
+        <span class="keyword">protected</span> String getResourcePath()
+        {
+            <span class="keyword">return</span> <span class="string">"/WEB-INF/classes/org/spiffyui/spsample/client"</span>;
+        }
+    }</pre>
+    
+    <p>
+    The resource path is the location in your WAR of your properties files.  Then map it in your web.xml file like this:
+    </p>
+    
+    <pre>&lt;filter&gt;
+    &lt;description&gt;My best-match locale filter&lt;/description&gt;
+    &lt;filter-name&gt;SampleLocaleFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.spiffyui.spsample.server.SampleLocaleFilter&lt;/filter-class&gt;
+&lt;/filter&gt;
+
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;SampleLocaleFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/index.html&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;</pre>
+    
+    <p>
+    You can map this filter to any file in your application.  There are many other options.  Take a look at the <a href="/javadoc/index.html">JavaDoc</a>.
+    </p>
+    
+    <h2>Date, time and number formatting localization in Spiffy UI</h2>
+    
+    <p>
+    Localizing your strings is just the first step.  The Spiffy UI Framework includes internationalized date and time utilities based on <a href="http://www.datejs.com/">Datejs</a>.  In addition, it includes date and time widgets which wrap the <a href="http://jqueryui.com/demos/datepicker/">JQuery UI Datepicker</a> and a <a href="http://code.google.com/p/jquery-timepicker/">JQuery Time Picker</a>.  
+    </p>
+
+    <p>
+    A number formatting utility is also included so that numbers can be displayed with the appropriate group and decimal separators.  So for example, 1000000.0 in English would appear as 100,000.0, but in German it would appear as 100.000,0.  See the <a href="/index-test.html">Number Format unit tests</a> for the many possibilities.
+    </p>
+    
+    <p>
+    These utilities are optional and require an additional servlet to support localized formats.  To use them you need to include the <code>JSLocaleServlet</code> in your project.  You can extend the <code>JSLocaleServlet</code> to provide custom localizations.
+    </p>
+
+    <h2>Adding the JSLocaleServlet</h2>
+
+    <p>
+    The <code>JSLocaleServlet</code> will redirect the browser to the best matching localized JS file for date.js or jquery.ui.datepicker.js.  Spiffy UI includes a basic algorithm for determining the best matching locale by looping through the requested browser locales and attempting to match them against one of the supported locales.  It first attempts to match exactly, then by language and country, then by language.  If it doesn't find a match it will return the the English version of the javascript file requested.  
+    </p>
+    
+    <p>
+    By default the date utilities are localized in the following 61 locales:
+    </p>
+    
+    <p id="localesTable">
+        Afrikaans<br />
+        Albanian (Gjuha shqipe)<br />
+        Algerian Arabic<br />
+        Arabic (‫(لعربي<br />
+        Armenian (Հայերեն)<br />
+        Azerbaijani (Azərbaycan dili)<br />
+        Basque (Euskara)<br />
+        Bosnian (Bosanski)<br />
+        Bulgarian (български език)<br />
+        Catalan (Català)<br />
+        Chinese Hong Kong (繁體中文)<br />
+        Chinese Simplified (简体中文)<br />
+        Chinese Traditional (繁體中文)<br />
+        Croatian (Hrvatski jezik)<br />
+        Czech (čeština)<br />
+        Danish (Dansk)<br />
+        Dutch (Nederlands)<br />
+        English/Australia<br />
+        English/New Zealand<br />
+        English/UK<br />
+        Esperanto<br />
+        Estonian (eesti keel)<br />
+        Faroese (føroyskt)<br />
+        Farsi/Persian (‫(فارسی<br />
+        Finnish (suomi)<br />
+        French (Français)<br />
+        French/Swiss (Français de Suisse)<br />
+        Galician<br />
+        German (Deutsch)<br />
+        Greek (Ελληνικά)<br />
+        Hebrew (‫(עברית<br />
+        Hungarian (Magyar)<br />
+        Icelandic (Õslenska)<br />
+        Indonesian (Bahasa Indonesia)<br />
+        Italian (Italiano)<br />
+        Japanese (日本語)<br />
+        Korean (한국어)<br />
+        Kazakhstan (Kazakh)<br />
+        Latvian (Latvieöu Valoda)<br />
+        Lithuanian (lietuviu kalba)<br />
+        Malayalam<br />
+        Malaysian (Bahasa Malaysia)<br />
+        Norwegian (Norsk)<br />
+        Polish (Polski)<br />
+        Portuguese (Português)<br />
+        Portuguese/Brazilian (Português)<br />
+        Rhaeto-Romanic (Romansh)<br />
+        Romanian (Română)<br />
+        Russian (Русский)<br />
+        Serbian (српски језик)<br />
+        Serbian (srpski jezik)<br />
+        Slovak (Slovencina)<br />
+        Slovenian (Slovenski Jezik)<br />
+        Spanish (Español)<br />
+        Swedish (Svenska)<br />
+        Tamil (தமிழ்)<br />
+        Thai (ภาษาไทย)<br />
+        Tajikistan<br />
+        Turkish (Türkçe)<br />
+        Ukranian (Українська)<br />
+        Vietnamese (Tiếng Việt)
+    </p>
+
+    <p>
+    These different languages are served by the <code>JSLocaleServlet</code>.  To include this in your project, add the following entries to your web.xml:
+    </p>
+
+    <pre>
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;JSLocaleServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.spiffyui.server.JSLocaleServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+        
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;JSLocaleServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/js/lib/i18n/date&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;JSLocaleServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/js/lib/i18n/jquery.ui.datepicker.js&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+    </pre>
+
+    <h2>Referencing the JSLocaleServlet</h2>
+
+    <p>
+    The <code>JSLocaleServlet</code> returns JavaScript files supporting the date formats.  This servlet must be referenced in the <code>head</code> section of your HTML file like this:
+    </p>
+
+    <pre>
+    &lt;script type="text/javascript" src="js/lib/i18n/date"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/lib/i18n/jquery.ui.datepicker.js"&gt;&lt;/script&gt;
+    </pre>
+
+    <h2>Extending JSLocaleServlet</h2>
+    <p>
+    If your application requires a customized best matching locale routine, you may extend <code>JSLocaleServlet</code>, override getBestMatchLocale, then include your class in web.xml instead.  For example:
+    </p>
+
+    <pre>
+    <span class="keyword">public</span> <span class="keyword">class</span> MyLocaleServlet <span class="keyword">extends</span> JSLocaleServlet
+    {
+    
+        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = 1L;
+        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> MyLocaleChooserFactory LOCALE_FACTORY = 
+            <span class="keyword">new</span> MyLocaleChooserFactory();
+        
+        @Override
+        <span class="keyword">protected</span> Locale getBestMatchLocale(HttpServletRequest request, 
+                                            HttpServletResponse response, 
+                                            ServletContext context) <span class="keyword">throws</span> ServletException 
+        {
+            <span class="keyword">return</span> LOCALE_FACTORY.getBestLocaleChooser(context).
+                getBestLocale(request, response, context);
+        }
+    }    
+    </pre>
+    
+    <p>
+    Your then need to add your class to the web.xml file instead of the Spiffy UI framework version.
+    </p>
+    
+    <pre>
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;JSLocaleServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;com.myco.MyLocaleServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+    </pre>
+
+
+</div>

@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Spiffy UI Framework Sample Project" xmlns:ivy="antlib:org.apache.ivy.ant" default="all" basedir=".">
+    <target name="all" depends="setup,resolve" description="Build, compile, and package the entire application">
+        <!-- Call the Spiffy UI build -->
+        <subant antfile="build.xml"
+                buildpath="${build.base}/external/spiffyui/build/">
+        </subant>
+
+        <taskdef resource="tasks.properties">
+            <classpath>
+                <fileset dir="${spiffyui}/build/lib" includes="*.jar"/>
+                <fileset dir="${spiffyui}/dist" includes="*.jar"/>
+            </classpath>
+        </taskdef>
+        
+        <antcall target="addVersionInfo"/>
+        
+        <antcall target="HTMLProps"/>
+        
+        <antcall target="gwt-compile">
+            <param name="gwttarget" value="org.spiffyui.spsample.index"/>
+        </antcall>
+        
+        <antcall target="compile"/>
+        
+        <antcall target="js-min" />
+        
+        <antcall target="css-min" />
+        
+        <antcall target="javadoc"/>
+        
+        <antcall target="package" />
+    </target>
+    
+    <target name="clearcache" description="Clear the Apache Ivy cache" depends="setup,ivySettings" unless="build.from.maven">
+        <ivy:cleancache />
+    </target>
+    
+    <target name="ivySettings" unless="build.from.maven">
+        <ivy:settings file="${build}/ivysettings.xml" />
+    </target>
+    
+    <target name="resolve" description="Retrieve dependencies with Apache Ivy" depends="ivySettings" unless="build.from.maven">
+        <ivy:retrieve log="download-only" />
+    </target>
+    
+    <target name="setup" description="Setup build dependencies and properties and get Subversion information" unless="hasSetup">
+        <property name="hasSetup" value="true" />
+        
+        <property environment="env"/>
+
+        <!-- These are all the project relative paths.  Please add new paths
+             here so they are easier to find when they change. -->
+        <condition property="build.base" value="${env.SPSAMPLE_BASE}" else="${basedir}">
+          <isset property="${env.env.SPSAMPLE_BASE}"/>
+        </condition>
+        <property name="root" location="${build.base}"/>
+        <property name="spiffyui" location="${root}/external/spiffyui"/>
+        <property name="build" location="${build.base}/build"/>
+        <property name="ivy.lib.dir" value="${build}/lib"/>
+        <property name="sample.src" location="${root}/src/main/java"/>
+        <property name="sample.res.src" location="${root}/src/main/resources"/>
+        <property name="sample.web.src" location="${root}/src/main/webapp"/>
+        <property name="sample.out" location="${root}/target"/>
+        <property name="sample.out.www" location="${sample.out}/www"/>
+        <property name="sample.out.classes" location="${sample.out}/classes"/>
+        
+        <!-- Not using svn for the moment -->
+        <exec executable="svn" failifexecutionfails="false" output="build_svninfo.xml">
+            <arg line="info --xml ${root}"/>
+        </exec>
+
+        <!-- We also store the current revision from Subversion -->
+        <xmlproperty file="build_svninfo.xml"/>
+        <delete file="build_svninfo.xml"/>
+        <property name="revision.number" value="${info.entry(revision)}"/>
+        
+        <mkdir dir="${sample.out}"/>
+        <mkdir dir="${sample.out.classes}"/>
+        <mkdir dir="${sample.out.www}"/>
+    </target>
+    
+    <target name="checkstyle.compile.check">
+        <condition property="is.compiled" else="is.not.compiled">
+            <available file="${sample.out.classes}"/>
+        </condition>
+    </target>
+    
+    <target name="checkstyle.nocompileError" if="is.not.compiled">
+        <fail message="You must compile before you run Checkstyle" />
+        
+    </target>
+
+    <target name="checkstyle" depends="setup,resolve,checkstyle.compile.check,checkstyle.nocompileError">
+        <taskdef resource="checkstyletask.properties">
+            <classpath>
+                <fileset dir="${build}/lib" includes="checkstyle*.jar"/>
+                <fileset dir="${build}/lib" includes="google*.jar"/>
+                <fileset dir="${build}/lib" includes="commons*.jar"/>
+                <fileset dir="${build}/lib" includes="antlr*.jar"/>
+            </classpath>
+        </taskdef>
+
+        <checkstyle config="${build.base}/build/checkstyle_checks.xml" failOnViolation="true">
+          
+            <formatter type="plain"/>
+            <formatter type="xml" toFile="checkstyle_errors.xml"/>
+
+            <fileset dir="src" excludes="${checkstyle.ignore.files},**/*Rsrc*,**/*Strings.java" includes="**/*.java" />
+            <!-- Specify a base dir to make the output a bit more readable -->
+            <property key="checkstyle.basedir" value="${root}" />
+            
+            <classpath>
+                <pathelement location="${sample.out.classes}"/>
+                <fileset dir="${build}/lib" includes="*.jar"/>
+            </classpath>
+        </checkstyle>
+
+    </target>
+    
+    <target name="js-min" description="Minimize the JavaScript with the Closure compiler" depends="setup">
+        <!-- By default the Spiffy UI framework includes all of JQuery UI.
+             This includes a lot of JavaScript that we don't need for this
+             sample application.  By specifying the specific files we need
+             we save about 30k from out page download size. -->
+        <closure jsfile="${sample.out.www}/spsample.min.js" 
+                 closurejar="${spiffyui}/build/lib/closure-compiler-r916.jar"
+                 compilationLevel="SIMPLE_OPTIMIZATIONS"
+                 warninglevel="DEFAULT">
+            <fileset dir="${sample.out.www}" includes="js/**/*.js" 
+                     excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**, **/lib/jqueryui/*" />         
+            <fileset dir="${sample.out.www}" includes="**/jquery.ui.core.js" />
+            <fileset dir="${sample.out.www}" includes="**/jquery.ui.widget.js" />
+            <fileset dir="${sample.out.www}" includes="**/jquery.effects.core.js" />
+            <fileset dir="${sample.out.www}" includes="**/jquery.ui.mouse.js" />
+            <fileset dir="${sample.out.www}" includes="**/jquery.ui.autocomplete.js" />
+            <fileset dir="${sample.out.www}" includes="**/jquery.ui.datepicker.js" />
+            <fileset dir="${sample.out.www}" includes="**/jquery.ui.progressbar.js" />
+            <fileset dir="${sample.out.www}" includes="**/jquery.ui.slider.js" />
+            
+            
+            <fileset dir="${root}/src/main/js" includes="**/*.js" excludes="**/qunit*" />
+        </closure>
+
+        <!-- Then we GZIP it for web servers that support GZIP -->
+        <gzip src="${sample.out.www}/spsample.min.js" destfile="${sample.out.www}/spsample.min.js.gz"/>
+    </target>
+    
+    <target name="css-min" description="Minimize the CSS with the YUI compiler" depends="setup">
+        <concat destfile="${sample.out.www}/spsample.tmp.css" force="yes">
+            <!-- Since Cascading Style Sheets cascade the order is important here.  We need to make sure
+                  That we load in the right order so different styles can be overwriten. -->
+            <fileset dir="${sample.out.www}" includes="spiffyui.min.css" />
+            <fileset dir="${sample.out.www}" includes="spsample.css" />
+        </concat>
+
+        <java classname="com.yahoo.platform.yui.compressor.Bootstrap"
+            fork="true" failonerror="true" maxmemory="256m">
+            <arg value="-o"/>
+            <arg value="${sample.out.www}/spsample.min.css"/>
+            <arg value="${sample.out.www}/spsample.tmp.css"/>
+            <classpath>
+                <fileset dir="${spiffyui}/build/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <pathelement path="${java.class.path}"/>
+                <!-- Adding this so that maven builds will include the necessary ant dependencies -->
+                <pathelement path="${compile_classpath}"/>
+            </classpath>
+        </java>
+
+        <!-- Now that we have created the compressed file we don't
+             need the concatenated file -->
+        <delete file="${sample.out.www}/spsample.tmp.css" />
+
+        <!-- Then we can GZIP the file -->
+        <gzip src="${sample.out.www}/spsample.min.css" destfile="${sample.out.www}/spsample.min.css.gz"/>
+        
+        <java classname="com.yahoo.platform.yui.compressor.Bootstrap"
+            fork="true" failonerror="true" maxmemory="256m">
+            <arg value="-o"/>
+            <arg value="${sample.out.www}/spsample_mobile.min.css"/>
+            <arg value="${sample.out.www}/spsample_mobile.css"/>
+            <classpath>
+                <fileset dir="${spiffyui}/build/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <pathelement path="${java.class.path}"/>
+                <!-- Adding this so that maven builds will include the necessary ant dependencies -->
+                <pathelement path="${compile_classpath}"/>
+            </classpath>
+        </java>
+        
+        <gzip src="${sample.out.www}/spsample_mobile.min.css" destfile="${sample.out.www}/spsample_mobile.min.css.gz"/>
+    </target>
+    
+    <target name="HTMLProps" depends="setup" description="Combine the HTML files in this project into a GWT message bundle">
+        <mkdir dir="${sample.out.classes}/org/spiffyui/spsample/client"/>
+        
+        <htmlprops properties="${sample.out.classes}/org/spiffyui/spsample/client/SPSampleStrings.properties">
+            <fileset dir="${sample.res.src}/org/spiffyui/spsample/client" includes="**/*.html" />
+        </htmlprops>
+        
+    </target>
+    
+    <!-- This target calls the GWT compiler inline and
+         moves the files around so we get the compiled
+         GWT without the directory with the package name -->
+    <target name="gwt-compile" description="Call the GWT compiler for this project">
+        <java classname="com.google.gwt.dev.Compiler"
+            fork="true" failonerror="true" maxmemory="256m">
+            <arg value="-style"/>
+            <arg value="OBF"/>
+            <arg value="-localWorkers"/>
+            <arg value="8"/>
+            <arg value="-war"/>
+            <arg value="${sample.out.www}"/>
+            <arg value="${gwttarget}"/>
+            <classpath>
+                <pathelement location="${sample.out.classes}"/>
+                <pathelement location="${sample.res.src}"/>
+                <pathelement location="${sample.src}"/>
+                <fileset dir="${build}/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset dir="${spiffyui}/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset dir="${spiffyui}/dist">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </java>
+        
+        <!-- GWT compiles files into a directory with the same
+             name as the package.  We want to strip that off. 
+             If we add more GWT modules to the project we'll 
+             need to skip this step for them. -->
+        <move todir="${sample.out.www}" failonerror="false">
+            <fileset dir="${sample.out.www}/org.spiffyui.spsample.index" includes="**/*" />
+        </move>
+        
+        <delete dir="${sample.out.www}/org.spiffyui.spsample.index" />
+
+        <gziplist dest="${sample.out.www}">
+            <fileset dir="${sample.out.www}" includes="*.html" excludes="inde*.html" />
+            <fileset dir="${sample.out.www}" includes="*.js" />
+        </gziplist>
+        
+        <gziplist dest="${sample.out.www}/images">
+            <fileset dir="${sample.out.www}/images" includes="*" />
+        </gziplist>
+        
+    </target>
+    
+    <target name="addVersionInfo" description="Generate the buildnum.properties file with build information">
+        <epochtstamp property="builddate" />
+        <mkdir dir="${sample.out.classes}/org/spiffyui/spsample/server"/>
+
+        <echo file="${sample.out.classes}/org/spiffyui/spsample/server/buildnum.properties">
+build.date=${builddate}
+build.user=${user.name}
+build.version=0.7.5
+build.revision=${revision.number} 
+build.dir=${root}
+        </echo>
+    </target>
+    
+    <target name="compile" description="Call the Java compiler for this project">
+        <!-- Compile all the Java -->
+        <javac srcdir="${sample.src}/org/spiffyui/spsample/server" destdir="${sample.out.classes}" 
+               target="1.5" source="1.5" debug="true" deprecation="yes"
+               includeantruntime="false">
+            <compilerarg value="-Xlint" />
+            <classpath>
+                <fileset dir="${root}/build/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset dir="${spiffyui}/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset dir="${spiffyui}/dist">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </javac>
+        
+        <antcall target="checkstyle" />
+    </target>
+    
+    <target name="package" depends="setup" description="Package the contents of this project into spsample.war">
+        <!-- Create the distribution directory -->
+        <delete file="${sample.out}/spsample.war" />
+        
+        <!-- GWT 2.2 outputs a directory called WEF-INF/deploy with
+             a lot of symbol maps files in it.  I think these files 
+             are for JavaScript debugging, but I can't find any reference
+             to them in the documentation.  They make our WAR almost
+             twice as large so we remove them before building the WAR. -->
+        <delete dir="${sample.out.www}/WEB-INF"/>
+
+        <war destfile="${sample.out}/spsample.war" webxml="${sample.web.src}/WEB-INF/web.xml">
+            <fileset dir="${sample.out.www}"/>
+            <zipfileset dir="${sample.out.classes}" prefix="WEB-INF/classes" >
+                <include name="**/*"/>
+            </zipfileset>
+            
+            <!--This is the QUnit test framework classes -->
+            <zipfileset dir="${root}/src/main/js/lib" prefix="js/lib" >
+                <include name="**/*"/>
+            </zipfileset>
+            
+            <!-- We need to add the JARs to support the spiffy framework to
+                 our WAR file -->
+            <zipfileset dir="${spiffyui}/lib" prefix="WEB-INF/lib" >
+                <include name="**/*.jar"/>
+            </zipfileset>     
+            <zipfileset dir="${spiffyui}/dist" prefix="WEB-INF/lib" >
+                <include name="**/*.jar"/>
+            </zipfileset>     
+        </war>
+    </target>
+    
+    <target name="package-appengine" depends="setup" description="Expand the war and add the configuration files for deploying to Google App Engine">
+        <!-- Create the app engine directory -->
+        <mkdir dir="${sample.out}/appengine"/>
+        <unzip src="${sample.out}/spsample.war" dest="${sample.out}/appengine"/>
+        
+        <copy file="${sample.web.src}/WEB-INF/appengine-web.xml" 
+              tofile="${sample.out}/appengine/WEB-INF/appengine-web.xml" overwrite="true"/>
+        
+        <copy file="${sample.web.src}/WEB-INF/web-ae.xml" 
+              tofile="${sample.out}/appengine/WEB-INF/web.xml" overwrite="true"/>
+        
+        <echo>
+======================================================================== 
+        
+    You are now ready to deploy the Spiffy UI application to Google App Engine.  
+    You must first install the App Engine SDK and have permission to deploy this 
+    application.  Then you can deploy with the following command:
+        
+    Windows:
+        appengine-java-sdk\bin\appcfg.cmd update target/appengine
+            
+    Linux and Mac:
+        appengine-java-sdk/bin/appcfg.sh update target/appengine
+            
+    Once the application is deployed you can access it at:
+        
+        http://spiffyui.appspot.com
+            
+    The application can be administered here:
+        
+        https://appengine.google.com
+        
+======================================================================== 
+        </echo>
+    </target>
+    
+    <target name="javadoc" description="Generate JavaDoc for this project">
+        <mkdir dir="${sample.out.www}/javadoc"/>
+        
+        <javadoc destdir="${sample.out.www}/javadoc"
+                 author="false"
+                 version="true"
+                 use="true"
+                 windowtitle="Spiffy UI Framework API">
+            <packageset dir="${spiffyui}/src/main/java" defaultexcludes="yes">
+                <include name="org/spiffyui/**"/>
+            </packageset>
+        </javadoc>
+    </target>
+    
+    <target name="run" depends="setup,resolve,jetty.setup" 
+            description="Run the Spiffy sample project with an embedded Jetty server.">
+        <!--
+        Setup for Jetty
+        -->
+        <path id="jetty.plugin.classpath">
+            <fileset dir="${build}/lib" includes="*.jar"/>
+        </path>
+        <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+        
+        <echo>
+========================================================================
+
+        Running the Spiffy UI Sample application with an embedded
+        Jetty server. Press Ctrl+C to stop the server. 
+
+        Access Spiffy at: http://localhost:8080
+
+========================================================================
+        </echo>
+        
+        <jetty tempDirectory="${root}/jetty-temp">
+            <webApp name="spsample" warfile="${sample.out}/spsample.war" contextpath="/" />
+        </jetty>
+    </target>
+
+    <target name="jetty.setup">
+        <fail message="The spsample.war file is missing.  You must build the WAR with the all target before you can run.">
+            <condition>
+                <not>
+                    <available file="${sample.out}/spsample.war"/>
+                </not>
+            </condition>
+        </fail>
+    </target>
+
+    <target name="clean" depends="setup" description="Remove the artifacts generated by this build">
+        <!-- Call the Spiffy UI build -->
+        <ant antfile="${spiffyui}/build/build.xml" 
+             dir="${spiffyui}"
+             target="spiffy.clean">
+        </ant>
+        
+        <delete dir="${sample.out}"/>
+        <delete dir="${root}/jetty-temp"/>
+        <delete dir="${root}/war"/>
+        <delete dir="${ivy.lib.dir}"/>
+    </target>
+</project>

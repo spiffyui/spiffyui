@@ -1,0 +1,808 @@
+body, .gwt-TextBox, .gwt-ListBox, .gwt-PasswordTextBox, .gwt-TextArea, .gwt-SuggestBox, body, table td, select {
+    font-family: Helvetica,Arial,Verdana,Sans-serif;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.ui-progressbar {
+    height: 12px;
+    width: 85%;
+}
+
+#WidgetsPanel {
+    padding-right: 10px;
+}
+
+.slidegrid {
+    margin-left: -15px;
+}
+
+h4 {
+    font-weight: bold;
+    margin-bottom: 4px;
+    margin-top: 10px;
+}
+
+h3 {
+    color: #C84317;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+h1 {
+    color: #1795C6;
+    font-size: 24px;
+    line-height: 36px;
+    margin-bottom: 20px;
+    margin-top: -6px;
+    width: 480px;
+}
+
+h2 {
+    color: #c84317;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 30px;
+    margin-bottom: 6px;     /* 36 / 18 = 2 */
+}
+
+.documentationPanel {
+    width: 480px;
+}
+
+.sectionTitle, .subSectionTitle, .spiffy-longmessage-panel {
+    width: 525px;
+}
+
+.sectionTitle {
+    margin-bottom: 32px;
+}
+
+.dialogformrow {
+    height: 36px;
+}
+
+.dialogformlabel {
+    font-size: 14px;
+}
+
+/*
+   Most of the time we have a font size of 12 pixels.  This smaller
+   font works well for form labels, but that doesn't work well for
+   pages with larger blocks of text.  For the documentation panels
+   in the SPSample application 12 pixels is too small.  For those 
+   panels we use 14 pixel fonts with an 18 pixel line height.
+ */
+.documentationPanel p, .documentationPanel ul {
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 18px;
+}
+
+.documentationPanel pre {
+    font-size: 12px;
+    line-height: 18px;
+    font-family: Consolas,"Andale Mono",Monaco,Courier,"Courier New",Verdana,sans-serif;
+    margin-bottom: 18px;
+}
+
+.documentationPanel code {
+    font-size: 14px;
+    line-height: 17px;
+    font-family: Consolas,"Andale Mono",Monaco,Courier,"Courier New",Verdana,sans-serif;
+}
+
+.documentationPanel a, .documentationPanel a:visited, .slidegrid a, .slidegrid a:visited {
+    color: #289bc8;
+}
+
+.documentationPanel ul {
+    list-style: square inside none;
+    margin-bottom: 18px;
+}
+
+.documentationPanel li {
+    list-style: disc inside none;
+}
+    
+
+#mainHeaderContainer .headertitle {
+    left: 20px;
+    color: #636363;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+#headerstring, #header_logout {
+    color: #636363 !important; /*otherwise, it gets overwritten by #mainHeader a */
+}
+
+#mainsubtitle {
+    display: block;
+    font-size: 24px;
+    left: 110px;
+    padding-left: 2em;
+    position: absolute;
+    text-transform: uppercase;
+    top: 5px;
+    white-space: nowrap;
+    line-height: 14px;
+}
+
+#mainHeader {
+    background: #dddddd;
+    height: 61px;
+    margin-left: -10px;
+}
+
+.headertitle {
+    font-size: 24px;
+}
+
+#headerleft {
+    top: 8px;
+}
+
+#headerright {
+    top: 15px;
+}
+
+iframe {
+    border: thin solid gray;
+}
+
+#widgetsMessages button {
+    margin: 10px;
+}
+
+#mainFooter {
+    margin: -36px auto;
+    padding-left: 10px;
+    width: 900px;
+}
+
+#mainNavContainer a, #mainNavContainer a:visited {
+    color: #636363;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#mainNavigation {
+    margin: 19px 5px 15px -185px;
+}
+
+
+#mainBody {
+    margin-top: -2px;
+    height: 82%;
+    width: auto;
+}
+
+#main {
+    background: none repeat scroll 0 0 white;
+    margin: 0 auto;
+    padding-bottom: 4em;
+    padding-left: 10px;
+    width: 900px;
+}
+
+#mainWrap {
+    background: #dddddd;
+}
+
+.navItemSelected {
+    background-color: #EFD137;
+}
+
+.main-menuSect .main-menuItem a {
+    text-indent: 28px;
+}
+
+/*
+   These styles are used for the tab navigation option
+ */
+.tabnav .main-menuSect {
+    display: inline;
+}
+
+.tabnav .main-menuSectItems {
+    display: inline;
+}
+
+.tabnav .main-menuSect .main-menuItem {
+    display: inline;
+    width: auto;
+}
+
+.tabnav .main-menuItem {
+    display: inline;
+    width: auto;
+}
+
+.tabnav #mainNavigation {
+    width: auto;
+    float: none;
+    margin: -55px 5px 15px 75px;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+.tabnav #mainContent {
+    float: none;
+}
+
+.tabnav #mainNavContainer {
+    border-bottom: thin solid black;
+}
+
+.tabnav #mainNavContainer a {
+    display: inline;
+    padding: 1em;
+    width: auto;
+    padding-bottom: 6px;
+}
+
+.tabnav #mainNavContainer .main-menuSect a.main-menuSectItem {
+    display: none;
+}
+
+.tabnav .main-menuSeparator {
+    display: none;
+}
+
+.tabnav #mainBody {
+    margin-left: 35px;
+}
+
+.tabnav #mainsubtitle {
+    display: none
+}
+
+.tabnav .navItemSelected a {
+    background-color: #EDEEEC;
+    margin-top: -25px;
+}
+
+.tabnav #mainHeaderContainer .headertitle {
+    color: black;
+    font-size: 24px;
+    top: -50px;
+}
+
+.tabnav #mainHeader {
+    background: transparent;
+}
+
+/*
+   We use this grid style to show the grid on the CSS page.
+ */
+#main.grid {
+    background: url("images/grid.gif") repeat-y scroll 9px -8px white;
+}
+
+#mainFooter.tabnav  {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: auto;
+}
+
+.tabnav #mainBody {
+    height: auto;
+}
+
+.tabnav #main {
+    margin-left: 0px;
+    margin-right: 0px;
+    background: white;
+    padding-bottom: 10em;
+}
+
+#mainWrap.tabnav {
+    background: white;
+}
+
+
+.msg-feedback {
+    left: 335px;
+}
+
+#localesTable {
+    -moz-border-radius: 4px;
+    -moz-column-gap: 20px;
+    -moz-column-width: 140px;
+    -webkit-border-radius: 4px;
+    -webkit-column-gap: 20px; 
+    -webkit-column-width: 140px;
+    column-gap: 20px; 
+    column-width: 140px; 
+    border-radius: 4px;
+    font-size: 12px;
+    background-color: #F9F9F9;
+    border: thin solid lightgray;
+    padding: 17px;
+}
+
+.highlightSection {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background-color: #F9F9F9;
+    border: thin solid lightgray;
+    padding: 18px;
+    margin-bottom: 15px;
+}
+
+#testAuthResult {
+    font-weight:bold;
+}
+
+.optionalText, .comment {
+    color: rgb(0,128,0);
+}
+
+.keyword {
+    color: blue;
+}
+
+.string {
+    color: #e3003a;
+}
+
+.prefspulltab a {
+    background-color: #dddddd;
+}
+
+.prefspulltab div {
+    margin-top: 3px;
+}
+
+.prefspaneltab {
+    position: relative;
+    top: 2px;
+}
+
+.cell {
+    background: transparent;
+}
+
+#WidgetsSlidingGrid p {
+    color: black;
+    padding-bottom: 14px;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+#WidgetsMessages button {
+    display: block;
+    margin-top: 0.5em;
+}
+
+.main-menuSeparator {
+    background: url("images/spiffy_sample_images.png") no-repeat scroll -575px -85px transparent;
+    height:15px;
+}
+
+#cssSampleImage {
+    background: url("images/spiffy_sample_images.png") no-repeat scroll 0 0 transparent;
+    width: 515px; 
+    height: 240px;
+    margin-bottom: 12px;
+    margin-top: 18px;
+}
+
+#componentsImg {
+    background: url("images/spiffy_sample_images.png") no-repeat scroll -120px -1050px transparent;
+    width: 450px;
+    height: 208px;
+    margin-bottom: 8px;
+}
+    
+
+#loginImage, #logoutImage {
+    margin-top: 5px;
+    width: 492px; 
+    height: 332px;
+}
+
+#login_titlespan {
+    padding-right: 0px;
+}
+
+#login_username_row label, #login_password_row label {
+    font-size: 14px;
+    color: #777777;
+}
+
+#login_password_row label {
+    margin-top: 1.5em;
+}
+
+#loginImage {
+    background: url("images/spiffy_sample_images.png") no-repeat scroll 0 -2148px transparent;
+    margin-bottom: 10px;
+}
+
+#logoutImage {
+    background: url("images/spiffy_sample_images.png") no-repeat scroll 0 -2630px transparent;
+    margin-bottom: 28px;
+}
+
+#loginHeaderContainer {
+    background: #dddddd;
+}
+
+#firebugImage {
+    background: url("images/spiffy_sample_images.png") no-repeat scroll 0 -390px transparent;
+    width: 515px; 
+    height: 346px;
+    margin-bottom: 14px;
+}
+
+.headertitle {
+    left: 10px;
+    color: #636363;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.yellowHighlightSection {
+    border: 1px solid #E6DB55;
+    background-color: #FFFFE0;
+}
+
+#loginSection {
+    margin-bottom: 25px;
+}
+
+#fixedGridTab {
+    background: none repeat scroll 0 0 transparent;
+    left: -1px;
+    position: fixed;
+    _position: absolute;
+    top: 25%;
+    width: 28px;
+    background: #CCCCCC;
+    padding-top: 14px;
+    padding-bottom: 12px;
+    border: 1px solid white;
+    display: none;
+}
+
+#fixedGridTab:hover {
+    border-left: none;
+    padding-left: 5px;
+}
+
+#fixedGridTab button {
+    background: url("images/spiffy_sample_images.png") no-repeat scroll 3px -1054px transparent;
+    border: none;
+    height: 192px;
+    margin-left: 3px;
+    width: 28px;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/*
+   Adjust the width of the error log so it fits within our main page area.
+ */
+#humanMsgLog ul {
+    left: 28px;
+    right: 28px;
+    width: auto;
+}
+
+#humanMsgLog p.minimized {
+    right: 28px;
+}
+
+#authTestBtn {
+    font-size: 14px;
+    font-weight:bold;
+}
+
+/*
+   Remove the gray backgrounds and the borders from the menu section titles
+ */
+.main-menuSectItem {
+    background: url("images/arrows.png") no-repeat scroll 0 -128px #F9F9F9;
+    border-bottom: none;
+}
+
+.main-menuSectItemExpanded {
+    background: url("images/arrows.png") no-repeat scroll 0 8px #F9F9F9;
+    border-bottom: none;
+}
+
+#userMale {
+    margin-left: 1.5em;
+}
+
+#introVideo {
+    margin-bottom: 23px;
+}
+
+#frameworkVideo {
+    margin-bottom: 21px;
+}
+
+#javaDocImage {
+    background: url("images/spiffy_sample_images.png") no-repeat scroll 0 -1396px transparent;
+    width: 592px; 
+    height: 622px;
+    display: block;
+}
+
+#restImage {
+    background: url("images/spiffy_sample_images.png") no-repeat scroll 0 -3112px transparent;
+    width: 478px; 
+    height: 241px;
+    margin-bottom: 29px;
+}
+
+#authTestLongMessage {
+    margin-top: 36px;
+}
+
+#authTestButtons button {
+    background: #EDEEEC;
+    text-indent: 0px;
+}
+
+#authTestLongMessageWidget {
+    background: #F9F9F9;
+    border: thin solid lightgray;
+    margin-left: 0px;
+    padding: 17px;
+    width: 470px;
+    height: 125px;
+    overflow: auto;
+    line-height: 18px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+
+#authTextLongMessageTitle {
+    margin-bottom: -35px;
+    margin-left: 0px;
+    margin-top: 36px;
+}
+
+.testSuccess {
+    font-weight: bold;
+    color: green;
+}
+
+.testFail {
+    font-weight: bold;
+    color: red;
+}
+
+#headerlogo {
+    /*background: url("images/spiffy_logo.png") no-repeat scroll center center transparent;*/
+    height: 54px;
+    margin-left: -17px;
+    position: relative;
+    top: -3px;
+    width: 35px;
+}
+
+#spiffyFeatures {
+    position: relative;
+    height: 396px;
+}
+
+#spiffyPeople {
+    position: relative;
+    height: 684px;
+}
+
+#featuresCol1, #peopleCol1 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 48%;
+}
+
+#featuresCol2, #peopleCol1 {
+    position: absolute;
+    top: 0px;
+    left: 52%;
+    width: 48%;
+}
+
+.peopleItem  {
+    height: 225px;
+    line-height: 18px;
+    font-size: 14px;
+}
+
+#bess {
+    background: url("images/people.png") no-repeat scroll 0px 0px transparent;
+    width: 182px;
+    height: 200px;
+}
+
+#irene {
+    background: url("images/people.png") no-repeat scroll -260px 0px transparent;
+    width: 200px;
+    height: 200px;
+}
+
+#lyndon {
+    background: url("images/people.png") no-repeat scroll 0px -250px transparent;
+    width: 200px;
+    height: 200px;
+}
+
+#zack {
+    background: url("images/people.png") no-repeat scroll -250px -260px transparent;
+    width: 200px;
+    height: 200px;
+}
+
+#jon {
+    background: url("images/people.png") no-repeat scroll 0px -500px transparent;
+    width: 200px;
+    height: 200px;
+}
+
+.featureItem {
+    height: 90px;
+    line-height: 18px;
+    font-size: 14px;
+}
+
+.featureItem span {
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#overviewPanel h1 {
+    color: black;
+    font-size: 36px;
+    height: auto;
+    line-height: 54px;
+    margin-bottom: 8px;
+    margin-top: -2px;
+}
+
+#gwtDebugTab { 
+    background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -40px transparent;
+    width: 572px; 
+    height: 450px;
+} 
+
+#mainDebugTab { 
+    background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -522px transparent;
+    width: 554px; 
+    height: 432px; 
+}
+ 
+#serverDebugTab{ 
+    background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -1023px transparent;
+    width: 557px; 
+    height: 432px;
+} 
+
+#developmentMode { 
+    background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -1486px transparent;
+    width: 445px; 
+    height: 288px;
+} 
+
+#importDialog { 
+    background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -1809px transparent;
+    width: 586px; 
+    height: 630px;
+} 
+
+#hostedModePlugin { 
+    background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -2480px transparent;
+    width: 507px; 
+    height: 324px;
+}
+ 
+#browsers {
+    background: url("images/spiffy_sample_images.png") no-repeat scroll -140px -870px transparent;
+    width: 400px; 
+    height: 75px;
+    margin-bottom: -3px;
+}
+
+.licInfo {
+    float: right;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background: #F9F9F9;
+    padding: 5px;
+    border: thin solid lightgray;
+    width: 10em;
+    margin-left: 2em;
+}
+
+.documentationPanel p.licHeader {
+    margin-bottom: 4px;
+    margin-top: 32px;
+}
+
+/*
+   Styles for the sausage menu
+ */
+.sausagenav #mainBody {
+    margin-left: 25px;
+}
+
+.sausagenav #mainNavigation {
+    display: none;
+}
+
+.sausage-set {
+    position: fixed; right: 0; top: 0;
+    width: 15px; height: 100%;
+    border-left: solid 2px #fff;
+    border-right: solid 2px #fff;
+    background-color: #fff;
+}
+
+.sausage {
+    position: absolute; left: 0;
+    width: 100%; height: 100%;
+    background-color: #f1f1f1;
+    text-decoration: none;
+    -moz-border-radius: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    -moz-box-shadow: inset 0px 1px 2px 4px rgba(0, 0, 0, 0.025);
+    -webkit-box-shadow: inset 0px 1px 2px 4px rgba(0, 0, 0, 0.025);
+    cursor: pointer;
+}
+
+.sausage-current {
+    background-color: #EFD137;
+    -moz-box-shadow: inset 0px 1px 2px 4px rgba(51, 63, 70, 0.025);
+}
+
+.sausage-hover {
+    background-color: #fdf12a;
+    -moz-box-shadow: inset 0px 1px 2px 4px rgba(51, 63, 70, 0.025);
+}
+
+.sausage-span {
+    position: absolute; 
+    right: 24px; 
+    top: 5px; 
+    z-index: 200;
+    display: none;
+    width: 100px;
+    padding: 2px 3px;
+    color: #000;
+    background-color: #fff;
+    border: solid 2px #EFD137;
+    font-size: 10px; 
+    line-height: 12px; 
+    font-weight: bold; 
+    text-align: center;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    -moz-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.sausage-hover .sausage-span, .sausage-current .sausage-span {
+    display: block;
+}
+
+#formPanel, #javaDocPanel {
+    padding-bottom: 10em;
+}

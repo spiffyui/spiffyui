@@ -1,0 +1,47 @@
+<h1>Authentication Test Harness</h1>
+
+<div id="authTestPanelText" class="documentationPanel">
+    <p>
+    The Spiffy UI framework provides the client-side portion of tokenized identity.  This sample contains a simple authentication server, but you will want to implement an authentication server which works for your application.   This page gives you a chance to test your authentication server and make sure it will handle login and logout from the Spiffy UI framework.
+    </p>
+
+    <p>
+    This test will make the REST calls to authentication and get a token from the specified server.  You can specify any server location which hosts a Spiffy UI compatible authentication server.
+    </p>
+    
+    <p>
+    The framework can only handle and show you some of the error messages from the server.  To see all errors enable the Firebug console or the Google Chrome developer tools console.<br /><br /><br />
+    </p>
+</div>
+
+<fieldset id="authTestFields">
+    <ol class="dialogformsection">
+        <li id="authURLRow" class="dialogformrow">
+            <label class="dialogformlabel" for="authURLTxt">Auth Server URL: </label>
+            <div id="authURL" class="formcontrolssection"></div>
+        </li>
+        
+        <li id="authTokenRow" class="dialogformrow">
+            <label class="dialogformlabel" for="authTokenTxt">Token type: </label>
+            <div id="authToken" class="formcontrolssection"></div>
+        </li>
+        
+        <li id="authUsernameRow" class="dialogformrow">
+            <label class="dialogformlabel" for="authUsernameTxt">Username: </label>
+            <div id="authUsername" class="formcontrolssection"></div>
+        </li>
+        
+        <li id="authPasswordRow" class="dialogformrow">
+            <label class="dialogformlabel" for="authPasswordRowTxt">Password: </label>
+            <div id="authPassword" class="formcontrolssection"></div>
+        </li>
+        
+        <li id="authTestButtonsRow" class="dialogformrow">
+            <div id="authTestButtons" class="formcontrolssection formbuttons"></div>
+        </li>
+        
+    </ol>
+    
+    <h2 id="authTextLongMessageTitle">Test results:</h2> 
+    <div id="authTestLongMessage" class="documentationPanel"></div> 
+</fieldset>
