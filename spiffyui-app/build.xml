@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Spiffy UI Framework Sample Project" xmlns:ivy="antlib:org.apache.ivy.ant" default="all" basedir=".">
+<project name="Spiffy UI Framework Application" xmlns:ivy="antlib:org.apache.ivy.ant" default="all" basedir=".">
     <target name="all" depends="setup,resolve" description="Build, compile, and package the entire application">
         <!-- Call the Spiffy UI build -->
         <subant antfile="build.xml"
@@ -52,7 +52,8 @@
     <property name="ivy.jar.dir" value="${ivy.home}/lib" />
     <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
 
-    <target name="download-ivy" unless="offline">
+    <target name="download-ivy" unless="hasDownloadedIvy">
+        <property name="hasDownloadedIvy" value="true" />
 
         <mkdir dir="${ivy.jar.dir}"/>
         <!-- download Ivy from web site so that it can be used even without any special installation -->
