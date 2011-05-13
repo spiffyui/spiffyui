@@ -2,8 +2,8 @@
     <info organisation="spsample" module="spsample-ivy"/>
     <dependencies>
         <dependency org="servletapi" name="servletapi" rev="2.4-20040521"/>
-        <dependency org="com.google.gwt" name="gwt-user" rev="2.3.0"/>
-        <dependency org="com.google.gwt" name="gwt-dev" rev="2.3.0"/>
+        <dependency org="com.google.gwt" name="gwt-user" rev="2.2.0"/>
+        <dependency org="com.google.gwt" name="gwt-dev" rev="2.2.0"/>
         
         <!-- These dependencies are for Checkstyle -->
         <dependency org="com.google.collections" name="google-collections" rev="0.9"/>
