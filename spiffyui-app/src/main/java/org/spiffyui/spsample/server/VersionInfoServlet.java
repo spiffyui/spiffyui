@@ -55,7 +55,8 @@ public class VersionInfoServlet extends HttpServlet
         buildinfo.append("\"version\":\"" + BUILD_BUNDLE.getString("build.version") + "\",");
         buildinfo.append("\"user\":\"" + BUILD_BUNDLE.getString("build.user") + "\",");
         buildinfo.append("\"date\":\"" + BUILD_BUNDLE.getString("build.date") + "\",");
-        buildinfo.append("\"rev\":\"" + BUILD_BUNDLE.getString("build.revision") + "\"");
+        buildinfo.append("\"rev\":\"" + BUILD_BUNDLE.getString("build.revision") + "\",");
+        buildinfo.append("\"revdate\":\"" + BUILD_BUNDLE.getString("build.revision.date") + "\"");
         
         buildinfo.append("}");
         

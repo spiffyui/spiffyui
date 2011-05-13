@@ -95,16 +95,6 @@
         <property name="sample.out.www" location="${sample.out}/www"/>
         <property name="sample.out.classes" location="${sample.out}/classes"/>
         
-        <!-- Not using svn for the moment -->
-        <exec executable="svn" failifexecutionfails="false" output="build_svninfo.xml">
-            <arg line="info --xml ${root}"/>
-        </exec>
-
-        <!-- We also store the current revision from Subversion -->
-        <xmlproperty file="build_svninfo.xml"/>
-        <delete file="build_svninfo.xml"/>
-        <property name="revision.number" value="${info.entry(revision)}"/>
-        
         <mkdir dir="${sample.out}"/>
         <mkdir dir="${sample.out.classes}"/>
         <mkdir dir="${sample.out.www}"/>
@@ -286,6 +276,7 @@
     
     <target name="addVersionInfo" description="Generate the buildnum.properties file with build information">
         <epochtstamp property="builddate" />
+        <revinfo dir="${root}" />
         <mkdir dir="${sample.out.classes}/org/spiffyui/spsample/server"/>
 
         <echo file="${sample.out.classes}/org/spiffyui/spsample/server/buildnum.properties">
@@ -293,6 +284,7 @@ build.date=${builddate}
 build.user=${user.name}
 build.version=0.7.5
 build.revision=${revision.number} 
+build.revision.date=${revision.date}
 build.dir=${root}
         </echo>
     </target>

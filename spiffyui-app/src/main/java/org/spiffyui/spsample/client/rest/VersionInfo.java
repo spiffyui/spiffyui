@@ -37,6 +37,7 @@ public final class VersionInfo
     private String m_user;
     private String m_rev;
     private String m_date;
+    private String m_revDate;
 
     private VersionInfo()
     {
@@ -68,6 +69,11 @@ public final class VersionInfo
         return m_date;
     }
 
+    public String getRevDate()
+    {
+        return m_revDate;
+    }
+
     private static void createVersionInfo(JSONValue val, RESTObjectCallBack<VersionInfo> callback)
     {
         JSONObject bi = val.isObject();
@@ -81,6 +87,7 @@ public final class VersionInfo
         g_versionInfo.m_user = JSONUtil.getStringValue(bi, "user");
         g_versionInfo.m_rev = JSONUtil.getStringValue(bi, "rev");
         g_versionInfo.m_date = JSONUtil.getStringValue(bi, "date");
+        g_versionInfo.m_revDate = JSONUtil.getStringValue(bi, "revdate");
         
         callback.success(g_versionInfo);
     }
