@@ -376,7 +376,6 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
             VersionInfo.getVersionInfo(new RESTObjectCallBack<VersionInfo>() {
                 public void success(VersionInfo info)
                 {
-                    JSUtil.println("info.getRevDate(): " + info.getRevDate());
                     if ("-1".equals(info.getRevDate())) {
                         m_footer.setFooterString(getStrings().footer(info.getVersion(), 
                                                                      JSDateUtil.getLongDate(info.getDate()),
