@@ -762,6 +762,6 @@ iframe {
     display: block;
 }
 
-#formPanel, #javaDocPanel {
-    padding-bottom: 10em;
+#mainContent > #formPanel, #mainContent > #javaDocPanel, #mainContent > #helpPanel {
+    margin-bottom: 16em;
 }
