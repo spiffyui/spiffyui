@@ -1,9 +1,18 @@
-<ivy-module version="2.0">
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd" xmlns:m="http://ant.apache.org/ivy/maven"> 
     <info organisation="spsample" module="spsample-ivy"/>
+    
+    <!-- These are the build-time dependencies for the Spiffy UI application.
+         They are just imported for building the application and do not end 
+         up in the final WAR file.  These files all end up in the build/lib
+         directory.
+    -->
     <dependencies>
+        <dependency org="javax.validation" name="validation-api" rev="1.0.0.GA"> 
+            <artifact name="validation-api" m:classifier="sources"/> 
+        </dependency>
         <dependency org="servletapi" name="servletapi" rev="2.4-20040521"/>
-        <dependency org="com.google.gwt" name="gwt-user" rev="2.2.0"/>
-        <dependency org="com.google.gwt" name="gwt-dev" rev="2.2.0"/>
+        <dependency org="com.google.gwt" name="gwt-user" rev="2.3.0"/>
+        <dependency org="com.google.gwt" name="gwt-dev" rev="2.3.0"/>
         
         <!-- These dependencies are for Checkstyle -->
         <dependency org="com.google.collections" name="google-collections" rev="0.9"/>
@@ -12,7 +21,7 @@
         <dependency org="commons-beanutils" name="commons-beanutils-core" rev="1.7.0"/>
         <dependency org="commons-cli" name="commons-cli" rev="1.0"/>
         <dependency org="commons-codec" name="commons-codec" rev="1.4"/>
-        <dependency org="checkstyle" name="checkstyle" rev="5.0"/>        
+        <dependency org="checkstyle" name="checkstyle" rev="5.0"/>
 
         <!-- We don't really need Jetty to build, but we use it to
              run the Jetty server in process. -->
