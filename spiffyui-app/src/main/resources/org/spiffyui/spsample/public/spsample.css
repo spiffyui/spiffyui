@@ -331,7 +331,7 @@ iframe {
     background-color: #F9F9F9;
     border: thin solid lightgray;
     padding: 18px;
-    margin-bottom: 15px;
+    margin-bottom: 17px;
 }
 
 #testAuthResult {
@@ -596,59 +596,18 @@ iframe {
     height: 396px;
 }
 
-#spiffyPeople {
-    position: relative;
-    height: 684px;
-}
-
-#featuresCol1, #peopleCol1 {
+#featuresCol1 {
     position: absolute;
     top: 0px;
     left: 0px;
     width: 48%;
 }
 
-#featuresCol2, #peopleCol1 {
+#featuresCol2 {
     position: absolute;
     top: 0px;
     left: 52%;
     width: 48%;
-}
-
-.peopleItem  {
-    height: 225px;
-    line-height: 18px;
-    font-size: 14px;
-}
-
-#bess {
-    background: url("images/people.png") no-repeat scroll 0px 0px transparent;
-    width: 182px;
-    height: 200px;
-}
-
-#irene {
-    background: url("images/people.png") no-repeat scroll -260px 0px transparent;
-    width: 200px;
-    height: 200px;
-}
-
-#lyndon {
-    background: url("images/people.png") no-repeat scroll 0px -250px transparent;
-    width: 200px;
-    height: 200px;
-}
-
-#zack {
-    background: url("images/people.png") no-repeat scroll -250px -260px transparent;
-    width: 200px;
-    height: 200px;
-}
-
-#jon {
-    background: url("images/people.png") no-repeat scroll 0px -500px transparent;
-    width: 200px;
-    height: 200px;
 }
 
 .featureItem {
