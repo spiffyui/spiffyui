@@ -79,7 +79,7 @@
     &lt;/dependency&gt;
     </pre>
 
-    <h4>Apache Ivy</h4>
+    <h4>Apache Ant with Ivy</h4>
     
     <p>
     Add the following entry to the chain your ivysettings.xml file:
@@ -99,6 +99,12 @@
     <pre>    &lt;dependency org="org.spiffyui" name="spiffyui" rev="0.7.4"/&gt;
     </pre>
     
+    <h4>Manual download</h4>
+    
+    <p>
+    You can also manually add the Spiffy UI JARs to you project by downloading them from our <a href="http://code.google.com/p/spiffyui/downloads/list">downloads page</a>.
+    </p>
+    
     <h4>3rd-party dependencies</h4>
     
     <p>
@@ -112,17 +118,6 @@
     &lt;dependency org="org.apache.httpcomponents" name="httpcore" rev="4.0.1"/&gt;
     </pre>
 
-    <!--<h2>Download the JARs</h2>
-
-    <p>
-    You can also download the two JARs and include them in your project manually.
-    </p>
-
-    <p>
-    <a href="/spiffyui.jar">spiffyui_0.7.jar</a><br />
-    <a href="/spiffytasks.jar">spiffytasks_0.7.jar</a>
-    </p>-->
-    
     <h3>2. Reference Spiffy in your HTML</h3>
     <p>
     Now the CSS and JavaScript files are included in your project when you build.  The next step is to reference them in your HTML file.  The Spiffy UI framework includes many JavaScript and CSS files, but they are all combined into two files for faster application loading.  Reference this one file and the JQuery library in the <code>head</code> section of your HTML files like this:
