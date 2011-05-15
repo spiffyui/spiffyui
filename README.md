@@ -16,6 +16,11 @@ This will download the required libraries, build the Spiffy UI framework, and ru
 it with an embedded web server.  It will then provide intructions for accessing
 the running application.  
 
+License
+--------------------------------------
+
+The Spiffy UI Framework is available under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).
+
 Spiffy UI on Google Code
 --------------------------------------
 
