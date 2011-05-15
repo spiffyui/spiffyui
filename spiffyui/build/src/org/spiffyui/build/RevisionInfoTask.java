@@ -43,8 +43,12 @@ import org.apache.tools.ant.util.FileUtils;
 
 
 /**
- * This is a custom task for getting revision information about the 
- * current version
+ * <p> 
+ * The RevisionInfoTask gets information about the current revision being built 
+ * and makes it available to the project.  This task supports Subversion and GIT. 
+ * Both clients must be available on the current path.  It exports two properties: 
+ * revision.number and revision.date into the project. 
+ * </p> 
  */
 public class RevisionInfoTask extends Task
 {

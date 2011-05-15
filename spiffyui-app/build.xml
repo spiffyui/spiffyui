@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is the build file for the Spiffy UI Framwork Application.  This application
+     uses almost every part of the Spiffy UI framework and has many performance improvements.
+-->
 <project name="Spiffy UI Framework Application" xmlns:ivy="antlib:org.apache.ivy.ant" default="all" basedir=".">
     <target name="all" depends="setup,resolve" description="Build, compile, and package the entire application">
-        <!-- Call the Spiffy UI build -->
-        <subant antfile="build.xml"
-                buildpath="${build.base}/../spiffyui/build/">
-        </subant>
+        <!-- This application will call the Spiffy UI framework build.
+             It is possible to build the framework separately, but building
+             it in the context of this application is the most common way
+             of building it. -->
+        <subant antfile="build.xml" buildpath="${build.base}/../spiffyui/build/" />
 
+        <!-- Now that we've built the Spiffy UI framework we can import 
+             the Ant tasks available in that framework. -->
         <taskdef resource="tasks.properties">
             <classpath>
                 <fileset dir="${spiffyui}/build/lib" includes="*.jar"/>
@@ -68,13 +75,16 @@
               ivy is in at least one of ant's lib dir or the local lib dir. -->
         <path id="ivy.lib.path">
             <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
-
         </path>
         <taskdef resource="org/apache/ivy/ant/antlib.xml"
                  uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
     </target>
     
     <target name="setup" description="Setup build dependencies and properties and get Subversion information" depends="init-ivy" unless="hasSetup">
+        <!-- The setup task doesn't take very much time, but it
+             does send some output to the console.  We use this 
+             property to make sure we only run it once. 
+        -->
         <property name="hasSetup" value="true" />
         
         <property environment="env"/>
@@ -108,7 +118,6 @@
     
     <target name="checkstyle.nocompileError" if="is.not.compiled">
         <fail message="You must compile before you run Checkstyle" />
-        
     </target>
 
     <target name="checkstyle" depends="setup,resolve,checkstyle.compile.check,checkstyle.nocompileError">
@@ -121,8 +130,11 @@
             </classpath>
         </taskdef>
 
+        <!-- Spiffy UI makes all Checkstyle warnings into build errors.  That
+             means the build will fail if there are any Checkstyle errors in 
+             any of the source files in this application or the Spiffy UI framework.
+        -->
         <checkstyle config="${build.base}/build/checkstyle_checks.xml" failOnViolation="true">
-          
             <formatter type="plain"/>
             <formatter type="xml" toFile="checkstyle_errors.xml"/>
 
@@ -135,20 +147,20 @@
                 <fileset dir="${build}/lib" includes="*.jar"/>
             </classpath>
         </checkstyle>
-
     </target>
     
     <target name="js-min" description="Minimize the JavaScript with the Closure compiler" depends="setup">
-        <!-- By default the Spiffy UI framework includes all of JQuery UI.
-             This includes a lot of JavaScript that we don't need for this
-             sample application.  By specifying the specific files we need
-             we save about 30k from out page download size. -->
         <closure jsfile="${sample.out.www}/spsample.min.js" 
                  closurejar="${spiffyui}/build/lib/closure-compiler-r916.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="DEFAULT">
             <fileset dir="${sample.out.www}" includes="js/**/*.js" 
-                     excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**, **/lib/jqueryui/*" />         
+                     excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**, **/lib/jqueryui/*" />
+        
+            <!-- By default the Spiffy UI framework includes all of JQuery UI.
+                 This includes a lot of JavaScript that we don't need for this
+                 sample application.  By specifying the specific files we need
+                 we save about 30k from out page download size. -->     
             <fileset dir="${sample.out.www}" includes="**/jquery.ui.core.js" />
             <fileset dir="${sample.out.www}" includes="**/jquery.ui.widget.js" />
             <fileset dir="${sample.out.www}" includes="**/jquery.effects.core.js" />
@@ -157,7 +169,6 @@
             <fileset dir="${sample.out.www}" includes="**/jquery.ui.datepicker.js" />
             <fileset dir="${sample.out.www}" includes="**/jquery.ui.progressbar.js" />
             <fileset dir="${sample.out.www}" includes="**/jquery.ui.slider.js" />
-            
             
             <fileset dir="${root}/src/main/js" includes="**/*.js" excludes="**/qunit*" />
         </closure>
@@ -275,6 +286,11 @@
     </target>
     
     <target name="addVersionInfo" description="Generate the buildnum.properties file with build information">
+        <!-- This is the version number information that shows up in the footer
+             of the application.  The revinfo task can get revision information
+             from Subversion or GIT.  Since GIT revision numbers are incremental
+             the task also includes the last commit date for GIT files.
+        -->
         <epochtstamp property="builddate" />
         <revinfo dir="${root}" />
         <mkdir dir="${sample.out.classes}/org/spiffyui/spsample/server"/>
