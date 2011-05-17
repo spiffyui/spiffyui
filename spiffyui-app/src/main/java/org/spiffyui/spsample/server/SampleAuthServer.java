@@ -39,12 +39,32 @@ public class SampleAuthServer extends HttpServlet
         throws ServletException, IOException
     {
         String authHeader = request.getHeader(AUTHORIZATION);
+        response.setContentType("application/json");
+
+        ServletOutputStream out = response.getOutputStream();
+        StringBuffer buff = new StringBuffer();
+
         if (authHeader == null) {
-            throw new IllegalArgumentException("No auth header");    
+            /*
+             * This means someone tried to get a token but didn't specify any credentials
+             */
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            buff.append(generateFault("Sender", "NoAuthHeader", ""));
+            out.println(buff.toString());
+            return;
         }
+
         String[] fields = authHeader.trim().split(" ");
         if (fields.length != 2) {
-            throw new IllegalArgumentException("Auth header format wrong");
+            /*
+             * This means someone specified an invalid authorization header
+             */
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            buff.append(generateFault("Sender", "InvalidAuthHeader", 
+                                      "The authorization header '" + authHeader + "' is invalid.  " + 
+                                      "The format should be BASIC <username:password> base64 encoded."));
+            out.println(buff.toString());
+            return;
         }
         String cred;
         try {
@@ -54,13 +74,21 @@ public class SampleAuthServer extends HttpServlet
         }
         String[] creds = cred.split(":");
         if (creds.length != 2) {
-            throw new IllegalArgumentException("Auth header credential format wrong");
+            /*
+             * This means someone specified an invalid authorization header
+             */
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            buff.append(generateFault("Sender", "InvalidAuthHeader", 
+                                      "The authorization header '" + authHeader + "' is invalid.  " + 
+                                      "The format should be BASIC <username:password> base64 encoded."));
+            out.println(buff.toString());
+            return;
         }
 
-        response.setContentType("application/json");
-        ServletOutputStream out = response.getOutputStream();
-
-        StringBuffer buff = new StringBuffer();
+        /*
+         * At this point we can generate our token.  In our case we just use the username followed
+         * by a random number.  The token can be any format.
+         */
         String random = Long.toHexString(Double.doubleToLongBits(Math.random()));
         buff.append("{\"Token\":\""  + creds[0] + "-" + random + "\"}");
        
@@ -85,6 +113,29 @@ public class SampleAuthServer extends HttpServlet
         buff.append("{\"Status\":\"OK\"}");
 
         out.println(buff.toString());
+    }
+
+    /**
+     * Generate a JSON fault following the Spiffy UI exception format recommendations.
+     * 
+     * @param code    the code to generate
+     * @param subcode the subcode to generate
+     * @param reason  the reason for the error
+     * 
+     * @return the string representation of the error
+     */
+    private String generateFault(String code, String subcode, String reason)
+    {
+        StringBuffer buff = new StringBuffer();
+
+        buff.append("{\"Fault\":{\"Code\":{\"Value\":\"").
+                append(code).
+                append("\",\"Subcode\":{\"Value\":\"").
+                append(subcode).
+                append("\"}},\"Reason\":{\"Text\":\"").
+                append(reason).
+                append("\"}}}");
+        return buff.toString();
     }
     
 }
