@@ -145,7 +145,7 @@ public class RevisionInfoTask extends Task
     
             while ((line = br.readLine()) != null) {
                 if (line.startsWith("Revision: ")) {
-                    getProject().setProperty("revision.number", line.substring(10, line.length() - 1));
+                    getProject().setProperty("revision.number", line.substring(10, line.length()));
                     getProject().setProperty("revision.date", "-1");
                     return true;
                 }
