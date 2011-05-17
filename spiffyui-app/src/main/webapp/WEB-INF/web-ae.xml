@@ -49,6 +49,26 @@
     <servlet-name>JSLocaleServlet</servlet-name>
     <servlet-class>org.spiffyui.server.JSLocaleServlet</servlet-class>
   </servlet>
+  
+  <servlet>
+    <servlet-name>SampleAuthServer</servlet-name>
+    <servlet-class>org.spiffyui.spsample.server.SampleAuthServer</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>SampleDataServlet</servlet-name>
+    <servlet-class>org.spiffyui.spsample.server.SampleDataServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>SampleAuthServer</servlet-name>
+    <url-pattern>/authserver/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SampleDataServlet</servlet-name>
+    <url-pattern>/authdata</url-pattern>
+  </servlet-mapping>
 
   <servlet-mapping>
     <servlet-name>VersionInfoServlet</servlet-name>
