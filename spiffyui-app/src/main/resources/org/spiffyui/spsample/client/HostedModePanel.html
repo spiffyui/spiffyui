@@ -1,17 +1,17 @@
 <h1 class="pageTitle">GWT Dev Mode</h1>
 <div id="hostedModePanelText" class="documentationPanel">
     <p>
-    Once you have Spiffy UI running on your local server you'll probably want to set up <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideCompilingAndDebugging.html">GWT Development Mode</a>, formerly known as "Hosted Mode," which allows you to debug your Spiffy UI application.  You must build the sample application using Ant or Maven at least once before running development mode.  
+    Once you have Spiffy UI or Hello Spiffy running on your local server you'll probably want to set up <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideCompilingAndDebugging.html">GWT Development Mode</a>, formerly known as "Hosted Mode," which allows you to debug your Spiffy UI application.  You must build the application using Ant or Maven at least once before running development mode.  
     </p>
     
     <p>
-    The easiest way to get Spiffy UI running in development mode is to use Eclipse.  Start with the Google Plugin for Eclipse <a href="http://code.google.com/eclipse/docs/getting_started.html">Quick Start</a> page.  Once you have the Google Plugin for Eclipse installed you can import the SPSample project.
+    The easiest way to get Spiffy UI running in development mode is to use Eclipse.  Start with the Google Plugin for Eclipse <a href="http://code.google.com/eclipse/docs/getting_started.html">Quick Start</a> page.  Once you have the Google Plugin for Eclipse installed you can import the project.
     </p>
     
     <h2>Import</h2>
     
     <p>
-    SPSample is the sample application that uses the Spiffy UI framework.  This project already includes Eclipse project files so importing it is easy.  
+    Both the Spiffy UI application and Hello Spiffy projects include Eclipse project files so importing it is easy.  
     </p>
     
     <p>
@@ -23,7 +23,7 @@
     </p>
     
     <p>
-    Browse and select the directory containing the SPSample project.  Select the project and press Finish.
+    Browse and select the directory containing the <code>.project</code> file.  Select the project and press Finish.
     </p>
     
     <div id="importDialog"> </div>
@@ -35,23 +35,23 @@
     </p>
     
     <p>
-    Once the compilation is complete you may debug using the launch configuration we've provided, spsample_devmode.  
+    Once the compilation is complete you may debug using the <code>.launch</launch> configuration we've provided.  
     </p>
     
     <h2>Debug Configurations</h2>
     
     <p>
-    From the main menu select Run &gt; Debug configurations.  Select spsample_devmode under Web Application.  It should resemble the following:
+    From the main menu select Run &gt; Debug configurations.  Select the "dev mode" configuration under Web Application.  It should resemble the following:
     </p>
     
     <p>
-    On the Main tab the project is spsample and the main class is <code>com.google.gwt.dev.GWTShell</code>. Although this class has been deprecated, we've found that it works much better with Eclipse than <code>com.google.gwt.dev.DevMode</code>. 
+    On the Main tab the main class is <code>com.google.gwt.dev.GWTShell</code>. Although this class has been deprecated, we've found that it works much better with Eclipse than <code>com.google.gwt.dev.DevMode</code>. 
     </p>
     
     <div id="mainDebugTab"> </div>
     
     <p>
-    On the Server tab the Run built-in server checkbox is unselected because Spiffy UI launches an instance of <a href="http://jetty.codehaus.org/jetty/">Jetty</a>.
+    On the Server tab the Run built-in server checkbox is unselected because our applications launch an instance of <a href="http://jetty.codehaus.org/jetty/">Jetty</a>.
     </p>
     
     <div id="serverDebugTab"> </div>

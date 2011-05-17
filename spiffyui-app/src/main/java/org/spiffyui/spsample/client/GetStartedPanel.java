@@ -46,7 +46,7 @@ public class GetStartedPanel extends HTMLPanel
         /*
          * Add the get help anchor
          */
-        Anchor getHelp = new Anchor("Get Help page", "GetHelpPanel");
+        Anchor getHelp = new Anchor("Help page", "GetHelpPanel");
         getHelp.addClickHandler(new ClickHandler() {
 
             @Override
