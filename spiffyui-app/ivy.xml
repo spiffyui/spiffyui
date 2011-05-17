@@ -8,6 +8,7 @@
     -->
     <dependencies>
         <dependency org="javax.validation" name="validation-api" rev="1.0.0.GA"> 
+            <artifact name="validation-api"/> 
             <artifact name="validation-api" m:classifier="sources"/> 
         </dependency>
         <dependency org="servletapi" name="servletapi" rev="2.4-20040521"/>

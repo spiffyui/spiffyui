@@ -375,9 +375,10 @@ build.dir=${root}
         <echo>
 ======================================================================== 
         
-    You are now ready to deploy the Spiffy UI application to Google App Engine.  
-    You must first install the App Engine SDK and have permission to deploy this 
-    application.  Then you can deploy with the following command:
+    You are now ready to deploy the Spiffy UI application to SpiffyUI.org on 
+    Google App Engine.  You must first install the App Engine SDK and have 
+    permission to deploy this application.  Then you can deploy with the 
+    following command:
         
     Windows:
         appengine-java-sdk\bin\appcfg.cmd update target/appengine
@@ -387,7 +388,7 @@ build.dir=${root}
             
     Once the application is deployed you can access it at:
         
-        http://spiffyui.appspot.com
+        http://www.spiffyui.org
             
     The application can be administered here:
         
