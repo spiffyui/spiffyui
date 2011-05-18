@@ -409,7 +409,31 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         }
     }
 
-
+    /**
+     * Create and return a new Option with fields populated
+     * @param jsonOpt - the JSONObject to populate Option
+     * @return a populated Option
+     */
+    protected Option createOption(JSONObject jsonOpt)
+    {
+    	Option option = new Option();
+        option.setName(JSONUtil.getStringValue(jsonOpt, m_helper.getNameKey()));
+        option.setValue(JSONUtil.getStringValue(jsonOpt, m_helper.getValueKey()));
+        return option;
+    }
+    
+    /**
+     * Create and return a new OptionSuggestion with fields populated
+     * @param o - the Option to get values to populate the OptionSuggestion
+     * @param fullText - the full text in the text field of the suggest box
+     * @param query - the query portion of the full text
+     * @return a populated OptionSuggestion
+     */
+    protected OptionSuggestion createOptionSuggestion(Option o, String fullText, String query)
+    {
+    	return new OptionSuggestion(o.getName(), o.getValue(), fullText, query);
+    }
+    
     @Override
     public void onSelection(SelectionEvent<Suggestion> event)
     {
@@ -700,9 +724,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
                 }
 
                 JSONObject jsonOpt = optionsArray.get(i).isObject();
-                Option option = new Option();
-                option.setName(JSONUtil.getStringValue(jsonOpt, m_helper.getNameKey()));
-                option.setValue(JSONUtil.getStringValue(jsonOpt, m_helper.getValueKey()));
+                Option option = createOption(jsonOpt);
                 options.addOption(option);
             }
         }
@@ -853,7 +875,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
 
                 // show the suggestions
                 for (Option o : optResults.getOptions()) {
-                    OptionSuggestion sugg = new OptionSuggestion(o.getName(), o.getValue(), m_request.getQuery(), m_query);
+                    OptionSuggestion sugg = createOptionSuggestion(o, m_request.getQuery(), m_query);
                     suggs.add(sugg);
                 }
 
@@ -890,7 +912,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
      * A bean to serve as a custom suggestion so that the value is available and the replace
      * will look like it is supporting multivalues
      */
-    private class OptionSuggestion implements SuggestOracle.Suggestion
+    public class OptionSuggestion implements SuggestOracle.Suggestion
     {
         private String m_display;
         private String m_replace;
@@ -923,7 +945,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
          * @param replacePre - the current contents of the text box
          * @param query - the query
          */
-        OptionSuggestion(String displ, String val, String replacePre, String query)
+        protected OptionSuggestion(String displ, String val, String replacePre, String query)
         {
             m_name = displ;
             int begin = displ.toLowerCase().indexOf(query.toLowerCase());
@@ -976,7 +998,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     /**
      * Bean for name-value pairs
      */
-    private class Option
+    public class Option
     {
 
         private String m_name;

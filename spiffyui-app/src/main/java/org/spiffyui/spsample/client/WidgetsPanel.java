@@ -15,25 +15,6 @@
  ******************************************************************************/
 package org.spiffyui.spsample.client;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.logical.shared.CloseEvent;
-import com.google.gwt.event.logical.shared.CloseHandler;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Widget;
-
-import org.spiffyui.client.JSUtil;
 import org.spiffyui.client.MessageUtil;
 import org.spiffyui.client.widgets.DatePickerTextBox;
 import org.spiffyui.client.widgets.LongMessage;
@@ -48,9 +29,26 @@ import org.spiffyui.client.widgets.button.RefreshAnchor;
 import org.spiffyui.client.widgets.button.SimpleButton;
 import org.spiffyui.client.widgets.dialog.ConfirmDialog;
 import org.spiffyui.client.widgets.dialog.Dialog;
-import org.spiffyui.client.widgets.multivaluesuggest.MultivalueSuggestBox;
 import org.spiffyui.client.widgets.multivaluesuggest.MultivalueSuggestRESTHelper;
 import org.spiffyui.client.widgets.slider.RangeSlider;
+import org.spiffyui.spsample.client.widgets.FancyAutocompleter;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.CloseEvent;
+import com.google.gwt.event.logical.shared.CloseHandler;
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PopupPanel;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * This is the widgets sample panel
@@ -267,7 +265,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         /*
          * Add the multivalue suggest box
          */
-        MultivalueSuggestBox msb = new MultivalueSuggestBox(new MultivalueSuggestRESTHelper("TotalSize", "Options", "DisplayName", "Value") {
+        FancyAutocompleter msb = new FancyAutocompleter(new MultivalueSuggestRESTHelper("TotalSize", "Options", "DisplayName", "Value") {
             
             @Override
             public String buildUrl(String q, int indexFrom, int indexTo)
@@ -276,16 +274,16 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
             }
         }, true);
         msb.getFeedback().addStyleName("msg-feedback");
-        addToSlidingGrid(msb, "WidgetsSuggestBox", Index.getStrings().mvsp(), STRINGS.MultiVal_html(), WIDE);
+        msb.setPageSize(8); //since each value takes up more space, let's cute the size.
         
-        msb.addValueChangeHandler(new ValueChangeHandler<String>() {
-            
-            @Override
-            public void onValueChange(ValueChangeEvent<String> event)
-            {
-                JSUtil.println("msb.onValueChange fired for value = " + event.getValue());
-            }
-        });
+        String spanId = "WidgetsSuggestBox";
+        HTMLPanel panel = addToSlidingGrid(msb, spanId, Index.getStrings().mvsp(), STRINGS.MultiVal_html(), WIDE);
+        /*
+         * so that spellcheck is not done on a selected crayon color of "Screamin' Green"
+         */
+        Element span = panel.getElementById(spanId);
+        span.setAttribute("spellcheck", "false");
+        
     }
     
     /**

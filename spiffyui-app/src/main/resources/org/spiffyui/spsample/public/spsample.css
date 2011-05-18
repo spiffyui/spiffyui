@@ -765,3 +765,26 @@ iframe {
 #mainContent > #formPanel, #mainContent > #javaDocPanel, #mainContent > #helpPanel {
     margin-bottom: 16em;
 }
+
+.facItem {
+    padding: 3px;
+}
+
+.facName {
+    font-size: 13px;
+}
+
+.facDesc {
+    color: #7B7C7F;
+    white-space: normal;
+}
+
+.facRgb {
+    float: right;
+    width: 15px;
+    height: 15px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    margin-left: 5px;
+    margin-top: 5px;
+}
