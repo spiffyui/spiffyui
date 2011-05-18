@@ -21,12 +21,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.spiffyui</groupId>
   <artifactId>spiffyui</artifactId>
-  <version>0.7.4-SNAPSHOT</version>
+  <version>0.7.5-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>spiffyui</name>
   <description>A UI/UX framework that can help build beautiful, fast, flexible, secure, maintainable applications with GWT and REST.</description>
   <url>http://www.spiffyui.org/</url>
-  <!-- Leaving license out until we get the official word
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -34,32 +33,28 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  -->  
   <scm>
-    <connection>scm:svn:https://svn.provo.novell.com/svn/spiffyui/trunk</connection>
-    <developerConnection>scm:svn:https://svn.provo.novell.com/svn/spiffyui/trunk</developerConnection>
-    <url>https://svn.innerweb.novell.com/viewsvn/spiffyui</url>
+    <connection>scm:svn:http://spiffyui.googlecode.com/svn/trunk</connection>
+    <developerConnection>scm:svn:https://spiffyui.googlecode.com/svn/trunk</developerConnection>
+    <url>https://code.google.com/p/spiffyui/source/browse/trunk</url>
   </scm>
   <developers>
     <developer>
       <id>bsiegal</id>
       <name>Bess Siegal</name>
-      <email>bsiegal@novell.com</email>
     </developer>
     <developer>
       <id>iyip</id>
       <name>Irene Yip</name>
-      <email>iyip@novell.com</email>
     </developer>
     <developer>
       <id>lwashington</id>
       <name>Lyndon Washington</name>
-      <email>lwashington@novell.com</email>
+      <email>hoshposh@the-washingtons.com</email>
     </developer>
     <developer>
       <id>zgrossbart</id>
       <name>Zack Grossbart</name>
-      <email>zgrossbart@novell.com</email>
     </developer>
   </developers>
 
@@ -155,6 +150,18 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>2.7</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.6</version>
+          <dependencies>
+            <dependency>
+              <groupId>com.google.code.maven-svn-wagon</groupId>
+              <artifactId>maven-svn-wagon</artifactId>
+              <version>1.4</version>
+            </dependency>
+          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -352,6 +359,16 @@
     </dependency>
   </dependencies>
 
+  <distributionManagement>
+    <repository>
+      <id>spiffyui.googlecode.com</id>
+      <url>svn:https://spiffyui.googlecode.com/svn/mvn-repo/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>spiffyui.googlecode.com</id>
+      <url>svn:https://spiffyui.googlecode.com/svn/mvn-repo/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
   <reporting>
     <plugins>
       <plugin>
