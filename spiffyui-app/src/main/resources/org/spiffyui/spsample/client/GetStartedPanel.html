@@ -11,7 +11,7 @@
     </p>
     
     <p>
-    There are two Hello Spiffy applications.  <a href="http://spiffyui.googlecode.com/svn/samples/HelloSpiffyMaven/">Hello Spiffy Maven</a> shows you how to build a Spiffy GWT application using <a href="http://maven.apache.org/">Apache Maven</a>.  Just check it out like this:
+    There are three Hello Spiffy applications.  <a href="http://spiffyui.googlecode.com/svn/samples/HelloSpiffyMaven/">Hello Spiffy Maven</a> shows you how to build a Spiffy GWT application using <a href="http://maven.apache.org/">Apache Maven</a>.  Just check it out like this:
     </p>
     
     <pre>
@@ -26,6 +26,14 @@
     svn co http://spiffyui.googlecode.com/svn/samples/HelloSpiffyAnt/
     </pre>
     
+    <p>
+    <a href="http://spiffyui.googlecode.com/svn/samples/HelloSpiffyNode/">Hello Spiffy Node</a> works just like Hello Spiffy Ant but it deploys to <a href="http://ant.apache.org/http://nodejs.org/http://nodejs.org/">Node.js</a>.  Just check it out like this:
+    </p>
+    
+    <pre>
+    svn co http://spiffyui.googlecode.com/svn/samples/HelloSpiffyNode/
+    </pre>
+
     <h4>Requirements</h4>
     
     <p>
@@ -46,37 +54,20 @@
     <h3>1. Add the Spiffy project dependency</h3>
 
     <p>
-    Spiffy is downloaded automatically through a Nexus server.  The steps are slightly different for Maven and Ant.
+    You can have Spiffy automatically downloaded through a Nexus server or you can manually download JARs from our <a href="http://code.google.com/p/spiffyui/downloads/list">downloads page</a>.  For automatic downloading, the steps are slightly different for Maven and Ant. 
     </p>
 
     <h4>Apache Maven</h4>
     
     <p>
-    Start by adding the following entry to the settings.xml file in the .m2 directory in your home directory:
-    </p>
-    
-    <pre>    &lt;mirror&gt;
-        &lt;id&gt;novellnexus&lt;/id&gt;
-        &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
-        &lt;url&gt;http://151.155.230.64:8081/nexus/content/groups/public&lt;/url&gt;
-    &lt;/mirror&gt;
-    </pre>
-    
-    <p>
-    Then add the following to the pom.xml file for your project.
+    Add the following to the pom.xml file for your project.
     </p>
     
     <pre>   &lt;dependency&gt;
         &lt;groupId&gt;org.spiffyui&lt;/groupId&gt;
         &lt;artifactId&gt;spiffyui&lt;/artifactId&gt;
-        &lt;version&gt;0.7.4&lt;/version&gt;
-    &lt;/dependency&gt;
-    
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.spiffyui&lt;/groupId&gt;
-        &lt;artifactId&gt;spiffyuitasks&lt;/artifactId&gt;
-        &lt;version&gt;0.7.4&lt;/version&gt;
-    &lt;/dependency&gt;
+        &lt;version&gt;0.7.5-SNAPSHOT&lt;/version&gt;
+    &lt;/dependency&gt;    
     </pre>
 
     <h4>Apache Ant with Ivy</h4>
@@ -85,25 +76,19 @@
     Add the following entry to the chain your ivysettings.xml file:
     </p>
     
-    <pre>    &lt;ibiblio name="novell-snapshots"
+    <pre>    &lt;ibiblio name="spiffyui-snapshots"
          m2compatible="true"
          usepoms="true"
          pattern="[organisation]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]"
-         root="http://151.155.230.64:8081/nexus/service/local/repositories/releases/content"/&gt;
+         root="http://spiffyui.googlecode.com/svn/mvn-repo/snapshots/"/&gt;
     </pre>
     
     <p>
     Then add the dependency to your ivy.xml file like this:
     </p>
 
-    <pre>    &lt;dependency org="org.spiffyui" name="spiffyui" rev="0.7.4"/&gt;
+    <pre>    &lt;dependency org="org.spiffyui" name="spiffyui" changing="true" rev="0.7.5-SNAPSHOT"/&gt;
     </pre>
-    
-    <h4>Manual download</h4>
-    
-    <p>
-    You can also manually add the Spiffy UI JARs to your project by downloading them from our <a href="http://code.google.com/p/spiffyui/downloads/list">downloads page</a>.
-    </p>
     
     <h4>3rd-party dependencies</h4>
     
@@ -148,6 +133,6 @@
     <h2>Spiffy UI application</h2>
     
     <p>
-    For instructions on how to download and build the Spiffy UI application, visit the <span id="getStartedGetHelp"></span>.
+    For instructions on how to download and build the pages you see on this site, which comprise the Spiffy UI application, visit the <span id="getStartedGetHelp"></span>.
     </p>
 </div>
