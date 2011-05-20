@@ -490,8 +490,8 @@ iframe {
    Adjust the width of the error log so it fits within our main page area.
  */
 #humanMsgLog ul {
-    left: 28px;
-    right: 28px;
+    left: -10px;
+    right: 0px;
     width: auto;
 }
 
@@ -624,7 +624,7 @@ iframe {
 
 #overviewPanel h1 {
     color: black;
-    font-size: 36px;
+    font-size: 32px;
     height: auto;
     line-height: 54px;
     margin-bottom: 8px;

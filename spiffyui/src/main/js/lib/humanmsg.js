@@ -6,7 +6,13 @@
 
 var humanMsg = {
 	setup: function(appendTo, logName, msgOpacity) {
-		humanMsg.msgID = 'humanMsg';
+        
+        if (humanMsg.hasSetup) {
+            return;
+        }
+        
+        humanMsg.hasSetup = true;
+        humanMsg.msgID = 'humanMsg';
 		humanMsg.logID = 'humanMsgLog';
 
 		// appendTo is the element the msg is appended to
@@ -31,7 +37,7 @@ var humanMsg = {
 
 		// Inject the message structure
 		jQuery(appendTo).prepend('<div id="'+humanMsg.msgID+'" class="humanMsg"><div class="round"></div><p></p><div class="round"></div></div>');
-		jQuery(appendTo).append('<div id="'+humanMsg.logID+'"><p>'+logName+'</p><a href="#" id="humanMsgClose">x</a><ul></ul></div>');
+		jQuery('#mainFooter').append('<div id="'+humanMsg.logID+'"><p>'+logName+'</p><a href="#" id="humanMsgClose">x</a><ul></ul></div>');
 
         jQuery('#humanMsgClose').click(
             function() {
@@ -69,6 +75,8 @@ var humanMsg = {
 	displayMsg: function(msg, /*boolean*/doLog) {
 		if (msg == '')
 			return;
+        
+        humanMsg.setup();
         
         humanMsg.activateLog();
 
@@ -110,6 +118,7 @@ var humanMsg = {
 	},
 	
 	log: function(msg) {
+         humanMsg.setup();
 		 jQuery('#'+humanMsg.logID)
 			.show().children('ul').prepend('<li>'+msg+'</li>')	// Prepend message to log
 			.children('li:first').slideDown(200)				// Slide it down
@@ -184,7 +193,3 @@ var humanMsg = {
          }
     }
 };
-
-jQuery(document).ready(function(){
-	humanMsg.setup();
-})
