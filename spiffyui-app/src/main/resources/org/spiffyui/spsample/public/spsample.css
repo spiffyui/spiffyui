@@ -495,10 +495,6 @@ iframe {
     width: auto;
 }
 
-#humanMsgLog p.minimized {
-    right: 28px;
-}
-
 #authTestBtn {
     font-size: 14px;
     font-weight:bold;
