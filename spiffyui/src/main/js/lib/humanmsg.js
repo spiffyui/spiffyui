@@ -27,9 +27,7 @@ var humanMsg = {
 			}
 		}
 		
-		humanMsg.logTop = jQuery('#'+humanMsg.logID).css("top");
-
-		// Opacity of the message
+        // Opacity of the message
 		humanMsg.msgOpacity = 0.9;
 
 		if (msgOpacity != undefined) 
@@ -37,7 +35,9 @@ var humanMsg = {
 
 		// Inject the message structure
 		jQuery(appendTo).prepend('<div id="'+humanMsg.msgID+'" class="humanMsg"><div class="round"></div><p></p><div class="round"></div></div>');
-		jQuery('#mainFooter').append('<div id="'+humanMsg.logID+'"><p>'+logName+'</p><a href="#" id="humanMsgClose">x</a><ul></ul></div>');
+		jQuery('#mainFooter').prepend('<div id="'+humanMsg.logID+'"><p>'+logName+'<a href="#" id="humanMsgClose">x</a></p><ul></ul></div>');
+
+        humanMsg.logTop = jQuery('#'+humanMsg.logID).css("top");
 
         jQuery('#humanMsgClose').click(
             function() {
@@ -54,14 +54,22 @@ var humanMsg = {
                     jQuery('#humanMsgClose').show();
                     jQuery('#'+humanMsg.logID+' p').removeClass('minimized');
                     return;
-                } else if (jQuery(this).siblings('ul').css('display') != 'none') {
+                } 
+
+                if (jQuery(this).siblings('ul').css('display') != 'none') {
                     jQuery('#'+humanMsg.logID).css("top", humanMsg.logTop);
 					jQuery(this).siblings('ul').hide();
                     jQuery('#humanMsgClose').show();
+                    jQuery('#' + humanMsg.logID).animate({
+                        'top': '-' + humanMsg.logTop + 'px'
+                    }, 300);
 				} else {
                     humanMsg.setLogHeight();
-					jQuery(this).siblings('ul').slideToggle();
-                    jQuery('#humanMsgClose').slideToggle();
+                    jQuery(this).siblings('ul').show();
+                    jQuery('#humanMsgClose').hide();
+                    jQuery('#' + humanMsg.logID).animate({
+                        'top': '-' + (78 + jQuery('#' + humanMsg.logID + ' > ul').height()) + 'px'
+                    }, 300);
 				}
 			}
 		)
@@ -193,3 +201,5 @@ var humanMsg = {
          }
     }
 };
+
+

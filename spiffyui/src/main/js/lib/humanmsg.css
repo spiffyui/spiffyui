@@ -42,7 +42,7 @@ html, body {
 	font: normal 10px Helvetica, Arial, Sans-Serif;
 	color: white;
 	position: relative;
-	top: -42px;
+	top: -28px;
 	left: 0;
 	width: 100%;
 	max-height: 200px;
@@ -87,11 +87,12 @@ html, body {
 #humanMsgClose {
     display: block;
     position: absolute;
-    left: 50%;
+    left: 45%;
     margin-left: 107px;
     top: -1px;
     color: white;
     font: normal 14px Helvetica, Arial, Sans-Serif;
+    width: 1em;
 }
 
 #humanMsgLog p:hover {
@@ -146,3 +147,4 @@ html, body {
 	margin-right: 200px;
 	height: inherit;
 	}
+
