@@ -207,6 +207,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         m_navBar.add(new NavSeparator(HTMLPanel.createUniqueId()));
 
         addDocPanels();
+        m_navBar.addListener(this);
 
         /*
          * If the user has loaded this application in their
@@ -229,7 +230,6 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
             m_navBar.selectItem(m_navBar.getItem(OVERVIEW_NAV_ITEM_ID));
         }
 
-        m_navBar.addListener(this);
         RESTility.addLoginListener(this);
         
         
