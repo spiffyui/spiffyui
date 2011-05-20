@@ -3,6 +3,10 @@
     font-size: 16px;
     line-height: 21px;
 }
+ 
+.humanMsg {
+    font: 21px/28px "ff-basic-gothic-web-pro-1","ff-basic-gothic-web-pro-2";
+}
 
 .ui-progressbar {
     height: 12px;
