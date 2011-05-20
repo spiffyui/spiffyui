@@ -54,7 +54,6 @@ public final class JSUtil
      */
     private static void doHistory(HistoryCallback callback, String id)
     {
-        JSUtil.println("doHistory(" + id + ")");
         callback.historyChanged(id);
     }
 
