@@ -164,14 +164,6 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         m_navBar.add(featureSection);
 
         /*
-        The authentication info panel
-        */
-        item = new NavItem(AUTH_NAV_ITEM_ID, getStrings().auth(),
-                          getStrings().auth_tt());
-        featureSection.add(item);
-        m_panels.put(item, new AuthPanel());
-
-        /*
          The CSS panel
          */
         item = new NavItem(CSS_NAV_ITEM_ID, getStrings().css(), getStrings().css_tt());
@@ -191,6 +183,14 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         item = new NavItem(REST_NAV_ITEM_ID, getStrings().restTitle(), getStrings().restTitle_tt());
         featureSection.add(item);
         m_panels.put(item, new RESTPanel());
+        
+        /*
+        The authentication info panel
+        */
+        item = new NavItem(AUTH_NAV_ITEM_ID, getStrings().auth(),
+                          getStrings().auth_tt());
+        featureSection.add(item);
+        m_panels.put(item, new AuthPanel());
         
         /*
         The build info panel
