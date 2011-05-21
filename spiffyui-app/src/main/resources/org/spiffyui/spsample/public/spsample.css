@@ -1,7 +1,11 @@
- body, .gwt-TextBox, .gwt-ListBox, .gwt-PasswordTextBox, .gwt-TextArea, .gwt-SuggestBox, body, table td, select {
-    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2",Verdana,Sans-serif;
-    font-size: 16px;
-    line-height: 21px;
+ body, table td, .gwt-TextBox, .gwt-ListBox, .gwt-PasswordTextBox, .gwt-TextArea, .gwt-SuggestBox, select {
+    font-family: "chaparral-pro-1","chaparral-pro-2",Verdana,Sans-serif;
+    font-size: 18px;
+    line-height: 24px;
+}
+ 
+.gwt-TextBox, .gwt-ListBox, .gwt-PasswordTextBox, .gwt-TextArea, .gwt-SuggestBox, select {
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2";
 }
  
 .humanMsg {
@@ -23,6 +27,11 @@
 
 button {
     border: 2px solid lightgray;
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2";
+}
+
+button.spiffy-save-button {
+    background: url("images/spiffy_ui_images.png") no-repeat scroll 10px -432px #EDEEEC;
 }
 
 h4 {
@@ -32,6 +41,7 @@ h4 {
 }
 
 h3 {
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2", Sans-serif;
     color: #C84317;
     font-size: 16px;
     font-weight: 500;
@@ -40,20 +50,22 @@ h3 {
 }
 
 h1 {
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2", Sans-serif;
     color: #1795C6;
     font-size: 24px;
     line-height: 36px;
-    margin-bottom: 17px;
+    margin-bottom: 13px;
     margin-top: -6px;
     width: 480px;
 }
 
 h2 {
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2", Sans-serif;
     color: #c84317;
     font-size: 18px;
     font-weight: normal;
     line-height: 30px;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
 }
 
 .documentationPanel {
@@ -64,16 +76,21 @@ h2 {
     width: 525px;
 }
 
+.spiffy-longmessage-panel {
+    font-size: 16px;
+}
+
 .sectionTitle {
-    margin-bottom: 21px;
+    margin-bottom: 24px;
 }
 
 .dialogformrow {
-    height: 42px;
+    height: 48px;
 }
 
 .dialogformlabel {
-    font-size: 16px;
+    font-size: 18px;
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2";
 }
 
 /*
@@ -84,20 +101,20 @@ h2 {
    panels we use 14 pixel fonts with an 18 pixel line height.
  */
 .documentationPanel p, .documentationPanel ul {
-    font-size: 16px;
-    line-height: 21px;
-    margin-bottom: 21px;
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 24px;
 }
 
 .documentationPanel pre {
     font-size: 14px;
-    line-height: 21px;
+    line-height: 24px;
     font-family: "anonymous-pro-1","anonymous-pro-2",monospace;
-    margin-bottom: 21px;
+    margin-bottom: 24px;
 }
 
 .documentationPanel code {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 15px;
     font-family: "anonymous-pro-1","anonymous-pro-2",monospace;
 }
@@ -108,7 +125,7 @@ h2 {
 
 .documentationPanel ul {
     list-style: square inside none;
-    margin-bottom: 21px;
+    margin-bottom: 24px;
 }
 
 .documentationPanel li {
@@ -120,8 +137,9 @@ h2 {
     left: 20px;
     color: #CCCCCC;
     font-weight: 500;
-    font-size: 40px;
+    font-size: 48px;
     font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2",Verdana,Sans-serif;
+    top: -47px;
 }
 
 #headerstring, #header_logout {
@@ -135,7 +153,7 @@ h2 {
     padding-left: 2em;
     position: absolute;
     text-transform: uppercase;
-    top: 5px;
+    top: 12px;
     white-space: nowrap;
     line-height: 14px;
 }
@@ -174,9 +192,10 @@ iframe {
 
 #mainNavContainer a, #mainNavContainer a:visited {
     color: #636363;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: normal;
     line-height: 32px;
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2", Sans-serif;
 }
 
 #mainNavigation {
@@ -188,7 +207,6 @@ iframe {
     margin-top: -2px;
     height: 82%;
     width: auto;
-    margin-left: 168px;
 }
 
 #main {
@@ -290,7 +308,7 @@ iframe {
    We use this grid style to show the grid on the CSS page.
  */
 #main.grid {
-    background: url("images/grid.gif") repeat-y scroll 1px -12px white;
+    background: url("images/grid.gif") repeat-y scroll 8px -12px white;
 }
 
 #mainFooter.tabnav  {
@@ -332,7 +350,7 @@ iframe {
     font-size: 12px;
     background-color: #F9F9F9;
     border: thin solid lightgray;
-    padding: 21px;
+    padding: 23px;
 }
 
 .highlightSection {
@@ -342,7 +360,7 @@ iframe {
     background-color: #F9F9F9;
     border: thin solid lightgray;
     padding: 18px;
-    margin-bottom: 21px;
+    margin-bottom: 25px;
 }
 
 #testAuthResult {
@@ -363,15 +381,22 @@ iframe {
 
 .prefspulltab a {
     background-color: #dddddd;
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2";
+    background-position: right center;
 }
 
-.prefspulltab div {
-    margin-top: 7px;
+.prefspaneltab h3 {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.pulldownprefspanel {
+    top: -8px;
 }
 
 .prefspaneltab {
     position: relative;
-    top: 2px;
+    top: -10px;
     margin-bottom: -7px;
 }
 
@@ -382,8 +407,8 @@ iframe {
 #WidgetsSlidingGrid p {
     color: black;
     padding-bottom: 16px;
-    font-size: 16px;
-    line-height: 21px;
+    font-size: 18px;
+    line-height: 24px;
 }
 
 #WidgetsMessages button {
@@ -400,7 +425,7 @@ iframe {
     background: url("images/spiffy_sample_images.png") no-repeat scroll 0 0 transparent;
     width: 515px; 
     height: 240px;
-    margin-bottom: 13px;
+    margin-bottom: 23px;
     margin-top: 18px;
 }
 
@@ -423,7 +448,7 @@ iframe {
 }
 
 #login_username_row label, #login_password_row label {
-    font-size: 16px;
+    font-size: 18px;
     color: #777777;
 }
 
@@ -433,12 +458,12 @@ iframe {
 
 #loginImage {
     background: url("images/spiffy_sample_images.png") no-repeat scroll 0 -2148px transparent;
-    margin-bottom: 26px;
+    margin-bottom: 28px;
 }
 
 #logoutImage {
     background: url("images/spiffy_sample_images.png") no-repeat scroll 0 -2630px transparent;
-    margin-bottom: 26px;
+    margin-bottom: 28px;
 }
 
 #loginHeaderContainer {
@@ -449,7 +474,7 @@ iframe {
     background: url("images/spiffy_sample_images.png") no-repeat scroll 0 -390px transparent;
     width: 515px; 
     height: 346px;
-    margin-bottom: 15px;
+    margin-bottom: 14px;
 }
 
 .headertitle {
@@ -465,7 +490,7 @@ iframe {
 }
 
 #loginSection {
-    margin-bottom: 32px;
+    margin-bottom: 39px;
 }
 
 #fixedGridTab {
@@ -508,7 +533,7 @@ iframe {
 }
 
 #authTestBtn {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
 }
 
@@ -530,11 +555,11 @@ iframe {
 }
 
 #introVideo {
-    margin-bottom: 23px;
+    margin-bottom: 37px;
 }
 
 #frameworkVideo {
-    margin-bottom: 21px;
+    margin-bottom: 24px;
 }
 
 #javaDocImage {
@@ -548,7 +573,7 @@ iframe {
     background: url("images/spiffy_sample_images.png") no-repeat scroll 0 -3112px transparent;
     width: 478px; 
     height: 241px;
-    margin-bottom: 34px;
+    margin-bottom: 47px;
 }
 
 #authTestLongMessage {
@@ -568,7 +593,7 @@ iframe {
     width: 470px;
     height: 125px;
     overflow: auto;
-    line-height: 21px;
+    line-height: 24px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -601,7 +626,7 @@ iframe {
 
 #spiffyFeatures {
     position: relative;
-    height: 474px;
+    height: 524px;
 }
 
 #featuresCol1 {
@@ -619,19 +644,19 @@ iframe {
 }
 
 .featureItem {
-    height: 105px;
-    line-height: 21px;
-    font-size: 16px;
+    height: 120px;
+    line-height: 24px;
+    font-size: 18px;
 }
 
 #securityFeature, #restFeature {
-    height: 126px;
+    height: 144px;
 }
 
 .featureItem span {
     display: block;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 #overviewPanel h1 {
@@ -639,39 +664,42 @@ iframe {
     font-size: 30px;
     height: auto;
     line-height: 54px;
-    margin-bottom: 9px;
+    margin-bottom: 7px;
     margin-top: -2px;
 }
 
 #gwtDebugTab { 
     background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -40px transparent;
     width: 572px; 
-    height: 463px;
+    height: 456px;
 } 
 
 #mainDebugTab { 
     background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -522px transparent;
     width: 554px; 
     height: 442px; 
+    margin-bottom: 14px;
 }
  
 #serverDebugTab{ 
     background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -1023px transparent;
     width: 557px; 
     height: 441px;
+    margin-bottom: 15px;
 } 
 
 #developmentMode { 
     background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -1486px transparent;
     width: 445px; 
     height: 294px;
+    margin-bottom: 18px;
 } 
 
 #importDialog { 
     background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -1809px transparent;
     width: 586px; 
     height: 630px;
-    margin-bottom: 3px;
+    margin-bottom: 18px;
 } 
 
 #hostedModePlugin { 
@@ -684,7 +712,7 @@ iframe {
     background: url("images/spiffy_sample_images.png") no-repeat scroll -140px -870px transparent;
     width: 400px; 
     height: 75px;
-    margin-bottom: -11px;
+    margin-bottom: 20px;
 }
 
 .licInfo {
@@ -701,7 +729,7 @@ iframe {
 
 .documentationPanel p.licHeader {
     margin-bottom: 0px;
-    margin-top: 42px;
+    margin-top: 48px;
 }
 
 /*
@@ -759,10 +787,11 @@ iframe {
     color: #000;
     background-color: #fff;
     border: solid 2px #EFD137;
-    font-size: 10px; 
-    line-height: 12px; 
-    font-weight: 500;
+    font-size: 16px; 
+    line-height: 18px; 
+    font-weight: normal;
     text-align: center;
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2";
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
     border-radius: 7px;
@@ -784,12 +813,17 @@ iframe {
 }
 
 .facName {
-    font-size: 13px;
+    font-size: 16px;
 }
 
 .facDesc {
     color: #7B7C7F;
     white-space: normal;
+}
+
+.gwt-SuggestBoxPopup .item {
+    font-size: 16px;
+    line-height: 18px;
 }
 
 .facRgb {
@@ -800,4 +834,8 @@ iframe {
     -webkit-border-radius: 3px;
     margin-left: 5px;
     margin-top: 5px;
+}
+
+#userGender {
+    top: 3px;
 }
