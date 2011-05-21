@@ -1,11 +1,11 @@
  body, .gwt-TextBox, .gwt-ListBox, .gwt-PasswordTextBox, .gwt-TextArea, .gwt-SuggestBox, body, table td, select {
-    font-family: "ff-basic-gothic-web-pro-1","ff-basic-gothic-web-pro-2",Verdana,Sans-serif;
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2",Verdana,Sans-serif;
     font-size: 16px;
     line-height: 21px;
 }
  
 .humanMsg {
-    font: 21px/28px "ff-basic-gothic-web-pro-1","ff-basic-gothic-web-pro-2";
+    font: 21px/28px "ff-meta-web-pro-1","ff-meta-web-pro-2";
 }
 
 .ui-progressbar {
@@ -121,7 +121,7 @@ h2 {
     color: #CCCCCC;
     font-weight: 500;
     font-size: 40px;
-    font-family: "ff-basic-gothic-web-pro-1","ff-basic-gothic-web-pro-2",Verdana,Sans-serif;
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2",Verdana,Sans-serif;
 }
 
 #headerstring, #header_logout {
@@ -636,7 +636,7 @@ iframe {
 
 #overviewPanel h1 {
     color: black;
-    font-size: 32px;
+    font-size: 30px;
     height: auto;
     line-height: 54px;
     margin-bottom: 9px;
