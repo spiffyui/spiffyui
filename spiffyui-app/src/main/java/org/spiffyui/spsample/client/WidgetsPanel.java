@@ -82,9 +82,9 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         
         //Create the sliding grid and set it up for the rest of the controls
         m_slideGridPanel = new SlidingGridPanel();
-        m_slideGridPanel.setCellHeight(200);
+        m_slideGridPanel.setCellHeight(245);
         m_slideGridPanel.setCellWidth(302);
-        m_slideGridPanel.setPadding(34);
+        m_slideGridPanel.setPadding(32);
         setVisible(false);
         
         RootPanel.get("mainContent").add(this);

@@ -43,7 +43,7 @@ h1 {
     color: #1795C6;
     font-size: 24px;
     line-height: 36px;
-    margin-bottom: 20px;
+    margin-bottom: 17px;
     margin-top: -6px;
     width: 480px;
 }
@@ -53,7 +53,7 @@ h2 {
     font-size: 18px;
     font-weight: normal;
     line-height: 30px;
-    margin-bottom: 11px;     /* 36 / 18 = 2 */
+    margin-bottom: 12px;
 }
 
 .documentationPanel {
@@ -65,11 +65,11 @@ h2 {
 }
 
 .sectionTitle {
-    margin-bottom: 32px;
+    margin-bottom: 21px;
 }
 
 .dialogformrow {
-    height: 36px;
+    height: 42px;
 }
 
 .dialogformlabel {
@@ -175,7 +175,7 @@ iframe {
 #mainNavContainer a, #mainNavContainer a:visited {
     color: #636363;
     font-size: 16px;
-    font-weight: normal;
+    font-weight: bold;
     line-height: 32px;
 }
 
@@ -290,7 +290,7 @@ iframe {
    We use this grid style to show the grid on the CSS page.
  */
 #main.grid {
-    background: url("images/grid.gif") repeat-y scroll 9px -8px white;
+    background: url("images/grid.gif") repeat-y scroll 1px -12px white;
 }
 
 #mainFooter.tabnav  {
@@ -332,7 +332,7 @@ iframe {
     font-size: 12px;
     background-color: #F9F9F9;
     border: thin solid lightgray;
-    padding: 17px;
+    padding: 21px;
 }
 
 .highlightSection {
@@ -342,7 +342,7 @@ iframe {
     background-color: #F9F9F9;
     border: thin solid lightgray;
     padding: 18px;
-    margin-bottom: 17px;
+    margin-bottom: 21px;
 }
 
 #testAuthResult {
@@ -366,12 +366,13 @@ iframe {
 }
 
 .prefspulltab div {
-    margin-top: 3px;
+    margin-top: 7px;
 }
 
 .prefspaneltab {
     position: relative;
     top: 2px;
+    margin-bottom: -7px;
 }
 
 .cell {
@@ -399,7 +400,7 @@ iframe {
     background: url("images/spiffy_sample_images.png") no-repeat scroll 0 0 transparent;
     width: 515px; 
     height: 240px;
-    margin-bottom: 12px;
+    margin-bottom: 13px;
     margin-top: 18px;
 }
 
@@ -432,12 +433,12 @@ iframe {
 
 #loginImage {
     background: url("images/spiffy_sample_images.png") no-repeat scroll 0 -2148px transparent;
-    margin-bottom: 10px;
+    margin-bottom: 26px;
 }
 
 #logoutImage {
     background: url("images/spiffy_sample_images.png") no-repeat scroll 0 -2630px transparent;
-    margin-bottom: 28px;
+    margin-bottom: 26px;
 }
 
 #loginHeaderContainer {
@@ -448,7 +449,7 @@ iframe {
     background: url("images/spiffy_sample_images.png") no-repeat scroll 0 -390px transparent;
     width: 515px; 
     height: 346px;
-    margin-bottom: 16px;
+    margin-bottom: 15px;
 }
 
 .headertitle {
@@ -464,7 +465,7 @@ iframe {
 }
 
 #loginSection {
-    margin-bottom: 25px;
+    margin-bottom: 32px;
 }
 
 #fixedGridTab {
@@ -547,7 +548,7 @@ iframe {
     background: url("images/spiffy_sample_images.png") no-repeat scroll 0 -3112px transparent;
     width: 478px; 
     height: 241px;
-    margin-bottom: 29px;
+    margin-bottom: 34px;
 }
 
 #authTestLongMessage {
@@ -645,37 +646,38 @@ iframe {
 #gwtDebugTab { 
     background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -40px transparent;
     width: 572px; 
-    height: 450px;
+    height: 463px;
 } 
 
 #mainDebugTab { 
     background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -522px transparent;
     width: 554px; 
-    height: 432px; 
+    height: 442px; 
 }
  
 #serverDebugTab{ 
     background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -1023px transparent;
     width: 557px; 
-    height: 432px;
+    height: 441px;
 } 
 
 #developmentMode { 
     background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -1486px transparent;
     width: 445px; 
-    height: 288px;
+    height: 294px;
 } 
 
 #importDialog { 
     background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -1809px transparent;
     width: 586px; 
     height: 630px;
+    margin-bottom: 3px;
 } 
 
 #hostedModePlugin { 
     background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -2480px transparent;
     width: 507px; 
-    height: 324px;
+    height: 336px;
 }
  
 #browsers {
@@ -698,8 +700,8 @@ iframe {
 }
 
 .documentationPanel p.licHeader {
-    margin-bottom: 4px;
-    margin-top: 32px;
+    margin-bottom: 0px;
+    margin-top: 42px;
 }
 
 /*
