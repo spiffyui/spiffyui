@@ -20,10 +20,20 @@ import java.util.Date;
 import com.google.gwt.i18n.client.DateTimeFormat;
 
 /**
- * This is a collection of utility methods for manipulating dates in the browser.
- * All of these methods are locale aware and use the current locale of the browser. 
- * These date functions use the libraries from <a href="http://www.datejs.com">http://www.datejs.com</a>. 
- * This package has much better date support than the current GWT date support. 
+ * <p> 
+ * A collection of utility methods for manipulating dates in the browser. 
+ * </p> 
+ *  
+ * <p> 
+ * JSDateUtil provide flexible locale aware support for formatting dates and times in GWT. 
+ * This class fills in many of the gaps missing from the java.text package from the JDK. 
+ * </p> 
+ *  
+ * <p> 
+ * In addition to standard date formatting this library supports custom formatting following 
+ * the <a href="http://code.google.com/p/spiffyui/wiki/DateFormatters">Spiffy UI date formatters</a> 
+ * specification. 
+ * </p> 
  */
 public final class JSDateUtil
 {
@@ -46,7 +56,20 @@ public final class JSDateUtil
     }
     
     /**
-     * Convert UTC epoch format to Date format in the current locale 
+     * <p> 
+     * Convert UTC epoch format to short Date format in the current locale 
+     * </p> 
+     *  
+     * @param epochDate - the time in milliseconds since Jan 1, 1970
+     * @return - Date format in String
+     */    
+    public static String getShortDate(String epochDate)
+    {
+        return getDate(epochDate);
+    }
+    
+    /**
+     * Convert UTC epoch format to short Date format in the current locale 
      *  
      * @param epochDate - the time in milliseconds since Jan 1, 1970
      * @return - Date format in String
@@ -57,7 +80,7 @@ public final class JSDateUtil
 
     /**
      * Convert UTC epoch format to a date string matching the specified format.
-     * See <a href="http://code.google.com/p/datejs/wiki/FormatSpecifiers">Format Specifiers</a>
+     * See <a href="http://code.google.com/p/spiffyui/wiki/DateFormatters">Format Specifiers</a>
      * for more details
      *  
      * @param date - the date object to format
@@ -71,7 +94,7 @@ public final class JSDateUtil
 
     /**
      * Format the specified date according to the format string.
-     * See <a href="http://code.google.com/p/datejs/wiki/FormatSpecifiers">Format Specifiers</a>
+     * See <a href="http://code.google.com/p/spiffyui/wiki/DateFormatters">Format Specifiers</a>
      *  
      * @param date - the date object to format
      * @param format - the formatter for the date
@@ -85,7 +108,7 @@ public final class JSDateUtil
 
     /**
      * Format the specified date according to the format string.
-     * See <a href="http://code.google.com/p/datejs/wiki/FormatSpecifiers">Format Specifiers</a>
+     * See <a href="http://code.google.com/p/spiffyui/wiki/DateFormatters">Format Specifiers</a>
      *  
      * @param epochDate - the long date to format
      * @param format - the formatter for the date
@@ -98,7 +121,7 @@ public final class JSDateUtil
 
     /**
      * Convert UTC epoch format to a date string matching the specified format.
-     * See <a href="http://code.google.com/p/datejs/wiki/FormatSpecifiers">Format Specifiers</a>
+     * See <a href="http://code.google.com/p/spiffyui/wiki/DateFormatters">Format Specifiers</a>
      * for more details
      *  
      * @param epochDate - the time in milliseconds since Jan , 1, 1970
@@ -242,9 +265,77 @@ public final class JSDateUtil
     }-*/;
 
     /**
-     * Gets the locale used by the datejs libraries 
+     * <p> 
+     * Gets the current locale of the application running in the browser. 
+     * </p> 
+     *  
+     * <p> 
+     * This methods returns the locale being used by GWT if the GWTLocaleFilter is 
+     * used in the application.  This locale is the best match between the user's 
+     * preferred locale and the locales supported in the application.  The user's 
+     * preferred locale may be different than the installed locale of the browser. 
+     * </p> 
+     *  
+     * <p> 
+     * For example, if the application is localized into English (en), French (fr), 
+     * and Japanese (ja) the the user will get the follow locales: 
+     * </p> 
+     *  
+     * <h3>Example 1</h3>
+     * <p>
+     * The user's list of preferred locales is:
+     * </p>
+     * 
+     * <ol>
+     * <li>ko_KR (South Korean)</li>
+     * <li>ja_JP (Japanese)</li>
+     * <li>en (English) </li>
+     * </ol> 
+     *  
+     * <p> 
+     * In this example the locale would be Japanese. 
+     * </p> 
+     *  
+     * <h3>Example 2</h3> 
+     * <p> 
+     * The user's list of preferred locales is: 
+     * </p> 
+     *  
+     * <ol> 
+     * <li>en_GB (English - United Kingdom)</li>
+     * <li>fr (French)</li>
+     * <li>en_US (English - United States)</li>
+     * </ol> 
+     *  
+     * <p> 
+     * In this example the user will get French because that is the closest exact match. 
+     * If the application was localized into English - United Kingdom (en_GB) then the 
+     * user would get that locale. 
+     * </p> 
+     *  
+     *  
+     * <h3>Example 3</h3> 
+     * <p> 
+     * The user's list of preferred locales is: 
+     * </p> 
+     * 
+     * <ol> 
+     * <li>iw_IL (Hebrew Israel)</li>
+     * <li>is_IS (Icelandic Iceland) </li>
+     * </ol> 
+     *  
+     * <p> 
+     * In this example the user will get English because none of their preferred locales 
+     * are supported and English is the default.
+     * </p> 
+     *  
+     * <p> 
+     * For more information on these processes see
+     * <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">section 14.4</a> 
+     * of the HTTP specification.
+     * </p> 
      *
-     * @return - The Client Locale
+     * @return The client Locale
      */    
     public static native String getLocale() /*-{
         return $wnd.Date.CultureInfo.name;
