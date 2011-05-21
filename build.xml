@@ -26,4 +26,8 @@
     <target name="package-appengine" depends="setup" description="Expand the war and add the configuration files for deploying to Google App Engine">
         <subant antfile="build.xml" buildpath="${build.base}/spiffyui-app/" target="package-appengine" />
     </target>
+    
+    <target name="package-appengine-staging" depends="setup" description="Expand the war and add the configuration files for deploying to spiffyui-staging.appspot.com">
+        <subant antfile="build.xml" buildpath="${build.base}/spiffyui-app/" target="package-appengine-staging" />
+    </target>
 </project>

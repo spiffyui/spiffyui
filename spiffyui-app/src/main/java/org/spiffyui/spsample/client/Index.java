@@ -503,6 +503,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     public static boolean isAppEngine()
     {
         return Window.Location.getHref().startsWith("http://spiffyui.appspot.com") ||
+            Window.Location.getHref().startsWith("http://spiffyui-staging.appspot.com") ||
             Window.Location.getHref().startsWith("http://spiffyui.org") ||
             Window.Location.getHref().startsWith("http://www.spiffyui.org");
     }

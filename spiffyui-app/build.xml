@@ -361,7 +361,7 @@ build.dir=${root}
         </war>
     </target>
     
-    <target name="package-appengine" depends="setup" description="Expand the war and add the configuration files for deploying to Google App Engine">
+    <target name="package-appengine" depends="setup" description="Expand the war and add the configuration files for deploying to SpiffyUI.org">
         <!-- Create the app engine directory -->
         <mkdir dir="${sample.out}/appengine"/>
         <unzip src="${sample.out}/spsample.war" dest="${sample.out}/appengine"/>
@@ -381,7 +381,7 @@ build.dir=${root}
     following command:
         
     Windows:
-        appengine-java-sdk\bin\appcfg.cmd update target/appengine
+        appengine-java-sdk\bin\appcfg.cmd update ${sample.out}/appengine
             
     Linux and Mac:
         appengine-java-sdk/bin/appcfg.sh update target/appengine
@@ -389,6 +389,43 @@ build.dir=${root}
     Once the application is deployed you can access it at:
         
         http://www.spiffyui.org
+            
+    The application can be administered here:
+        
+        https://appengine.google.com
+        
+======================================================================== 
+        </echo>
+    </target>
+    
+    <target name="package-appengine-staging" depends="setup" description="Expand the war and add the configuration files for deploying to spiffyui-staging.appspot.com">
+        <!-- Create the app engine directory -->
+        <mkdir dir="${sample.out}/appengine-staging"/>
+        <unzip src="${sample.out}/spsample.war" dest="${sample.out}/appengine-staging"/>
+        
+        <copy file="${sample.web.src}/WEB-INF/appengine-web-staging.xml" 
+              tofile="${sample.out}/appengine-staging/WEB-INF/appengine-web.xml" overwrite="true"/>
+        
+        <copy file="${sample.web.src}/WEB-INF/web-ae.xml" 
+              tofile="${sample.out}/appengine-staging/WEB-INF/web.xml" overwrite="true"/>
+        
+        <echo>
+======================================================================== 
+        
+    You are now ready to deploy the Spiffy UI application to the SpiffyUI.org 
+    staging server on Google App Engine.  You must first install the App Engine 
+    SDK and have permission to deploy this application.  Then you can deploy 
+    with the following command:
+        
+    Windows:
+        appengine-java-sdk\bin\appcfg.cmd update ${sample.out}/appengine-staging
+            
+    Linux and Mac:
+        appengine-java-sdk/bin/appcfg.sh update target/appengine
+            
+    Once the application is deployed you can access it at:
+        
+        http://spiffyui-staging.appspot.com
             
     The application can be administered here:
         
