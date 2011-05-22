@@ -35,7 +35,7 @@ button.spiffy-save-button {
 }
 
 h4 {
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 0px;
     margin-top: 10px;
 }
@@ -44,7 +44,7 @@ h3 {
     font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2", Sans-serif;
     color: #C84317;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 0px;
     margin-top: 10px;
 }
@@ -136,7 +136,7 @@ h2 {
 #mainHeaderContainer .headertitle {
     left: 20px;
     color: #CCCCCC;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 48px;
     font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2",Verdana,Sans-serif;
     top: -47px;
@@ -364,7 +364,7 @@ iframe {
 }
 
 #testAuthResult {
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .optionalText, .comment {
@@ -481,7 +481,7 @@ iframe {
     left: 10px;
     color: #636363;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .yellowHighlightSection {
@@ -534,7 +534,7 @@ iframe {
 
 #authTestBtn {
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 /*
@@ -606,12 +606,12 @@ iframe {
 }
 
 .testSuccess {
-    font-weight: 500;
+    font-weight: 600;
     color: green;
 }
 
 .testFail {
-    font-weight: 500;
+    font-weight: 600;
     color: red;
 }
 
@@ -655,7 +655,7 @@ iframe {
 
 .featureItem span {
     display: block;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 18px;
 }
 
