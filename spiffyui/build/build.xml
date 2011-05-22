@@ -5,6 +5,7 @@
         <antcall target="js-lint" />
         <antcall target="js-min" />
         <antcall target="css-min" />
+        <antcall target="javadoc"/>
         <antcall target="package" />
     </target>
     
@@ -235,8 +236,22 @@
         <delete dir="${spiffy.root}/lib"/>
         <delete dir="${spiffy.root}/target"/>
     </target>
+    
+    <target name="javadoc" description="Generate JavaDoc for this project">
+        <mkdir dir="${spiffy.classes}/javadoc"/>
+        
+        <javadoc destdir="${spiffy.classes}/javadoc"
+                 author="false"
+                 version="true"
+                 use="true"
+                 windowtitle="Spiffy UI Framework API">
+            <packageset dir="${spiffy.root}/src/main/java" defaultexcludes="yes">
+                <include name="org/spiffyui/**"/>
+            </packageset>
+        </javadoc>
+    </target>
 
-    <target name="package">
+    <target name="package" depends="setup">
         <jar destfile="${spiffy.dist}/spiffyui.jar">
             <zipfileset dir="${spiffy.classes}" prefix="" >
                 <include name="**/*.*"/>
@@ -245,6 +260,30 @@
                 <include name="**/*.*"/>
             </zipfileset>
             <zipfileset dir="${spiffy.root}/src/main/java" prefix="" >
+                <include name="**/*.*"/>
+            </zipfileset>
+        </jar>
+        
+        <jar destfile="${spiffy.dist}/spiffyui-source.jar">
+            <zipfileset dir="${spiffy.root}/src/main/java" prefix="" >
+                <include name="**/*.*"/>
+            </zipfileset>
+            
+            <zipfileset dir="${spiffy.root}/src/main/css" prefix="" >
+                <include name="**/*.*"/>
+            </zipfileset>
+            
+            <zipfileset dir="${spiffy.root}/src/main/js" prefix="" >
+                <include name="**/*.*"/>
+            </zipfileset>
+            
+            <zipfileset dir="${spiffy.root}/build/src/" prefix="" >
+                <include name="**/*.*"/>
+            </zipfileset>
+        </jar>
+        
+        <jar destfile="${spiffy.dist}/spiffyui-javadoc.jar">
+            <zipfileset dir="${spiffy.classes}/javadoc" prefix="" >
                 <include name="**/*.*"/>
             </zipfileset>
         </jar>

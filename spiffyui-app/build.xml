@@ -34,8 +34,6 @@
         
         <antcall target="css-min" />
         
-        <antcall target="javadoc"/>
-        
         <antcall target="package" />
     </target>
     
@@ -357,7 +355,10 @@ build.dir=${root}
             </zipfileset>     
             <zipfileset dir="${spiffyui}/dist" prefix="WEB-INF/lib" >
                 <include name="**/*.jar"/>
-            </zipfileset>     
+            </zipfileset>
+            
+            <!-- We also want to include the JavaDoc -->
+            <zipfileset dir="${spiffyui}/target/classes/javadoc" prefix="javadoc" />
         </war>
     </target>
     
@@ -433,20 +434,6 @@ build.dir=${root}
         
 ======================================================================== 
         </echo>
-    </target>
-    
-    <target name="javadoc" description="Generate JavaDoc for this project">
-        <mkdir dir="${sample.out.www}/javadoc"/>
-        
-        <javadoc destdir="${sample.out.www}/javadoc"
-                 author="false"
-                 version="true"
-                 use="true"
-                 windowtitle="Spiffy UI Framework API">
-            <packageset dir="${spiffyui}/src/main/java" defaultexcludes="yes">
-                <include name="org/spiffyui/**"/>
-            </packageset>
-        </javadoc>
     </target>
     
     <target name="run" depends="setup,resolve,jetty.setup" 
