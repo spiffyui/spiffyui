@@ -20,6 +20,8 @@
             </classpath>
         </taskdef>
         
+    	<antcall target="zip-template"/>
+    	
         <antcall target="addVersionInfo"/>
         
         <antcall target="HTMLProps"/>
@@ -94,6 +96,7 @@
         </condition>
         <property name="root" location="${build.base}"/>
         <property name="spiffyui" location="${root}/../spiffyui"/>
+    	<property name="template-ant" location="${root}/../spiffyui-template-ant"/>
         <property name="build" location="${build.base}/build"/>
         <property name="ivy.lib.dir" value="${build}/lib"/>
         <property name="sample.src" location="${root}/src/main/java"/>
@@ -484,4 +487,10 @@ build.dir=${root}
         <delete dir="${root}/war"/>
         <delete dir="${ivy.lib.dir}"/>
     </target>
+	
+	<target name="zip-template" depends="setup" description="Add the spiffyui-templates to the WEB-INF/classes">
+        <zip destfile="${sample.out.classes}/spiffyui-template-ant.zip"
+            basedir="${template-ant}"
+            excludes="**/.svn/**"/>
+	</target>
 </project>

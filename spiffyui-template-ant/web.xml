@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+    <servlet-name>JSLocaleServlet</servlet-name>
+    <servlet-class>org.spiffyui.server.JSLocaleServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>SimpleServlet</servlet-name>
+    <servlet-class>org.spiffyui.hellospiffyant.server.SimpleServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>JSLocaleServlet</servlet-name>
+    <url-pattern>/js/lib/i18n/date</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>JSLocaleServlet</servlet-name>
+    <url-pattern>/js/lib/i18n/jquery.ui.datepicker.js</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SimpleServlet</servlet-name>
+    <url-pattern>/simple/*</url-pattern>
+  </servlet-mapping>  
+</web-app>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Spiffy UI Framework Sample Project" xmlns:ivy="antlib:org.apache.ivy.ant" default="run" basedir=".">
+
+    <target name="all" depends="setup,resolve" description="Build, compile, and package the entire application">
+        <antcall target="gwt-compile">
+            <param name="gwttarget" value="org.spiffyui.hellospiffyant.index"/>
+        </antcall>
+        <antcall target="compile"/>
+        <antcall target="package" />
+    </target>
+    
+    <target name="clearcache" description="Clear the Apache Ivy cache" depends="setup,ivySettings" unless="build.from.maven">
+        <ivy:cleancache />
+    </target>
+    
+    <target name="ivySettings" unless="build.from.maven">
+        <ivy:settings file="${build}/ivysettings.xml" />
+    </target>
+    
+    <target name="resolve" description="Retrieve dependencies with Apache Ivy" depends="ivySettings" unless="build.from.maven">
+        <ivy:retrieve />
+    </target>
+    
+    <property name="ivy.install.version" value="2.1.0-rc2" />
+    <condition property="ivy.home" value="${env.IVY_HOME}">
+      <isset property="env.IVY_HOME" />
+    </condition>
+    <property name="ivy.home" value="${user.home}/.ant" />
+    <property name="ivy.jar.dir" value="${ivy.home}/lib" />
+    <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
+
+    <target name="download-ivy" unless="hasDownloadedIvy">
+        <property name="hasDownloadedIvy" value="true" />
+
+        <mkdir dir="${ivy.jar.dir}"/>
+        <!-- download Ivy from web site so that it can be used even without any special installation -->
+        <get src="http://repo2.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" 
+             dest="${ivy.jar.file}" usetimestamp="true"/>
+    </target>
+
+    <target name="init-ivy" depends="download-ivy">
+      <!-- try to load ivy here from ivy home, in case the user has not already dropped
+              it into ant's lib dir (note that the latter copy will always take precedence).
+              We will not fail as long as local lib dir exists (it may be empty) and
+              ivy is in at least one of ant's lib dir or the local lib dir. -->
+        <path id="ivy.lib.path">
+            <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
+
+        </path>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml"
+                 uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+    </target>
+    
+    <target name="setup" description="Setup build dependencies and properties" depends="init-ivy">
+        <property environment="env"/>
+
+        <!-- These are all the project relative paths.  Please add new paths
+             here so they are easier to find when they change. -->
+        <condition property="build.base" value="${env.SPSAMPLE_BASE}" else="${basedir}">
+          <isset property="${env.env.SPSAMPLE_BASE}"/>
+        </condition>
+        <property name="root" location="${build.base}"/>
+        <property name="build" location="${build.base}/build"/>
+        <property name="ivy.lib.dir" value="${build}/lib"/>
+        <property name="sample.src" location="${root}/src/main/java"/>
+        <property name="sample.out" location="${root}/target"/>
+        <property name="sample.out.www" location="${sample.out}/www"/>
+        <property name="sample.out.classes" location="${sample.out}/classes"/>
+        
+        <mkdir dir="${sample.out}"/>
+    	<mkdir dir="${sample.out.classes}"/>
+        <mkdir dir="${sample.out.www}"/>
+    </target>
+    
+    <!-- This target calls the GWT compiler inline and
+         moves the files around so we get the compiled
+         GWT without the directory with the package name -->
+    <target name="gwt-compile" description="Call the GWT compiler for this project">
+        <java classname="com.google.gwt.dev.Compiler"
+            fork="true" failonerror="true" maxmemory="256m">
+            <arg value="-style"/>
+            <arg value="PRETTY"/>
+            <arg value="-war"/>
+            <arg value="${sample.out.www}"/>
+            <arg value="${gwttarget}"/>
+            <classpath>
+                <pathelement location="${sample.src}"/>
+                <fileset dir="${build}/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </java>
+        
+        <!-- GWT compiles files into a directory with the same
+             name as the package.  We want to strip that off. 
+             If we add more GWT modules to the project we'll 
+             need to skip this step for them. -->
+        <move todir="${sample.out.www}" failonerror="false">
+            <fileset dir="${sample.out.www}/org.spiffyui.hellospiffyant.index" includes="**/*" />
+        </move>
+        
+        <delete dir="${sample.out.www}/org.spiffyui.hellospiffyant.index" />
+    </target>
+    
+    <target name="compile" description="Call the Java compiler for this project">
+        <!-- Compile all the Java -->
+        <javac srcdir="${sample.src}/org/spiffyui/hellospiffyant/server" destdir="${sample.out.classes}" 
+               target="1.5" source="1.5" debug="true" deprecation="yes"
+               includeantruntime="false">
+            <compilerarg value="-Xlint" />
+            <classpath>
+                <fileset dir="${root}/build/lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+        </javac>
+    </target>
+	
+    <target name="package" description="Package the contents of this project into hellospiffyant.war">
+        <!-- Create the distribution directory -->
+        <delete file="${sample.out}/hellospiffyant.war" />
+        <war destfile="${sample.out}/hellospiffyant.war" webxml="web.xml">
+            <fileset dir="${sample.out.www}"/>
+            <zipfileset dir="${sample.out.classes}" prefix="WEB-INF/classes" >
+                <include name="**/*"/>
+            </zipfileset>
+            <!-- We need to add the JARs to support the spiffy framework to
+                 our WAR file -->
+            <zipfileset dir="${build}/lib" prefix="WEB-INF/lib" >
+                <include name="spiffyui*.jar"/>
+            </zipfileset>
+        </war>
+    </target>
+    
+    <target name="run" depends="setup,resolve,all,jetty.setup" 
+            description="Run the Spiffy sample project with an embedded Jetty server">
+        <!--
+        Setup for Jetty
+        -->
+        <path id="jetty.plugin.classpath">
+            <fileset dir="${build}/lib" includes="*.jar"/>
+        </path>
+        <taskdef classpathref="jetty.plugin.classpath" resource="tasks.properties" loaderref="jetty.loader" />
+        
+        <echo>
+========================================================================
+
+        Running the Spiffy UI Sample application with an embedded
+        Jetty server. Press Ctrl+C to stop the server. 
+
+        Access Spiffy at: http://localhost:8080
+
+========================================================================
+        </echo>
+        
+        <jetty tempDirectory="${root}/jetty-temp">
+            <webApp name="hellospiffyant" warfile="${sample.out}/hellospiffyant.war" contextpath="/" />
+        </jetty>
+    </target>
+
+    <target name="jetty.setup">
+        <fail message="The hellospiffyant.war file is missing.  You must build the WAR with the all target before you can run.">
+            <condition>
+                <not>
+                    <available file="${sample.out}/hellospiffyant.war"/>
+                </not>
+            </condition>
+        </fail>
+    </target>
+
+    <target name="clean" depends="setup" description="Remove the artifacts generated by this build">
+        <delete dir="${sample.out}"/>
+        <delete dir="${build}/lib"/>
+        <delete dir="${root}/jetty-temp"/>
+    </target>
+</project>

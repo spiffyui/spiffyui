@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE module SYSTEM "gwt-module.dtd">
+<module>
+ 
+    <!-- Inherit the core Web Toolkit stuff.                        -->
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name="com.google.gwt.core.Core"/>
+    <inherits name="com.google.gwt.event.Event"/>
+    <inherits name="com.google.gwt.xml.XML" />
+    
+    <!--  The Spiffy UI Modules  -->
+    <inherits name="org.spiffyui.spiffyui" />
+
+    <set-property name="gwt.suppressNonStaticFinalFieldWarnings" value="true" /> 
+    
+    <entry-point class='org.spiffyui.hellospiffyant.client.Index'/>
+    
+</module>
