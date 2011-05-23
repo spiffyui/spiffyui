@@ -26,10 +26,7 @@
 
         <!-- We don't really need Jetty to build, but we use it to
              run the Jetty server in process. -->
-        <dependency org="org.mortbay.jetty" name="jetty" rev="6.1.25"/>
-        <dependency org="org.mortbay.jetty" name="jetty-util" rev="6.0.2"/>
-        <dependency org="org.mortbay.jetty" name="jetty-plus" rev="6.0.2"/>
-        <dependency org="org.mortbay.jetty" name="jetty-naming" rev="6.0.2"/>
+        <dependency org="jetty" name="org.mortbay.jetty" rev="5.1.12"/>
         <dependency org="org.mortbay.jetty" name="jetty-ant" rev="6.1.25"/>
     </dependencies>
 </ivy-module>
