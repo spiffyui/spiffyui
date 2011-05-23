@@ -3,7 +3,7 @@
 
     <target name="all" depends="setup,resolve" description="Build, compile, and package the entire application">
         <antcall target="gwt-compile">
-            <param name="gwttarget" value="org.spiffyui.hellospiffyant.index"/>
+            <param name="gwttarget" value="org.spiffyui.MY_PACKAGE.index"/>
         </antcall>
         <antcall target="compile"/>
         <antcall target="package" />
@@ -97,15 +97,15 @@
              If we add more GWT modules to the project we'll 
              need to skip this step for them. -->
         <move todir="${sample.out.www}" failonerror="false">
-            <fileset dir="${sample.out.www}/org.spiffyui.hellospiffyant.index" includes="**/*" />
+            <fileset dir="${sample.out.www}/org.spiffyui.MY_PACKAGE.index" includes="**/*" />
         </move>
         
-        <delete dir="${sample.out.www}/org.spiffyui.hellospiffyant.index" />
+        <delete dir="${sample.out.www}/org.spiffyui.MY_PACKAGE.index" />
     </target>
     
     <target name="compile" description="Call the Java compiler for this project">
         <!-- Compile all the Java -->
-        <javac srcdir="${sample.src}/org/spiffyui/hellospiffyant/server" destdir="${sample.out.classes}" 
+        <javac srcdir="${sample.src}/org/spiffyui/MY_PACKAGE/server" destdir="${sample.out.classes}" 
                target="1.5" source="1.5" debug="true" deprecation="yes"
                includeantruntime="false">
             <compilerarg value="-Xlint" />
@@ -118,10 +118,10 @@
         </javac>
     </target>
 	
-    <target name="package" description="Package the contents of this project into hellospiffyant.war">
+    <target name="package" description="Package the contents of this project into MY_PROJECT.war">
         <!-- Create the distribution directory -->
-        <delete file="${sample.out}/hellospiffyant.war" />
-        <war destfile="${sample.out}/hellospiffyant.war" webxml="web.xml">
+        <delete file="${sample.out}/MY_PROJECT.war" />
+        <war destfile="${sample.out}/MY_PROJECT.war" webxml="web.xml">
             <fileset dir="${sample.out.www}"/>
             <zipfileset dir="${sample.out.classes}" prefix="WEB-INF/classes" >
                 <include name="**/*"/>
@@ -156,15 +156,15 @@
         </echo>
         
         <jetty tempDirectory="${root}/jetty-temp">
-            <webApp name="hellospiffyant" warfile="${sample.out}/hellospiffyant.war" contextpath="/" />
+            <webApp name="MY_PROJECT" warfile="${sample.out}/MY_PROJECT.war" contextpath="/" />
         </jetty>
     </target>
 
     <target name="jetty.setup">
-        <fail message="The hellospiffyant.war file is missing.  You must build the WAR with the all target before you can run.">
+        <fail message="The MY_PROJECT.war file is missing.  You must build the WAR with the all target before you can run.">
             <condition>
                 <not>
-                    <available file="${sample.out}/hellospiffyant.war"/>
+                    <available file="${sample.out}/MY_PROJECT.war"/>
                 </not>
             </condition>
         </fail>

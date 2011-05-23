@@ -13,7 +13,7 @@
  * limitations under the License.
  *
  ******************************************************************************/
-package org.spiffyui.hellospiffyant.client;
+package org.spiffyui.MY_PACKAGE.client;
 
 import org.spiffyui.client.JSONUtil;
 import org.spiffyui.client.MainFooter;

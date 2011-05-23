@@ -13,7 +13,7 @@
  * limitations under the License.
  *
  ******************************************************************************/
-package org.spiffyui.hellospiffyant.server;
+package org.spiffyui.MY_PACKAGE.server;
 
 import java.io.IOException;
 import java.io.PrintWriter;
