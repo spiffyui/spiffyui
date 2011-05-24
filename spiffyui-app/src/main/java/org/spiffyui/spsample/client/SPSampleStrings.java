@@ -38,6 +38,7 @@ public interface SPSampleStrings extends Messages {
     public String HostedModePanel_html();
     public String HumanMsg_html();
     public String JavaDocPanel_html();
+    public String LandingPanel_html();
     public String LicensePanel_html();
     public String LoginWidget_html();
     public String LongMessage_html();

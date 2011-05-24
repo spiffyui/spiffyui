@@ -41,6 +41,7 @@ import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 
 
 /**
@@ -66,6 +67,8 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     
     private boolean m_isSausage = false;
 
+    /** NavItem ID for Landing */
+    public static final String LANDING_NAV_ITEM_ID = "landing";
     /** NavItem ID for Overview */
     public static final String OVERVIEW_NAV_ITEM_ID = "overview";
     /** NavItem ID for Get Started Intro*/
@@ -140,11 +143,19 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
             loadUnitTests();
             return;
         }
+        
+        /*
+         The landing panel
+         */
+        NavItem item = new NavItem(LANDING_NAV_ITEM_ID, getStrings().landing(),
+                                   getStrings().landing_tt());
+        m_navBar.add(item);
+        m_panels.put(item, new LandingPanel());
 
         /*
          The overview panel
          */
-        NavItem item = new NavItem(OVERVIEW_NAV_ITEM_ID, getStrings().overview(),
+        item = new NavItem(OVERVIEW_NAV_ITEM_ID, getStrings().overview(),
                                    getStrings().overview_tt());
         m_navBar.add(item);
         m_panels.put(item, new OverviewPanel());
@@ -227,7 +238,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
             m_navBar.selectItem(m_navBar.getItem(Cookies.getCookie(NAV_COOKIE)));
             itemSelected(m_navBar.getItem(Cookies.getCookie(NAV_COOKIE)));
         } else {
-            m_navBar.selectItem(m_navBar.getItem(OVERVIEW_NAV_ITEM_ID));
+            m_navBar.selectItem(m_navBar.getItem(LANDING_NAV_ITEM_ID));
         }
 
         RESTility.addLoginListener(this);
@@ -316,6 +327,12 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     @Override
     public void itemSelected(NavItem item)
     {
+        if (item.getId().equals(LANDING_NAV_ITEM_ID)) {
+            RootPanel.get("main").getElement().addClassName("landing");
+        } else {
+            RootPanel.get("main").getElement().removeClassName("landing");
+        }
+        
         Cookies.setCookie(NAV_COOKIE, item.getElement().getId());
         
         if (!m_isSausage) {

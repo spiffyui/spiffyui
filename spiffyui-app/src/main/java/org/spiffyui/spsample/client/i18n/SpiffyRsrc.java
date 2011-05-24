@@ -23,6 +23,8 @@ import com.google.gwt.i18n.client.Messages;
  */
 public interface SpiffyRsrc extends Messages
 {
+    public String landing();
+    public String landing_tt();
     public String overview();
     public String overview_tt();
     public String getStarted();
@@ -142,4 +144,5 @@ public interface SpiffyRsrc extends Messages
     public String logoutFail1(String s);
     public String logoutFail2(String s1, String s2);
     public String projectCreatorSubmit();
+    public String documentation();
 }

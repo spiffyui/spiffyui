@@ -839,3 +839,83 @@ iframe {
 #userGender {
     top: 3px;
 }
+
+#main.landing #mainBody {
+    margin-left: 0px;
+}
+
+#main.landing #mainNavigation, #main.landing #mainHeader {
+    display: none;
+}
+
+#callouts, #createSpiffy, #callouts2 {
+    position: relative;
+    height: 200px;
+}
+
+.landingCallout {
+    position: absolute;
+    top: 5px;
+    width: 25%;
+}
+
+#timeCallout, #licCallout {
+    left: 5px;
+}
+
+#restCallout, #stableCallout {
+    left: 33%;
+}
+
+#secCallout, #mobileCallout {
+    left: 66%;
+}
+
+#callouts h2 {
+    margin-bottom: 0px;
+}
+
+#createForm {
+    position: absolute;
+    width: 60%;
+    left: 5px;
+    height: 5px;
+}
+
+#createText {
+    position: absolute;
+    width: 25%;
+    left: 66%;
+    top: 5px;
+}
+
+#landingPanel h1 {
+    font-weight: 600;
+    font-size: 48px;
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2",Verdana,Sans-serif;
+    padding-left: 50px;
+    background: url("images/spiffy_logo.png") no-repeat scroll left 0px transparent;
+    height: 55px;
+    color: black;
+}
+
+#landingPanelText {
+    position: relative;
+}
+
+#landingMenu {
+    -moz-border-radius-bottomleft: 6px;
+    background: none repeat scroll 0 0 #F9F9F9;
+    border-bottom: thin solid lightgray;
+    border-left: thin solid lightgray;
+    padding: 10px 25px 10px 10px;
+    position: absolute;
+    right: 0;
+    top: -15px;
+}
+
+#landingMenu .landingMenuItem {
+    border-right: thin dashed lightgray;
+    margin-right: 10px;
+    padding-right: 10px;
+}
