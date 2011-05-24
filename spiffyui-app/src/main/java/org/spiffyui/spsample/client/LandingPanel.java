@@ -74,6 +74,10 @@ public class LandingPanel extends HTMLPanel
             "<span id=\"secSecLink\"></span>"));
         addAnchor(Index.getStrings().secureLink(), Index.AUTH_NAV_ITEM_ID, "secSecLink");
         
+        getElementById("licCalloutText").setInnerHTML(Index.getStrings().licCallout(
+            "<span id=\"licLicLink\"></span>"));
+        addAnchor(Index.getStrings().apacheLic(), Index.LICENSE_NAV_ITEM_ID, "licLicLink");
+        
         
         /*
          * Add project and package fields and button

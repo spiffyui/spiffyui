@@ -122,6 +122,8 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     @Override
     public void onModuleLoad()
     {
+        RootPanel.get("main").getElement().addClassName("landing");
+        
         /*
          We are setting a custom authentication provider.  Custom authentication
          providers can override the UI of the login or provide access to totally

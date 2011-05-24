@@ -152,4 +152,6 @@ public interface SpiffyRsrc extends Messages
     public String restCallout(String s);
     public String secCallout(String s);
     public String secureLink();
+    public String licCallout(String s);
+    public String apacheLic();
 }
