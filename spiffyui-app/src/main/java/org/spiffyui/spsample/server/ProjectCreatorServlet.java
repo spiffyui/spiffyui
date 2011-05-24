@@ -15,10 +15,11 @@
  ******************************************************************************/
 package org.spiffyui.spsample.server;
 
-import java.io.FileInputStream;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import javax.servlet.ServletException;
@@ -48,46 +49,53 @@ public class ProjectCreatorServlet extends HttpServlet
         throws ServletException,
             IOException
     {
-        
-        /*
-         * Get the correct zip
-         * (For now always spiffyui-template-ant.zip)
-         */
-//        ZipInputStream zis = new ZipInputStream(getServletContext().getResourceAsStream("/WEB-INF/classes/" + TEMPLATE_ANT));
-        /*
-         * Change the project name 
-         */
-        String projectName = request.getParameter("projectName");
-        /*
-         * Change the package path
-         * (Right now just doing name)
-         */
-        String packagePath = request.getParameter("packagePath");
-        
-        /*
-         * Send the new zip
-         */
-        response.setContentType("application/zip");
-        response.setHeader("Content-Disposition", "inline; filename=" + projectName + ".zip;");
+        try {
+            /*
+             * Get the correct zip
+             * (For now always spiffyui-template-ant.zip)
+             */
+            ZipInputStream zis = new ZipInputStream(getServletContext().getResourceAsStream("/WEB-INF/classes/" + TEMPLATE_ANT));
+            
+            /*
+             * Change the project name 
+             */
+            String projectName = request.getParameter("projectName");
+            /*
+             * Change the package path
+             * (Right now just doing name)
+             */
+            String packagePath = request.getParameter("packagePath");
+    
+            /*
+             * Send the new zip
+             */
+            response.setContentType("application/zip");
+            response.setHeader("Content-Disposition", "inline; filename=" + projectName + ".zip;");
+    
+            ServletOutputStream dest = response.getOutputStream();  
+            ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest));  
+    
+            ZipEntry entry;
+            while ((entry = zis.getNextEntry()) != null) {
+                System.out.println("Extracting: " + entry);
+                int count;
+                byte data[] = new byte[BUFFER];
                 
-         
-        ZipEntry entry;
- 
-        String webXMLFile = getServletContext().getRealPath("/WEB-INF/web.xml");          
-          
-        ServletOutputStream outputStream = response.getOutputStream();  
-        ZipOutputStream zip = new ZipOutputStream(outputStream);  
-        zip.putNextEntry(new ZipEntry(packagePath + ".xml"));  
-          
-        byte[] b = new byte[1024];  
-        int len;  
-        FileInputStream fis = new FileInputStream(webXMLFile);  
-        while ((len = fis.read(b)) != -1) {  
-            zip.write(b, 0, len);  
-        }  
-        fis.close();  
-        zip.flush();  
-        zip.close();  
-        outputStream.flush();  
+                String entryName = entry.getName();
+                entryName = entryName.replaceAll(MY_PACKAGE, packagePath);
+                entryName = entryName.replaceAll(MY_PROJECT, projectName);
+                ZipEntry newEntry = new ZipEntry(entryName);
+                out.putNextEntry(newEntry);
+                while ((count = zis.read(data, 0, BUFFER)) != -1) {
+                    
+                    out.write(data, 0, count);
+                }
+            }
+            out.flush();
+            out.close();
+            zis.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
