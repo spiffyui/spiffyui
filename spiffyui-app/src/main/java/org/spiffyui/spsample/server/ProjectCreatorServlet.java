@@ -103,10 +103,7 @@ public class ProjectCreatorServlet extends HttpServlet
                         string = string.replaceAll(MY_PACKAGE, packagePath);
                         string = string.replaceAll(MY_PROJECT, projectName);
                         string = string.replaceAll(MY_FILE_PATH, filePath);
-                        copy = string.getBytes("UTF-8");
-                                                
-                            System.out.println("copy.length = " + copy.length);
-                            System.out.println("count = " + count);
+                        copy = string.getBytes("UTF-8");                                                
 
                         zos.write(copy, 0, copy.length);   
                     }
