@@ -60,6 +60,11 @@
     <servlet-class>org.spiffyui.spsample.server.SampleDataServlet</servlet-class>
   </servlet>
   
+  <servlet>
+    <servlet-name>ProjectCreatorServlet</servlet-name>
+    <servlet-class>org.spiffyui.spsample.server.ProjectCreatorServlet</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
     <servlet-name>SampleAuthServer</servlet-name>
     <url-pattern>/authserver/*</url-pattern>
@@ -90,5 +95,9 @@
     <servlet-name>JSLocaleServlet</servlet-name>
     <url-pattern>/js/lib/i18n/jquery.ui.datepicker.js</url-pattern>
   </servlet-mapping>
-  
+
+  <servlet-mapping>
+    <servlet-name>ProjectCreatorServlet</servlet-name>
+    <url-pattern>/createProject</url-pattern>
+  </servlet-mapping>  
 </web-app>

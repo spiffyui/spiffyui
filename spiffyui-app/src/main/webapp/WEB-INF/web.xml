@@ -55,11 +55,11 @@
     <servlet-name>JSLocaleServlet</servlet-name>
     <servlet-class>org.spiffyui.server.JSLocaleServlet</servlet-class>
   </servlet>
-
-  <servlet-mapping>
-    <servlet-name>AuthServlet</servlet-name>
-    <url-pattern>/auth/*</url-pattern>
-  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ProjectCreatorServlet</servlet-name>
+    <servlet-class>org.spiffyui.spsample.server.ProjectCreatorServlet</servlet-class>
+  </servlet>
 
   <servlet>
     <servlet-name>SampleAuthServer</servlet-name>
@@ -72,6 +72,11 @@
   </servlet>
   
   <servlet-mapping>
+    <servlet-name>AuthServlet</servlet-name>
+    <url-pattern>/auth/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
     <servlet-name>VersionInfoServlet</servlet-name>
     <url-pattern>/version</url-pattern>
   </servlet-mapping>
@@ -80,8 +85,7 @@
     <servlet-name>CrayonColorsServlet</servlet-name>
     <url-pattern>/multivaluesuggestboxexample/colors</url-pattern>
   </servlet-mapping>
-  
-  
+    
   <servlet-mapping>
     <servlet-name>JSLocaleServlet</servlet-name>
     <url-pattern>/js/lib/i18n/date</url-pattern>
@@ -102,5 +106,9 @@
     <url-pattern>/authdata</url-pattern>
   </servlet-mapping>
 
+  <servlet-mapping>
+    <servlet-name>ProjectCreatorServlet</servlet-name>
+    <url-pattern>/createProject</url-pattern>
+  </servlet-mapping>
 
 </web-app>

@@ -141,5 +141,5 @@ public interface SpiffyRsrc extends Messages
     public String logoutSuccess(String s);
     public String logoutFail1(String s);
     public String logoutFail2(String s1, String s2);
-    
+    public String projectCreatorSubmit();
 }

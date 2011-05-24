@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="spiffyui-app/src/main/java"/>
-	<classpathentry kind="src" path="spiffyui-app/target/classes"/>
 	<classpathentry kind="src" path="spiffyui/src/main/java"/>
+	<classpathentry kind="src" path="spiffyui-app/target/classes"/>
 	<classpathentry kind="lib" path="spiffyui/build/lib/gwt-dev-2.2.0.jar"/>
 	<classpathentry kind="lib" path="spiffyui/build/lib/gwt-user-2.2.0.jar"/>
 	<classpathentry kind="lib" path="spiffyui/lib/json-20090211.jar"/>

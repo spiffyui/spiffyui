@@ -15,12 +15,17 @@
  ******************************************************************************/
 package org.spiffyui.spsample.client;
 
+import org.spiffyui.client.widgets.FormFeedback;
+import org.spiffyui.client.widgets.button.SimpleButton;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextBox;
 
 /**
  * This is the documentation panel
@@ -28,13 +33,22 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class GetStartedPanel extends HTMLPanel
 {
-    private static final SPSampleStrings STRINGS = (SPSampleStrings) GWT.create(SPSampleStrings.class);
+    private static final SPSampleStrings STRINGS = (SPSampleStrings) GWT.create(SPSampleStrings.class);    
+    
+    private static final String WIDE_TEXT_FIELD = "wideTextField";
+    
+    private TextBox m_projectName;
+    private FormFeedback m_projectNameFeedback;
+    
+    private TextBox m_packageName;
+    private FormFeedback m_packageNameFeedback;
 
+    private SimpleButton m_submit;
     /**
      * Creates a new panel
      */
     public GetStartedPanel()
-    {
+    {        
         super("div", STRINGS.GetStartedPanel_html());
 
         getElement().setId("getStartedPanel");
@@ -43,6 +57,39 @@ public class GetStartedPanel extends HTMLPanel
 
         setVisible(false);
 
+        /*
+         * Add project and package fields and button
+         */
+        m_projectName = new TextBox();
+        //       m_projectName.addKeyUpHandler(this);
+        m_projectName.getElement().setId("projectNameTxt");
+        m_projectName.getElement().addClassName(WIDE_TEXT_FIELD);
+        add(m_projectName, "projectName");
+           
+        m_projectNameFeedback = new FormFeedback();
+        //       m_feedbacks.add(m_projectNameFeedback);
+        add(m_projectNameFeedback, "projectNameRow");
+           
+        m_packageName = new TextBox();
+        //       m_packageName.addKeyUpHandler(this);
+        m_packageName.getElement().setId("packageNameTxt");
+        m_packageName.getElement().addClassName(WIDE_TEXT_FIELD);
+        add(m_packageName, "packageName");
+           
+        m_packageNameFeedback = new FormFeedback();
+        //       m_feedbacks.add(m_packageNameFeedback);
+        add(m_packageNameFeedback, "packageNameRow");
+          
+        m_submit = new SimpleButton(Index.getStrings().projectCreatorSubmit());
+        m_submit.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event)
+            {
+                createProject();
+            }
+        });
+  
+        add(m_submit, "projectBuilderButtons");
+      
         /*
          * Add the get help anchor
          */
@@ -57,5 +104,11 @@ public class GetStartedPanel extends HTMLPanel
             }
         });
         add(getHelp, "getStartedGetHelp");
+    }
+    
+    private void createProject()
+    {
+        Window.open("/createProject?type=ant&projectName=" + m_projectName.getText() + 
+            "&packagePath=" + m_packageName.getText(), "CreateProj", "");
     }
 }
