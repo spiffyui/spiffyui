@@ -13,6 +13,6 @@
 
     <set-property name="gwt.suppressNonStaticFinalFieldWarnings" value="true" /> 
     
-    <entry-point class='org.spiffyui.hellospiffyant.client.Index'/>
+    <entry-point class='MY_PACKAGE.client.Index'/>
     
 </module>

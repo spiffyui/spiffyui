@@ -17,6 +17,7 @@ package org.spiffyui.spsample.server;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -89,9 +90,26 @@ public class ProjectCreatorServlet extends HttpServlet
                 zos.putNextEntry(newEntry);
                 
                 int count;
-                byte data[] = new byte[BUFFER];
-                while ((count = zis.read(data, 0, BUFFER)) != -1) {                    
-                    zos.write(data, 0, count);
+                byte[] data = new byte[BUFFER];
+                if (entry.isDirectory()) {
+                    while ((count = zis.read(data, 0, BUFFER)) != -1) {                    
+                        zos.write(data, 0, count);                        
+                    }
+                } else {
+                    while ((count = zis.read(data, 0, BUFFER)) != -1) {
+                        
+                        byte[] copy = Arrays.copyOf(data, count);
+                        String string = new String(copy, "UTF-8");
+                        string = string.replaceAll(MY_PACKAGE, packagePath);
+                        string = string.replaceAll(MY_PROJECT, projectName);
+                        string = string.replaceAll(MY_FILE_PATH, filePath);
+                        copy = string.getBytes("UTF-8");
+                                                
+                            System.out.println("copy.length = " + copy.length);
+                            System.out.println("count = " + count);
+
+                        zos.write(copy, 0, copy.length);   
+                    }
                 }
             }
             zos.flush();
