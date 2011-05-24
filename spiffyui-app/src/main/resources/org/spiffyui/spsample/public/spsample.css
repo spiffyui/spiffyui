@@ -1,4 +1,4 @@
- body, table td, .gwt-TextBox, .gwt-ListBox, .gwt-PasswordTextBox, .gwt-TextArea, .gwt-SuggestBox, select {
+body, table td, .gwt-TextBox, .gwt-ListBox, .gwt-PasswordTextBox, .gwt-TextArea, .gwt-SuggestBox, select {
     font-family: "chaparral-pro-1","chaparral-pro-2",Verdana,Sans-serif;
     font-size: 18px;
     line-height: 24px;
@@ -119,7 +119,7 @@ h2 {
     font-family: "anonymous-pro-1","anonymous-pro-2",monospace;
 }
 
-.documentationPanel a, .documentationPanel a:visited, .slidegrid a, .slidegrid a:visited {
+.documentationPanel a, .documentationPanel a:visited, .slidegrid a, .slidegrid a:visited, #landingPanel a, #landingPanel a:visited {
     color: #289bc8;
 }
 

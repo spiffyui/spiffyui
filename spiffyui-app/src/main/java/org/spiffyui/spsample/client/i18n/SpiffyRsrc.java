@@ -145,4 +145,11 @@ public interface SpiffyRsrc extends Messages
     public String logoutFail2(String s1, String s2);
     public String projectCreatorSubmit();
     public String documentation();
+    public String flexibleCSS();
+    public String downloadSize();
+    public String mobileCallout(String s1, String s2);
+    public String restility();
+    public String restCallout(String s);
+    public String secCallout(String s);
+    public String secureLink();
 }

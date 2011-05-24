@@ -15,7 +15,6 @@
  ******************************************************************************/
  package org.spiffyui.spsample.client;
 
-import org.spiffyui.client.JSUtil;
 import org.spiffyui.client.widgets.FormFeedback;
 import org.spiffyui.client.widgets.button.SimpleButton;
 
@@ -58,21 +57,23 @@ public class LandingPanel extends HTMLPanel
 
         RootPanel.get("mainContent").add(this);
         
-        /*
-         * Add the documentation anchor
-         */
-        Anchor doc = new Anchor(Index.getStrings().documentation(), "#");
-        doc.addClickHandler(new ClickHandler() {
-
-            @Override
-            public void onClick(ClickEvent event)
-            {
-                event.preventDefault();
-                JSUtil.println("Selecting the overview item...");
-                Index.selectItem(Index.OVERVIEW_NAV_ITEM_ID);
-            }
-        });
-        add(doc, "landingDoc");
+        addAnchor(Index.getStrings().documentation(), Index.OVERVIEW_NAV_ITEM_ID, "landingDoc");
+        addAnchor(Index.getStrings().demos(), Index.WIDGETS_NAV_ITEM_ID, "landingSample");
+        addAnchor(Index.getStrings().download(), Index.GET_STARTED_NAV_ITEM_ID, "landingDownload");
+        
+        getElementById("mobileCalloutText").setInnerHTML(Index.getStrings().mobileCallout(
+            "<span id=\"mobileCSSLink\"></span>", "<span id=\"mobileSpeedLink\"></span>"));
+        addAnchor(Index.getStrings().flexibleCSS(), Index.CSS_NAV_ITEM_ID, "mobileCSSLink");
+        addAnchor(Index.getStrings().downloadSize(), Index.SPEED_NAV_ITEM_ID, "mobileSpeedLink");
+        
+        getElementById("restCalloutText").setInnerHTML(Index.getStrings().restCallout(
+            "<span id=\"restRestLink\"></span>"));
+        addAnchor(Index.getStrings().restility(), Index.REST_NAV_ITEM_ID, "restRestLink");
+        
+        getElementById("secCalloutText").setInnerHTML(Index.getStrings().secCallout(
+            "<span id=\"secSecLink\"></span>"));
+        addAnchor(Index.getStrings().secureLink(), Index.AUTH_NAV_ITEM_ID, "secSecLink");
+        
         
         /*
          * Add project and package fields and button
@@ -106,6 +107,21 @@ public class LandingPanel extends HTMLPanel
         });
   
         add(m_submit, "projectBuilderButtons");
+    }
+    
+    private void addAnchor(final String text, final String id, final String location)
+    {
+        Anchor link = new Anchor(text, "#");
+        link.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                event.preventDefault();
+                Index.selectItem(id);
+            }
+        });
+        add(link, location);
     }
     
     private void createProject()
