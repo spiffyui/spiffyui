@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Spiffy UI Framework Sample Project" xmlns:ivy="antlib:org.apache.ivy.ant" default="run" basedir=".">
+<project name="MY_PROJECT" xmlns:ivy="antlib:org.apache.ivy.ant" default="run" basedir=".">
 
     <target name="all" depends="setup,resolve" description="Build, compile, and package the entire application">
         <antcall target="gwt-compile">
@@ -135,7 +135,7 @@
     </target>
     
     <target name="run" depends="setup,resolve,all,jetty.setup" 
-            description="Run the Spiffy sample project with an embedded Jetty server">
+            description="Run the Spiffy project with an embedded Jetty server">
         <!--
         Setup for Jetty
         -->
@@ -147,10 +147,10 @@
         <echo>
 ========================================================================
 
-        Running the Spiffy UI Sample application with an embedded
+        Running the Spiffy UI application with an embedded
         Jetty server. Press Ctrl+C to stop the server. 
 
-        Access Spiffy at: http://localhost:8080
+        Access MY_PROJECT at: http://localhost:8080
 
 ========================================================================
         </echo>

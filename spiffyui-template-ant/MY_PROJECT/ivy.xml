@@ -1,5 +1,5 @@
 <ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd" xmlns:m="http://ant.apache.org/ivy/maven"> 
-    <info organisation="spsample" module="spsample-ivy"/>
+    <info organisation="MY_PACKAGE" module="MY_PROJECT-ivy"/>
     <dependencies>
         <!-- Spiffy UI JARs -->
         <dependency org="org.spiffyui" name="spiffyui" changing="true" rev="0.7.5-SNAPSHOT"/>

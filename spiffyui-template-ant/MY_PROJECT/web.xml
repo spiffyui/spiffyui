@@ -13,7 +13,7 @@
   
   <servlet>
     <servlet-name>SimpleServlet</servlet-name>
-    <servlet-class>org.spiffyui.hellospiffyant.server.SimpleServlet</servlet-class>
+    <servlet-class>MY_PACKAGE.server.SimpleServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>

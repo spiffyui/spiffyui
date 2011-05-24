@@ -62,7 +62,7 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
     public void onModuleLoad()
     {
         MainHeader header = new MainHeader();
-        header.setHeaderTitle("Hello Spiffy Ant!");
+        header.setHeaderTitle("Hello Spiffy MY_PROJECT!");
         
         MainFooter footer = new MainFooter();
         footer.setFooterString("This application is a <a href=\"http://www.spiffyui.org\">Spiffy UI Framework</a> application");
