@@ -96,7 +96,7 @@
         </condition>
         <property name="root" location="${build.base}"/>
         <property name="spiffyui" location="${root}/../spiffyui"/>
-    	<property name="template-ant" location="${root}/../spiffyui-template-ant"/>
+    	<property name="template" location="${root}/../spiffyui-template"/>
         <property name="build" location="${build.base}/build"/>
         <property name="ivy.lib.dir" value="${build}/lib"/>
         <property name="sample.src" location="${root}/src/main/java"/>
@@ -489,8 +489,14 @@ build.dir=${root}
     </target>
 	
 	<target name="zip-template" depends="setup" description="Add the spiffyui-templates to the WEB-INF/classes">
-        <zip destfile="${sample.out.classes}/spiffyui-template-ant.zip"
-            basedir="${template-ant}"
+        <!-- ant template -->
+		<zip destfile="${sample.out.classes}/spiffyui-template-ant.zip"
+            basedir="${template}-ant"
             excludes="**/.svn/**"/>
+		
+		<!-- maven template -->
+		<zip destfile="${sample.out.classes}/spiffyui-template-maven.zip"
+		            basedir="${template}-maven"
+		            excludes="**/.svn/**"/>
 	</target>
 </project>

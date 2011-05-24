@@ -1,7 +1,7 @@
 [Spiffy UI](http://www.spiffyui.org) - beautiful, fast, maintainable applications with GWT and REST
 ==================================================
 
-This is an application created from the [Spiffy UI Framework](http://www.spiffyui.org) project builder, which builds a simple REST application with Apache Ant.
+This is an application created from the [Spiffy UI Framework](http://www.spiffyui.org) project creator, which builds a simple REST application with Apache Ant.
 
 
 Building and Running Spiffy UI
