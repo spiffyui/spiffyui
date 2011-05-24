@@ -13,7 +13,7 @@
  * limitations under the License.
  *
  ******************************************************************************/
-package org.spiffyui.MY_PACKAGE.server;
+package MY_PACKAGE.server;
 
 import java.io.IOException;
 import java.io.PrintWriter;

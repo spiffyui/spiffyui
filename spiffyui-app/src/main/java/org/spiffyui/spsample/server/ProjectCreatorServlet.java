@@ -17,7 +17,6 @@ package org.spiffyui.spsample.server;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -35,13 +34,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ProjectCreatorServlet extends HttpServlet
 {
-    private static final Logger LOGGER = Logger.getLogger(CrayonColorsServlet.class.getName());
-
     private static final long serialVersionUID = -1L;
 
     private static final String MY_PROJECT = "MY_PROJECT";
     private static final String MY_PACKAGE = "MY_PACKAGE";
-    private static final String TEMPLATE_ANT = "spiffyui-template-ant.zip";
+    private static final String MY_FILE_PATH = "MY_FILE_PATH";
+    
+    private static final String TEMPLATE = "spiffyui-template-";
     
     private static final int BUFFER = 4096;
     @Override
@@ -52,20 +51,23 @@ public class ProjectCreatorServlet extends HttpServlet
         try {
             /*
              * Get the correct zip
-             * (For now always spiffyui-template-ant.zip)
              */
-            ZipInputStream zis = new ZipInputStream(getServletContext().getResourceAsStream("/WEB-INF/classes/" + TEMPLATE_ANT));
+            String projectType = request.getParameter("type");
+            ZipInputStream zis = new ZipInputStream(getServletContext().getResourceAsStream("/WEB-INF/classes/" + TEMPLATE + projectType + ".zip"));
             
             /*
-             * Change the project name 
+             * Get the project name 
              */
             String projectName = request.getParameter("projectName");
             /*
-             * Change the package path
-             * (Right now just doing name)
+             * Get the package path
              */
             String packagePath = request.getParameter("packagePath");
-    
+            /*
+             * Change . to / for directories 
+             */
+            String filePath = packagePath.replaceAll("\\.", "/");
+            
             /*
              * Send the new zip
              */
@@ -73,26 +75,27 @@ public class ProjectCreatorServlet extends HttpServlet
             response.setHeader("Content-Disposition", "inline; filename=" + projectName + ".zip;");
     
             ServletOutputStream dest = response.getOutputStream();  
-            ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest));  
+            ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(dest));  
     
             ZipEntry entry;
             while ((entry = zis.getNextEntry()) != null) {
-                System.out.println("Extracting: " + entry);
-                int count;
-                byte data[] = new byte[BUFFER];
                 
                 String entryName = entry.getName();
-                entryName = entryName.replaceAll(MY_PACKAGE, packagePath);
+                entryName = entryName.replaceAll(MY_PACKAGE, filePath);
                 entryName = entryName.replaceAll(MY_PROJECT, projectName);
+                System.out.println("Putting new entry: " + entryName);
+                
                 ZipEntry newEntry = new ZipEntry(entryName);
-                out.putNextEntry(newEntry);
-                while ((count = zis.read(data, 0, BUFFER)) != -1) {
-                    
-                    out.write(data, 0, count);
+                zos.putNextEntry(newEntry);
+                
+                int count;
+                byte data[] = new byte[BUFFER];
+                while ((count = zis.read(data, 0, BUFFER)) != -1) {                    
+                    zos.write(data, 0, count);
                 }
             }
-            out.flush();
-            out.close();
+            zos.flush();
+            zos.close();
             zis.close();
         } catch (Exception e) {
             e.printStackTrace();

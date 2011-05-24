@@ -3,7 +3,7 @@
 
     <target name="all" depends="setup,resolve" description="Build, compile, and package the entire application">
         <antcall target="gwt-compile">
-            <param name="gwttarget" value="org.spiffyui.MY_PACKAGE.index"/>
+            <param name="gwttarget" value="MY_PACKAGE.index"/>
         </antcall>
         <antcall target="compile"/>
         <antcall target="package" />
@@ -97,15 +97,15 @@
              If we add more GWT modules to the project we'll 
              need to skip this step for them. -->
         <move todir="${sample.out.www}" failonerror="false">
-            <fileset dir="${sample.out.www}/org.spiffyui.MY_PACKAGE.index" includes="**/*" />
+            <fileset dir="${sample.out.www}/MY_PACKAGE.index" includes="**/*" />
         </move>
         
-        <delete dir="${sample.out.www}/org.spiffyui.MY_PACKAGE.index" />
+        <delete dir="${sample.out.www}/MY_PACKAGE.index" />
     </target>
     
     <target name="compile" description="Call the Java compiler for this project">
         <!-- Compile all the Java -->
-        <javac srcdir="${sample.src}/org/spiffyui/MY_PACKAGE/server" destdir="${sample.out.classes}" 
+        <javac srcdir="${sample.src}/MY_FILE_PATH/server" destdir="${sample.out.classes}" 
                target="1.5" source="1.5" debug="true" deprecation="yes"
                includeantruntime="false">
             <compilerarg value="-Xlint" />
