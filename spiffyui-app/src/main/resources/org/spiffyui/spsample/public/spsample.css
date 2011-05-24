@@ -881,13 +881,18 @@ iframe {
 }
 
 #landingPanel h1 {
-    font-weight: 600;
+    font-weight: normal;
     font-size: 48px;
     font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2",Verdana,Sans-serif;
     padding-left: 50px;
     background: url("images/spiffy_logo.png") no-repeat scroll left 0px transparent;
     height: 55px;
     color: black;
+}
+
+#slogan {
+    font-size: 24px;
+    margin-left: 1em;
 }
 
 #landingPanelText {
