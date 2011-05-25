@@ -425,7 +425,7 @@ build.dir=${root}
         appengine-java-sdk\bin\appcfg.cmd update ${sample.out}/appengine-staging
             
     Linux and Mac:
-        appengine-java-sdk/bin/appcfg.sh update target/appengine
+        appengine-java-sdk/bin/appcfg.sh update target/appengine-staging
             
     Once the application is deployed you can access it at:
         
