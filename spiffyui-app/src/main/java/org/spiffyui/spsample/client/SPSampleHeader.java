@@ -15,17 +15,16 @@
  ******************************************************************************/
 package org.spiffyui.spsample.client;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Anchor;
-
-import org.spiffyui.client.JSUtil;
 import org.spiffyui.client.MainHeader;
 import org.spiffyui.client.MessageUtil;
 import org.spiffyui.client.rest.RESTException;
 import org.spiffyui.client.rest.RESTObjectCallBack;
 import org.spiffyui.client.rest.RESTility;
+
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 
 /**
  * This is the header for SPSample.
@@ -42,7 +41,7 @@ public class SPSampleHeader extends MainHeader
         logout.getElement().setId("header_logout");
         setLogout(logout);
         if (!Index.userLoggedIn()) {
-            JSUtil.hide("#header_logout", "fast");
+            logout.setVisible(false);
             setWelcomeString("");            
         } else {
             String token = RESTility.getUserToken();
