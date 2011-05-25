@@ -474,7 +474,7 @@ button.spiffy-fancy-button.inprogress {
 }
 
 button {
-    background: url('images/btn-back.gif') no-repeat left;
+    background: url('images/btn-back.gif') repeat-x left;
     border: thin solid lightgray;
     padding: 0 1em 0 1em;
     white-space: no-wrap;
