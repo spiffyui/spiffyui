@@ -851,6 +851,19 @@ iframe {
     width: 25%;
 }
 
+#createForm {
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px; 
+    padding: 0px 5px 5px 15px; 
+    background-color: #FFFFE0;
+    border: 1px solid #FFFFE0;
+}
+
+#createForm:hover {
+    border: 1px solid #E6DB55;
+}
+
 #timeCallout, #licCallout {
     left: 5px;
 }
@@ -871,7 +884,7 @@ iframe {
     position: absolute;
     width: 60%;
     left: 5px;
-    height: 5px;
+    height: auto;
 }
 
 #createText {
