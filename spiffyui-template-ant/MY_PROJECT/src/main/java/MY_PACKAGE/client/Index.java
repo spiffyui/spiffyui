@@ -63,8 +63,8 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
     public void onModuleLoad()
     {
         /*
-         This is where we load out module and create our dynamic controls.  The MainHeader
-         displays out title bar at the top of our page.
+         This is where we load our module and create our dynamic controls.  The MainHeader
+         displays our title bar at the top of our page.
          */
         MainHeader header = new MainHeader();
         header.setHeaderTitle("Hello Spiffy MY_PROJECT!");
@@ -76,7 +76,9 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
         footer.setFooterString("MY_PROJECT was built with the <a href=\"http://www.spiffyui.org\">Spiffy UI Framework</a>");
         
         /*
-         This HTMLPanel holds most of our content
+         This HTMLPanel holds most of our content.
+         MainPanel_html was built in the HTMLProps task from MainPanel.html, which allows you to use large passages of html
+         without having to string escape them.
          */
         HTMLPanel panel = new HTMLPanel(STRINGS.MainPanel_html())
         {
