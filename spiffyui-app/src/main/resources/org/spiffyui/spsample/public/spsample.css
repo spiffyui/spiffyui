@@ -869,10 +869,10 @@ iframe {
 }
 
 .landingCallout, #createForm, #createText {
-     transition: box-shadow 1s;
-    -moz-transition: box-shadow 1s; /* Firefox 4 */
-    -webkit-transition: box-shadow 1s; /* Safari and Chrome */
-    -o-transition: box-shadow 1s; /* Opera */
+     transition: box-shadow 0.5s;
+    -moz-transition: box-shadow 0.5s; /* Firefox 4 */
+    -webkit-transition: box-shadow 0.5s; /* Safari and Chrome */
+    -o-transition: box-shadow 0.5s; /* Opera */
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     border-radius: 6px; 
