@@ -25,6 +25,7 @@ import org.spiffyui.client.rest.RESTility;
 import org.spiffyui.client.widgets.LongMessage;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -33,9 +34,7 @@ import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
@@ -45,10 +44,11 @@ import com.google.gwt.user.client.ui.TextBox;
  */
 public class Index implements EntryPoint, ClickHandler, KeyPressHandler 
 {
+    private static final Strings STRINGS = (Strings) GWT.create(Strings.class);
 
     private static Index g_index;
     private TextBox m_text = new TextBox();
-    private LongMessage m_longMessage = new LongMessage("longMsg");
+    private LongMessage m_longMessage = new LongMessage("longMsgPanel");
 
     /**
      * The Index page constructor
@@ -62,13 +62,23 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
     @Override
     public void onModuleLoad()
     {
+        /*
+         This is where we load out module and create our dynamic controls.  The MainHeader
+         displays out title bar at the top of our page.
+         */
         MainHeader header = new MainHeader();
         header.setHeaderTitle("Hello Spiffy MY_PROJECT!");
         
+        /*
+         The main footer shows our message at the bottom of the page.
+         */
         MainFooter footer = new MainFooter();
-        footer.setFooterString("MY_PROJECT is a <a href=\"http://www.spiffyui.org\">Spiffy UI Framework</a> application");
+        footer.setFooterString("MY_PROJECT was built with the <a href=\"http://www.spiffyui.org\">Spiffy UI Framework</a>");
         
-        FlowPanel panel = new FlowPanel()
+        /*
+         This HTMLPanel holds most of our content
+         */
+        HTMLPanel panel = new HTMLPanel(STRINGS.MainPanel_html())
         {
             @Override
             public void onLoad()
@@ -81,41 +91,21 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
             }
         };
         
-        panel.add(m_longMessage);
-        final InlineLabel label = new InlineLabel("What's your name? ");
-        label.setHeight("1em");
-        panel.add(label);
-        panel.add(m_text);
+        RootPanel.get("mainContent").add(panel);
+        
+        /*
+         These dynamic controls add interactivity to our page.
+         */
+        panel.add(m_longMessage, "longMsg");
+        panel.add(m_text, "nameField");
         final Button button = new Button("Submit");
-        panel.add(button);
-        
-        final HTML html = new HTML("<br><br>"+
-                                   "<p>This is a <a href=\"http://www.spiffyui.org\">Spiffy UI</a> application built " +
-                                   "just for you and running on your computer.  This simple example shows you an easy form " +
-                                   "which makes a <a href=\"http://www.spiffyui.org/#b=rest\">REST</a> call to your server.  " +
-                                   "You can edit it, build it, run it, share it with your friends, and build a product on " +
-                                   "top of it.  The application is all yours.</p>"+
-
-                                   "<h2>Next steps</h2>"+
-                                   
-                                   "<p>You've played with the project a little, now make some changes.  </p>"+
-                                   "<ol>"+
-                                   "<li><b>Change the style</b> - You can set any style in <code>src/main/java/MY_PACKAGE/public/MY_PROJECT.css</code></li>"+
-                                   "<li><b>Add a widget</b> - Spiffy UI has some great <a href=\"http://www.spiffyui.org/#b=widgets\">widgets</a></li>"+
-                                   "<li><b>Add a navigation bar</b> - Easy navigation for your application is one of the great features of Spiffy UI</li>"+
-                                   "</ol>");
-        html.getElement().setId("spiffyIntroText");
-        panel.add(html);
+        panel.add(button, "submitButton");
         
         button.addClickHandler(this);
         m_text.addKeyPressHandler(this);
         
-        RootPanel.get("mainContent").add(panel);
-        
         button.addClickHandler(this);
         m_text.addKeyPressHandler(this);
-        
-        RootPanel.get("mainContent").add(panel);
     }
     
     @Override

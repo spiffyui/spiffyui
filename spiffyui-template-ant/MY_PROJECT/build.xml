@@ -2,7 +2,22 @@
 <project name="MY_PROJECT" xmlns:ivy="antlib:org.apache.ivy.ant" default="run" basedir=".">
 
     <target name="all" depends="setup,resolve" description="Build, compile, and package the entire application">
-        <antcall target="taskDefs"/>
+    
+        <!-- This is the main target that builds our project.  The first step is to
+             import the tasks we'll need for building.  -->
+        <taskdef resource="tasks.properties">
+            <classpath>
+                <fileset dir="${build}/lib" includes="spiffy*.jar"/>
+            </classpath>
+        </taskdef>
+        
+        <!-- Then we make the strings from out HTML file available in our project. -->
+        <mkdir dir="${target.classes}/MY_FILE_PATH/client"/>
+        <htmlprops properties="${target.classes}/MY_FILE_PATH/client/Strings.properties">
+            <fileset dir="${src}/MY_FILE_PATH/client" includes="**/*.html" />
+        </htmlprops>
+        
+        <!-- Now we compile and package our project. -->
         <antcall target="gwt-compile">
             <param name="gwttarget" value="MY_PACKAGE.index"/>
         </antcall>
@@ -30,16 +45,6 @@
     <property name="ivy.jar.dir" value="${ivy.home}/lib" />
     <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
     
-    <target name="taskDefs">
-        <!-- This makes the Spiffy UI tasks available to the rest of
-             the build.  -->
-        <taskdef resource="tasks.properties">
-            <classpath>
-                <fileset dir="${build}/lib" includes="*.jar"/>
-            </classpath>
-        </taskdef>
-    </target>
-
     <target name="download-ivy" unless="hasDownloadedIvy">
         <property name="hasDownloadedIvy" value="true" />
 
@@ -65,13 +70,8 @@
     <target name="setup" description="Setup build dependencies and properties" depends="init-ivy">
         <property environment="env"/>
 
-        <!-- These are all the project relative paths.  Please add new paths
-             here so they are easier to find when they change. -->
-        <condition property="build.base" value="${env.SPSAMPLE_BASE}" else="${basedir}">
-          <isset property="${env.env.SPSAMPLE_BASE}"/>
-        </condition>
-        <property name="root" location="${build.base}"/>
-        <property name="build" location="${build.base}/build"/>
+        <property name="root" location="${basedir}"/>
+        <property name="build" location="${basedir}/build"/>
         <property name="ivy.lib.dir" value="${build}/lib"/>
         <property name="src" location="${root}/src/main/java"/>
         <property name="target" location="${root}/target"/>
@@ -91,11 +91,14 @@
             fork="true" failonerror="true" maxmemory="256m">
             <arg value="-style"/>
             <arg value="PRETTY"/>
+            <arg value="-localWorkers"/>
+            <arg value="4"/>
             <arg value="-war"/>
             <arg value="${target.www}"/>
             <arg value="${gwttarget}"/>
             <classpath>
                 <pathelement location="${src}"/>
+                <pathelement location="${target.classes}"/>
                 <fileset dir="${build}/lib">
                     <include name="**/*.jar"/>
                 </fileset>
