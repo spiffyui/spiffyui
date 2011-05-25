@@ -299,13 +299,13 @@
             </zipfileset>
         </jar>
         
-        <jar destfile="${spiffy.dist}/spiffyuitasks-javadoc.jar">
+        <jar destfile="${spiffy.dist}/spiffytasks-javadoc.jar">
             <zipfileset dir="${spiffy.classes}/javadoc-tasks" prefix="" >
                 <include name="**/*.*"/>
             </zipfileset>
         </jar>
         
-        <jar destfile="${spiffy.dist}/spiffyuitasks-source.jar">
+        <jar destfile="${spiffy.dist}/spiffytasks-source.jar">
             <zipfileset dir="${spiffy.root}/build/src/" prefix="" >
                 <include name="**/*.*"/>
             </zipfileset>
