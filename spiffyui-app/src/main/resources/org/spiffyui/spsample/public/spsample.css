@@ -796,6 +796,10 @@ iframe {
     display: block;
 }
 
+#mainContent > div {
+    width: 900px;
+}
+
 #mainContent > #formPanel, #mainContent > #javaDocPanel, #mainContent > #helpPanel {
     margin-bottom: 16em;
 }
