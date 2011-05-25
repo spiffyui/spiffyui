@@ -844,9 +844,14 @@ iframe {
     display: none;
 }
 
-#callouts, #createSpiffy, #callouts2 {
+#callouts, #callouts2 {
     position: relative;
     height: 200px;
+}
+
+#createSpiffy {
+    position: relative;
+    height: 224px;
 }
 
 .landingCallout {
