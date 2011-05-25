@@ -7,3 +7,16 @@ body {
 #spiffyIntroText {
     width: 600px;
 }
+
+p, li {
+    margin-top: 1em;
+}
+
+h2 {
+    font-size: 18px;
+    margin-top: 1.5em;
+}
+
+li {
+    list-style: disc inside none;
+}

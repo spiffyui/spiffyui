@@ -94,7 +94,16 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
                                    "just for you and running on your computer.  This simple example shows you an easy form " +
                                    "which makes a <a href=\"http://www.spiffyui.org/#b=rest\">REST</a> call to your server.  " +
                                    "You can edit it, build it, run it, share it with your friends, and build a product on " +
-                                   "top of it.  The application is all yours.</p>");
+                                   "top of it.  The application is all yours.</p>"+
+
+                                   "<h2>Next steps</h2>"+
+                                   
+                                   "<p>You've played with the project a little, now make some changes.  </p>"+
+                                   "<ol>"+
+                                   "<li><b>Change the style</b> - You can set any style in <code>src/main/java/MY_PACKAGE/public/MY_PROJECT.css</code></li>"+
+                                   "<li><b>Add a widget</b> - Spiffy UI has some great <a href=\"http://www.spiffyui.org/#b=widgets\">widgets</a></li>"+
+                                   "<li><b>Add a navigation bar</b> - Easy navigation for your application is one of the great features of Spiffy UI</li>"+
+                                   "</ol>");
         html.getElement().setId("spiffyIntroText");
         panel.add(html);
         
