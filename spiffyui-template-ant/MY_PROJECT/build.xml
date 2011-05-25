@@ -2,6 +2,7 @@
 <project name="MY_PROJECT" xmlns:ivy="antlib:org.apache.ivy.ant" default="run" basedir=".">
 
     <target name="all" depends="setup,resolve" description="Build, compile, and package the entire application">
+        <antcall target="taskDefs"/>
         <antcall target="gwt-compile">
             <param name="gwttarget" value="MY_PACKAGE.index"/>
         </antcall>
@@ -28,6 +29,16 @@
     <property name="ivy.home" value="${user.home}/.ant" />
     <property name="ivy.jar.dir" value="${ivy.home}/lib" />
     <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
+    
+    <target name="taskDefs">
+        <!-- This makes the Spiffy UI tasks available to the rest of
+             the build.  -->
+        <taskdef resource="tasks.properties">
+            <classpath>
+                <fileset dir="${build}/lib" includes="*.jar"/>
+            </classpath>
+        </taskdef>
+    </target>
 
     <target name="download-ivy" unless="hasDownloadedIvy">
         <property name="hasDownloadedIvy" value="true" />
@@ -62,14 +73,14 @@
         <property name="root" location="${build.base}"/>
         <property name="build" location="${build.base}/build"/>
         <property name="ivy.lib.dir" value="${build}/lib"/>
-        <property name="sample.src" location="${root}/src/main/java"/>
-        <property name="sample.out" location="${root}/target"/>
-        <property name="sample.out.www" location="${sample.out}/www"/>
-        <property name="sample.out.classes" location="${sample.out}/classes"/>
+        <property name="src" location="${root}/src/main/java"/>
+        <property name="target" location="${root}/target"/>
+        <property name="target.www" location="${target}/www"/>
+        <property name="target.classes" location="${target}/classes"/>
         
-        <mkdir dir="${sample.out}"/>
-    	<mkdir dir="${sample.out.classes}"/>
-        <mkdir dir="${sample.out.www}"/>
+        <mkdir dir="${target}"/>
+    	<mkdir dir="${target.classes}"/>
+        <mkdir dir="${target.www}"/>
     </target>
     
     <!-- This target calls the GWT compiler inline and
@@ -84,7 +95,7 @@
             <arg value="${sample.out.www}"/>
             <arg value="${gwttarget}"/>
             <classpath>
-                <pathelement location="${sample.src}"/>
+                <pathelement location="${src}"/>
                 <fileset dir="${build}/lib">
                     <include name="**/*.jar"/>
                 </fileset>
@@ -105,7 +116,7 @@
     
     <target name="compile" description="Call the Java compiler for this project">
         <!-- Compile all the Java -->
-        <javac srcdir="${sample.src}/MY_FILE_PATH/server" destdir="${sample.out.classes}" 
+        <javac srcdir="${src}/MY_FILE_PATH/server" destdir="${sample.out.classes}" 
                target="1.5" source="1.5" debug="true" deprecation="yes"
                includeantruntime="false">
             <compilerarg value="-Xlint" />
