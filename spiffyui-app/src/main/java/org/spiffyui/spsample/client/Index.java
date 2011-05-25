@@ -37,10 +37,14 @@ import org.spiffyui.spsample.client.rest.VersionInfo;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.RootPanel;
 
 
@@ -133,8 +137,20 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         RESTility.setAuthProvider(new SampleAuthUtil());
 
         m_header = new SPSampleHeader();
-        m_header.setHeaderTitle(getStrings().mainTitle());
-
+        Anchor title = new Anchor(getStrings().mainTitle(), "#");
+        m_header.addHeaderTitleWidget(title);
+        title.addClickHandler(new ClickHandler() {
+            
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                selectItem(LANDING_NAV_ITEM_ID);
+            }
+        });
+        InlineLabel subtitle = new InlineLabel(getStrings().mainSubtitle());
+        m_header.addHeaderTitleWidget(subtitle);
+        subtitle.getElement().setId("mainsubtitle");
+        
         m_footer = new MainFooter();
         loadFooter();
 
@@ -149,7 +165,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         /*
          The landing panel
          */
-        NavItem item = new NavItem(LANDING_NAV_ITEM_ID, getStrings().landing(),
+        NavItem item = new NavItem(LANDING_NAV_ITEM_ID, "",
                                    getStrings().landing_tt());
         m_navBar.add(item);
         m_panels.put(item, new LandingPanel());

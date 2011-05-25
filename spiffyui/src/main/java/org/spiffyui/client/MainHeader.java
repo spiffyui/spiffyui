@@ -18,6 +18,7 @@ package org.spiffyui.client;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 import org.spiffyui.client.nav.HasNavBarListenersPanel;
 
@@ -117,6 +118,16 @@ public class MainHeader extends HasNavBarListenersPanel
     public String getWelcomeString()
     {
         return m_panel.getElementById(HEADER_STRING).getInnerText();
+    }
+
+    /**
+     * Add a widget to the header title
+     * 
+     * @param a widget for the header title
+     */
+    public void addHeaderTitleWidget(Widget w)
+    {
+        m_panel.add(w, HEADER_TITLE);
     }
     
     /**

@@ -122,6 +122,7 @@ public interface SpiffyRsrc extends Messages
     public String formSaveMessage();
     public String authDataMsg(String s1, String s2, String s3);
     public String mainTitle();
+    public String mainSubtitle();
     public String overviewLink();
     public String tabNavigation();
     public String menuNavigation();
