@@ -852,13 +852,20 @@ iframe {
 .landingCallout {
     position: absolute;
     top: 5px;
-    width: 25%;
+    width: 25%;    
 }
 
-#createForm {
+.landingCallout, #createForm, #createText {
+     transition: box-shadow 1s;
+    -moz-transition: box-shadow 1s; /* Firefox 4 */
+    -webkit-transition: box-shadow 1s; /* Safari and Chrome */
+    -o-transition: box-shadow 1s; /* Opera */
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     border-radius: 6px; 
+}
+
+#createForm {
     padding: 0px 5px 5px 15px; 
     background-color: #FFFFE0;
     border: 1px solid #FFFFE0;
@@ -867,6 +874,13 @@ iframe {
 #createForm:hover {
     border: 1px solid #E6DB55;
 }
+
+.landingCallout:hover, #createForm:hover, #createText:hover {
+    -moz-box-shadow: 10px 10px 5px #888;
+    -webkit-box-shadow: 10px 10px 5px #888;
+    box-shadow: 10px 10px 5px #888;
+}
+
 
 #timeCallout, #licCallout {
     left: 5px;
