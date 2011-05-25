@@ -179,13 +179,6 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         m_panels.put(item, new OverviewPanel());
 
         /*
-         The Getting started panels
-         */
-        item = new NavItem(GET_STARTED_NAV_ITEM_ID, getStrings().getStarted(), getStrings().getStarted_tt());
-        m_navBar.add(item);
-        m_panels.put(item, new GetStartedPanel());
-
-        /*
          * Collapsible Features Nav Section
          */
         NavSection featureSection = new NavSection("featuresNavSection", getStrings().features());
@@ -229,6 +222,14 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         m_panels.put(item, new BuildPanel());
 
         addSamplePanels();
+
+        /*
+        The Getting started panels
+        */
+        item = new NavItem(GET_STARTED_NAV_ITEM_ID, getStrings().getStarted(), getStrings().getStarted_tt());
+        m_navBar.add(item);
+        m_panels.put(item, new GetStartedPanel());
+
 
         /*
         A separator

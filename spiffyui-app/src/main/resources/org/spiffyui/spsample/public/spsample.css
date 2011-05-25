@@ -327,6 +327,7 @@ iframe {
     margin-right: 0px;
     background: white;
     padding-bottom: 10em;
+    width: 100%;
 }
 
 #mainWrap.tabnav {
@@ -380,10 +381,16 @@ iframe {
     color: #e3003a;
 }
 
+.prefspulltab {
+    position: absolute;
+    right: 192px;
+}
+
 .prefspulltab a {
     background-color: #dddddd;
     font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2";
     background-position: right center;
+    line-height: 23px;
 }
 
 .prefspaneltab h3 {
@@ -399,6 +406,7 @@ iframe {
     position: relative;
     top: -10px;
     margin-bottom: -7px;
+    width: 682px;
 }
 
 .cell {

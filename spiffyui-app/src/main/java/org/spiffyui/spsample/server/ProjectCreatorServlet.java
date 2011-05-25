@@ -84,7 +84,7 @@ public class ProjectCreatorServlet extends HttpServlet
                 String entryName = entry.getName();
                 entryName = entryName.replaceAll(MY_PACKAGE, filePath);
                 entryName = entryName.replaceAll(MY_PROJECT, projectName);
-                System.out.println("Putting new entry: " + entryName);
+//                System.out.println("Putting new entry: " + entryName);
                 
                 ZipEntry newEntry = new ZipEntry(entryName);
                 zos.putNextEntry(newEntry);
