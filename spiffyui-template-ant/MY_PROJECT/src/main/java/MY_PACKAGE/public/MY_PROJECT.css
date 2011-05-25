@@ -1,0 +1,9 @@
+body {
+    font-family: Verdana,Sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+#spiffyIntroText {
+    width: 600px;
+}

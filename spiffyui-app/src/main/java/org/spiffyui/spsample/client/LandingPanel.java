@@ -130,7 +130,7 @@ public class LandingPanel extends HTMLPanel
     
     private void createProject()
     {
-        Window.open("/createProject?type=ant&projectName=" + m_projectName.getText() + 
-            "&packagePath=" + m_packageName.getText(), "CreateProj", "");
+        Window.Location.replace("/createProject?type=ant&projectName=" + m_projectName.getText() + 
+            "&packagePath=" + m_packageName.getText());
     }
 }

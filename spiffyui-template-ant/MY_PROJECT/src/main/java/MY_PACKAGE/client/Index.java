@@ -34,6 +34,7 @@ import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -65,7 +66,7 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
         header.setHeaderTitle("Hello Spiffy MY_PROJECT!");
         
         MainFooter footer = new MainFooter();
-        footer.setFooterString("This application is a <a href=\"http://www.spiffyui.org\">Spiffy UI Framework</a> application");
+        footer.setFooterString("MY_PROJECT is a <a href=\"http://www.spiffyui.org\">Spiffy UI Framework</a> application");
         
         FlowPanel panel = new FlowPanel()
         {
@@ -87,6 +88,20 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
         panel.add(m_text);
         final Button button = new Button("Submit");
         panel.add(button);
+        
+        final HTML html = new HTML("<br><br>"+
+                                   "<p>This is a <a href=\"http://www.spiffyui.org\">Spiffy UI</a> application built " +
+                                   "just for you and running on your computer.  This simple example shows you an easy form " +
+                                   "which makes a <a href=\"http://www.spiffyui.org/#b=rest\">REST</a> call to your server.  " +
+                                   "You can edit it, build it, run it, share it with your friends, and build a product on " +
+                                   "top of it.  The application is all yours.</p>");
+        html.getElement().setId("spiffyIntroText");
+        panel.add(html);
+        
+        button.addClickHandler(this);
+        m_text.addKeyPressHandler(this);
+        
+        RootPanel.get("mainContent").add(panel);
         
         button.addClickHandler(this);
         m_text.addKeyPressHandler(this);
