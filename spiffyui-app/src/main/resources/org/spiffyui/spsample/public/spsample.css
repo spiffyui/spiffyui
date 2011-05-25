@@ -901,7 +901,9 @@ iframe {
 }
 
 #landingMenu {
+    -webkit-border-bottom-left-radius: 6px;
     -moz-border-radius-bottomleft: 6px;
+    border-bottom-left-radius: 6px;
     background: none repeat scroll 0 0 #F9F9F9;
     border-bottom: thin solid lightgray;
     border-left: thin solid lightgray;
