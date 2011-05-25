@@ -6,6 +6,7 @@
         <antcall target="js-min" />
         <antcall target="css-min" />
         <antcall target="javadoc"/>
+        <antcall target="javadoc-tasks"/>
         <antcall target="package" />
     </target>
     
@@ -250,6 +251,20 @@
             </packageset>
         </javadoc>
     </target>
+    
+    <target name="javadoc-tasks" description="Generate JavaDoc for this project">
+        <mkdir dir="${spiffy.classes}/javadoc-tasks"/>
+        
+        <javadoc destdir="${spiffy.classes}/javadoc-tasks"
+                 author="false"
+                 version="true"
+                 use="true"
+                 windowtitle="Spiffy UI Framework Ant Tasks">
+            <packageset dir="${spiffy.root}/build/src/" defaultexcludes="yes">
+                <include name="org/spiffyui/**"/>
+            </packageset>
+        </javadoc>
+    </target>
 
     <target name="package" depends="setup">
         <jar destfile="${spiffy.dist}/spiffyui.jar">
@@ -276,14 +291,22 @@
             <zipfileset dir="${spiffy.root}/src/main/js" prefix="" >
                 <include name="**/*.*"/>
             </zipfileset>
-            
-            <zipfileset dir="${spiffy.root}/build/src/" prefix="" >
-                <include name="**/*.*"/>
-            </zipfileset>
         </jar>
         
         <jar destfile="${spiffy.dist}/spiffyui-javadoc.jar">
             <zipfileset dir="${spiffy.classes}/javadoc" prefix="" >
+                <include name="**/*.*"/>
+            </zipfileset>
+        </jar>
+        
+        <jar destfile="${spiffy.dist}/spiffyuitasks-javadoc.jar">
+            <zipfileset dir="${spiffy.classes}/javadoc-tasks" prefix="" >
+                <include name="**/*.*"/>
+            </zipfileset>
+        </jar>
+        
+        <jar destfile="${spiffy.dist}/spiffyuitasks-source.jar">
+            <zipfileset dir="${spiffy.root}/build/src/" prefix="" >
                 <include name="**/*.*"/>
             </zipfileset>
         </jar>
