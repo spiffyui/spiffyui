@@ -19,6 +19,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.spiffyui.client.JSUtil;
+import org.spiffyui.client.MessageUtil;
+import org.spiffyui.client.widgets.DatePickerTextBox;
+import org.spiffyui.client.widgets.FormFeedback;
+import org.spiffyui.client.widgets.button.FancyButton;
+import org.spiffyui.client.widgets.button.FancySaveButton;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -34,12 +41,6 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.TextBoxBase;
 import com.google.gwt.user.client.ui.Widget;
-import org.spiffyui.client.JSUtil;
-import org.spiffyui.client.MessageUtil;
-import org.spiffyui.client.widgets.DatePickerTextBox;
-import org.spiffyui.client.widgets.FormFeedback;
-import org.spiffyui.client.widgets.button.FancyButton;
-import org.spiffyui.client.widgets.button.FancySaveButton;
 
 /**
  * This is the form sample panel
@@ -83,7 +84,7 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
     private List<FormFeedback> m_feedbacks = new ArrayList<FormFeedback>();
     
     /**
-     * Creates a new import panel
+     * Creates a new forms panel
      */
     public FormPanel()
     {
@@ -135,7 +136,7 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
         add(m_emailFeedback, "emailRow");
         
         /*
-         User's birthda53
+         User's birthdate
          */
         m_bDay = new DatePickerTextBox("userBdayTxt");
         m_bDay.setMaximumDate(new Date()); //user cannot be born tomorrow
