@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Spiffy UI" xmlns:ivy="antlib:org.apache.ivy.ant" default="spiffy" basedir="..">
+<project name="Spiffy UI" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:artifact="antlib:org.apache.maven.artifact.ant" default="spiffy" basedir="..">
     <target name="spiffy" depends="setup,resolve">
         <antcall target="compile"/>
         <antcall target="js-lint" />
@@ -310,6 +310,66 @@
                 <include name="**/*.*"/>
             </zipfileset>
         </jar>
+    </target>
+
+    <property name="maven.install.version" value="2.1.3" />
+    <condition property="ant.extra.home" value="${env.ANT_EXTRA_HOME}">
+      <isset property="env.ANT_EXTRA_HOME" />
+    </condition>
+    <property name="ant.extra.home" value="${user.home}/.ant" />
+    <property name="maven.jar.dir" value="${ant.extra.home}/lib" />
+    <property name="maven.jar.file" value="${maven.jar.dir}/maven-ant-tasks.jar" />
+    <condition property="maven.settings" value="${env.MVN_SETTINGS}">
+      <isset property="env.env.MVN_SETTINGS" />
+    </condition>
+    <property name="maven.settings" value="${user.home}/.m2/settings.xml" />
+
+    <target name="download-maven" unless="hasDownloadedMaven">
+        <property name="hasDownloadedMaven" value="true" />
+
+        <mkdir dir="${maven.jar.dir}"/>
+        <!-- download maven-ant-tasks from web site so that it can be used even without any special installation -->
+        <get src="http://repo2.maven.org/maven2/org/apache/maven/maven-ant-tasks/${maven.install.version}/maven-ant-tasks-${maven.install.version}.jar"
+             dest="${maven.jar.file}" usetimestamp="true"/>
+    </target>
+
+    <target name="init-maven" depends="download-maven">
+      <!-- try to load maven-ant-tasks here from ant-extra-home, in case the user has not already dropped
+              it into ant's lib dir (note that the latter copy will always take precedence).
+              We will not fail as long as local lib dir exists (it may be empty) and
+              ivy is in at least one of ant's lib dir or the local lib dir. -->
+        <path id="maven.lib.path">
+            <fileset dir="${maven.jar.dir}" includes="*.jar"/>
+        </path>
+        <taskdef resource="org/apache/maven/artifact/ant/antlib.xml"
+                 uri="antlib:org.apache.maven.artifact.ant" classpathref="maven.lib.path"/>
+    </target>
+
+    <target name="deploy-snapshot" description="Deploy project artifacts to the spiffyui Sonatype repository" depends="setup,init-maven,package">
+        <!--    deploy spiffytasks.jar -->
+        <artifact:mvn mavenVersion="3.0.2" pom="${spiffy.root}/build/pom-tasks.xml">
+            <arg value="deploy:deploy-file"/>
+            <arg value="-Dfile=${spiffy.dist}/spiffytasks.jar"/>
+            <arg value="-DpomFile=${spiffy.root}/build/pom-tasks.xml"/>
+            <arg value="-DrepositoryId=sonatype-nexus-snapshots"/>
+            <arg value="-Dsources=${spiffy.dist}/spiffytasks-source.jar"/>
+            <arg value="-Djavadoc=${spiffy.dist}/spiffytasks-javadoc.jar"/>
+            <arg value="-Durl=https://oss.sonatype.org/content/repositories/snapshots/"/>
+            <arg value="--settings"/>
+            <arg value="${maven.settings}"/>
+        </artifact:mvn>
+        <!--    deploy spiffyui.jar -->
+        <artifact:mvn mavenVersion="3.0.2" pom="${spiffy.root}/build/pom.xml">
+            <arg value="deploy:deploy-file"/>
+            <arg value="-Dfile=${spiffy.dist}/spiffyui.jar"/>
+            <arg value="-DpomFile=${spiffy.root}/build/pom.xml"/>
+            <arg value="-DrepositoryId=sonatype-nexus-snapshots"/>
+            <arg value="-Dsources=${spiffy.dist}/spiffyui-source.jar"/>
+            <arg value="-Djavadoc=${spiffy.dist}/spiffyui-javadoc.jar"/>
+            <arg value="-Durl=https://oss.sonatype.org/content/repositories/snapshots/"/>
+            <arg value="--settings"/>
+            <arg value="${maven.settings}"/>
+        </artifact:mvn>
     </target>
 
 </project>
