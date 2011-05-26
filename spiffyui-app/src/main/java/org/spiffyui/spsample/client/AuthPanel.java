@@ -19,6 +19,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -107,7 +108,7 @@ public class AuthPanel extends HTMLPanel
         /*
          Add a yellow highlight to show that you've logged in
          */
-        RootPanel.get("loginSection").getElement().addClassName("yellowHighlightSection");
+        DOM.getElementById("loginSection").addClassName("yellowHighlightSection");
     }
 
     /**

@@ -20,6 +20,7 @@ import org.spiffyui.client.JSUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -59,12 +60,12 @@ public class CSSPanel extends HTMLPanel
                 public void onClick(ClickEvent event)
                 {
                     if (tabNavButton.getText().equals(Index.getStrings().tabNavigation())) {
-                        RootPanel.get("mainWrap").getElement().addClassName("tabnav");
-                        RootPanel.get("mainFooter").getElement().addClassName("tabnav");
+                        DOM.getElementById("mainWrap").addClassName("tabnav");
+                        DOM.getElementById("mainFooter").addClassName("tabnav");
                         tabNavButton.setText(Index.getStrings().menuNavigation());
                     } else {
-                        RootPanel.get("mainWrap").getElement().removeClassName("tabnav");
-                        RootPanel.get("mainFooter").getElement().removeClassName("tabnav");
+                        DOM.getElementById("mainWrap").removeClassName("tabnav");
+                        DOM.getElementById("mainFooter").removeClassName("tabnav");
                         tabNavButton.setText(Index.getStrings().tabNavigation());
                     }
                 }
@@ -107,11 +108,11 @@ public class CSSPanel extends HTMLPanel
                 public void onClick(ClickEvent event)
                 {
                     if (gridButton.getText().equals(Index.getStrings().gridOn())) {
-                        RootPanel.get("main").getElement().addClassName("grid");
+                        DOM.getElementById("main").addClassName("grid");
                         gridButton.setText(Index.getStrings().gridOff());
                         JSUtil.horizontalToggleSlide("#fixedGridTab");
                     } else {
-                        RootPanel.get("main").getElement().removeClassName("grid");
+                        DOM.getElementById("main").removeClassName("grid");
                         gridButton.setText(Index.getStrings().gridOn());
                         JSUtil.horizontalToggleSlide("#fixedGridTab");
                     }
@@ -126,7 +127,7 @@ public class CSSPanel extends HTMLPanel
                 @Override
                 public void onClick(ClickEvent event)
                 {
-                    RootPanel.get("main").getElement().removeClassName("grid");
+                    DOM.getElementById("main").removeClassName("grid");
                     gridButton.setText(Index.getStrings().gridOn());
                     JSUtil.horizontalToggleSlide("#fixedGridTab");
                 }
@@ -140,13 +141,13 @@ public class CSSPanel extends HTMLPanel
     private void doSausage()
     {
         if (m_sausageNav.getText().equals(Index.getStrings().sausageMenuOn())) {
-            RootPanel.get("mainWrap").getElement().addClassName("sausagenav");
+            DOM.getElementById("mainWrap").addClassName("sausagenav");
             JSUtil.show("#mainContent > div");
             Window.scrollTo(0, sausageJS());
             m_sausageNav.setText(Index.getStrings().sausageMenuOff());
             Index.setSausageMode(true);
         } else {
-            RootPanel.get("mainWrap").getElement().removeClassName("sausagenav");
+            DOM.getElementById("mainWrap").removeClassName("sausagenav");
             m_sausageNav.setText(Index.getStrings().sausageMenuOn());
             Index.setSausageMode(false);
             destroySausageJS();

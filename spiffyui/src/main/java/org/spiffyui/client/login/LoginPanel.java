@@ -21,6 +21,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
@@ -411,7 +412,7 @@ public class LoginPanel extends Composite implements KeyUpHandler
          * below the header.  We are seting the overflow style back so everything is
          * displayed properly.
          */
-        RootPanel.get("mainWrap").getElement().getStyle().setOverflow(Style.Overflow.VISIBLE);
+        DOM.getElementById("mainWrap").getStyle().setOverflow(Style.Overflow.VISIBLE);
     }
 
     @Override

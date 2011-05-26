@@ -35,17 +35,17 @@ import org.spiffyui.spsample.client.i18n.SpiffyRsrc;
 import org.spiffyui.spsample.client.rest.SampleAuthUtil;
 import org.spiffyui.spsample.client.rest.VersionInfo;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.RootPanel;
 
 
 /**
@@ -126,7 +126,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     @Override
     public void onModuleLoad()
     {
-        RootPanel.get("main").getElement().addClassName("landing");
+        DOM.getElementById("main").addClassName("landing");
         
         /*
          We are setting a custom authentication provider.  Custom authentication
@@ -347,9 +347,9 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     public void itemSelected(NavItem item)
     {
         if (item.getId().equals(LANDING_NAV_ITEM_ID)) {
-            RootPanel.get("main").getElement().addClassName("landing");
+            DOM.getElementById("main").addClassName("landing");
         } else {
-            RootPanel.get("main").getElement().removeClassName("landing");
+            DOM.getElementById("main").removeClassName("landing");
         }
         
         Cookies.setCookie(NAV_COOKIE, item.getElement().getId());
