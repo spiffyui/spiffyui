@@ -977,3 +977,11 @@ iframe {
 #mainHeader a:hover {
     color: #EFD137;
 }
+
+#ProjectBuilderFields .spiffy-formfeedback-inform {
+    left:508px;
+}
+
+#ProjectBuilderFields .wideTextField {
+    width: 320px;
+}
