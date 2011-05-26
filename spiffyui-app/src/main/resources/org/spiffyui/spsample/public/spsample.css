@@ -869,13 +869,16 @@ iframe {
 }
 
 .landingCallout, #createForm, #createText {
-     transition: box-shadow 0.5s;
-    -moz-transition: box-shadow 0.5s; /* Firefox 4 */
-    -webkit-transition: box-shadow 0.5s; /* Safari and Chrome */
-    -o-transition: box-shadow 0.5s; /* Opera */
+     transition: box-shadow 0.5s, border 0.5s;
+    -moz-transition: box-shadow 0.5s, border 0.5s; /* Firefox 4 */
+    -webkit-transition: box-shadow 0.5s, border 0.5s; /* Safari and Chrome */
+    -o-transition: box-shadow 0.5s, border 0.5s; /* Opera */
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     border-radius: 6px; 
+    height: 158px;
+    padding: 0px 5px 5px 10px;
+    border: 1px solid white;
 }
 
 #createForm {
@@ -888,12 +891,15 @@ iframe {
     border: 1px solid #E6DB55;
 }
 
+.landingCallout:hover, #createText:hover {
+    border: 1px solid lightgray;    
+}
+
 .landingCallout:hover, #createForm:hover, #createText:hover {
     -moz-box-shadow: 10px 10px 5px #888;
     -webkit-box-shadow: 10px 10px 5px #888;
     box-shadow: 10px 10px 5px #888;
 }
-
 
 #timeCallout, #licCallout {
     left: 5px;
