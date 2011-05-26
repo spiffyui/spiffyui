@@ -362,7 +362,7 @@ iframe {
     background-color: #F9F9F9;
     border: thin solid lightgray;
     padding: 18px;
-    margin-bottom: 25px;
+    margin-bottom: 28px;
 }
 
 #testAuthResult {
@@ -854,12 +854,12 @@ iframe {
 
 #callouts, #callouts2 {
     position: relative;
-    height: 200px;
+    height: 198px;
 }
 
 #createSpiffy {
     position: relative;
-    height: 224px;
+    height: 230px;
 }
 
 .landingCallout {
@@ -925,6 +925,11 @@ iframe {
     top: 5px;
 }
 
+#landingMain {
+    margin-top: 25px;
+    margin-left: 25px;
+}
+
 #landingPanel h1 {
     font-weight: normal;
     font-size: 48px;
@@ -933,6 +938,7 @@ iframe {
     background: url("images/spiffy_logo.png") no-repeat scroll left 0px transparent;
     height: 55px;
     color: black;
+    margin-top: 25px;
 }
 
 #slogan {
@@ -951,10 +957,10 @@ iframe {
     background: none repeat scroll 0 0 #F9F9F9;
     border-bottom: thin solid lightgray;
     border-left: thin solid lightgray;
-    padding: 10px 25px 10px 10px;
+    padding: 20px 25px 10px 10px;
     position: absolute;
     right: 0;
-    top: -15px;
+    top: -25px;
 }
 
 #landingMenu .landingMenuItem {
