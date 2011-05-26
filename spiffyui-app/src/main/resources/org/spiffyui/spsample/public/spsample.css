@@ -968,3 +968,7 @@ iframe {
     margin-right: 10px;
     padding-right: 10px;
 }
+
+#mainHeader a:hover {
+    color: #EFD137;
+}
