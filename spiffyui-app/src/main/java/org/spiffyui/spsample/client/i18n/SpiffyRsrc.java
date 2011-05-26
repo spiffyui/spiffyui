@@ -155,4 +155,6 @@ public interface SpiffyRsrc extends Messages
     public String secureLink();
     public String licCallout(String s);
     public String apacheLic();
+    public String projNameValidChar_tt();
+    public String projNameTooShort_tt();
 }
