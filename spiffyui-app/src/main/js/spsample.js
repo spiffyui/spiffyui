@@ -20,6 +20,9 @@
  
 spsample = {
     init: function() {
+        
+        jQuery('#landingPanelText').remove();
+        
         /*
          * Almost all of our CSS is in spiffyui.css, but there are always a few
          * tweaks you need to add for IE.  This special style sheet is added only
