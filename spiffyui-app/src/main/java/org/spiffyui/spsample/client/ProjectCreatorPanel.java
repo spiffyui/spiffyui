@@ -146,11 +146,14 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
 
 
     /**
-     * Validate that the email field is filled in with a valid email address.
+     * Validate that the package name field is filled in with a valid package name.
+     * Package name can only contain alpha numeric, underscore and dot characters
+     * It cannot start with dot or number, can not end with dot
+     * It can not contain reserved java keywords (add an underscore)
+     * package name will be converted to lowercase
      */
     private void validatePackageName()
     {
-        //todo
         m_packageNameFeedback.setStatus(FormFeedback.VALID);
         m_packageNameFeedback.setTitle("");
     }
