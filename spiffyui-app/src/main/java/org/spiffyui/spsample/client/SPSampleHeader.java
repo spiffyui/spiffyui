@@ -45,7 +45,12 @@ public class SPSampleHeader extends MainHeader
             setWelcomeString("");            
         } else {
             String token = RESTility.getUserToken();
-            setWelcomeString("Welcome " + token.substring(0, token.indexOf('-')));            
+            int dashIdx = token.indexOf('-');
+            if (dashIdx != -1) {
+                setWelcomeString("Welcome " + token.substring(0, dashIdx));
+            } else {
+                setWelcomeString("Welcome " + token);
+            }
         }
         logout.addClickHandler(new ClickHandler() {
                 public void onClick(ClickEvent event)
