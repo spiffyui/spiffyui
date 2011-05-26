@@ -130,7 +130,12 @@ public class LandingPanel extends HTMLPanel
     
     private void createProject()
     {
+        logToGoogleAnalytics();
         Window.Location.replace("/createProject?type=ant&projectName=" + m_projectName.getText() + 
             "&packagePath=" + m_packageName.getText());
     }
+    
+    private static native void logToGoogleAnalytics() /*-{
+        $wnd._gaq.push(['_trackPageview', '/createProject']);
+    }-*/;
 }
