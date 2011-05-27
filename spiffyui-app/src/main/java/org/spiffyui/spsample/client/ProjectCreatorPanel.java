@@ -110,7 +110,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
   
         add(m_submit, id + "projectCreatorButtons");
 
-        Anchor backToCreate = new Anchor("Back to Create Project", "#");
+        Anchor backToCreate = new Anchor(Index.getStrings().backToCreate(), "#");
         backToCreate.addClickHandler(new ClickHandler() {
 
             @Override
@@ -121,7 +121,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
                 JSUtil.show(id + "createForm");
             }
         });
-        add(backToCreate, id + Index.getStrings().backToCreate());
+        add(backToCreate, id + "backToCreateAnchor");
 
         updateFormStatus(null);
     }
