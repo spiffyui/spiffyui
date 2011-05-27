@@ -121,7 +121,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
                 JSUtil.show(id + "createForm");
             }
         });
-        add(backToCreate, id + "backToCreateAnchor");
+        add(backToCreate, id + Index.getStrings().backToCreate());
 
         updateFormStatus(null);
     }
@@ -282,12 +282,12 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
         "</fieldset>" +
     "</div>" +
     "<div class=\"createFormInst createForm\" id=\"" + id + "createFormInst\">" +
-       "<h2>What to do after you've downloaded zip file</h2>" +
+       "<h2>" + Index.getStrings().downloadProjInstr() + "</h2>" +
         "<ol>" +
-            "<li>Extract the zip file, you will see a directory with your chosen project name.</li>" +
-            "<li>Go to this directory and run command 'ant run', this will build the project and launch an embedded Jetty web server.</li>" +
-            "<li>Launch a browser and go to http://localhost:8080/ to see Spiffy running.</li>" +
-            "<li>An Eclipse project file and GWT dev mode configuration file have been included for you to run the project in GWT debug mode.</li>" +
+            "<li>" + Index.getStrings().downloadProjInstr1() + "</li>" +
+            "<li>" + Index.getStrings().downloadProjInstr2() + "</li>" +
+            "<li>" + Index.getStrings().downloadProjInstr3() + "</li>" +
+            "<li>" + Index.getStrings().downloadProjInstr4() + "</li>" +
         "</ol>" +
         "<h3  class=\"backToCreateAnchor\" id=\"" + id + "backToCreateAnchor\"></h3>" +
     "</div>";
