@@ -92,7 +92,7 @@ public class SiteMapServlet extends HttpServlet
         response.setContentType("text/xml");
         ServletOutputStream out = response.getOutputStream();
         try {
-            createSiteMap(out);
+            createSiteMap(request, out);
         } catch (Exception e) {
             LOGGER.throwing(SiteMapServlet.class.getName(), "service", e);
             e.printStackTrace();
@@ -122,7 +122,7 @@ public class SiteMapServlet extends HttpServlet
         
     }
     
-    private void createSiteMap(OutputStream out) throws Exception
+    private void createSiteMap(HttpServletRequest request, OutputStream out) throws Exception
     {
         XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
         XMLEventWriter eventWriter = outputFactory.createXMLEventWriter(out);
@@ -144,7 +144,7 @@ public class SiteMapServlet extends HttpServlet
         
         eventWriter.add(urlSetStartElement);
         eventWriter.add(end);
-        findFiles(getServletConfig().getServletContext(), eventWriter);
+        findFiles(request, getServletConfig().getServletContext(), eventWriter);
         
         eventWriter.add(eventFactory.createEndElement("", "", "urlset"));
         eventWriter.add(end);
@@ -152,14 +152,15 @@ public class SiteMapServlet extends HttpServlet
         eventWriter.close();
     }
     
-    private void findFiles(ServletContext context, XMLEventWriter eventWriter) throws XMLStreamException
+    private void findFiles(HttpServletRequest request, ServletContext context, XMLEventWriter eventWriter) throws XMLStreamException
     {
         Set set = context.getResourcePaths("/ajax");
         Iterator iter = set.iterator();
         while (iter.hasNext()) {
             String file = iter.next().toString();
             file = file.substring(file.lastIndexOf('/') + 1);
-            createNode(eventWriter, "/ajax.html#!b=" + file);
+            createNode(eventWriter, request.getRequestURL().substring(0, request.getRequestURL().length() - 11)  + 
+                       "ajax.html#!b=" + file);
         }
     }
 
