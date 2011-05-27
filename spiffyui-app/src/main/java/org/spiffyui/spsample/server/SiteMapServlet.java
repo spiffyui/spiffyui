@@ -187,19 +187,6 @@ public class SiteMapServlet extends HttpServlet
         eventWriter.add(end);
         
         /*
-         Add the priority of this page
-         */
-        eventWriter.add(tab);
-        eventWriter.add(tab);
-        eventWriter.add(eventFactory.createStartElement("", "", "priority"));
-        
-        characters = eventFactory.createCharacters("0.6");
-        eventWriter.add(characters);
-        
-        eventWriter.add(eventFactory.createEndElement("", "", "priority"));
-        eventWriter.add(end);
-        
-        /*
          Add the last modification date of this page
          */
         eventWriter.add(tab);
@@ -210,9 +197,7 @@ public class SiteMapServlet extends HttpServlet
          We need to use the W3C date time format here
          */
         characters = eventFactory.createCharacters(
-            new SimpleDateFormat("yyyy-MM-dd").format(new Date(Long.parseLong(BUILD_BUNDLE.getString("build.date")))) + 
-            "T" + 
-            new SimpleDateFormat("hh:mm:ssZ").format(new Date(Long.parseLong(BUILD_BUNDLE.getString("build.date")))));
+            new SimpleDateFormat("yyyy-MM-dd").format(new Date(Long.parseLong(BUILD_BUNDLE.getString("build.date")))));
         eventWriter.add(characters);
         
         eventWriter.add(eventFactory.createEndElement("", "", "lastmod"));
@@ -229,6 +214,19 @@ public class SiteMapServlet extends HttpServlet
         eventWriter.add(characters);
         
         eventWriter.add(eventFactory.createEndElement("", "", "changefreq"));
+        eventWriter.add(end);
+        
+        /*
+         Add the priority of this page
+         */
+        eventWriter.add(tab);
+        eventWriter.add(tab);
+        eventWriter.add(eventFactory.createStartElement("", "", "priority"));
+        
+        characters = eventFactory.createCharacters("0.6");
+        eventWriter.add(characters);
+        
+        eventWriter.add(eventFactory.createEndElement("", "", "priority"));
         eventWriter.add(end);
         
         eventWriter.add(tab);
