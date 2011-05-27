@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.spiffyui.client.JSUtil;
 import org.spiffyui.client.widgets.FormFeedback;
 import org.spiffyui.client.widgets.button.SimpleButton;
 
@@ -29,6 +30,7 @@ import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -66,7 +68,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
      * Creates a new panel
      * @param id - the ID of the parent panel or some other way to uniquely prefix IDs on within this HTML fragment
      */
-    public ProjectCreatorPanel(String id)
+    public ProjectCreatorPanel(final String id)
     {
         super("div", getHTML(id));
 
@@ -99,11 +101,28 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
         m_submit.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event)
             {
+                event.preventDefault();
+                JSUtil.hide(id + "createForm");
+                JSUtil.show(id + "createFormInst");
                 createProject();
             }
         });
   
         add(m_submit, id + "projectCreatorButtons");
+
+        Anchor backToCreate = new Anchor("Back to Create Project", "#");
+        backToCreate.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                event.preventDefault();
+                JSUtil.hide(id + "createFormInst");
+                JSUtil.show(id + "createForm");
+            }
+        });
+        add(backToCreate, id + "backToCreateAnchor");
+
         updateFormStatus(null);
     }
 
@@ -243,7 +262,8 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
     
     private static final String getHTML(String id) 
     {
-        return "<div class=\"createForm\" id=\"" + id + "createForm\">" +
+        return
+    "<div class=\"createForm\" id=\"" + id + "createForm\">" +
         "<h2>" + Index.getStrings().projectCreatorTitle() + "</h2>" +
         "<fieldset class=\"projectCreatorFields\">" +
             "<ol class=\"dialogformsection\">" +
@@ -254,13 +274,22 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
                 "<li id=\"" + id + "packageNameRow\" class=\"dialogformrow\">" +
                     "<label class=\"dialogformlabel\" for=\"" + id + "packageNameTxt\">" + Index.getStrings().packageName() + "</label>" +
                     "<div id=\"" + id + "packageName\" class=\"formcontrolssection\"></div>" +
-                "</li>" +                
+                "</li>" +
                 "<li id=\"" + id + "projectCreatorButtonsRow\" class=\"dialogformrow\">" +
                     "<div id=\"" + id + "projectCreatorButtons\" class=\"formcontrolssection formbuttons\"></div>" +
                 "</li>" +
             "</ol>" +
         "</fieldset>" +
+    "</div>" +
+    "<div class=\"createFormInst createForm\" id=\"" + id + "createFormInst\">" +
+       "<h2>What to do after you've downloaded zip file</h2>" +
+        "<ol>" +
+            "<li>Extract the zip file, you will see a directory with your chosen project name.</li>" +
+            "<li>Go to this directory and run command 'ant run', this will build the project and launch an embedded Jetty web server.</li>" +
+            "<li>Launch a browser and go to http://localhost:8080/ to see Spiffy running.</li>" +
+            "<li>An Eclipse project file and GWT dev mode configuration file have been included for you to run the project in GWT debug mode.</li>" +
+        "</ol>" +
+        "<h3  class=\"backToCreateAnchor\" id=\"" + id + "backToCreateAnchor\"></h3>" +
     "</div>";
-
     }
 }

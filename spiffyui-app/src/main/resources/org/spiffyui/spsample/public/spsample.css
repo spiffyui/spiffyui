@@ -129,7 +129,7 @@ h2 {
     margin-bottom: 24px;
 }
 
-.documentationPanel li {
+.documentationPanel li, .createFormInst li {
     list-style: disc inside none;
 }
     
@@ -886,10 +886,20 @@ iframe {
     padding: 0px 5px 5px 15px; 
     background-color: #FFFFE0;
     border: 1px solid #FFFFE0;
+    width: 550px;
 }
 
 .createForm:hover {
     border: 1px solid #E6DB55;
+}
+
+.createFormInst {
+    display: none;
+    font-size: 0.9em;
+}
+
+.createFormInst h2 {
+    margin-bottom: 2px;
 }
 
 .landingCallout:hover, #createText:hover {
@@ -918,7 +928,7 @@ iframe {
     margin-bottom: 0px;
 }
 
-#landingPanelcreateForm {
+#landingPanelcreateForm, #landingPanelcreateFormInst {
     position: absolute;
     width: 60%;
     left: 5px;
@@ -986,10 +996,6 @@ iframe {
 
 .projectCreatorFields .wideTextField {
     width: 320px;
-}
-
-#getStartedPanelcreateForm {
-    width: 550px;
 }
 
 .toc {
