@@ -71,9 +71,24 @@
     <servlet-class>org.spiffyui.spsample.server.SampleDataServlet</servlet-class>
   </servlet>
   
+  <servlet>
+    <servlet-name>SiteMapGenerator</servlet-name>
+    <servlet-class>org.spiffyui.spsample.server.SiteMapServlet</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
     <servlet-name>AuthServlet</servlet-name>
     <url-pattern>/auth/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SiteMapGenerator</servlet-name>
+    <url-pattern>/sitemap.xml</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SiteMapGenerator</servlet-name>
+    <url-pattern>/ajax.html</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>

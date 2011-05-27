@@ -360,6 +360,10 @@ build.dir=${root}
                 <include name="**/*.jar"/>
             </zipfileset>
             
+            <zipfileset dir="${sample.res.src}/org/spiffyui/spsample/client" prefix="ajax" >
+                <include name="**/*.html"/>
+            </zipfileset>
+            
             <!-- We also want to include the JavaDoc -->
             <zipfileset dir="${spiffyui}/target/classes/javadoc" prefix="javadoc" />
         </war>
