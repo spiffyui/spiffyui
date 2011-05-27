@@ -63,14 +63,17 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
     private List<FormFeedback> m_feedbacks = new ArrayList<FormFeedback>();
 
     private SimpleButton m_submit;
+    
+    private String m_id;
 
     /**
      * Creates a new panel
      * @param id - the ID of the parent panel or some other way to uniquely prefix IDs on within this HTML fragment
      */
-    public ProjectCreatorPanel(final String id)
+    public ProjectCreatorPanel(String id)
     {
         super("div", getHTML(id));
+        m_id = id;
 
         /*
          * Add project and package fields and button
@@ -102,8 +105,8 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
             public void onClick(ClickEvent event)
             {
                 event.preventDefault();
-                JSUtil.hide(id + "createForm");
-                JSUtil.show(id + "createFormInst");
+                JSUtil.hide(m_id + "createForm");
+                JSUtil.show(m_id + "createFormInst");
                 createProject();
             }
         });
@@ -117,8 +120,8 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
             public void onClick(ClickEvent event)
             {
                 event.preventDefault();
-                JSUtil.hide(id + "createFormInst");
-                JSUtil.show(id + "createForm");
+                JSUtil.hide(m_id + "createFormInst");
+                JSUtil.show(m_id + "createForm");
             }
         });
         add(backToCreate, id + "backToCreateAnchor");
@@ -128,10 +131,18 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
 
     @Override
     public void onKeyUp(KeyUpEvent event)
-    {
+    {        
         if (event.getNativeKeyCode() != KeyCodes.KEY_TAB) {
             updateFormStatus((Widget) event.getSource());
+            if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+                if (enableCreateButton()) {
+                    JSUtil.hide(m_id + "createForm");
+                    JSUtil.show(m_id + "createFormInst");
+                    createProject();
+                }
+            }
         }
+         
     }
 
     private void updateFormStatus(Widget w)
@@ -235,8 +246,9 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
 
     /**
      * Enable or disable the create project button based on the state of the fields.
+     * and return a flag indicating if the create button is enabled or not
      */
-    private void enableCreateButton()
+    private boolean enableCreateButton()
     {
         /*
          * We only want to enable the create button if every field is valid
@@ -244,10 +256,11 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
         for (FormFeedback feedback : m_feedbacks) {
             if (feedback.getStatus() != FormFeedback.VALID) {
                 m_submit.setEnabled(false);
-                return;
+                return false;
             }
         }
         m_submit.setEnabled(true);
+        return true;
     }
 
     private void createProject()

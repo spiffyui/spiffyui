@@ -887,6 +887,7 @@ iframe {
     background-color: #FFFFE0;
     border: 1px solid #FFFFE0;
     width: 550px;
+    margin-bottom: 24px;
 }
 
 .createForm:hover {
