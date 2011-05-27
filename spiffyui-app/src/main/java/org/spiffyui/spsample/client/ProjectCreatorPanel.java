@@ -55,33 +55,36 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
 
     /**
      * Creates a new panel
+     * @param id - the ID of the parent panel or some other way to uniquely prefix IDs on within this HTML fragment
      */
-    public ProjectCreatorPanel()
+    public ProjectCreatorPanel(String id)
     {
-        super("div", STRINGS.ProjectCreatorPanel_html());
+        super("div", getHTML(id));
 
         /*
          * Add project and package fields and button
          */
         m_projectName = new TextBox();
+        m_projectName.setTitle(Index.getStrings().projectName_tt());
         m_projectName.addKeyUpHandler(this);
-        m_projectName.getElement().setId("projectNameTxt");
+        m_projectName.getElement().setId(id + "projectNameTxt");
         m_projectName.getElement().addClassName(WIDE_TEXT_FIELD);
-        add(m_projectName, "projectName");
+        add(m_projectName, id + "projectName");
            
         m_projectNameFeedback = new FormFeedback();
         m_feedbacks.add(m_projectNameFeedback);
-        add(m_projectNameFeedback, "projectNameRow");
+        add(m_projectNameFeedback, id + "projectNameRow");
            
         m_packageName = new TextBox();
+        m_packageName.setTitle(Index.getStrings().packageName_tt());
         m_packageName.addKeyUpHandler(this);
-        m_packageName.getElement().setId("packageNameTxt");
+        m_packageName.getElement().setId(id + "packageNameTxt");
         m_packageName.getElement().addClassName(WIDE_TEXT_FIELD);
-        add(m_packageName, "packageName");
+        add(m_packageName, id + "packageName");
            
         m_packageNameFeedback = new FormFeedback();
         m_feedbacks.add(m_packageNameFeedback);
-        add(m_packageNameFeedback, "packageNameRow");
+        add(m_packageNameFeedback, id + "packageNameRow");
           
         m_submit = new SimpleButton(Index.getStrings().projectCreatorSubmit());
         m_submit.addClickHandler(new ClickHandler() {
@@ -91,7 +94,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
             }
         });
   
-        add(m_submit, "projectBuilderButtons");
+        add(m_submit, id + "projectCreatorButtons");
         updateFormStatus(null);
     }
 
@@ -185,4 +188,27 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
     private static native void logToGoogleAnalytics() /*-{
         $wnd._gaq.push(['_trackPageview', '/createProject']);
     }-*/;
+    
+    private static final String getHTML(String id) 
+    {
+        return "<div class=\"createForm\" id=\"" + id + "createForm\">" +
+        "<h2>" + Index.getStrings().projectCreatorTitle() + "</h2>" +
+        "<fieldset class=\"projectCreatorFields\">" +
+            "<ol class=\"dialogformsection\">" +
+                "<li id=\"" + id + "projectNameRow\" class=\"dialogformrow\">" +
+                    "<label class=\"dialogformlabel\" for=\"" + id + "projectNameTxt\">" + Index.getStrings().projectName() + "</label>" +
+                    "<div id=\"" + id + "projectName\" class=\"formcontrolssection\"></div>" +
+                "</li>" +                
+                "<li id=\"" + id + "packageNameRow\" class=\"dialogformrow\">" +
+                    "<label class=\"dialogformlabel\" for=\"" + id + "packageNameTxt\">" + Index.getStrings().packageName() + "</label>" +
+                    "<div id=\"" + id + "packageName\" class=\"formcontrolssection\"></div>" +
+                "</li>" +                
+                "<li id=\"" + id + "projectCreatorButtonsRow\" class=\"dialogformrow\">" +
+                    "<div id=\"" + id + "projectCreatorButtons\" class=\"formcontrolssection formbuttons\"></div>" +
+                "</li>" +
+            "</ol>" +
+        "</fieldset>" +
+    "</div>";
+
+    }
 }

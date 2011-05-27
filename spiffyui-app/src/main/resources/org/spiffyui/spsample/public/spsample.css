@@ -119,7 +119,8 @@ h2 {
     font-family: "anonymous-pro-1","anonymous-pro-2",monospace;
 }
 
-.documentationPanel a, .documentationPanel a:visited, .slidegrid a, .slidegrid a:visited, #landingPanel a, #landingPanel a:visited {
+.documentationPanel a, .documentationPanel a:visited, .slidegrid a, .slidegrid a:visited, #landingPanel a, #landingPanel a:visited, 
+.toc a, .toc a:visited {
     color: #289bc8;
 }
 
@@ -806,6 +807,7 @@ iframe {
 
 #mainContent > div {
     width: 900px;
+    position: relative;
 }
 
 #mainContent > #formPanel, #mainContent > #javaDocPanel, #mainContent > #helpPanel {
@@ -868,7 +870,7 @@ iframe {
     width: 25%;    
 }
 
-.landingCallout, #createForm, #createText {
+.landingCallout, .createForm, #createText {
      transition: box-shadow 0.5s, border 0.5s;
     -moz-transition: box-shadow 0.5s, border 0.5s; /* Firefox 4 */
     -webkit-transition: box-shadow 0.5s, border 0.5s; /* Safari and Chrome */
@@ -880,13 +882,13 @@ iframe {
     border: 1px solid white;
 }
 
-#createForm {
+.createForm {
     padding: 0px 5px 5px 15px; 
     background-color: #FFFFE0;
     border: 1px solid #FFFFE0;
 }
 
-#createForm:hover {
+.createForm:hover {
     border: 1px solid #E6DB55;
 }
 
@@ -894,7 +896,7 @@ iframe {
     border: 1px solid lightgray;    
 }
 
-.landingCallout:hover, #createForm:hover, #createText:hover {
+.landingCallout:hover, .createForm:hover, #createText:hover {
     -moz-box-shadow: 10px 10px 5px #888;
     -webkit-box-shadow: 10px 10px 5px #888;
     box-shadow: 10px 10px 5px #888;
@@ -916,7 +918,7 @@ iframe {
     margin-bottom: 0px;
 }
 
-#createForm {
+#landingPanelcreateForm {
     position: absolute;
     width: 60%;
     left: 5px;
@@ -978,10 +980,27 @@ iframe {
     color: #EFD137;
 }
 
-#ProjectBuilderFields .spiffy-formfeedback-inform {
+.projectCreatorFields .spiffy-formfeedback-inform {
     left:508px;
 }
 
-#ProjectBuilderFields .wideTextField {
+.projectCreatorFields .wideTextField {
     width: 320px;
 }
+
+#getStartedPanelcreateForm {
+    width: 550px;
+}
+
+.toc {
+    position: absolute;
+    right: 200px;
+    width: 200px;
+    text-align: right;
+    font-size: 15px;
+}
+
+.toc li, .projectCreatorFields li {
+    list-style: none;
+}
+

@@ -57,5 +57,11 @@ public class GetStartedPanel extends HTMLPanel
             }
         });
         add(getHelp, "getStartedGetHelp");
+        
+        /*
+         * Add Project Creator
+         */
+        ProjectCreatorPanel projCreator = new ProjectCreatorPanel("getStartedPanel");
+        add(projCreator, "getStartedCreateSpiffy");
     }
 }

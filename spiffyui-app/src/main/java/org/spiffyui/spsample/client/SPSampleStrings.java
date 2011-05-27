@@ -56,5 +56,4 @@ public interface SPSampleStrings extends Messages {
     public String Status_html();
     public String TimePicker_html();
     public String WidgetsPanel_html();
-    public String ProjectCreatorPanel_html();
 }
