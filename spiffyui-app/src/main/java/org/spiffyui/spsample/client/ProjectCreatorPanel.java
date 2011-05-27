@@ -189,10 +189,10 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
     /**
      * Validate that the package name field is filled in with a valid package name.
      * Package name cannot start or end with dot
-     * Each package can not start with or contain only number
-     * Each package can only contain alpha numeric and underscore characters
-     * Each package can not be the same name as reserved java keywords
-     * package will be converted to lowercase
+     * Each package component part can not start with or contain only number, or be empty (2 consecutive dots)
+     * Each package component part can only contain alpha numeric and underscore characters
+     * Each package component part can not be the same name as reserved java keywords
+     * Package string will be converted to all lowercase
      */
     private void validatePackageName()
     {
@@ -223,6 +223,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
                     } else {
                         m_packageNameFeedback.setStatus(FormFeedback.VALID);
                         m_packageNameFeedback.setTitle("");
+                        m_packageName.setText((m_packageName.getText().toLowerCase()));
                     }
                 }
             }
