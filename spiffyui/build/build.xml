@@ -372,6 +372,79 @@
         </artifact:mvn>
     </target>
 
+    <target name="deploy-staging" description="Sign and Deploy artifacts to the spiffyui Sonatype release staging repository, ready for maven central syncing" depends="setup,init-maven,package">
+        <!--  sign and deploy spiffytasks main artifact -->
+        <artifact:mvn>
+            <arg value="--settings"/>
+            <arg value="${maven.settings}"/>
+            <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.2:sign-and-deploy-file"/>
+            <arg value="-Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2"/>
+            <arg value="-DrepositoryId=sonatype-nexus-staging"/>
+            <arg value="-DpomFile=${spiffy.root}/build/pom-tasks.xml"/>
+            <arg value="-Dfile=${spiffy.dist}/spiffytasks.jar"/>
+            <arg value="-Pgpg"/>
+        </artifact:mvn>
+        <!--  sign and deploy spiffytasks javadoc artifact -->
+        <artifact:mvn>
+            <arg value="--settings"/>
+            <arg value="${maven.settings}"/>
+            <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.2:sign-and-deploy-file"/>
+            <arg value="-Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2"/>
+            <arg value="-DrepositoryId=sonatype-nexus-staging"/>
+            <arg value="-DpomFile=${spiffy.root}/build/pom-tasks.xml"/>
+            <arg value="-Dfile=${spiffy.dist}/spiffytasks-javadoc.jar"/>
+            <arg value="-Dclassifier=javadoc"/>
+            <arg value="-Pgpg"/>
+        </artifact:mvn>
+        <!--  sign and deploy spiffytasks sources artifact -->
+        <artifact:mvn>
+            <arg value="--settings"/>
+            <arg value="${maven.settings}"/>
+            <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.2:sign-and-deploy-file"/>
+            <arg value="-Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2"/>
+            <arg value="-DrepositoryId=sonatype-nexus-staging"/>
+            <arg value="-DpomFile=${spiffy.root}/build/pom-tasks.xml"/>
+            <arg value="-Dfile=${spiffy.dist}/spiffytasks-source.jar"/>
+            <arg value="-Dclassifier=sources"/>
+            <arg value="-Pgpg"/>
+        </artifact:mvn>
+        <!--  sign and deploy spiffyui main artifact -->
+        <artifact:mvn>
+            <arg value="--settings"/>
+            <arg value="${maven.settings}"/>
+            <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.2:sign-and-deploy-file"/>
+            <arg value="-Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2"/>
+            <arg value="-DrepositoryId=sonatype-nexus-staging"/>
+            <arg value="-DpomFile=${spiffy.root}/build/pom.xml"/>
+            <arg value="-Dfile=${spiffy.dist}/spiffyui.jar"/>
+            <arg value="-Pgpg"/>
+        </artifact:mvn>
+        <!--  sign and deploy spiffyui javadoc artifact -->
+        <artifact:mvn>
+            <arg value="--settings"/>
+            <arg value="${maven.settings}"/>
+            <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.2:sign-and-deploy-file"/>
+            <arg value="-Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2"/>
+            <arg value="-DrepositoryId=sonatype-nexus-staging"/>
+            <arg value="-DpomFile=${spiffy.root}/build/pom.xml"/>
+            <arg value="-Dfile=${spiffy.dist}/spiffyui-javadoc.jar"/>
+            <arg value="-Dclassifier=javadoc"/>
+            <arg value="-Pgpg"/>
+        </artifact:mvn>
+        <!--  sign and deploy spiffyui sources artifact -->
+        <artifact:mvn>
+            <arg value="--settings"/>
+            <arg value="${maven.settings}"/>
+            <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.2:sign-and-deploy-file"/>
+            <arg value="-Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2"/>
+            <arg value="-DrepositoryId=sonatype-nexus-staging"/>
+            <arg value="-DpomFile=${spiffy.root}/build/pom.xml"/>
+            <arg value="-Dfile=${spiffy.dist}/spiffyui-source.jar"/>
+            <arg value="-Dclassifier=sources"/>
+            <arg value="-Pgpg"/>
+        </artifact:mvn>
+    </target>
+
 </project>
 
 

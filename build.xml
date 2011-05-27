@@ -18,6 +18,10 @@
     <target name="deploy-snapshot" description="Deploy project artifacts to the Sonatype snapshot repository" depends="setup">
         <subant antfile="build.xml" buildpath="${build.base}/spiffyui/build/build.xml" target="deploy-snapshot"/>
     </target>
+
+    <target name="deploy-staging" description="Sign and Deploy artifacts to the spiffyui Sonatype release staging repository, ready for maven central syncing" depends="setup">
+        <subant antfile="build.xml" buildpath="${build.base}/spiffyui/build/build.xml" target="deploy-staging"/>
+    </target>
     
     <target name="run" description="Run the Spiffy sample project with an embedded Jetty server" depends="setup">
         <subant antfile="build.xml" buildpath="${build.base}/spiffyui-app/" target="run" />
