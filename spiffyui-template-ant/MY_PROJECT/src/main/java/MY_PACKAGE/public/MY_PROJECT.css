@@ -20,3 +20,7 @@ h2 {
 li {
     list-style: disc inside none;
 }
+
+.spiffy-longmessage-panel {
+    margin-bottom: 1em;
+}
