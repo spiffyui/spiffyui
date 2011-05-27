@@ -27,6 +27,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Window;
@@ -40,7 +42,7 @@ import com.google.gwt.user.client.ui.Widget;
  * This is the landing panel
  *
  */
-public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
+public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyPressHandler
 {
     private static final SPSampleStrings STRINGS = (SPSampleStrings) GWT.create(SPSampleStrings.class);
     
@@ -64,8 +66,6 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
 
     private SimpleButton m_submit;
     
-    private String m_id;
-
     /**
      * Creates a new panel
      * @param id - the ID of the parent panel or some other way to uniquely prefix IDs on within this HTML fragment
@@ -73,14 +73,14 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
     public ProjectCreatorPanel(String id)
     {
         super("div", getHTML(id));
-        m_id = id;
-
+        
         /*
          * Add project and package fields and button
          */
         m_projectName = new TextBox();
         m_projectName.setTitle(Index.getStrings().projectName_tt());
         m_projectName.addKeyUpHandler(this);
+        m_projectName.addKeyPressHandler(this);
         m_projectName.getElement().setId(id + "projectNameTxt");
         m_projectName.getElement().addClassName(WIDE_TEXT_FIELD);
         add(m_projectName, id + "projectName");
@@ -92,6 +92,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
         m_packageName = new TextBox();
         m_packageName.setTitle(Index.getStrings().packageName_tt());
         m_packageName.addKeyUpHandler(this);
+        m_packageName.addKeyPressHandler(this);
         m_packageName.getElement().setId(id + "packageNameTxt");
         m_packageName.getElement().addClassName(WIDE_TEXT_FIELD);
         add(m_packageName, id + "packageName");
@@ -105,8 +106,6 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
             public void onClick(ClickEvent event)
             {
                 event.preventDefault();
-                JSUtil.hide(m_id + "createForm");
-                JSUtil.show(m_id + "createFormInst");
                 createProject();
             }
         });
@@ -120,13 +119,28 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
             public void onClick(ClickEvent event)
             {
                 event.preventDefault();
-                JSUtil.hide(m_id + "createFormInst");
-                JSUtil.show(m_id + "createForm");
+                JSUtil.hide(getElement().getId() + "createFormInst");
+                JSUtil.show(getElement().getId() + "createForm");
             }
         });
         add(backToCreate, id + "backToCreateAnchor");
+        
+        getElement().setId(id);
 
         updateFormStatus(null);
+    }
+    
+    @Override
+    public void onKeyPress(KeyPressEvent event)
+    {
+        /*
+         We want to submit the request if the user pressed enter
+         */
+        if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER &&
+            m_submit.isEnabled()) {
+            createProject();
+            
+        }
     }
 
     @Override
@@ -136,8 +150,8 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
             updateFormStatus((Widget) event.getSource());
             if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
                 if (enableCreateButton()) {
-                    JSUtil.hide(m_id + "createForm");
-                    JSUtil.show(m_id + "createFormInst");
+                    JSUtil.hide(getElement().getId() + "createForm");
+                    JSUtil.show(getElement().getId() + "createFormInst");
                     createProject();
                 }
             }
@@ -265,14 +279,42 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
 
     private void createProject()
     {
+        setProjectName(m_projectName.getText());
+        JSUtil.hide(getElement().getId() + "createForm");
+        JSUtil.show(getElement().getId() + "createFormInst");
+
         logToGoogleAnalytics();
         Window.Location.replace("/createProject?type=ant&projectName=" + m_projectName.getText() + 
             "&packagePath=" + m_packageName.getText());
     }
     
+    @Override
+    public void onLoad()
+    {
+        super.onLoad();
+        /*
+         Let's set focus into the text field when the page first loads
+         */
+        m_projectName.setFocus(true);
+    }
+    
     private static native void logToGoogleAnalytics() /*-{
         $wnd._gaq.push(['_trackPageview', '/createProject']);
     }-*/;
+    
+    /**
+     * Set the name of the project in the instructions.
+     * 
+     * @param name   the project name
+     */
+    private void setProjectName(String name)
+    {
+        getElementById(getElement().getId() + "createFormInst1").setInnerHTML(
+            Index.getStrings().downloadProjInstr1(name, name));
+        
+        getElementById(getElement().getId() + "createFormInst2").setInnerHTML(
+            Index.getStrings().downloadProjInstr2(name));
+    }
     
     private static final String getHTML(String id) 
     {
@@ -298,11 +340,11 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
     "<div class=\"createFormInst createForm\" id=\"" + id + "createFormInst\">" +
        "<h2>" + Index.getStrings().downloadProjInstr() + "</h2>" +
         "<ol>" +
-            "<li>" + Index.getStrings().downloadProjInstr1() + "</li>" +
-            "<li>" + Index.getStrings().downloadProjInstr2() + "</li>" +
+            "<li id=\"" + id + "createFormInst1\">" + Index.getStrings().downloadProjInstr1("", "") + "</li>" +
+            "<li id=\"" + id + "createFormInst2\">" + Index.getStrings().downloadProjInstr2("") + "</li>" +
             "<li>" + Index.getStrings().downloadProjInstr3() + "</li>" +
-            "<li>" + Index.getStrings().downloadProjInstr4() + "</li>" +
         "</ol>" +
+        "<p>" + Index.getStrings().downloadProjInstr4() + "</p>" +
         "<h3  class=\"backToCreateAnchor\" id=\"" + id + "backToCreateAnchor\"></h3>" +
     "</div>";
     }

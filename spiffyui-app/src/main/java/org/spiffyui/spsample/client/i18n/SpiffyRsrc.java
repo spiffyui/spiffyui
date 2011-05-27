@@ -168,8 +168,8 @@ public interface SpiffyRsrc extends Messages
     public String packageNameInvalidChar_tt ();
     public String packageNameKeyword_tt ();
     public String downloadProjInstr();
-    public String downloadProjInstr1();
-    public String downloadProjInstr2();
+    public String downloadProjInstr1(String s1, String s2);
+    public String downloadProjInstr2(String s);
     public String downloadProjInstr3();
     public String downloadProjInstr4();
     public String backToCreate();

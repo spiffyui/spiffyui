@@ -861,7 +861,7 @@ iframe {
 
 #createSpiffy {
     position: relative;
-    height: 230px;
+    height: 302px;
 }
 
 .landingCallout {
@@ -933,7 +933,7 @@ iframe {
     position: absolute;
     width: 60%;
     left: 5px;
-    height: auto;
+    height: 275px;
 }
 
 #createText {
@@ -957,6 +957,22 @@ iframe {
     height: 55px;
     color: black;
     margin-top: 25px;
+}
+
+#landingPanelcreateForm fieldset {
+    margin-top: 41px;
+}
+
+#landingPanelcreateFormInst li {
+    list-style: decimal inside none;
+}
+
+#landingPanelcreateFormInst ol {
+    margin-bottom: 1em;
+}
+
+#landingPanelprojectCreatorButtonsRow {
+    margin-top: 24px;
 }
 
 #slogan {
