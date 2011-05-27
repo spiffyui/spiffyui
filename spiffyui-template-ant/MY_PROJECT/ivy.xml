@@ -2,8 +2,8 @@
     <info organisation="MY_PACKAGE" module="MY_PROJECT-ivy"/>
     <dependencies>
         <!-- Spiffy UI JARs -->
-        <dependency org="org.spiffyui" name="spiffyui" changing="true" rev="0.7.5-SNAPSHOT"/>
-        <dependency org="org.spiffyui" name="spiffyuitasks" changing="true" rev="0.7.5-SNAPSHOT"/>
+        <dependency org="org.spiffyui" name="spiffyui" changing="true" rev="0.7.5"/>
+        <dependency org="org.spiffyui" name="spiffyuitasks" changing="true" rev="0.7.5"/>
         
         <!-- These are the JARs we need to make Spiffy UI run -->
         <dependency org="commons-logging" name="commons-logging" rev="1.1.1"/>

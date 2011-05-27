@@ -1,20 +1,6 @@
 <ivysettings>
   <settings defaultResolver="main"/>
   <resolvers>
-    <chain name="main">
-      <!-- This server resolves most our external dependencies. -->
-      <ibiblio name="sonatype"
-                 m2compatible="true"
-                 usepoms="true"
-                 root="https://oss.sonatype.org/service/local/repositories/central/content"/>
-      
-      <!-- This server resolves our internal dependencies. -->
-      <ibiblio name="sonatype-snapshots"
-                 m2compatible="true"
-                 usepoms="true"
-                 root="https://oss.sonatype.org/service/local/repositories/snapshots/content"/>
-                 
-      <ibiblio name="default" m2compatible="true"/>
-    </chain>
+    <ibiblio name="main" m2compatible="true"/>
   </resolvers>
 </ivysettings>
