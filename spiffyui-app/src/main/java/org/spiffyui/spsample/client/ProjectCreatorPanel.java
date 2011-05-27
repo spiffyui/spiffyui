@@ -16,6 +16,7 @@
  package org.spiffyui.spsample.client;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.spiffyui.client.widgets.FormFeedback;
@@ -42,6 +43,14 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
     private static final SPSampleStrings STRINGS = (SPSampleStrings) GWT.create(SPSampleStrings.class);
     
     private static final String WIDE_TEXT_FIELD = "wideTextField";
+
+    private static final String[] JAVA_KEYWORDS =
+            {"abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const",
+             "continue", "default", "do", "double", "else", "enum", "extends", "final", "finally", "float",
+             "for", "goto", "if", "implements", "import", "instanceof", "int", "interface", "long", "native",
+             "new", "package", "private", "protected", "public", "return", "short", "static", "strictfp", "super",
+             "switch", "synchronized", "this", "throw", "throws", "transient", "try", "void", "volatile", "while",
+             "false", "null", "true" };
     
     private TextBox m_projectName;
     private FormFeedback m_projectNameFeedback;
@@ -128,7 +137,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
                 m_projectNameFeedback.setTitle("");
             } else {
                m_projectNameFeedback.setStatus(FormFeedback.ERROR);
-               m_projectNameFeedback.setTitle(Index.getStrings().projNameValidChar_tt());
+               m_projectNameFeedback.setTitle(Index.getStrings().projNameInValidChar_tt());
             }
         } else {
             m_projectNameFeedback.setStatus(FormFeedback.WARNING);
@@ -139,8 +148,18 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
     private boolean isAlphaNumericUnderscore(String str)
     {
         for (int i = 0; i < str.length(); i++) {
-            //If we find a non-alphanumeric character we return false.
+            //If we find a non-alphanumeric or non-underscore character we return false.
             if ((!Character.isLetterOrDigit(str.charAt(i))) && (!(Character.toString(str.charAt(i)).equals("_")))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isDigit(String str)
+    {
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isDigit(str.charAt(i))) {
                 return false;
             }
         }
@@ -150,15 +169,48 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler
 
     /**
      * Validate that the package name field is filled in with a valid package name.
-     * Package name can only contain alpha numeric, underscore and dot characters
-     * It cannot start with dot or number, can not end with dot
-     * It can not contain reserved java keywords (add an underscore)
-     * package name will be converted to lowercase
+     * Package name cannot start or end with dot
+     * Each package can not start with or contain only number
+     * Each package can only contain alpha numeric and underscore characters
+     * Each package can not be the same name as reserved java keywords
+     * package will be converted to lowercase
      */
     private void validatePackageName()
     {
-        m_packageNameFeedback.setStatus(FormFeedback.VALID);
-        m_packageNameFeedback.setTitle("");
+        if (m_packageName.getText() != null && m_packageName.getText().length() > 0) {
+            if (m_packageName.getText().startsWith(".")  || (m_packageName.getText().endsWith("."))) {
+                m_packageNameFeedback.setStatus(FormFeedback.ERROR);
+                m_packageNameFeedback.setTitle(Index.getStrings().packageNameDot_tt());
+            } else {
+                String[] result = m_packageName.getText().split("\\.");
+                for (int i = 0; i < result.length; i++) {
+                    String packageToken = result[i];
+                    if (packageToken.length() <= 0) {
+                        m_packageNameFeedback.setStatus(FormFeedback.ERROR);
+                        m_packageNameFeedback.setTitle(Index.getStrings().packageNameEmpty_tt());
+                        break; 
+                    } else if (isDigit(packageToken) || isDigit(Character.toString(packageToken.charAt(0)))) {
+                        m_packageNameFeedback.setStatus(FormFeedback.ERROR);
+                        m_packageNameFeedback.setTitle(Index.getStrings().packageNameDigit_tt());
+                        break;
+                    } else if (!isAlphaNumericUnderscore(packageToken)) {
+                        m_packageNameFeedback.setStatus(FormFeedback.ERROR);
+                        m_packageNameFeedback.setTitle(Index.getStrings().packageNameInvalidChar_tt());
+                        break;
+                    } else if (Arrays.asList(JAVA_KEYWORDS).contains(packageToken)) {
+                        m_packageNameFeedback.setStatus(FormFeedback.ERROR);
+                        m_packageNameFeedback.setTitle(Index.getStrings().packageNameKeyword_tt());
+                        break;
+                    } else {
+                        m_packageNameFeedback.setStatus(FormFeedback.VALID);
+                        m_packageNameFeedback.setTitle("");
+                    }
+                }
+            }
+        } else { //no package name, which is fine
+            m_packageNameFeedback.setStatus(FormFeedback.VALID);
+            m_packageNameFeedback.setTitle("");
+        }
     }
 
     /**
