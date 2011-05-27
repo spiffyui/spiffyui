@@ -18,7 +18,12 @@ package org.spiffyui.spsample.server;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -33,7 +38,9 @@ import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.Characters;
+import javax.xml.stream.events.Namespace;
 import javax.xml.stream.events.StartDocument;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
@@ -49,6 +56,9 @@ public class SiteMapServlet extends HttpServlet
 {
     private static final Logger LOGGER = Logger.getLogger(SiteMapServlet.class.getName());
     private static final long serialVersionUID = -1L;
+    
+    private static final ResourceBundle BUILD_BUNDLE = 
+        ResourceBundle.getBundle("org/spiffyui/spsample/server/buildnum", Locale.getDefault());
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -85,6 +95,7 @@ public class SiteMapServlet extends HttpServlet
             createSiteMap(out);
         } catch (Exception e) {
             LOGGER.throwing(SiteMapServlet.class.getName(), "service", e);
+            e.printStackTrace();
         }
         
         out.flush();
@@ -120,10 +131,18 @@ public class SiteMapServlet extends HttpServlet
         
         StartDocument startDocument = eventFactory.createStartDocument();
         eventWriter.add(startDocument);
-
         
-        StartElement configStartElement = eventFactory.createStartElement("", "", "urlset");
-        eventWriter.add(configStartElement);
+        eventWriter.add(end);
+        
+        ArrayList<Namespace> ns = new ArrayList<Namespace>();
+        
+        ArrayList<Attribute> atts = new ArrayList<Attribute>();
+        atts.add(eventFactory.createAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance"));
+        atts.add(eventFactory.createAttribute("xsi:schemaLocation", "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"));
+        atts.add(eventFactory.createAttribute("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9"));
+        StartElement urlSetStartElement = eventFactory.createStartElement("", "", "urlset", atts.iterator(), ns.iterator());
+        
+        eventWriter.add(urlSetStartElement);
         eventWriter.add(end);
         findFiles(getServletConfig().getServletContext(), eventWriter);
         
@@ -153,7 +172,11 @@ public class SiteMapServlet extends HttpServlet
         eventWriter.add(tab);
         eventWriter.add(eventFactory.createStartElement("", "", "url"));
         
-        
+        /*
+         Generate the location element
+         */
+        eventWriter.add(end);
+        eventWriter.add(tab);
         eventWriter.add(tab);
         eventWriter.add(eventFactory.createStartElement("", "", "loc"));
         
@@ -163,6 +186,42 @@ public class SiteMapServlet extends HttpServlet
         eventWriter.add(eventFactory.createEndElement("", "", "loc"));
         eventWriter.add(end);
         
+        /*
+         Add the priority of this page
+         */
+        eventWriter.add(tab);
+        eventWriter.add(tab);
+        eventWriter.add(eventFactory.createStartElement("", "", "priority"));
+        
+        characters = eventFactory.createCharacters("0.6");
+        eventWriter.add(characters);
+        
+        eventWriter.add(eventFactory.createEndElement("", "", "priority"));
+        eventWriter.add(end);
+        
+        /*
+         Add the last modification date of this page
+         */
+        eventWriter.add(tab);
+        eventWriter.add(tab);
+        eventWriter.add(eventFactory.createStartElement("", "", "lastmod"));
+        
+        /*
+         We need to use the W3C date time format here
+         */
+        characters = eventFactory.createCharacters(
+            new SimpleDateFormat("yyyy-MM-dd").format(new Date(Long.parseLong(BUILD_BUNDLE.getString("build.date")))) + 
+            "T" + 
+            new SimpleDateFormat("hh:mm:ssZ").format(new Date(Long.parseLong(BUILD_BUNDLE.getString("build.date")))));
+        eventWriter.add(characters);
+        
+        eventWriter.add(eventFactory.createEndElement("", "", "lastmod"));
+        eventWriter.add(end);
+        
+        /*
+         Add the change frequency
+         */
+        eventWriter.add(tab);
         eventWriter.add(tab);
         eventWriter.add(eventFactory.createStartElement("", "", "changefreq"));
         
@@ -172,6 +231,7 @@ public class SiteMapServlet extends HttpServlet
         eventWriter.add(eventFactory.createEndElement("", "", "changefreq"));
         eventWriter.add(end);
         
+        eventWriter.add(tab);
         eventWriter.add(eventFactory.createEndElement("", "", "url"));
         eventWriter.add(end);
 
