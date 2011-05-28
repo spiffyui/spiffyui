@@ -144,6 +144,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
             @Override
             public void onClick(ClickEvent event)
             {
+                event.preventDefault();
                 selectItem(LANDING_NAV_ITEM_ID);
             }
         });
@@ -155,7 +156,6 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         loadFooter();
 
         m_navBar = new MainNavBar();
-        m_navBar.setBookmarkable(true);
         
         if (isRunningUnitTests()) {
             loadUnitTests();
@@ -249,18 +249,18 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
             /*
              * Then there is a hash from the history and that trumps the cookie
              */
-            m_navBar.selectItem(m_navBar.getItem(Window.Location.getHash().substring(3)));
+            m_navBar.selectItem(m_navBar.getItem(Window.Location.getHash().substring(3)), false, false, false);
             itemSelected(m_navBar.getItem(Window.Location.getHash().substring(3)));
         } else if (Cookies.getCookie(NAV_COOKIE) != null &&
             m_navBar.getItem(Cookies.getCookie(NAV_COOKIE)) != null) {
-            m_navBar.selectItem(m_navBar.getItem(Cookies.getCookie(NAV_COOKIE)));
+            m_navBar.selectItem(m_navBar.getItem(Cookies.getCookie(NAV_COOKIE)), false, false, false);
             itemSelected(m_navBar.getItem(Cookies.getCookie(NAV_COOKIE)));
         } else {
-            m_navBar.selectItem(m_navBar.getItem(LANDING_NAV_ITEM_ID));
+            m_navBar.selectItem(m_navBar.getItem(LANDING_NAV_ITEM_ID), false, false, false);
         }
 
         RESTility.addLoginListener(this);
-        
+        m_navBar.setBookmarkable(true);
         
     }
     
