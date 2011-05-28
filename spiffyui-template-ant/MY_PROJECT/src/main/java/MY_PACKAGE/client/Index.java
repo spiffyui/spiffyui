@@ -106,8 +106,6 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
         button.addClickHandler(this);
         m_text.addKeyPressHandler(this);
         
-        button.addClickHandler(this);
-        m_text.addKeyPressHandler(this);
     }
     
     @Override
