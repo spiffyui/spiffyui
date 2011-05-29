@@ -41,7 +41,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.ComplexPanel;
@@ -578,28 +577,62 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     }
     
     /**
-     * Add a anchor to the TOC list item
-     * @param htmlPanel - the HTMLPanel that the anchor should be added to and where the list item is
-     * @param liId - list item ID
+     * Call addToc with default cssSelector of h2
+     * 
+     * @param panel - the HTMLPanel that contains h2 tags and a toc div with a ul in it.
+     * The ul must have an id equal to the HTMLPanel's id + "TocUl".
      */
-    public static void addTocAnchor(HTMLPanel htmlPanel, final String liId)
+    public static void addToc(HTMLPanel panel)
     {
-        Element li = htmlPanel.getElementById(liId);
-        String name = li.getInnerText();
-        Anchor anchor = new Anchor(name, "#");
+        addToc(panel, "h2");
+    }
+    
+    /**
+     * Add the table of contents to HTMLPanel for every cssSelector tag with an id attribute.  The inner text of
+     * the css selector's tag will be used as the display name for the table of contents list item
+     * unless there is a title attribute for it, in which case it will use the title.
+     * 
+     * @param panel - the HTMLPanel that contains cssSelector and a toc div with a ul in it.
+     * @param cssSelector - the selector under the panel's id to determine what creates the table of contents
+     * The ul must have an id equal to the HTMLPanel's id + "TocUl".
+     */
+    public static void addToc(HTMLPanel panel, String cssSelector)
+    {
+        String panelId = panel.getElement().getId();
+        addTocListItems(panel, panelId, cssSelector);
+    }
+    
+    private static void addTocLi(final HTMLPanel panel, final String liDisplay, final String h2Id, final String liId) 
+    {
+        Anchor anchor = new Anchor(liDisplay, "#");
         anchor.addClickHandler(new ClickHandler() {
             
             @Override
             public void onClick(ClickEvent event)
             {
-                Index.scrollTo(liId.substring(2));
+                Index.scrollTo(h2Id);
                 event.preventDefault();
             }
         });
         
-        li.setInnerText("");
-        htmlPanel.add(anchor, liId);        
+        panel.add(anchor, liId); 
     }
+    
+    private static native void addTocListItems(HTMLPanel panel, String panelId, String cssSelector) /*-{
+        var ul = $wnd.$("#" + panelId + "TocUl");
+        $wnd.$("#" + panelId + " " + cssSelector).each(function() {
+            var thiz = $wnd.$(this);
+            var display = thiz.attr("title") ? thiz.attr("title") : thiz.html();
+            var h2Id = thiz.attr("id"); 
+            if (!h2Id) {
+                //If there is no id, it will not allow scrolling to it.  Intentionally leave out this attribute to skip adding it to TOC
+                return;
+            }  
+            var liId = "li" + h2Id; 
+            ul.append("<li id=\"" + liId + "\"></li>");
+            @org.spiffyui.spsample.client.Index::addTocLi(Lcom/google/gwt/user/client/ui/HTMLPanel;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)(panel, display, h2Id, liId);
+        });
+    }-*/;
     
     /**
      * Scroll to the id using animation
@@ -616,4 +649,6 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     public static native void scrollTo(int y) /*-{
         $wnd.$("html,body").animate({scrollTop: y}, "slow");
     }-*/;
+    
+    
 }

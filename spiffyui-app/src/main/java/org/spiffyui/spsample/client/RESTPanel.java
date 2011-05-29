@@ -40,13 +40,6 @@ public class RESTPanel extends HTMLPanel
         
         setVisible(false);
         
-        /*
-         * Add TOC anchors
-         */
-        Index.addTocAnchor(this, "liREST_ocb");
-        Index.addTocAnchor(this, "liREST_ility");
-        Index.addTocAnchor(this, "liREST_pit");
-        Index.addTocAnchor(this, "liREST_eh");
-        Index.addTocAnchor(this, "liREST_sia");
+        Index.addToc(this);
     }
 }

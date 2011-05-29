@@ -86,16 +86,7 @@ public class AuthPanel extends HTMLPanel
             }
         });
         
-        /*
-         * Add TOC anchors
-         */
-        Index.addTocAnchor(this, "liAS_Try");
-        Index.addTocAnchor(this, "liAS_Token");
-        Index.addTocAnchor(this, "liAS_Cloud");
-        Index.addTocAnchor(this, "liAS_Custom");
-        Index.addTocAnchor(this, "liAS_Proxy");
-        Index.addTocAnchor(this, "liAS_Login");
-        Index.addTocAnchor(this, "liAS_Logout");
+        Index.addToc(this);
     }
 
     /**

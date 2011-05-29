@@ -320,7 +320,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
     {
         return
     "<div class=\"createForm\" id=\"" + id + "createForm\">" +
-        "<h2>" + Index.getStrings().projectCreatorTitle() + "</h2>" +
+        "<h2 id=\"" + id + "createFormH2\" title=\"" + Index.getStrings().projectCreatorTitle_tt() + "\">" + Index.getStrings().projectCreatorTitle() + "</h2>" +
         "<fieldset class=\"projectCreatorFields\">" +
             "<ol class=\"dialogformsection\">" +
                 "<li id=\"" + id + "projectNameRow\" class=\"dialogformrow\">" +

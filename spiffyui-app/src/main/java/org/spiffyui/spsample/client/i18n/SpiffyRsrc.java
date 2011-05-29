@@ -174,4 +174,5 @@ public interface SpiffyRsrc extends Messages
     public String downloadProjInstr4();
     public String backToCreate();
     public String backToTop();
+    public String projectCreatorTitle_tt();
 }

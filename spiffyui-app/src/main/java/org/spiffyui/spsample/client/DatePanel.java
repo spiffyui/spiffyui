@@ -40,10 +40,6 @@ public class DatePanel extends HTMLPanel
         
         setVisible(false);
         
-        /*
-         * Add TOC anchors
-         */
-        Index.addTocAnchor(this, "liLOC_Filter");
-        Index.addTocAnchor(this, "liLOC_Formatting");
+        Index.addToc(this);
     }
 }

@@ -603,16 +603,38 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
     
     private void addTocAnchors()
     {
-        Index.addTocAnchor(this, "liWidgetsLongMessageWidget");
-        Index.addTocAnchor(this, "liWID_NavPanelGridCell");
-        Index.addTocAnchor(this, "liWID_WidgetsFancyButton");
-        Index.addTocAnchor(this, "liWID_WidgetsLoginPanel");
-        Index.addTocAnchor(this, "liWID_WidgetsSuggestBox");
-        Index.addTocAnchor(this, "liWID_WidgetsDisplayOptions");
-        Index.addTocAnchor(this, "liWID_WidgetsRefreshAnchor");
-        Index.addTocAnchor(this, "liWID_WidgetsRangeSlider");
-        Index.addTocAnchor(this, "liWID_WidgetsSlidingGridCell");
-        Index.addTocAnchor(this, "liWID_WidgetsStatus");
+        addTocAnchor("liWidgetsLongMessageWidget");
+        addTocAnchor("liWID_NavPanelGridCell");
+        addTocAnchor("liWID_WidgetsFancyButton");
+        addTocAnchor("liWID_WidgetsLoginPanel");
+        addTocAnchor("liWID_WidgetsSuggestBox");
+        addTocAnchor("liWID_WidgetsDisplayOptions");
+        addTocAnchor("liWID_WidgetsRefreshAnchor");
+        addTocAnchor("liWID_WidgetsRangeSlider");
+        addTocAnchor("liWID_WidgetsSlidingGridCell");
+        addTocAnchor("liWID_WidgetsStatus");
     }
-
+    
+    /**
+     * Add a anchor to the TOC list item
+     * @param liId - list item ID
+     */
+    public void addTocAnchor(final String liId)
+    {
+        Element li = getElementById(liId);
+        String name = li.getInnerText();
+        Anchor anchor = new Anchor(name, "#");
+        anchor.addClickHandler(new ClickHandler() {
+            
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                Index.scrollTo(liId.substring(2));
+                event.preventDefault();
+            }
+        });
+        
+        li.setInnerText("");
+        add(anchor, liId);        
+    }
 }

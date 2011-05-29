@@ -40,13 +40,6 @@ public class GetInvolvedPanel extends HTMLPanel
         
         setVisible(false);
         
-        /*
-         * Add TOC anchors
-         */
-        Index.addTocAnchor(this, "liGI_Feedback");
-        Index.addTocAnchor(this, "liGI_Share");
-        Index.addTocAnchor(this, "liGI_Write");
-        Index.addTocAnchor(this, "liGI_Bug");
-        Index.addTocAnchor(this, "liGI_Add");
+        Index.addToc(this);
     }
 }

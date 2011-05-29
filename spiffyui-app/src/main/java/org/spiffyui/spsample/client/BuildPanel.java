@@ -40,17 +40,6 @@ public class BuildPanel extends HTMLPanel
         
         setVisible(false);
         
-        /*
-         * Add TOC anchors
-         */
-        Index.addTocAnchor(this, "liBU_Less");
-        Index.addTocAnchor(this, "liBU_Fewer");
-        Index.addTocAnchor(this, "liBU_Get");
-        Index.addTocAnchor(this, "liBU_Epoch");
-        Index.addTocAnchor(this, "liBU_Closure");
-        Index.addTocAnchor(this, "liBU_GZip");
-        Index.addTocAnchor(this, "liBU_Props");
-        Index.addTocAnchor(this, "liBU_JSLint");
-        Index.addTocAnchor(this, "liBU_YUI");
+        Index.addToc(this);
     }
 }

@@ -136,16 +136,7 @@ public class CSSPanel extends HTMLPanel
         fixedPanel.setVisible(false);
         RootPanel.get("mainWrap").add(fixedPanel);
         
-        /*
-         * Add TOC anchors
-         */
-        Index.addTocAnchor(this, "liCSS_Sample");
-        Index.addTocAnchor(this, "liCSS_Page");
-        Index.addTocAnchor(this, "liCSS_Grid");
-        Index.addTocAnchor(this, "liCSS_Form");
-        Index.addTocAnchor(this, "liCSS_Files");
-        Index.addTocAnchor(this, "liCSS_Specific");
-        Index.addTocAnchor(this, "liCSS_Other");
+        Index.addToc(this);
         
     }
     

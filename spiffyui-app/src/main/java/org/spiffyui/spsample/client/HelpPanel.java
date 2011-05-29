@@ -43,7 +43,6 @@ public class HelpPanel extends HTMLPanel
         /*
          * Add TOC anchors
          */
-        Index.addTocAnchor(this, "liHE_Full");
-        Index.addTocAnchor(this, "liHE_Name");
+        Index.addToc(this);
     }
 }

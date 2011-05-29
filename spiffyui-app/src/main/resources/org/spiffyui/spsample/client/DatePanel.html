@@ -1,9 +1,7 @@
 <h1 class="pageTitle">Localization</h1>
 
 <div class="toc">
-    <ul>
-        <li id="liLOC_Filter">Spiffy UI locale filter</li>
-        <li id="liLOC_Formatting">Dates, times and numbers</li>
+    <ul id="datePanelTocUl">
     </ul>
 </div>
 
@@ -34,7 +32,7 @@
     Spiffy UI offers a servlet filter that will compare the locales the browser requests with the locales your application supports and find the best match.  It will then output the locale GWT property and make sure the server and client in your application agree on the same locale.
     </p>
     
-    <h2 id="LOC_Filter">Using the Spiffy UI locale filter</h2>
+    <h2 id="LOC_Filter" title="Spiffy UI locale filter">Using the Spiffy UI locale filter</h2>
     
     <p>
     The easiest way to use the locale filter is to create a new servlet filter that extends <code>GWTLocaleBundleFilter</code>.  This filter will look in your application and determine the supported locales based on the properties files you have.  For example, if you have files named <code>Strings_fr.properties</code>, <code>Strings_de.properties</code>, and <code>Strings_en.properties</code> then your application supports French, German, and English.
@@ -71,7 +69,7 @@
     You can map this filter to any file in your application.  There are many other options.  Take a look at the <a href="/javadoc/index.html">JavaDoc</a>.
     </p>
     
-    <h2 id="LOC_Formatting">Date, time and number formatting localization</h2>
+    <h2 id="LOC_Formatting" title="Dates, times, numbers">Date, time and number formatting localization</h2>
     
     <p>
     Localizing your strings is just the first step.  The Spiffy UI Framework includes internationalized date and time utilities based on <a href="http://www.datejs.com/">Datejs</a>.  In addition, it includes date and time widgets which wrap the <a href="http://jqueryui.com/demos/datepicker/">JQuery UI Datepicker</a> and a <a href="http://code.google.com/p/jquery-timepicker/">JQuery Time Picker</a>.  
