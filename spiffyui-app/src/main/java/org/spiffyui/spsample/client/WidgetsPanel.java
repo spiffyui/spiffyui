@@ -127,12 +127,14 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         
         addTimePicker();
             
-        addTocAnchors();
+//        addTocAnchors();
         
         /*
          * Add the sliding grid here.  This call must go last so that the onAttach of the SlidingGridPanel can do its thing.
          */
         add(m_slideGridPanel, "WidgetsSlidingGrid");
+
+        Index.addToc(this, "h3");
                 
     }
 
@@ -199,7 +201,9 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
          * Add a refresh anchor to our page
          */
         m_refresh = new RefreshAnchor("Widgets_refreshAnchor");
-        addToSlidingGrid(m_refresh, "WidgetsRefreshAnchor", Index.getStrings().refreshAnchor(), STRINGS.RefreshAnchor_html(), TALL);
+        HTMLPanel p = addToSlidingGrid(m_refresh, "WidgetsRefreshAnchor", Index.getStrings().refreshAnchor(), STRINGS.RefreshAnchor_html(), TALL);
+        Element h3 = p.getElementById("WID_WidgetsRefreshAnchor");
+        h3.setTitle(Index.getStrings().refreshAnchorConfirmDialog_tt());
         
         m_refresh.addClickHandler(new ClickHandler() {
 
@@ -492,12 +496,10 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
     private HTMLPanel addToSlidingGrid(Widget widget, String id, String title, String htmlText, int type)
     {       
         HTMLPanel p = new HTMLPanel("div", 
-            "<h3>" + title + "</h3>" + 
+            "<h3 id=\"WID_" + id + "\">" + title + "</h3>" + 
             htmlText + 
             "<span id=\"" + id + "\"></span>");
      
-        p.getElement().setId("WID_" + id);
-        
         if (widget != null) {
             p.add(widget, id);
         }

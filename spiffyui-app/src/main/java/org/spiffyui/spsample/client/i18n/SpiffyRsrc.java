@@ -175,4 +175,5 @@ public interface SpiffyRsrc extends Messages
     public String backToCreate();
     public String backToTop();
     public String projectCreatorTitle_tt();
+    public String refreshAnchorConfirmDialog_tt();
 }
