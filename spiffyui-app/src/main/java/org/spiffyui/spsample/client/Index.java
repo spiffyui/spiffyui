@@ -41,11 +41,13 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.RootPanel;
 
 
 /**
@@ -262,8 +264,11 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         RESTility.addLoginListener(this);
         m_navBar.setBookmarkable(true);
         
+        addBackToTop();
+        
     }
-    
+
+
     private void loadUnitTests()
     {
         UnitTestPanel.runUnitTests();
@@ -335,7 +340,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         m_navBar.add(item);
         m_panels.put(item, new LicensePanel());
     }
-
+    
     @Override
     public boolean preItemSelected(NavItem item)
     {
@@ -554,5 +559,61 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         } else {
             return false;
         }
+    }-*/;
+
+    private void addBackToTop()
+    {
+        Anchor a = new Anchor(getStrings().backToTop(), "#");
+        a.addClickHandler(new ClickHandler() {
+            
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                scrollTo(0);
+                event.preventDefault();
+            }
+        });
+        a.getElement().setId("backToTop");
+        RootPanel.get("mainContent").add(a);
+    }
+    
+    /**
+     * Add a anchor to the TOC list item
+     * @param htmlPanel - the HTMLPanel that the anchor should be added to and where the list item is
+     * @param liId - list item ID
+     */
+    public static void addTocAnchor(HTMLPanel htmlPanel, final String liId)
+    {
+        Element li = htmlPanel.getElementById(liId);
+        String name = li.getInnerText();
+        Anchor anchor = new Anchor(name, "#");
+        anchor.addClickHandler(new ClickHandler() {
+            
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                Index.scrollTo(liId.substring(2));
+                event.preventDefault();
+            }
+        });
+        
+        li.setInnerText("");
+        htmlPanel.add(anchor, liId);        
+    }
+    
+    /**
+     * Scroll to the id using animation
+     * @param id to scroll to
+     */
+    public static native void scrollTo(String id) /*-{
+        $wnd.$("html,body").animate({scrollTop: $wnd.$("#" + id).offset().top}, "slow");
+    }-*/;
+    
+    /**
+     * Scroll to the y position using animation
+     * @param y coordinate
+     */
+    public static native void scrollTo(int y) /*-{
+        $wnd.$("html,body").animate({scrollTop: y}, "slow");
     }-*/;
 }

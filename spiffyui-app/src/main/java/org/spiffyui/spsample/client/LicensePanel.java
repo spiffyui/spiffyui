@@ -39,5 +39,22 @@ public class LicensePanel extends HTMLPanel
         RootPanel.get("mainContent").add(this);
 
         setVisible(false);
+        
+        /*
+         * Add TOC anchors
+         */
+        Index.addTocAnchor(this, "liLIC_acc");
+        Index.addTocAnchor(this, "liLIC_ahc");
+        Index.addTocAnchor(this, "liLIC_b64");
+        Index.addTocAnchor(this, "liLIC_datejs");
+        Index.addTocAnchor(this, "liLIC_dsh");
+        Index.addTocAnchor(this, "liLIC_hm");
+        Index.addTocAnchor(this, "liLIC_jq");
+        Index.addTocAnchor(this, "liLIC_jqt");
+        Index.addTocAnchor(this, "liLIC_jqui");
+        Index.addTocAnchor(this, "liLIC_json");
+        Index.addTocAnchor(this, "liLIC_reset");
+        Index.addTocAnchor(this, "liLIC_sg");
+        Index.addTocAnchor(this, "liLIC_qunit");     
     }
 }

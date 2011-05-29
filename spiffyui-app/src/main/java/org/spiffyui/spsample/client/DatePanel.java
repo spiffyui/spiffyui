@@ -39,5 +39,11 @@ public class DatePanel extends HTMLPanel
         RootPanel.get("mainContent").add(this);
         
         setVisible(false);
+        
+        /*
+         * Add TOC anchors
+         */
+        Index.addTocAnchor(this, "liLOC_Filter");
+        Index.addTocAnchor(this, "liLOC_Formatting");
     }
 }

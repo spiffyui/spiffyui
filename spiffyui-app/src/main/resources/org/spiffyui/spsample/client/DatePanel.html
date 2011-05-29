@@ -1,4 +1,12 @@
 <h1 class="pageTitle">Localization</h1>
+
+<div class="toc">
+    <ul>
+        <li id="liLOC_Filter">Spiffy UI locale filter</li>
+        <li id="liLOC_Formatting">Dates, times and numbers</li>
+    </ul>
+</div>
+
 <div id="datePanelText" class="documentationPanel">
     <p>
     Let's start with a quick overview.  Every time a browser makes a request to a server it specifies an HTTP header called <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language</a>.  This header specifies a list of <a href="http://en.wikipedia.org/wiki/Locale">locales</a> which the browser would like in preferred order.
@@ -26,7 +34,7 @@
     Spiffy UI offers a servlet filter that will compare the locales the browser requests with the locales your application supports and find the best match.  It will then output the locale GWT property and make sure the server and client in your application agree on the same locale.
     </p>
     
-    <h2>Using the Spiffy UI locale filter</h2>
+    <h2 id="LOC_Filter">Using the Spiffy UI locale filter</h2>
     
     <p>
     The easiest way to use the locale filter is to create a new servlet filter that extends <code>GWTLocaleBundleFilter</code>.  This filter will look in your application and determine the supported locales based on the properties files you have.  For example, if you have files named <code>Strings_fr.properties</code>, <code>Strings_de.properties</code>, and <code>Strings_en.properties</code> then your application supports French, German, and English.
@@ -63,7 +71,7 @@
     You can map this filter to any file in your application.  There are many other options.  Take a look at the <a href="/javadoc/index.html">JavaDoc</a>.
     </p>
     
-    <h2>Date, time and number formatting localization</h2>
+    <h2 id="LOC_Formatting">Date, time and number formatting localization</h2>
     
     <p>
     Localizing your strings is just the first step.  The Spiffy UI Framework includes internationalized date and time utilities based on <a href="http://www.datejs.com/">Datejs</a>.  In addition, it includes date and time widgets which wrap the <a href="http://jqueryui.com/demos/datepicker/">JQuery UI Datepicker</a> and a <a href="http://code.google.com/p/jquery-timepicker/">JQuery Time Picker</a>.  
@@ -77,7 +85,7 @@
     These utilities are optional and require an additional servlet to support localized formats.  To use them you need to include the <code>JSLocaleServlet</code> in your project.  You can extend the <code>JSLocaleServlet</code> to provide custom localizations.
     </p>
 
-    <h2>Adding the JSLocaleServlet</h2>
+    <h3>Adding the JSLocaleServlet</h3>
 
     <p>
     The <code>JSLocaleServlet</code> will redirect the browser to the best matching localized JS file for date.js or jquery.ui.datepicker.js.  Spiffy UI includes a basic algorithm for determining the best matching locale by looping through the requested browser locales and attempting to match them against one of the supported locales.  It first attempts to match exactly, then by language and country, then by language.  If it doesn't find a match it will return the the English version of the javascript file requested.  
@@ -172,7 +180,7 @@
     &lt;/servlet-mapping&gt;
     </pre>
 
-    <h2>Referencing the JSLocaleServlet</h2>
+    <h3>Referencing the JSLocaleServlet</h3>
 
     <p>
     The <code>JSLocaleServlet</code> returns JavaScript files supporting the date formats.  This servlet must be referenced in the <code>head</code> section of your HTML file like this:
@@ -183,7 +191,7 @@
     &lt;script type="text/javascript" src="js/lib/i18n/jquery.ui.datepicker.js"&gt;&lt;/script&gt;
     </pre>
 
-    <h2>Extending JSLocaleServlet</h2>
+    <h3>Extending JSLocaleServlet</h3>
     <p>
     If your application requires a customized best matching locale routine, you may extend <code>JSLocaleServlet</code>, override getBestMatchLocale, then include your class in web.xml instead.  For example:
     </p>

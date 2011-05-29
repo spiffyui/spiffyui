@@ -72,8 +72,12 @@ h2 {
     width: 480px;
 }
 
-.sectionTitle, .subSectionTitle, .spiffy-longmessage-panel {
+.sectionTitle, .subSectionTitle  {
     width: 525px;
+}
+
+.spiffy-longmessage-panel {
+    width: 450px;
 }
 
 .spiffy-longmessage-panel {
@@ -120,7 +124,7 @@ h2 {
 }
 
 .documentationPanel a, .documentationPanel a:visited, .slidegrid a, .slidegrid a:visited, #landingPanel a, #landingPanel a:visited, 
-.toc a, .toc a:visited {
+.toc a, .toc a:visited, #backToTop, #backToTop:visited {
     color: #289bc8;
 }
 
@@ -886,7 +890,7 @@ iframe {
     padding: 0px 5px 5px 15px; 
     background-color: #FFFFE0;
     border: 1px solid #FFFFE0;
-    width: 550px;
+    width: 525px;
     margin-bottom: 24px;
 }
 
@@ -1018,7 +1022,7 @@ iframe {
 .toc {
     position: absolute;
     right: 200px;
-    width: 200px;
+    width: 204px;
     text-align: right;
     font-size: 15px;
 }
@@ -1027,3 +1031,21 @@ iframe {
     list-style: none;
 }
 
+#backToTop {
+    position: fixed;
+    bottom: 28px;
+    right: 20px;
+    text-align: right;
+    font-size: 15px;
+    background: url(images/ui-icons_222222_256x240.png) no-repeat scroll 81px -44px #E9E7E0;
+    padding: 0 12px 0 5px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    border: thin solid lightgray; 
+    opacity: 0.8;   
+}
+
+.landing #backToTop {
+    display: none;
+}

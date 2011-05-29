@@ -39,5 +39,13 @@ public class HostedModePanel extends HTMLPanel
         RootPanel.get("mainContent").add(this);
 
         setVisible(false);
+        
+        /*
+         * Add TOC anchors
+         */
+        Index.addTocAnchor(this, "liDM_Import");
+        Index.addTocAnchor(this, "liDM_Build");
+        Index.addTocAnchor(this, "liDM_Config");
+        Index.addTocAnchor(this, "liDM_Debug");
     }
 }

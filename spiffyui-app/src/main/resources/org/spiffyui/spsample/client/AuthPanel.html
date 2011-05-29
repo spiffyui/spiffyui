@@ -1,4 +1,17 @@
 <h1 class="pageTitle">Authentication and Security</h1>
+
+<div class="toc">
+    <ul>
+        <li id="liAS_Try">Try it out</li>
+        <li id="liAS_Token">Tokenized identity</li>
+        <li id="liAS_Cloud">Don't forget the cloud</li>
+        <li id="liAS_Custom">Security customization</li>
+        <li id="liAS_Proxy">Authentication proxy</li>
+        <li id="liAS_Login">Login</li>
+        <li id="liAS_Logout">Logout</li>
+    </ul>
+</div>
+
 <div id="authPanelText" class="documentationPanel">
 
     <p>
@@ -6,7 +19,7 @@
     </p>
 
     <div id="loginSection" class="highlightSection">
-        <h3>Try it out</h3>
+        <h2 id="AS_Try">Try it out</h2>
 
         <p>
         Most of this application's REST calls are accessible without authentication, but we've added a little secured data...
@@ -27,7 +40,7 @@
     You can extend the servlets in this example, create your own, or implement your authentication server in any other technology that supports REST.
     </p>
 
-    <h2>Tokenized identity</h2>
+    <h2 id="AS_Token">Tokenized identity</h2>
 
     <p>
     The broad strokes of the authentication process are very simple.  You request some data, the server tells you it requires authentication, you get a token, and you give the token back to the server to get your data.  Just like getting a key to open a door, your token gives you access to the data.
@@ -53,7 +66,7 @@
     <b>Tokens support stateless application servers</b>.  REST has no session, your tokens shouldn't either.  Combine your tokens with <a href="http://en.wikipedia.org/wiki/SAML">SAML</a> and you'll get stateless authentication.  This scales to the cloud and keeps you logged in even if your server goes down.
     </p>
 
-    <h2>Don't forget the cloud</h2>
+    <h2 id="AS_Cloud">Don't forget the cloud</h2>
 
     <p>
     There's more to authentication than just a username and password.  Most companies are very careful about where their usernames and passwords can travel.  The IT department wants to keep passwords inside the network and off of the Internet.
@@ -63,7 +76,7 @@
     Tokenized identity changes all that.  You can place the authentication server in the firewall and put the application outside.  Use SAML and they don't even have to talk to each other.  Make it possible for any company to connect to your system without risking their security.
     </p>
 
-    <h2>Security customization</h2>
+    <h2 id="AS_Custom">Security customization</h2>
 
     <p>
     Tokenized identity works for us, but it doesn't have to work for you.  When you use the Spiffy UI framework you can specify your own authentication handling.  You can customize our login dialog or write your own.  You can also skip security altogether and make your application anonymous.
@@ -84,7 +97,7 @@
     </p>
     
 
-    <h2>Authentication proxy</h2>
+    <h2 id="AS_Proxy">Authentication proxy</h2>
     
     <p>
     All REST calls are governed by the <a href="http://en.wikipedia.org/wiki/Same_origin_policy">same origin policy</a> and may only call back to the server that served the JavaScript.  This is fine for most REST data calls, but single sign-on requires you to call to another server.
@@ -143,7 +156,7 @@
     6. Data server checks and validates the authentication token, then returns back requested resources.
     </p>
 
-    <h2>Login</h2>
+    <h2 id="AS_Login">Login</h2>
 
     <p>
     The authentication proxy is just a helper in this process.  The real work happens in the token exchange.  You can skip the proxy if you're calling from Java or any other language that doesn't use the same origin policy.  Here's what happens when you click the login button above.
@@ -204,7 +217,7 @@
     Now that the token exchange has been established the browser can request data from the REST server without using the AuthServlet or the authentication server.
     </p>
 
-    <h2>Logout</h2>
+    <h2 id="AS_Logout">Logout</h2>
 
     <p>
     The logout process goes through authentication proxy as well. You can skip the proxy if you're calling from Java or any other language that doesn't use the same origin policy.  Here's what happens when you click the logout button in the header.

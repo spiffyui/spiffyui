@@ -55,5 +55,15 @@ public class OverviewPanel extends HTMLPanel
             }
         });
         add(getStarted, "overviewGetStarted");
+        
+        /*
+         * Add TOC anchors
+         */
+        Index.addTocAnchor(this, "liOV_Who");
+        Index.addTocAnchor(this, "liOV_Browsers");
+        Index.addTocAnchor(this, "liOV_Servers");
+        Index.addTocAnchor(this, "liOV_Flexibility");
+        Index.addTocAnchor(this, "liOV_Mobile");
+        Index.addTocAnchor(this, "liOV_Libs");
     }
 }

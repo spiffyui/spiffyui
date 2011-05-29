@@ -63,5 +63,14 @@ public class GetStartedPanel extends HTMLPanel
          */
         ProjectCreatorPanel projCreator = new ProjectCreatorPanel("getStartedPanel");
         add(projCreator, "getStartedCreateSpiffy");
+        
+        /*
+         * Add TOC anchors
+         */
+        Index.addTocAnchor(this, "ligetStartedCreateSpiffy");
+        Index.addTocAnchor(this, "liGS_GetHelloSpiffy");
+        Index.addTocAnchor(this, "liGS_AddSpiffy");
     }
+    
+
 }

@@ -1,10 +1,25 @@
 <h1 class="pageTitle">Built for Speed</h1>
+
+<div class="toc">
+    <ul>
+        <li id="liBU_Less">Include less code</li>
+        <li id="liBU_Fewer">Make fewer requests</li>
+        <li id="liBU_Get">Get the Spiffy UI Ant Tasks</li>
+        <li id="liBU_Epoch">epochtstamp</li>
+        <li id="liBU_Closure">Google Closure Compiler</li>
+        <li id="liBU_GZip">GZipList</li>
+        <li id="liBU_Props">HTMLProps</li>
+        <li id="liBU_JSLint">JSLint</li>
+        <li id="liBU_YUI">YUI Compressor</li>
+    </ul>
+</div>
+
 <div id="antPanelText" class="documentationPanel">
     <p>
     The best way to make your application run fast is to travel light.  Everything depends on the size of your download and there are two ways to make your web application smaller:  include less code and make fewer requests.  
     </p>
     
-    <h2>Include less code</h2>
+    <h2 id="BU_Less">Include less code</h2>
     
     <p>
     The best way to make your application load fast is to strip it to the bare essentials.  Every line of code you include makes your application run slower.  Spiffy UI reduces the size of your application in four ways:
@@ -26,7 +41,7 @@
     <b>GZIP compression</b> makes the code you include substantially smaller  GZIP reduces the size of JQuery core by 65%.  Smaller files make faster applications. 
     </p>
     
-    <h2>Make fewer requests</h2>
+    <h2 id="BU_Fewer">Make fewer requests</h2>
     
     <p>
     Browser requests are expensive and combining files save a lot of download time.  CSS <a href="http://en.wikipedia.org/wiki/Sprite_(computer_graphics)">sprites</a> combine many images for much faster load time.  Spiffy UI gives you to the tools to do the same with your JavaScript and CSS.  
@@ -36,7 +51,7 @@
     The Spiffy UI Framework includes Ant tasks to build, compile, and compress JavaScript, CSS, HTML, and some other formats.  We use most of these tasks to make this sample application run faster by combining and compressing the files that make up this page.  You can also see the <a href="index-debug.html">uncompressed version of this page</a>.
     </p>
     
-    <h2>Get the Spiffy UI Ant Tasks</h2>
+    <h2 id="BU_Get">Get the Spiffy UI Ant Tasks</h2>
     
     <p>
     The Ant tasks are downloaded from the Nexus repository as a project dependency.  Make sure the following entry is added to the chain your ivysettings.xml file:
@@ -59,7 +74,7 @@
     &lt;dependency org="com.googlecode.jslint4java" name="jslint4java-ant" rev="1.4.4"/&gt;
     </pre>
     
-    <h2>epochtstamp</h2>
+    <h2 id="BU_Epoch">epochtstamp</h2>
     
     <p>
     Ant has a <code>tstamp</code> task to generate the build time into your project.  We use it to fill in the time in our footer.
@@ -88,7 +103,7 @@
     Specify any property name and it will be filled in with the current build time in epoch time format.
     </p>
 
-    <h2>Google Closure Compiler</h2>
+    <h2 id="BU_Closure">Google Closure Compiler</h2>
 
     <p>
     The Spiffy UI Framework uses the <a href="http://code.google.com/closure/compiler/">Google Closure Compiler</a> for checking and compressing JavaScript files.  To compress the JavaScript files in your project you must first define the Closure task like this:
@@ -127,7 +142,7 @@
         This task is combined with GZIP to compress the <code>spiffyui.min.js</code> file, the only JavaScript you need for the Spiffy UI framework, down to 58 kilobytes.
     </p>
 
-    <h2>GZipList</h2>
+    <h2 id="BU_GZip">GZipList</h2>
 
     <p>
     Using <a href="http://en.wikipedia.org/wiki/Gzip">GZIP</a> compression can drastically reduce the size of the files in your web applicstion increasing application performance.  Most web servers support GZIP compression on the fly, but precompressing files saves CPU time and further improves performance.
@@ -160,7 +175,7 @@
         Include the resulting files in your WAR files and the web server will serve them to browsers which support GZIP.
     </p>
 
-    <h2>HTMLProps</h2>
+    <h2 id="BU_Props">HTMLProps</h2>
     <p>
     The HTML properties task allows you to embed the contents of an HTML file into your GWT application.  This is very useful for pages like this one which has large chunks of content in HTML.  This task is not used in the Spiffy UI framework, but it powers many of the pages in the Spiffy UI application.
     </p>
@@ -245,7 +260,7 @@
     
     
 
-    <h2>JSLint</h2>
+    <h2 id="BU_JSLint">JSLint</h2>
     <p>
     JSLint is a JavaScript static code analysis tool.  It will check your JavaScript and find common errors and bad practices.  All JavaScript in the Spiffy UI framework is checked with JSLint as part of the normal build.
     </p>
@@ -279,7 +294,7 @@
 
     
 
-    <h2>YUI Compressor</h2>
+    <h2 id="BU_YUI">YUI Compressor</h2>
 
     <p>
     The <a href="http://developer.yahoo.com/yui/compressor/">YUI Compressor</a> can compress CSS and JavaScript files.  The Spiffy UI framework only uses the YUI Compressor for CSS since the Google Closure compiler is more efficient on compressing JavaScript.  

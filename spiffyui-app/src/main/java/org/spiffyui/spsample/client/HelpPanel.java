@@ -39,5 +39,11 @@ public class HelpPanel extends HTMLPanel
         RootPanel.get("mainContent").add(this);
         
         setVisible(false);
+        
+        /*
+         * Add TOC anchors
+         */
+        Index.addTocAnchor(this, "liHE_Full");
+        Index.addTocAnchor(this, "liHE_Name");
     }
 }

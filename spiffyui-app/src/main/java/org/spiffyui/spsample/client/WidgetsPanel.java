@@ -72,7 +72,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
     public WidgetsPanel()
     {
         super("div", 
-             "<div id=\"WidgetsPrefsPanel\"></div><h1>Spiffy Widgets</h1>" + 
+             "<div id=\"WidgetsPrefsPanel\"></div>" + 
              STRINGS.WidgetsPanel_html() + 
              "<div id=\"WidgetsLongMessage\"></div><br /><br />" + 
              "<div id=\"WidgetsSlidingGrid\"></div>" +           
@@ -126,13 +126,16 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         addStatusIndicators();
         
         addTimePicker();
-                
+            
+        addTocAnchors();
+        
         /*
          * Add the sliding grid here.  This call must go last so that the onAttach of the SlidingGridPanel can do its thing.
          */
         add(m_slideGridPanel, "WidgetsSlidingGrid");
+                
     }
-    
+
     /**
      * Create a slider and add it to the sliding grid
      */
@@ -487,11 +490,13 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
      * @return the HTMLPanel used to add the contents to the new cell
      */
     private HTMLPanel addToSlidingGrid(Widget widget, String id, String title, String htmlText, int type)
-    {
+    {       
         HTMLPanel p = new HTMLPanel("div", 
             "<h3>" + title + "</h3>" + 
             htmlText + 
             "<span id=\"" + id + "\"></span>");
+     
+        p.getElement().setId("WID_" + id);
         
         if (widget != null) {
             p.add(widget, id);
@@ -594,6 +599,20 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         } else {
             m_refresh.setLoading(false);
         }
+    }
+    
+    private void addTocAnchors()
+    {
+        Index.addTocAnchor(this, "liWidgetsLongMessageWidget");
+        Index.addTocAnchor(this, "liWID_NavPanelGridCell");
+        Index.addTocAnchor(this, "liWID_WidgetsFancyButton");
+        Index.addTocAnchor(this, "liWID_WidgetsLoginPanel");
+        Index.addTocAnchor(this, "liWID_WidgetsSuggestBox");
+        Index.addTocAnchor(this, "liWID_WidgetsDisplayOptions");
+        Index.addTocAnchor(this, "liWID_WidgetsRefreshAnchor");
+        Index.addTocAnchor(this, "liWID_WidgetsRangeSlider");
+        Index.addTocAnchor(this, "liWID_WidgetsSlidingGridCell");
+        Index.addTocAnchor(this, "liWID_WidgetsStatus");
     }
 
 }
