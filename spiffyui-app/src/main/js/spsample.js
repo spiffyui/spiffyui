@@ -54,6 +54,20 @@ spsample = {
                 href: "spsample.min.css"
             });
         }
+        
+        $(window).scroll(function() {
+            
+            var offset = $(window).scrollTop();
+            
+            /*
+             * We only want to turn the back to top link on if we are scrolled down
+             */
+            if (offset > 250) {
+                $('#backToTop').show();
+            } else {
+                $('#backToTop').hide();
+            }
+        });
     }
 };
 

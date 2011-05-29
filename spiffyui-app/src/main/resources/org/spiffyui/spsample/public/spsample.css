@@ -1034,8 +1034,7 @@ iframe {
 
 #backToTop {
     position: fixed;
-    bottom: 28px;
-    right: 30px;
+    top: 18px;
     text-align: right;
     font-size: 15px;
     background: url(images/ui-icons_222222_256x240.png) no-repeat scroll 35px -44px #E9E7E0;
@@ -1046,6 +1045,8 @@ iframe {
     border: thin solid lightgray; 
     opacity: 0.8;   
     font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2",Sans-serif;
+    margin: auto auto auto 650px;
+    display: none;
 }
 
 .landing #backToTop {

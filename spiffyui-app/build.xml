@@ -176,6 +176,12 @@
 
         <!-- Then we GZIP it for web servers that support GZIP -->
         <gzip src="${sample.out.www}/spsample.min.js" destfile="${sample.out.www}/spsample.min.js.gz"/>
+        
+        <!-- We copy over all the JavaScript files for dev mode -->
+        <mkdir dir="${sample.out.www}/js"/>
+        <copy todir="${sample.out.www}/js">
+            <fileset dir="${root}/src/main/js" includes="**/*" />
+        </copy>
     </target>
     
     <target name="css-min" description="Minimize the CSS with the YUI compiler" depends="setup">
