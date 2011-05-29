@@ -40,6 +40,8 @@ public class OverviewPanel extends HTMLPanel
         getElement().setId("overviewPanel");
 
         RootPanel.get("mainContent").add(this);
+        
+        setVisible(false);
 
         /*
          * Add the get started anchor
