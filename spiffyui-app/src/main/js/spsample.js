@@ -29,12 +29,12 @@ spsample = {
          * if the browser is IE and contains just those tweaks.
          */
         if (navigator.appName === 'Microsoft Internet Explorer') {
-            jQuery("head").prepend("<link>");
-            css = $("head").children(":first");
+            jQuery('head').prepend('<link>');
+            css = $('head').children(':first');
             css.attr({
-                rel:  "stylesheet",
-                type: "text/css",
-                href: "spiffyui.ie.css"
+                rel:  'stylesheet',
+                type: 'text/css',
+                href: 'spiffyui.ie.css'
             });
         }
         
@@ -45,13 +45,13 @@ spsample = {
          * give precedence to files loaded in the page over those added with JavaScript
          * and we can't do that because we override styles in spiffyui.ie.css.
          */
-        if (window.location.href.substr(-11) !== "-debug.html") {
-            jQuery("head").prepend("<link>");
-            css = $("head").children(":first");
+        if (window.location.href.substr(-11) !== '-debug.html') {
+            jQuery('head').prepend('<link>');
+            css = $('head').children(':first');
             css.attr({
-                rel:  "stylesheet",
-                type: "text/css",
-                href: "spsample.min.css"
+                rel:  'stylesheet',
+                type: 'text/css',
+                href: 'spsample.min.css'
             });
         }
         
@@ -62,6 +62,14 @@ spsample = {
             /*
              * We only want to turn the back to top link on if we are scrolled down
              */
+            if ($('#mainWrap').hasClass('sausagenav')) {
+                /*
+                 * We never show the top link when we are showing the sausage
+                 * navigation because the links handle it well already.
+                 */
+                return;
+            }
+            
             if (offset > 250) {
                 $('#backToTop').show();
             } else {

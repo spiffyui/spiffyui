@@ -157,6 +157,7 @@ public class CSSPanel extends HTMLPanel
             Window.scrollTo(0, sausageJS());
             m_sausageNav.setText(Index.getStrings().sausageMenuOff());
             Index.setSausageMode(true);
+            JSUtil.hide("backToTop");
         } else {
             DOM.getElementById("mainWrap").removeClassName("sausagenav");
             m_sausageNav.setText(Index.getStrings().sausageMenuOn());

@@ -1001,6 +1001,11 @@ iframe {
     top: -25px;
 }
 
+.sausagenav #landingMenu {
+    top: -23px;
+    right: 25px;
+}
+
 #landingMenu .landingMenuItem {
     border-right: thin dashed lightgray;
     margin-right: 10px;
