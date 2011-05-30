@@ -126,8 +126,6 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         addStatusIndicators();
         
         addTimePicker();
-            
-//        addTocAnchors();
         
         /*
          * Add the sliding grid here.  This call must go last so that the onAttach of the SlidingGridPanel can do its thing.
@@ -203,6 +201,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         m_refresh = new RefreshAnchor("Widgets_refreshAnchor");
         HTMLPanel p = addToSlidingGrid(m_refresh, "WidgetsRefreshAnchor", Index.getStrings().refreshAnchor(), STRINGS.RefreshAnchor_html(), TALL);
         Element h3 = p.getElementById("WID_WidgetsRefreshAnchor");
+        //Set the title so that the TOC's list item for this isn't too long
         h3.setTitle(Index.getStrings().refreshAnchorConfirmDialog_tt());
         
         m_refresh.addClickHandler(new ClickHandler() {
@@ -601,42 +600,5 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         } else {
             m_refresh.setLoading(false);
         }
-    }
-    
-    private void addTocAnchors()
-    {
-        addTocAnchor("liWidgetsLongMessageWidget");
-        addTocAnchor("liWID_NavPanelGridCell");
-        addTocAnchor("liWID_WidgetsFancyButton");
-        addTocAnchor("liWID_WidgetsLoginPanel");
-        addTocAnchor("liWID_WidgetsSuggestBox");
-        addTocAnchor("liWID_WidgetsDisplayOptions");
-        addTocAnchor("liWID_WidgetsRefreshAnchor");
-        addTocAnchor("liWID_WidgetsRangeSlider");
-        addTocAnchor("liWID_WidgetsSlidingGridCell");
-        addTocAnchor("liWID_WidgetsStatus");
-    }
-    
-    /**
-     * Add a anchor to the TOC list item
-     * @param liId - list item ID
-     */
-    public void addTocAnchor(final String liId)
-    {
-        Element li = getElementById(liId);
-        String name = li.getInnerText();
-        Anchor anchor = new Anchor(name, "#");
-        anchor.addClickHandler(new ClickHandler() {
-            
-            @Override
-            public void onClick(ClickEvent event)
-            {
-                Index.scrollTo(liId.substring(2));
-                event.preventDefault();
-            }
-        });
-        
-        li.setInnerText("");
-        add(anchor, liId);        
-    }
+    }    
 }
