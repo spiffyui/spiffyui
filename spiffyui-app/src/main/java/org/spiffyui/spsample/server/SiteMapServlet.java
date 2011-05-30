@@ -115,8 +115,8 @@ public class SiteMapServlet extends HttpServlet
     
     private void returnFile(String file, HttpServletResponse response) throws ServletException, IOException 
     {
-        if (file.equals("")) {
-            file = "index.html";
+        if (file.equals("") || file.equals("/")) {
+            file = "/index.html";
         }
         
         if (HASHES.containsKey(file)) {

@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-        
-  <!-- This is the web.xml file for Google App Engine.  It removes the authentication
-       servlets since App Engine doesn't support making external HTTP calls. -->
 
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-  </welcome-file-list>
-  
   <filter>
     <description>Filter to choose the best-match locale from the supported locales for GWT</description>
     <filter-name>SampleLocaleFilter</filter-name>
@@ -34,22 +27,7 @@
     <filter-name>SampleLocaleFilter</filter-name>
     <url-pattern>/index.html</url-pattern>
   </filter-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>SiteMapGenerator</servlet-name>
-    <url-pattern>/sitemap.xml</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>SiteMapGenerator</servlet-name>
-    <url-pattern>*.html</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>SiteMapGenerator</servlet-name>
-    <url-pattern>/*.htm</url-pattern>
-  </servlet-mapping>
-  
+
   <servlet>
     <servlet-name>VersionInfoServlet</servlet-name>
     <servlet-class>org.spiffyui.spsample.server.VersionInfoServlet</servlet-class>
@@ -66,30 +44,30 @@
   </servlet>
   
   <servlet>
-    <servlet-name>SampleAuthServer</servlet-name>
-    <servlet-class>org.spiffyui.spsample.server.SampleAuthServer</servlet-class>
-  </servlet>
-
-  <servlet>
-    <servlet-name>SampleDataServlet</servlet-name>
-    <servlet-class>org.spiffyui.spsample.server.SampleDataServlet</servlet-class>
-  </servlet>
-  
-  <servlet>
     <servlet-name>ProjectCreatorServlet</servlet-name>
     <servlet-class>org.spiffyui.spsample.server.ProjectCreatorServlet</servlet-class>
   </servlet>
+
+  <servlet>
+    <servlet-name>SiteMapGenerator</servlet-name>
+    <servlet-class>org.spiffyui.spsample.server.SiteMapServlet</servlet-class>
+  </servlet>
   
   <servlet-mapping>
-    <servlet-name>SampleAuthServer</servlet-name>
-    <url-pattern>/authserver/*</url-pattern>
+    <servlet-name>SiteMapGenerator</servlet-name>
+    <url-pattern>/sitemap.xml</url-pattern>
   </servlet-mapping>
-
+  
   <servlet-mapping>
-    <servlet-name>SampleDataServlet</servlet-name>
-    <url-pattern>/authdata</url-pattern>
+    <servlet-name>SiteMapGenerator</servlet-name>
+    <url-pattern>index.html</url-pattern>
   </servlet-mapping>
-
+  
+  <servlet-mapping>
+    <servlet-name>SiteMapGenerator</servlet-name>
+    <url-pattern>index-debug.html</url-pattern>
+  </servlet-mapping>
+  
   <servlet-mapping>
     <servlet-name>VersionInfoServlet</servlet-name>
     <url-pattern>/version</url-pattern>
@@ -99,8 +77,7 @@
     <servlet-name>CrayonColorsServlet</servlet-name>
     <url-pattern>/multivaluesuggestboxexample/colors</url-pattern>
   </servlet-mapping>
-  
-  
+    
   <servlet-mapping>
     <servlet-name>JSLocaleServlet</servlet-name>
     <url-pattern>/js/lib/i18n/date</url-pattern>
@@ -114,5 +91,6 @@
   <servlet-mapping>
     <servlet-name>ProjectCreatorServlet</servlet-name>
     <url-pattern>/createProject</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
+
 </web-app>
