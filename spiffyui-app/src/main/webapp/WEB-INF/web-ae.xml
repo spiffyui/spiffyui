@@ -6,6 +6,11 @@
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
   
+  <error-page>
+	  <error-code>404</error-code>
+	  <location>/404.html</location>
+  </error-page>
+  
   <filter>
     <description>Filter to choose the best-match locale from the supported locales for GWT</description>
     <filter-name>SampleLocaleFilter</filter-name>

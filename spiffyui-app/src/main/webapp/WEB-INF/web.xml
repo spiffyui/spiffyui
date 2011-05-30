@@ -6,6 +6,11 @@
     <welcome-file>index.htm</welcome-file>
   </welcome-file-list>
   
+  <error-page>
+	  <error-code>404</error-code>
+	  <location>/404.html</location>
+  </error-page>
+  
   <listener>
     <listener-class>org.spiffyui.spsample.server.SampleInitListener</listener-class>
   </listener>
