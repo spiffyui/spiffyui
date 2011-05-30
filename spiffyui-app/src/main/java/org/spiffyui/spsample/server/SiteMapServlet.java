@@ -22,11 +22,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
@@ -188,20 +186,14 @@ public class SiteMapServlet extends HttpServlet
     
     private void findFiles(HttpServletRequest request, ServletContext context, XMLEventWriter eventWriter) throws XMLStreamException
     {
+        /*
+         First we add a node for the home page
+         */
+        createNode(eventWriter, request.getRequestURL().substring(0, request.getRequestURL().length() - 11), "1.0");
+        
         for (String key : HASHES.keySet()) {
             createNode(eventWriter, request.getRequestURL().substring(0, request.getRequestURL().length() - 11)  + 
                        "#!b=" + key, "0.8");
-        }
-        
-        Set set = context.getResourcePaths("/");
-        Iterator iter = set.iterator();
-        while (iter.hasNext()) {
-            String file = iter.next().toString();
-            if (file.endsWith(".html")) {
-                file = file.substring(file.lastIndexOf('/') + 1);
-                createNode(eventWriter, request.getRequestURL().substring(0, request.getRequestURL().length() - 11)  + 
-                           "#!b=" + file, "0.6");
-            }
         }
     }
 
