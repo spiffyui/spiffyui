@@ -395,7 +395,9 @@ iframe {
     background-color: #dddddd;
     font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2";
     background-position: right center;
-    line-height: 23px;
+    line-height: 22px;
+    font-size: 15px;
+    padding: 3px 18px 0px 5px;
 }
 
 .prefspaneltab h3 {
@@ -1031,6 +1033,7 @@ iframe {
     width: 204px;
     text-align: right;
     font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2",Sans-serif;
+    margin-top: 14px;
 }
 
 .toc li, .projectCreatorFields li {
