@@ -21,8 +21,10 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -54,6 +56,27 @@ import javax.xml.stream.events.XMLEvent;
  */
 public class SiteMapServlet extends HttpServlet
 {
+    private static final Map<String, String> HASHES = new HashMap<String, String>();
+    
+    static {
+        HASHES.put("landing", "/ajax/LandingPanel.html");
+        HASHES.put("overview", "/ajax/OverviewPanel.html");
+        HASHES.put("getStarted", "/ajax/GetStartedPanel.html");
+        HASHES.put("hostedMode", "/ajax/HostedModePanel.html");
+        HASHES.put("css", "/ajax/CSSPanel.html");
+        HASHES.put("speed", "/ajax/SpeedPanel.html");
+        HASHES.put("rest", "/ajax/RESTPanel.html");
+        HASHES.put("javaDoc", "/ajax/JavaDocPanel.html");
+        HASHES.put("help", "/ajax/HelpPanel.html");
+        HASHES.put("getInvolved", "/ajax/GetInvolvedPanel.html");
+        HASHES.put("auth", "/ajax/AuthPanel.html");
+        HASHES.put("l10n", "/ajax/DatePanel.html");
+        HASHES.put("forms", "/ajax/FormPanel.html");
+        HASHES.put("widgets", "/ajax/WidgetsPanel.html");
+        HASHES.put("authTest", "/ajax/AuthPanel.html");
+        HASHES.put("license", "/ajax/LicensePanel.html");
+    }
+    
     private static final Logger LOGGER = Logger.getLogger(SiteMapServlet.class.getName());
     private static final long serialVersionUID = -1L;
     
@@ -64,62 +87,73 @@ public class SiteMapServlet extends HttpServlet
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
-        if (request.getRequestURI().indexOf("ajax.html") > -1) {
+        if (request.getParameter("_escaped_fragment_") != null) {
             /*
              This means someone is the special escaped fragment version.
              This is probably a search engine and we'll give them the file
              */
-            if (request.getParameter("_escaped_fragment_") != null) {
-                String file = request.getParameter("_escaped_fragment_");
-                if (file.startsWith("b=")) {
-                    file = file.substring(2);
-                }
-                
-                returnFile(file, response);
-                return;
-            } else {
-                /*
-                 Then they are requesting the actual file and we just redirect
-                 to the real app.  This only happens when following links from
-                 the search results.
-                 */
-                response.sendRedirect("/");
-                return;
+            String file = request.getParameter("_escaped_fragment_");
+            if (file.startsWith("b=")) {
+                file = file.substring(2);
             }
-        } 
-        
-        
-        response.setContentType("text/xml");
-        ServletOutputStream out = response.getOutputStream();
-        try {
-            createSiteMap(request, out);
-        } catch (Exception e) {
-            LOGGER.throwing(SiteMapServlet.class.getName(), "service", e);
-            e.printStackTrace();
+            
+            returnFile(file, response);
+            return;
+        } else if (request.getRequestURI().indexOf("sitemap.xml") > -1) {
+            response.setContentType("text/xml");
+            ServletOutputStream out = response.getOutputStream();
+            try {
+                createSiteMap(request, out);
+            } catch (Exception e) {
+                LOGGER.throwing(SiteMapServlet.class.getName(), "service", e);
+                e.printStackTrace();
+            }
+            
+            out.flush();
+        } else {
+            returnFile(request.getServletPath(), response);
         }
-        
-        out.flush();
     }
     
     private void returnFile(String file, HttpServletResponse response) throws ServletException, IOException 
     {
-        System.out.println("returnFile(" + file + ")");
-        if (file.equals("landing")) {
-            file = "LandingPanel.html";
+        if (file.equals("")) {
+            file = "index.html";
+        }
+        
+        if (HASHES.containsKey(file)) {
+            file = HASHES.get(file);
         }
         
         response.setContentType("text/html");
-        InputStream in = getServletConfig().getServletContext().getResourceAsStream("/ajax/" + file);
-        byte buf[] = new byte[1024];
-        ServletOutputStream out = response.getOutputStream();
-        
-        int numRead;
-        while ((numRead = in.read(buf)) >= 0) {
-            out.write(buf, 0, numRead);
+        InputStream in = getServletConfig().getServletContext().getResourceAsStream(file);
+
+        if (in == null) {
+            /*
+             This means they requested a file that doesn't exist so they get a
+             404
+             */
+            in = getServletConfig().getServletContext().getResourceAsStream("/404.html");
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        } else {
+            response.setStatus(HttpServletResponse.SC_OK);
         }
         
-        out.flush();
-        
+        try {
+            byte buf[] = new byte[1024];
+            ServletOutputStream out = response.getOutputStream();
+            
+            int numRead;
+            while ((numRead = in.read(buf)) >= 0) {
+                out.write(buf, 0, numRead);
+            }
+            
+            out.flush();
+        } finally {
+            if (in != null) {
+                in.close();
+            }
+        }
     }
     
     private void createSiteMap(HttpServletRequest request, OutputStream out) throws Exception
@@ -154,17 +188,24 @@ public class SiteMapServlet extends HttpServlet
     
     private void findFiles(HttpServletRequest request, ServletContext context, XMLEventWriter eventWriter) throws XMLStreamException
     {
-        Set set = context.getResourcePaths("/ajax");
+        for (String key : HASHES.keySet()) {
+            createNode(eventWriter, request.getRequestURL().substring(0, request.getRequestURL().length() - 11)  + 
+                       "#!b=" + key, "0.8");
+        }
+        
+        Set set = context.getResourcePaths("/");
         Iterator iter = set.iterator();
         while (iter.hasNext()) {
             String file = iter.next().toString();
-            file = file.substring(file.lastIndexOf('/') + 1);
-            createNode(eventWriter, request.getRequestURL().substring(0, request.getRequestURL().length() - 11)  + 
-                       "ajax.html#!b=" + file);
+            if (file.endsWith(".html")) {
+                file = file.substring(file.lastIndexOf('/') + 1);
+                createNode(eventWriter, request.getRequestURL().substring(0, request.getRequestURL().length() - 11)  + 
+                           "#!b=" + file, "0.6");
+            }
         }
     }
 
-    private void createNode(XMLEventWriter eventWriter, String loc) throws XMLStreamException
+    private void createNode(XMLEventWriter eventWriter, String loc, String priority) throws XMLStreamException
     {
         XMLEventFactory eventFactory = XMLEventFactory.newInstance();
         XMLEvent end = eventFactory.createDTD("\n");
@@ -224,7 +265,7 @@ public class SiteMapServlet extends HttpServlet
         eventWriter.add(tab);
         eventWriter.add(eventFactory.createStartElement("", "", "priority"));
         
-        characters = eventFactory.createCharacters("0.6");
+        characters = eventFactory.createCharacters(priority);
         eventWriter.add(characters);
         
         eventWriter.add(eventFactory.createEndElement("", "", "priority"));

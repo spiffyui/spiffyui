@@ -35,11 +35,6 @@
     <url-pattern>/index.html</url-pattern>
   </filter-mapping>
   
-  <servlet>
-    <servlet-name>SiteMapGenerator</servlet-name>
-    <servlet-class>org.spiffyui.spsample.server.SiteMapServlet</servlet-class>
-  </servlet>  
-
   <servlet-mapping>
     <servlet-name>SiteMapGenerator</servlet-name>
     <url-pattern>/sitemap.xml</url-pattern>
@@ -47,7 +42,12 @@
   
   <servlet-mapping>
     <servlet-name>SiteMapGenerator</servlet-name>
-    <url-pattern>/ajax.html</url-pattern>
+    <url-pattern>*.html</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SiteMapGenerator</servlet-name>
+    <url-pattern>/*.htm</url-pattern>
   </servlet-mapping>
   
   <servlet>

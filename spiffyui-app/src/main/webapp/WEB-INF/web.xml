@@ -88,7 +88,12 @@
   
   <servlet-mapping>
     <servlet-name>SiteMapGenerator</servlet-name>
-    <url-pattern>/ajax.html</url-pattern>
+    <url-pattern>*.html</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SiteMapGenerator</servlet-name>
+    <url-pattern>/*.htm</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>
