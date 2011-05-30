@@ -115,11 +115,18 @@ public class SiteMapServlet extends HttpServlet
     
     private void returnFile(String file, HttpServletResponse response) throws ServletException, IOException 
     {
-        if (file.equals("") || file.equals("/")) {
-            file = "/index.html";
-        }
-        
-        if (HASHES.containsKey(file)) {
+        if (file.equals("") || file.equals("/") ||
+            file.equals("index.html") || file.equals("/index.html")) {
+            /*
+             Google AppEngine won't let us use a servlet in place if a real file.
+             The solution is to serve at index.html, but return the contents of the
+             real file at index.htm.  This is super hacky, but I can't find a better
+             way around it.  Hackito Ergo Sum.
+             */
+            file = "/index.htm";
+        } else if (file.equals("index-debug.html") || file.equals("/index-debug.html")) {
+            file = "/index-debug.htm";
+        } else if (HASHES.containsKey(file)) {
             file = HASHES.get(file);
         }
         
