@@ -285,7 +285,7 @@ spiffyui = {
      */
     addHistoryItem: function(/*function*/ func, /*object*/ scope, /*array*/item, /*boolean*/ bookmarkable) {
          if (bookmarkable) {
-             dsHistory.setQueryVar('b', item.id);
+             dsHistory.setQueryVar('!b', item.id);
              dsHistory.bindQueryVars(func, scope, item);
          } else {
              dsHistory.addFunction(func, scope, item);

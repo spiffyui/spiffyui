@@ -246,12 +246,12 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
          */
         if (Window.Location.getHash() != null &&
             Window.Location.getHash().length() > 0 &&
-            m_navBar.getItem(Window.Location.getHash().substring(3)) != null) {
+            m_navBar.getItem(Window.Location.getHash().substring(4)) != null) {
             /*
              * Then there is a hash from the history and that trumps the cookie
              */
             m_navBar.selectItem(m_navBar.getItem(Window.Location.getHash().substring(3)), false, false, false);
-            itemSelected(m_navBar.getItem(Window.Location.getHash().substring(3)));
+            itemSelected(m_navBar.getItem(Window.Location.getHash().substring(4)));
         } else if (Cookies.getCookie(NAV_COOKIE) != null &&
             m_navBar.getItem(Cookies.getCookie(NAV_COOKIE)) != null) {
             m_navBar.selectItem(m_navBar.getItem(Cookies.getCookie(NAV_COOKIE)), false, false, false);
