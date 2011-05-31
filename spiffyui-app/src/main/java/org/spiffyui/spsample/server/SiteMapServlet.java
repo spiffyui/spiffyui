@@ -16,8 +16,11 @@
 package org.spiffyui.spsample.server;
 
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -129,10 +132,14 @@ public class SiteMapServlet extends HttpServlet
         }
     }
     
-    private void returnFile(String file, HttpServletResponse response) throws ServletException, IOException 
+    private void returnFile(String name, HttpServletResponse response) throws ServletException, IOException 
     {
-        if (file.equals("") || file.equals("/") ||
-            file.equals("index.html") || file.equals("/index.html")) {
+        boolean addHeader = false;
+        
+        String file = null;
+        
+        if (name.equals("") || name.equals("/") ||
+            name.equals("index.html") || name.equals("/index.html")) {
             /*
              Google AppEngine won't let us use a servlet in place if a real file.
              The solution is to serve at index.html, but return the contents of the
@@ -140,13 +147,18 @@ public class SiteMapServlet extends HttpServlet
              way around it.  Hackito Ergo Sum.
              */
             file = "/index.htm";
-        } else if (file.equals("index-debug.html") || file.equals("/index-debug.html")) {
+        } else if (name.equals("index-debug.html") || name.equals("/index-debug.html")) {
             file = "/index-debug.htm";
-        } else if (HASHES.containsKey(file)) {
-            file = HASHES.get(file);
+        } else if (HASHES.containsKey(name)) {
+            addHeader = true;
+            file = HASHES.get(name);
         }
         
-        response.setContentType("text/html");
+        if (file == null) {
+            file = name;
+        }
+        
+        response.setContentType("text/html; charset=utf-8");
         InputStream in = getServletConfig().getServletContext().getResourceAsStream(file);
 
         if (in == null) {
@@ -160,21 +172,68 @@ public class SiteMapServlet extends HttpServlet
             response.setStatus(HttpServletResponse.SC_OK);
         }
         
+        InputStreamReader reader = new InputStreamReader(in, "UTF-8");
+        
         try {
-            byte buf[] = new byte[1024];
-            ServletOutputStream out = response.getOutputStream();
+            char buf[] = new char[512];
+            OutputStreamWriter out = new OutputStreamWriter(response.getOutputStream(), "UTF-8");
+            
+            if (addHeader) {
+                addHeader(out, name);
+            }
             
             int numRead;
-            while ((numRead = in.read(buf)) >= 0) {
+            while ((numRead = reader.read(buf)) >= 0) {
                 out.write(buf, 0, numRead);
+            }
+            
+            if (addHeader) {
+                addFooter(out);
             }
             
             out.flush();
         } finally {
-            if (in != null) {
-                in.close();
+            if (reader != null) {
+                reader.close();
             }
         }
+    }
+    
+    private void addHeader(Writer out, String name) throws IOException 
+    {
+        /*
+         The snippets are not full HTML pages so we add the header
+         information to them.  
+         */
+        
+        String header = "<!DOCTYPE html>\n\n" + 
+            "<html>\n" + 
+            "<head>\n" + 
+            "<title>Spiffy UI Framework - " + name + "</title>\n" + 
+            "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n" + 
+            "<script type=\"text/javascript\" src=\"jquery.min.js\"></script>\n" + 
+            "<script type=\"text/javascript\" src=\"spsample.min.js\"></script>\n" + 
+            "<script type=\"text/javascript\">\n" + 
+            "spiffyui.autoloadCSS = false;\n" + 
+            "spiffyui.autoloadHTML = false;\n" + 
+            "</script>\n" + 
+            "</head>\n" + 
+            "<body>\n";
+        
+        out.write(header);
+    }
+    
+    private void addFooter(Writer out) throws IOException 
+    {
+        /*
+         The snippets are not full HTML pages so we add the footer
+         information to them.  
+         */
+        
+        String footer = "</body>\n" + 
+            "</html>";
+        
+        out.write(footer);
     }
     
     private void createSiteMap(HttpServletRequest request, OutputStream out) throws Exception
