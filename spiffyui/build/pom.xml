@@ -63,12 +63,6 @@
     </developer>
   </developers>
 
-  <properties>
-    <project.build.java.target>1.6</project.build.java.target>
-    <gwt.version>2.2.0</gwt.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -108,12 +102,6 @@
         <version>1.6R7</version>
         <scope>compile</scope>
       </dependency>
-      <dependency>
-        <groupId>com.google.gwt</groupId>
-        <artifactId>gwt-user</artifactId>
-        <version>${gwt.version}</version>
-        <scope>compile</scope>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -121,10 +109,6 @@
     <!-- To define the plugin version in your parent POM -->
     <pluginManagement>
       <plugins>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>gwt-maven-plugin</artifactId>
-          <version>2.2.0</version> </plugin> 
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
@@ -172,20 +156,6 @@
     </pluginManagement>
     
     <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>gwt-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <configuration>
-              <module>org.spiffyui.spiffyui</module>
-            </configuration>
-            <goals>
-              <goal>resources</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
       	<groupId>org.apache.maven.plugins</groupId>
       	<artifactId>maven-compiler-plugin</artifactId>
@@ -320,12 +290,6 @@
   </build>
 
   <dependencies>
-    <!-- GWT dependencies (from maven "central" repo) -->
-    <dependency>
-      <groupId>com.google.gwt</groupId>
-      <artifactId>gwt-user</artifactId>
-      <scope>compile</scope>
-    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
