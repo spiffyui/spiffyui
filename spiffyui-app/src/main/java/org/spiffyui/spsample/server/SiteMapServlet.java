@@ -46,11 +46,27 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
 /**
- * This servlet generates a Google Sitemap for our site.  Since 
+ * The main purpose of this servlet is to improve our SEO (Search 
+ * Engine Optimization).  To that end it server three basic functions: 
+ *  
+ * 1. Generate a Google Sitemap for our site.  Since 
  * the entire application is generated with JavaScript the search 
  * engines can't index the site very well.  This servlet generates 
  * a sitemap.xml file and adds the source HTML files to it.  That 
  * makes it possible to index all of the content in those files. 
+ *  
+ * 2. Server the index.html and index-debug.html pages.  This servet
+ * handles both pages since we need to serve at those URL to fulfill 
+ * the  contract for AJAX crawling outlined here: 
+ *  
+ *     http://code.google.com/web/ajaxcrawling/
+ *  
+ * This is especially complicated since Google AppEngine won't allow us 
+ * to serve any page with a servlet if there is a real file at that URL. 
+ *  
+ *  
+ * 3. Server the individual files or HTML snapshots of each page when 
+ * requested with the _escaped_fragment_ fragment parameter.
  */
 public class SiteMapServlet extends HttpServlet
 {
