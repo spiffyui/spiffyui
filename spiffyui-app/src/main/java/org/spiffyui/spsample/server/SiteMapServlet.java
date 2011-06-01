@@ -81,7 +81,7 @@ public class SiteMapServlet extends HttpServlet
         HASHES.put("getStarted", "/ajax/GetStartedPanel.html");
         HASHES.put("hostedMode", "/ajax/HostedModePanel.html");
         HASHES.put("css", "/ajax/CSSPanel.html");
-        HASHES.put("speed", "/ajax/SpeedPanel.html");
+        HASHES.put("speed", "/ajax/BuildPanel.html");
         HASHES.put("rest", "/ajax/RESTPanel.html");
         HASHES.put("javaDoc", "/ajax/JavaDocPanel.html");
         HASHES.put("help", "/ajax/HelpPanel.html");
