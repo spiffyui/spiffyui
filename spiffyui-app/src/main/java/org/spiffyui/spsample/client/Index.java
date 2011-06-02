@@ -238,6 +238,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
 
         addDocPanels();
         m_navBar.addListener(this);
+        m_navBar.setBookmarkable(true);
 
         /*
          * If the user has loaded this application in their
@@ -250,18 +251,17 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
             /*
              * Then there is a hash from the history and that trumps the cookie
              */
-            m_navBar.selectItem(m_navBar.getItem(Window.Location.getHash().substring(3)), false, false, false);
+            m_navBar.selectItem(m_navBar.getItem(Window.Location.getHash().substring(3)));
             itemSelected(m_navBar.getItem(Window.Location.getHash().substring(4)));
         } else if (Cookies.getCookie(NAV_COOKIE) != null &&
             m_navBar.getItem(Cookies.getCookie(NAV_COOKIE)) != null) {
-            m_navBar.selectItem(m_navBar.getItem(Cookies.getCookie(NAV_COOKIE)), false, false, false);
+            m_navBar.selectItem(m_navBar.getItem(Cookies.getCookie(NAV_COOKIE)));
             itemSelected(m_navBar.getItem(Cookies.getCookie(NAV_COOKIE)));
         } else {
-            m_navBar.selectItem(m_navBar.getItem(LANDING_NAV_ITEM_ID), false, false, false);
+            m_navBar.selectItem(m_navBar.getItem(LANDING_NAV_ITEM_ID));
         }
 
         RESTility.addLoginListener(this);
-        m_navBar.setBookmarkable(true);
         
         addBackToTop();
         
