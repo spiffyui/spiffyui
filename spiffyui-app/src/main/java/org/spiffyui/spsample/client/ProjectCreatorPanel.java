@@ -217,6 +217,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
      * Each package component part can not start with or contain only number, or be empty (2 consecutive dots)
      * Each package component part can only contain alpha numeric and underscore characters
      * Each package component part can not be the same name as reserved java keywords
+     * Package name can not be org.spiffyui
      * Package string will be converted to all lowercase
      */
     private void validatePackageName()
@@ -225,6 +226,9 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
             if (m_packageName.getText().startsWith(".")  || (m_packageName.getText().endsWith("."))) {
                 m_packageNameFeedback.setStatus(FormFeedback.ERROR);
                 m_packageNameFeedback.setTitle(Index.getStrings().packageNameDot_tt());
+            } else if (m_packageName.getText().trim().equalsIgnoreCase("org.spiffyui")) {
+                m_packageNameFeedback.setStatus(FormFeedback.ERROR);
+                m_packageNameFeedback.setTitle(Index.getStrings().packageNameSpiffy_tt());
             } else {
                 String[] result = m_packageName.getText().split("\\.");
                 for (int i = 0; i < result.length; i++) {

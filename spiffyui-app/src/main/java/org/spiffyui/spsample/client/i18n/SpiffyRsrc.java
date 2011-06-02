@@ -164,6 +164,7 @@ public interface SpiffyRsrc extends Messages
     public String projNameInValidChar_tt();
     public String packageNameEmpty_tt();
     public String packageNameDot_tt();
+    public String packageNameSpiffy_tt();
     public String packageNameDigit_tt();
     public String packageNameInvalidChar_tt ();
     public String packageNameKeyword_tt ();
