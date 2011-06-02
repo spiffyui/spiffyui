@@ -226,7 +226,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
             if (m_packageName.getText().startsWith(".")  || (m_packageName.getText().endsWith("."))) {
                 m_packageNameFeedback.setStatus(FormFeedback.ERROR);
                 m_packageNameFeedback.setTitle(Index.getStrings().packageNameDot_tt());
-            } else if (m_packageName.getText().trim().equalsIgnoreCase("org.spiffyui")) {
+            } else if (m_packageName.getText().trim().toLowerCase().startsWith("org.spiffyui")) {
                 m_packageNameFeedback.setStatus(FormFeedback.ERROR);
                 m_packageNameFeedback.setTitle(Index.getStrings().packageNameSpiffy_tt());
             } else {
