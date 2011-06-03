@@ -39,7 +39,7 @@ public class NavItem extends Widget implements NavWidget
     {
         this(id, displayName, null);
     }
-
+    
     /**
      * Create a new NavItem
      *
@@ -49,6 +49,21 @@ public class NavItem extends Widget implements NavWidget
      * @param title  the title or tooltip of this navigation item
      */
     public NavItem(String id, String displayName, String title)
+    {
+        this(id, displayName, title, "#");
+    }
+
+    /**
+     * Create a new NavItem
+     * 
+     * @param id     the id of the navigator item
+     * @param displayName
+     *               the display name of the navigation item
+     * @param title  the title or tooltip of this navigation item
+     * @param link   the link location - this affects the location if the user 
+     *               right-mouse clicks and opens the link in a new tab
+     */
+    public NavItem(String id, String displayName, String title, String link)
     {
         setElement(Document.get().createDivElement());
         getElement().setId(id);
@@ -68,7 +83,7 @@ public class NavItem extends Widget implements NavWidget
         m_anchor = Anchor.wrap(el);
         getElement().appendChild(el);
         m_anchor.setText(displayName);
-        m_anchor.setHref("#");
+        m_anchor.setHref(link);
 
     }
 
