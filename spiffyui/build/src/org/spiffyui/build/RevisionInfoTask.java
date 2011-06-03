@@ -15,14 +15,13 @@
  ******************************************************************************/
 package org.spiffyui.build;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.zip.GZIPOutputStream;
@@ -85,140 +84,22 @@ public class RevisionInfoTask extends Task
     public void execute() throws BuildException
     {
         if (m_rootDir == null) {
-            throw new BuildException("Must specify a directory");
+            throw new BuildException("Must specify a root directory");
         }
 
         try {
-            if (!getSubversionRev()) {
-                if (!getGitRev()) {
-                    getProject().setProperty("revision.number", "-1");
-                    getProject().setProperty("revision.date", "-1");
-                }
-            }
+            RevisionInfoBean revInfo = RevisionInfoUtil.getRevisionInfo(m_rootDir);
+            
+            System.out.println("revInfo.getRevNumber(): " + revInfo.getRevNumber());
+            
+            getProject().setProperty("revision.number", revInfo.getRevNumber());
+            getProject().setProperty("revision.date", revInfo.getRevDate());
         } catch (IOException ioe) {
             throw new BuildException(ioe);
+        } catch (InterruptedException ie) {
+            throw new BuildException(ie);
         }
     }
 
-    private class ProcessWatcher implements Runnable
-    {
-        private Process m_p;
-        private boolean m_finished = false;
     
-        public ProcessWatcher(Process p) {
-            m_p = p;
-            new Thread(this).start();
-        }
-    
-        public boolean isFinished() {
-            return m_finished;
-        }
-    
-        public void run() {
-            try {
-                m_p.waitFor();
-            } catch (Exception e) {
-                /*
-                 * This shouldn't happen
-                 */
-                e.printStackTrace();
-            }
-            m_finished = true;
-        }
-    
-    }
-
-
-    private boolean getSubversionRev() throws BuildException, IOException
-    {
-        Process proc = Runtime.getRuntime().exec("svn info " + m_rootDir.getAbsolutePath());
-
-        InputStream is = proc.getInputStream();
-        InputStreamReader isr = new InputStreamReader(is);
-        BufferedReader br = new BufferedReader(isr);
-
-        ProcessWatcher pw = new ProcessWatcher(proc);
-
-        while (!pw.isFinished()) {
-            String line;
-            int exit = -1;
-    
-            while ((line = br.readLine()) != null) {
-                if (line.startsWith("Revision: ")) {
-                    getProject().setProperty("revision.number", line.substring(10, line.length()));
-                    getProject().setProperty("revision.date", "-1");
-                    return true;
-                }
-                try {
-                    exit = proc.exitValue();
-                    if (exit == 0)  {
-                        // Process finished
-                    }
-                } catch (IllegalThreadStateException t) {
-                    /*
-                     * If the process isn't finished we just want to repeat the loop
-                     */
-                }
-            }
-
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new BuildException(e);
-            }
-        }
-
-        return false;
-    }
-
-    private boolean getGitRev() throws BuildException, IOException
-    {
-        String args[] = new String[6];
-        args[0] = "git";
-        args[1] = "log";
-        args[2] = "--pretty=Revision: %h:%ct0000";
-        args[3] = "-n1";
-        args[4] = "HEAD";
-        args[5] = m_rootDir.getAbsolutePath();
-        
-        Process proc = Runtime.getRuntime().exec(args);
-
-        InputStream is = proc.getInputStream();
-        InputStreamReader isr = new InputStreamReader(is);
-        BufferedReader br = new BufferedReader(isr);
-
-        ProcessWatcher pw = new ProcessWatcher(proc);
-
-        while (!pw.isFinished()) {
-            String line;
-            int exit = -1;
-    
-            while ((line = br.readLine()) != null) {
-                if (line.startsWith("Revision: ")) {
-                    int colIndex = line.indexOf(':', 11);
-                    getProject().setProperty("revision.number", line.substring(10, colIndex));
-                    getProject().setProperty("revision.date", line.substring(colIndex + 1, line.length() - 1));
-                    return true;
-                }
-                try {
-                    exit = proc.exitValue();
-                    if (exit == 0)  {
-                        // Process finished
-                    }
-                } catch (IllegalThreadStateException t) {
-                    /*
-                     * If the process isn't finished we just want to repeat the loop
-                     */
-                }
-            }
-
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new BuildException(e);
-            }
-        }
-
-        return false;
-    }
 }

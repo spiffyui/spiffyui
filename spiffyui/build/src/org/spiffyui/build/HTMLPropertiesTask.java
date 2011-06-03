@@ -16,18 +16,9 @@
 package org.spiffyui.build;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.Reader;
-
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Locale;
-import java.util.Properties;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
@@ -45,7 +36,7 @@ import org.apache.tools.ant.util.FileUtils;
 
 
 /**
- * This is a custom task for generating properties files from HTML files
+ * This is the Ant custom task for generating properties files from HTML files
  */
 public class HTMLPropertiesTask extends Task
 {
@@ -156,72 +147,6 @@ public class HTMLPropertiesTask extends Task
     }
     
     /**
-     * We need to figure out the locale of the file based on the file name.  The file can be
-     * something like foo.html, foo_fr.html foo_fr-FR.html, or foo_fr_FR.html.  We parse that
-     * name and create a locale object based on the language and country codes in the name
-     * 
-     * @param name   the name of the file
-     * 
-     * @return the locale for this file name
-     */
-    private Locale findLocale(String name)
-    {
-        if (name == null || name.length() < 4) {
-            return null;
-        }
-        
-        name = name.substring(0, name.lastIndexOf('.'));
-        String country = null;
-        String language = null;
-        
-        if (name.length() > 7 && 
-            (name.charAt(name.length() - 6) == '-' ||
-            name.charAt(name.length() - 6) == '_')) {
-            language = name.substring(name.length() - 5,
-                                      name.length() - 3);
-        }
-        
-        if (name.length() > 4 && 
-            (name.charAt(name.length() - 3) == '-' ||
-            name.charAt(name.length() - 3) == '_')) {
-            if (language == null) {
-                /*
-                 Then they specified a language without a country
-                 */
-                language = name.substring(name.length() - 2,
-                                          name.length());
-            } else {
-                /*
-                 Then we already have the language and this is the country
-                 */
-                country =  name.substring(name.length() - 2,
-                                          name.length());
-            }
-        }
-        
-        if (language == null && country == null) {
-            /*
-             In this case there was no locale information and we
-             return null to indicate this is the default locale.
-             */
-            return null;
-        } else if (country == null) {
-            /*
-             In this case they have a language code, but no country
-             code.  This means we want a locale like French or English
-             with no country code.
-             */
-            return new Locale(language);
-        } else {
-            /*
-             This case is where there was a language and a country
-             */
-            return new Locale(language, country);
-        }
-        
-    }
-    
-    /**
      * Executes this task to run the compiler.
      * 
      * @exception BuildException
@@ -237,88 +162,18 @@ public class HTMLPropertiesTask extends Task
             return;
         }
         
-        HashMap<String, Properties> props = new HashMap<String, Properties>();
-        
-        ResourceCollection rc = getResources();
-        Iterator i = rc.iterator();
-        
         try {
+            ArrayList<File> files = new ArrayList<File>();
+            ResourceCollection rc = getResources();
+            Iterator i = rc.iterator();
+            
             while (i.hasNext()) {
-                File f = ((FileResource) i.next()).getFile();
-                Reader in = null;
-                try {
-                    in = new InputStreamReader(new FileInputStream(f), "UTF-8");
-                    StringBuffer sb = new StringBuffer();
-                    int c = -1;
-                    while ((c = in.read()) > -1) {
-                        if (c == '\'') {
-                            sb.append("&#39;");
-                        } else if (c == '{' ||
-                                   c == '}') {
-                            sb.append('\'');
-                            sb.append((char) c);
-                            sb.append('\'');
-                        } else {
-                            sb.append((char) c);
-                        }
-                    }
-                    
-                    Locale loc = findLocale(f.getName());
-                    String name = f.getName();
-                    if (loc != null) {
-                        /*
-                         Then we want to take the locale out of the file name
-                         */
-                        name = name.substring(0, name.lastIndexOf('.') - loc.toString().length() - 1) + 
-                            name.substring(name.lastIndexOf('.'), name.length());
-                    }
-                    
-                    getProperties(loc, props).setProperty(name.replace(' ', '_').replace('.', '_'), sb.toString());
-                    
-                } finally {
-                    if (in != null) {
-                        in.close();
-                    }
-                }
+                files.add(((FileResource) i.next()).getFile());
             }
             
-            /*
-             Now we need to write out all the properties files
-             */
-            for (String loc : props.keySet()) {
-                PrintWriter out = null;
-                try {
-                    String name = m_destinationFile.getName();
-                    name = name.substring(0, name.lastIndexOf('.')) + loc + 
-                        name.substring(name.lastIndexOf('.'), name.length());
-                    
-                    out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(
-                        new File(m_destinationFile.getParentFile(), name)), "UTF-8"));
-                    props.get(loc).store(out, "");
-                } finally {
-                    if (out != null) {
-                        out.close();
-                    }
-                }
-            }
+            HTMLPropertiesUtil.generatePropertiesFiles(files, m_destinationFile);
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            throw new BuildException("Unable to generate HTML properties", ioe);
         }
-    }
-    
-    private Properties getProperties(Locale locale, HashMap<String, Properties> props)
-    {
-        String key = null;
-        if (locale == null) {
-            key = "";
-        } else {
-            key = "_" + locale.toString();
-        }
-        
-        if (!props.containsKey(key)) {
-            props.put(key, new Properties());
-        }
-        
-        return props.get(key);
     }
 }

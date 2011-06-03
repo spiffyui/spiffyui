@@ -16,15 +16,9 @@
 package org.spiffyui.build;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Properties;
-import java.util.zip.GZIPOutputStream;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
@@ -170,44 +164,18 @@ public class GzipListTask extends Task
         
         ResourceCollection rc = getResources();
         Iterator i = rc.iterator();
+        ArrayList<File> files = new ArrayList<File>();
         
         try {
-            Properties props = new Properties();
             while (i.hasNext()) {
-                File source = ((FileResource) i.next()).getFile();
-                File dest = new File(m_destinationDir, source.getName() + ".gz");
-                zipFile(source, dest);
+                files.add(((FileResource) i.next()).getFile());
             }
+            
+            GzipListUtil.zipFileList(files, m_destinationDir);
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            throw new BuildException("Unable to GZIP file list", ioe);
         }
     }
 
-    private static void zipFile(File source, File dest) throws IOException
-    {
-        FileInputStream in = new FileInputStream(source);
-        BufferedInputStream in2 = new BufferedInputStream(in);
-        FileOutputStream out = new FileOutputStream(dest);
-        GZIPOutputStream zipOut = new GZIPOutputStream(out);
-        BufferedOutputStream out2 = new BufferedOutputStream(zipOut);
-
-        try {
-            int chunk;
-            while ((chunk = in2.read()) != -1) {
-                out2.write(chunk);
-            }
-        } finally {
-            if (out2 != null) {
-                out2.close();
-            }
-
-            if (zipOut != null) {
-                out2.close();
-            }
-
-            if (out != null) {
-                out.close();
-            }
-        }
-    }
+    
 }
