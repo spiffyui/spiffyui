@@ -82,16 +82,16 @@
         </javac>
     </target>
     
-    <target name="compileClosureTask.check">
-        <condition property="closuretask.is.compiled">
+    <target name="compileAntTask.check">
+        <condition property="anttask.is.compiled">
             <not>
                 <available file="${spiffy.dist}/spiffytasks.jar"/>
             </not>
         </condition>
     </target>
     
-    <!--  The compile closure task. -->
-    <target name="compileClosureTask" if="closuretask.is.compiled" depends="setup,compileClosureTask.check">
+    <!--  The compile Ant task. -->
+    <target name="compileAntTask" if="anttask.is.compiled" depends="setup,compileAntTask.check">
         <mkdir dir="${spiffy.build.classes}"/>
         <javac srcdir="${spiffy.build}/src" destdir="${spiffy.build.classes}" target="1.5" 
                     includes="org/spiffyui/build/**"
@@ -125,7 +125,7 @@
         </taskdef>
     </target>
     
-    <target name="js-min" description="Minimize the JavaScript with the Closure compiler" depends="setup,js-lint,compileClosureTask.check,compileClosureTask,taskdefs">
+    <target name="js-min" description="Minimize the JavaScript with the Closure compiler" depends="setup,js-lint,compileAntTask.check,compileAntTask,taskdefs">
         <!-- Now we compile our JavaScript.  We are compiling all the different
              pieces of the JavaScript frameworks we use along with our JavaScript
              to create a single file.  We need to specify the files for JQuery UI
