@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.spiffyui.maven.examples.client</groupId>
+  <artifactId>client</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <packaging>spiffyui</packaging>
+  <name>Example SpiffyUI Client</name>
+
+  <properties>
+    <!-- GWT needs at least java 1.5 -->
+    <gwtversion>2.2.0</gwtversion>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.spiffyui</groupId>
+      <artifactId>spiffyui</artifactId>
+      <version>0.7.5</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <version>${gwtversion}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-dev</artifactId>
+      <version>${gwtversion}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.7</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <!-- Generate compiled stuff in the folder used for developing mode -->
+    <outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+
+    <plugins>
+      <plugin>
+	<groupId>org.spiffyui.maven.plugins</groupId>
+	<artifactId>maven-spiffyui-plugin</artifactId>
+	<version>0.1-SNAPSHOT</version>
+	<extensions>true</extensions>
+      </plugin>
+      <plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>gwt-maven-plugin</artifactId>
+	<version>2.1.0-1</version>
+	<configuration>
+	  <noServer>true</noServer>
+	  <runTarget>example.html</runTarget>
+	</configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
