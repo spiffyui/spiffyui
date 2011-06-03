@@ -166,8 +166,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         /*
          The landing panel
          */
-        NavItem item = new NavItem(LANDING_NAV_ITEM_ID, "",
-                                   getStrings().landing_tt());
+        NavItem item = new NavItem(LANDING_NAV_ITEM_ID, "", getStrings().landing_tt(), generateNavItemURL(LANDING_NAV_ITEM_ID));
         m_navBar.add(item);
         m_panels.put(item, new LandingPanel());
 
@@ -175,14 +174,15 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
          The overview panel
          */
         item = new NavItem(OVERVIEW_NAV_ITEM_ID, getStrings().overview(),
-                                   getStrings().overview_tt());
+                                   getStrings().overview_tt(), generateNavItemURL(OVERVIEW_NAV_ITEM_ID));
         m_navBar.add(item);
         m_panels.put(item, new OverviewPanel());
         
         /*
         The Getting started panels
         */
-        item = new NavItem(GET_STARTED_NAV_ITEM_ID, getStrings().getStarted(), getStrings().getStarted_tt());
+        item = new NavItem(GET_STARTED_NAV_ITEM_ID, getStrings().getStarted(), 
+                           getStrings().getStarted_tt(), generateNavItemURL(GET_STARTED_NAV_ITEM_ID));
         m_navBar.add(item);
         m_panels.put(item, new GetStartedPanel());
 
@@ -196,21 +196,22 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         /*
          The CSS panel
          */
-        item = new NavItem(CSS_NAV_ITEM_ID, getStrings().css(), getStrings().css_tt());
+        item = new NavItem(CSS_NAV_ITEM_ID, getStrings().css(), getStrings().css_tt(), generateNavItemURL(CSS_NAV_ITEM_ID));
         featureSection.add(item);
         m_panels.put(item, new CSSPanel());
 
         /*
         The date info panel
         */
-        item = new NavItem(DATES_NAV_ITEM_ID, getStrings().l10n(), getStrings().l10n_tt());
+        item = new NavItem(DATES_NAV_ITEM_ID, getStrings().l10n(), getStrings().l10n_tt(), generateNavItemURL(DATES_NAV_ITEM_ID));
         featureSection.add(item);
         m_panels.put(item, new DatePanel());
 
         /*
          The rest info panel
          */
-        item = new NavItem(REST_NAV_ITEM_ID, getStrings().restTitle(), getStrings().restTitle_tt());
+        item = new NavItem(REST_NAV_ITEM_ID, getStrings().restTitle(), 
+                           getStrings().restTitle_tt(), generateNavItemURL(REST_NAV_ITEM_ID));
         featureSection.add(item);
         m_panels.put(item, new RESTPanel());
         
@@ -218,14 +219,15 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         The authentication info panel
         */
         item = new NavItem(AUTH_NAV_ITEM_ID, getStrings().auth(),
-                          getStrings().auth_tt());
+                          getStrings().auth_tt(), generateNavItemURL(AUTH_NAV_ITEM_ID));
         featureSection.add(item);
         m_panels.put(item, new AuthPanel());
         
         /*
         The build info panel
         */
-        item = new NavItem(SPEED_NAV_ITEM_ID, getStrings().speed(), getStrings().speed_tt());
+        item = new NavItem(SPEED_NAV_ITEM_ID, getStrings().speed(), 
+                           getStrings().speed_tt(), generateNavItemURL(SPEED_NAV_ITEM_ID));
         featureSection.add(item);
         m_panels.put(item, new BuildPanel());
 
@@ -266,6 +268,11 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         addBackToTop();
         
     }
+    
+    private static String generateNavItemURL(String id)
+    {
+        return Window.Location.createUrlBuilder().setHash("#!b=" + id).buildString();
+    }
 
 
     private void loadUnitTests()
@@ -285,21 +292,23 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         /*
         The sample form panel
          */
-        NavItem item = new NavItem(FORM_NAV_ITEM_ID, getStrings().form(), getStrings().form_tt());
+        NavItem item = new NavItem(FORM_NAV_ITEM_ID, getStrings().form(), getStrings().form_tt(), generateNavItemURL(FORM_NAV_ITEM_ID));
         demoSection.add(item);
         m_panels.put(item, new FormPanel());
 
         /*
         The sample widgets panel
          */
-        item = new NavItem(WIDGETS_NAV_ITEM_ID, getStrings().widgets(), getStrings().widgets_tt());
+        item = new NavItem(WIDGETS_NAV_ITEM_ID, getStrings().widgets(), 
+                           getStrings().widgets_tt(), generateNavItemURL(WIDGETS_NAV_ITEM_ID));
         demoSection.add(item);
         m_panels.put(item, new WidgetsPanel());
 
         /*
         The auth test panel
          */
-        item = new NavItem(AUTH_TEST_NAV_ITEM_ID, getStrings().login(), getStrings().login_tt());
+        item = new NavItem(AUTH_TEST_NAV_ITEM_ID, getStrings().login(), 
+                           getStrings().login_tt(), generateNavItemURL(AUTH_TEST_NAV_ITEM_ID));
         demoSection.add(item);
         m_panels.put(item, new AuthTestPanel());
     }
@@ -307,35 +316,37 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     private void addDocPanels()
     {
         NavItem item = new NavItem(HOSTED_MODE_NAV_ITEM_ID, getStrings().devMode(),
-                           getStrings().devMode_tt());
+                           getStrings().devMode_tt(), generateNavItemURL(HOSTED_MODE_NAV_ITEM_ID));
         m_navBar.add(item);
         m_panels.put(item, new HostedModePanel());
         
         /*
         The get involved panel
         */
-        item = new NavItem(GET_INVOLVED_NAV_ITEM_ID, getStrings().getInvolved(), getStrings().getInvolved_tt());
+        item = new NavItem(GET_INVOLVED_NAV_ITEM_ID, getStrings().getInvolved(), 
+                           getStrings().getInvolved_tt(), generateNavItemURL(GET_INVOLVED_NAV_ITEM_ID));
         m_navBar.add(item);
         m_panels.put(item, new GetInvolvedPanel());
         
         /*
         The help panel
         */
-        item = new NavItem(HELP_NAV_ITEM_ID, getStrings().help(), getStrings().help_tt());
+        item = new NavItem(HELP_NAV_ITEM_ID, getStrings().help(), getStrings().help_tt(), generateNavItemURL(HELP_NAV_ITEM_ID));
         m_navBar.add(item);
         m_panels.put(item, new HelpPanel());
         
         /*
         The JavaDoc panel
         */
-        item = new NavItem(JAVADOC_NAV_ITEM_ID, getStrings().javadoc(), getStrings().javadoc_tt());
+        item = new NavItem(JAVADOC_NAV_ITEM_ID, getStrings().javadoc(), 
+                           getStrings().javadoc_tt(), generateNavItemURL(JAVADOC_NAV_ITEM_ID));
         m_navBar.add(item);
         m_panels.put(item, new JavaDocPanel());
         
         /*
         The license panel
         */
-        item = new NavItem(LICENSE_NAV_ITEM_ID, getStrings().lic(), getStrings().lic_tt());
+        item = new NavItem(LICENSE_NAV_ITEM_ID, getStrings().lic(), getStrings().lic_tt(), generateNavItemURL(LICENSE_NAV_ITEM_ID));
         m_navBar.add(item);
         m_panels.put(item, new LicensePanel());
     }
