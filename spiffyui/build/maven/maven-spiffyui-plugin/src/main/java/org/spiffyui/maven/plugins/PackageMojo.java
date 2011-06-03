@@ -96,9 +96,9 @@ public class PackageMojo extends AbstractMojo {
 
 		try {
 			TarCompressionMethod method = new TarCompressionMethod();
-			
+
 			method.setValue("bzip2");
-			
+
 			m_archiver.setCompression(method);
 			m_archiver.setForced(m_forceCreation);
 			m_archiver.setDestFile(archive);
