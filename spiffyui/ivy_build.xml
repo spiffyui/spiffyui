@@ -7,6 +7,6 @@
         <dependency org="com.google.gwt" name="gwt-dev" rev="2.3.0"/>
         <dependency org="com.googlecode.jslint4java" name="jslint4java" rev="1.4.7"/>
         <dependency org="com.googlecode.jslint4java" name="jslint4java-ant" rev="1.4.7"/>
-        <dependency org="com.google.javascript" name="closure-compiler" rev="r916"/>
+        <dependency org="com.google.javascript" name="closure-compiler" rev="r1043"/>
     </dependencies>
 </ivy-module>

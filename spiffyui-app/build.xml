@@ -152,11 +152,17 @@
     
     <target name="js-min" description="Minimize the JavaScript with the Closure compiler" depends="setup">
         <closure jsfile="${sample.out.www}/spsample.min.js" 
-                 closurejar="${spiffyui}/build/lib/closure-compiler-r916.jar"
+                 closurejar="${spiffyui}/build/lib/closure-compiler-r1043.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="DEFAULT">
+        
+            <fileset dir="${sample.out.www}" includes="js/**/amplify.store.js" />
+            <fileset dir="${sample.out.www}" includes="js/**/history.adapter.jquery.js" />
+            <fileset dir="${sample.out.www}" includes="js/**/history.js" />
+            <fileset dir="${sample.out.www}" includes="js/**/history.html4.js" />
+             
             <fileset dir="${sample.out.www}" includes="js/**/*.js" 
-                     excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**, **/lib/jqueryui/*" />
+                     excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**, **/lib/jqueryui/*, **/history*.js, **/amplify*.js" />
         
             <!-- By default the Spiffy UI framework includes all of JQuery UI.
                  This includes a lot of JavaScript that we don't need for this

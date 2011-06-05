@@ -39,7 +39,6 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
@@ -56,8 +55,6 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
 {
     private static final SpiffyRsrc STRINGS = (SpiffyRsrc) GWT.create(SpiffyRsrc.class);
     
-    private static final String NAV_COOKIE = "SpiffyUI_Sample_Navigation";
-
     private static Index g_index;
 
     private SPSampleHeader m_header;
@@ -241,32 +238,80 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         addDocPanels();
         m_navBar.addListener(this);
         m_navBar.setBookmarkable(true);
-
-        /*
-         * If the user has loaded this application in their
-         * current session then we want to bring them back to the
-         * same page when the application reloads.
-         */
-        if (Window.Location.getHash() != null &&
-            Window.Location.getHash().length() > 0 &&
-            m_navBar.getItem(Window.Location.getHash().substring(4)) != null) {
-            /*
-             * Then there is a hash from the history and that trumps the cookie
-             */
-            m_navBar.selectItem(m_navBar.getItem(Window.Location.getHash().substring(3)));
-            itemSelected(m_navBar.getItem(Window.Location.getHash().substring(4)));
-        } else if (Cookies.getCookie(NAV_COOKIE) != null &&
-            m_navBar.getItem(Cookies.getCookie(NAV_COOKIE)) != null) {
-            m_navBar.selectItem(m_navBar.getItem(Cookies.getCookie(NAV_COOKIE)));
-            itemSelected(m_navBar.getItem(Cookies.getCookie(NAV_COOKIE)));
-        } else {
-            m_navBar.selectItem(m_navBar.getItem(LANDING_NAV_ITEM_ID));
-        }
+        
+        selectDefaultItem();
 
         RESTility.addLoginListener(this);
         
         addBackToTop();
         
+    }
+    
+    private void selectDefaultItem()
+    {
+        /*
+         * If the user has loaded this application in their
+         * current session then we want to bring them back to the
+         * same page when the application reloads.
+         */
+        if (getIdFromHash() != null &&
+            m_navBar.getItem(getIdFromHash()) != null) {
+            /*
+             * Then there is a hash from the history in the new form
+             */
+            m_navBar.selectItem(m_navBar.getItem(getIdFromHash()));
+            itemSelected(m_navBar.getItem(getIdFromHash()));
+        } else if (Window.Location.getHref().indexOf('?') > -1) {
+            /*
+             * Then there is a parameter from the URL in an HTML5 browser.
+             */
+            m_navBar.selectItem(m_navBar.getItem(getIdFromParameter()));
+            itemSelected(m_navBar.getItem(getIdFromParameter()));
+        } else if (Window.Location.getHash() != null &&
+            Window.Location.getHash().length() > 0 &&
+            m_navBar.getItem(Window.Location.getHash().substring(2)) != null) {
+            /*
+             * Then there is a hash from sitemap
+             */
+            m_navBar.selectItem(m_navBar.getItem(Window.Location.getHash().substring(2)));
+            itemSelected(m_navBar.getItem(Window.Location.getHash().substring(2)));
+        } else if (Window.Location.getHash() != null &&
+            Window.Location.getHash().length() > 0 &&
+            m_navBar.getItem(Window.Location.getHash().substring(4)) != null) {
+            /*
+             * Then there is a hash from the history in the old form
+             */
+            m_navBar.selectItem(m_navBar.getItem(Window.Location.getHash().substring(4)));
+            itemSelected(m_navBar.getItem(Window.Location.getHash().substring(4)));
+        } else {
+            m_navBar.selectItem(m_navBar.getItem(LANDING_NAV_ITEM_ID));
+        }
+    }
+    
+    private static String getIdFromParameter()
+    {
+        if (Window.Location.getHref().indexOf('?') > -1) {
+            return Window.Location.getHref().substring(Window.Location.getHref().indexOf('?') + 1);
+        } else {
+            return null;
+        }
+    }
+    
+    private static String getIdFromHash()
+    {
+        if (Window.Location.getHash().length() < 2) {
+            return null;
+        }
+        
+        String hash = Window.Location.getHash();
+        
+        /*
+         In HTML4 browsers the hash will look like this:  #?landing&_suid=777
+         */
+        
+        int start = 2;
+        int end = hash.indexOf('&');
+        return hash.substring(start, end);
     }
     
     private static String generateNavItemURL(String id)
@@ -365,8 +410,6 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         } else {
             DOM.getElementById("main").removeClassName("landing");
         }
-        
-        Cookies.setCookie(NAV_COOKIE, item.getElement().getId());
         
         if (!m_isSausage) {
             for (NavItem key : m_panels.keySet()) {

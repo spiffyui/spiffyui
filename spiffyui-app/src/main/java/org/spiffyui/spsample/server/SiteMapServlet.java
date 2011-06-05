@@ -275,7 +275,7 @@ public class SiteMapServlet extends HttpServlet
         
         for (String key : HASHES.keySet()) {
             createNode(eventWriter, request.getRequestURL().substring(0, request.getRequestURL().length() - 11)  + 
-                       "#!b=" + key, "0.8");
+                       "#!" + key, "0.8");
         }
     }
 
