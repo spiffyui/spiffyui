@@ -54,7 +54,7 @@ public class ClosureMojo extends AbstractMojo
 
     /**
      * @parameter expression=
-     *            "${project.build.directory}/${project.build.finalName}/${project.artifactId}-min.js"
+     *            "${project.build.directory}/${project.build.finalName}/${project.artifactId}.min.js"
      * @required
      */
     private File outputFile;
