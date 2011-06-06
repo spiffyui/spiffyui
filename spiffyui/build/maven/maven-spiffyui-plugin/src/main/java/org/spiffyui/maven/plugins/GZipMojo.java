@@ -56,7 +56,9 @@ public class GZipMojo extends AbstractMojo {
         List<File> files = new ArrayList<File>(FileUtils.listFiles(path, exts, false));
         Log log = getLog();
         
-        log.info("GZIP: Compressing artifacts from " + path + ": " + files.toString());
+        log.info("GZIP: Compressing artifacts from " + path);
+        for(File file : files)
+            log.debug("GZIP: " + file.toString());
         
         try {
         	GzipListUtil.zipFileList(files, path);
