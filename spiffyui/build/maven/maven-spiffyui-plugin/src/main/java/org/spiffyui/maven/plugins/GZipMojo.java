@@ -43,7 +43,7 @@ public class GZipMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
         Properties p = project.getProperties();
-        String module = p.getProperty("spiffyui.gwt.module");
+        String module = p.getProperty("spiffyui.gwt.module.path");
 	    
 	    gzip(directory);
 	    gzip(new File(module));

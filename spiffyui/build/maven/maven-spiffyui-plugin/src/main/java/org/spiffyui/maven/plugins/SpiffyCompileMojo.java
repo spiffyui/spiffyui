@@ -5,6 +5,7 @@ import java.util.Properties;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.codehaus.mojo.gwt.GwtModule;
 import org.codehaus.mojo.gwt.shell.CompileMojo;
 
 /**
@@ -26,9 +27,11 @@ public class SpiffyCompileMojo extends CompileMojo
                 throw new MojoExecutionException("No GWT modules detected");
             case 1:
                 try {
-                    File path = new File(getOutputDirectory(), readModule(modules[0]).getPath()); 
+                    GwtModule module = readModule(modules[0]);
+                    File path = new File(getOutputDirectory(), module.getPath()); 
                     Properties p = getProject().getProperties();
-                    p.setProperty("spiffyui.gwt.module", path.getAbsolutePath());
+                    p.setProperty("spiffyui.gwt.module.name", module.getName());
+                    p.setProperty("spiffyui.gwt.module.path", path.getAbsolutePath());
                 } catch (Exception e) {
                     throw new MojoExecutionException(e.getMessage());
                 }
