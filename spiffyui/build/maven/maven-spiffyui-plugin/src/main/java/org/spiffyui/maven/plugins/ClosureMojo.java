@@ -6,10 +6,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.project.MavenProject;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
@@ -29,6 +31,15 @@ import com.google.javascript.jscomp.Result;
  */
 public class ClosureMojo extends AbstractMojo
 {
+    /**
+     * {@link MavenProject} to process.
+     * 
+     * @parameter expression="${project}"
+     * @required
+     * @readonly
+     */
+    private MavenProject project;
+    
     /**
      * @parameter expression="SIMPLE_OPTIMIZATIONS"
      * @required
@@ -60,9 +71,17 @@ public class ClosureMojo extends AbstractMojo
 
         CompilerOptions compilerOptions = new CompilerOptions();
         compilationLevel.setOptionsForCompilationLevel(compilerOptions);
-
+        
+        Properties p = project.getProperties();
+        File module = new File(p.getProperty("spiffyui.gwt.module.path"));
+        List<JSSourceFile> sources = new ArrayList<JSSourceFile>();
+     
+        /* spiffyui.min.js _must_ be first */
+        sources.add(JSSourceFile.fromFile(new File(module, "spiffyui.min.js")));   
+        listJSSourceFiles(sources, sourceDirectory);
+        
         Compiler compiler = new Compiler();
-        Result result = compiler.compile(new ArrayList<JSSourceFile>(), listJSSourceFiles(sourceDirectory), compilerOptions);
+        Result result = compiler.compile(new ArrayList<JSSourceFile>(), sources, compilerOptions);
 
         for (JSError warning : result.warnings) {
             getLog().warn(warning.toString());
