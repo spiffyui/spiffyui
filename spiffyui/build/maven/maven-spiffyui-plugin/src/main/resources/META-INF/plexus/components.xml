@@ -10,7 +10,7 @@
 	  <lifecycle>
 	    <id>default</id>
 	    <phases>
-	      <process-resources>org.apache.maven.plugins:maven-resources-plugin:resources</process-resources>
+	      <process-resources>org.spiffyui.maven.plugins:maven-spiffyui-plugin:resources</process-resources>
 	      <compile>org.spiffyui.maven.plugins:maven-spiffyui-plugin:compile</compile>
 	      <process-classes>org.spiffyui.maven.plugins:maven-spiffyui-plugin:gzip</process-classes>
 	      <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>

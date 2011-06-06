@@ -57,6 +57,13 @@
 			<artifactId>plexus-utils</artifactId>
 			<version>1.5.15</version>
 		</dependency>
+		<dependency>
+			<groupId>net.alchim31.maven</groupId>
+			<artifactId>yuicompressor-maven-plugin</artifactId>
+			<version>1.2</version>
+			<type>maven-plugin</type>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
