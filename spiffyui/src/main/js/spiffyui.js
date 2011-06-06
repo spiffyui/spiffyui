@@ -287,12 +287,14 @@ spiffyui = {
                              /*boolean*/ bookmarkable, /*boolean*/ replace) {
          if (!bookmarkable) {
              url = '?-';
+         } else {
+             title = title + ' - ' + id;
          }
          
          if (replace) {
-             spiffyui.History.replaceState({state:id}, title + ' - ' + id, url);
+             spiffyui.History.replaceState({state:id}, title, url);
          } else {
-             spiffyui.History.pushState({state:id}, title + ' - ' + id, url);
+             spiffyui.History.pushState({state:id}, title, url);
          }
     },
     
