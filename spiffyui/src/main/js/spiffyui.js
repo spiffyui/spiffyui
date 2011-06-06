@@ -286,7 +286,7 @@ spiffyui = {
     addHistoryItem: function(/*object*/ scope, /*string*/id, /*string*/url, /*string*/title, 
                              /*boolean*/ bookmarkable, /*boolean*/ replace) {
          if (!bookmarkable) {
-             url = '-';
+             url = '?-';
          }
          
          if (replace) {

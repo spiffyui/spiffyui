@@ -45,6 +45,8 @@ public final class JSUtil
 
     private static int g_uniqueCounter = 0;
     private static final String TITLE = Window.getTitle();
+    
+    private static boolean g_historyEnabled = true;
 
     static {
         bindJavaScript();
@@ -124,7 +126,9 @@ public final class JSUtil
      */
     public static void addHistoryItem(HistoryCallback callback, String id, boolean bookmarkable)
     {
-        HIST_CALLBACKS.put(id, callback);
+        if (g_historyEnabled) {
+            HIST_CALLBACKS.put(id, callback);
+        }
         addHistoryItemJS(id, "?" + id, TITLE, bookmarkable, false);
     }
     
@@ -160,8 +164,52 @@ public final class JSUtil
      */
     public static void replaceHistoryItem(HistoryCallback callback, String id, boolean bookmarkable)
     {
-        HIST_CALLBACKS.put(id, callback);
-        addHistoryItemJS(id, "?" + id, TITLE, bookmarkable, true);
+        if (g_historyEnabled) {
+            HIST_CALLBACKS.put(id, callback);
+            addHistoryItemJS(id, "?" + id, TITLE, bookmarkable, true);
+        }
+    }
+    
+    /**
+     * <p>
+     * Determines if browser history integration is enabled.
+     * </p>
+     * 
+     * <p>
+     * If history integration is enabled various part of the Spiffy UI framework 
+     * and calling code will add items to the browser history.  If not then no part
+     * of the framework will maniplate browser history in any way.
+     * </p>
+     * 
+     * <p>
+     * History support is enabled by default.
+     * </p>
+     * 
+     * @return true if history support is enabled and false otherwise
+     */
+    public static boolean isHistoryEnabled()
+    {
+        return g_historyEnabled;
+    }
+    
+    /**
+     * <p>
+     * Sets history integration as enabled or disabled.
+     * </p><p>
+     * <p>
+     * If history integration is enabled various part of the Spiffy UI framework
+     * and calling code will add items to the browser history.  If not then no part
+     * of the framework will maniplate browser history in any way.
+     * </p><p>
+     * <p>
+     * History support is enabled by default.
+     * </p>
+     * 
+     * @param enabled true if history support should be enabled and false otherwise
+     */
+    public static void setHistoryEnabled(boolean enabled)
+    {
+        g_historyEnabled = enabled;
     }
     
     private static native void addHistoryItemJS(String id, String url, String title, boolean bookmarkable, boolean replace) /*-{ 
