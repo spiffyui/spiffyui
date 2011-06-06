@@ -11,7 +11,6 @@
 
   <properties>
     <!-- GWT needs at least java 1.5 -->
-    <gwtversion>2.2.0</gwtversion>
     <maven.compiler.source>1.6</maven.compiler.source>
     <maven.compiler.target>1.6</maven.compiler.target>
   </properties>
@@ -21,18 +20,6 @@
       <groupId>org.spiffyui</groupId>
       <artifactId>spiffyui</artifactId>
       <version>0.7.5</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.gwt</groupId>
-      <artifactId>gwt-user</artifactId>
-      <version>${gwtversion}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.gwt</groupId>
-      <artifactId>gwt-dev</artifactId>
-      <version>${gwtversion}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
