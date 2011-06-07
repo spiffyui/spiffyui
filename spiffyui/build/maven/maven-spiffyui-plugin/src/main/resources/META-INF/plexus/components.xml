@@ -11,7 +11,8 @@
 	    <id>default</id>
 	    <phases>
 	      <initialize>org.spiffyui.maven.plugins:maven-spiffyui-plugin:rev-info</initialize>
-	      <generate-resources>org.spiffyui.maven.plugins:maven-spiffyui-plugin:build-info</generate-resources>
+	      <generate-resources>org.spiffyui.maven.plugins:maven-spiffyui-plugin:build-info,
+	       org.spiffyui.maven.plugins:maven-spiffyui-plugin:htmlprops</generate-resources>
 	      <process-resources>net.alchim31.maven:yuicompressor-maven-plugin:compress,
 	        net.alchim31.maven:yuicompressor-maven-plugin:jslint,
 	      	org.apache.maven.plugins:maven-resources-plugin:resources</process-resources>
