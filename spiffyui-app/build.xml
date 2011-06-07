@@ -289,8 +289,7 @@
         <delete dir="${sample.out.www}/org.spiffyui.spsample.index" />
 
         <gziplist dest="${sample.out.www}">
-            <fileset dir="${sample.out.www}" includes="*.html" excludes="inde*.html" />
-            <fileset dir="${sample.out.www}" includes="*.js" />
+            <fileset dir="${sample.out.www}" includes="*.*" excludes="inde*.ht*, *.gz" />
         </gziplist>
         
         <gziplist dest="${sample.out.www}/images">
