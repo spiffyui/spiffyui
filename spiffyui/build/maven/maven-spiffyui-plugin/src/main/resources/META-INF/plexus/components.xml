@@ -10,6 +10,7 @@
 	  <lifecycle>
 	    <id>default</id>
 	    <phases>
+	      <initialize>org.spiffyui.maven.plugins:maven-spiffyui-plugin:build-info</initialize>
 	      <process-resources>net.alchim31.maven:yuicompressor-maven-plugin:jslint,
 	      	org.apache.maven.plugins:maven-resources-plugin:resources</process-resources>
 	      <compile>org.spiffyui.maven.plugins:maven-spiffyui-plugin:compile,
