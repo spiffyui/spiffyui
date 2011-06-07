@@ -211,13 +211,13 @@ public class SiteMapServlet extends HttpServlet
             "<head>\n" + 
             "<title>Spiffy UI Framework - " + name + "</title>\n" + 
             "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n" + 
-            "<script type=\"text/javascript\" src=\"jquery.min.js\"></script>\n" + 
-            "<script type=\"text/javascript\" src=\"spsample.min.js\"></script>\n" + 
-            "<script type=\"text/javascript\">\n" + 
-            "spiffyui.autoloadCSS = false;\n" + 
-            "spiffyui.autoloadHTML = false;\n" + 
-            "</script>\n" + 
-            "</head>\n" + 
+            //"<script type=\"text/javascript\" src=\"jquery.min.js\"></script>\n" + 
+            //"<script type=\"text/javascript\" src=\"spsample.min.js\"></script>\n" + 
+            //"<script type=\"text/javascript\">\n" + 
+            //"spiffyui.autoloadCSS = false;\n" + 
+            //"spiffyui.autoloadHTML = false;\n" + 
+            //"</script>\n" + 
+            //"</head>\n" + 
             "<body>\n";
         
         out.write(header);
