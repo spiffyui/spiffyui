@@ -241,7 +241,8 @@
     <target name="HTMLProps" depends="setup" description="Combine the HTML files in this project into a GWT message bundle">
         <mkdir dir="${sample.out.classes}/org/spiffyui/spsample/client"/>
         
-        <htmlprops properties="${sample.out.classes}/org/spiffyui/spsample/client/SPSampleStrings.properties">
+        <htmlprops properties="${sample.out.classes}/org/spiffyui/spsample/client/SPSampleStrings.properties"
+                   package="org.spiffyui.spsample.client">
             <fileset dir="${sample.res.src}/org/spiffyui/spsample/client" includes="**/*.html" />
         </htmlprops>
         
