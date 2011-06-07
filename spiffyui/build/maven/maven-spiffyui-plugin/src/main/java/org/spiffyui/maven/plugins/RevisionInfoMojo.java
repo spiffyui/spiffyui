@@ -16,7 +16,7 @@ import org.spiffyui.build.RevisionInfoUtil;
 /**
  * Goal which determines various revision details about the build
  * 
- * @goal build-info
+ * @goal rev-info
  * 
  * @phase initialize
  */
