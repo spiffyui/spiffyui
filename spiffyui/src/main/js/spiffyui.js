@@ -283,22 +283,18 @@ spiffyui = {
      * Add an item to the browser history.  This function is just
      * called from GWT.
      */
-    addHistoryItem: function(/*function*/ func, /*object*/ scope, /*array*/item, /*boolean*/ bookmarkable) {
-         if (bookmarkable) {
-             dsHistory.setQueryVar('!b', item.id);
-             dsHistory.bindQueryVars(func, scope, item);
+    addHistoryItem: function(/*object*/ scope, /*string*/id, /*string*/url, /*string*/title, 
+                             /*boolean*/ bookmarkable, /*boolean*/ replace) {
+         if (!bookmarkable) {
+             url = '?-';
          } else {
-             dsHistory.addFunction(func, scope, item);
+             title = title + ' - ' + id;
          }
-    },
-    
-    /**
-     * Handle a history event from the browser.  This function is
-     * just called from GWT.
-     */
-    handleHistoryEvent: function(contentObject, historyObject) {
-         if (contentObject && contentObject.callback && contentObject.id) {
-             spiffyui.doHandleHistoryEvent(contentObject, historyObject);
+         
+         if (replace) {
+             spiffyui.History.replaceState({state:id}, title, url);
+         } else {
+             spiffyui.History.pushState({state:id}, title, url);
          }
     },
     
@@ -329,6 +325,24 @@ spiffyui = {
     },
     
     init: function() {
+         
+        (function(window) {
+            // Prepare
+            spiffyui.History = window.History; // Note: We are using a capital H instead of a lower h
+            if (!spiffyui.History.enabled) {
+                // History.js is disabled for this browser.
+                // This is because we can optionally choose to support HTML4 browsers or not.
+                return false;
+            }
+            
+            // Bind to StateChange Event
+            spiffyui.History.Adapter.bind(window,'statechange',function() { // Note: We are using statechange instead of popstate
+                var State = spiffyui.History.getState(); // Note: We are using History.getState() instead of event.state
+                spiffyui.doHandleHistoryEvent(State.data.state);
+            });
+            
+        }(window));
+        
         if (spiffyui.autoloadHTML) {
          
             /*

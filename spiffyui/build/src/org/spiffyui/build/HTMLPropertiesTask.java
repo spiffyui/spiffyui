@@ -51,6 +51,11 @@ public class HTMLPropertiesTask extends Task
      */
     private File m_destinationFile;
     
+    /**
+     * The package name for the generated Java file
+     */
+    private String m_packageName;
+    
     
     /**
      * Stores a collection of file sets and/or file lists, used to
@@ -80,13 +85,24 @@ public class HTMLPropertiesTask extends Task
     }
     
     /**
-     * Sepcify the location of the properties output file.  This is required
+     * Specify the location of the properties output file.  This is required.
      * 
      * @param file the output file name
      */
     public void setProperties(File file)
     {
-        this.m_destinationFile = file;
+        m_destinationFile = file;
+    }
+    
+    /**
+     * Specify the package name for the generated Java file.  If this field 
+     * isn't specified then this task will only generate the properties file 
+     * 
+     * @param packagename The package name for the generated Java file
+     */
+    public void setPackage(String packageName)
+    {
+        m_packageName = packageName;
     }
     
     /**
@@ -171,7 +187,7 @@ public class HTMLPropertiesTask extends Task
                 files.add(((FileResource) i.next()).getFile());
             }
             
-            HTMLPropertiesUtil.generatePropertiesFiles(files, m_destinationFile);
+            HTMLPropertiesUtil.generatePropertiesFiles(files, m_destinationFile, m_packageName);
         } catch (IOException ioe) {
             throw new BuildException("Unable to generate HTML properties", ioe);
         }

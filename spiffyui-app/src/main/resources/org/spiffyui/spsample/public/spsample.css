@@ -574,6 +574,10 @@ iframe {
     margin-bottom: 37px;
 }
 
+#debugVideo {
+    margin-bottom: 41px;
+}
+
 #frameworkVideo {
     margin-bottom: 24px;
 }
@@ -1059,4 +1063,16 @@ iframe {
 
 .landing #backToTop {
     display: none;
+}
+
+#widgetsToc {
+    width: inherit;
+    position: static;
+    text-align: left;
+    -moz-column-gap: 20px;
+    -moz-column-width: 204px;
+    -webkit-column-gap: 20px; 
+    -webkit-column-width: 204px;
+    column-gap: 20px; 
+    column-width: 204px;        
 }

@@ -16,12 +16,15 @@
 package org.spiffyui.client;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
 /**
@@ -37,8 +40,13 @@ public final class JSUtil
     private JSUtil()
     {
     }
+    
+    private static final Map<String, HistoryCallback> HIST_CALLBACKS = new HashMap<String, HistoryCallback>();
 
     private static int g_uniqueCounter = 0;
+    private static final String TITLE = Window.getTitle();
+    
+    private static boolean g_historyEnabled = true;
 
     static {
         bindJavaScript();
@@ -49,12 +57,13 @@ public final class JSUtil
      * history like the user moving forward or back.  This method is called
      * from JavaScript.
      *
-     * @param callback the history callback for this item
      * @param id the id of the item to select
      */
-    private static void doHistory(HistoryCallback callback, String id)
+    private static void doHistory(String id)
     {
-        callback.historyChanged(id);
+        if (HIST_CALLBACKS.containsKey(id)) {
+            HIST_CALLBACKS.get(id).historyChanged(id);
+        }
     }
 
     /**
@@ -115,32 +124,101 @@ public final class JSUtil
      * @param id     the id of the item that was selected
      * @param bookmarkable  true if this history item should be bookmarkable and false otherwise
      */
-    public static native void addHistoryItem(HistoryCallback callback, String id, boolean bookmarkable) /*-{ 
-        var item = {
-            callback: callback,
-            id: id
-        };
-     
-        try { 
-            $wnd.spiffyui.addHistoryItem($wnd.spiffyui.handleHistoryEvent, $wnd, item, bookmarkable);
-        } catch (e) {
-            // We get this exception because dhHistory doesn't support Opera
-            // That means we don't get history support on Opera.  Not much we
-            // can do about it.
+    public static void addHistoryItem(HistoryCallback callback, String id, boolean bookmarkable)
+    {
+        if (g_historyEnabled) {
+            HIST_CALLBACKS.put(id, callback);
         }
+        addHistoryItemJS(id, "?" + id, TITLE, bookmarkable, false);
+    }
+    
+    /**
+     * <p>
+     * Replace the current item in the browser's history.
+     * </p>
+     *
+     * <p>
+     * History items can be added at any item with any unique ID.  When the user
+     * navigates the browser's history there will be a collection of items added
+     * programmatically and items representing traditional page changes.  When the
+     * item added with this method is reached the callback will be called with the
+     * specified ID.
+     * </p>
+     *
+     * <p>
+     * Spiffy UI uses this method to page changes in the main navigation bar to the
+     * browser's history so the user can use the browser forward and back buttons to move
+     * between pages in the application.  This method is called by the MainNavBar
+     * to add page changes.
+     * </p>
+     * 
+     * <p>
+     * This method support bookmarking.  When a history item is bookmarkable it will cause
+     * a change in the URL which can then be bookmarked by the user to return to that
+     * specific history state.
+     * </p>
+     *
+     * @param callback  the history callback for this item
+     * @param id     the id of the item that was selected
+     * @param bookmarkable  true if this history item should be bookmarkable and false otherwise
+     */
+    public static void replaceHistoryItem(HistoryCallback callback, String id, boolean bookmarkable)
+    {
+        if (g_historyEnabled) {
+            HIST_CALLBACKS.put(id, callback);
+            addHistoryItemJS(id, "?" + id, TITLE, bookmarkable, true);
+        }
+    }
+    
+    /**
+     * <p>
+     * Determines if browser history integration is enabled.
+     * </p>
+     * 
+     * <p>
+     * If history integration is enabled various part of the Spiffy UI framework 
+     * and calling code will add items to the browser history.  If not then no part
+     * of the framework will maniplate browser history in any way.
+     * </p>
+     * 
+     * <p>
+     * History support is enabled by default.
+     * </p>
+     * 
+     * @return true if history support is enabled and false otherwise
+     */
+    public static boolean isHistoryEnabled()
+    {
+        return g_historyEnabled;
+    }
+    
+    /**
+     * <p>
+     * Sets history integration as enabled or disabled.
+     * </p><p>
+     * <p>
+     * If history integration is enabled various part of the Spiffy UI framework
+     * and calling code will add items to the browser history.  If not then no part
+     * of the framework will maniplate browser history in any way.
+     * </p><p>
+     * <p>
+     * History support is enabled by default.
+     * </p>
+     * 
+     * @param enabled true if history support should be enabled and false otherwise
+     */
+    public static void setHistoryEnabled(boolean enabled)
+    {
+        g_historyEnabled = enabled;
+    }
+    
+    private static native void addHistoryItemJS(String id, String url, String title, boolean bookmarkable, boolean replace) /*-{ 
+        $wnd.spiffyui.addHistoryItem($wnd, id, url, title, bookmarkable, replace);
     }-*/;
 
     private static final native void bindJavaScript() /*-{ 
-        try {
-            $wnd.spiffyui.doHandleHistoryEvent = function(contentObject, historyObject) {
-                @org.spiffyui.client.JSUtil::doHistory(Lorg/spiffyui/client/HistoryCallback;Ljava/lang/String;)(contentObject.callback, contentObject.id);
-            }
-    
-            $wnd.dsHistory.addFunction($wnd.spiffyui.handleHistoryEvent);
-        } catch (e) {
-            // We get this exception because dhHistory doesn't support Opera
-            // That means we don't get history support on Opera.  Not much we
-            // can do about it.
+        $wnd.spiffyui.doHandleHistoryEvent = function(id) {
+            @org.spiffyui.client.JSUtil::doHistory(Ljava/lang/String;)(id);
         }
     }-*/;
 

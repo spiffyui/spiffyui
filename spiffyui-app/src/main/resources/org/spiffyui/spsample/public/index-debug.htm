@@ -15,7 +15,12 @@
         <!-- Files for the SpiffyUI framework -->
         <script type="text/javascript" src="js/lib/jquery-1.6.1.js"></script>
         <script type="text/javascript" src="js/lib/base64.js"></script>
-        <script type="text/javascript" src="js/lib/dshistory.js"></script>
+        
+        <script type="text/javascript" src="js/lib/amplify.store.js"></script>
+        <script type="text/javascript" src="js/lib/history.adapter.jquery.js"></script>
+        <script type="text/javascript" src="js/lib/history.js"></script>
+        <script type="text/javascript" src="js/lib/history.html4.js"></script>
+        
         <script type="text/javascript" src="js/lib/humanmsg.js"></script>
         <script type="text/javascript" src="js/lib/jquery.timepicker.js"></script>
         <script type="text/javascript" src="js/lib/i18n/jquery.ui.datepicker.js"></script>
@@ -25,6 +30,10 @@
         
         <script type="text/javascript">
             spiffyui.autoloadCSS = false;
+            
+            if (typeof window.JSON === 'undefined') { 
+                document.write('<script src="js/lib/json2.js"><\/script>'); 
+            }
         </script>
 
         <link type="text/css" rel="stylesheet" href="js/lib/humanmsg.css">

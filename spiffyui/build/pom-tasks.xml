@@ -290,37 +290,7 @@
   </build>
 
   <dependencies>
-    <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
-      <type>jar</type>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <type>jar</type>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.ant</groupId>
-      <artifactId>ant</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.yahoo.platform.yui</groupId>
-      <artifactId>yuicompressor</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>rhino</groupId>
-      <artifactId>js</artifactId>
-      <scope>compile</scope>
-    </dependency>
+    
   </dependencies>
 
   <reporting>

@@ -255,3 +255,19 @@ h1 {
     height: auto;
     margin-bottom: 18px;
 }
+
+.toc {
+    margin-bottom: 28px;
+    position: static;
+    text-align: left; 
+    width: 100%;      
+}
+
+#mainContent > div {
+    width: 100%;
+}
+
+#backToTop {
+    margin: auto auto auto auto;
+    right: 10px;
+}

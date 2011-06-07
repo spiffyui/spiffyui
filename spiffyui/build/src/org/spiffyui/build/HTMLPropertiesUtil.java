@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -131,7 +132,7 @@ public class HTMLPropertiesUtil
      * 
      * @exception IOException
      */
-    public static void generatePropertiesFiles(final List<File> files, final File destinationFile)
+    public static void generatePropertiesFiles(final List<File> files, final File destinationFile, final String packageName)
         throws IOException
     {
         if (destinationFile == null) {
@@ -147,6 +148,7 @@ public class HTMLPropertiesUtil
         }
         
         HashMap<String, Properties> props = new HashMap<String, Properties>();
+        ArrayList<String> methods = new ArrayList<String>();
         
         for (File f : files) {
             Reader in = null;
@@ -177,12 +179,23 @@ public class HTMLPropertiesUtil
                         name.substring(name.lastIndexOf('.'), name.length());
                 }
                 
+                if (!methods.contains(name)) {
+                    methods.add(name);
+                }
+                
                 getProperties(loc, props).setProperty(name.replace(' ', '_').replace('.', '_'), sb.toString());
                 
             } finally {
                 if (in != null) {
                     in.close();
                 }
+            }
+            
+            if (packageName != null) {
+                File javaFile = new File(destinationFile.getParentFile(),
+                                         destinationFile.getName().substring(0, destinationFile.getName().lastIndexOf('.')) + ".java");
+                
+                generateJavaFile(methods, javaFile, packageName);
             }
         }
         
@@ -206,5 +219,68 @@ public class HTMLPropertiesUtil
             }
         }
         
+    }
+    
+    private static final String START = 
+        "import com.google.gwt.i18n.client.Messages;\n\n" + 
+        "/**\n" + 
+        " * This is a generated localized message bundle for accessing HTML string\n" + 
+        " *\n" + 
+        " */\n" + 
+        "public interface ";
+    
+    /**
+     * The message bundle we need has a set of properties files and a single Java file.  
+     * This method handles generating that Java file with a separate method for each 
+     * properties file.
+     * 
+     * @param methods the list of methods to add
+     * @param destinationFile
+     *                the destination file to write the Java file to
+     * @param packageName
+     *                the package name of the Java file
+     * 
+     * @exception IOException
+     */
+    private static void generateJavaFile(final List<String> methods, final File destinationFile, final String packageName)
+        throws IOException
+    {
+        PrintWriter out = null;
+        try {
+            out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(destinationFile), "UTF-8"));
+            
+            /*
+             Output the package name
+             */
+            out.write("package " + packageName + ";\n\n");
+            
+            /*
+             Write out the import and the class declaration
+             */
+            out.write(START);
+            
+            /*
+             Now the class name
+             */
+            out.write(destinationFile.getName().substring(0, destinationFile.getName().lastIndexOf('.')));
+            out.write(" extends Messages {\n");
+            
+            /*
+             Write out a method for each file
+             */
+            for (String m : methods) {
+                out.write("    public String " + m.replace('.', '_') + "();\n");
+            }
+            
+            /*
+             Write out the ending curly brace
+             */
+            out.write("}\n");
+            
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+        }
     }
 }

@@ -100,7 +100,7 @@
         	        fork="${build.javac.fork}">
             <compilerarg value="-Xlint" />
             <classpath>
-                <pathelement location="${spiffy.build}/lib/closure-compiler-r916.jar"/>
+                <pathelement location="${spiffy.build}/lib/closure-compiler-r1043.jar"/>
                 <pathelement path="${java.class.path}"/>
                 <!-- Adding this so that maven builds will include the necessary ant dependencies -->
                 <pathelement path="${compile_classpath}"/>
@@ -147,16 +147,21 @@
              to create a single file.  We need to specify the files for JQuery UI
              in a specific order since they have loading dependencies. -->
         <closure jsfile="${spiffy.www}/spiffyui.min.js" 
-                 closurejar="${spiffy.build}/lib/closure-compiler-r916.jar"
+                 closurejar="${spiffy.build}/lib/closure-compiler-r1043.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="DEFAULT">
             <fileset dir="${spiffy.js}" includes="**/jquery.ui.core.js" />
             <fileset dir="${spiffy.js}" includes="**/jquery.ui.widget.js" />
             <fileset dir="${spiffy.js}" includes="**/jquery.effects.core.js" />
             <fileset dir="${spiffy.js}" includes="**/jquery.ui.mouse.js" />
-                     
+            
+            <fileset dir="${spiffy.js}" includes="**/amplify.store.js" />
+            <fileset dir="${spiffy.js}" includes="**/history.adapter.jquery.js" />
+            <fileset dir="${spiffy.js}" includes="**/history.js" />
+            <fileset dir="${spiffy.js}" includes="**/history.html4.js" />
+            
             <fileset dir="${spiffy.js}" includes="**/*.js" 
-                     excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**, **/jquery.ui.core.js, **/jquery.ui.widget.js, **/jquery.effects.core.js, **/jquery.ui.mouse.js" />
+                     excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**, **/jquery.ui.core.js, **/jquery.ui.widget.js, **/jquery.effects.core.js, **/jquery.ui.mouse.js, **/history*.js, **/amplify*.js" />
         </closure>
 
         <!-- Then we GZIP it for web servers that support GZIP -->
@@ -164,7 +169,7 @@
         
         <!-- We also compile our own copy of JQuery -->
         <closure jsfile="${spiffy.www}/jquery.min.js" 
-                 closurejar="${spiffy.build}/lib/closure-compiler-r916.jar"
+                 closurejar="${spiffy.build}/lib/closure-compiler-r1043.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="QUIET">
             <fileset dir="${spiffy.js}/lib" includes="jquery-1.6.1.js" />
