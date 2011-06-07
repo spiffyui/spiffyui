@@ -33,10 +33,10 @@ public class HTMLPropsMojo extends AbstractMojo
     /**
      * Location of the file.
      * 
-     * @parameter expression="${project.build.outputDirectory}/htmlprops.properties"
+     * @parameter expression="${project.build.directory}/htmlprops"
      * @required
      */
-    private File outputFile;
+    private File outputDirectory;
 
     /**
      * The name to give to the generated package
@@ -65,18 +65,24 @@ public class HTMLPropsMojo extends AbstractMojo
             return;
         }
         
+        File outputFile = new File(outputDirectory, "htmlprops.properties");
+        
         log.info("HTMLPROPS: Generating " + packageName);
         
         String[] exts = new String[] { "html" };
         List<File> files = new ArrayList<File>(FileUtils.listFiles(sourceDirectory, exts, true));
         
-        project.getProperties().put("spiffyui.htmlprops.path", outputFile.getAbsolutePath());
-        
-        try {
+         try {
+ 
+            if (!outputDirectory.exists())
+                FileUtils.forceMkdir(outputDirectory);
+     
             HTMLPropertiesUtil.generatePropertiesFiles(files, outputFile, packageName);
         } catch (IOException e) {
             throw new MojoExecutionException(e.getMessage());
         }
+        
+        project.getProperties().put("spiffyui.htmlprops.path", outputDirectory.getAbsolutePath());
 
     }
 
