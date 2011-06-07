@@ -3,6 +3,7 @@ package org.spiffyui.maven.plugins;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -45,14 +46,15 @@ public class GZipMojo extends AbstractMojo {
         Properties p = project.getProperties();
         File module = new File(p.getProperty("spiffyui.gwt.module.path"));
         File images = new File(module, "images");
-	    
-	    gzip(directory);
-	    gzip(module);
-	    gzip(images);
+        String[] baseExts = {"css", "png", "gif", "js"};
+        String[] allExts = {"html", "css", "png", "gif", "js"};
+        
+	    gzip(directory, baseExts);
+	    gzip(module, allExts);
+	    gzip(images, allExts);
 	}
 	
-	private void gzip(File path) throws MojoExecutionException, MojoFailureException {
-        String[] exts = new String[] { "html", "css", "png", "js" };
+	private void gzip(File path, String[] exts) throws MojoExecutionException, MojoFailureException {
         List<File> files = new ArrayList<File>(FileUtils.listFiles(path, exts, false));
         Log log = getLog();
         
