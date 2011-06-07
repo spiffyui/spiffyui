@@ -227,7 +227,7 @@ public class HTMLPropertiesUtil
         " * This is a generated localized message bundle for accessing HTML string\n" + 
         " *\n" + 
         " */\n" + 
-        "public interface SPSampleStrings extends Messages {\n";
+        "public interface ";
     
     /**
      * The message bundle we need has a set of properties files and a single Java file.  
@@ -258,6 +258,12 @@ public class HTMLPropertiesUtil
              Write out the import and the class declaration
              */
             out.write(START);
+            
+            /*
+             Now the class name
+             */
+            out.write(destinationFile.getName().substring(0, destinationFile.getName().lastIndexOf('.')));
+            out.write(" extends Messages {\n");
             
             /*
              Write out a method for each file
