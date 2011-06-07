@@ -65,7 +65,10 @@ public class HTMLPropsMojo extends AbstractMojo
             return;
         }
         
-        File outputFile = new File(outputDirectory, "htmlprops.properties");
+        /* normalize the packageName string into an java package safe variant (e.g. no dashes) */
+        String safePackageName = packageName.replace("-", "_");
+
+        File outputFile = new File(outputDirectory, "SpiffyUiHtmlProps.properties");
         
         log.info("HTMLPROPS: Generating " + packageName);
         
@@ -77,7 +80,7 @@ public class HTMLPropsMojo extends AbstractMojo
             if (!outputDirectory.exists())
                 FileUtils.forceMkdir(outputDirectory);
      
-            HTMLPropertiesUtil.generatePropertiesFiles(files, outputFile, packageName);
+            HTMLPropertiesUtil.generatePropertiesFiles(files, outputFile, safePackageName);
         } catch (IOException e) {
             throw new MojoExecutionException(e.getMessage());
         }

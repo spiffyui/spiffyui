@@ -4,7 +4,7 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.spiffyui.maven.examples.client</groupId>
-  <artifactId>client</artifactId>
+  <artifactId>spiffyui-maven-demo</artifactId>
   <version>0.1-SNAPSHOT</version>
   <packaging>spiffyui</packaging>
   <name>Example SpiffyUI Client</name>
