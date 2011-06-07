@@ -104,10 +104,6 @@ public class ClosureMojo extends AbstractMojo
         }
     }
 
-    private List<JSSourceFile> listJSSourceFiles(File directory) {
-        return listJSSourceFiles(new ArrayList<JSSourceFile>(), directory);
-    }
-
     private List<JSSourceFile> listJSSourceFiles(List<JSSourceFile> jsSourceFiles, File directory) {
         if (directory != null) {
             File[] files = directory.listFiles();
