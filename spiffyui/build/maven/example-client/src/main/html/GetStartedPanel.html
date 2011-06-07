@@ -1,0 +1,156 @@
+<div class="toc">
+    <ul id="getStartedPanelTocUl">
+    </ul>
+</div>
+<h1 class="pageTitle">Get Started With Spiffy UI</h1>
+<div id="docPanelText" class="documentationPanel">
+    <p>
+    So you're ready to try out Spiffy UI?  Good for you!  Right now you're looking at the Spiffy UI application where we show off what the framework can do.  When you're ready to get started, create your own project, check out Hello Spiffy or add Spiffy UI to your own build.
+    </p>
+
+    <div id="getStartedCreateSpiffy"></div>
+    </p>
+    
+    <h2 id="GS_GetHelloSpiffy">Get Hello Spiffy</h2>
+    
+    <p>
+    Hello Spiffy is the <i>Hello World!</i> of Spiffy UI.  It shows you everything you need to get Spiffy UI up and running, create a simple form, and make a REST call.
+    </p>
+    
+    <p>
+    There are three Hello Spiffy applications.  <a href="http://spiffyui.googlecode.com/svn/samples/HelloSpiffyMaven/">Hello Spiffy Maven</a> shows you how to build a Spiffy GWT application using <a href="http://maven.apache.org/">Apache Maven</a>.  Just check it out like this:
+    </p>
+    
+    <pre>
+    svn co http://spiffyui.googlecode.com/svn/samples/HelloSpiffyMaven/
+    </pre>
+    
+    <p>
+    <a href="http://spiffyui.googlecode.com/svn/samples/HelloSpiffyAnt/">Hello Spiffy Ant</a> works just like Hello Spiffy Maven but it builds with <a href="http://ant.apache.org/">Apache Ant</a> and <a href="http://ant.apache.org/ivy/">Apache Ivy</a>.  Just check it out like this:
+    </p>
+    
+    <pre>
+    svn co http://spiffyui.googlecode.com/svn/samples/HelloSpiffyAnt/
+    </pre>
+    
+    <p>
+    <a href="http://spiffyui.googlecode.com/svn/samples/HelloSpiffyNode/">Hello Spiffy Node</a> works just like Hello Spiffy Ant but it deploys to <a href="http://ant.apache.org/http://nodejs.org/http://nodejs.org/">Node.js</a>.  Just check it out like this:
+    </p>
+    
+    <pre>
+    svn co http://spiffyui.googlecode.com/svn/samples/HelloSpiffyNode/
+    </pre>
+    
+    <h4>Get it on GitHub</h4>
+    
+    <p>
+    You can also get the samples from GitHub at:
+    </p>
+    
+    <ul>
+        <li><a href="https://github.com/spiffyui/HelloSpiffyMaven">https://github.com/spiffyui/HelloSpiffyMaven</a></li>
+        <li><a href="https://github.com/spiffyui/HelloSpiffyAnt">https://github.com/spiffyui/HelloSpiffyAnt</a></li>
+        <li><a href="https://github.com/spiffyui/HelloSpiffyNode">https://github.com/spiffyui/HelloSpiffyNode</a></li>
+    </ul>
+
+    <h4>Requirements</h4>
+    
+    <p>
+        To run Hello Spiffy you'll need:
+    </p>
+    
+    <ul>
+        <li>Java 1.6 or higher</li>
+        <li>Your choice of <a href="http://ant.apache.org/">Apache Ant</a>, or <a href="http://maven.apache.org/">Apache Maven</a></li>
+    </ul>
+
+    <h2 id="GS_AddSpiffy">Build your own</h2>
+    
+    <p>
+    When you're ready to build your own project you can start by copying either of the Hello Spiffy projects.  You can also create your own project or adapt any existing GWT project to use Spiffy UI.  Spiffy UI is just three simple steps away.
+    </p>
+    
+    <h3>1. Add the Spiffy project dependency</h3>
+
+    <p>
+    You can have Spiffy automatically downloaded through a Nexus server or you can manually download JARs from our <a href="http://code.google.com/p/spiffyui/downloads/list">downloads page</a>.  For automatic downloading, the steps are slightly different for Maven and Ant. 
+    </p>
+
+    <h4>Apache Maven</h4>
+    
+    <p>
+    Add the following to the pom.xml file for your project.
+    </p>
+    
+    <pre>   &lt;dependency&gt;
+        &lt;groupId&gt;org.spiffyui&lt;/groupId&gt;
+        &lt;artifactId&gt;spiffyui&lt;/artifactId&gt;
+        &lt;version&gt;0.7.5&lt;/version&gt;
+    &lt;/dependency&gt;    
+    </pre>
+
+    <h4>Apache Ant with Ivy</h4>
+    
+    <p>
+    Add the following entry to the chain your ivysettings.xml file:
+    </p>
+    
+    <pre>&lt;ibiblio name="sonatype-snapshots"
+         m2compatible="true"
+         usepoms="true"
+         root="https://oss.sonatype.org/service/local/repositories/snapshots/content"/&gt;
+    </pre>
+    
+    <p>
+    Then add the dependency to your ivy.xml file like this:
+    </p>
+
+    <pre>    &lt;dependency org="org.spiffyui" name="spiffyui" changing="true" rev="0.7.5"/&gt;
+    </pre>
+    
+    <h4>3rd-party dependencies</h4>
+    
+    <p>
+    Spiffy UI has a small number of 3rd-party dependency JARs.  You can add them to your project in the same way you added Spiffy UI.  The dependencies are:
+    </p>
+    
+    <pre>    &lt;dependency org="commons-logging" name="commons-logging" rev="1.1.1"/&gt;
+    &lt;dependency org="commons-codec" name="commons-codec" rev="1.4"/&gt;
+    &lt;dependency org="com.metaparadigm" name="json-rpc" rev="1.0"/&gt;
+    &lt;dependency org="org.apache.httpcomponents" name="httpclient" rev="4.0.1"/&gt;
+    &lt;dependency org="org.apache.httpcomponents" name="httpcore" rev="4.0.1"/&gt;
+    </pre>
+
+    <h3>2. Reference Spiffy in your HTML</h3>
+    <p>
+    Now the CSS and JavaScript files are included in your project when you build.  The next step is to reference them in your HTML file.  The Spiffy UI framework includes many JavaScript and CSS files, but they are all combined into two files for faster application loading.  Reference this one file and the JQuery library in the <code>head</code> section of your HTML files like this:
+    </p>
+
+    <pre>
+    &lt;head&gt;
+    &lt;script type="text/javascript" src="jquery.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="spiffyui.min.js"&gt;&lt;/script&gt;
+    ...
+    &lt;/head&gt;
+    </pre>
+
+    <h3>3. Import Spiffy in your GWT module</h3>
+    <p>
+
+    The last step is to import the Spiffy UI framework GWT module.  Add the following line to your GWT module file:
+    </p>
+
+    <pre>
+    &lt;inherits name="org.spiffyui.spiffyui" /&gt;
+    </pre>
+
+    <p>
+    That's all it takes.
+    </p>
+    
+    <h2>Spiffy UI application</h2>
+    
+    <p>
+    For instructions on how to download and build the pages you see on this site, which comprise the Spiffy UI application, visit the <span id="getStartedGetHelp"></span>.
+    </p>
+</div>
