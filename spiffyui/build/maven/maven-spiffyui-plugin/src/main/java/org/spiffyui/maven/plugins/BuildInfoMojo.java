@@ -6,9 +6,13 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -73,6 +77,11 @@ public class BuildInfoMojo extends AbstractMojo
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         String date = sdf.format(cal.getTime());
         
+        List<Dependency> _deps = project.getDependencies();
+        Map<String, Dependency> deps = new HashMap<String, Dependency>();
+        for(Dependency dep : _deps)
+            deps.put(dep.getArtifactId(), dep);
+        
         try {
             File parent = outputFile.getParentFile();
             if (!parent.exists())
@@ -85,10 +94,14 @@ public class BuildInfoMojo extends AbstractMojo
             rev.put("number", p.getProperty("revision.number"));
             rev.put("date", p.getProperty("revision.date"));
             
+            JSONObject components = new JSONObject();
+            components.put("spiffyui", deps.get("spiffyui").getVersion());
+            
             JSONObject info = new JSONObject();
+            info.put("schema", 1);
             info.put("date", date);
             info.put("user", System.getProperties().get("user.name"));
-            //info.put("build.version", version);
+            info.put("components", components);
             info.put("revision", rev);
             info.put("dir", basedir.getAbsolutePath());
  
