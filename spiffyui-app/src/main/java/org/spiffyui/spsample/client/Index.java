@@ -669,7 +669,9 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
             }
         });
         
-        panel.add(anchor, liId); 
+        if (panel.getElementById(liId) != null) {
+            panel.add(anchor, liId); 
+        }
     }
     
     private static native void addTocListItems(HTMLPanel panel, String panelId, String cssSelector) /*-{
