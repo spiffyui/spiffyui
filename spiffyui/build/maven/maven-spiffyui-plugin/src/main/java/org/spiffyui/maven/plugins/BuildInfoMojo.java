@@ -81,13 +81,16 @@ public class BuildInfoMojo extends AbstractMojo
             // Create file
             PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(outputFile), encoding));
             
+            JSONObject rev = new JSONObject();
+            rev.put("number", p.getProperty("revision.number"));
+            rev.put("date", p.getProperty("revision.date"));
+            
             JSONObject info = new JSONObject();
-            info.put("build.date", date);
-            info.put("build.user", System.getProperties().get("user.name"));
+            info.put("date", date);
+            info.put("user", System.getProperties().get("user.name"));
             //info.put("build.version", version);
-            info.put("build.revision", p.getProperty("revision.number"));
-            info.put("build.revision.date", p.getProperty("revision.date"));
-            info.put("build.dir", basedir.getAbsolutePath());
+            info.put("revision", rev);
+            info.put("dir", basedir.getAbsolutePath());
  
             out.write(info.toString());
             // Close the output stream
