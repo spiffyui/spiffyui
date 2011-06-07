@@ -266,3 +266,8 @@ h1 {
 #mainContent > div {
     width: 100%;
 }
+
+#backToTop {
+    margin: auto auto auto auto;
+    right: 10px;
+}
