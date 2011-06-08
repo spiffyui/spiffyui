@@ -218,7 +218,7 @@ iframe {
 #main {
     background: none repeat scroll 0 0 white;
     margin: 0 auto;
-    padding-bottom: 4em;
+    padding-bottom: 14%;
     padding-left: 10px;
     width: 900px;
 }
@@ -963,7 +963,7 @@ iframe {
     font-weight: normal;
     font-size: 48px;
     font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2",Verdana,Sans-serif;
-    padding-left: 50px;
+    padding-left: 40px;
     background: url("images/spiffy_logo.png") no-repeat scroll left 0px transparent;
     height: 55px;
     color: black;
