@@ -51,7 +51,15 @@ public class HTMLPropsMojo extends AbstractMojo
      * @required
      */
     private File sourceDirectory;
-    
+
+    /**
+     * The name to give to the generated interface
+     * 
+     * @parameter expression="SpiffyUiHtmlProps"
+     * @required
+     */
+    private String interfaceName;
+
     @Override
     public void execute()
         throws MojoExecutionException,
@@ -67,8 +75,11 @@ public class HTMLPropsMojo extends AbstractMojo
         
         /* normalize the packageName string into an java package safe variant (e.g. no dashes) */
         String safePackageName = packageName.replace("-", "_");
-
-        File outputFile = new File(outputDirectory, "SpiffyUiHtmlProps.properties");
+        File packageDir = new File(outputDirectory, safePackageName.replace(".", File.separator));
+        if (!packageDir.exists())
+            packageDir.mkdirs();
+        
+        File outputFile = new File(packageDir, interfaceName + ".properties");
         
         log.info("HTMLPROPS: Generating " + packageName);
         
