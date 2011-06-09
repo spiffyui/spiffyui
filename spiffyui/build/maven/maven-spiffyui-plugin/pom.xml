@@ -6,6 +6,26 @@
   <artifactId>maven-spiffyui-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <version>0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>Maven plugin for building SpiffyUI based applications</name>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:svn:http://spiffyui.googlecode.com/svn/trunk</connection>
+    <developerConnection>scm:svn:https://spiffyui.googlecode.com/svn/trunk</developerConnection>
+    <url>http://spiffyui.googlecode.com/svn/trunk</url>
+  </scm>
+  <developers>
+    <developer>
+      <id>ghaskins</id>
+      <name>Gregory Haskins</name>
+    </developer>
+  </developers>
 
   <properties>
     <maven.compiler.source>1.6</maven.compiler.source>
