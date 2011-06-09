@@ -2,7 +2,7 @@
 <project name="Spiffy UI" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:artifact="antlib:org.apache.maven.artifact.ant" default="spiffy" basedir="..">
     <target name="spiffy" depends="setup,resolve">
         <antcall target="compile"/>
-	<antcall target="maven-plugin" />
+        <antcall target="maven-plugin" />
         <antcall target="js-lint" />
         <antcall target="js-min" />
         <antcall target="css-min" />
@@ -63,6 +63,45 @@
         <property name="ant.home" location="${build.rpt.base}/external/ant"/>
         <property name="ant.lib" location="${build.rpt.base}/external/ant/lib"/>
     </target>
+    
+    <target name="checkstyle.compile.check">
+        <condition property="is.compiled" else="is.not.compiled">
+            <available file="${spiffy.classes}"/>
+        </condition>
+    </target>
+    
+    <target name="checkstyle.nocompileError" if="is.not.compiled">
+        <fail message="You must compile before you run Checkstyle" />
+    </target>
+
+    <target name="checkstyle" depends="setup,resolve,checkstyle.compile.check,checkstyle.nocompileError">
+        <taskdef resource="checkstyletask.properties">
+            <classpath>
+                <fileset dir="${spiffy.build}/lib" includes="checkstyle*.jar"/>
+                <fileset dir="${spiffy.build}/lib" includes="google*.jar"/>
+                <fileset dir="${spiffy.build}/lib" includes="commons*.jar"/>
+                <fileset dir="${spiffy.build}/lib" includes="antlr*.jar"/>
+            </classpath>
+        </taskdef>
+
+        <!-- Spiffy UI makes all Checkstyle warnings into build errors.  That
+             means the build will fail if there are any Checkstyle errors in 
+             any of the source files in this application or the Spiffy UI framework.
+        -->
+        <checkstyle config="${spiffy.build}/checkstyle_checks.xml" failOnViolation="true">
+            <formatter type="plain"/>
+            <formatter type="xml" toFile="checkstyle_errors.xml"/>
+
+            <fileset dir="src" excludes="${checkstyle.ignore.files},**/*Rsrc*,**/*Strings.java" includes="**/*.java" />
+            <!-- Specify a base dir to make the output a bit more readable -->
+            <property key="checkstyle.basedir" value="${spiffy.root}" />
+            
+            <classpath>
+                <pathelement location="${spiffy.classes}"/>
+                <fileset dir="${spiffy.build}/lib" includes="*.jar"/>
+            </classpath>
+        </checkstyle>
+    </target>
 
     <target name="compile">
         <!-- Compile all the Java -->
@@ -81,6 +120,8 @@
                 <pathelement path="${java.class.path}"/>
             </classpath>
         </javac>
+        
+        <antcall target="checkstyle" />
     </target>
     
     <target name="compileAntTask.check">

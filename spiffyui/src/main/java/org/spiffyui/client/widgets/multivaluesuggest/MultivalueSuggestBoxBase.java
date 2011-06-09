@@ -416,7 +416,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
      */
     protected Option createOption(JSONObject jsonOpt)
     {
-    	Option option = new Option();
+        Option option = new Option();
         option.setName(JSONUtil.getStringValue(jsonOpt, m_helper.getNameKey()));
         option.setValue(JSONUtil.getStringValue(jsonOpt, m_helper.getValueKey()));
         return option;
@@ -431,7 +431,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
      */
     protected OptionSuggestion createOptionSuggestion(Option o, String fullText, String query)
     {
-    	return new OptionSuggestion(o.getName(), o.getValue(), fullText, query);
+        return new OptionSuggestion(o.getName(), o.getValue(), fullText, query);
     }
     
     @Override
@@ -577,7 +577,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     private void deleteUnusedItems()
     {
         ArrayList<String> displayVals = new ArrayList<String>();
-        for (String displayVal: m_field.getText().split(m_displaySeparator)) {
+        for (String displayVal : m_field.getText().split(m_displaySeparator)) {
             displayVals.add(displayVal.trim());
         }
         

@@ -182,13 +182,15 @@ public class SlidingGridPanel extends ComplexPanel
          on Macs.  It causes the grid panel to get the wrong information for the
          width of the parent container.  This delay works around the issue.
          */
-        new Timer() {
+        Timer t = new Timer() {
             @Override
             public void run()
             {
                 alignGrid(m_cellWidth, m_cellHeight, m_padding, m_offset);
             }
-        }.schedule(500);
+        };
+
+        t.schedule(500);
         
         super.onLoad();
     }

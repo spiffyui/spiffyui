@@ -123,7 +123,7 @@ public class MainHeader extends HasNavBarListenersPanel
     /**
      * Add a widget to the header title
      * 
-     * @param a widget for the header title
+     * @param w widget for the header title
      */
     public void addHeaderTitleWidget(Widget w)
     {
