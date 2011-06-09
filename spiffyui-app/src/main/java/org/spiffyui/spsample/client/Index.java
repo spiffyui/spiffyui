@@ -108,6 +108,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     public Index()
     {
         g_index = this;
+        bindJavaScript();
     }
     
     /**
@@ -705,6 +706,17 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     public static native void scrollTo(int y) /*-{
         $wnd.$("html,body").animate({scrollTop: y}, "slow");
     }-*/;
+    
+    private static final native void bindJavaScript() /*-{ 
+        $wnd.spsample.shouldShowTopLink = function(id) {
+            return @org.spiffyui.spsample.client.Index::shouldShowTopLink()();
+        }
+    }-*/;
+    
+    private static final boolean shouldShowTopLink()
+    {
+        return !g_index.m_navBar.getSelectedItem().getId().equals(LANDING_NAV_ITEM_ID);
+    }
     
     
 }

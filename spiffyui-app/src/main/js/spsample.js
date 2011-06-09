@@ -70,7 +70,7 @@ spsample = {
                 return;
             }
             
-            if (offset > 250) {
+            if (spsample.shouldShowTopLink() && offset > 250) {
                 $('#backToTop').show();
             } else {
                 $('#backToTop').hide();
