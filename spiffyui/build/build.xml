@@ -2,6 +2,7 @@
 <project name="Spiffy UI" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:artifact="antlib:org.apache.maven.artifact.ant" default="spiffy" basedir="..">
     <target name="spiffy" depends="setup,resolve">
         <antcall target="compile"/>
+	<antcall target="maven-plugin" />
         <antcall target="js-lint" />
         <antcall target="js-min" />
         <antcall target="css-min" />
@@ -114,6 +115,21 @@
                 <include name="tasks.properties"/>
             </zipfileset>
         </jar>
+    </target>
+
+    <target name="install-anttask" depends="init-maven,compileAntTask">
+      <artifact:pom id="pom-tasks" file="${spiffy.root}/build/pom-tasks.xml" />
+
+      <artifact:install file="${spiffy.dist}/spiffytasks.jar">
+	<pom refid="pom-tasks"/>
+      </artifact:install>
+    </target>
+
+    <target name="maven-plugin" depends="init-maven,install-anttask">
+      <artifact:mvn mavenVersion="3.0.2"
+		    pom="${spiffy.build}/maven/maven-spiffyui-plugin/pom.xml">
+	<arg value="install"/>
+      </artifact:mvn>
     </target>
 
     <target name="taskdefs">
@@ -375,6 +391,13 @@
             <arg value="--settings"/>
             <arg value="${maven.settings}"/>
         </artifact:mvn>
+        <!--    deploy maven-spiffyui-plugin -->
+        <artifact:mvn mavenVersion="3.0.2">
+            <arg value="deploy"/>
+            <arg value="--settings"/>
+            <arg value="${maven.settings}"/>
+        </artifact:mvn>
+
     </target>
 
     <target name="deploy-staging" description="Sign and Deploy artifacts to the spiffyui Sonatype release staging repository, ready for maven central syncing" depends="setup,init-maven,package">

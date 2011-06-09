@@ -1,0 +1,98 @@
+<div class="toc">
+    <ul id="hostedModePanelTocUl">
+    </ul>
+</div>
+<h1 class="pageTitle">GWT Dev Mode</h1>
+<div id="hostedModePanelText" class="documentationPanel">
+    <p>
+    Once you have Spiffy UI or Hello Spiffy running on your local server you'll probably want to set up <a href="http://code.google.com/webtoolkit/doc/latest/DevGuideCompilingAndDebugging.html">GWT Development Mode</a>, formerly known as "Hosted Mode," which allows you to debug your Spiffy UI application.  You must build the application using Ant or Maven at least once before running development mode and the server must be running for while you are using dev mode.  
+    </p>
+    
+    <p>
+    The easiest way to get Spiffy UI running in development mode is to use Eclipse.  Start with the Google Plugin for Eclipse <a href="http://code.google.com/eclipse/docs/getting_started.html">Quick Start</a> page.  Once you have the Google Plugin for Eclipse installed you can import the project.
+    </p>
+    
+    <h2 id="DM_video">Debugging Spiffy UI applications</h2>
+    
+    <p>
+    All of the Hello Spiffy applications and all applications created on SpiffyUI.org include Eclipse project files so importing them is easy.  Here's a quick video showing you how to create a new application, build it, import it, run dev mode, and set breakpoints.
+    </p>
+    
+    <p id="debugVideo">
+    <iframe src="http://player.vimeo.com/video/24681426?title=0&amp;byline=0&amp;portrait=0" width="400" height="430" frameborder="0"></iframe>
+    </p>
+    
+    <h2 id="DM_Import">Import</h2>
+    
+    <p>
+    Ready to run it for yourself?  In the main menu bar select File &gt; Import...
+    </p>
+    
+    <p>
+    Select <emph>Existing Project Into Workspace</emph> and press next.
+    </p>
+    
+    <p>
+    Browse and select the directory containing the <code>.project</code> file.  Select the project and press Finish.
+    </p>
+    
+    <div id="importDialog"> </div>
+    
+    <h2 id="DM_Build">Build</h2>
+    
+    <p>
+    Once the project import completes right-mouse click on the project in the Package Explorer and select Google &gt; GWT Compile.
+    </p>
+    
+    <p>
+    Once the compilation is complete you may debug using the <code>.launch</code> configuration we've provided.  
+    </p>
+    
+    <h2 id="DM_Config">Configurations</h2>
+    
+    <p>
+    From the main menu select Run &gt; Debug configurations.  Select the "dev mode" configuration under Web Application.  It should resemble the following:
+    </p>
+    
+    <p>
+    On the Main tab the main class is <code>com.google.gwt.dev.GWTShell</code>. Although this class has been deprecated, we've found that it works much better with Eclipse than <code>com.google.gwt.dev.DevMode</code>. 
+    </p>
+    
+    <div id="mainDebugTab"> </div>
+    
+    <p>
+    On the Server tab the Run built-in server checkbox is unselected because our applications launch an instance of <a href="http://jetty.codehaus.org/jetty/">Jetty</a>.
+    </p>
+    
+    <div id="serverDebugTab"> </div>
+    
+    <p>
+    On the GWT tab the URL is <code>http://localhost:8080</code>.
+    </p>
+    
+    <div id="gwtDebugTab"> </div>
+    
+    <h2 id="DM_Debug">Debug</h2>
+    
+    <p>
+    Click the debug button to begin debugging your application.  
+    </p>
+    
+    <p>
+    Once development mode has been launched there will be an URL in your Development Mode view.  Open that URL in your browser.
+    </p>
+    
+    <div id="developmentMode"> </div>
+    
+    <p>
+    If this is the first time you've run development mode you'll be prompted to download the development mode plugin for your browser.
+    </p>
+    
+    <div id="hostedModePlugin"> </div>
+    
+    <p>
+    Follow the installation instructions to complete the installation.  Restart your browser and you're now running development mode.  You can set breakpoints and debug your application or make minor modifications and see them immediately upon browser refresh instead of rebuilding and redeploying.  
+    </p>
+    
+    
+</div>

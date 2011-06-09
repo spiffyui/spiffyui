@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component-set>
+  <components>
+    <component>
+      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+      <role-hint>spiffyui</role-hint>
+      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+      <configuration>
+	<lifecycles>
+	  <lifecycle>
+	    <id>default</id>
+	    <phases>
+	      <initialize>org.spiffyui.maven.plugins:maven-spiffyui-plugin:rev-info</initialize>
+	      <generate-resources>org.spiffyui.maven.plugins:maven-spiffyui-plugin:build-info,
+	       org.spiffyui.maven.plugins:maven-spiffyui-plugin:htmlprops</generate-resources>
+	      <process-resources>net.alchim31.maven:yuicompressor-maven-plugin:compress,
+	        net.alchim31.maven:yuicompressor-maven-plugin:jslint,
+	      	org.apache.maven.plugins:maven-resources-plugin:resources</process-resources>
+	      <compile>org.spiffyui.maven.plugins:maven-spiffyui-plugin:compile,
+	        org.spiffyui.maven.plugins:maven-spiffyui-plugin:closure</compile>
+	      <process-classes>org.spiffyui.maven.plugins:maven-spiffyui-plugin:gzip</process-classes>
+	      <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
+	      <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
+	      <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
+	      <package>org.spiffyui.maven.plugins:maven-spiffyui-plugin:package</package>
+	      <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+	      <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+	    </phases>
+	  </lifecycle>
+	</lifecycles>
+      </configuration>
+    </component>
+    <component>
+      <role>org.codehaus.plexus.archiver.UnArchiver</role>
+      <role-hint>spiffyui</role-hint>
+      <!-- there is no specific implementaion of an un-archiver because TarBZip2UnArchive will do the job -->
+      <implementation>org.codehaus.plexus.archiver.tar.TarBZip2UnArchiver</implementation>
+      <instantiation-strategy>per-lookup</instantiation-strategy>
+    </component>
+  </components>
+</component-set>
