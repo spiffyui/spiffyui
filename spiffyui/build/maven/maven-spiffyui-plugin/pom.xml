@@ -21,6 +21,23 @@
   </scm>
   <developers>
     <developer>
+      <id>bsiegal</id>
+      <name>Bess Siegal</name>
+    </developer>
+    <developer>
+      <id>iyip</id>
+      <name>Irene Yip</name>
+    </developer>
+    <developer>
+      <id>lwashington</id>
+      <name>Lyndon Washington</name>
+      <email>hoshposh@the-washingtons.com</email>
+    </developer>
+    <developer>
+      <id>zgrossbart</id>
+      <name>Zack Grossbart</name>
+    </developer>
+    <developer>
       <id>ghaskins</id>
       <name>Gregory Haskins</name>
     </developer>
