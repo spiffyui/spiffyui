@@ -4,13 +4,28 @@
      uses almost every part of the Spiffy UI framework and has many performance improvements.
 -->
 <project name="Spiffy UI Framework Application" xmlns:ivy="antlib:org.apache.ivy.ant" default="all" basedir=".">
-    <target name="all" depends="setup,resolve" description="Build, compile, and package the entire application">
+    <target name="all" depends="setup" description="Build, compile, and package the entire application">
         <!-- This application will call the Spiffy UI framework build.
              It is possible to build the framework separately, but building
              it in the context of this application is the most common way
              of building it. -->
         <subant antfile="build.xml" buildpath="${build.base}/../spiffyui/build/" />
-
+        
+        <antcall target="app"/>
+    </target>
+    
+    <target name="framework.compile.check">
+        <condition property="is.framework.compiled" else="is.framework.not.compiled">
+            <available file="${spiffyui}/dist"/>
+        </condition>
+    </target>
+    
+    <target name="framework.nocompileError" if="is.framework.not.compiled">
+        <fail message="You must compile the framework with the all target before calling the client target." />
+    </target>
+    
+    <target name="app" depends="setup,resolve,framework.compile.check,framework.nocompileError" 
+            description="Build, compile, and package just the Spiffy UI application">
         <!-- Now that we've built the Spiffy UI framework we can import 
              the Ant tasks available in that framework. -->
         <taskdef resource="tasks.properties">

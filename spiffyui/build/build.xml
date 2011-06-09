@@ -298,6 +298,7 @@
         </delete>
         <delete dir="${spiffy.root}/lib"/>
         <delete dir="${spiffy.root}/target"/>
+        <delete file="${spiffy.root}/checkstyle_errors.xml"/>
     </target>
     
     <target name="javadoc" description="Generate JavaDoc for this project">
