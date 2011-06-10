@@ -14,34 +14,38 @@ import org.apache.maven.project.MavenProject;
  * @goal initialize
  * @phase initialize
  */
-public class InitializeMojo extends AbstractMojo {
+public class InitializeMojo extends AbstractMojo
+{
 
-	/**
+    /**
      * {@link MavenProject} to process.
      * 
      * @parameter expression="${project}"
      * @required
      * @readonly
      */
-    private MavenProject project;
-    
+    private MavenProject m_project;
+
     /**
      * @parameter expression="${project.build.directory}"
      * @required
      * @readonly
      */
-    private File buildDirectory;
-    
-    final private String ATTR_WWW = "spiffyui.www";
-    
-	@Override
-	public void execute() throws MojoExecutionException, MojoFailureException {
-		Properties p = project.getProperties();
-		
-		if (!p.containsKey(ATTR_WWW)) {
-			File path = new File(buildDirectory, "www");
-			p.setProperty(ATTR_WWW, path.getAbsolutePath());
-		}
-	}
+    private File m_buildDirectory;
+
+    private static final String ATTR_WWW = "spiffyui.www";
+
+    @Override
+    public void execute()
+        throws MojoExecutionException,
+            MojoFailureException
+    {
+        Properties p = m_project.getProperties();
+
+        if (!p.containsKey(ATTR_WWW)) {
+            File path = new File(m_buildDirectory, "www");
+            p.setProperty(ATTR_WWW, path.getAbsolutePath());
+        }
+    }
 
 }
