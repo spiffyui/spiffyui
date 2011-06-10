@@ -66,6 +66,31 @@ public class BuildInfoMojo extends AbstractMojo
      * @readonly
      */
     private File m_basedir;
+    
+    public void setProject(MavenProject project)
+    {
+        m_project = project;
+    }
+    
+    public void setEncoding(String encoding)
+    {
+        m_encoding = encoding;
+    }
+    
+    public void setDateFormat(String dateFormat)
+    {
+        m_dateFormat = dateFormat;
+    }
+    
+    public void setOutputFile(File outputFile)
+    {
+        m_outputFile = outputFile;
+    }
+    
+    public void setBasedir(File basedir)
+    {
+        m_basedir = basedir;
+    }
 
     @Override
     public void execute()

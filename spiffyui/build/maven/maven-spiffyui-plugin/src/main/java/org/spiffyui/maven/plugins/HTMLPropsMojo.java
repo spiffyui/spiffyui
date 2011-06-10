@@ -60,6 +60,11 @@ public class HTMLPropsMojo extends AbstractMojo
      * @required
      */
     private String m_interfaceName;
+    
+    public void setProject(MavenProject project)
+    {
+        m_project = project;
+    }
 
     @Override
     public void execute()

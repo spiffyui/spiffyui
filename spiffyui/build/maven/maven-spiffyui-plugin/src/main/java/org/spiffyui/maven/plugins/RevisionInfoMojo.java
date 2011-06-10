@@ -37,6 +37,16 @@ public class RevisionInfoMojo extends AbstractMojo
      * @readonly
      */
     private File m_basedir;
+    
+    public void setBasedir(File basedir)
+    {
+        m_basedir = basedir;
+    }
+    
+    public void setProject(MavenProject project)
+    {
+        m_project = project;
+    }
 
     @Override
     public void execute()

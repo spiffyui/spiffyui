@@ -82,6 +82,11 @@ public class PackageMojo extends AbstractMojo
      * @required
      */
     private TarArchiver m_archiver;
+    
+    public void setProject(MavenProject project)
+    {
+        m_project = project;
+    }
 
     @Override
     public void execute()
