@@ -179,6 +179,21 @@
 	  </execution>
 	</executions>
       </plugin>
+      <plugin>
+      	<artifactId>maven-checkstyle-plugin</artifactId>
+      	<version>2.6</version>
+      	<executions>
+	  		<execution>
+	  			<phase>prepare-package</phase>
+	    		<goals>
+	      			<goal>checkstyle</goal>
+	    		</goals>
+	  		</execution>
+		</executions>
+		<configuration>
+			<configLocation>config/maven_checks.xml</configLocation>
+		</configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
