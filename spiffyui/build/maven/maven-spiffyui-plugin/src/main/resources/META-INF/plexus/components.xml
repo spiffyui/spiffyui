@@ -16,7 +16,7 @@
 	       org.spiffyui.maven.plugins:maven-spiffyui-plugin:htmlprops</generate-resources>
 	      <process-resources>org.spiffyui.maven.plugins:maven-spiffyui-plugin:css-compress,
 	        net.alchim31.maven:yuicompressor-maven-plugin:jslint,
-	      	org.apache.maven.plugins:maven-resources-plugin:resources</process-resources>
+	      	org.spiffyui.maven.plugins:maven-spiffyui-plugin:resources</process-resources>
 	      <compile>org.spiffyui.maven.plugins:maven-spiffyui-plugin:compile,
 	        org.spiffyui.maven.plugins:maven-spiffyui-plugin:closure</compile>
 	      <process-classes>org.spiffyui.maven.plugins:maven-spiffyui-plugin:gzip</process-classes>
