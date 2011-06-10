@@ -37,25 +37,25 @@ public class ClosureMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    private MavenProject m_project;
+    private MavenProject project;
 
     /**
      * @parameter expression="SIMPLE_OPTIMIZATIONS"
      * @required
      */
-    private String m_compilationLevel;
+    private String compilationLevel;
 
     /**
      * @parameter expression="src/main/js"
      * @required
      */
-    private File m_sourceDirectory;
+    private File sourceDirectory;
 
     /**
      * @parameter expression="${spiffyui.www}/${project.artifactId}.min.js"
      * @required
      */
-    private File m_outputFile;
+    private File outputFile;
 
     @Override
     public void execute()
@@ -65,7 +65,7 @@ public class ClosureMojo extends AbstractMojo
 
         CompilationLevel compLevel = null;
         try {
-            compLevel = CompilationLevel.valueOf(m_compilationLevel);
+            compLevel = CompilationLevel.valueOf(compilationLevel);
         } catch (IllegalArgumentException e) {
             throw new MojoFailureException("Compilation level invalid" + e.getMessage());
         }
@@ -73,13 +73,13 @@ public class ClosureMojo extends AbstractMojo
         CompilerOptions compilerOptions = new CompilerOptions();
         compLevel.setOptionsForCompilationLevel(compilerOptions);
 
-        Properties p = m_project.getProperties();
+        Properties p = project.getProperties();
         File module = new File(p.getProperty("spiffyui.gwt.module.path"));
         List<JSSourceFile> sources = new ArrayList<JSSourceFile>();
 
         /* spiffyui.min.js _must_ be first */
         sources.add(JSSourceFile.fromFile(new File(module, "spiffyui.min.js")));
-        listJSSourceFiles(sources, m_sourceDirectory);
+        listJSSourceFiles(sources, sourceDirectory);
 
         Compiler compiler = new Compiler();
         Result result = compiler.compile(new ArrayList<JSSourceFile>(), sources, compilerOptions);
@@ -97,11 +97,11 @@ public class ClosureMojo extends AbstractMojo
         }
 
         try {
-            Files.createParentDirs(m_outputFile);
-            Files.touch(m_outputFile);
-            Files.write(compiler.toSource(), m_outputFile, Charsets.UTF_8);
+            Files.createParentDirs(outputFile);
+            Files.touch(outputFile);
+            Files.write(compiler.toSource(), outputFile, Charsets.UTF_8);
         } catch (IOException e) {
-            throw new MojoFailureException(m_outputFile != null ? m_outputFile.toString() : e.getMessage());
+            throw new MojoFailureException(outputFile != null ? outputFile.toString() : e.getMessage());
         }
     }
 

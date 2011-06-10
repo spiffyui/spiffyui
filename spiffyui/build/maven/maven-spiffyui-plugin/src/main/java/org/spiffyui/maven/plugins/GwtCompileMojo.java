@@ -33,7 +33,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
     /**
      * @parameter expression="${gwt.compiler.skip}" default-value="false"
      */
-    private boolean m_skip;
+    private boolean skip;
 
     /**
      * Don't try to detect if GWT compilation is up-to-date and can be skipped.
@@ -43,7 +43,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * 
      * @parameter expression="${gwt.compiler.force}" default-value="false"
      */
-    private boolean m_force;
+    private boolean force;
 
     /**
      * On GWT 1.6+, number of parallel processes used to compile GWT
@@ -61,7 +61,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * 
      * @parameter default-value="false"
      */
-    private boolean m_enableAssertions;
+    private boolean enableAssertions;
 
     /**
      * Ask GWT to create the Story of Your Compile (SOYC)
@@ -72,7 +72,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * @parameter expression="${gwt.compiler.soyc}" default-value="false"
      * @deprecated you must use {@link #compileReport} option
      */
-    private boolean m_soyc;
+    private boolean soyc;
 
     /**
      * Artifacts to be included as source-jars in GWTCompiler Classpath. Removes
@@ -86,7 +86,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * 
      * @parameter
      */
-    private String[] m_compileSourcesArtifacts;
+    private String[] compileSourcesArtifacts;
 
     /**
      * Logs output in a graphical tree view.
@@ -96,7 +96,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * 
      * @parameter default-value="false" expression="${gwt.treeLogger}"
      */
-    private boolean m_treeLogger;
+    private boolean treeLogger;
 
     /**
      * EXPERIMENTAL: Disables some java.lang.Class methods (e.g. getName()).
@@ -106,7 +106,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * 
      * @parameter default-value="false" expression="${gwt.disableClassMetadata}"
      */
-    private boolean m_disableClassMetadata;
+    private boolean disableClassMetadata;
 
     /**
      * EXPERIMENTAL: Disables run-time checking of cast operations.
@@ -116,7 +116,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * 
      * @parameter default-value="false" expression="${gwt.disableCastChecking}"
      */
-    private boolean m_disableCastChecking;
+    private boolean disableCastChecking;
 
     /**
      * Validate all source code, but do not compile.
@@ -126,7 +126,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * 
      * @parameter default-value="false" expression="${gwt.validateOnly}"
      */
-    private boolean m_validateOnly;
+    private boolean validateOnly;
 
     /**
      * Enable faster, but less-optimized, compilations.
@@ -136,14 +136,14 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * 
      * @parameter default-value="false" expression="${gwt.draftCompile}"
      */
-    private boolean m_draftCompile;
+    private boolean draftCompile;
 
     /**
      * The directory into which extra, non-deployed files will be written.
      * 
      * @parameter default-value="${project.build.directory}/extra"
      */
-    private File m_extra;
+    private File extra;
 
     /**
      * The temp directory is used for temporary compiled files (defaults is
@@ -151,7 +151,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * 
      * @parameter
      */
-    private File m_workDir;
+    private File workDir;
 
     /**
      * add -extra parameter to the compiler command line
@@ -162,7 +162,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * @parameter default-value="false" expression="${gwt.extraParam}"
      * @since 2.1.0-1
      */
-    private boolean m_extraParam;
+    private boolean extraParam;
 
     /**
      * add -compileReport parameter to the compiler command line
@@ -174,7 +174,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      *            expression="${gwt.compiler.compileReport}"
      * @since 2.1.0-1
      */
-    private boolean m_compileReport;
+    private boolean compileReport;
 
     /**
      * add -optimize parameter to the compiler command line the value must be
@@ -187,7 +187,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      *            expression="${gwt.compiler.optimizationLevel}"
      * @since 2.1.0-1
      */
-    private int m_optimizationLevel;
+    private int optimizationLevel;
 
     /**
      * add -XsoycDetailed parameter to the compiler command line
@@ -199,7 +199,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      *            expression="${gwt.compiler.soycDetailed}"
      * @since 2.1.0-1
      */
-    private boolean m_soycDetailed;
+    private boolean soycDetailed;
 
     /**
      * add -strict parameter to the compiler command line
@@ -210,7 +210,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * @parameter default-value="false" expression="${gwt.compiler.strict}"
      * @since 2.1.0-1
      */
-    private boolean m_strict;
+    private boolean strict;
 
     /**
      * The output directory
@@ -218,189 +218,20 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * @parameter expression="${spiffyui.www}"
      * @required
      */
-    private File m_outputDirectory;
-
-    public void setSoycDetailed(boolean soycDetailed)
-    {
-        m_soycDetailed = soycDetailed;
-    }
-
-    /**
-     * Set the compile report for this mojo
-     * 
-     * @param compileReport
-     *        true if there should be a compile report and false otherwise
-     */
-    public void setCompileReport(boolean compileReport)
-    {
-        m_compileReport = compileReport;
-    }
-
-    /**
-     * Set if we should disable cast checking.
-     * 
-     * @param disableCastChecking
-     *        true if we should disable cast checking and false otherwise
-     */
-    public void setDisableCastChecking(boolean disableCastChecking)
-    {
-        m_disableCastChecking = disableCastChecking;
-    }
-
-    /**
-     * Set if we should disable class meta data.
-     * 
-     * @param disableClassMetadata
-     *        True if we should disable class meta data and false otherwise
-     */
-    public void setDisableClassMetadata(boolean disableClassMetadata)
-    {
-        m_disableClassMetadata = disableClassMetadata;
-    }
-
-    public void setValidateOnly(boolean validateOnly)
-    {
-        m_validateOnly = validateOnly;
-    }
-
-    /**
-     * Set the draft compile flag.
-     * 
-     * @param draftCompile
-     *        true if we we should do a draft compile and false otherwise
-     */
-    public void setDraftCompile(boolean draftCompile)
-    {
-        m_draftCompile = draftCompile;
-    }
-
-    /**
-     * Sets if this compile should enable assertions.
-     * 
-     * @param enableAssertions
-     *        true if we should enable assertions and false otherwise
-     */
-    public void setEnableAssertions(boolean enableAssertions)
-    {
-        m_enableAssertions = enableAssertions;
-    }
-
-    /**
-     * Set the directory into which extra, non-deployed files will be written.
-     * 
-     * @param extra
-     *        the non-deployed files directory
-     */
-    public void setExtra(File extra)
-    {
-        m_extra = extra;
-    }
-
-    /**
-     * Set the -extra parameter to the compiler command line
-     * <p>
-     * Can be set from command line using '-Dgwt.extraParam=true'.
-     * </p>
-     * 
-     * @param extraParam
-     *        true if the -extra parameter should be set and false otherwise
-     */
-    public void setExtraParam(boolean extraParam)
-    {
-        m_extraParam = extraParam;
-    }
-
-    /**
-     * Set if the compiler shouldn't try to detect if GWT compilation is
-     * up-to-date and can be skipped.
-     * <p>
-     * Can be set from command line using '-Dgwt.compiler.force=true'.
-     * </p>
-     * 
-     * @param force
-     *        true if the force flag should be used and false otherwise
-     */
-    public void setForce(boolean force)
-    {
-        m_force = force;
-    }
-
-    public void setSkip(boolean skip)
-    {
-        m_skip = skip;
-    }
-
-    /**
-     * Set if GWT should create the Story of Your Compile (SOYC).
-     * <p>
-     * Can be set from command line using '-Dgwt.compiler.soyc=true'.
-     * </p>
-     * 
-     * @param soyc
-     *        true if a story of your compile should be generated and false
-     *        otherwise
-     */
-    public void setSoyc(boolean soyc)
-    {
-        m_soyc = soyc;
-    }
-
-    /**
-     * Sets if the output should be logged in a graphical tree view.
-     * <p>
-     * Can be set from command line using '-Dgwt.treeLogger=true'.
-     * </p>
-     * 
-     * @param treeLogger
-     *        true if the compiler should use a tree logger and false otherwise
-     */
-    public void setTreeLogger(boolean treeLogger)
-    {
-        m_treeLogger = treeLogger;
-    }
-
-    /**
-     * Sets if the -strict parameter should be used
-     * <p>
-     * Can be set from command line using '-Dgwt.compiler.strict=true'.
-     * </p>
-     * 
-     * @param strict
-     *        true if the strict parameter should be used and false otherwise
-     */
-    public void setStrict(boolean strict)
-    {
-        m_strict = strict;
-    }
-
-    /**
-     * Sets the output directory for this compilation
-     * 
-     * @param outputDirectory
-     *        the output directory
-     */
-    public void setOutputDirectory(File outputDirectory)
-    {
-        m_outputDirectory = outputDirectory;
-    }
-
-    public void setOptimizationLevel(int optimizationLevel)
-    {
-        m_optimizationLevel = optimizationLevel;
-    }
+    private File outputDirectory;
 
     @Override
     public void doExecute()
         throws MojoExecutionException,
             MojoFailureException
     {
-        if (m_skip || "pom".equals(getProject().getPackaging())) {
+        if (skip || "pom".equals(getProject().getPackaging())) {
             getLog().info("GWT compilation is skipped");
             return;
         }
 
-        if (!m_outputDirectory.exists()) {
-            m_outputDirectory.mkdirs();
+        if (!outputDirectory.exists()) {
+            outputDirectory.mkdirs();
         }
 
         String[] modules = getModules();
@@ -412,7 +243,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
             case 1:
                 try {
                     GwtModule module = readModule(modules[0]);
-                    File path = new File(m_outputDirectory, module.getPath());
+                    File path = new File(outputDirectory, module.getPath());
                     Properties p = getProject().getProperties();
                     p.setProperty("spiffyui.gwt.module.name", module.getName());
                     p.setProperty("spiffyui.gwt.module.path", path.getAbsolutePath());
@@ -448,41 +279,41 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
             cmd.withinClasspath(htmlprops);
 
             cmd.arg("-gen", getGen().getAbsolutePath()).arg("-logLevel", getLogLevel()).arg("-style", getStyle())
-                .arg("-war", m_outputDirectory.getAbsolutePath())
+                .arg("-war", outputDirectory.getAbsolutePath())
                 .arg("-localWorkers", String.valueOf(getLocalWorkers()))
                 // optional advanced arguments
-                .arg(m_enableAssertions, "-ea").arg(m_draftCompile, "-draftCompile").arg(m_validateOnly, "-validateOnly")
-                .arg(m_treeLogger, "-treeLogger").arg(m_disableClassMetadata, "-XdisableClassMetadata")
-                .arg(m_disableCastChecking, "-XdisableCastChecking").arg(m_strict, "-strict").arg(m_soycDetailed, "-XsoycDetailed");
+                .arg(enableAssertions, "-ea").arg(draftCompile, "-draftCompile").arg(validateOnly, "-validateOnly")
+                .arg(treeLogger, "-treeLogger").arg(disableClassMetadata, "-XdisableClassMetadata")
+                .arg(disableCastChecking, "-XdisableCastChecking").arg(strict, "-strict").arg(soycDetailed, "-XsoycDetailed");
 
-            if (m_optimizationLevel >= 0) {
-                cmd.arg("-optimize").arg(Integer.toString(m_optimizationLevel));
+            if (optimizationLevel >= 0) {
+                cmd.arg("-optimize").arg(Integer.toString(optimizationLevel));
             }
 
-            if (m_extraParam || m_compileReport || m_soyc) {
+            if (extraParam || compileReport || soyc) {
                 getLog().debug("create extra directory ");
-                if (!m_extra.exists()) {
-                    m_extra.mkdirs();
+                if (!extra.exists()) {
+                    extra.mkdirs();
                 }
-                cmd.arg("-extra").arg(m_extra.getAbsolutePath());
+                cmd.arg("-extra").arg(extra.getAbsolutePath());
             } else {
                 getLog().debug("NOT create extra directory ");
             }
 
-            if (m_compileReport) {
+            if (compileReport) {
                 cmd.arg("-compileReport");
             }
 
             addCompileSourceArtifacts(cmd);
 
-            if (m_workDir != null) {
-                cmd.arg("-workDir").arg(String.valueOf(m_workDir));
+            if (workDir != null) {
+                cmd.arg("-workDir").arg(String.valueOf(workDir));
             }
 
             addSOYC(cmd);
 
             for (String target : modules) {
-                if (!compilationRequired(target, m_outputDirectory)) {
+                if (!compilationRequired(target, outputDirectory)) {
                     continue;
                 }
                 cmd.arg(target);
@@ -510,10 +341,10 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
     private void addCompileSourceArtifacts(JavaCommand cmd)
         throws MojoExecutionException
     {
-        if (m_compileSourcesArtifacts == null) {
+        if (compileSourcesArtifacts == null) {
             return;
         }
-        for (String include : m_compileSourcesArtifacts) {
+        for (String include : compileSourcesArtifacts) {
             List<String> parts = new ArrayList<String>();
             parts.addAll(Arrays.asList(include.split(":")));
             if (parts.size() == 2) {
@@ -541,7 +372,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
 
     private void addSOYC(JavaCommand cmd)
     {
-        if (m_soyc) {
+        if (soyc) {
             getLog().debug("SOYC has been enabled by user, SOYC is deprecated : you must now use compileReport");
             cmd.arg("-soyc");
         } else {
@@ -595,7 +426,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
                 return false;
             }
 
-            if (m_force) {
+            if (force) {
                 return true;
             }
 

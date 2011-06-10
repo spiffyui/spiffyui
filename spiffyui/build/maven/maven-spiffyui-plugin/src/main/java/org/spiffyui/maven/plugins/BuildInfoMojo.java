@@ -34,21 +34,21 @@ public class BuildInfoMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    private MavenProject m_project;
+    private MavenProject project;
     
     /**
      * The character encoding scheme to be applied exporting the JSON document
      *
      * @parameter expression="${encoding}" default-value="UTF-8"
      */
-    private String m_encoding;
+    private String encoding;
     
     /**
      * The character encoding scheme to be applied exporting the JSON document
      *
      * @parameter expression="${dateFormat}" default-value="yyyy.MMMMM.dd hh:mm aaa"
      */
-    private String m_dateFormat;
+    private String dateFormat;
     
     /**
      * Location of the file.
@@ -56,7 +56,7 @@ public class BuildInfoMojo extends AbstractMojo
      * @parameter expression="${spiffyui.www}/build-info.json"
      * @required
      */
-    private File m_outputFile;
+    private File outputFile;
     
     /**
      * The base directory of this project
@@ -65,57 +65,32 @@ public class BuildInfoMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    private File m_basedir;
+    private File basedir;
     
-    public void setProject(MavenProject project)
-    {
-        m_project = project;
-    }
-    
-    public void setEncoding(String encoding)
-    {
-        m_encoding = encoding;
-    }
-    
-    public void setDateFormat(String dateFormat)
-    {
-        m_dateFormat = dateFormat;
-    }
-    
-    public void setOutputFile(File outputFile)
-    {
-        m_outputFile = outputFile;
-    }
-    
-    public void setBasedir(File basedir)
-    {
-        m_basedir = basedir;
-    }
-
     @Override
     public void execute()
         throws MojoExecutionException,
             MojoFailureException
     {
-        Properties p = m_project.getProperties();
+        Properties p = project.getProperties();
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat(m_dateFormat);
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         String date = sdf.format(cal.getTime());
         
-        List<Dependency> depsList = m_project.getDependencies();
+        List<Dependency> depsList = project.getDependencies();
         Map<String, Dependency> deps = new HashMap<String, Dependency>();
         for (Dependency dep : depsList) {
             deps.put(dep.getArtifactId(), dep);
         }
         
         try {
-            File parent = m_outputFile.getParentFile();
+            File parent = outputFile.getParentFile();
             if (!parent.exists()) {
                 FileUtils.forceMkdir(parent);
             }
             
             // Create file
-            PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(m_outputFile), m_encoding));
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(outputFile), encoding));
             
             JSONObject rev = new JSONObject();
             rev.put("number", p.getProperty("revision.number"));
@@ -130,7 +105,7 @@ public class BuildInfoMojo extends AbstractMojo
             info.put("user", System.getProperties().get("user.name"));
             info.put("components", components);
             info.put("revision", rev);
-            info.put("dir", m_basedir.getAbsolutePath());
+            info.put("dir", basedir.getAbsolutePath());
  
             out.write(info.toString());
             // Close the output stream

@@ -27,7 +27,7 @@ public class RevisionInfoMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    private MavenProject m_project;
+    private MavenProject project;
 
     /**
      * The maven project.
@@ -36,27 +36,17 @@ public class RevisionInfoMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    private File m_basedir;
+    private File basedir;
     
-    public void setBasedir(File basedir)
-    {
-        m_basedir = basedir;
-    }
-    
-    public void setProject(MavenProject project)
-    {
-        m_project = project;
-    }
-
     @Override
     public void execute()
         throws MojoExecutionException,
             MojoFailureException
     {
-        Properties p = m_project.getProperties();
+        Properties p = project.getProperties();
 
         try {
-            RevisionInfoBean revInfo = RevisionInfoUtil.getRevisionInfo(m_basedir);
+            RevisionInfoBean revInfo = RevisionInfoUtil.getRevisionInfo(basedir);
 
             getLog().debug("revInfo.getRevNumber(): " + revInfo.getRevNumber());
 

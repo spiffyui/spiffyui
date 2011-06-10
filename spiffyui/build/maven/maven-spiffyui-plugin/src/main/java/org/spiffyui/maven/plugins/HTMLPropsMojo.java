@@ -28,7 +28,7 @@ public class HTMLPropsMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    private MavenProject m_project;
+    private MavenProject project;
 
     /**
      * Location of the file.
@@ -36,7 +36,7 @@ public class HTMLPropsMojo extends AbstractMojo
      * @parameter expression="${project.build.directory}/htmlprops"
      * @required
      */
-    private File m_outputDirectory;
+    private File outputDirectory;
 
     /**
      * The name to give to the generated package
@@ -45,13 +45,13 @@ public class HTMLPropsMojo extends AbstractMojo
      *            expression="${project.groupId}.${project.artifactId}.htmlprops"
      * @required
      */
-    private String m_packageName;
+    private String packageName;
 
     /**
      * @parameter expression="src/main/html"
      * @required
      */
-    private File m_sourceDirectory;
+    private File sourceDirectory;
 
     /**
      * The name to give to the generated interface
@@ -59,13 +59,8 @@ public class HTMLPropsMojo extends AbstractMojo
      * @parameter expression="SpiffyUiHtmlProps"
      * @required
      */
-    private String m_interfaceName;
+    private String interfaceName;
     
-    public void setProject(MavenProject project)
-    {
-        m_project = project;
-    }
-
     @Override
     public void execute()
         throws MojoExecutionException,
@@ -73,8 +68,8 @@ public class HTMLPropsMojo extends AbstractMojo
     {
         Log log = getLog();
 
-        if (!m_sourceDirectory.exists()) {
-            log.debug("HTMLPROPS: " + m_sourceDirectory.getAbsolutePath() + " does not exist.  Skipping");
+        if (!sourceDirectory.exists()) {
+            log.debug("HTMLPROPS: " + sourceDirectory.getAbsolutePath() + " does not exist.  Skipping");
             return;
         }
 
@@ -82,25 +77,25 @@ public class HTMLPropsMojo extends AbstractMojo
          * normalize the packageName string into an java package safe variant
          * (e.g. no dashes)
          */
-        String safePackageName = m_packageName.replace("-", "_");
-        File packageDir = new File(m_outputDirectory, safePackageName.replace(".", File.separator));
+        String safePackageName = packageName.replace("-", "_");
+        File packageDir = new File(outputDirectory, safePackageName.replace(".", File.separator));
         if (!packageDir.exists()) {
             packageDir.mkdirs();
         }
 
-        File outputFile = new File(packageDir, m_interfaceName + ".properties");
+        File outputFile = new File(packageDir, interfaceName + ".properties");
 
-        log.info("HTMLPROPS: Generating " + m_packageName);
+        log.info("HTMLPROPS: Generating " + packageName);
 
         String[] exts = new String[] {
             "html"
         };
-        List<File> files = new ArrayList<File>(FileUtils.listFiles(m_sourceDirectory, exts, true));
+        List<File> files = new ArrayList<File>(FileUtils.listFiles(sourceDirectory, exts, true));
 
         try {
 
-            if (!m_outputDirectory.exists()) {
-                FileUtils.forceMkdir(m_outputDirectory);
+            if (!outputDirectory.exists()) {
+                FileUtils.forceMkdir(outputDirectory);
             }
 
             HTMLPropertiesUtil.generatePropertiesFiles(files, outputFile, safePackageName);
@@ -108,7 +103,7 @@ public class HTMLPropsMojo extends AbstractMojo
             throw new MojoExecutionException(e.getMessage());
         }
 
-        m_project.getProperties().put("spiffyui.htmlprops.path", m_outputDirectory.getAbsolutePath());
+        project.getProperties().put("spiffyui.htmlprops.path", outputDirectory.getAbsolutePath());
 
     }
 

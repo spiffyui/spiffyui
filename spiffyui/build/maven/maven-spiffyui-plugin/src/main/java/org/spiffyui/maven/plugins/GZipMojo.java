@@ -30,7 +30,7 @@ public class GZipMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    private MavenProject m_project;
+    private MavenProject project;
 
     /**
      * Location of the file.
@@ -38,14 +38,14 @@ public class GZipMojo extends AbstractMojo
      * @parameter expression="${spiffyui.www}"
      * @required
      */
-    private File m_directory;
+    private File directory;
 
     @Override
     public void execute()
         throws MojoExecutionException,
             MojoFailureException
     {
-        Properties p = m_project.getProperties();
+        Properties p = project.getProperties();
         File module = new File(p.getProperty("spiffyui.gwt.module.path"));
         File images = new File(module, "images");
         String[] baseExts = {
@@ -55,7 +55,7 @@ public class GZipMojo extends AbstractMojo
             "html", "css", "png", "gif", "js"
         };
 
-        gzip(m_directory, baseExts);
+        gzip(directory, baseExts);
         gzip(module, allExts);
         gzip(images, allExts);
     }

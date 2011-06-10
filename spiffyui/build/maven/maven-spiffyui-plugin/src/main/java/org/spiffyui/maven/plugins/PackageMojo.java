@@ -40,7 +40,7 @@ public class PackageMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    private MavenProject m_project;
+    private MavenProject project;
 
     /**
      * The directory to archive
@@ -49,7 +49,7 @@ public class PackageMojo extends AbstractMojo
      *            expression="${spiffyui.www}"
      * @required
      */
-    private File m_directory;
+    private File directory;
 
     /**
      * Location of the file.
@@ -57,7 +57,7 @@ public class PackageMojo extends AbstractMojo
      * @parameter expression="${project.build.directory}"
      * @required
      */
-    private File m_outputDirectory;
+    private File outputDirectory;
 
     /**
      * Name of archive
@@ -65,14 +65,14 @@ public class PackageMojo extends AbstractMojo
      * @parameter expression="${project.build.finalName}.spiffyui"
      * @required
      */
-    private String m_archiveName;
+    private String archiveName;
 
     /**
      * Whether creating the archives should be forced.
      * 
      * @parameter expression="${spiffyui.forceCreation}" default-value="false"
      */
-    private boolean m_forceCreation;
+    private boolean forceCreation;
 
     /**
      * The archiver.
@@ -81,42 +81,37 @@ public class PackageMojo extends AbstractMojo
      *            expression="${component.org.codehaus.plexus.archiver.Archiver#tar}"
      * @required
      */
-    private TarArchiver m_archiver;
+    private TarArchiver archiver;
     
-    public void setProject(MavenProject project)
-    {
-        m_project = project;
-    }
-
     @Override
     public void execute()
         throws MojoExecutionException
     {
         validateDirectory();
 
-        File f = m_outputDirectory;
+        File f = outputDirectory;
 
         if (!f.exists()) {
             f.mkdirs();
         }
 
-        File archive = new File(f, m_archiveName);
+        File archive = new File(f, archiveName);
 
         try {
             TarCompressionMethod method = new TarCompressionMethod();
 
             method.setValue("bzip2");
 
-            m_archiver.setCompression(method);
-            m_archiver.setForced(m_forceCreation);
-            m_archiver.setDestFile(archive);
-            m_archiver.addDirectory(m_directory);
-            m_archiver.createArchive();
+            archiver.setCompression(method);
+            archiver.setForced(forceCreation);
+            archiver.setDestFile(archive);
+            archiver.addDirectory(directory);
+            archiver.createArchive();
         } catch (Exception e) {
             throw new MojoExecutionException("Archive creation exception " + e.getMessage());
         }
 
-        m_project.getArtifact().setFile(archive);
+        project.getArtifact().setFile(archive);
     }
 
     /**
@@ -126,17 +121,17 @@ public class PackageMojo extends AbstractMojo
     private void validateDirectory()
         throws MojoExecutionException
     {
-        if (m_directory == null) {
+        if (directory == null) {
             throw new IllegalArgumentException("Directory should not be null.");
         }
-        if (!m_directory.exists()) {
-            throw new MojoExecutionException("Directory does not exist: " + m_directory);
+        if (!directory.exists()) {
+            throw new MojoExecutionException("Directory does not exist: " + directory);
         }
-        if (!m_directory.isDirectory()) {
-            throw new IllegalArgumentException("Is not a directory: " + m_directory);
+        if (!directory.isDirectory()) {
+            throw new IllegalArgumentException("Is not a directory: " + directory);
         }
-        if (!m_directory.canRead()) {
-            throw new IllegalArgumentException("Directory cannot be read: " + m_directory);
+        if (!directory.canRead()) {
+            throw new IllegalArgumentException("Directory cannot be read: " + directory);
         }
     }
 

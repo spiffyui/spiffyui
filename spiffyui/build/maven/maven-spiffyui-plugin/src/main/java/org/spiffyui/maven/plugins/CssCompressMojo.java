@@ -30,7 +30,7 @@ public class CssCompressMojo extends AbstractMojo
      * 
      * @parameter expression="${encoding}" default-value="UTF-8"
      */
-    private String m_encoding;
+    private String encoding;
 
     /**
      * The output filename suffix.
@@ -38,7 +38,7 @@ public class CssCompressMojo extends AbstractMojo
      * @parameter expression="${spiffyui.yuicompressor.suffix}"
      *            default-value="-min"
      */
-    private String m_suffix;
+    private String suffix;
 
     /**
      * Insert line breaks in output after the specified column number.
@@ -46,18 +46,18 @@ public class CssCompressMojo extends AbstractMojo
      * @parameter expression="${spiffyui.yuicompressor.linebreakpos}"
      *            default-value="0"
      */
-    private int m_linebreakpos;
+    private int linebreakpos;
 
     /**
      * @parameter expression="src/main/resources"
      */
-    private File m_sourceDirectory;
+    private File sourceDirectory;
 
     /**
      * @parameter expression="${spiffyui.www}"
      * @required
      */
-    private File m_outputDirectory;
+    private File outputDirectory;
 
     @Override
     public void execute()
@@ -68,7 +68,7 @@ public class CssCompressMojo extends AbstractMojo
         String[] exts = new String[] {
             "css"
         };
-        Collection<File> files = FileUtils.listFiles(m_sourceDirectory, exts, true);
+        Collection<File> files = FileUtils.listFiles(sourceDirectory, exts, true);
 
         try {
             for (File file : files) {
@@ -82,16 +82,16 @@ public class CssCompressMojo extends AbstractMojo
     private void compress(File inFile)
         throws Exception
     {
-        String shortname = inFile.getAbsolutePath().substring(m_sourceDirectory.getAbsolutePath().length());
-        SourceFile srcFile = new SourceFile(m_sourceDirectory, m_outputDirectory, shortname, false);
-        File outFile = srcFile.toDestFile(m_suffix);
+        String shortname = inFile.getAbsolutePath().substring(sourceDirectory.getAbsolutePath().length());
+        SourceFile srcFile = new SourceFile(sourceDirectory, outputDirectory, shortname, false);
+        File outFile = srcFile.toDestFile(suffix);
 
         InputStreamReader in = null;
         OutputStreamWriter out = null;
 
         try {
-            in = new InputStreamReader(new FileInputStream(inFile), m_encoding);
-            out = new OutputStreamWriter(new FileOutputStream(outFile), m_encoding);
+            in = new InputStreamReader(new FileInputStream(inFile), encoding);
+            out = new OutputStreamWriter(new FileOutputStream(outFile), encoding);
 
             if (!outFile.getParentFile().exists() && !outFile.getParentFile().mkdirs()) {
                 throw new MojoExecutionException("Cannot create resource output directory: " + outFile.getParentFile());
@@ -101,7 +101,7 @@ public class CssCompressMojo extends AbstractMojo
 
             try {
                 CssCompressor compressor = new CssCompressor(in);
-                compressor.compress(out, m_linebreakpos);
+                compressor.compress(out, linebreakpos);
             } catch (IllegalArgumentException e) {
                 throw new IllegalArgumentException(
                     "Unexpected characters found in CSS file. Ensure that the CSS file does not contain '$', and try again", e);

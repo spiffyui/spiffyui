@@ -24,14 +24,14 @@ public class InitializeMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    private MavenProject m_project;
+    private MavenProject project;
 
     /**
      * @parameter expression="${project.build.directory}"
      * @required
      * @readonly
      */
-    private File m_buildDirectory;
+    private File buildDirectory;
 
     private static final String ATTR_WWW = "spiffyui.www";
 
@@ -40,10 +40,10 @@ public class InitializeMojo extends AbstractMojo
         throws MojoExecutionException,
             MojoFailureException
     {
-        Properties p = m_project.getProperties();
+        Properties p = project.getProperties();
 
         if (!p.containsKey(ATTR_WWW)) {
-            File path = new File(m_buildDirectory, "www");
+            File path = new File(buildDirectory, "www");
             p.setProperty(ATTR_WWW, path.getAbsolutePath());
         }
     }
