@@ -25,9 +25,6 @@
   </dependencies>
 
   <build>
-    <!-- Generate compiled stuff in the folder used for developing mode -->
-    <outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
-
     <plugins>
       <plugin>
 	<groupId>org.spiffyui.maven.plugins</groupId>

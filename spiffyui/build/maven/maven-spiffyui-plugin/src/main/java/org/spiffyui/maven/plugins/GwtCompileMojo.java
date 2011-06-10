@@ -203,7 +203,16 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * @parameter default-value="false" expression="${gwt.compiler.strict}"
      * @since 2.1.0-1
      */    
-    private boolean strict;     
+    private boolean strict;
+    
+    /**
+     * The output directory
+     * 
+     * @parameter expression="${spiffyui.www}"
+     * @required
+     */
+    private File outputDirectory;
+
 
     public void doExecute( )
         throws MojoExecutionException, MojoFailureException
@@ -214,9 +223,9 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
             return;
         }
 
-        if ( !this.getOutputDirectory().exists() )
+        if ( !this.outputDirectory.exists() )
         {
-            this.getOutputDirectory().mkdirs();
+            this.outputDirectory.mkdirs();
         }
         
         String[] modules = this.getModules();
@@ -228,7 +237,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
             case 1:
                 try {
                     GwtModule module = readModule(modules[0]);
-                    File path = new File(getOutputDirectory(), module.getPath()); 
+                    File path = new File(outputDirectory, module.getPath()); 
                     Properties p = getProject().getProperties();
                     p.setProperty("spiffyui.gwt.module.name", module.getName());
                     p.setProperty("spiffyui.gwt.module.path", path.getAbsolutePath());
@@ -270,7 +279,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
             cmd.arg( "-gen", getGen().getAbsolutePath() )
                 .arg( "-logLevel", getLogLevel() )
                 .arg( "-style", getStyle() )
-                .arg( "-war", getOutputDirectory().getAbsolutePath() )
+                .arg( "-war", outputDirectory.getAbsolutePath() )
                 .arg( "-localWorkers", String.valueOf( getLocalWorkers() ) )
                 // optional advanced arguments
                 .arg( enableAssertions, "-ea" ).arg( draftCompile, "-draftCompile" )
@@ -314,7 +323,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
 
             for ( String target : modules )
             {
-                if ( !compilationRequired( target, getOutputDirectory() ) )
+                if ( !compilationRequired( target, outputDirectory ) )
                 {
                     continue;
                 }

@@ -35,7 +35,7 @@ public class GZipMojo extends AbstractMojo
     /**
      * Location of the file.
      * 
-     * @parameter expression="${project.build.outputDirectory}"
+     * @parameter expression="${spiffyui.www}"
      * @required
      */
     private File m_directory;

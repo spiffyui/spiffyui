@@ -53,7 +53,7 @@ public class BuildInfoMojo extends AbstractMojo
     /**
      * Location of the file.
      * 
-     * @parameter expression="${project.build.outputDirectory}/build-info.json"
+     * @parameter expression="${spiffyui.www}/build-info.json"
      * @required
      */
     private File m_outputFile;

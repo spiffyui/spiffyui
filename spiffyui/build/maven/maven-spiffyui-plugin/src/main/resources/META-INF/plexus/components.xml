@@ -10,10 +10,11 @@
 	  <lifecycle>
 	    <id>default</id>
 	    <phases>
-	      <initialize>org.spiffyui.maven.plugins:maven-spiffyui-plugin:rev-info</initialize>
+	      <initialize>org.spiffyui.maven.plugins:maven-spiffyui-plugin:rev-info,
+	       org.spiffyui.maven.plugins:maven-spiffyui-plugin:initialize</initialize>
 	      <generate-resources>org.spiffyui.maven.plugins:maven-spiffyui-plugin:build-info,
 	       org.spiffyui.maven.plugins:maven-spiffyui-plugin:htmlprops</generate-resources>
-	      <process-resources>net.alchim31.maven:yuicompressor-maven-plugin:compress,
+	      <process-resources>org.spiffyui.maven.plugins:maven-spiffyui-plugin:css-compress,
 	        net.alchim31.maven:yuicompressor-maven-plugin:jslint,
 	      	org.apache.maven.plugins:maven-resources-plugin:resources</process-resources>
 	      <compile>org.spiffyui.maven.plugins:maven-spiffyui-plugin:compile,

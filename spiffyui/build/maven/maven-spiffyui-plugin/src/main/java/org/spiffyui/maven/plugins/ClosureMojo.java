@@ -52,8 +52,7 @@ public class ClosureMojo extends AbstractMojo
     private File m_sourceDirectory;
 
     /**
-     * @parameter expression=
-     *            "${project.build.directory}/${project.build.finalName}/${project.artifactId}.min.js"
+     * @parameter expression="${spiffyui.www}/${project.artifactId}.min.js"
      * @required
      */
     private File m_outputFile;
