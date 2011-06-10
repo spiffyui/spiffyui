@@ -47,14 +47,14 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
 
     /**
      * On GWT 1.6+, number of parallel processes used to compile GWT
-     * premutations. Defaults to platform available processors number.
+     * permutations. Defaults to platform available processors number.
      * <p>
      * Can be unset from command line using '-Dgwt.compiler.localWorkers=n'.
      * </p>
      * 
      * @parameter expression="${gwt.compiler.localWorkers}"
      */
-    private int m_localWorkers;
+    private int localWorkers;
 
     /**
      * Whether or not to enable assertions in generated scripts (-ea).
@@ -219,170 +219,174 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * @required
      */
     private File m_outputDirectory;
-    
+
+    public void setSoycDetailed(boolean soycDetailed)
+    {
+        m_soycDetailed = soycDetailed;
+    }
+
     /**
      * Set the compile report for this mojo
      * 
      * @param compileReport
-     *               true if there should be a compile report and false otherwise
+     *        true if there should be a compile report and false otherwise
      */
-    public void setCompileReport(boolean compileReport) 
+    public void setCompileReport(boolean compileReport)
     {
         m_compileReport = compileReport;
     }
-    
+
     /**
      * Set if we should disable cast checking.
      * 
      * @param disableCastChecking
-     *               true if we should disable cast checking and false otherwise
+     *        true if we should disable cast checking and false otherwise
      */
-    public void setDisableCastChecking(boolean disableCastChecking) 
+    public void setDisableCastChecking(boolean disableCastChecking)
     {
         m_disableCastChecking = disableCastChecking;
     }
-    
+
     /**
      * Set if we should disable class meta data.
      * 
      * @param disableClassMetadata
-     *               True if we should disable class meta data and false otherwise
+     *        True if we should disable class meta data and false otherwise
      */
     public void setDisableClassMetadata(boolean disableClassMetadata)
     {
         m_disableClassMetadata = disableClassMetadata;
     }
-    
+
+    public void setValidateOnly(boolean validateOnly)
+    {
+        m_validateOnly = validateOnly;
+    }
+
     /**
      * Set the draft compile flag.
      * 
      * @param draftCompile
-     *               true if we we should do a draft compile and false otherwise
+     *        true if we we should do a draft compile and false otherwise
      */
     public void setDraftCompile(boolean draftCompile)
     {
         m_draftCompile = draftCompile;
     }
-    
+
     /**
      * Sets if this compile should enable assertions.
      * 
      * @param enableAssertions
-     *               true if we should enable assertions and false otherwise
+     *        true if we should enable assertions and false otherwise
      */
     public void setEnableAssertions(boolean enableAssertions)
     {
         m_enableAssertions = enableAssertions;
     }
-    
+
     /**
      * Set the directory into which extra, non-deployed files will be written.
      * 
-     * @param extra  the non-deployed files directory
+     * @param extra
+     *        the non-deployed files directory
      */
     public void setExtra(File extra)
     {
         m_extra = extra;
     }
-    
+
     /**
-     * Set the  -extra parameter to the compiler command line
+     * Set the -extra parameter to the compiler command line
      * <p>
      * Can be set from command line using '-Dgwt.extraParam=true'.
      * </p>
      * 
-     * @param extraParam true if the -extra parameter should be set and false otherwise
+     * @param extraParam
+     *        true if the -extra parameter should be set and false otherwise
      */
     public void setExtraParam(boolean extraParam)
     {
         m_extraParam = extraParam;
     }
-    
+
     /**
-     * Set if the compiler shouldn't try to detect if GWT compilation is up-to-date and can be skipped.
-     * 
+     * Set if the compiler shouldn't try to detect if GWT compilation is
+     * up-to-date and can be skipped.
      * <p>
      * Can be set from command line using '-Dgwt.compiler.force=true'.
      * </p>
      * 
-     * @param force  true if the force flag should be used and false otherwise
+     * @param force
+     *        true if the force flag should be used and false otherwise
      */
     public void setForce(boolean force)
     {
         m_force = force;
     }
-    
-    /**
-     * On GWT 1.6+, sets the number of parallel processes used to compile GWT premutations. Defaults to platform available processors number.
-     * 
-     * <p>
-     * Can be unset from command line using '-Dgwt.compiler.localWorkers=n'.
-     * </p>
-     * 
-     * @param localWorkers
-     *               the number of local workers
-     */
-    public void setLocalWorkers(int localWorkers)
-    {
-        m_localWorkers = localWorkers;
-    }
-    
+
     public void setSkip(boolean skip)
     {
         m_skip = skip;
     }
-    
+
     /**
      * Set if GWT should create the Story of Your Compile (SOYC).
-     * 
      * <p>
      * Can be set from command line using '-Dgwt.compiler.soyc=true'.
      * </p>
      * 
-     * @param soyc   true if a story of your compile should be generated and false otherwise
+     * @param soyc
+     *        true if a story of your compile should be generated and false
+     *        otherwise
      */
     public void setSoyc(boolean soyc)
     {
         m_soyc = soyc;
     }
-    
+
     /**
      * Sets if the output should be logged in a graphical tree view.
-     * 
      * <p>
      * Can be set from command line using '-Dgwt.treeLogger=true'.
      * </p>
      * 
-     * @param treeLogger true if the compiler should use a tree logger and false otherwise
+     * @param treeLogger
+     *        true if the compiler should use a tree logger and false otherwise
      */
     public void setTreeLogger(boolean treeLogger)
     {
         m_treeLogger = treeLogger;
     }
-    
+
     /**
      * Sets if the -strict parameter should be used
-     * 
      * <p>
      * Can be set from command line using '-Dgwt.compiler.strict=true'.
      * </p>
      * 
-     * @param strict true if the strict parameter should be used and false otherwise
+     * @param strict
+     *        true if the strict parameter should be used and false otherwise
      */
     public void setStrict(boolean strict)
     {
         m_strict = strict;
     }
-    
+
     /**
      * Sets the output directory for this compilation
      * 
      * @param outputDirectory
-     *               the output directory
+     *        the output directory
      */
     public void setOutputDirectory(File outputDirectory)
     {
         m_outputDirectory = outputDirectory;
+    }
+
+    public void setOptimizationLevel(int optimizationLevel)
+    {
+        m_optimizationLevel = optimizationLevel;
     }
 
     @Override
@@ -447,9 +451,9 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
                 .arg("-war", m_outputDirectory.getAbsolutePath())
                 .arg("-localWorkers", String.valueOf(getLocalWorkers()))
                 // optional advanced arguments
-                .arg(m_enableAssertions, "-ea").arg(m_draftCompile, "-draftCompile").arg(m_validateOnly, "-validateOnly").arg(m_treeLogger, "-treeLogger")
-                .arg(m_disableClassMetadata, "-XdisableClassMetadata").arg(m_disableCastChecking, "-XdisableCastChecking").arg(m_strict, "-strict")
-                .arg(m_soycDetailed, "-XsoycDetailed");
+                .arg(m_enableAssertions, "-ea").arg(m_draftCompile, "-draftCompile").arg(m_validateOnly, "-validateOnly")
+                .arg(m_treeLogger, "-treeLogger").arg(m_disableClassMetadata, "-XdisableClassMetadata")
+                .arg(m_disableCastChecking, "-XdisableCastChecking").arg(m_strict, "-strict").arg(m_soycDetailed, "-XsoycDetailed");
 
             if (m_optimizationLevel >= 0) {
                 cmd.arg("-optimize").arg(Integer.toString(m_optimizationLevel));
@@ -547,8 +551,8 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
 
     private int getLocalWorkers()
     {
-        if (m_localWorkers > 0) {
-            return m_localWorkers;
+        if (localWorkers > 0) {
+            return localWorkers;
         }
         // workaround to GWT issue 4031 whith IBM JDK
         // @see
