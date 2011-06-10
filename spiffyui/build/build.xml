@@ -96,7 +96,7 @@
             <formatter type="plain"/>
             <formatter type="xml" toFile="checkstyle_errors.xml"/>
 
-            <fileset dir="${spiffy.root}/src" excludes="${checkstyle.ignore.files},**/*Rsrc*,**/*Strings.java,**/target/**" includes="**/*.java" />
+            <fileset dir="${spiffy.root}" excludes="${checkstyle.ignore.files},**/*Rsrc*,**/*Strings.java,**/target/**" includes="**/*.java" />
             <!-- Specify a base dir to make the output a bit more readable -->
             <property key="checkstyle.basedir" value="${spiffy.root}" />
             
