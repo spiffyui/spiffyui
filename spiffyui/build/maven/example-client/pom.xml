@@ -6,7 +6,7 @@
   <groupId>org.spiffyui.maven.examples.client</groupId>
   <artifactId>spiffyui-maven-demo</artifactId>
   <version>0.1-SNAPSHOT</version>
-  <packaging>spiffyui</packaging>
+  <packaging>spiffyui-client</packaging>
   <name>Example SpiffyUI Client</name>
 
   <properties>
