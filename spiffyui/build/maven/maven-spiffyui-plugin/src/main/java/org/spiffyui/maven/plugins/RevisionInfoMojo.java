@@ -12,12 +12,10 @@ import org.apache.tools.ant.BuildException;
 import org.spiffyui.build.RevisionInfoBean;
 import org.spiffyui.build.RevisionInfoUtil;
 
-
 /**
  * Goal which determines various revision details about the build
  * 
  * @goal rev-info
- * 
  * @phase initialize
  */
 public class RevisionInfoMojo extends AbstractMojo
@@ -29,7 +27,7 @@ public class RevisionInfoMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    protected MavenProject project;
+    private MavenProject m_project;
 
     /**
      * The maven project.
@@ -38,20 +36,20 @@ public class RevisionInfoMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    protected File basedir;
+    private File m_basedir;
 
     @Override
     public void execute()
         throws MojoExecutionException,
             MojoFailureException
     {
-        Properties p = project.getProperties();
-        
+        Properties p = m_project.getProperties();
+
         try {
-            RevisionInfoBean revInfo = RevisionInfoUtil.getRevisionInfo(basedir);
-            
+            RevisionInfoBean revInfo = RevisionInfoUtil.getRevisionInfo(m_basedir);
+
             getLog().debug("revInfo.getRevNumber(): " + revInfo.getRevNumber());
-            
+
             p.setProperty("revision.number", revInfo.getRevNumber());
             p.setProperty("revision.date", revInfo.getRevDate());
         } catch (IOException ioe) {

@@ -25,6 +25,10 @@
         <ivy:settings file="${spiffy.build}/ivysettings.xml" />
     </target>
     
+    <target name="clearcache" description="Clear the Apache Ivy cache" depends="setup,ivySettings" unless="build.from.maven">
+        <ivy:cleancache />
+    </target>
+    
     <target name="setup" unless="spiffy.hasSetup">
         <property environment="env"/>
         <property name="spiffy.hasSetup" value="true" />
@@ -92,7 +96,7 @@
             <formatter type="plain"/>
             <formatter type="xml" toFile="checkstyle_errors.xml"/>
 
-            <fileset dir="src" excludes="${checkstyle.ignore.files},**/*Rsrc*,**/*Strings.java" includes="**/*.java" />
+            <fileset dir="${spiffy.root}/src" excludes="${checkstyle.ignore.files},**/*Rsrc*,**/*Strings.java,**/target/**" includes="**/*.java" />
             <!-- Specify a base dir to make the output a bit more readable -->
             <property key="checkstyle.basedir" value="${spiffy.root}" />
             

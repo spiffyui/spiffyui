@@ -33,7 +33,7 @@ import java.util.Properties;
 /**
  * This is generic task for generating HTML properties files
  */
-public class HTMLPropertiesUtil
+public final class HTMLPropertiesUtil
 {
     private HTMLPropertiesUtil()
     {
@@ -129,8 +129,12 @@ public class HTMLPropertiesUtil
      * @param files  the source files
      * @param destinationFile
      *               the destination properties file
+     * @param packageName
+     *               the name of the package for the Java file.  If the package
+     *               isn't specified the Java file won't be generated.
      * 
-     * @exception IOException
+     * @throws IOException
+     *                if there is an error writing the file
      */
     public static void generatePropertiesFiles(final List<File> files, final File destinationFile, final String packageName)
         throws IOException
@@ -240,7 +244,7 @@ public class HTMLPropertiesUtil
      * @param packageName
      *                the package name of the Java file
      * 
-     * @exception IOException
+     * @throws IOException if there is an exception writing the file
      */
     private static void generateJavaFile(final List<String> methods, final File destinationFile, final String packageName)
         throws IOException

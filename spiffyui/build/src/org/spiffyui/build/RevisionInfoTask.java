@@ -15,30 +15,11 @@
  ******************************************************************************/
 package org.spiffyui.build;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Iterator;
-import java.util.Properties;
-import java.util.zip.GZIPOutputStream;
 
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
-import org.apache.tools.ant.types.FileList;
-import org.apache.tools.ant.types.FileSet;
-import org.apache.tools.ant.types.ResourceCollection;
-import org.apache.tools.ant.types.resources.FileResource;
-import org.apache.tools.ant.types.resources.Resources;
-import org.apache.tools.ant.types.resources.Restrict;
-import org.apache.tools.ant.types.resources.selectors.Exists;
-import org.apache.tools.ant.types.resources.selectors.Not;
-import org.apache.tools.ant.types.resources.selectors.ResourceSelector;
-import org.apache.tools.ant.util.FileUtils;
 
 
 /**

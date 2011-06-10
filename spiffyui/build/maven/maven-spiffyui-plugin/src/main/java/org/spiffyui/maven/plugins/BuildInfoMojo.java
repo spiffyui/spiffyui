@@ -34,21 +34,21 @@ public class BuildInfoMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    protected MavenProject project;
+    private MavenProject m_project;
     
     /**
      * The character encoding scheme to be applied exporting the JSON document
      *
      * @parameter expression="${encoding}" default-value="UTF-8"
      */
-    protected String encoding;
+    private String m_encoding;
     
     /**
      * The character encoding scheme to be applied exporting the JSON document
      *
      * @parameter expression="${dateFormat}" default-value="yyyy.MMMMM.dd hh:mm aaa"
      */
-    protected String dateFormat;
+    private String m_dateFormat;
     
     /**
      * Location of the file.
@@ -56,7 +56,7 @@ public class BuildInfoMojo extends AbstractMojo
      * @parameter expression="${project.build.outputDirectory}/build-info.json"
      * @required
      */
-    private File outputFile;
+    private File m_outputFile;
     
     /**
      * The base directory of this project
@@ -65,30 +65,32 @@ public class BuildInfoMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    protected File basedir;
+    private File m_basedir;
 
     @Override
     public void execute()
         throws MojoExecutionException,
             MojoFailureException
     {
-        Properties p = project.getProperties();
+        Properties p = m_project.getProperties();
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+        SimpleDateFormat sdf = new SimpleDateFormat(m_dateFormat);
         String date = sdf.format(cal.getTime());
         
-        List<Dependency> _deps = project.getDependencies();
+        List<Dependency> depsList = m_project.getDependencies();
         Map<String, Dependency> deps = new HashMap<String, Dependency>();
-        for(Dependency dep : _deps)
+        for (Dependency dep : depsList) {
             deps.put(dep.getArtifactId(), dep);
+        }
         
         try {
-            File parent = outputFile.getParentFile();
-            if (!parent.exists())
+            File parent = m_outputFile.getParentFile();
+            if (!parent.exists()) {
                 FileUtils.forceMkdir(parent);
+            }
             
             // Create file
-            PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(outputFile), encoding));
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(m_outputFile), m_encoding));
             
             JSONObject rev = new JSONObject();
             rev.put("number", p.getProperty("revision.number"));
@@ -103,12 +105,12 @@ public class BuildInfoMojo extends AbstractMojo
             info.put("user", System.getProperties().get("user.name"));
             info.put("components", components);
             info.put("revision", rev);
-            info.put("dir", basedir.getAbsolutePath());
+            info.put("dir", m_basedir.getAbsolutePath());
  
             out.write(info.toString());
             // Close the output stream
             out.close();
-        } catch (Exception e) {// Catch exception if any
+        } catch (Exception e) { // Catch exception if any
             throw new MojoExecutionException(e.getMessage());
         }
 

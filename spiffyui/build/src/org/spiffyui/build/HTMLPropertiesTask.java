@@ -98,7 +98,7 @@ public class HTMLPropertiesTask extends Task
      * Specify the package name for the generated Java file.  If this field 
      * isn't specified then this task will only generate the properties file 
      * 
-     * @param packagename The package name for the generated Java file
+     * @param packageName The package name for the generated Java file
      */
     public void setPackage(String packageName)
     {

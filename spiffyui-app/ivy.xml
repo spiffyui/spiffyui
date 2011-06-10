@@ -15,17 +15,9 @@
         <dependency org="com.google.gwt" name="gwt-user" rev="2.3.0"/>
         <dependency org="com.google.gwt" name="gwt-dev" rev="2.3.0"/>
         
-        <!-- These dependencies are for Checkstyle -->
-        <dependency org="com.google.collections" name="google-collections" rev="0.9"/>
-        <dependency org="antlr" name="antlr" rev="2.7.6"/>
-        <dependency org="commons-logging" name="commons-logging" rev="1.1.1"/>
-        <dependency org="commons-beanutils" name="commons-beanutils-core" rev="1.7.0"/>
-        <dependency org="commons-cli" name="commons-cli" rev="1.0"/>
-        <dependency org="commons-codec" name="commons-codec" rev="1.4"/>
-        <dependency org="checkstyle" name="checkstyle" rev="5.0"/>
-
         <!-- We don't really need Jetty to build, but we use it to
              run the Jetty server in process. -->
+        <dependency org="commons-logging" name="commons-logging" rev="1.1.1"/>
         <dependency org="jetty" name="org.mortbay.jetty" rev="5.1.12"/>
         <dependency org="org.mortbay.jetty" name="jetty-ant" rev="6.1.25"/>
     </dependencies>

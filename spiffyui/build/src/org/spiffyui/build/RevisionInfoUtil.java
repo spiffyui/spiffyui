@@ -39,8 +39,9 @@ public class RevisionInfoUtil
      * @param rootDir the root to get revision information from
      * 
      * @return the revision info bean with revision information about this directory.
-     * @exception InterruptedException
-     * @exception IOException
+     *  
+     * @throws InterruptedException if there is an error waiting for the output of the version control commands
+     * @throws IOException if there is an error reading the output from the version control commands
      */
     public static RevisionInfoBean getRevisionInfo(final File rootDir)
         throws InterruptedException, IOException
@@ -66,16 +67,19 @@ public class RevisionInfoUtil
         private Process m_p;
         private boolean m_finished = false;
     
-        public ProcessWatcher(Process p) {
+        public ProcessWatcher(Process p)
+        {
             m_p = p;
             new Thread(this).start();
         }
     
-        public boolean isFinished() {
+        public boolean isFinished()
+        {
             return m_finished;
         }
     
-        public void run() {
+        public void run()
+        {
             try {
                 m_p.waitFor();
             } catch (Exception e) {

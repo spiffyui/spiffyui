@@ -28,7 +28,7 @@ import java.util.zip.GZIPOutputStream;
 /**
  * This is a utility for GZIPing lists of files
  */
-public class GzipListUtil
+public final class GzipListUtil
 {
     private GzipListUtil()
     {
@@ -41,8 +41,11 @@ public class GzipListUtil
      * GZIP the specified list of files.
      * 
      * @param files  the files to GZIP.  Each file is GZIPed separately with the same file name and a .gz extension.
+     * @param destinationDir
+     *               the destination directory to write the list of zipped files
      * 
-     * @exception IOException
+     * @throws IOException
+     *                if there is a problem creating the zip files
      */
     public static void zipFileList(List<File> files, File destinationDir)
         throws IOException 

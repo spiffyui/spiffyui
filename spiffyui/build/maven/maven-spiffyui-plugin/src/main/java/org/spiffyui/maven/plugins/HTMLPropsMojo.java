@@ -28,29 +28,30 @@ public class HTMLPropsMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    protected MavenProject project;
-        
+    private MavenProject m_project;
+
     /**
      * Location of the file.
      * 
      * @parameter expression="${project.build.directory}/htmlprops"
      * @required
      */
-    private File outputDirectory;
+    private File m_outputDirectory;
 
     /**
      * The name to give to the generated package
      * 
-     * @parameter expression="${project.groupId}.${project.artifactId}.htmlprops"
+     * @parameter 
+     *            expression="${project.groupId}.${project.artifactId}.htmlprops"
      * @required
      */
-    private String packageName;
-    
+    private String m_packageName;
+
     /**
      * @parameter expression="src/main/html"
      * @required
      */
-    private File sourceDirectory;
+    private File m_sourceDirectory;
 
     /**
      * The name to give to the generated interface
@@ -58,7 +59,7 @@ public class HTMLPropsMojo extends AbstractMojo
      * @parameter expression="SpiffyUiHtmlProps"
      * @required
      */
-    private String interfaceName;
+    private String m_interfaceName;
 
     @Override
     public void execute()
@@ -66,37 +67,43 @@ public class HTMLPropsMojo extends AbstractMojo
             MojoFailureException
     {
         Log log = getLog();
-        
-        if (!sourceDirectory.exists()) {
-            log.debug("HTMLPROPS: " +
-                  sourceDirectory.getAbsolutePath() + " does not exist.  Skipping");
+
+        if (!m_sourceDirectory.exists()) {
+            log.debug("HTMLPROPS: " + m_sourceDirectory.getAbsolutePath() + " does not exist.  Skipping");
             return;
         }
-        
-        /* normalize the packageName string into an java package safe variant (e.g. no dashes) */
-        String safePackageName = packageName.replace("-", "_");
-        File packageDir = new File(outputDirectory, safePackageName.replace(".", File.separator));
-        if (!packageDir.exists())
+
+        /*
+         * normalize the packageName string into an java package safe variant
+         * (e.g. no dashes)
+         */
+        String safePackageName = m_packageName.replace("-", "_");
+        File packageDir = new File(m_outputDirectory, safePackageName.replace(".", File.separator));
+        if (!packageDir.exists()) {
             packageDir.mkdirs();
-        
-        File outputFile = new File(packageDir, interfaceName + ".properties");
-        
-        log.info("HTMLPROPS: Generating " + packageName);
-        
-        String[] exts = new String[] { "html" };
-        List<File> files = new ArrayList<File>(FileUtils.listFiles(sourceDirectory, exts, true));
-        
-         try {
- 
-            if (!outputDirectory.exists())
-                FileUtils.forceMkdir(outputDirectory);
-     
+        }
+
+        File outputFile = new File(packageDir, m_interfaceName + ".properties");
+
+        log.info("HTMLPROPS: Generating " + m_packageName);
+
+        String[] exts = new String[] {
+            "html"
+        };
+        List<File> files = new ArrayList<File>(FileUtils.listFiles(m_sourceDirectory, exts, true));
+
+        try {
+
+            if (!m_outputDirectory.exists()) {
+                FileUtils.forceMkdir(m_outputDirectory);
+            }
+
             HTMLPropertiesUtil.generatePropertiesFiles(files, outputFile, safePackageName);
         } catch (IOException e) {
             throw new MojoExecutionException(e.getMessage());
         }
-        
-        project.getProperties().put("spiffyui.htmlprops.path", outputDirectory.getAbsolutePath());
+
+        m_project.getProperties().put("spiffyui.htmlprops.path", m_outputDirectory.getAbsolutePath());
 
     }
 

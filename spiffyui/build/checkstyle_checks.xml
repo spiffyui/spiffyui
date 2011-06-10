@@ -70,6 +70,7 @@
     <module name="InnerAssignment"/>
     <module name="JavadocType">
       <!-- property name="authorFormat" value="\S"/-->
+      <property name="allowUnknownTags" value="true"/>
     </module>
     <module name="JavadocMethod">
       <property name="scope" value="protected"/>
@@ -83,7 +84,7 @@
     <module name="JavadocStyle">
       <property name="scope" value="protected"/>
       <property name="checkFirstSentence" value="false"/> <!-- FIX THIS -->
-      <property name="checkHtml" value="false"/> <!-- FIX THIS -->
+      <property name="checkHtml" value="true"/> <!-- FIX THIS -->
     </module>
 
     <module name="LeftCurly">

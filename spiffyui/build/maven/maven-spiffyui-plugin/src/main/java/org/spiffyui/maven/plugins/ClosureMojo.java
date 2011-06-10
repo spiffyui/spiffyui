@@ -26,7 +26,6 @@ import com.google.javascript.jscomp.Result;
  * Goal which executes the Google closure compiler against .js codee
  * 
  * @goal closure
- * 
  * @phase compile
  */
 public class ClosureMojo extends AbstractMojo
@@ -38,48 +37,51 @@ public class ClosureMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    private MavenProject project;
-    
+    private MavenProject m_project;
+
     /**
      * @parameter expression="SIMPLE_OPTIMIZATIONS"
      * @required
      */
-    private String compilationLevel;
+    private String m_compilationLevel;
 
     /**
      * @parameter expression="src/main/js"
      * @required
      */
-    private File sourceDirectory;
+    private File m_sourceDirectory;
 
     /**
      * @parameter expression=
      *            "${project.build.directory}/${project.build.finalName}/${project.artifactId}.min.js"
      * @required
      */
-    private File outputFile;
+    private File m_outputFile;
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute()
+        throws MojoExecutionException,
+            MojoFailureException
+    {
 
-        CompilationLevel compilationLevel = null;
+        CompilationLevel compLevel = null;
         try {
-            compilationLevel = CompilationLevel.valueOf(this.compilationLevel);
+            compLevel = CompilationLevel.valueOf(m_compilationLevel);
         } catch (IllegalArgumentException e) {
             throw new MojoFailureException("Compilation level invalid" + e.getMessage());
         }
 
         CompilerOptions compilerOptions = new CompilerOptions();
-        compilationLevel.setOptionsForCompilationLevel(compilerOptions);
-        
-        Properties p = project.getProperties();
+        compLevel.setOptionsForCompilationLevel(compilerOptions);
+
+        Properties p = m_project.getProperties();
         File module = new File(p.getProperty("spiffyui.gwt.module.path"));
         List<JSSourceFile> sources = new ArrayList<JSSourceFile>();
-     
+
         /* spiffyui.min.js _must_ be first */
-        sources.add(JSSourceFile.fromFile(new File(module, "spiffyui.min.js")));   
-        listJSSourceFiles(sources, sourceDirectory);
-        
+        sources.add(JSSourceFile.fromFile(new File(module, "spiffyui.min.js")));
+        listJSSourceFiles(sources, m_sourceDirectory);
+
         Compiler compiler = new Compiler();
         Result result = compiler.compile(new ArrayList<JSSourceFile>(), sources, compilerOptions);
 
@@ -96,15 +98,16 @@ public class ClosureMojo extends AbstractMojo
         }
 
         try {
-            Files.createParentDirs(outputFile);
-            Files.touch(outputFile);
-            Files.write(compiler.toSource(), outputFile, Charsets.UTF_8);
+            Files.createParentDirs(m_outputFile);
+            Files.touch(m_outputFile);
+            Files.write(compiler.toSource(), m_outputFile, Charsets.UTF_8);
         } catch (IOException e) {
-            throw new MojoFailureException(outputFile != null ? outputFile.toString() : e.getMessage());
+            throw new MojoFailureException(m_outputFile != null ? m_outputFile.toString() : e.getMessage());
         }
     }
 
-    private List<JSSourceFile> listJSSourceFiles(List<JSSourceFile> jsSourceFiles, File directory) {
+    private List<JSSourceFile> listJSSourceFiles(List<JSSourceFile> jsSourceFiles, File directory)
+    {
         if (directory != null) {
             File[] files = directory.listFiles();
             if (files != null) {

@@ -33,6 +33,7 @@
     
     <target name="clearcache" description="Clear the Apache Ivy cache" depends="setup">
         <subant antfile="build.xml" buildpath="${build.base}/spiffyui-app/" target="clearcache" />
+        <subant antfile="build.xml" buildpath="${build.base}/spiffyui/build" target="clearcache" />
     </target>
     
     <target name="package-appengine" depends="setup" description="Expand the war and add the configuration files for deploying to Google App Engine">
