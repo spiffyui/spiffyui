@@ -28,7 +28,7 @@ import org.codehaus.plexus.util.StringUtils;
  * @goal compile
  * @phase compile
  */
-public class SpiffyCompileMojo extends AbstractGwtShellMojo
+public class GwtCompileMojo extends AbstractGwtShellMojo
 {
     /**
      * @parameter expression="${gwt.compiler.skip}" default-value="false"
