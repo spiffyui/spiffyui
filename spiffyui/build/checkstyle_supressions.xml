@@ -5,5 +5,12 @@
     "http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
 
 <suppressions>
+    <!--
+        Most of the time we enforce that all member variables must start
+        with m_, but the way Maven uses Plexus to access local variables
+        makes it difficult to follow those naming conventions.  We turn
+        of the MemberName check for that code so we don't have Checkstyle
+        warnings which stop the build.
+    -->
     <suppress checks="MemberName" files="build/*"/>
 </suppressions>
