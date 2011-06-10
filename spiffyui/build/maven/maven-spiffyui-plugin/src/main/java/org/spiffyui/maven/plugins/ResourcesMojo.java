@@ -29,7 +29,7 @@ public class ResourcesMojo extends AbstractMojo
      * @parameter expression="${encoding}"
      *            default-value="${project.build.sourceEncoding}"
      */
-    protected String encoding;
+    private String encoding;
 
     /**
      * The source directory
@@ -52,14 +52,14 @@ public class ResourcesMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    protected MavenProject project;
+    private MavenProject project;
 
     /**
      * @parameter default-value="${session}"
      * @readonly
      * @required
      */
-    protected MavenSession session;
+    private MavenSession session;
 
     /**
      * @component 
@@ -67,8 +67,9 @@ public class ResourcesMojo extends AbstractMojo
      *            role-hint="default"
      * @required
      */
-    protected MavenResourcesFiltering filtering;
+    private MavenResourcesFiltering filtering;
 
+    @Override
     public void execute()
         throws MojoExecutionException
     {

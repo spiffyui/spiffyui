@@ -173,7 +173,7 @@
     <target name="maven-plugin" depends="init-maven,install-anttask">
       <artifact:mvn mavenVersion="3.0.2"
 		    pom="${spiffy.build}/maven/maven-spiffyui-plugin/pom.xml">
-	<arg value="install"/>
+          <arg value="install"/>
       </artifact:mvn>
     </target>
 
