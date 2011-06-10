@@ -25,7 +25,7 @@ import com.google.javascript.jscomp.Result;
 /**
  * Goal which executes the Google closure compiler against .js codee
  * 
- * @goal closure
+ * @goal closure-compile
  * @phase compile
  */
 public class ClosureMojo extends AbstractMojo

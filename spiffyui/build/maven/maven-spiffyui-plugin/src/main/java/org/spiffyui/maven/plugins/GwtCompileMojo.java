@@ -25,7 +25,8 @@ import org.codehaus.plexus.util.StringUtils;
 
 /**
  * @extendsPlugin gwt-maven-plugin
- * @goal compile
+ * @extendsGoal compile
+ * @goal gwt-compile
  * @phase compile
  */
 public class GwtCompileMojo extends AbstractGwtShellMojo
