@@ -11,11 +11,11 @@
     <h2 id="REST_ocb">RESTObjectCallBack</h2>
     
     <p>
-        REST calls are asynchronous network calls.  You request data from the server and at some point later the server responds.  In between there could be network timeouts, data corruption, and all of the uncertainty of the Internet.  Asynchronous network programming is hard so the Spiffy UI framework makes it a little easier.
+        REST calls are asynchronous network calls.  You request data from the server, and at some point later the server responds.  In between there could be network timeouts, data corruption, and all the uncertainty of the Internet.  Asynchronous network programming is hard; the Spiffy UI framework makes it a little easier.
     </p>
     
     <p>
-        Spiffy UI abstracts knowledge of Internet protocols or REST into object called REST beans.  From the client point of view you ask for data and it comes back.  We keep it that simple for all the code in our application.  Most REST bean implement the <code>RESTObjectCallBack</code> interface.
+        Spiffy UI abstracts knowledge of Internet protocols or REST into objects called REST beans.  From the client point of view:  you ask for data and it comes back.  We keep it that simple for all the code in our application.  Most REST beans implement the <code>RESTObjectCallBack</code> interface.
     </p>
     
     <p>
@@ -31,13 +31,13 @@
     </pre>
     
     <p>
-        <code>success</code> is called when your REST call returns successfully.  You get back a Java object with the data from the server.  The first <code>error</code> method is called when there is a generic error like an unplugged network cable.  The second <code>error</code> method happens with more expected errors like passing invalid data to the server.
+        When your REST call returns successfully, <code>success</code> is called; you get back a Java object with the data from the server.  The first <code>error</code> method is called when there is a generic error like an unplugged network cable.  The second <code>error</code> method happens with more expected errors, like passing invalid data to the server.
     </p>
     
     <h2 id="REST_ility">RESTility</h2>
     
     <p>
-        Once you've implemented the <code>RESTObjectCallBack</code> interface it's time to make your REST call.  You can do that with <code>RESTility</code>.  Yup we stole the name from Ruby.  <code>RESTility</code> handles authentication, error handling, and all of the steps involved in making the remote connection.  It takes a <code>RESTCallback</code> and makes the REST call.  
+        Once you've implemented the <code>RESTObjectCallBack</code> interface, it's time to make your REST call.  You can do that with <code>RESTility</code>.  (Yup, we stole the name from Ruby.)  <code>RESTility</code> handles authentication, error handling, and all of the steps involved in making the remote connection.  It takes a <code>RESTCallback</code> and makes the REST call.  
     </p>
     
     <p>
@@ -53,7 +53,7 @@
     </pre>
     
     <p>
-        The <code>onSuccess</code> method takes JSON data and is responsible for parsing that data into a reasonable format.  How you handle that JSON is up to you.  You can use <a href="http://code.google.com/p/google-web-toolkit/wiki/OverlayTypes">GWT Overlay types</a>, return the <code>JSONValue</code> object, or parse the JSON manually into a Java object.  In practice most REST calls return simple JSON data and is easy to parse manually.  
+        The <code>onSuccess</code> method takes JSON data and is responsible for parsing that data into a reasonable format.  How you handle that JSON is up to you.  You can use <a href="http://code.google.com/p/google-web-toolkit/wiki/OverlayTypes">GWT Overlay types</a>, return the <code>JSONValue</code> object, or parse the JSON manually into a Java object.  In practice most REST calls return simple JSON data which is easy to parse manually.  
         Spiffy UI's <code>JSONUtil</code> provides utility methods for safely getting values or objects from a <code>JSONObject</code>.  
     </p>
     
@@ -125,11 +125,11 @@
     </p>
     
     <p>
-        In this case the URL of <code>version</code> will become http://localhost:8080/version.  You can specify any URL you want as long as it doesn't violate the <a href="http://en.wikipedia.org/wiki/Same_origin_policy">same origin policy</a>.
+        In this case the URL of <code>version</code> will become http://localhost:8080/version.  You can specify any URL you want as long as it doesn't violate the <a href="http://en.wikipedia.org/wiki/Same_origin_policy">same-origin policy</a>.
     </p>
     
     <p>
-        It is worth noting that this method returns <code>void</code> since this call is asynchronous and must be returned to the calling code later.  In this way the method works similarly to a listener.
+        It is worth noting that this method returns <code>void</code>, since this call is asynchronous and must be returned to the calling code later.  In this way the method works similarly to a listener.
     </p>
     
     <p>
@@ -161,7 +161,7 @@
     <h2 id="REST_eh">Error handling</h2>
     
     <p>
-        <code>RESTility</code> has built in handling for a Novell defined REST error format.  This is the error format defined for the <a href="http://en.wikipedia.org/wiki/SOAP">SOAP</a> protocol translated to JSON.  It looks like this:
+        <code>RESTility</code> has built-in handling for a Novell-defined REST error format.  This is the error format defined for the <a href="http://en.wikipedia.org/wiki/SOAP">SOAP</a> protocol, translated to JSON.  It looks like this:
     </p>
     
     <pre>
@@ -181,13 +181,13 @@
     </pre>
     
     <p>
-    If your REST endpoints return errors in this format then <code>RESTility</code> will handle them automatically and return a <code>RESTException</code> object with this data.  If not, then it will treat error messages like any other server response and allow you to handle them in your implementation of <code>success</code>.
+    If your REST endpoints return errors in this format, then <code>RESTility</code> will handle them automatically and return <code>RESTException</code> objects with the data.  If not, it will treat error messages like any other server responses and allow you to handle them in your implementation of <code>success</code>.
     </p>
     
     <h2 id="REST_sia">See it in action</h2>
     
     <p>
-        The <code>VersionInfo</code> object is included in the Spiffy UI application project and populates the footer of this page.  An easy way to see it in action is with the <a href="http://getfirebug.com/">Firebug</a> console.  This console will show you every REST request made by this sample and the data sent to and from the client.
+        The <code>VersionInfo</code> object is included in the Spiffy UI application project and populates the footer of this page.  An easy way to see it in action is with the <a href="http://getfirebug.com/">Firebug</a> console.  This console will show you every REST request made by this sample, and the data sent to and from the client.
     </p>
 
     
