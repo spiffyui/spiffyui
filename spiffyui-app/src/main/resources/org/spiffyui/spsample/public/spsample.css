@@ -133,8 +133,13 @@ h2 {
     margin-bottom: 24px;
 }
 
-.documentationPanel li, .createFormInst li {
+.documentationPanel ul li, .createFormInst ul li {
     list-style: disc inside none;
+}
+
+.documentationPanel ol li, .createFormInst ol li {
+    list-style: decimal inside none;
+    margin-bottom: 24px;
 }
     
 
@@ -374,8 +379,9 @@ iframe {
     font-weight: 600;
 }
 
-.optionalText, .comment {
-    color: rgb(0,128,0);
+.optionalText {
+    border-left: 1px solid #008000;
+    padding-left: 5px;
 }
 
 .keyword {
@@ -506,7 +512,7 @@ iframe {
 }
 
 #loginSection {
-    margin-bottom: 39px;
+    margin-bottom: 28px;
 }
 
 #fixedGridTab {

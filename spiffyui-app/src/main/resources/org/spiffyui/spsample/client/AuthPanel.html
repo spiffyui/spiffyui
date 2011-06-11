@@ -99,13 +99,15 @@
     </p>
 
     <ol>
-    <li><p>Client makes a request to server URL http://host:port/data-server-war-context/path-require-auth in order to access some resources.</p>
+    <li>Client makes a request to server URL http://host:port/data-server-war-context/path-require-auth in order to access some resources.</li>
 
-    <li><p>Server looks for specific authentication header.  When it is not found, it returns JSON, indicating no authentication information is available. It will also send back a WWW-Authenticate response header, with the authentication server URL information, letting the client know that it needs to authenticate and how.
-    <pre>    WWW-Authenticate  X-OPAQUE uri="http://host:port/auth-path", signOffUri=""</pre></p>
+    <li>Server looks for specific authentication header.  When it is not found, it returns JSON, indicating no authentication information is available. It will also send back a WWW-Authenticate response header, with the authentication server URL information, letting the client know that it needs to authenticate and how.<br><br>
+    <pre>    WWW-Authenticate  X-OPAQUE uri="http://host:port/auth-path", signOffUri=""</pre>
+    </li>
 
-    <li><p>Due to same-origin policy, client cannot directly contact the authentication server, which is on a different server. The client instead contacts a servlet (AuthServlet) that is in the same client WAR, forwarding on user credentials.</p>
-    <p>The servlet, which acts as a proxy, then contacts the authentication server at http://host2:port2/auth-server-war-context/auth-path to ask for an authentication token to access data server resources. To use the proxy servlet, it must be added to the web.xml of the client WAR.</p>
+    <li>Due to same-origin policy, client cannot directly contact the authentication server, which is on a different server. The client instead contacts a servlet (AuthServlet) that is in the same client WAR, forwarding on user credentials.
+        
+    <p>The servlet, which acts as a proxy, then contacts the authentication server at http://host2:port2/auth-server-war-context/auth-path to ask for an authentication token to access data server resources. To use the proxy servlet, it must be added to the web.xml of the client WAR.
     </p>
     <p><pre>
     &lt;servlet&gt;
@@ -118,19 +120,27 @@
       &lt;url-pattern&gt;/auth/*&lt;/url-pattern&gt;
     &lt;/servlet-mapping&gt;
     </pre></p>
+    </li>
 
-    <li><p>If user's credentials are sufficient, the authentication server will return an authentication token in JSON format, such as:
+    <li>
+        If user's credentials are sufficient, the authentication server will return an authentication token in JSON format, such as:
+        
+        <br><br>
+        <pre>    {"Token":"demouser-3f597a4d311a3e00"} </pre>
+        
+        to the proxy servlet, which then forwards the token back to the client to be saved in a browser cookie.
+    </li>
 
-    <pre>    {"Token":"demouser-3f597a4d311a3e00"} </pre>
+    <li>
+        Client can now make the request to access the resources again on the data server at original URL:  <code>http://host:port/data-server-war-context/path-require-auth</code>, carrying a valid authentication token in the request header "Authorization":
+        
+        <br><br>
+        <pre>    Authorization	X-OPAQUE demouser-3f597a4d311a3e00 </pre>
+    </li>
 
-    to the proxy servlet, which then forwards the token back to the client to be saved in a browser cookie.</p>
-
-    <li><p>Client can now make the request to access the resources again on the data server at original URL:  http://host:port/data-server-war-context/path-require-auth, carrying a valid authentication token in the request header "Authorization":
-
-    <pre>    Authorization	X-OPAQUE demouser-3f597a4d311a3e00 </pre>
-    </p>
-
-    <li><p>Data server checks and validates the authentication token, then returns requested resources.</p>
+    <li>
+        Data server checks and validates the authentication token, then returns requested resources.
+    </li>
 
     </ol>
 
@@ -143,54 +153,53 @@
     <div id="loginImage"></div>
 
     <ol>
-    <p class="optionalText">
-    <li><p>(Optionally) Browser sends "GET" request to http://localhost:8080/authdata (implemented by SampleDataServlet).
-    </p>
+    <li class="optionalText">
+        (Optionally) Browser sends "GET" request to http://localhost:8080/authdata (implemented by SampleDataServlet).
+    </li>
 
-    <p class="optionalText">
-    <li><p>(Optionally) Server returns 401 (Unauthorized) with the NoAuthHeader fault payload, and WWW-Authenticate response header X-OPAQUE uri="http://localhost:8080/authserver", signOffUri=""
-    </p>
+    <li class="optionalText">
+        (Optionally) Server returns 401 (Unauthorized) with the NoAuthHeader fault payload, and <code>WWW-Authenticate</code> response header <code>X-OPAQUE uri="http://localhost:8080/authserver", signOffUri=""</code>
+    </li>
 
-    <p>
-    <li><p>The Spiffy UI framework shows the  <code>LoginPanel</code> in the browser, prompting user for username and password, and sends those credentials to the authentication proxy at http://localhost:8080/auth. Any username and password work in this sample.
-    </p>
+    <li>
+        The Spiffy UI framework shows the  <code>LoginPanel</code> in the browser, prompting user for username and password, and sends those credentials to the authentication proxy at <code>http://localhost:8080/auth</code>. Any username and password work in this sample.
+    </li>
 
-    <p>
-    <li><p>Proxy server <code>AuthServlet</code> contacts authentication server (implemented by SampleAuthServer)
-    at http://localhost:8080/authserver to ask for authentication token.
-    </p>
+    <li>
+    Proxy server <code>AuthServlet</code> contacts authentication server (implemented by SampleAuthServer) at <code>http://localhost:8080/authserver</code> to ask for authentication token.
+    </li>
 
-    <p class="optionalText">
-    <li><p>(Optionally) The authentication server rejects the authentication type.
-    </p>
+    <li class="optionalText">
+        (Optionally) The authentication server rejects the authentication type.
+    </li>
 
-    <p class="optionalText">
-    <li><p>(Optionally) The proxy resends the authentication in the proper format.
-    </p>
+    <li class="optionalText">
+        (Optionally) The proxy resends the authentication in the proper format.
+    </li>
 
-    <p>
-    <li><p>The authentication server generates a token and returns it to the client.  In order to make our sample easier, the token is always your username followed by "-" then a random alphanumeric character.
-    </p>
+    <li>
+        The authentication server generates a token and returns it to the client.  In order to make our sample easier, the token is always your username followed by "-" then a random alphanumeric character.
+    </li>
 
-    <p>
-    <li><p>The proxy server returns the token to the browser.  
-    </p>
+    <li>
+        The proxy server returns the token to the browser.  
+    </li>
 
-    <p>
-    <li><p>The browser uses the token to request the data.
-    </p>
+    <li>
+        The browser uses the token to request the data.
+    </li>
 
-    <p class="optionalText">
-    <li><p>(Optionally) The REST server can now call back to the authentication server to verify the token.  If the token is SAML, the REST server may be able to verify it without calling to a separate server.
-    </p>
+    <li class="optionalText">
+        (Optionally) The REST server can now call back to the authentication server to verify the token.  If the token is SAML, the REST server may be able to verify it without calling to a separate server.
+    </li>
 
-    <p class="optionalText">
-    <li><p>(Optionally) The authentication server responds that the token is valid.
-    </p>
+    <li class="optionalText">
+        (Optionally) The authentication server responds that the token is valid.
+    </li>
 
-    <p>
-    <li><p>The REST server sends back the secured data.
-    </p>
+    <li>
+        The REST server sends back the secured data.
+    </li>
 
     </ol>
 
@@ -206,25 +215,29 @@
     <div id="logoutImage"></div>
 
     <ol>
-    <li><p>The browser sends a request to the <code>AuthServlet</code> at http://localhost:8080/auth to perform the logout, passing on the user token.
-    </p>
+    <li>
+        The browser sends a request to the <code>AuthServlet</code> at http://localhost:8080/auth to perform the logout, passing on the user token.
+    </li>
 
-    <li><p>The <code>AuthServlet</code> issues a DELETE request to the authentication server (implemented by SampleAuthServer) at http://localhost:8080/authserver, forwarding on user token.
-    </p>
+    <li>
+        The <code>AuthServlet</code> issues a <code>DELETE</code> request to the authentication server (implemented by <code>SampleAuthServer</code>) at <code>http://localhost:8080/authserver</code>, forwarding on user token.
+    </li>
 
-    <li><p class="optionalText">
-    (Optionally) The authentication server calls the specified sign-off URI to invalidate any cached tokens on the REST server.
-    </p>
+    <li class="optionalText">
+        (Optionally) The authentication server calls the specified sign-off URI to invalidate any cached tokens on the REST server.
+    </li>
 
-    <li><p class="optionalText">
-    (Optionally) The REST server replies with a response 200 if the token has been successfully removed from the cache, or a 404 if the token isn't found.
-    </p>
+    <li class="optionalText">
+        (Optionally) The REST server replies with a response 200 if the token has been successfully removed from the cache, or a 404 if the token isn't found.
+    </li>
 
-    <li><p>The authentication server returns a response 200 to the <code>AuthServlet</code>.
-    </p>
+    <li>
+        The authentication server returns a response 200 to the <code>AuthServlet</code>.
+    </li>
 
-    <li><p>The <code>AuthServlet</code> forwards the logout reponse to the browser; the browser then removes any cookies associated with the token, and refreshes the page to clear out all JavaScript memory.
-    </p>
+    <li>
+        The <code>AuthServlet</code> forwards the logout reponse to the browser; the browser then removes any cookies associated with the token, and refreshes the page to clear out all JavaScript memory.
+    </li>
 
 </div>
 

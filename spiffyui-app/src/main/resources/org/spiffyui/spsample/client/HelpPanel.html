@@ -18,30 +18,34 @@
     <h2 id="HE_Full" title="Comprehensive examples">Build the full Spiffy UI Application</h2>
     
     <p>
-        When you're ready to take the next steps, you can build this entire website and get an inside look at the more advanced Spiffy UI application.  Check it out and build it in about a minute.
+        This site is written with Spiffy UI and all of the code is open source.  
     </p>
     
-    <p>
-    1. Use the following command to check out the Spiffy UI application, which also includes the Spiffy UI framework:
-    </p>
-    <pre>
-    svn co http://spiffyui.googlecode.com/svn/trunk spiffyui
-    </pre>
-
-    <p>
-    2. Add the <code>external/ant/bin</code> directory to your path.  <span class="weak">You can also use your own version of Ant 1.8 with Apache Ivy.</span>
-    </p>
-
-    <p>
-    3. Execute this command line from the <code>spiffyui</code> directory:   
-    </p>
+    <ol>
+        <li>
+        Use the following command to check out the Spiffy UI application, which also includes the Spiffy UI framework:
+        <br><br>
+        <pre>
+        svn co http://spiffyui.googlecode.com/svn/trunk spiffyui
+        </pre>
+        </li>
     
-    <pre>
-    ant all run
-    </pre>
+        <li>
+        Download <a href="http://ant.apache.org/">Apache Ant</a> and add it to your path.
+        </li>
+    
+        <li>
+        3. Execute this command line from the <code>spiffyui</code> directory:   
+        <br><br>
         
+        <pre>
+        ant all run
+        </pre>
+        </li>
+            
+    </ol>
     <p>
-    This will build the project and launch it with an embedded <a href="http://jetty.codehaus.org/jetty/">Jetty</a> server.  You can also deploy the spsample.war file to your favorite J2EE server.
+    This will build the project, generate the <code>spsample.war</code>, and launch it with an embedded <a href="http://jetty.codehaus.org/jetty/">Jetty</a> server.  You can also deploy the <code>spsample.war</code> file to your favorite J2EE server.
     </p>
     
     <p>
