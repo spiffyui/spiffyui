@@ -18,21 +18,23 @@ package org.spiffyui.spsample.server;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -99,6 +101,8 @@ public class SiteMapServlet extends HttpServlet
     
     private static final ResourceBundle BUILD_BUNDLE = 
         ResourceBundle.getBundle("org/spiffyui/spsample/server/buildnum", Locale.getDefault());
+    
+    private static String g_siteMap = null;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -118,14 +122,21 @@ public class SiteMapServlet extends HttpServlet
             return;
         } else if (request.getRequestURI().indexOf("sitemap.xml") > -1) {
             response.setContentType("text/xml");
-            ServletOutputStream out = response.getOutputStream();
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
+            
             try {
-                createSiteMap(request, out);
+                if (g_siteMap == null) {
+                    /*
+                     If we haven't created the sitemap yet we'll create it and cache it
+                     */
+                    createSiteMap(request);
+                }
             } catch (Exception e) {
                 LOGGER.throwing(SiteMapServlet.class.getName(), "service", e);
                 e.printStackTrace();
             }
             
+            out.write(g_siteMap);
             out.flush();
         } else {
             returnFile(request.getServletPath(), response);
@@ -236,8 +247,16 @@ public class SiteMapServlet extends HttpServlet
         out.write(footer);
     }
     
-    private void createSiteMap(HttpServletRequest request, OutputStream out) throws Exception
+    private synchronized void createSiteMap(HttpServletRequest request) throws Exception
     {
+        if (g_siteMap != null) {
+            /*
+             then we've already created the sitemap
+             */
+            return;
+        }
+        
+        StringWriter out = new StringWriter();
         XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
         XMLEventWriter eventWriter = outputFactory.createXMLEventWriter(out);
         XMLEventFactory eventFactory = XMLEventFactory.newInstance();
@@ -264,6 +283,8 @@ public class SiteMapServlet extends HttpServlet
         eventWriter.add(end);
         eventWriter.add(eventFactory.createEndDocument());
         eventWriter.close();
+        
+        g_siteMap = out.toString();
     }
     
     private void findFiles(HttpServletRequest request, ServletContext context, XMLEventWriter eventWriter) throws XMLStreamException
@@ -276,6 +297,34 @@ public class SiteMapServlet extends HttpServlet
         for (String key : HASHES.keySet()) {
             createNode(eventWriter, request.getRequestURL().substring(0, request.getRequestURL().length() - 11)  + 
                        "#!" + key, "0.8");
+        }
+        
+        /*
+         Now we return all the content from the JavaDoc directory
+         */
+        findStaticFiles(request, context, eventWriter, "/javadoc");
+        
+    }
+    
+    private void findStaticFiles(HttpServletRequest request, ServletContext context, 
+                                 XMLEventWriter eventWriter, String ref) throws XMLStreamException
+    {
+        Set set = context.getResourcePaths(ref);
+        Iterator iter = set.iterator();
+        while (iter.hasNext()) {
+            String file = iter.next().toString();
+            if (file.endsWith("/")) {
+                /*
+                 Then this is a directory and we want to look into it
+                 */
+                file = file.substring(0, file.length() - 1);
+                file = file.substring(file.lastIndexOf('/') + 1);
+                findStaticFiles(request, context, eventWriter, ref + "/" + file);
+            } else {
+                file = file.substring(file.lastIndexOf('/'));
+                createNode(eventWriter, request.getRequestURL().substring(0, request.getRequestURL().length() - 12)  + 
+                           ref + file, "0.7");
+            }
         }
     }
 
