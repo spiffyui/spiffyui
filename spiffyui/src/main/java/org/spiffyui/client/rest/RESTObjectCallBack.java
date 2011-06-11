@@ -30,29 +30,54 @@ package org.spiffyui.client.rest;
  * </p>
  * 
  * @param <T> - The object type for the callback
- * @see RESTCallBack
+ * @see RESTCallback
  * @see RESTility
  */
 public interface RESTObjectCallBack<T>
 {
     /**
-     * Called when the REST call succeeds
+     * <p>
+     * Called when your REST call succeeds.
+     * </p>
      * 
-     * @param o - The marshalled object from the REST call
+     * <p>
+     * Success is defined as a call that contacted the server and the 
+     * server returned a valid JSON response.
+     * </p>
+     * 
+     * @param o      The marshalled object from the REST call
      */
     public void success(T o);
 
     /**
-     * Called when there is an error
+     * <p>
+     * Called when there is an unexpected error.
+     * </p>
      * 
-     * @param message the error message
+     * <p>
+     * These errors are results like network failures and other reasons the server 
+     * can't be contacted.  This method is also called when the server returns a 
+     * result that isn't valid JSON data.
+     * </p>
+     * 
+     * @param message The error message from the server
      */
     public void error(String message);
     
     /**
-     * Called when the REST endpoint return successfully with 
-     * an error message in the payload.
-     * @param e the error
+     * <p>
+     * Called when the REST endpoint return successfully with an error
+     * message in the payload.
+     * </p><p>
+     * <p>
+     * This method is called when the server returned valid JSON in the format of
+     * a Spiffy UI RESTException
+     * </p>
+     * 
+     * @param e
+     *               the RESTException returned from the server
+     * 
+     * @see RESTException
      */
     public void error(RESTException e);
 }
