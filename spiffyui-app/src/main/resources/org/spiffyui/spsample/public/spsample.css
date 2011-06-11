@@ -1046,8 +1046,13 @@ iframe {
     margin-top: 14px;
 }
 
-.toc li, .projectCreatorFields li {
+.toc li, .projectCreatorFields ol li {
     list-style: none;
+    margin-bottom: 0px;
+}
+
+#getStartedCreateSpiffy {
+    margin-bottom: 35px;
 }
 
 #backToTop {
