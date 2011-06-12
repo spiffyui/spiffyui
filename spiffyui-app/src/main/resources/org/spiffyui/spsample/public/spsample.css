@@ -1014,6 +1014,14 @@ iframe {
     top: -25px;
 }
 
+#landingTwitter {
+    position: absolute;
+    right: 48px;
+    top: 66px;
+    background: url("images/spiffy_logo.png") no-repeat scroll -10px -56px transparent;
+    padding-left: 20px;
+}
+
 .sausagenav #landingMenu {
     top: -23px;
     right: 25px;
