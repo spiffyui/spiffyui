@@ -170,9 +170,9 @@ slidegrid = {
                     hasTallCell = true;
                     
                 } else if (children.eq(i).hasClass("widecell")) {
-                    if (cols > 1 && (slidegrid.isUsed(usedCells, curCol, curRow) ||
+                    if (slidegrid.isUsed(usedCells, curCol, curRow) ||
                         slidegrid.isUsed(usedCells, curCol + 1, curRow) ||
-                        curCol === cols - 1)) {
+                        (cols > 1 && curCol === cols - 1)) {
                         /* 
                          * If the current cell is used we
                          * just want to try the next column. 
