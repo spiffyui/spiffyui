@@ -68,6 +68,10 @@ h2 {
     margin-bottom: 18px;
 }
 
+#mainContent {
+    overflow: visible;
+}
+
 .documentationPanel {
     width: 480px;
 }
@@ -1027,10 +1031,12 @@ iframe {
 
 #landingTwitter {
     position: absolute;
-    right: 48px;
-    top: 66px;
-    background: url("images/spiffy_logo.png") no-repeat scroll -10px -56px transparent;
-    padding-left: 20px;
+    right: 15px;
+    top: 58px;
+    background: url("images/spiffy_logo.png") no-repeat scroll -0px -50px transparent;
+    text-indent: -9999px;
+    width: 35px;
+    height: 35px;
 }
 
 .sausagenav #landingMenu {
