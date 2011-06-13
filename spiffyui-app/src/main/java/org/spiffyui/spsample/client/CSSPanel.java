@@ -72,6 +72,24 @@ public class CSSPanel extends HTMLPanel
             });
         add(tabNavButton, "tabnavbutton");
         
+        final FlowPanel fixedScrollingPanel = new FlowPanel();
+        final Button fixedScrollingButton = new Button(" ");
+        fixedScrollingButton.setTitle(Index.getStrings().turnOffScrolling());
+        fixedScrollingPanel.getElement().setId("fixedScrollingTab");
+        
+        fixedScrollingPanel.add(fixedScrollingButton);
+        
+        fixedScrollingButton.addClickHandler(new ClickHandler()
+            {
+                @Override
+                public void onClick(ClickEvent event)
+                {
+                    doSausage();
+                }
+            });
+        fixedScrollingPanel.setVisible(false);
+        RootPanel.get("mainWrap").add(fixedScrollingPanel);
+        
         /*
          This button handles showing and hiding sausage menu
          */
@@ -149,6 +167,7 @@ public class CSSPanel extends HTMLPanel
             m_sausageNav.setText(Index.getStrings().sausageMenuOff());
             Index.setSausageMode(true);
             JSUtil.hide("backToTop");
+            JSUtil.horizontalToggleSlide("#fixedScrollingTab");
         } else {
             DOM.getElementById("mainWrap").removeClassName("sausagenav");
             m_sausageNav.setText(Index.getStrings().sausageMenuOn());
@@ -156,6 +175,7 @@ public class CSSPanel extends HTMLPanel
             destroySausageJS();
             Index.selectItem(Index.CSS_NAV_ITEM_ID);
             Window.scrollTo(0, 0);
+            JSUtil.horizontalToggleSlide("#fixedScrollingTab");
         }
         
     }

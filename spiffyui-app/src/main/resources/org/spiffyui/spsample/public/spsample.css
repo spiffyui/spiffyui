@@ -515,7 +515,7 @@ iframe {
     margin-bottom: 28px;
 }
 
-#fixedGridTab {
+#fixedGridTab, #fixedScrollingTab {
     background: none repeat scroll 0 0 transparent;
     left: -1px;
     position: fixed;
@@ -529,7 +529,7 @@ iframe {
     display: none;
 }
 
-#fixedGridTab:hover {
+#fixedGridTab:hover, #fixedScrollingTab:hover {
     border-left: none;
     padding-left: 5px;
 }
@@ -537,7 +537,18 @@ iframe {
 #fixedGridTab button {
     background: url("images/spiffy_sample_images.png") no-repeat scroll 3px -1054px transparent;
     border: none;
-    height: 192px;
+    height: 212px;
+    margin-left: 3px;
+    width: 28px;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#fixedScrollingTab button {
+    background: url("images/spiffy_sample_images.png") no-repeat scroll -70px -960px transparent;
+    border: none;
+    height: 422px;
     margin-left: 3px;
     width: 28px;
     cursor: pointer;

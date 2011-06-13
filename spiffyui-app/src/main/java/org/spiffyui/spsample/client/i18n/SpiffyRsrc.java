@@ -131,6 +131,7 @@ public interface SpiffyRsrc extends Messages
     public String gridOn();
     public String gridOff();
     public String turnOffGrid();
+    public String turnOffScrolling();
     public String test();
     public String invalidURL_ff_tt();
     public String invalidTokenType_ff_tt();
