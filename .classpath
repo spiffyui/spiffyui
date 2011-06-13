@@ -6,6 +6,8 @@
 	<classpathentry kind="src" path="spiffyui-app/target/classes"/>
 	<classpathentry kind="lib" path="spiffyui/build/lib/gwt-dev-2.3.0.jar"/>
 	<classpathentry kind="lib" path="spiffyui/build/lib/gwt-user-2.3.0.jar"/>
+        <classpathentry kind="lib" path="spiffyui-app/build/lib/validation-api-1.0.0.GA-sources.jar"/>
+        <classpathentry kind="lib" path="spiffyui-app/build/lib/validation-api-1.0.0.GA.jar"/>
 	<classpathentry kind="lib" path="spiffyui/lib/json-20090211.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>

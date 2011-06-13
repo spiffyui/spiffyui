@@ -262,7 +262,8 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
              */
             m_navBar.selectItem(m_navBar.getItem(getIdFromHash()));
             itemSelected(m_navBar.getItem(getIdFromHash()));
-        } else if (Window.Location.getHref().indexOf('?') > -1) {
+        } else if (Window.Location.getHref().indexOf('?') > -1 &&
+                   m_navBar.getItem(getIdFromParameter()) != null) {
             /*
              * Then there is a parameter from the URL in an HTML5 browser.
              */
