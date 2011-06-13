@@ -6,14 +6,8 @@
   <groupId>org.spiffyui.maven.examples.client</groupId>
   <artifactId>spiffyui-maven-demo</artifactId>
   <version>0.1-SNAPSHOT</version>
-  <packaging>spiffyui-client</packaging>
+  <packaging>spiffyui-war</packaging>
   <name>Example SpiffyUI Client</name>
-
-  <properties>
-    <!-- GWT needs at least java 1.5 -->
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
-  </properties>
 
   <dependencies>
     <dependency>
@@ -23,7 +17,6 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -34,5 +27,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>

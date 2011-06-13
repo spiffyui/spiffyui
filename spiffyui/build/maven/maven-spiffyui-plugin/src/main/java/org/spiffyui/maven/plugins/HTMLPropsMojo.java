@@ -31,9 +31,9 @@ public class HTMLPropsMojo extends AbstractMojo
     private MavenProject project;
 
     /**
-     * Location of the file.
+     * Location where generated source will be written.
      * 
-     * @parameter expression="${project.build.directory}/htmlprops"
+     * @parameter expression="${spiffyui.htmlprops.path}"
      * @required
      */
     private File outputDirectory;
@@ -56,7 +56,8 @@ public class HTMLPropsMojo extends AbstractMojo
     /**
      * The name to give to the generated interface
      * 
-     * @parameter expression="SpiffyUiHtmlProps"
+     * @parameter expression="${spiffyui.htmlprops.interfacename}
+     *            default-value="SpiffyUiHtmlProps"
      * @required
      */
     private String interfaceName;
@@ -102,9 +103,6 @@ public class HTMLPropsMojo extends AbstractMojo
         } catch (IOException e) {
             throw new MojoExecutionException(e.getMessage());
         }
-
-        project.getProperties().put("spiffyui.htmlprops.path", outputDirectory.getAbsolutePath());
-
     }
 
 }

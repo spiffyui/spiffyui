@@ -7,7 +7,7 @@ import org.apache.maven.plugin.MojoFailureException;
 /**
  * Forks a spiffui-client build lifecycle.
  * @goal spiffyui-client
- * @execute lifecycle="spiffyui-client" phase="prepare-package"
+ * @execute lifecycle="spiffyui-client" phase="compile"
  */
 public class ClientBuildMojo extends AbstractMojo
 {

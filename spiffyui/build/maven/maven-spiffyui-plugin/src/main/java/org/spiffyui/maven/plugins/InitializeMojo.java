@@ -34,18 +34,43 @@ public class InitializeMojo extends AbstractMojo
     private File buildDirectory;
 
     private static final String ATTR_WWW = "spiffyui.www";
-
+    private static final String ATTR_HTMLPROPS = "spiffyui.htmlprops.path";
+    private static final String ATTR_SOURCE = "maven.compiler.source";
+    private static final String ATTR_TARGET = "maven.compiler.target";
+    private static final Float MIN_COMPILER = new Float(1.6);
+    
     @Override
     public void execute()
-        throws MojoExecutionException,
-            MojoFailureException
+        throws MojoExecutionException, MojoFailureException
     {
         Properties p = project.getProperties();
-
-        if (!p.containsKey(ATTR_WWW)) {
-            File path = new File(buildDirectory, "www");
-            p.setProperty(ATTR_WWW, path.getAbsolutePath());
+        String[] compilerAttrs = {ATTR_SOURCE, ATTR_TARGET};
+        
+        for (String attr : compilerAttrs) {
+            String v = p.getProperty(attr);
+            if (v != null) {
+                Float val = new Float(v);
+                if (val < MIN_COMPILER) {
+                    throw new MojoFailureException(attr + " must be " + MIN_COMPILER + " or higher");
+                }
+            } else if (v == null) {
+                p.setProperty(attr, MIN_COMPILER.toString());
+            }
         }
+        
+        setDefaultPath(ATTR_WWW, "www");
+        setDefaultPath(ATTR_HTMLPROPS, "generated-sources/htmlprops");
+    }
+    
+    private void setDefaultPath(String attr, String path)
+    {
+        Properties p = project.getProperties();
+        
+        if (!p.containsKey(attr)) {
+            File f = new File(buildDirectory, path);
+            p.setProperty(attr, f.getAbsolutePath());
+        }
+
     }
 
 }
