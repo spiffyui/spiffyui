@@ -177,7 +177,7 @@
             <fileset dir="${sample.out.www}" includes="js/**/history.html4.js" />
              
             <fileset dir="${sample.out.www}" includes="js/**/*.js" 
-                     excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**, **/lib/jqueryui/*, **/history*.js, **/amplify*.js" />
+                     excludes="**/jquery-1.*.js, **/unittest/**, **/spsample/**, **/lib/i18n/**, **/lib/jqueryui/*, **/history*.js, **/amplify*.js, **/spsample.js, **/qunit.js" />
         
             <!-- By default the Spiffy UI framework includes all of JQuery UI.
                  This includes a lot of JavaScript that we don't need for this
@@ -199,8 +199,8 @@
         <gzip src="${sample.out.www}/spsample.min.js" destfile="${sample.out.www}/spsample.min.js.gz"/>
         
         <!-- We copy over all the JavaScript files for dev mode -->
-        <mkdir dir="${sample.out.www}/js"/>
-        <copy todir="${sample.out.www}/js">
+        <mkdir dir="${sample.out.www}/js/spsample"/>
+        <copy todir="${sample.out.www}/js/spsample">
             <fileset dir="${root}/src/main/js" includes="**/*" />
         </copy>
     </target>
