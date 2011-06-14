@@ -58,7 +58,12 @@ public class InitializeMojo extends AbstractMojo
             }
         }
         
-        setDefaultPath(ATTR_WWW, "www");
+        if (project.getPackaging() == "spiffyui-client") {
+            setDefaultPath(ATTR_WWW, "www");
+        } else {
+            setDefaultPath(ATTR_WWW, project.getArtifactId() + "-" + project.getVersion());
+        }
+        
         setDefaultPath(ATTR_HTMLPROPS, "generated-sources/htmlprops");
     }
     

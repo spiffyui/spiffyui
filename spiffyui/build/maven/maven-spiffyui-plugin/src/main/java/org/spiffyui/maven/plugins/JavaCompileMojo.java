@@ -138,6 +138,10 @@ public class JavaCompileMojo extends AbstractMojo
         for (String source : sources) {
             File path = new File(source);
         
+            if (!path.exists()) {
+                continue;
+            }
+            
             List<File> files = new ArrayList<File>(FileUtils.listFiles(path, exts, true));
             for (File file : files) {
                 command.addArgument(file.getAbsolutePath());
