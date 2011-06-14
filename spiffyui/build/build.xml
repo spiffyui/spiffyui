@@ -206,7 +206,7 @@
             <fileset dir="${spiffy.js}" includes="**/history.html4.js" />
             
             <fileset dir="${spiffy.js}" includes="**/*.js" 
-                     excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**, **/jquery.ui.core.js, **/jquery.ui.widget.js, **/jquery.effects.core.js, **/jquery.ui.mouse.js, **/history*.js, **/amplify*.js" />
+                     excludes="**/jquery-1.*.js, **/unittest/**, **/lib/i18n/**, **/jquery.ui.core.js, **/jquery.ui.widget.js, **/jquery.effects.core.js, **/jquery.ui.mouse.js, **/history*.js, **/amplify*.js, **/json2.js" />
         </closure>
 
         <!-- Then we GZIP it for web servers that support GZIP -->

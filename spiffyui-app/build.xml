@@ -178,7 +178,7 @@
             <fileset dir="${sample.out.www}" includes="js/**/history.html4.js" />
              
             <fileset dir="${sample.out.www}" includes="js/**/*.js" 
-                     excludes="**/jquery-1.*.js, **/unittest/**, **/spsample/**, **/lib/i18n/**, **/lib/jqueryui/*, **/history*.js, **/amplify*.js, **/spsample.js, **/qunit.js" />
+                     excludes="**/jquery-1.*.js, **/unittest/**, **/spsample/**, **/lib/i18n/**, **/lib/jqueryui/*, **/history*.js, **/amplify*.js, **/json2.js, **/spsample.js, **/qunit.js" />
         
             <!-- By default the Spiffy UI framework includes all of JQuery UI.
                  This includes a lot of JavaScript that we don't need for this
