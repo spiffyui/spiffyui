@@ -219,6 +219,17 @@ public final class JSLocaleUtil
         }
 
         ArrayList<Locale> locales = new ArrayList<Locale>();
+        
+        if (map == null) {
+            /*
+             This means we couldn't load the files.  This is often
+             caused by a configuration problem, but it is tricky for
+             us to figure out what to do here.  The best we can do
+             is return an empty list and let the servlet return a
+             404.
+             */
+            return locales;
+        }
 
         for (Locale l : map.keySet()) {
             locales.add(l);
