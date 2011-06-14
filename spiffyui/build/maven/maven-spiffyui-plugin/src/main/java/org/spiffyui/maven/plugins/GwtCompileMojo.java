@@ -278,7 +278,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
             Properties p = getProject().getProperties();
             File htmlprops = new File(p.getProperty("spiffyui.htmlprops.path"));
             cmd.withinClasspath(htmlprops);
-
+            
             cmd.arg("-gen", getGen().getAbsolutePath()).arg("-logLevel", getLogLevel()).arg("-style", getStyle())
                 .arg("-war", outputDirectory.getAbsolutePath())
                 .arg("-localWorkers", String.valueOf(getLocalWorkers()))
@@ -312,19 +312,54 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
             }
 
             addSOYC(cmd);
+            
+            ArrayList<String> compiledTargets = new ArrayList<String>();
 
             for (String target : modules) {
                 if (!compilationRequired(target, outputDirectory)) {
                     continue;
                 }
+                compiledTargets.add(target);
                 cmd.arg(target);
                 upToDate = false;
             }
+            
             if (!upToDate) {
                 cmd.execute();
+                
+                moveJSDir(outputDirectory, compiledTargets);
             }
         } catch (IOException e) {
             throw new MojoExecutionException(e.getMessage(), e);
+        }
+    }
+    
+    /**
+     * By default GWT puts everything in a directory with the same name as the module.  
+     * This causes a problem because we need to find the JavaScript files as runtime so
+     * we can determine the supported locales and there is no good way to find the module
+     * name from the server-side at runtime.  
+     * 
+     * The solution is that we move the localized JavaScript files to the root of the WAR
+     * so we can find them at runtime and figure out the locale that way.  This all feels
+     * a little hacky, but I can't think of a better solution.
+     * 
+     * @param outputDirectory
+     *                the GWT compiler output directory
+     * @param targets the list of modules that were compiled
+     * 
+     * @exception IOException
+     */
+    private void moveJSDir(File outputDirectory, List<String> targets)
+        throws IOException
+    {
+        for (String target : targets) {
+            File jslib = new File(outputDirectory, target + File.separator + "js" + File.separator + "lib" + File.separator + "i18n");
+            if (jslib.exists()) {
+                File newJslib = new File(outputDirectory, "js" + File.separator + "lib");
+                newJslib.mkdirs();
+                jslib.renameTo(new File(newJslib, "i18n"));
+            }
         }
     }
 
