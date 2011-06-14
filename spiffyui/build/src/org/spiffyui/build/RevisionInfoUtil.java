@@ -96,7 +96,6 @@ public class RevisionInfoUtil
 
     private static RevisionInfoBean getSubversionRev(final File rootDir) throws InterruptedException, IOException
     {
-        System.out.println("getSubversionRev(" + rootDir + ")");
         Process proc = Runtime.getRuntime().exec("svn info " + rootDir.getAbsolutePath());
 
         InputStream is = proc.getInputStream();
