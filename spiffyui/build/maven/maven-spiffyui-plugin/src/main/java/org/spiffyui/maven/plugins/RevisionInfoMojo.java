@@ -1,7 +1,6 @@
 package org.spiffyui.maven.plugins;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.maven.plugin.AbstractMojo;
@@ -52,8 +51,6 @@ public class RevisionInfoMojo extends AbstractMojo
 
             p.setProperty("revision.number", revInfo.getRevNumber());
             p.setProperty("revision.date", revInfo.getRevDate());
-        } catch (IOException ioe) {
-            throw new BuildException(ioe);
         } catch (InterruptedException ie) {
             throw new BuildException(ie);
         }

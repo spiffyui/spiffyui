@@ -997,6 +997,7 @@ iframe {
 
 #landingPanelcreateFormInst li {
     list-style: decimal inside none;
+    margin-bottom: 0px;
 }
 
 #landingPanelcreateFormInst ol {

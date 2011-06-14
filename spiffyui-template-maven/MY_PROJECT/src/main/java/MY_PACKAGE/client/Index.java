@@ -25,17 +25,16 @@ import org.spiffyui.client.rest.RESTility;
 import org.spiffyui.client.widgets.LongMessage;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.http.client.URL;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
@@ -45,10 +44,11 @@ import com.google.gwt.user.client.ui.TextBox;
  */
 public class Index implements EntryPoint, ClickHandler, KeyPressHandler 
 {
+    private static final SpiffyUiHtml STRINGS = (SpiffyUiHtml) GWT.create(SpiffyUiHtml.class);
 
     private static Index g_index;
     private TextBox m_text = new TextBox();
-    private LongMessage m_longMessage = new LongMessage("longMsg");
+    private LongMessage m_longMessage = new LongMessage("longMsgPanel");
 
     /**
      * The Index page constructor
@@ -62,13 +62,25 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
     @Override
     public void onModuleLoad()
     {
+        /*
+         This is where we load our module and create our dynamic controls.  The MainHeader
+         displays our title bar at the top of our page.
+         */
         MainHeader header = new MainHeader();
         header.setHeaderTitle("Hello Spiffy MY_PROJECT!");
         
+        /*
+         The main footer shows our message at the bottom of the page.
+         */
         MainFooter footer = new MainFooter();
-        footer.setFooterString("This application is a <a href=\"http://www.spiffyui.org\">Spiffy UI Framework</a> application");
+        footer.setFooterString("MY_PROJECT was built with the <a href=\"http://www.spiffyui.org\">Spiffy UI Framework</a>");
         
-        FlowPanel panel = new FlowPanel()
+        /*
+         This HTMLPanel holds most of our content.
+         MainPanel_html was built in the HTMLProps task from MainPanel.html, which allows you to use large passages of html
+         without having to string escape them.
+         */
+        HTMLPanel panel = new HTMLPanel(STRINGS.MainPanel_html())
         {
             @Override
             public void onLoad()
@@ -81,18 +93,19 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
             }
         };
         
-        panel.add(m_longMessage);
-        final InlineLabel label = new InlineLabel("What's your name? ");
-        label.setHeight("1em");
-        panel.add(label);
-        panel.add(m_text);
+        RootPanel.get("mainContent").add(panel);
+        
+        /*
+         These dynamic controls add interactivity to our page.
+         */
+        panel.add(m_longMessage, "longMsg");
+        panel.add(m_text, "nameField");
         final Button button = new Button("Submit");
-        panel.add(button);
+        panel.add(button, "submitButton");
         
         button.addClickHandler(this);
         m_text.addKeyPressHandler(this);
         
-        RootPanel.get("mainContent").add(panel);
     }
     
     @Override
@@ -119,11 +132,10 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
     {
         String q = m_text.getValue().trim();
         if (q.equals("")) {
-            MessageUtil.showWarning("Enter your name in the text field.", false);
+            MessageUtil.showWarning("Please enter your name in the text field.", false);
             return;
         }
-        
-        RESTility.callREST("simple/" + URL.encode(q), new RESTCallback() {
+        RESTility.callREST("simple/" + q, new RESTCallback() {
             
             @Override
             public void onSuccess(JSONValue val)

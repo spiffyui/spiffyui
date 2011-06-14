@@ -5,6 +5,23 @@
 
 <web-app>
 
+  <!-- The localization filter -->
+  <filter>
+    <description>Filter to choose the best-match locale from the supported locales for GWT</description>
+    <filter-name>LocaleFilter</filter-name>
+    <filter-class>MY_PACKAGE.server.LocaleFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>LocaleFilter</filter-name>
+    <url-pattern>/</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>LocaleFilter</filter-name>
+    <url-pattern>/index.html</url-pattern>
+  </filter-mapping>
+
   <!-- Servlets -->
   <servlet>
     <servlet-name>SimpleServlet</servlet-name>

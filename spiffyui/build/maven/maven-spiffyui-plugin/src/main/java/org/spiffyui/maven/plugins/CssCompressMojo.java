@@ -36,7 +36,7 @@ public class CssCompressMojo extends AbstractMojo
      * The output filename suffix.
      * 
      * @parameter expression="${spiffyui.yuicompressor.suffix}"
-     *            default-value="-min"
+     *            default-value=".min"
      */
     private String suffix;
 
@@ -49,7 +49,7 @@ public class CssCompressMojo extends AbstractMojo
     private int linebreakpos;
 
     /**
-     * @parameter expression="src/main/resources"
+     * @parameter expression="src/main/webapp"
      */
     private File sourceDirectory;
 

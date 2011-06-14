@@ -1,0 +1,30 @@
+/*
+   This file contains styles for the GWT application.  
+ */
+
+body {
+    font-family: Verdana,Sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+#spiffyIntroText {
+    width: 600px;
+}
+
+p, li {
+    margin-top: 1em;
+}
+
+h2 {
+    font-size: 18px;
+    margin-top: 1.5em;
+}
+
+li {
+    list-style: disc inside none;
+}
+
+.spiffy-longmessage-panel {
+    margin-bottom: 1em;
+}

@@ -16,7 +16,6 @@
 package org.spiffyui.build;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
@@ -75,8 +74,6 @@ public class RevisionInfoTask extends Task
             
             getProject().setProperty("revision.number", revInfo.getRevNumber());
             getProject().setProperty("revision.date", revInfo.getRevDate());
-        } catch (IOException ioe) {
-            throw new BuildException(ioe);
         } catch (InterruptedException ie) {
             throw new BuildException(ie);
         }

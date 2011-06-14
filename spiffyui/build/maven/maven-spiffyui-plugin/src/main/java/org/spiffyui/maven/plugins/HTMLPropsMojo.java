@@ -37,12 +37,20 @@ public class HTMLPropsMojo extends AbstractMojo
      * @required
      */
     private File outputDirectory;
+    
+    /**
+     * The output directory into which to copy the resources.
+     * 
+     * @parameter default-value="${project.build.outputDirectory}"
+     * @required
+     */
+    private File classesOutputDirectory;
 
     /**
      * The name to give to the generated package
      * 
      * @parameter 
-     *            expression="${project.groupId}.${project.artifactId}.htmlprops"
+     *            expression="${project.groupId}.client"
      * @required
      */
     private String packageName;
@@ -57,7 +65,7 @@ public class HTMLPropsMojo extends AbstractMojo
      * The name to give to the generated interface
      * 
      * @parameter expression="${spiffyui.htmlprops.interfacename}
-     *            default-value="SpiffyUiHtmlProps"
+     *            default-value="SpiffyUiHtml"
      * @required
      */
     private String interfaceName;
@@ -79,30 +87,44 @@ public class HTMLPropsMojo extends AbstractMojo
          * (e.g. no dashes)
          */
         String safePackageName = packageName.replace("-", "_");
-        File packageDir = new File(outputDirectory, safePackageName.replace(".", File.separator));
+        
+        try {
+            /*
+             First we generate the properties files and the Java file into the generated
+             sources directory so they can be used in the compiler.
+             */
+            generateProps(new File(outputDirectory, safePackageName.replace(".", File.separator)), safePackageName);
+            
+            /*
+             Then we call it a second time generating just the properties files for
+             runtime locale resolution.
+             */
+            generateProps(new File(outputDirectory, safePackageName.replace(".", File.separator)), null);
+        } catch (IOException e) {
+            throw new MojoExecutionException(e.getMessage());
+        }
+    }
+    
+    private void generateProps(File packageDir, String safePackageName)
+        throws IOException
+    {
         if (!packageDir.exists()) {
             packageDir.mkdirs();
         }
 
         File outputFile = new File(packageDir, interfaceName + ".properties");
-
-        log.info("HTMLPROPS: Generating " + packageName);
+        
+        getLog().info("HTMLPROPS: Generating " + safePackageName);
 
         String[] exts = new String[] {
             "html"
         };
         List<File> files = new ArrayList<File>(FileUtils.listFiles(sourceDirectory, exts, true));
 
-        try {
-
-            if (!outputDirectory.exists()) {
-                FileUtils.forceMkdir(outputDirectory);
-            }
-
-            HTMLPropertiesUtil.generatePropertiesFiles(files, outputFile, safePackageName);
-        } catch (IOException e) {
-            throw new MojoExecutionException(e.getMessage());
+        if (!outputDirectory.exists()) {
+            FileUtils.forceMkdir(outputDirectory);
         }
-    }
 
+        HTMLPropertiesUtil.generatePropertiesFiles(files, outputFile, safePackageName);
+    }
 }

@@ -40,21 +40,29 @@ public class RevisionInfoUtil
      * 
      * @return the revision info bean with revision information about this directory.
      *  
-     * @throws InterruptedException if there is an error waiting for the output of the version control commands
-     * @throws IOException if there is an error reading the output from the version control commands
+     * @throws InterruptedException if there is an error waiting for the output of the version control commands 
      */
     public static RevisionInfoBean getRevisionInfo(final File rootDir)
-        throws InterruptedException, IOException
+        throws InterruptedException
     {
-        RevisionInfoBean revInfo = getSubversionRev(rootDir);
-        if (revInfo == null) {
-            revInfo = getGitRev(rootDir);
-        }
-        
-        if (revInfo == null) {
+        try {
+            RevisionInfoBean revInfo = getSubversionRev(rootDir);
+            if (revInfo == null) {
+                revInfo = getGitRev(rootDir);
+            }
+            
+            if (revInfo == null) {
+                return new RevisionInfoBean("-1", "-1");
+            } else {
+                return revInfo;
+            }
+        } catch (IOException ioe) {
+            /*
+             This means that we had an error calling one of the
+             tools to get the revision information.  In this case
+             we just return an empty bean
+             */
             return new RevisionInfoBean("-1", "-1");
-        } else {
-            return revInfo;
         }
     }
     

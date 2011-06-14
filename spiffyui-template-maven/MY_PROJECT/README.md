@@ -1,4 +1,4 @@
-[Spiffy UI](http://www.spiffyui.org) - beautiful, fast, maintainable applications with GWT and REST
+[Spiffy UI](http://www.spiffyui.org) - GWT made simple
 ==================================================
 
 This is an application created from the [Spiffy UI Framework](http://www.spiffyui.org) project creator, which builds a simple REST application with Apache Maven.
@@ -11,7 +11,7 @@ This project is built with [Apache Maven](http://maven.apache.org/).
     
 Go to your project's root directory and run the following two commands:
 
-    mvn install
+    mvn package
     mvn jetty:run-war
         
 This will download the required libraries, build your project, and run it.  You can access the running application here:
