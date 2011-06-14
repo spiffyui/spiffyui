@@ -27,6 +27,9 @@
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>maven-jetty-plugin</artifactId>
+        <configuration>
+          <contextPath>/</contextPath>
+        </configuration>
         <version>6.1.10</version>
       </plugin>
     </plugins>
