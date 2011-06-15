@@ -14,10 +14,11 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  <url>http://www.spiffyui.org/maven-plugin</url>
   <scm>
-    <connection>scm:svn:http://spiffyui.googlecode.com/svn/trunk</connection>
-    <developerConnection>scm:svn:https://spiffyui.googlecode.com/svn/trunk</developerConnection>
-    <url>http://spiffyui.googlecode.com/svn/trunk</url>
+    <connection>scm:svn:http://spiffyui.googlecode.com/svn/trunk/spiffyui/build/maven/maven-spiffyui-plugin</connection>
+    <developerConnection>scm:svn:https://spiffyui.googlecode.com/svn/trunk/spiffyui/build/maven/maven-spiffyui-plugin</developerConnection>
+    <url>http://spiffyui.googlecode.com/svn/trunk/spiffyui/build/maven/maven-spiffyui-plugin</url>
   </scm>
   <developers>
     <developer>

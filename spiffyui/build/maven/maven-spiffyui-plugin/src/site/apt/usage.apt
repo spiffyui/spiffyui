@@ -1,0 +1,79 @@
+ ------
+ Introduction
+ ------
+ Author
+ ------
+ YYYY-MM-DD
+ ------
+
+
+Usage
+
+  Using the plugin involves several major steps
+
+  * Create/modify a new maven project with a pom.xml
+
+    * set the packaging type to either <<spiffyui-client>> or <<spiffyui-war>>
+
+    * include the maven-spiffyui-plugin
+      
++-------------------------------+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.spiffyui.maven.plugins</groupId>
+        <artifactId>maven-spiffyui-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <extensions>true</extensions>
+      </plugin>
+      ...
+    </plugins>
+  </build>
++-------------------------------+
+
+      (Ensure that the <<extentions=true>> are set)
+
+  * Place your various types of source code in well known locations
+
+    * <java> in src/main/java
+
+    * <javascript> in src/main/js
+
+    * html for compilation into html-properties in src/main/html
+
+    * css for yui-compression and general web artifacts (line index.html) in
+      src/main/webapp
+
+    * GWT module definitions in src/main/resources
+
+  * run <<mvn package>>
+
+* spiffyui-war
+
+  This packaging type is a convenience method for projects that plan on using
+  a java servlet as their backend to the application.  This pattern will be
+  familar to those coming from a pure GWT background.  In addition to running
+  a spiffyui/gwt compilation, this packaging type will also invoke the javac
+  compiler against your java sources, as well as run the war:war goal during
+  the packaging phase.
+
+* spiffyui-client
+
+  One of the major advantages of spiffyui is that it effectively decouples the
+  client from the server via a REST transport.  Since a variety of
+  environments are capable of acting as a REST backend, the spiffyui-client
+  packaging aims to provide a stand-alone client that can be served up by an
+  arbitrary HTTP engine (presumably one which is also hosting a RESTful web
+  application).
+
+  Therefore, this packaging only performs the client-side compilation and
+  produces a <<.spiffyui>> package as its sole maven artifact.  It is intended
+  that some other project may consume this artifact as a standard maven
+  coordinate, and use the maven-spiffyui-plugin to help unpackage the
+  .spiffyui artifact in some way that is meaningful to that particular
+  environment.
+
+  This technique has been successfully employed to serve up spiffyui from such
+  backends as Erlang/Yaws, Perl/Dancer, and node.js.  However, as stated
+  above, any web-application server that can surface a RESTful api and host
+  static web artifacts in its docroot would qualify.

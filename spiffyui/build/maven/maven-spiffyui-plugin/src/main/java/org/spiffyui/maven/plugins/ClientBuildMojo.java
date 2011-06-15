@@ -5,7 +5,8 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
 /**
- * Forks a spiffui-client build lifecycle.
+ * Aggregates all of the necessary steps to compile a spiffyui client application into one goal.
+ * 
  * @goal spiffyui-client
  * @execute lifecycle="spiffyui-client" phase="compile"
  */
