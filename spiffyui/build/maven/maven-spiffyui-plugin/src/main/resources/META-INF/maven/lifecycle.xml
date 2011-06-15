@@ -41,25 +41,7 @@
  			<execution>
  				<goals>
  					<goal>gwt-compile</goal>
- 				</goals>
- 			</execution>
- 		</executions>
- 	  </phase>
- 	  <phase>
- 		<id>process-classes</id>
- 		<executions>
- 			<execution>
- 				<goals>
  					<goal>closure-compile</goal>
- 				</goals>
- 			</execution>
- 		</executions>
- 	  </phase>
- 	  <phase>
- 		<id>prepare-package</id>
- 		<executions>
- 			<execution>
- 				<goals>
  					<goal>gzip</goal>
  				</goals>
  			</execution>
