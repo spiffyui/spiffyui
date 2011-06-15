@@ -5,7 +5,7 @@
   <groupId>org.spiffyui.maven.plugins</groupId>
   <artifactId>maven-spiffyui-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>0.1-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <name>Maven SpiffyUI Plugin</name>
   <licenses>
     <license>
