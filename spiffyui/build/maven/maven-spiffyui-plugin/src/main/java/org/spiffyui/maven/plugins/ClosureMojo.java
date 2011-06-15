@@ -40,19 +40,26 @@ public class ClosureMojo extends AbstractMojo
     private MavenProject project;
 
     /**
-     * @parameter expression="SIMPLE_OPTIMIZATIONS"
+     * Set the compilation level passed to the compiler
+     * 
+     * @parameter expression="${spiffyui.closurecompiler.level}"
+     *            default-value="SIMPLE_OPTIMIZATIONS"
      * @required
      */
     private String compilationLevel;
 
     /**
-     * @parameter expression="src/main/js"
+     * Path to the project .js source for compilation
+     * 
+     * @parameter default-value="src/main/js"
      * @required
      */
     private File sourceDirectory;
 
     /**
-     * @parameter expression="${spiffyui.www}/${project.artifactId}.min.js"
+     * The compressed/aggregate javascript output file
+     * 
+     * @parameter default-value="${spiffyui.www}/${project.artifactId}.min.js"
      * @required
      */
     private File outputFile;

@@ -33,9 +33,9 @@ public class GZipMojo extends AbstractMojo
     private MavenProject project;
 
     /**
-     * Location of the file.
+     * Path of artifacts to compress.
      * 
-     * @parameter expression="${spiffyui.www}"
+     * @parameter default-value="${spiffyui.www}"
      * @required
      */
     private File directory;

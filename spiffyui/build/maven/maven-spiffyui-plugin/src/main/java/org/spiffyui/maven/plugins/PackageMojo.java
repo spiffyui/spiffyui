@@ -46,15 +46,15 @@ public class PackageMojo extends AbstractMojo
      * The directory to archive
      * 
      * @parameter 
-     *            expression="${spiffyui.www}"
+     *            default-value="${spiffyui.www}"
      * @required
      */
     private File directory;
 
     /**
-     * Location of the file.
+     * Path to emit the package.
      * 
-     * @parameter expression="${project.build.directory}"
+     * @parameter default-value="${project.build.directory}"
      * @required
      */
     private File outputDirectory;
@@ -62,7 +62,7 @@ public class PackageMojo extends AbstractMojo
     /**
      * Name of archive
      * 
-     * @parameter expression="${project.build.finalName}.spiffyui"
+     * @parameter default-value="${project.build.finalName}.spiffyui"
      * @required
      */
     private String archiveName;

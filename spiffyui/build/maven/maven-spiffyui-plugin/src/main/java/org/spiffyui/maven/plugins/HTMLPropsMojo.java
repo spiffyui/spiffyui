@@ -50,13 +50,15 @@ public class HTMLPropsMojo extends AbstractMojo
      * The name to give to the generated package
      * 
      * @parameter 
-     *            expression="${project.groupId}.client"
+     *            default-value="${project.groupId}.client"
      * @required
      */
     private String packageName;
 
     /**
-     * @parameter expression="src/main/html"
+     * Path to the project .html files to process
+     * 
+     * @parameter default-value="src/main/html"
      * @required
      */
     private File sourceDirectory;

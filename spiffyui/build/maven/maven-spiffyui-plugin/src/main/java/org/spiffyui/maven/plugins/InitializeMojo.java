@@ -27,7 +27,7 @@ public class InitializeMojo extends AbstractMojo
     private MavenProject project;
 
     /**
-     * @parameter expression="${project.build.directory}"
+     * @parameter default-value="${project.build.directory}"
      * @required
      * @readonly
      */

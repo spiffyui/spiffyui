@@ -53,7 +53,8 @@ public class BuildInfoMojo extends AbstractMojo
     /**
      * The descriptor file to generate
      * 
-     * @parameter expression="${spiffyui.www}/build-info.json"
+     * @parameter expression="${spiffyui.buildinfo.file}"
+     *            default-value="${spiffyui.www}/build-info.json"
      * @required
      */
     private File outputFile;

@@ -49,12 +49,16 @@ public class CssCompressMojo extends AbstractMojo
     private int linebreakpos;
 
     /**
-     * @parameter expression="src/main/webapp"
+     * Path to the project .css sources to compress
+     *  
+     * @parameter default-value="src/main/webapp"
      */
     private File sourceDirectory;
 
     /**
-     * @parameter expression="${spiffyui.www}"
+     * The output directory to emit compressed artifacts
+     * 
+     * @parameter default-value="${spiffyui.www}"
      * @required
      */
     private File outputDirectory;

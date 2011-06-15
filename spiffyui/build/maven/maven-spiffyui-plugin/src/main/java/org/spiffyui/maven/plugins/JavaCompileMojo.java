@@ -102,7 +102,6 @@ public class JavaCompileMojo extends AbstractMojo
      * 
      * @parameter 
      *            default-value="${project.build.directory}/generated-sources/annotations"
-     * @since 2.2
      */
     private File generatedSourcesDirectory;
     
