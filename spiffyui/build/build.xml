@@ -290,7 +290,7 @@
         </jslint>
     </target>
     
-    <target name="spiffy.clean" depends="setup">
+    <target name="spiffy.clean" depends="setup,init-maven">
         <delete dir="${spiffy.www}"/>
         <delete dir="${spiffy.classes}"/>
         <delete dir="${spiffy.dist}"/>
@@ -301,6 +301,10 @@
         <delete dir="${spiffy.root}/lib"/>
         <delete dir="${spiffy.root}/target"/>
         <delete file="${spiffy.root}/checkstyle_errors.xml"/>
+	<artifact:mvn mavenVersion="3.0.2"
+		      pom="${spiffy.build}/maven/maven-spiffyui-plugin/pom.xml">
+          <arg value="clean"/>
+	</artifact:mvn>
     </target>
     
     <target name="javadoc" description="Generate JavaDoc for the Spiffy UI framework">
