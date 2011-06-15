@@ -457,6 +457,10 @@ build.dir=${root}
         <copy file="${sample.web.src}/WEB-INF/web-ae.xml" 
               tofile="${sample.out}/appengine-staging/WEB-INF/web.xml" overwrite="true"/>
         
+        <!-- This robots file blocks the staging server from search results.  -->
+        <copy file="${sample.web.src}/robots.txt" 
+              tofile="${sample.out}/appengine-staging/robots.txt" overwrite="true"/>
+        
         <echo>
 ======================================================================== 
         
