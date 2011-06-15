@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -69,7 +70,20 @@ public class ClosureMojo extends AbstractMojo
         throws MojoExecutionException,
             MojoFailureException
     {
-
+        if (!sourceDirectory.exists()) {
+            getLog().info("Source directory doesn't exist, skipping");
+            return;
+        }
+        
+        String[] exts = {
+            "js"
+        };
+        List<File> files = new ArrayList<File>(FileUtils.listFiles(sourceDirectory, exts, true));
+        if (files.size() == 0) {
+            getLog().info("No source files detected, skipping");
+            return;
+        }
+        
         CompilationLevel compLevel = null;
         try {
             compLevel = CompilationLevel.valueOf(compilationLevel);
@@ -86,7 +100,9 @@ public class ClosureMojo extends AbstractMojo
 
         /* spiffyui.min.js _must_ be first */
         sources.add(JSSourceFile.fromFile(new File(module, "spiffyui.min.js")));
-        listJSSourceFiles(sources, sourceDirectory);
+        for (File file : files) {
+            sources.add(JSSourceFile.fromFile(file));
+        }
 
         Compiler compiler = new Compiler();
         Result result = compiler.compile(new ArrayList<JSSourceFile>(), sources, compilerOptions);
@@ -111,24 +127,4 @@ public class ClosureMojo extends AbstractMojo
             throw new MojoFailureException(outputFile != null ? outputFile.toString() : e.getMessage());
         }
     }
-
-    private List<JSSourceFile> listJSSourceFiles(List<JSSourceFile> jsSourceFiles, File directory)
-    {
-        if (directory != null) {
-            File[] files = directory.listFiles();
-            if (files != null) {
-                for (File file : directory.listFiles()) {
-                    if (file.isFile()) {
-                        if (file.getName().endsWith(".js")) {
-                            jsSourceFiles.add(JSSourceFile.fromFile(file));
-                        }
-                    } else {
-                        listJSSourceFiles(jsSourceFiles, file);
-                    }
-                }
-            }
-        }
-        return jsSourceFiles;
-    }
-
 }
