@@ -16,7 +16,7 @@ import org.apache.maven.shared.filtering.MavenResourcesExecution;
 import org.apache.maven.shared.filtering.MavenResourcesFiltering;
 
 /**
- * Goal which determines various revision details about the build
+ * Copies resources to the target
  * 
  * @goal resources
  * @phase process-resources

@@ -18,7 +18,7 @@ import org.codehaus.plexus.util.IOUtil;
 import com.yahoo.platform.yui.compressor.CssCompressor;
 
 /**
- * Goal which executes the YUI Compressor against .css
+ * Invokes the YUI Compressor for the project .css source
  * 
  * @goal css-compress
  * @phase process-resources

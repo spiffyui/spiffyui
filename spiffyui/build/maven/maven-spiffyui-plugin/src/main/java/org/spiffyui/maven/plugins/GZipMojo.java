@@ -15,7 +15,7 @@ import org.apache.maven.project.MavenProject;
 import org.spiffyui.build.GzipListUtil;
 
 /**
- * Goal which gzip compresses specific artifacts
+ * GZip compresses specific web artifacts
  * 
  * @goal gzip
  * @phase process-classes

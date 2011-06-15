@@ -15,7 +15,7 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 
 /**
- * Runs the java compiler
+ * Invokes the Java compiler for the project .java source
  * 
  * @goal java-compile
  * @phase process-classes

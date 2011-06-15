@@ -20,7 +20,7 @@ import org.apache.maven.project.MavenProject;
 import org.json.JSONObject;
 
 /**
- * Goal which determines various revision details about the build
+ * Generates a build-info descriptor
  * 
  * @goal build-info
  * @phase generate-resources
@@ -51,7 +51,7 @@ public class BuildInfoMojo extends AbstractMojo
     private String dateFormat;
     
     /**
-     * Location of the file.
+     * The descriptor file to generate
      * 
      * @parameter expression="${spiffyui.www}/build-info.json"
      * @required

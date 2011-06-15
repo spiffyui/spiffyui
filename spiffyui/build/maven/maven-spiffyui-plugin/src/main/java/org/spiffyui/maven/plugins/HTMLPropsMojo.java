@@ -14,7 +14,7 @@ import org.apache.maven.project.MavenProject;
 import org.spiffyui.build.HTMLPropertiesUtil;
 
 /**
- * Goal which compiles various HTML files into something consumable by GWT
+ * Invokes the HTML-Properties compiler for the project .html source
  * 
  * @goal htmlprops
  * @phase generate-resources

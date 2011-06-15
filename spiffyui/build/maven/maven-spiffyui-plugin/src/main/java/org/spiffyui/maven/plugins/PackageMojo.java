@@ -25,7 +25,7 @@ import org.codehaus.plexus.archiver.tar.TarArchiver;
 import org.codehaus.plexus.archiver.tar.TarArchiver.TarCompressionMethod;
 
 /**
- * Goal which packages a spiffy-ui client into an archive
+ * Packages spiffy-ui client into an stand-alone archive
  * 
  * @goal package
  * @phase package

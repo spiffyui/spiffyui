@@ -12,7 +12,7 @@ import org.spiffyui.build.RevisionInfoBean;
 import org.spiffyui.build.RevisionInfoUtil;
 
 /**
- * Goal which determines various revision details about the build
+ * Determines various revision details about the build
  * 
  * @goal rev-info
  * @phase initialize

@@ -24,6 +24,8 @@ import org.codehaus.plexus.compiler.util.scan.mapping.SingleTargetSourceMapping;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
+ * Invokes the GWTCompiler for the project source
+ * 
  * @extendsPlugin gwt-maven-plugin
  * @extendsGoal compile
  * @goal gwt-compile

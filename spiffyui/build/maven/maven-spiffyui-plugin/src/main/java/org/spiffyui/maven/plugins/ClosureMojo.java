@@ -23,7 +23,7 @@ import com.google.javascript.jscomp.JSSourceFile;
 import com.google.javascript.jscomp.Result;
 
 /**
- * Goal which executes the Google closure compiler against .js codee
+ * Invokes the Google Closure compiler for the project .js source
  * 
  * @goal closure-compile
  * @phase compile
