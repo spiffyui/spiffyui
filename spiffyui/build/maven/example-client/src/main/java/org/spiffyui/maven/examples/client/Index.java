@@ -8,7 +8,6 @@ import org.spiffyui.client.rest.RESTException;
 import org.spiffyui.client.rest.RESTility;
 import org.spiffyui.client.widgets.LongMessage;
 import com.google.gwt.core.client.GWT;
-import org.spiffyui.maven.examples.client.spiffyui_maven_demo.htmlprops.SpiffyUiHtmlProps;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -32,7 +31,7 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
     private static Index g_index;
     private TextBox m_text = new TextBox();
     private LongMessage m_longMessage = new LongMessage("longMsg");
-    private static final SpiffyUiHtmlProps STRINGS = (SpiffyUiHtmlProps) GWT.create(SpiffyUiHtmlProps.class);
+    private static final SpiffyUiHtml STRINGS = (SpiffyUiHtml) GWT.create(SpiffyUiHtml.class);
 
     /**
      * The Index page constructor
