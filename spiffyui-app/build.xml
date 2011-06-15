@@ -396,7 +396,7 @@ build.dir=${root}
             </zipfileset>
             
             <!-- We also want to include the JavaDoc -->
-            <zipfileset dir="${spiffyui}/target/classes/javadoc" prefix="javadoc" />
+            <zipfileset dir="${spiffyui}/target/classes/javadoc-all" prefix="javadoc" />
         </war>
     </target>
     

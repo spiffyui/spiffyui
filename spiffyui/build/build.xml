@@ -6,6 +6,7 @@
         <antcall target="js-lint" />
         <antcall target="js-min" />
         <antcall target="css-min" />
+        <antcall target="javadoc-all"/>
         <antcall target="javadoc"/>
         <antcall target="javadoc-tasks"/>
         <antcall target="package" />
@@ -128,16 +129,8 @@
         <antcall target="checkstyle" />
     </target>
     
-    <target name="compileAntTask.check">
-        <condition property="anttask.is.compiled">
-            <not>
-                <available file="${spiffy.dist}/spiffytasks.jar"/>
-            </not>
-        </condition>
-    </target>
-    
     <!--  The compile Ant task. -->
-    <target name="compileAntTask" if="anttask.is.compiled" depends="setup,compileAntTask.check">
+    <target name="compileAntTask" depends="setup">
         <mkdir dir="${spiffy.build.classes}"/>
         <javac srcdir="${spiffy.build}/src" destdir="${spiffy.build.classes}" target="1.5" 
                     includes="org/spiffyui/build/**"
@@ -166,7 +159,7 @@
       <artifact:pom id="pom-tasks" file="${spiffy.root}/build/pom-tasks.xml" />
 
       <artifact:install file="${spiffy.dist}/spiffytasks.jar">
-	<pom refid="pom-tasks"/>
+          <pom refid="pom-tasks"/>
       </artifact:install>
     </target>
 
@@ -186,7 +179,7 @@
         </taskdef>
     </target>
     
-    <target name="js-min" description="Minimize the JavaScript with the Closure compiler" depends="setup,js-lint,compileAntTask.check,compileAntTask,taskdefs">
+    <target name="js-min" description="Minimize the JavaScript with the Closure compiler" depends="setup,js-lint,compileAntTask,taskdefs">
         <!-- Now we compile our JavaScript.  We are compiling all the different
              pieces of the JavaScript frameworks we use along with our JavaScript
              to create a single file.  We need to specify the files for JQuery UI
@@ -305,7 +298,7 @@
         <delete file="${spiffy.root}/checkstyle_errors.xml"/>
     </target>
     
-    <target name="javadoc" description="Generate JavaDoc for this project">
+    <target name="javadoc" description="Generate JavaDoc for the Spiffy UI framework">
         <mkdir dir="${spiffy.classes}/javadoc"/>
         
         <javadoc destdir="${spiffy.classes}/javadoc"
@@ -314,6 +307,26 @@
                  use="true"
                  windowtitle="Spiffy UI Framework API">
             <packageset dir="${spiffy.root}/src/main/java" defaultexcludes="yes">
+                <include name="org/spiffyui/**"/>
+            </packageset>
+        </javadoc>
+    </target>
+    
+    <target name="javadoc-all" description="Generate JavaDoc for this project">
+        <mkdir dir="${spiffy.classes}/javadoc-all"/>
+        
+        <javadoc destdir="${spiffy.classes}/javadoc-all"
+                 author="false"
+                 version="true"
+                 use="true"
+                 windowtitle="Spiffy UI Framework API">
+            <packageset dir="${spiffy.root}/src/main/java" defaultexcludes="yes">
+                <include name="org/spiffyui/**"/>
+            </packageset>
+            <packageset dir="${spiffy.root}/build/src/" defaultexcludes="yes">
+                <include name="org/spiffyui/**"/>
+            </packageset>
+            <packageset dir="${spiffy.root}/build/maven/maven-spiffyui-plugin/src/main/java" defaultexcludes="yes">
                 <include name="org/spiffyui/**"/>
             </packageset>
         </javadoc>
