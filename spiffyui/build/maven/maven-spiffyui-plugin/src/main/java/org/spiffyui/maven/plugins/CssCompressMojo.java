@@ -69,6 +69,11 @@ public class CssCompressMojo extends AbstractMojo
             MojoFailureException
     {
 
+        if (!sourceDirectory.exists()) {
+            getLog().info("No sources, skipping");
+            return;
+        }
+        
         String[] exts = new String[] {
             "css"
         };
