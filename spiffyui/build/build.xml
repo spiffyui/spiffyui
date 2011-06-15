@@ -168,6 +168,11 @@
 		    pom="${spiffy.build}/maven/maven-spiffyui-plugin/pom.xml">
           <arg value="install"/>
       </artifact:mvn>
+        
+      <artifact:mvn mavenVersion="3.0.2"
+		    pom="${spiffy.build}/maven/maven-spiffyui-plugin/pom.xml">
+          <arg value="site"/>
+      </artifact:mvn>
     </target>
 
     <target name="taskdefs">

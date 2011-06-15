@@ -389,6 +389,12 @@ build.dir=${root}
                 <include name="**/*.jar"/>
             </zipfileset>
             
+            <!-- We need the source HTML files to we can serve them when asked for
+                 escaped fragments. -->
+            <zipfileset dir="${sample.res.src}/org/spiffyui/spsample/client" prefix="ajax" >
+                <include name="**/*.html"/>
+            </zipfileset>
+            
             <!-- We need to include the HTML files for localization support -->
             <zipfileset dir="${sample.res.src}/org/spiffyui/spsample/client" 
                         prefix="WEB-INF/classes/org/spiffyui/spsample/client" >
@@ -397,6 +403,9 @@ build.dir=${root}
             
             <!-- We also want to include the JavaDoc -->
             <zipfileset dir="${spiffyui}/target/classes/javadoc-all" prefix="javadoc" />
+            
+            <!-- We also want to include the JavaDoc -->
+            <zipfileset dir="${spiffyui}/build/maven/maven-spiffyui-plugin/target/site/" prefix="maven-plugin" />
         </war>
     </target>
     
