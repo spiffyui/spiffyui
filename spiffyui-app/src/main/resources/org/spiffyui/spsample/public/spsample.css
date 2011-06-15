@@ -838,7 +838,7 @@ iframe {
 }
 
 #mainContent > div {
-    width: 900px;
+    width: 100%;
     position: relative;
 }
 
@@ -1065,7 +1065,7 @@ iframe {
 
 .toc {
     position: absolute;
-    right: 200px;
+    right: 35px;
     width: 204px;
     text-align: right;
     font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2",Sans-serif;
@@ -1094,7 +1094,7 @@ iframe {
     border: thin solid lightgray; 
     opacity: 0.8;   
     font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2",Sans-serif;
-    margin: auto auto auto 650px;
+    margin: auto auto auto 635px;
     display: none;
 }
 
