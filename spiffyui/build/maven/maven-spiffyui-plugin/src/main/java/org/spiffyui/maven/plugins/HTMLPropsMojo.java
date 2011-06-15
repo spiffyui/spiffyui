@@ -50,7 +50,7 @@ public class HTMLPropsMojo extends AbstractMojo
      * The name to give to the generated package
      * 
      * @parameter 
-     *            default-value="${project.groupId}.client"
+     *            default-value="${project.groupId}"
      * @required
      */
     private String packageName;
