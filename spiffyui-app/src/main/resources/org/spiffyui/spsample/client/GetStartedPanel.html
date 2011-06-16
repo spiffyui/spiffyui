@@ -14,56 +14,9 @@
     <h2 id="GS_GetHelloSpiffy">Get Hello Spiffy</h2>
     
     <p>
-    Hello Spiffy is the <i>Hello World!</i> of Spiffy UI.  It shows you everything you need to get Spiffy UI up and running, create a simple form, and make a REST call.
+    Hello Spiffy is the <i>Hello World!</i> of Spiffy UI.  It shows you everything you need to get Spiffy UI up and running, create a simple form, and make a REST call.  The Hello Spiffy samples and many others are available at the <a href="https://github.com/spiffyui">Spiffy UI GitHub page</a>.
     </p>
     
-    <p>
-    There are three Hello Spiffy applications.  <a href="http://spiffyui.googlecode.com/svn/samples/HelloSpiffyMaven/">Hello Spiffy Maven</a> shows you how to build a Spiffy GWT application using <a href="http://maven.apache.org/">Apache Maven</a>.  Just check it out like this:
-    </p>
-    
-    <pre>
-    svn co http://spiffyui.googlecode.com/svn/samples/HelloSpiffyMaven/
-    </pre>
-    
-    <p>
-    <a href="http://spiffyui.googlecode.com/svn/samples/HelloSpiffyAnt/">Hello Spiffy Ant</a> works just like Hello Spiffy Maven but it builds with <a href="http://ant.apache.org/">Apache Ant</a> and <a href="http://ant.apache.org/ivy/">Apache Ivy</a>.  Just check it out like this:
-    </p>
-    
-    <pre>
-    svn co http://spiffyui.googlecode.com/svn/samples/HelloSpiffyAnt/
-    </pre>
-    
-    <p>
-    <a href="http://spiffyui.googlecode.com/svn/samples/HelloSpiffyNode/">Hello Spiffy Node</a> works just like Hello Spiffy Ant but it deploys to <a href="http://ant.apache.org/http://nodejs.org/http://nodejs.org/">Node.js</a>.  Just check it out like this:
-    </p>
-    
-    <pre>
-    svn co http://spiffyui.googlecode.com/svn/samples/HelloSpiffyNode/
-    </pre>
-    
-    <h4>Get it on GitHub</h4>
-    
-    <p>
-    You can also get the samples from GitHub at:
-    </p>
-    
-    <ul>
-        <li><a href="https://github.com/spiffyui/HelloSpiffyMaven">https://github.com/spiffyui/HelloSpiffyMaven</a></li>
-        <li><a href="https://github.com/spiffyui/HelloSpiffyAnt">https://github.com/spiffyui/HelloSpiffyAnt</a></li>
-        <li><a href="https://github.com/spiffyui/HelloSpiffyNode">https://github.com/spiffyui/HelloSpiffyNode</a></li>
-    </ul>
-
-    <h4>Requirements</h4>
-    
-    <p>
-        To run Hello Spiffy you'll need:
-    </p>
-    
-    <ul>
-        <li>Java 1.6 or higher</li>
-        <li>Your choice of <a href="http://ant.apache.org/">Apache Ant</a>, or <a href="http://maven.apache.org/">Apache Maven</a></li>
-    </ul>
-
     <h2 id="GS_AddSpiffy">Build your own</h2>
     
     <p>
@@ -92,21 +45,17 @@
     <h4>Apache Ant with Ivy</h4>
     
     <p>
-    Add the following entry to the chain in your ivysettings.xml file:
-    </p>
-    
-    <pre>&lt;ibiblio name="sonatype-snapshots"
-         m2compatible="true"
-         usepoms="true"
-         root="https://oss.sonatype.org/service/local/repositories/snapshots/content"/&gt;
-    </pre>
-    
-    <p>
     Then add the dependency to your ivy.xml file like this:
     </p>
 
-    <pre>    &lt;dependency org="org.spiffyui" name="spiffyui" changing="true" rev="0.7.5"/&gt;
+    <pre>    &lt;dependency org="org.spiffyui" name="spiffyui" rev="0.7.5"/&gt;
     </pre>
+    
+    <h4>Manual dependencies</h4>
+    
+    <p>
+    Build systems like Make, and others which do not (by default) support managed dependencies from central repositories, can easily use Spiffy UI by download the JARs from the <a href="https://code.google.com/p/spiffyui/downloads/list">Spiffy UI downloads page</a>.
+    </p>
     
     <h4>3rd-party dependencies</h4>
     
