@@ -302,7 +302,14 @@ public class SiteMapServlet extends HttpServlet
         /*
          Now we return all the content from the JavaDoc directory
          */
+        createNode(eventWriter, request.getRequestURL().substring(0, request.getRequestURL().length() - 11) + "javadoc", "0.7");
         findStaticFiles(request, context, eventWriter, "/javadoc");
+        
+        /*
+         We also want to include the content from the Maven plugin documentation
+         */
+        createNode(eventWriter, request.getRequestURL().substring(0, request.getRequestURL().length() - 11) + "maven-plugin", "0.7");
+        findStaticFiles(request, context, eventWriter, "/maven-plugin");
         
     }
     
@@ -321,9 +328,11 @@ public class SiteMapServlet extends HttpServlet
                 file = file.substring(file.lastIndexOf('/') + 1);
                 findStaticFiles(request, context, eventWriter, ref + "/" + file);
             } else {
-                file = file.substring(file.lastIndexOf('/'));
-                createNode(eventWriter, request.getRequestURL().substring(0, request.getRequestURL().length() - 12)  + 
-                           ref + file, "0.7");
+                if (file.endsWith(".html") || file.endsWith(".htm")) {
+                    file = file.substring(file.lastIndexOf('/'));
+                    createNode(eventWriter, request.getRequestURL().substring(0, request.getRequestURL().length() - 12)  + 
+                               ref + file, "0.6");
+                }
             }
         }
     }
