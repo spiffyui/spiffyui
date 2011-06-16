@@ -68,8 +68,9 @@ h2 {
     margin-bottom: 18px;
 }
 
-#mainContent {
+#mainBody #mainContent {
     overflow: visible;
+    width: 100%;
 }
 
 .documentationPanel {
