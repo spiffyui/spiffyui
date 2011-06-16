@@ -67,7 +67,7 @@ public class LandingPanel extends HTMLPanel
         /*
          * Add Project Creator
          */
-        ProjectCreatorPanel projCreator = new ProjectCreatorPanel("landingPanel");
+        ProjectCreatorPanel projCreator = new ProjectCreatorPanel("landingPanelForm");
         add(projCreator, "createSpiffy");
     }
     
