@@ -288,7 +288,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
         JSUtil.show(getElement().getId() + "createFormInst");
 
         logToGoogleAnalytics();
-        Window.Location.replace("/createProject?type=ant&projectName=" + m_projectName.getText() + 
+        Window.Location.replace("/createProject?type=maven&projectName=" + m_projectName.getText() + 
             "&packagePath=" + m_packageName.getText());
     }
     

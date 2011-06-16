@@ -145,6 +145,10 @@ h2 {
     list-style: decimal inside none;
     margin-bottom: 24px;
 }
+
+.createFormInst ol li {
+    margin-bottom: 0px;
+}
     
 
 #mainHeaderContainer .headertitle {
