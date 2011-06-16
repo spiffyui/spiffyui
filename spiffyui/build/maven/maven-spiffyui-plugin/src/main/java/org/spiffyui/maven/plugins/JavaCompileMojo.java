@@ -1,18 +1,17 @@
 package org.spiffyui.maven.plugins;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.exec.CommandLine;
-import org.apache.commons.exec.DefaultExecutor;
+import javax.tools.JavaCompiler;
+import javax.tools.ToolProvider;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.util.cli.CommandLineUtils;
 
 /**
  * Invokes the Java compiler for the project .java source
@@ -105,27 +104,52 @@ public class JavaCompileMojo extends AbstractMojo
      */
     private File generatedSourcesDirectory;
     
+    /**
+     * Convenience class that makes it easier to build a string of arguments for
+     * passing to the compiler
+     * 
+     */
+    class ArgBuilder
+    {
+        private List<String> m_args = new ArrayList<String>();
+              
+        ArgBuilder add(String arg)
+        {
+            m_args.add(arg);
+            return this;
+        }
+
+        @Override
+        public String toString()
+        {
+            return flatten(m_args.toString(), " ");
+        }
+                
+        public String[] get()
+        {
+            return m_args.toArray(new String[m_args.size()]);
+        }
+    }
+    
     @Override
     public void execute()
         throws MojoExecutionException,
             MojoFailureException
     {
-        CommandLine command = new CommandLine("javac");
+        ArgBuilder args = new ArgBuilder();
+        
+        String classpath = flatten(classpathElements.toString(), File.pathSeparator);
+  
         if (debug) {
-            command.addArgument("-g");
+            args.add("-g");
         }
         
-        String classpath = classpathElements.toString()
-            .replace(", ", File.pathSeparator)
-            .replace("[", "")
-            .replace("]", "");
-        
-        command.addArgument("-d").addArgument(outputDirectory.getAbsolutePath());
-        command.addArgument("-s").addArgument(generatedSourcesDirectory.getAbsolutePath());
-        command.addArgument("-encoding").addArgument(encoding);
-        command.addArgument("-cp").addArgument(classpath);
-        command.addArgument("-source").addArgument(source);
-        command.addArgument("-target").addArgument(target);
+        args.add("-d").add(outputDirectory.getAbsolutePath())
+            .add("-s").add(generatedSourcesDirectory.getAbsolutePath())
+            .add("-encoding").add(encoding)
+            .add("-cp").add(classpath)
+            .add("-source").add(source)
+            .add("-target").add(target);
         
         String[] exts = {
             "java"
@@ -143,14 +167,19 @@ public class JavaCompileMojo extends AbstractMojo
             
             List<File> files = new ArrayList<File>(FileUtils.listFiles(path, exts, true));
             for (File file : files) {
-                command.addArgument(file.getAbsolutePath());
+                args.add(file.getAbsolutePath());
             }
         }
         
         ensureExists(outputDirectory);
         ensureExists(generatedSourcesDirectory);
         
-        runCommand(command);
+        JavaCompiler javac = ToolProvider.getSystemJavaCompiler();
+
+        getLog().debug("Exec: javac " + args.toString());
+        if (javac.run(null, null, null, args.get()) != 0) {
+            throw new MojoExecutionException("Compilation failed");
+        }
     }
 
     private void ensureExists(File dir)
@@ -160,21 +189,10 @@ public class JavaCompileMojo extends AbstractMojo
         }
     }
     
-    private void runCommand(CommandLine cmdLine)
-        throws MojoExecutionException
+    private String flatten(String list, String sep)
     {
-
-        try {
-            DefaultExecutor executor = new DefaultExecutor();
-
-            getLog().debug("Exec: " + cmdLine.toString());
-
-            int ret = executor.execute(cmdLine, CommandLineUtils.getSystemEnvVars());
-            if (ret != 0) {
-                throw new MojoExecutionException("Exec failed: " + Integer.toString(ret));
-            }
-        } catch (IOException e) {
-            throw new MojoExecutionException(e.getMessage());
-        }
+        return list.replace(", ", sep)
+            .replace("[", "")
+            .replace("]", "");
     }
 }
