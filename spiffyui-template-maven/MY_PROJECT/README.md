@@ -4,12 +4,12 @@
 This is an application created from the [Spiffy UI Framework](http://www.spiffyui.org) project creator, which builds a simple REST application with Apache Maven.
 
 
-Building and Running Spiffy UI
+Building and Running MY_PROJECT
 --------------------------------------
 
 This project is built with [Apache Maven](http://maven.apache.org/).  
     
-Go to your project's root directory and run the following two commands:
+Go to your project's root directory and run the following command:
 
     mvn jetty:run-war
         
