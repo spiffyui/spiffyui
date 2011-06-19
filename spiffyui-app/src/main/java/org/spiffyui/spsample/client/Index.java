@@ -292,8 +292,14 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     
     private static String getIdFromParameter()
     {
-        if (Window.Location.getHref().indexOf('?') > -1) {
-            return Window.Location.getHref().substring(Window.Location.getHref().indexOf('?') + 1);
+        int qIndex = Window.Location.getHref().indexOf('?');
+        int aIndex = Window.Location.getHref().indexOf('&');
+        if (qIndex > -1) {
+            if (aIndex > -1) {
+                return Window.Location.getHref().substring(qIndex + 1, aIndex);
+            } else {
+                return Window.Location.getHref().substring(qIndex + 1);
+            }
         } else {
             return null;
         }
