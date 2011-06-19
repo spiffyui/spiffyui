@@ -326,29 +326,6 @@ spiffyui = {
     
     init: function() {
          
-        (function(window) {
-            // Prepare
-            spiffyui.History = window.History; // Note: We are using a capital H instead of a lower h
-            if (!spiffyui.History.enabled) {
-                // History.js is disabled for this browser.
-                // This is because we can optionally choose to support HTML4 browsers or not.
-                return false;
-            }
-            
-            // Bind to StateChange Event
-            spiffyui.History.Adapter.bind(window,'statechange',function() { // Note: We are using statechange instead of popstate
-                var State = spiffyui.History.getState(); // Note: We are using History.getState() instead of event.state
-                if (spiffyui.doHandleHistoryEvent) {
-                    /*
-                     * If the doHandleHistoryEvent function has been bound then we
-                     * call Spiffy UI to handle the history event.  
-                     */
-                    spiffyui.doHandleHistoryEvent(State.data.state);
-                }
-            });
-            
-        }(window));
-        
         if (spiffyui.autoloadHTML) {
          
             /*
@@ -395,7 +372,7 @@ spiffyui = {
              * give precedence to files loaded in the page over those added with JavaScript
              * and we can't do that because we override styles in spiffyui.ie.css.
              */
-            if (window.location.href.substr(-11) === '-debug.html') {
+            if (window.location.href.indexOf('-debug.htm') > -1) {
                 jQuery('head').prepend('<link>');
                 css = $('head').children(':first');
                 css.attr({
@@ -413,6 +390,34 @@ spiffyui = {
                 });
             }
         }
+        
+        /*
+         * The last step is to initialize our history framework.
+         */
+        (function(window) {
+            spiffyui.History = window.History; // Note: We are using a capital H instead of a lower h
+            if (!spiffyui.History.enabled) {
+                /*
+                 * Applications aren't required to use our history support and if
+                 * they haven't loaded the libraries then we don't want to load try
+                 * to call them.
+                 */
+                return false;
+            }
+            
+            // Bind to StateChange Event
+            spiffyui.History.Adapter.bind(window,'statechange',function() { // Note: We are using statechange instead of popstate
+                var State = spiffyui.History.getState(); // Note: We are using History.getState() instead of event.state
+                if (spiffyui.doHandleHistoryEvent) {
+                    /*
+                     * If the doHandleHistoryEvent function has been bound then we
+                     * call Spiffy UI to handle the history event.  
+                     */
+                    spiffyui.doHandleHistoryEvent(State.data.state);
+                }
+            });
+            
+        }(window));
     }
     
 };
