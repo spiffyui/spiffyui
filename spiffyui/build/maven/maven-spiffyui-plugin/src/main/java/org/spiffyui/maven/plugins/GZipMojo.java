@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
@@ -39,15 +38,20 @@ public class GZipMojo extends AbstractMojo
      * @required
      */
     private File directory;
+    
+    /**
+     * @parameter default-value="${spiffyui.gwt.module.path}"
+     * @required
+     * @readonly
+     */
+    private File gwtModulePath;
 
     @Override
     public void execute()
         throws MojoExecutionException,
             MojoFailureException
     {
-        Properties p = project.getProperties();
-        File module = new File(p.getProperty("spiffyui.gwt.module.path"));
-        File images = new File(module, "images");
+        File images = new File(gwtModulePath, "images");
         String[] baseExts = {
             "css", "png", "gif", "js"
         };
@@ -56,7 +60,7 @@ public class GZipMojo extends AbstractMojo
         };
 
         gzip(directory, baseExts);
-        gzip(module, allExts);
+        gzip(gwtModulePath, allExts);
         gzip(images, allExts);
     }
 

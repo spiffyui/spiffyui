@@ -222,6 +222,13 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * @required
      */
     private File outputDirectory;
+    
+    /**
+     * @parameter default-value="${spiffyui.gwt.module.name}"
+     * @required
+     * @readonly
+     */
+    private String gwtModuleName;
 
     @Override
     public void doExecute()
@@ -237,13 +244,24 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
             outputDirectory.mkdirs();
         }
 
-        compile(getModules());
+        GwtModule module = null;
+        
+        try {
+            module = readModule(gwtModuleName);
+        } catch (GwtModuleReaderException e) {
+            throw new MojoExecutionException(e.getMessage());
+        }
+        
+        Properties p = getProject().getProperties();
+        File path = new File(outputDirectory, module.getPath());
+        p.setProperty("spiffyui.gwt.module.path", path.getAbsolutePath());
+        
+        compile();
     }
 
-    private void compile(String[] modules)
+    private void compile()
         throws MojoExecutionException
     {
-        boolean upToDate = true;
 
         try {
             JavaCommand cmd = new JavaCommand("com.google.gwt.dev.Compiler");
@@ -296,16 +314,11 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
             
             ArrayList<String> compiledTargets = new ArrayList<String>();
 
-            for (String target : modules) {
-                if (!compilationRequired(target, outputDirectory)) {
-                    continue;
-                }
-                compiledTargets.add(target);
-                cmd.arg(target);
-                upToDate = false;
-            }
-            
-            if (!upToDate) {
+            if (compilationRequired(gwtModuleName, outputDirectory)) {
+
+                compiledTargets.add(gwtModuleName);
+                cmd.arg(gwtModuleName);
+
                 cmd.execute();
                 
                 moveJSDir(outputDirectory, compiledTargets);

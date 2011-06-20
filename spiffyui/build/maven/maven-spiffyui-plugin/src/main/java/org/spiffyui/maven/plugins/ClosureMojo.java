@@ -12,11 +12,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.mojo.gwt.ClasspathBuilder;
-import org.codehaus.mojo.gwt.GwtModule;
-import org.codehaus.mojo.gwt.GwtModuleReader;
-import org.codehaus.mojo.gwt.utils.DefaultGwtModuleReader;
-import org.codehaus.mojo.gwt.utils.GwtModuleReaderException;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
@@ -70,22 +65,12 @@ public class ClosureMojo extends AbstractMojo
     private File outputFile;
     
     /**
-     * @parameter default-value="${spiffyui.gwt.module.name}"
+     * @parameter default-value="${spiffyui.gwt.module.path}"
      * @required
      * @readonly
      */
-    private String gwtModuleName;
+    private File gwtModulePath;
     
-    /**
-     * 
-     * 
-     * @parameter default-value="${spiffyui.www}"
-     * @required
-     * @readonly
-     */
-    private File wwwDirectory;
-
-
     @Override
     public void execute()
         throws MojoExecutionException,
@@ -115,20 +100,10 @@ public class ClosureMojo extends AbstractMojo
         CompilerOptions compilerOptions = new CompilerOptions();
         compLevel.setOptionsForCompilationLevel(compilerOptions);
 
-        GwtModuleReader gmr = new DefaultGwtModuleReader(project, getLog(), new ClasspathBuilder());
-        GwtModule m = null;
-        
-        try {
-            m = gmr.readModule(gwtModuleName);
-        } catch (GwtModuleReaderException e) {
-            throw new MojoExecutionException(e.getMessage());
-        }
-
-        File module = new File(wwwDirectory, m.getPath());
         List<JSSourceFile> sources = new ArrayList<JSSourceFile>();
 
         /* spiffyui.min.js _must_ be first */
-        sources.add(JSSourceFile.fromFile(new File(module, "spiffyui.min.js")));
+        sources.add(JSSourceFile.fromFile(new File(gwtModulePath, "spiffyui.min.js")));
         for (File file : files) {
             sources.add(JSSourceFile.fromFile(file));
         }
