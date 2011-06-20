@@ -6,13 +6,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.mojo.gwt.ClasspathBuilder;
+import org.codehaus.mojo.gwt.GwtModule;
+import org.codehaus.mojo.gwt.GwtModuleReader;
+import org.codehaus.mojo.gwt.utils.DefaultGwtModuleReader;
+import org.codehaus.mojo.gwt.utils.GwtModuleReaderException;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
@@ -64,6 +68,23 @@ public class ClosureMojo extends AbstractMojo
      * @required
      */
     private File outputFile;
+    
+    /**
+     * @parameter default-value="${spiffyui.gwt.module.name}"
+     * @required
+     * @readonly
+     */
+    private String gwtModuleName;
+    
+    /**
+     * 
+     * 
+     * @parameter default-value="${spiffyui.www}"
+     * @required
+     * @readonly
+     */
+    private File wwwDirectory;
+
 
     @Override
     public void execute()
@@ -94,8 +115,16 @@ public class ClosureMojo extends AbstractMojo
         CompilerOptions compilerOptions = new CompilerOptions();
         compLevel.setOptionsForCompilationLevel(compilerOptions);
 
-        Properties p = project.getProperties();
-        File module = new File(p.getProperty("spiffyui.gwt.module.path"));
+        GwtModuleReader gmr = new DefaultGwtModuleReader(project, getLog(), new ClasspathBuilder());
+        GwtModule m = null;
+        
+        try {
+            m = gmr.readModule(gwtModuleName);
+        } catch (GwtModuleReaderException e) {
+            throw new MojoExecutionException(e.getMessage());
+        }
+
+        File module = new File(wwwDirectory, m.getPath());
         List<JSSourceFile> sources = new ArrayList<JSSourceFile>();
 
         /* spiffyui.min.js _must_ be first */

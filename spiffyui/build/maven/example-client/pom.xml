@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.spiffyui.maven.examples.client</groupId>
+  <groupId>org.spiffyui.maven.examples</groupId>
   <artifactId>spiffyui-maven-demo</artifactId>
   <version>0.1-SNAPSHOT</version>
   <packaging>spiffyui-client</packaging>
@@ -22,7 +22,7 @@
       <plugin>
 	<groupId>org.spiffyui.maven.plugins</groupId>
 	<artifactId>maven-spiffyui-plugin</artifactId>
-	<version>0.6-SNAPSHOT</version>
+	<version>0.7-SNAPSHOT</version>
 	<extensions>true</extensions>
       </plugin>
     </plugins>

@@ -49,8 +49,8 @@ public class HTMLPropsMojo extends AbstractMojo
     /**
      * The name to give to the generated package
      * 
-     * @parameter 
-     *            default-value="${project.groupId}"
+     * @parameter expression="${spiffyui.htmlprops.package}"
+     *            default-value="${spiffyui.gwt.module.package}"
      * @required
      */
     private String packageName;

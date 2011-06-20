@@ -1,12 +1,17 @@
 package org.spiffyui.maven.plugins;
 
 import java.io.File;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.mojo.gwt.ClasspathBuilder;
+import org.codehaus.mojo.gwt.GwtModule;
+import org.codehaus.mojo.gwt.GwtModuleReader;
+import org.codehaus.mojo.gwt.utils.DefaultGwtModuleReader;
 
 /**
  * Goal which initializes various default property values for the plugin
@@ -65,6 +70,30 @@ public class InitializeMojo extends AbstractMojo
         }
         
         setDefaultPath(ATTR_HTMLPROPS, "generated-sources/htmlprops");
+        
+        GwtModuleReader gmr = new DefaultGwtModuleReader(project, getLog(), new ClasspathBuilder());
+        
+        List<String> modules = gmr.getGwtModules();
+        
+        /* ensure there is only one module, and record it for posterity */
+        switch (modules.size()) {
+            case 0:
+                throw new MojoExecutionException("No GWT modules detected");
+            case 1:
+                try {
+                    GwtModule module = gmr.readModule(modules.get(0));
+                    String[] sources = module.getSources();
+ 
+                    p.setProperty("spiffyui.gwt.module.name", module.getName());
+                    p.setProperty("spiffyui.gwt.module.package",
+                            module.getPackage() + "." + sources[0]);
+                } catch (Exception e) {
+                    throw new MojoExecutionException(e.getMessage());
+                }
+                break;
+            default:
+                throw new MojoExecutionException("Only one GWT module allowed, but " + modules.size() + " detected: " + modules);
+        }
     }
     
     private void setDefaultPath(String attr, String path)

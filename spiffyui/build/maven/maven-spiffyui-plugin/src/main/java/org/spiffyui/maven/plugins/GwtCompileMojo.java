@@ -237,28 +237,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
             outputDirectory.mkdirs();
         }
 
-        String[] modules = getModules();
-
-        /* ensure there is only one module, and record it for posterity */
-        switch (modules.length) {
-            case 0:
-                throw new MojoExecutionException("No GWT modules detected");
-            case 1:
-                try {
-                    GwtModule module = readModule(modules[0]);
-                    File path = new File(outputDirectory, module.getPath());
-                    Properties p = getProject().getProperties();
-                    p.setProperty("spiffyui.gwt.module.name", module.getName());
-                    p.setProperty("spiffyui.gwt.module.path", path.getAbsolutePath());
-
-                    compile(modules);
-                } catch (Exception e) {
-                    throw new MojoExecutionException(e.getMessage());
-                }
-                break;
-            default:
-                throw new MojoExecutionException("Only one GWT module allowed, but " + modules.length + " detected: " + modules);
-        }
+        compile(getModules());
     }
 
     private void compile(String[] modules)
