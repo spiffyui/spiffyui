@@ -56,6 +56,9 @@
         
         <property name="spiffy.www"  location="${build.spiffy.base}/target/dist"/>
         <property name="spiffy.classes"  location="${build.spiffy.base}/target/classes"/>
+
+        <property name="spiffyui.plugin.version" value="0.5"/>
+        <property name="spiffyui.plugin.path" value="${spiffy.root}/build/maven/maven-spiffyui-plugin"/>
         
         <mkdir dir="${spiffy.www}"/>
         <mkdir dir="${spiffy.classes}"/>
@@ -536,6 +539,41 @@
             <arg value="-DrepositoryId=sonatype-nexus-staging"/>
             <arg value="-DpomFile=${spiffy.root}/build/pom.xml"/>
             <arg value="-Dfile=${spiffy.dist}/spiffyui-source.jar"/>
+            <arg value="-Dclassifier=sources"/>
+            <arg value="-Pgpg"/>
+        </artifact:mvn>
+        <!--  sign and deploy maven-spiffyui-plugin main artifact -->
+        <artifact:mvn>
+            <arg value="--settings"/>
+            <arg value="${maven.settings}"/>
+            <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.2:sign-and-deploy-file"/>
+            <arg value="-Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2"/>
+            <arg value="-DrepositoryId=sonatype-nexus-staging"/>
+            <arg value="-DpomFile=${spiffyui.plugin.path}/pom.xml"/>
+            <arg value="-Dfile=${spiffyui.plugin.path}/target/maven-spiffyui-plugin-${spiffyui.plugin.version}.jar"/>
+            <arg value="-Pgpg"/>
+        </artifact:mvn>
+        <!--  sign and deploy maven-spiffyui-plugin javadoc artifact -->
+        <artifact:mvn>
+            <arg value="--settings"/>
+            <arg value="${maven.settings}"/>
+            <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.2:sign-and-deploy-file"/>
+            <arg value="-Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2"/>
+            <arg value="-DrepositoryId=sonatype-nexus-staging"/>
+            <arg value="-DpomFile=${spiffyui.plugin.path}/pom.xml"/>
+            <arg value="-Dfile=${spiffyui.plugin.path}/target/maven-spiffyui-plugin-${spiffyui.plugin.version}-javadoc.jar"/>
+            <arg value="-Dclassifier=javadoc"/>
+            <arg value="-Pgpg"/>
+        </artifact:mvn>
+        <!--  sign and deploy maven-spiffyui-plugin sources artifact -->
+        <artifact:mvn>
+            <arg value="--settings"/>
+            <arg value="${maven.settings}"/>
+            <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.2:sign-and-deploy-file"/>
+            <arg value="-Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2"/>
+            <arg value="-DrepositoryId=sonatype-nexus-staging"/>
+            <arg value="-DpomFile=${spiffyui.plugin.path}/pom.xml"/>
+            <arg value="-Dfile=${spiffyui.plugin.path}/target/maven-spiffyui-plugin-${spiffyui.plugin.version}-sources.jar"/>
             <arg value="-Dclassifier=sources"/>
             <arg value="-Pgpg"/>
         </artifact:mvn>
