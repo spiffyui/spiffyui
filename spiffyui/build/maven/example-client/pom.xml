@@ -13,7 +13,7 @@
     <dependency>
       <groupId>org.spiffyui</groupId>
       <artifactId>spiffyui</artifactId>
-      <version>0.7.7-SNAPSHOT</version>
+      <version>0.7.6</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
@@ -22,7 +22,7 @@
       <plugin>
 	<groupId>org.spiffyui.maven.plugins</groupId>
 	<artifactId>maven-spiffyui-plugin</artifactId>
-	<version>0.5</version>
+	<version>0.6-SNAPSHOT</version>
 	<extensions>true</extensions>
       </plugin>
     </plugins>
