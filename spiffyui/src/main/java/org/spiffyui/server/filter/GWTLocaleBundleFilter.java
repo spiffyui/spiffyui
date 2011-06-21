@@ -127,7 +127,9 @@ public abstract class GWTLocaleBundleFilter extends GWTLocaleFilter
                 /*
                  * The file with no locale is English.
                  */
-                getMap(file.substring(0, file.indexOf('.'))).put(new Locale("en"), file);
+                if (file.indexOf('.') > -1) {
+                    getMap(file.substring(0, file.indexOf('.'))).put(new Locale("en"), file);
+                }
                 continue;
             }
 
