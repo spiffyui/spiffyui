@@ -11,7 +11,7 @@ This project is built with [Apache Maven](http://maven.apache.org/).
     
 Go to your project's root directory and run the following command:
 
-    mvn jetty:run-war
+    mvn package jetty:run
         
 This will download the required libraries, build your project, and run it.  You can access the running application here:
 
