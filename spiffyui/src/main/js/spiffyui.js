@@ -104,7 +104,8 @@ spiffyui = {
      * apostrophes. 
      */
     chineseAposWorkaround: function(/*String*/ dateString) {
-		if (Date.CultureInfo.name.indexOf("zh") === 0) {
+		if (Date.CultureInfo.name.indexOf("zh") === 0 ||
+            Date.CultureInfo.name.indexOf("ja") === 0) {
 			return dateString.replace(/'/g, "");
 		}
 		return dateString;
