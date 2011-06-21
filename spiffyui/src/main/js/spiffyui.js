@@ -104,11 +104,11 @@ spiffyui = {
      * apostrophes. 
      */
     chineseAposWorkaround: function(/*String*/ dateString) {
-		if (Date.CultureInfo.name.indexOf("zh") === 0 ||
+        if (Date.CultureInfo.name.indexOf("zh") === 0 ||
             Date.CultureInfo.name.indexOf("ja") === 0) {
-			return dateString.replace(/'/g, "");
-		}
-		return dateString;
+            return dateString.replace(/'/g, "");
+        }
+        return dateString;
     },
     
     /**
@@ -130,12 +130,12 @@ spiffyui = {
         var dateVal = new Date(epoch);
         var min = dateVal.getMinutes();
         if (min > 0) {
-	        if (min < 30) {
-	            dateVal.setMinutes(30);
-	        } else if (min > 30) {
-	            dateVal.setMinutes(0);
-	            dateVal.setHours(dateVal.getHours() + 1);
-	        }
+            if (min < 30) {
+                dateVal.setMinutes(30);
+            } else if (min > 30) {
+                dateVal.setMinutes(0);
+                dateVal.setHours(dateVal.getHours() + 1);
+            }
         }
         
         return spiffyui.midnightWorkaround(dateVal.toString(Date.CultureInfo.formatPatterns.shortTime));        
