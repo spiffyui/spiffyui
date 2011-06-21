@@ -332,6 +332,8 @@
                  version="true"
                  use="true"
                  windowtitle="Spiffy UI Framework API">
+            <Header><![CDATA[<a href="/" target="_top">Spiffy UI 
+                        Framework</a>]]></Header>                  
             <packageset dir="${spiffy.root}/src/main/java" defaultexcludes="yes">
                 <include name="org/spiffyui/**"/>
             </packageset>
