@@ -154,6 +154,7 @@ public class FormPanel extends HTMLPanel implements KeyUpHandler
         add(female, "userGender");
         
         RadioButton male = new RadioButton("userGender", "Male");
+        male.addStyleName("radioOption");
         male.setValue(true);
         male.getElement().setId("userMale");
         add(male, "userGender");

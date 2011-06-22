@@ -34,6 +34,8 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -66,6 +68,15 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
 
     private SimpleButton m_submit;
     
+    private InlineLabel m_buildType;
+    private RadioButton m_maven;
+    private RadioButton m_ant;
+    
+    private static final String BUILD_TYPE = "BUILD_TYPE";
+    private static final String TYPE_MAVEN = "maven";
+    private static final String TYPE_ANT = "ant";
+    
+    private String m_type = TYPE_MAVEN;
     /**
      * Creates a new panel
      * @param id - the ID of the parent panel or some other way to uniquely prefix IDs on within this HTML fragment
@@ -101,6 +112,8 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
         m_feedbacks.add(m_packageNameFeedback);
         add(m_packageNameFeedback, id + "packageNameRow");
           
+        addBuildTypes(id);
+        
         m_submit = new SimpleButton(Index.getStrings().projectCreatorSubmit());
         m_submit.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event)
@@ -110,8 +123,8 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
             }
         });
   
-        add(m_submit, id + "projectCreatorButtons");
-
+        add(m_submit, id + "projectCreatorButtons");        
+        
         Anchor backToCreate = new Anchor(Index.getStrings().backToCreate(), "#");
         backToCreate.addClickHandler(new ClickHandler() {
 
@@ -128,6 +141,34 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
         getElement().setId(id);
 
         updateFormStatus(null);
+    }
+    
+    private void addBuildTypes(String id)
+    {
+        m_ant = new RadioButton(BUILD_TYPE, Index.getStrings().buildWithAnt());
+        m_ant.addClickHandler(new ClickHandler() {
+            
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                m_type = TYPE_ANT;
+            }
+        });
+        add(m_ant, id + "buildTypes");
+
+        m_maven = new RadioButton(BUILD_TYPE, Index.getStrings().buildWithMaven());
+        m_maven.addStyleName("radioOption");
+        m_maven.setValue(true);
+        m_maven.addClickHandler(new ClickHandler() {
+            
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                m_type = TYPE_MAVEN;
+            }
+        });
+        
+        add(m_maven, id + "buildTypes");        
     }
     
     @Override
@@ -288,7 +329,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
         JSUtil.show(getElement().getId() + "createFormInst");
 
         logToGoogleAnalytics();
-        Window.Location.replace("/createProject?type=maven&projectName=" + m_projectName.getText() + 
+        Window.Location.replace("/createProject?type=" + m_type + "&projectName=" + m_projectName.getText() + 
             "&packagePath=" + m_packageName.getText());
     }
     
@@ -315,9 +356,9 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
     {
         getElementById(getElement().getId() + "createFormInst1").setInnerHTML(
             Index.getStrings().downloadProjInstr1(name, name));
-        
+                
         getElementById(getElement().getId() + "createFormInst2").setInnerHTML(
-            Index.getStrings().downloadProjInstr2(name));
+            TYPE_ANT.equals(m_type) ? Index.getStrings().downloadProjInstr2a(name) : Index.getStrings().downloadProjInstr2(name));
     }
     
     private static final String getHTML(String id) 
@@ -334,6 +375,10 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
                 "<li id=\"" + id + "packageNameRow\" class=\"dialogformrow\">" +
                     "<label class=\"dialogformlabel\" for=\"" + id + "packageNameTxt\">" + Index.getStrings().packageName() + "</label>" +
                     "<div id=\"" + id + "packageName\" class=\"formcontrolssection\"></div>" +
+                "</li>" +
+                "<li id=\"" + id + "buildTypeRow\" class=\"dialogformrow\">" +
+                    "<label class=\"dialogformlabel\" for=\"" + id + "buildTypes\">" + Index.getStrings().buildTypes() + "</label>" +
+                    "<div id=\"" + id + "buildTypes\" class=\"formcontrolssection\"></div>" +
                 "</li>" +
                 "<li id=\"" + id + "projectCreatorButtonsRow\" class=\"dialogformrow\">" +
                     "<div id=\"" + id + "projectCreatorButtons\" class=\"formcontrolssection formbuttons\"></div>" +

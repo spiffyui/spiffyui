@@ -596,7 +596,7 @@ iframe {
     border-bottom: none;
 }
 
-#userMale {
+.radioOption {
     margin-left: 1.5em;
 }
 

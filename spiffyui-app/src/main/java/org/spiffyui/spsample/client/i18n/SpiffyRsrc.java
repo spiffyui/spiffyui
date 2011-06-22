@@ -174,10 +174,15 @@ public interface SpiffyRsrc extends Messages
     public String downloadProjInstr();
     public String downloadProjInstr1(String s1, String s2);
     public String downloadProjInstr2(String s);
+    public String downloadProjInstr2a(String s);
     public String downloadProjInstr3();
     public String downloadProjInstr4();
     public String backToCreate();
     public String backToTop();
     public String projectCreatorTitle_tt();
     public String refreshAnchorConfirmDialog_tt();
+    public String buildWithMaven();
+    public String buildWithAnt();
+    public String buildTypes();
+    public String helloSpiffySample();
 }

@@ -46,7 +46,7 @@ public class OverviewPanel extends HTMLPanel
         /*
          * Add the get started anchor
          */
-        Anchor getStarted = new Anchor(Index.getStrings().gettingStarted(), "getStartedPanel");
+        Anchor getStarted = new Anchor(Index.getStrings().gettingStarted(), Index.generateNavItemURL(Index.GET_STARTED_NAV_ITEM_ID));
         getStarted.addClickHandler(new ClickHandler() {
 
             @Override

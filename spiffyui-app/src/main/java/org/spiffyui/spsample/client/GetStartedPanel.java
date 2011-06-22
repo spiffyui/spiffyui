@@ -44,19 +44,19 @@ public class GetStartedPanel extends HTMLPanel
         setVisible(false);
 
         /*
-         * Add the get help anchor
+         * Add the samples anchor
          */
-        Anchor getHelp = new Anchor("Help page", "GetHelpPanel");
-        getHelp.addClickHandler(new ClickHandler() {
+        Anchor samples = new Anchor(Index.getStrings().helloSpiffySample(), Index.generateNavItemURL(Index.SAMPLES_NAV_ITEM_ID));
+        samples.addClickHandler(new ClickHandler() {
 
             @Override
             public void onClick(ClickEvent event)
             {
                 event.preventDefault();
-                Index.selectItem(Index.HELP_NAV_ITEM_ID);
+                Index.selectItem(Index.SAMPLES_NAV_ITEM_ID);
             }
         });
-        add(getHelp, "getStartedGetHelp");
+        add(samples, "getStartedSamples");
         
         /*
          * Add Project Creator

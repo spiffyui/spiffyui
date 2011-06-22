@@ -39,8 +39,8 @@ public class SamplesPanel extends HTMLPanel
         RootPanel.get("mainContent").add(this);
 
         setVisible(false);
-
-        Index.addToc(this);
+        
+        bindJavaScript(this);
     }
     
     @Override
@@ -54,5 +54,14 @@ public class SamplesPanel extends HTMLPanel
         $wnd.spsample.getGitHubProjects();
     }-*/;
     
-
+    private native void bindJavaScript(SamplesPanel p) /*-{
+        $wnd.spsample.addSamplesToc = function() {
+            return p.@org.spiffyui.spsample.client.SamplesPanel::addToc()();
+        }
+    }-*/;
+    
+    private void addToc()
+    {
+        Index.addToc(this, "#samplesList a");
+    }
 }

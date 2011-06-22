@@ -39,19 +39,30 @@ spsample = {
                  for (var i = 0; i < user.repositories.length; i++) {
                     var repo = user.repositories[i];
                     
-                    info += '<li><a href="' + repo.url + '">' + repo.name + '</a>' + repo.description + '</li>';
+                    info += '<li><a href="' + repo.url + '" id="' + spsample.genRepoId(repo.name) + '">' + repo.name + '</a>' + repo.description + '</li>';
                  }
                  
                  info += '';
                  
                  $('#samplesList').append(info);
                  
+                 /*
+                  * spsample.addSamplesToc() defined in SamplesPanel.java
+                  */
+                 spsample.addSamplesToc();
              },
              error: function(e) {
                   console.log("e: " + e);
 
              }
          });
+    },
+    
+    /**
+     * Some repository names may contain period and jQuery can have problems with them, so remove.
+     */
+    genRepoId: function(name) {
+    	return name.replace(/\./g, '_');
     },
     
     init: function() {
@@ -105,6 +116,9 @@ spsample = {
                 return;
             }
             
+            /*
+             * spsample.shouldShowTopLink() defined in Index.java
+             */
             if (spsample.shouldShowTopLink() && offset > 250) {
                 $('#backToTop').show();
             } else {

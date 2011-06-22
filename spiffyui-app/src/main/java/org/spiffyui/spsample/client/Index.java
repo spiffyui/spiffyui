@@ -330,7 +330,12 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         return hash.substring(start, end);
     }
     
-    private static String generateNavItemURL(String id)
+    /**
+     * Generate a URL based on the NavItem ID
+     * @param id - the ID of the NavItem
+     * @return the URL to the NavItem
+     */
+    public static String generateNavItemURL(String id)
     {
         return Window.Location.createUrlBuilder().setHash("#!b=" + id).buildString();
     }
