@@ -36,6 +36,24 @@ spsample = {
                  var user = res.user;
                  
                  var info = '';
+                 
+                 /*
+                  * We are sorting the repos alphabetically by 
+                  * name for now.
+                  */
+                 user.repositories.sort(function(a, b) {
+                     if (a.name < b.name) {
+                         return -1;
+                     }
+
+                     if (a.name > b.name) {
+                         return 1;
+                     }
+
+                     return 0;
+
+                 });
+                 
                  for (var i = 0; i < user.repositories.length; i++) {
                     var repo = user.repositories[i];
                     
