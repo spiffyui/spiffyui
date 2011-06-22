@@ -162,7 +162,7 @@ public class CrayonColorsServlet extends HttpServlet
         COLOR_CODES.add(new String[]{"Tan", "#FAA76C", "a brown issued in 1949", "(250, 167, 108)"});
         COLOR_CODES.add(new String[]{"Teal Blue", "#18A7B5", "a blue issued in 1990 and retired in 2003", "(24, 167, 181)"});
         COLOR_CODES.add(new String[]{"Thistle", "#EBC7DF", "a pink issued in 1949 and retired in 2000", "(235, 199, 223)"});
-        COLOR_CODES.add(new String[]{"Tickle Me Pink", "#FC89AC", "a pink named ina contest by ClevverTV Personality Josyln Davis issued in 1993", "(252, 137, 172)"});
+        COLOR_CODES.add(new String[]{"Tickle Me Pink", "#FC89AC", "a pink named in a contest by ClevverTV Personality Josyln Davis issued in 1993", "(252, 137, 172)"});
         COLOR_CODES.add(new String[]{"Timberwolf", "#DBD7D2", "a light black issued in 1993", "(219, 215, 210)"});
         COLOR_CODES.add(new String[]{"Tropical Rain Forest", "#17806D", "a green issued in 1993", "(23, 128, 109)"});
         COLOR_CODES.add(new String[]{"Tumbleweed", "#DEAA88", "a brown issued in 1993", "(222, 170, 136)"});
