@@ -75,6 +75,8 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     public static final String OVERVIEW_NAV_ITEM_ID = "overview";
     /** NavItem ID for Get Started Intro*/
     public static final String GET_STARTED_NAV_ITEM_ID = "getStarted";
+    /** NavItem ID for Samples panel*/
+    public static final String SAMPLES_NAV_ITEM_ID = "samples";
     /** NavItem ID for Hosted Mode */
     public static final String HOSTED_MODE_NAV_ITEM_ID = "hostedMode";
     /** NavItem ID for CSS */
@@ -83,8 +85,6 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     public static final String SPEED_NAV_ITEM_ID = "speed";
     /** NavItem ID for REST */
     public static final String REST_NAV_ITEM_ID = "rest";
-    /** NavItem ID for JavaDoc */
-    public static final String JAVADOC_NAV_ITEM_ID = "javaDoc";
     /** NavItem ID for Help */
     public static final String HELP_NAV_ITEM_ID = "help";
     /** NavItem ID for Get Involved */
@@ -183,6 +183,14 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
                            getStrings().getStarted_tt(), generateNavItemURL(GET_STARTED_NAV_ITEM_ID));
         m_navBar.add(item);
         m_panels.put(item, new GetStartedPanel());
+        
+        /*
+        The samples panels
+        */
+        item = new NavItem(SAMPLES_NAV_ITEM_ID, getStrings().samples(), 
+                           getStrings().samples_tt(), generateNavItemURL(SAMPLES_NAV_ITEM_ID));
+        m_navBar.add(item);
+        m_panels.put(item, new SamplesPanel());
 
         /*
          * Collapsible Features Nav Section
@@ -387,14 +395,6 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         item = new NavItem(HELP_NAV_ITEM_ID, getStrings().help(), getStrings().help_tt(), generateNavItemURL(HELP_NAV_ITEM_ID));
         m_navBar.add(item);
         m_panels.put(item, new HelpPanel());
-        
-        /*
-        The JavaDoc panel
-        */
-        item = new NavItem(JAVADOC_NAV_ITEM_ID, getStrings().javadoc(), 
-                           getStrings().javadoc_tt(), generateNavItemURL(JAVADOC_NAV_ITEM_ID));
-        m_navBar.add(item);
-        m_panels.put(item, new JavaDocPanel());
         
         /*
         The license panel

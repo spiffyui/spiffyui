@@ -140,6 +140,10 @@
     border-radius: 6px;
 }
 
+#landing {
+    display: none;
+}
+
 #overview {
     top: 0px;
     left: 0px;
@@ -151,7 +155,12 @@
 }
 
 #hostedMode {
-    top: 0px;
+    top: 112px;
+    left: 20%;
+}
+
+#samples {
+    top: 0;
     left: 40%;
 }
 
@@ -194,11 +203,6 @@
 #authTest {
     top: 112px;
     left: 0px;
-}
-
-#javaDoc {
-    top: 112px;
-    left: 20%;
 }
 
 #help {

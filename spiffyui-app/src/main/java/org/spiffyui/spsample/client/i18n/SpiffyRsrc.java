@@ -29,6 +29,8 @@ public interface SpiffyRsrc extends Messages
     public String overview_tt();
     public String getStarted();
     public String getStarted_tt();
+    public String samples();
+    public String samples_tt();
     public String download();
     public String download_tt();
     public String devMode();

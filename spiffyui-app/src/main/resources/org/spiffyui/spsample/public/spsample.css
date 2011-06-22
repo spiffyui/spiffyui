@@ -210,6 +210,10 @@ iframe {
     width: 900px;
 }
 
+#mainFooterContainer {
+    background: #F9F9F9;
+}
+
 #mainNavContainer a, #mainNavContainer a:visited {
     color: #636363;
     font-size: 18px;
@@ -1117,4 +1121,24 @@ iframe {
     -webkit-column-width: 204px;
     column-gap: 20px; 
     column-width: 204px;        
+}
+
+#samplesList {
+    margin-bottom: 17px;
+    margin-top: 39px;
+}
+
+#samplesList li {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background: none repeat scroll 0 0 #F9F9F9;
+    border: 1px solid #DDDDDD;
+    list-style-type: none;
+    margin: 0 0 8px;
+    padding: 8px 10px 6px;
+}
+
+#samplesList a {
+    display: block;
 }

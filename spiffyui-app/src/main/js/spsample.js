@@ -19,8 +19,43 @@
  */
  
 spsample = {
+    /**
+     * This functions gets a list of the GitHub projects for Spiffy
+     * UI and adds them to our UI.  This is a nice dynamic way of
+     * showing the projects without having a hard-coded list of the
+     * projects we need to update.
+     * 
+     * We could have made this call in GWT, but it doesn't have good
+     * support for JSONP and it is much easier to do it with JQuery.
+     */
+    getGitHubProjects: function() {
+        jQuery.ajax({
+             url: 'http://github.com/api/v1/json/spiffyui',
+             dataType: 'jsonp',
+             success: function(res) {
+                 var user = res.user;
+                 
+                 var info = '';
+                 for (var i = 0; i < user.repositories.length; i++) {
+                    var repo = user.repositories[i];
+                    
+                    info += '<li><a href="' + repo.url + '">' + repo.name + '</a>' + repo.description + '</li>';
+                 }
+                 
+                 info += '';
+                 
+                 $('#samplesList').append(info);
+                 
+             },
+             error: function(e) {
+                  console.log("e: " + e);
+
+             }
+         });
+    },
+    
     init: function() {
-        
+         
         jQuery('#landingPanelText').remove();
         
         /*

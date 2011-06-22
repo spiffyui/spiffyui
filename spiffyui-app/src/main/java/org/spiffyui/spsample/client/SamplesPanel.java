@@ -20,24 +20,39 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
- * This is the JavaDoc documentation panel
+ * This is the samples panel
  *
  */
-public class JavaDocPanel extends HTMLPanel
+public class SamplesPanel extends HTMLPanel
 {
-    private static final SPSampleStrings STRINGS = (SPSampleStrings) GWT.create(SPSampleStrings.class);
+    private static final SPSampleStrings STRINGS = (SPSampleStrings) GWT.create(SPSampleStrings.class);    
     
     /**
      * Creates a new panel
      */
-    public JavaDocPanel()
-    {
-        super("div", STRINGS.JavaDocPanel_html());
-        
-        getElement().setId("javaDocPanel");
-        
+    public SamplesPanel()
+    {        
+        super("div", STRINGS.SamplesPanel_html());
+
+        getElement().setId("samplesPanel");
+
         RootPanel.get("mainContent").add(this);
-        
+
         setVisible(false);
+
+        Index.addToc(this);
     }
+    
+    @Override
+    public void onLoad()
+    {
+        super.onLoad();
+        loadGitHubProjects();
+    }
+    
+    private static native void loadGitHubProjects() /*-{
+        $wnd.spsample.getGitHubProjects();
+    }-*/;
+    
+
 }
