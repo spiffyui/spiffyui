@@ -72,7 +72,6 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
     private RadioButton m_maven;
     private RadioButton m_ant;
     
-    private static final String BUILD_TYPE = "BUILD_TYPE";
     private static final String TYPE_MAVEN = "maven";
     private static final String TYPE_ANT = "ant";
     
@@ -145,7 +144,8 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
     
     private void addBuildTypes(String id)
     {
-        m_ant = new RadioButton(BUILD_TYPE, Index.getStrings().buildWithAnt());
+        String radioGroup = HTMLPanel.createUniqueId();
+        m_ant = new RadioButton(radioGroup, Index.getStrings().buildWithAnt());
         m_ant.addClickHandler(new ClickHandler() {
             
             @Override
@@ -156,7 +156,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
         });
         add(m_ant, id + "buildTypes");
 
-        m_maven = new RadioButton(BUILD_TYPE, Index.getStrings().buildWithMaven());
+        m_maven = new RadioButton(radioGroup, Index.getStrings().buildWithMaven());
         m_maven.addStyleName("radioOption");
         m_maven.setValue(true);
         m_maven.addClickHandler(new ClickHandler() {
@@ -168,7 +168,8 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
             }
         });
         
-        add(m_maven, id + "buildTypes");        
+        add(m_maven, id + "buildTypes");
+        m_maven.setChecked(true);
     }
     
     @Override
