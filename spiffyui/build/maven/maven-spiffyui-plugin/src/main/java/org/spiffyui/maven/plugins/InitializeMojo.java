@@ -74,7 +74,7 @@ public class InitializeMojo extends AbstractMojo
         GwtModuleReader gmr = new DefaultGwtModuleReader(project, getLog(), new ClasspathBuilder());
         
         List<String> modules = gmr.getGwtModules();
-        
+
         /* ensure there is only one module, and record it for posterity */
         switch (modules.size()) {
             case 0:
@@ -83,10 +83,9 @@ public class InitializeMojo extends AbstractMojo
                 try {
                     GwtModule module = gmr.readModule(modules.get(0));
                     String[] sources = module.getSources();
- 
                     p.setProperty("spiffyui.gwt.module.name", module.getName());
                     p.setProperty("spiffyui.gwt.module.package",
-                            module.getPackage() + "." + sources[0]);
+                            module.getPackage() + ".client");
                 } catch (Exception e) {
                     throw new MojoExecutionException(e.getMessage());
                 }

@@ -368,7 +368,7 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * The hack can also be used to include utility code from external
      * librariries that may not have been designed for GWT.
      */
-    private void addCompileSourceArtifacts(JavaCommand cmd)
+    protected void addCompileSourceArtifacts(JavaCommand cmd)
         throws MojoExecutionException
     {
         if (compileSourcesArtifacts == null) {
