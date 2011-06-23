@@ -169,7 +169,6 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
         });
         
         add(m_maven, id + "buildTypes");
-        m_maven.setChecked(true);
     }
     
     @Override
@@ -268,7 +267,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
             if (m_packageName.getText().startsWith(".")  || (m_packageName.getText().endsWith("."))) {
                 m_packageNameFeedback.setStatus(FormFeedback.ERROR);
                 m_packageNameFeedback.setTitle(Index.getStrings().packageNameDot_tt());
-            } else if (m_packageName.getText().trim().toLowerCase().startsWith("org.spiffyui")) {
+            } else if (m_packageName.getText().trim().toLowerCase().equals("org.spiffyui")) {
                 m_packageNameFeedback.setStatus(FormFeedback.ERROR);
                 m_packageNameFeedback.setTitle(Index.getStrings().packageNameSpiffy_tt());
             } else {
