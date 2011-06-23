@@ -424,7 +424,7 @@
         <mkdir dir="${maven.jar.dir}"/>
         <!-- download maven-ant-tasks from web site so that it can be used even without any special installation -->
         <get src="http://repo2.maven.org/maven2/org/apache/maven/maven-ant-tasks/${maven.install.version}/maven-ant-tasks-${maven.install.version}.jar"
-             dest="${maven.jar.file}" usetimestamp="true" skipexisting="true"/>
+             dest="${maven.jar.file}" usetimestamp="true" />
     </target>
 
     <target name="init-maven" depends="download-maven">
