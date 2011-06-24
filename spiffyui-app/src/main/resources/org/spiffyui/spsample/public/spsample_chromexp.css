@@ -1,0 +1,31 @@
+body {
+    font-family: Verdana,Sans-serif;
+    font-size: 15px;
+}
+
+.gwt-TextBox, .gwt-ListBox, .gwt-PasswordTextBox, .gwt-TextArea, .gwt-SuggestBox, select, button, 
+h3, h2, h1, #landingPanel h1, .dialogformlabel, #mainHeaderContainer .headertitle, #headerstring, 
+#header_logout, #mainNavContainer a, #mainNavContainer a:visited, .prefspulltab a, .sausage-span,
+.toc, #backToTop {
+    font-family: Verdana,Sans-serif;
+}
+ 
+.humanMsg {
+    font: 18px/28px Verdana,Sans-serif;
+}
+
+button {
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2";
+}
+
+#landingPanel h1 {
+    font-size: 36px;
+}
+
+#mainHeaderContainer .headertitle {
+    font-size: 48px;
+}
+
+.toc, #backToTop, .dialogformlabel, .documentationPanel p, .documentationPanel ul {
+    font-size: 15px;
+}

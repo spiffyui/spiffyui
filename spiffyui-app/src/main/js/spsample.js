@@ -83,6 +83,20 @@ spsample = {
     	return name.replace(/\./g, '_');
     },
     
+    /**
+     * This is a helper function to add a CSS link to the HEAD of the current
+     * document.
+     */
+    addCSSLink: function(/*string*/ file) {
+         jQuery("head").append("<link>");
+            css = $("head").children(":last");
+            css.attr({
+                rel:  "stylesheet",
+                type: "text/css",
+                href: file
+            });
+    },
+    
     init: function() {
          
         jQuery('#landingPanelText').remove();
@@ -93,13 +107,7 @@ spsample = {
          * if the browser is IE and contains just those tweaks.
          */
         if (navigator.appName === 'Microsoft Internet Explorer') {
-            jQuery('head').prepend('<link>');
-            css = $('head').children(':first');
-            css.attr({
-                rel:  'stylesheet',
-                type: 'text/css',
-                href: 'spiffyui.ie.css'
-            });
+            spsample.addCSSLink('spiffyui.ie.css');
         }
         
         /*
@@ -110,13 +118,19 @@ spsample = {
          * and we can't do that because we override styles in spiffyui.ie.css.
          */
         if (window.location.href.substr(-11) !== '-debug.html') {
-            jQuery('head').prepend('<link>');
-            css = $('head').children(':first');
-            css.attr({
-                rel:  'stylesheet',
-                type: 'text/css',
-                href: 'spsample.min.css'
-            });
+            spsample.addCSSLink('spsample.min.css');
+        }
+        
+        if (navigator.userAgent.indexOf('Chrome') > -1 &&
+            navigator.userAgent.indexOf('Windows NT 5.1') > -1) {
+            /*
+             * There is an issue with Chrome on Windows XP with our fonts.  The issue is
+             * that they don't have proper hinting on XP and the Chrome rendering engine
+             * makes them look pretty bad.  In that case we use a special stylesheet to
+             * substitute Verdana which has proper hinting and renders much better on
+             * that one platform.
+             */
+            spsample.addCSSLink('spsample_chromexp.css');
         }
         
         $(window).scroll(function() {
