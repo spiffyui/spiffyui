@@ -43,7 +43,6 @@ import com.google.gwt.user.client.Window;
 public final class RESTility
 {
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
-    private static final String SESSION_COOKIE = "Spiffy_Session";
     private static final String LOCALE_COOKIE = "Spiffy_Locale";
 
     private static final RESTility RESTILITY = new RESTility();
@@ -79,6 +78,8 @@ public final class RESTility
     private boolean m_logInListenerCalled = false;
     
     private boolean m_secureCookies = false;
+    
+    private String m_sessionCookie = "Spiffy_Session";
 
     private static RESTAuthProvider g_authProvider;
     
@@ -154,6 +155,43 @@ public final class RESTility
     public static final void setAuthProvider(RESTAuthProvider authProvider)
     {
         g_authProvider = authProvider;
+    }
+    
+    /**
+     * <p>
+     * Sets the name of the Spiffy UI session cookie.
+     * </p>
+     * 
+     * <p>
+     * Spiffy UI uses a local cookie to save the current user token.  This cookie has 
+     * the name <code>Spiffy_Session</code> by default.  This method will change the 
+     * name of the cookie to something else.  
+     * </p>
+     * 
+     * <p>
+     * Calling this method will not change the name of the cookie until a REST call is made
+     * which causes the cookie to be reset.
+     * </p>
+     * 
+     * @param name   the name of the cookie Spiffy UI session cookie
+     */
+    public static final void setSessionCookieName(String name)
+    {
+        if (name == null) {
+            throw new IllegalArgumentException("The session cookie name must not be null");
+        }
+        
+        RESTILITY.m_sessionCookie = name;
+    }
+    
+    /**
+     * Gets the current name of the Spiffy UI session cookie.
+     * 
+     * @return the name of the session cookie
+     */
+    public static final String getSessionCookieName()
+    {
+        return RESTILITY.m_sessionCookie;
     }
     
     /**
@@ -285,7 +323,7 @@ public final class RESTility
         setTokenServerURL(loginUri);
         setTokenServerLogoutURL(logoutUri);
 
-        removeCookie(SESSION_COOKIE);
+        removeCookie(RESTILITY.m_sessionCookie);
         removeCookie(LOCALE_COOKIE);
         
         g_authProvider.showLogin(callback, loginUri, errorCode);
@@ -325,7 +363,7 @@ public final class RESTility
         RESTILITY.m_tokenServerUrl = null;
         RESTILITY.m_tokenServerLogoutUrl = null;
         RESTILITY.m_username = null;
-        removeCookie(SESSION_COOKIE);
+        removeCookie(RESTILITY.m_sessionCookie);
         removeCookie(LOCALE_COOKIE);
     }
 
@@ -577,7 +615,7 @@ public final class RESTility
     private static void setSessionToken()
     {
         if (RESTILITY.m_sessionCookiePath != null) {
-            Cookies.setCookie(SESSION_COOKIE, RESTILITY.m_tokenType + "," +
+            Cookies.setCookie(RESTILITY.m_sessionCookie, RESTILITY.m_tokenType + "," +
                               RESTILITY.m_userToken + "," + RESTILITY.m_tokenServerUrl + "," +
                               RESTILITY.m_tokenServerLogoutUrl + "," + RESTILITY.m_username, 
                               null, null, RESTILITY.m_sessionCookiePath, RESTILITY.m_secureCookies);
@@ -586,7 +624,7 @@ public final class RESTility
                                   RESTILITY.m_sessionCookiePath, RESTILITY.m_secureCookies);
             }
         } else {
-            Cookies.setCookie(SESSION_COOKIE, RESTILITY.m_tokenType + "," +
+            Cookies.setCookie(RESTILITY.m_sessionCookie, RESTILITY.m_tokenType + "," +
                               RESTILITY.m_userToken + "," + RESTILITY.m_tokenServerUrl + "," +
                               RESTILITY.m_tokenServerLogoutUrl + "," + RESTILITY.m_username,
                               null, null, null, RESTILITY.m_secureCookies);
@@ -618,7 +656,7 @@ public final class RESTility
     
     private static void checkSessionCookie()
     {
-         String sessionCookie = Cookies.getCookie(SESSION_COOKIE);
+         String sessionCookie = Cookies.getCookie(RESTILITY.m_sessionCookie);
          if (sessionCookie != null && sessionCookie.length() > 0) {
              
              // If the cookie value is quoted, strip off the enclosing quotes
