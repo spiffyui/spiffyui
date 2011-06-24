@@ -77,6 +77,8 @@ public final class RESTility
     private boolean m_hasLoggedIn = false;
     
     private boolean m_logInListenerCalled = false;
+    
+    private boolean m_secureCookies = false;
 
     private static RESTAuthProvider g_authProvider;
     
@@ -152,6 +154,45 @@ public final class RESTility
     public static final void setAuthProvider(RESTAuthProvider authProvider)
     {
         g_authProvider = authProvider;
+    }
+    
+    /**
+     * <p>
+     * Sets if RESTility cookies should only be sent via SSL.
+     * </p>
+     * 
+     * <p>
+     * RESTility stores a small amount of information locally so users can refresh the page
+     * without logging out or resetting their locale.  This information is sometimes stored
+     * in cookies.  These cookies are normally not sent back to the server, but can be in 
+     * some cases.  
+     * </p>
+     * 
+     * <p>
+     * If your application is concerned with sercurity you might want to require all cookies 
+     * are only sent via a secure connection (SSL).  Set this method true to make all cookies
+     * stored be RESTility and Spiffy UI require an SSL connection before they are sent.
+     * </p>
+     * 
+     * <p>
+     * The default value of this field is false.
+     * </p>
+     * 
+     * @param secure true if cookies should require SSL and false otherwise
+     */
+    public static final void setRequireSecureCookies(boolean secure)
+    {
+        RESTILITY.m_secureCookies = secure;
+    }
+    
+    /**
+     * Determines if RESTility will force all cookies to require SSL.
+     * 
+     * @return true if cookies require SSL and false otherwise
+     */
+    public static final boolean requiresSecureCookies()
+    {
+        return RESTILITY.m_secureCookies;
     }
 
     /**
@@ -539,16 +580,18 @@ public final class RESTility
             Cookies.setCookie(SESSION_COOKIE, RESTILITY.m_tokenType + "," +
                               RESTILITY.m_userToken + "," + RESTILITY.m_tokenServerUrl + "," +
                               RESTILITY.m_tokenServerLogoutUrl + "," + RESTILITY.m_username, 
-                              null, null, RESTILITY.m_sessionCookiePath, false);
+                              null, null, RESTILITY.m_sessionCookiePath, RESTILITY.m_secureCookies);
             if (RESTILITY.m_bestLocale != null) {
-                Cookies.setCookie(LOCALE_COOKIE, RESTILITY.m_bestLocale, null, null, RESTILITY.m_sessionCookiePath, false);
+                Cookies.setCookie(LOCALE_COOKIE, RESTILITY.m_bestLocale, null, null, 
+                                  RESTILITY.m_sessionCookiePath, RESTILITY.m_secureCookies);
             }
         } else {
             Cookies.setCookie(SESSION_COOKIE, RESTILITY.m_tokenType + "," +
                               RESTILITY.m_userToken + "," + RESTILITY.m_tokenServerUrl + "," +
-                              RESTILITY.m_tokenServerLogoutUrl + "," + RESTILITY.m_username);
+                              RESTILITY.m_tokenServerLogoutUrl + "," + RESTILITY.m_username,
+                              null, null, null, RESTILITY.m_secureCookies);
             if (RESTILITY.m_bestLocale != null) {
-                Cookies.setCookie(LOCALE_COOKIE, RESTILITY.m_bestLocale);
+                Cookies.setCookie(LOCALE_COOKIE, RESTILITY.m_bestLocale, null, null, null, RESTILITY.m_secureCookies);
             }
         }
     }
