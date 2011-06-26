@@ -38,9 +38,16 @@ public final class GzipListUtil
     }
     
     /**
+     * <p>
      * GZIP the specified list of files.
+     * </p><p>
+     * <p>
+     * Many web servers will send GZIP versions of static files to browsers which support it. 
+     * This method will GZIP lists of files so they can be served to those browsers. 
+     * </p>
      * 
-     * @param files  the files to GZIP.  Each file is GZIPed separately with the same file name and a .gz extension.
+     * @param files  the files to GZIP.  Each file is GZIPed separately with the same file name
+     *               and a .gz extension.
      * @param destinationDir
      *               the destination directory to write the list of zipped files
      * 

@@ -124,9 +124,29 @@ public final class HTMLPropertiesUtil
     }
     
     /**
+     * <p>
      * Generate the HTML properties file based on the input source files
+     * </p>
      * 
-     * @param files  the source files
+     * <p>
+     * GWT can server strings stored in GWT Java files and in Properties files if you use a
+     * Messages class.  These work well for short strings in forms, but aren't well suited to
+     * longer HTML strings.
+     * </p>
+     * 
+     * <p>
+     * This task takes a set of HTML files and creates a GWT Messages class and properties
+     * files where you can access these strings from a GWT class.
+     * </p>
+     * 
+     * <p>
+     * This task also supports localizations by looking at the locale in the file name.  For 
+     * example, a file named myFile.html is assumed to be English and a file named myFile_fr.html
+     * is stored as French.  This task hooks into the GWT localization framework in standard
+     * GWT.
+     * </p>
+     * 
+     * @param files  the HTML source files
      * @param destinationFile
      *               the destination properties file
      * @param packageName
