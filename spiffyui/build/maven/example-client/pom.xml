@@ -18,7 +18,6 @@
       <groupId>org.spiffyui</groupId>
       <artifactId>spiffyui</artifactId>
       <version>0.7.6</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.google.gwt</groupId>
