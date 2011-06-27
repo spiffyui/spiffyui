@@ -216,7 +216,7 @@ public final class UnitTestPanel extends HTMLPanel
         VersionInfo.getVersionInfo(new RESTObjectCallBack<VersionInfo>() {
             public void success(VersionInfo info)
             {
-                ok(true, "The REST call completed successfully and return the revision " + info.getRevision());
+                ok(true, "The REST call completed successfully and returned the revision " + info.getRevision());
                 notFoundUrlTests();
             }
 
