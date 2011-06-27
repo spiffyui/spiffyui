@@ -49,19 +49,8 @@ public class InitializeMojo extends AbstractMojo
         throws MojoExecutionException, MojoFailureException
     {
         Properties p = project.getProperties();
-        String[] compilerAttrs = {ATTR_SOURCE, ATTR_TARGET};
         
-        for (String attr : compilerAttrs) {
-            String v = p.getProperty(attr);
-            if (v != null) {
-                Float val = new Float(v);
-                if (val < MIN_COMPILER) {
-                    throw new MojoFailureException(attr + " must be " + MIN_COMPILER + " or higher");
-                }
-            } else if (v == null) {
-                p.setProperty(attr, MIN_COMPILER.toString());
-            }
-        }
+        setCompilerAttr();
         
         if (project.getPackaging() == "spiffyui-client") {
             setDefaultPath(ATTR_WWW, "www");
@@ -83,9 +72,12 @@ public class InitializeMojo extends AbstractMojo
                 try {
                     GwtModule module = gmr.readModule(modules.get(0));
                     String[] sources = module.getSources();
+                    File path = new File(p.getProperty(ATTR_WWW), module.getPath());
+ 
                     p.setProperty("spiffyui.gwt.module.name", module.getName());
                     p.setProperty("spiffyui.gwt.module.package",
                             module.getPackage() + ".client");
+                    p.setProperty("spiffyui.gwt.module.path",  path.getAbsolutePath());
                 } catch (Exception e) {
                     throw new MojoExecutionException(e.getMessage());
                 }
@@ -93,6 +85,26 @@ public class InitializeMojo extends AbstractMojo
             default:
                 throw new MojoExecutionException("Only one GWT module allowed, but " + modules.size() + " detected: " + modules);
         }
+
+    }
+    
+    private void setCompilerAttr() throws MojoFailureException
+    {
+        Properties p = project.getProperties();
+        String[] compilerAttrs = {ATTR_SOURCE, ATTR_TARGET};
+        
+        for (String attr : compilerAttrs) {
+            String v = p.getProperty(attr);
+            if (v != null) {
+                Float val = new Float(v);
+                if (val < MIN_COMPILER) {
+                    throw new MojoFailureException(attr + " must be " + MIN_COMPILER + " or higher");
+                }
+            } else if (v == null) {
+                p.setProperty(attr, MIN_COMPILER.toString());
+            }
+        }
+
     }
     
     private void setDefaultPath(String attr, String path)
@@ -105,5 +117,4 @@ public class InitializeMojo extends AbstractMojo
         }
 
     }
-
 }

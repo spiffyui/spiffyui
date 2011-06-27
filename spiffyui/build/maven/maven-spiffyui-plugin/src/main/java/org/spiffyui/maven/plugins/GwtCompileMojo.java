@@ -1,38 +1,45 @@
 package org.spiffyui.maven.plugins;
 
 import static org.apache.maven.artifact.Artifact.SCOPE_COMPILE;
+import static org.apache.maven.artifact.Artifact.SCOPE_PROVIDED;
+import static org.apache.maven.artifact.Artifact.SCOPE_SYSTEM;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.codehaus.mojo.gwt.GwtModule;
-import org.codehaus.mojo.gwt.shell.AbstractGwtShellMojo;
-import org.codehaus.mojo.gwt.utils.GwtModuleReaderException;
-import org.codehaus.plexus.compiler.util.scan.InclusionScanException;
-import org.codehaus.plexus.compiler.util.scan.StaleSourceScanner;
-import org.codehaus.plexus.compiler.util.scan.mapping.SingleTargetSourceMapping;
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.cli.CommandLineUtils;
 
 /**
  * Invokes the GWTCompiler for the project source
  * 
- * @extendsPlugin gwt-maven-plugin
- * @extendsGoal compile
  * @goal gwt-compile
  * @phase compile
  */
-public class GwtCompileMojo extends AbstractGwtShellMojo
+public class GwtCompileMojo extends AbstractMojo
 {
+    /**
+     * {@link MavenProject} to process.
+     * 
+     * @parameter expression="${project}"
+     * @required
+     * @readonly
+     */
+    private MavenProject project;
+
     /**
      * @parameter expression="${gwt.compiler.skip}" default-value="false"
      */
@@ -67,31 +74,6 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
     private boolean enableAssertions;
 
     /**
-     * Ask GWT to create the Story of Your Compile (SOYC)
-     * <p>
-     * Can be set from command line using '-Dgwt.compiler.soyc=true'.
-     * </p>
-     * 
-     * @parameter expression="${gwt.compiler.soyc}" default-value="false"
-     * @deprecated you must use {@link #compileReport} option
-     */
-    private boolean soyc;
-
-    /**
-     * Artifacts to be included as source-jars in GWTCompiler Classpath. Removes
-     * the restriction that source code must be bundled inside of the final JAR
-     * when dealing with external utility libraries not designed exclusivelly
-     * for GWT. The plugin will download the source.jar if necessary. This
-     * option is a workaround to avoid packaging sources inside the same JAR
-     * when splitting and application into modules. A smaller JAR can then be
-     * used on server classpath and distributed without sources (that may not be
-     * desirable).
-     * 
-     * @parameter
-     */
-    private String[] compileSourcesArtifacts;
-
-    /**
      * Logs output in a graphical tree view.
      * <p>
      * Can be set from command line using '-Dgwt.treeLogger=true'.
@@ -100,6 +82,23 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * @parameter default-value="false" expression="${gwt.treeLogger}"
      */
     private boolean treeLogger;
+
+    /**
+     * The source directories containing the sources to be compiled.
+     * 
+     * @parameter default-value="${project.compileSourceRoots}"
+     * @required
+     * @readonly
+     */
+    private List<String> compileSourceRoots;
+
+    /**
+     * The source directory
+     * 
+     * @parameter default-value="src/main/resources"
+     * @required
+     */
+    private File resources;
 
     /**
      * EXPERIMENTAL: Disables some java.lang.Class methods (e.g. getName()).
@@ -163,7 +162,6 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * </p>
      * 
      * @parameter default-value="false" expression="${gwt.extraParam}"
-     * @since 2.1.0-1
      */
     private boolean extraParam;
 
@@ -175,7 +173,6 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * 
      * @parameter default-value="false"
      *            expression="${gwt.compiler.compileReport}"
-     * @since 2.1.0-1
      */
     private boolean compileReport;
 
@@ -188,7 +185,6 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * 
      * @parameter default-value="-1"
      *            expression="${gwt.compiler.optimizationLevel}"
-     * @since 2.1.0-1
      */
     private int optimizationLevel;
 
@@ -200,7 +196,6 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * 
      * @parameter default-value="false"
      *            expression="${gwt.compiler.soycDetailed}"
-     * @since 2.1.0-1
      */
     private boolean soycDetailed;
 
@@ -211,9 +206,35 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * </p>
      * 
      * @parameter default-value="false" expression="${gwt.compiler.strict}"
-     * @since 2.1.0-1
      */
     private boolean strict;
+
+    /**
+     * Location on filesystem where GWT will write generated content for review (-gen option to GWTCompiler).
+     * <p>
+     * Can be set from command line using '-Dgwt.gen=...'
+     * </p>
+     * @parameter default-value="${project.build.directory}/.generated" expression="${gwt.gen}"
+     */
+    private File gen;
+
+    /**
+     * GWT logging level (-logLevel ERROR, WARN, INFO, TRACE, DEBUG, SPAM, or ALL).
+     * <p>
+     * Can be set from command line using '-Dgwt.logLevel=...'
+     * </p>
+     * @parameter default-value="INFO" expression="${gwt.logLevel}"
+     */
+    private String logLevel;
+
+    /**
+     * GWT JavaScript compiler output style (-style OBF[USCATED], PRETTY, or DETAILED).
+     * <p>
+     * Can be set from command line using '-Dgwt.style=...'
+     * </p>
+     * @parameter default-value="OBF" expression="${gwt.style}"
+     */
+    private String style;
 
     /**
      * The output directory
@@ -230,12 +251,59 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      */
     private String gwtModuleName;
 
+    /**
+     * @parameter default-value="${spiffyui.gwt.module.path}"
+     * @required
+     * @readonly
+     */
+    private File gwtModulePath;
+    
+    private final Set<String> compileScope =
+           new HashSet<String>(Arrays.asList(SCOPE_COMPILE, SCOPE_PROVIDED, SCOPE_SYSTEM)); 
+    /**
+     * Convenience class that makes it easier to build a string of arguments for
+     * passing to the compiler
+     * 
+     */
+    protected class ClassBuilder
+    {
+        private List<String> m_classes = new ArrayList<String>();
+        
+        ClassBuilder(MavenProject project)
+        {
+            Set<Artifact> artifacts = project.getDependencyArtifacts();
+            
+            for (Artifact artifact : artifacts) {
+                if (compileScope.contains(artifact.getScope())) {
+                    add(artifact.getFile().getAbsolutePath());
+                }
+            }
+        }
+        
+        ClassBuilder add(String arg)
+        {
+            m_classes.add(arg);
+            return this;
+        }
+
+        @Override
+        public String toString()
+        {        
+            return m_classes.toString()
+            .replace(", ", File.pathSeparator)
+            .replace("[", "")
+            .replace("]", "");
+        }             
+    }
+    
     @Override
-    public void doExecute()
+    public void execute()
         throws MojoExecutionException,
             MojoFailureException
     {
-        if (skip || "pom".equals(getProject().getPackaging())) {
+        Properties p = project.getProperties();
+        
+        if (skip || "pom".equals(project.getPackaging())) {
             getLog().info("GWT compilation is skipped");
             return;
         }
@@ -243,89 +311,95 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
         if (!outputDirectory.exists()) {
             outputDirectory.mkdirs();
         }
+      
+        CommandLine cmd = new CommandLine("java");
+        ClassBuilder cb = new ClassBuilder(project);
 
-        GwtModule module = null;
-        
-        try {
-            module = readModule(gwtModuleName);
-        } catch (GwtModuleReaderException e) {
-            throw new MojoExecutionException(e.getMessage());
+        cb.add(p.getProperty("spiffyui.htmlprops.path"));
+        cb.add(resources.getAbsolutePath());
+
+        for (String sourceRoot : compileSourceRoots) {
+            cb.add(sourceRoot);
         }
         
-        Properties p = getProject().getProperties();
-        File path = new File(outputDirectory, module.getPath());
-        p.setProperty("spiffyui.gwt.module.path", path.getAbsolutePath());
+        cmd.addArgument("-cp").addArgument(cb.toString())
+            .addArgument("com.google.gwt.dev.Compiler")
+            .addArgument("-gen").addArgument(gen.getAbsolutePath())
+            .addArgument("-logLevel").addArgument(logLevel)
+            .addArgument("-style").addArgument(style)
+            .addArgument("-war").addArgument(outputDirectory.getAbsolutePath())
+            .addArgument("-localWorkers").addArgument(String.valueOf(getLocalWorkers()));
         
-        compile();
-    }
+        // optional advanced arguments
+        if (enableAssertions) {
+            cmd.addArgument("-ea");
+        }
+        
+        if (draftCompile) {
+            cmd.addArgument("-draftCompile");
+        }
+ 
+        if (validateOnly) {
+            cmd.addArgument("-validateOnly");
+        }
+        
+        if (treeLogger) {
+            cmd.addArgument("-treeLogger");
+        }
+        
+        if (disableClassMetadata) {
+            cmd.addArgument("-XdisableClassMetadata");
+        }
+        
+        if (disableCastChecking) {
+            cmd.addArgument("-XdisableCastChecking");
+        }
+        
+        if (strict) {
+            cmd.addArgument("-strict");
+        }
+        
+        if (soycDetailed) {
+            cmd.addArgument("-XsoycDetailed");
+        }
+ 
+        if (optimizationLevel >= 0) {
+            cmd.addArgument("-optimize").addArgument(Integer.toString(optimizationLevel));
+        }
 
-    private void compile()
-        throws MojoExecutionException
-    {
-
-        try {
-            JavaCommand cmd = new JavaCommand("com.google.gwt.dev.Compiler");
-            if (gwtSdkFirstInClasspath) {
-                cmd.withinClasspath(getGwtUserJar()).withinClasspath(getGwtDevJar());
+        if (extraParam || compileReport) {
+            getLog().debug("create extra directory ");
+            if (!extra.exists()) {
+                extra.mkdirs();
             }
-            cmd.withinScope(Artifact.SCOPE_COMPILE);
+            cmd.addArgument("-extra").addArgument(extra.getAbsolutePath());
+        } else {
+            getLog().debug("NOT create extra directory ");
+        }
 
-            if (!gwtSdkFirstInClasspath) {
-                cmd.withinClasspath(getGwtUserJar()).withinClasspath(getGwtDevJar());
-            }
+        if (compileReport) {
+            cmd.addArgument("-compileReport");
+        }
 
-            Properties p = getProject().getProperties();
-            File htmlprops = new File(p.getProperty("spiffyui.htmlprops.path"));
-            cmd.withinClasspath(htmlprops);
-            
-            cmd.arg("-gen", getGen().getAbsolutePath()).arg("-logLevel", getLogLevel()).arg("-style", getStyle())
-                .arg("-war", outputDirectory.getAbsolutePath())
-                .arg("-localWorkers", String.valueOf(getLocalWorkers()))
-                // optional advanced arguments
-                .arg(enableAssertions, "-ea").arg(draftCompile, "-draftCompile").arg(validateOnly, "-validateOnly")
-                .arg(treeLogger, "-treeLogger").arg(disableClassMetadata, "-XdisableClassMetadata")
-                .arg(disableCastChecking, "-XdisableCastChecking").arg(strict, "-strict").arg(soycDetailed, "-XsoycDetailed");
-
-            if (optimizationLevel >= 0) {
-                cmd.arg("-optimize").arg(Integer.toString(optimizationLevel));
-            }
-
-            if (extraParam || compileReport || soyc) {
-                getLog().debug("create extra directory ");
-                if (!extra.exists()) {
-                    extra.mkdirs();
-                }
-                cmd.arg("-extra").arg(extra.getAbsolutePath());
-            } else {
-                getLog().debug("NOT create extra directory ");
-            }
-
-            if (compileReport) {
-                cmd.arg("-compileReport");
-            }
-
-            addCompileSourceArtifacts(cmd);
-
-            if (workDir != null) {
-                cmd.arg("-workDir").arg(String.valueOf(workDir));
-            }
-
-            addSOYC(cmd);
-            
-            ArrayList<String> compiledTargets = new ArrayList<String>();
-
-            if (compilationRequired(gwtModuleName, outputDirectory)) {
-
-                compiledTargets.add(gwtModuleName);
-                cmd.arg(gwtModuleName);
-
-                cmd.execute();
+        if (workDir != null) {
+            cmd.addArgument("-workDir").addArgument(String.valueOf(workDir));
+        }
+        
+        cmd.addArgument(gwtModuleName);
                 
-                moveJSDir(outputDirectory, compiledTargets);
+        try {
+            DefaultExecutor executor = new DefaultExecutor();
+
+            getLog().debug("Exec: " + cmd.toString());
+
+            int ret = executor.execute(cmd, CommandLineUtils.getSystemEnvVars());
+            if (ret != 0) {
+                throw new MojoExecutionException("Exec failed: " + Integer.toString(ret));
             }
         } catch (IOException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
+            throw new MojoExecutionException(e.getMessage());
         }
+        moveJSDir();
     }
     
     /**
@@ -344,71 +418,13 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
      * 
      * @exception IOException
      */
-    private void moveJSDir(File outputDirectory, List<String> targets)
-        throws IOException
+    private void moveJSDir()
     {
-        for (String target : targets) {
-            File jslib = new File(outputDirectory, target + File.separator + "js" + File.separator + "lib" + File.separator + "i18n");
-            if (jslib.exists()) {
-                File newJslib = new File(outputDirectory, "js" + File.separator + "lib");
-                newJslib.mkdirs();
-                jslib.renameTo(new File(newJslib, "i18n"));
-            }
-        }
-    }
-
-    /**
-     * Add sources.jar artifacts for project dependencies listed as
-     * compileSourcesArtifacts. This is a GWT hack to avoid packaging java
-     * source files into JAR when sharing code between server and client.
-     * Typically, some domain model classes or business rules may be packaged as
-     * a separate Maven module. With GWT packaging this requires to distribute
-     * such classes with code, that may not be desirable.
-     * <p>
-     * The hack can also be used to include utility code from external
-     * librariries that may not have been designed for GWT.
-     * @param cmd the JavaCommand
-     * @exception MojoExecutionException                
-     */
-    protected void addCompileSourceArtifacts(JavaCommand cmd)
-        throws MojoExecutionException
-    {
-        if (compileSourcesArtifacts == null) {
-            return;
-        }
-        for (String include : compileSourcesArtifacts) {
-            List<String> parts = new ArrayList<String>();
-            parts.addAll(Arrays.asList(include.split(":")));
-            if (parts.size() == 2) {
-                // type is optional as it will mostly be "jar"
-                parts.add("jar");
-            }
-            String dependencyId = StringUtils.join(parts.iterator(), ":");
-            boolean found = false;
-
-            for (Artifact artifact : getProjectArtifacts()) {
-                getLog().debug("compare " + dependencyId + " with " + artifact.getDependencyConflictId());
-                if (artifact.getDependencyConflictId().equals(dependencyId)) {
-                    getLog().debug("Add " + dependencyId + " sources.jar artifact to compile classpath");
-                    Artifact sources = resolve(artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion(), "jar", "sources");
-                    cmd.withinClasspath(sources.getFile());
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                getLog().warn("Declared compileSourcesArtifact was not found in project dependencies " + dependencyId);
-            }
-        }
-    }
-
-    private void addSOYC(JavaCommand cmd)
-    {
-        if (soyc) {
-            getLog().debug("SOYC has been enabled by user, SOYC is deprecated : you must now use compileReport");
-            cmd.arg("-soyc");
-        } else {
-            getLog().debug("SOYC disabled");
+        File jslib = new File(gwtModulePath, "js" + File.separator + "lib" + File.separator + "i18n");
+        if (jslib.exists()) {
+            File newJslib = new File(outputDirectory, "js" + File.separator + "lib");
+            newJslib.mkdirs();
+            jslib.renameTo(new File(newJslib, "i18n"));
         }
     }
 
@@ -430,75 +446,4 @@ public class GwtCompileMojo extends AbstractGwtShellMojo
         return Runtime.getRuntime().availableProcessors();
     }
 
-    /**
-     * Try to find out, if there are stale sources. If aren't some, we don't
-     * have to compile... ...this heuristic doesn't take into account, that
-     * there could be updated dependencies. But for this case, as 'clean
-     * compile' could be executed which would force a compilation.
-     * 
-     * @param module
-     *        Name of the GWT module to compile
-     * @param output
-     *        Output path
-     * @return true if compilation is required (i.e. stale sources are found)
-     * @throws MojoExecutionException
-     *         When sources scanning fails
-     * @author Alexander Gordt
-     */
-    private boolean compilationRequired(String module, File output)
-        throws MojoExecutionException
-    {
-        try {
-            GwtModule gwtModule = readModule(module);
-            if (gwtModule.getEntryPoints().size() == 0) {
-                getLog().debug(gwtModule.getName() + " has no EntryPoint - compilation skipped");
-                // No entry-point, this is an utility module : compiling this
-                // one will fail
-                // with '[ERROR] Module has no entry points defined'
-                return false;
-            }
-
-            if (force) {
-                return true;
-            }
-
-            String modulePath = gwtModule.getPath();
-            String outputTarget = modulePath + "/" + modulePath + ".nocache.js";
-
-            // Require compilation if no js file present in target.
-            if (!new File(output, outputTarget).exists()) {
-                return true;
-            }
-
-            // js file allreay exists, but may not be up-to-date with project
-            // source files
-            SingleTargetSourceMapping singleTargetMapping = new SingleTargetSourceMapping(".java", outputTarget);
-            StaleSourceScanner scanner = new StaleSourceScanner();
-            scanner.addSourceMapping(singleTargetMapping);
-
-            SingleTargetSourceMapping gwtModuleMapping = new SingleTargetSourceMapping(".gwt.xml", outputTarget);
-            scanner.addSourceMapping(gwtModuleMapping);
-
-            Collection<File> compileSourceRoots = new HashSet<File>();
-            classpathBuilder.addSourcesWithActiveProjects(getProject(), compileSourceRoots, SCOPE_COMPILE);
-            classpathBuilder.addResourcesWithActiveProjects(getProject(), compileSourceRoots, SCOPE_COMPILE);
-            for (File sourceRoot : compileSourceRoots) {
-                if (!sourceRoot.isDirectory()) {
-                    continue;
-                }
-                try {
-                    if (!scanner.getIncludedSources(sourceRoot, output).isEmpty()) {
-                        getLog().debug("found stale source in " + sourceRoot + " compared with " + output);
-                        return true;
-                    }
-                } catch (InclusionScanException e) {
-                    throw new MojoExecutionException("Error scanning source root: \'" + sourceRoot + "\' " + "for stale files to recompile.", e);
-                }
-            }
-            getLog().info(module + " is up to date. GWT compilation skipped");
-            return false;
-        } catch (GwtModuleReaderException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
-        }
-    }
 }
