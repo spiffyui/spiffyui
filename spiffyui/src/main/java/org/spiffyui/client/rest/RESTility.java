@@ -846,6 +846,32 @@ public final class RESTility
     {
         callREST(url, data, method, callback, isLoginRequest, true, etag);
     }
+    
+    /**
+     * <p> 
+     * Make an HTTP call and get the results as a JSON object.  This method handles
+     * allows the caller to override any HTTP headers in the request. 
+     * </p> 
+     *  
+     * <p> 
+     * By default RESTility sets two HTTP headers: <code>Accept=application/json</code> and 
+     * <code>Accept-Charset=UTF-8</code>.  Other headers are added by the browser running this 
+     * application.
+     * </p> 
+     *
+     * @param url      the properly encoded REST url to call
+     * @param data     the data to pass to the URL
+     * @param method   the HTTP method, defaults to GET
+     * @param callback the callback object for handling the request results
+     * @param etag     the option etag for this request 
+     * @param headers  a map containing the headers to the HTTP request.  Any item 
+     *                 in this map will override the default headers. 
+     */
+    public static void callREST(String url, String data, RESTility.HTTPMethod method,
+                                RESTCallback callback, String etag, Map<String, String> headers)
+    {
+        callREST(url, data, method, callback, false, true, etag, headers);
+    }
 
     /**
      * Make an HTTP call and get the results as a JSON object.  This method handles
@@ -862,8 +888,39 @@ public final class RESTility
      * @param etag     the option etag for this request
      */
     public static void callREST(String url, String data, RESTility.HTTPMethod method,
+                                RESTCallback callback, boolean isLoginRequest,
+                                boolean shouldReplay, String etag)
+    {
+        callREST(url, data, method, callback, isLoginRequest, shouldReplay, etag, null);
+    }
+    
+    /**
+     * <p> 
+     * Make an HTTP call and get the results as a JSON object.  This method handles
+     * cases like login, error parsing, and configuration requests. 
+     * </p> 
+     *  
+     * <p> 
+     * By default RESTility sets two HTTP headers: <code>Accept=application/json</code> and 
+     * <code>Accept-Charset=UTF-8</code>.  Other headers are added by the browser running this 
+     * application.
+     * </p>  
+     *
+     * @param url      the properly encoded REST url to call
+     * @param data     the data to pass to the URL
+     * @param method   the HTTP method, defaults to GET
+     * @param callback the callback object for handling the request results
+     * @param isLoginRequest
+     *                 true if this is a request to login and false otherwise
+     * @param shouldReplay true if this request should repeat after a login request
+     *                 if this request returns a 401
+     * @param etag     the option etag for this request 
+     * @param headers  a map containing the headers to the HTTP request.  Any item 
+     *                 in this map will override the default headers.  
+     */
+    public static void callREST(String url, String data, RESTility.HTTPMethod method,
                                  RESTCallback callback, boolean isLoginRequest,
-                                 boolean shouldReplay, String etag)
+                                 boolean shouldReplay, String etag, Map<String, String> headers)
     {
         if (hasPotentialXss(data)) {
             callback.onError(new RESTException(RESTException.XSS_ERROR,
@@ -881,6 +938,11 @@ public final class RESTility
          */
         builder.setHeader("Accept", "application/json");
         builder.setHeader("Accept-Charset", "UTF-8");
+        if (headers != null) {
+            for (String k : headers.keySet()) {
+                builder.setHeader(k, headers.get(k));
+            }
+        }
 
         if (RESTILITY.m_bestLocale != null) {
             /*
