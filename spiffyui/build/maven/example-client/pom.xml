@@ -17,7 +17,7 @@
     <dependency>
       <groupId>org.spiffyui</groupId>
       <artifactId>spiffyui</artifactId>
-      <version>0.7.6.1</version>
+      <version>0.7.7-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.google.gwt</groupId>
@@ -50,7 +50,7 @@
       <plugin>
 	<groupId>org.spiffyui.maven.plugins</groupId>
 	<artifactId>maven-spiffyui-plugin</artifactId>
-	<version>0.5.2</version>
+	<version>0.5.3-SNAPSHOT</version>
 	<extensions>true</extensions>
       </plugin>
     </plugins>
