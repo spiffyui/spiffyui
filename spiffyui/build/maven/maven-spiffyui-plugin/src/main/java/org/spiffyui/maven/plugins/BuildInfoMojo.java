@@ -110,6 +110,7 @@ public class BuildInfoMojo extends AbstractMojo
             
             JSONObject info = new JSONObject();
             info.put("schema", 1);
+            info.put("version", project.getVersion());
             info.put("date", date);
             info.put("user", System.getProperties().get("user.name"));
             info.put("components", components);
