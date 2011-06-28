@@ -75,9 +75,21 @@ public class InitializeMojo extends AbstractMojo
                     File path = new File(p.getProperty(ATTR_WWW), module.getPath());
  
                     p.setProperty("spiffyui.gwt.module.name", module.getName());
-                    p.setProperty("spiffyui.gwt.module.package",
-                            module.getPackage() + ".client");
                     p.setProperty("spiffyui.gwt.module.path",  path.getAbsolutePath());
+                    
+                    if (sources != null && sources.length > 0) {
+                        /*
+                         Users can specify a different sources path in their module.
+                         In that case we want to use that package.  If they haven't
+                         specified that directory they get the client directory by
+                         default.
+                         */
+                        p.setProperty("spiffyui.gwt.module.package",
+                            module.getPackage() + "." + sources[0]);
+                    } else {
+                        p.setProperty("spiffyui.gwt.module.package",
+                                module.getPackage() + ".client");
+                    }
                 } catch (Exception e) {
                     throw new MojoExecutionException(e.getMessage());
                 }
