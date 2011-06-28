@@ -48,6 +48,8 @@ public final class JSLocaleUtil
     private static final Map<String, Map<Locale, String>> RESOURCES = new HashMap<String, Map<Locale, String>>();
     
     private static final List<String> ALL_RESOURCES = new ArrayList<String>();
+    
+    private static final List<Locale> MINIMUM_LOCALES = new ArrayList<Locale>();
 
     /**
      * Get the right file name for the specified resource name and the locale
@@ -151,7 +153,7 @@ public final class JSLocaleUtil
                     } else {
                         /*
                          * This means the file has more than two dashes.  That means
-                         * we don't know hoe to deal with it and we will ignore it.
+                         * we don't know how to deal with it and we will ignore it.
                          */
 
                         fileName = null;
@@ -184,7 +186,7 @@ public final class JSLocaleUtil
                     break;
                 }
             }
-
+            
             if (fileName == null) {
                 continue;
             } else if (country == null) {
@@ -205,6 +207,14 @@ public final class JSLocaleUtil
      */
     public static List<Locale> getMinimumSupportedLocales(ServletContext context)
     {
+        if (MINIMUM_LOCALES.size() > 0) {
+            /*
+             The minimum list of locale doesn't change so we just return the
+             cached version. 
+             */
+            return MINIMUM_LOCALES;
+        }
+        
         populateMap(context);
         Map<Locale, String> map = null;
 
@@ -214,12 +224,15 @@ public final class JSLocaleUtil
             if (map == null) {
                 map = m;
             } else if (m.size() > 1 && m.size() < map.size()) {
+                /*
+                 This method is looking for the minimum supported locales.  That means
+                 we want to find the file with the smallest number of supported locales
+                 and use the list of locales it supports.
+                 */
                 map = m;
             }
         }
 
-        ArrayList<Locale> locales = new ArrayList<Locale>();
-        
         if (map == null) {
             /*
              This means we couldn't load the files.  This is often
@@ -228,14 +241,14 @@ public final class JSLocaleUtil
              is return an empty list and let the servlet return a
              404.
              */
-            return locales;
+            return MINIMUM_LOCALES;
         }
 
         for (Locale l : map.keySet()) {
-            locales.add(l);
+            MINIMUM_LOCALES.add(l);
         }
-
-        return locales;
+        
+        return MINIMUM_LOCALES;
     }
 
     private static Map<Locale, String> getMap(String fileName)
