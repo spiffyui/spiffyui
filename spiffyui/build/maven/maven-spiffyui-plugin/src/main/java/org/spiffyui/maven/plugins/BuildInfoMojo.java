@@ -6,6 +6,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,7 @@ public class BuildInfoMojo extends AbstractMojo
     /**
      * The character encoding scheme to be applied exporting the JSON document
      *
-     * @parameter expression="${dateFormat}" default-value="yyyy.MMMMM.dd hh:mm aaa"
+     * @parameter expression="${dateFormat}" default-value="epoch"
      */
     private String dateFormat;
     
@@ -74,9 +75,16 @@ public class BuildInfoMojo extends AbstractMojo
             MojoFailureException
     {
         Properties p = project.getProperties();
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-        String date = sdf.format(cal.getTime());
+        
+        String date = null;
+        
+        if ("epoch".equals(dateFormat)) {
+            date = "" + new Date().getTime();
+        } else {
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+            date = sdf.format(cal.getTime());
+        }
         
         List<Dependency> depsList = project.getDependencies();
         Map<String, Dependency> deps = new HashMap<String, Dependency>();
