@@ -13,7 +13,7 @@
     <dependency>
       <groupId>org.spiffyui</groupId>
       <artifactId>spiffyui</artifactId>
-      <version>0.7.6</version>
+      <version>0.7.6.1</version>
     </dependency>
   </dependencies> 
   <build>
