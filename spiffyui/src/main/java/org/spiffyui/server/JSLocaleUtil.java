@@ -207,14 +207,20 @@ public final class JSLocaleUtil
      */
     public static List<Locale> getMinimumSupportedLocales(ServletContext context)
     {
-        if (MINIMUM_LOCALES.size() > 0) {
-            /*
-             The minimum list of locale doesn't change so we just return the
-             cached version. 
-             */
-            return MINIMUM_LOCALES;
+        if (MINIMUM_LOCALES.size() == 0) {
+            calculateMinimumSupportedLocales(context);
         }
         
+        /*
+         The minimum list of locale doesn't change so we just return the
+         cached version. 
+         */
+        return MINIMUM_LOCALES;
+        
+    }
+    
+    private static synchronized void calculateMinimumSupportedLocales(ServletContext context)
+    {
         populateMap(context);
         Map<Locale, String> map = null;
 
@@ -241,14 +247,12 @@ public final class JSLocaleUtil
              is return an empty list and let the servlet return a
              404.
              */
-            return MINIMUM_LOCALES;
+            return;
         }
 
         for (Locale l : map.keySet()) {
             MINIMUM_LOCALES.add(l);
         }
-        
-        return MINIMUM_LOCALES;
     }
 
     private static Map<Locale, String> getMap(String fileName)
