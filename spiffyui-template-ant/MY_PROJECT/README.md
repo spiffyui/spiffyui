@@ -11,7 +11,13 @@ This project is built with [Apache Ant](http://ant.apache.org/) using [Apache Iv
     <ANT HOME>/ant run
     
 This will download Apache Ivy and the other the required libraries, build your project, and run it with an embedded Jetty web server.  It will then provide instructions for accessing the running application once the build is completed.  
-    
+
+
+Debugging through Eclipse
+--------------------------------------
+
+See [Spiffy UI's GWT Dev Mode page](http://www.spiffyui.org/#!hostedMode) for more information.    
+
 
 License
 --------------------------------------

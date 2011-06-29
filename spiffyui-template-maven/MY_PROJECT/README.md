@@ -18,6 +18,12 @@ This will download the required libraries, build your project, and run it.  You 
     http://localhost:8080
     
 
+Debugging through Eclipse
+--------------------------------------
+
+See [Spiffy UI's GWT Dev Mode page](http://www.spiffyui.org/#!hostedMode) for more information.
+
+
 License
 --------------------------------------
 
