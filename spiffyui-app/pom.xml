@@ -67,9 +67,9 @@
         <version>4.0.1</version>
       </dependency>
       <dependency>
-        <groupId>com.metaparadigm</groupId>
-        <artifactId>json-rpc</artifactId>
-        <version>1.0</version>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20090211</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -332,9 +332,9 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>com.metaparadigm</groupId>
-      <artifactId>json-rpc</artifactId>
-      <version>1.0</version>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20090211</version>
       <type>jar</type>
       <scope>compile</scope>
     </dependency>
