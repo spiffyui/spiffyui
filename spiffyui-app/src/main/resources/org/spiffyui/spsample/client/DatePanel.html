@@ -13,7 +13,7 @@
     </p>
     
     <p>
-    GWT code is compiled into JavaScript and it runs in the browser.  This is why we can create Spiffy UI applications that access server code written in PHP, .NET, and Erlang.  However, it also means GWT code can't access the Accept-Language header.  Instead it must rely on JavaScript to get the preferred locale by using mechanisms like <code>navigator.language</code>, <code>navigator.systemLanguage</code>, and <code>navigator.userLanguage</code>.
+    GWT code is compiled into JavaScript and it runs in the browser.  This is why we can create Spiffy UI applications that access server code written in PHP, .NET, and Erlang.  However, it also means GWT code can't access the "Accept-Language" header.  Instead it must rely on JavaScript to get the preferred locale by using mechanisms like <code>navigator.language</code>, <code>navigator.systemLanguage</code>, and <code>navigator.userLanguage</code>.
     </p>
     
     <p>
@@ -84,7 +84,7 @@
     <h3>Adding the JSLocaleServlet</h3>
 
     <p>
-    The <code>JSLocaleServlet</code> will redirect the browser to the best matching localized JS file for date.js or jquery.ui.datepicker.js.  Spiffy UI includes a basic algorithm for determining the best matching locale by looping through the requested browser locales and attempting to match them against one of the supported locales.  It first attempts to match exactly, then by language and country, then by language.  If it doesn't find a match it will return the English version of the JavaScript file requested.  
+    The <code>JSLocaleServlet</code> will redirect the browser to the best matching localized JS file for <code>date.js</code> or <code>jquery.ui.datepicker.js</code>.  Spiffy UI includes a basic algorithm for determining the best matching locale by looping through the requested browser locales and attempting to match them against one of the supported locales.  It first attempts to match exactly, then by language and country, then by language.  If it doesn't find a match it will return the English version of the JavaScript file requested.  
     </p>
     
     <p>
@@ -189,7 +189,7 @@
 
     <h3>Extending JSLocaleServlet</h3>
     <p>
-    If your application requires a customized best-matching-locale routine, you may extend <code>JSLocaleServlet</code>, override getBestMatchLocale, then include your class in web.xml instead.  For example:
+    If your application requires a customized best-matching-locale routine, you may extend <code>JSLocaleServlet</code>, override <code>getBestMatchLocale</code>, then include your class in web.xml instead.  For example:
     </p>
 
     <pre>
