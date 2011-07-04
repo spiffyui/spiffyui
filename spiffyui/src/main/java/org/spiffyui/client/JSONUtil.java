@@ -28,7 +28,7 @@ import com.google.gwt.json.client.JSONValue;
 import org.spiffyui.client.rest.RESTException;
 
 /**
- * A set of static JavaScript utilities for handling JSON data structures.
+ * A set of static utilities for handling JSON data structures in GWT.
  */
 public final class JSONUtil
 {
