@@ -51,10 +51,17 @@ public class JavaCompileMojo extends AbstractMojo
     private boolean deprecation;
 
     /**
+     * Disable warnings
+     * 
+     * @parameter expression="${spiffyui.javac.nowarn}" default-value=false
+     */
+    private boolean nowarn;
+
+    /**
      * Set Xlint value passed to compiler "all" = enable all "none" = disable
      * all $value = pass to compiler as -Xlint:$value
      * 
-     * @parameter expression="${spiffyui.javac.xlint}" default-value=all
+     * @parameter expression="${spiffyui.javac.xlint}" default-value=none
      */
     private String xlint;
 
@@ -178,6 +185,10 @@ public class JavaCompileMojo extends AbstractMojo
 
         if (deprecation) {
             args.add("-deprecation");
+        }
+
+        if (nowarn) {
+            args.add("-nowarn");
         }
 
         if (!xlint.equals("none")) {
