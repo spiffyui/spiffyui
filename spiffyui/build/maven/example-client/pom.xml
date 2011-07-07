@@ -11,13 +11,14 @@
 
   <properties>
     <gwt.version>2.3.0</gwt.version>
+    <validation.version>1.0.0.GA</validation.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.spiffyui</groupId>
       <artifactId>spiffyui</artifactId>
-      <version>0.7.7-SNAPSHOT</version>
+      <version>0.7.6.1</version>
     </dependency>
     <dependency>
       <groupId>com.google.gwt</groupId>
@@ -34,13 +35,13 @@
     <dependency>
       <groupId>javax.validation</groupId>
       <artifactId>validation-api</artifactId>
-      <version>1.0.0.GA</version>
+      <version>${validation.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>javax.validation</groupId>
       <artifactId>validation-api</artifactId>
-      <version>1.0.0.GA</version>
+      <version>${validation.version}</version>
       <scope>provided</scope>
       <classifier>sources</classifier>
     </dependency>

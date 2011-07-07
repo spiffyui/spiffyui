@@ -32,24 +32,53 @@ public class JavaCompileMojo extends AbstractMojo
     /**
      * Enable debug output
      * 
-     * @parameter default-value=true
+     * @parameter expression="${spiffyui.javac.debug}" default-value=true
      */
     private boolean debug;
-    
+
+    /**
+     * Enable verbose output
+     * 
+     * @parameter expression="${spiffyui.javac.verbose}" default-value=false
+     */
+    private boolean verbose;
+
+    /**
+     * Enable deprecation warnings
+     * 
+     * @parameter expression="${spiffyui.javac.deprecation}" default-value=false
+     */
+    private boolean deprecation;
+
+    /**
+     * Set Xlint value passed to compiler "all" = enable all "none" = disable
+     * all $value = pass to compiler as -Xlint:$value
+     * 
+     * @parameter expression="${spiffyui.javac.xlint}" default-value=all
+     */
+    private String xlint;
+
+    /**
+     * Extra arguments to pass to the compiler
+     * 
+     * @parameter expression="${spiffyui.javac.extraArgs}"
+     */
+    private List<String> extraArgs;
+
     /**
      * The -source argument for the Java compiler.
      * 
-     * @parameter expression="${maven.compiler.source}" default-value="1.6"
+     * @parameter expression="${spiffyui.javac.source}" default-value="1.6"
      */
     private String source;
 
     /**
      * The -target argument for the Java compiler.
      * 
-     * @parameter expression="${maven.compiler.target}" default-value="1.6"
+     * @parameter expression="${spiffyui.javac.target}" default-value="1.6"
      */
     private String target;
-    
+
     /**
      * The source directories containing the sources to be compiled.
      * 
@@ -67,7 +96,7 @@ public class JavaCompileMojo extends AbstractMojo
      * @readonly
      */
     private String htmlPropsPath;
-    
+
     /**
      * Project classpath.
      * 
@@ -92,7 +121,7 @@ public class JavaCompileMojo extends AbstractMojo
      * @required
      */
     private File outputDirectory;
-    
+
     /**
      * <p>
      * Specify where to place generated source files created by annotation
@@ -103,16 +132,15 @@ public class JavaCompileMojo extends AbstractMojo
      *            default-value="${project.build.directory}/generated-sources/annotations"
      */
     private File generatedSourcesDirectory;
-    
+
     /**
      * Convenience class that makes it easier to build a string of arguments for
      * passing to the compiler
-     * 
      */
     class ArgBuilder
     {
         private List<String> m_args = new ArrayList<String>();
-              
+
         ArgBuilder add(String arg)
         {
             m_args.add(arg);
@@ -124,56 +152,72 @@ public class JavaCompileMojo extends AbstractMojo
         {
             return flatten(m_args.toString(), " ");
         }
-                
+
         public String[] get()
         {
             return m_args.toArray(new String[m_args.size()]);
         }
     }
-    
+
     @Override
     public void execute()
         throws MojoExecutionException,
             MojoFailureException
     {
         ArgBuilder args = new ArgBuilder();
-        
+
         String classpath = flatten(classpathElements.toString(), File.pathSeparator);
-  
+
         if (debug) {
             args.add("-g");
         }
-        
-        args.add("-d").add(outputDirectory.getAbsolutePath())
-            .add("-s").add(generatedSourcesDirectory.getAbsolutePath())
-            .add("-encoding").add(encoding)
-            .add("-cp").add(classpath)
-            .add("-source").add(source)
-            .add("-target").add(target);
-        
+
+        if (verbose) {
+            args.add("-verbose");
+        }
+
+        if (deprecation) {
+            args.add("-deprecation");
+        }
+
+        if (!xlint.equals("none")) {
+            if (xlint.equals("all")) {
+                args.add("-Xlint");
+            } else {
+                args.add("-Xlint:" + xlint);
+            }
+        }
+
+        args.add("-d").add(outputDirectory.getAbsolutePath()).add("-s").add(generatedSourcesDirectory.getAbsolutePath()).add("-encoding")
+            .add(encoding).add("-cp").add(classpath).add("-source").add(source).add("-target").add(target);
+
         String[] exts = {
             "java"
         };
-        
+
+        for (String extraArg : extraArgs) {
+            args.add(extraArg);
+        }
+
         List<String> sources = compileSourceRoots;
         sources.add(htmlPropsPath);
-        
+
         for (String source : sources) {
             File path = new File(source);
-        
+
             if (!path.exists()) {
                 continue;
             }
-            
+
             List<File> files = new ArrayList<File>(FileUtils.listFiles(path, exts, true));
             for (File file : files) {
                 args.add(file.getAbsolutePath());
             }
         }
-        
+
         ensureExists(outputDirectory);
         ensureExists(generatedSourcesDirectory);
-        
+
         JavaCompiler javac = ToolProvider.getSystemJavaCompiler();
 
         getLog().debug("Exec: javac " + args.toString());
@@ -188,11 +232,9 @@ public class JavaCompileMojo extends AbstractMojo
             dir.mkdirs();
         }
     }
-    
+
     private String flatten(String list, String sep)
     {
-        return list.replace(", ", sep)
-            .replace("[", "")
-            .replace("]", "");
+        return list.replace(", ", sep).replace("[", "").replace("]", "");
     }
 }
