@@ -231,7 +231,10 @@
         </copy>
         
         <gziplist dest="${spiffy.www}/js/lib/i18n">
-            <fileset dir="${spiffy.js}/lib/i18n" includes="*.js" />
+            <!-- The Croatian date file has something strange in it.
+                 I'm not really sure why, but we'll exclude it from 
+                 the GZIP list for now. -->
+            <fileset dir="${spiffy.js}/lib/i18n" includes="*.js" excludes="date-hr-HR.js" />
         </gziplist>
         
     </target>
