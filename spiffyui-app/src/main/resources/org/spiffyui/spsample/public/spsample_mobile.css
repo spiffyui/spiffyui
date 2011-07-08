@@ -275,3 +275,49 @@ h1 {
     margin: auto auto auto auto;
     right: 10px;
 }
+
+#header_actionsBlock {
+    width: auto;
+}
+
+#landingMenu {
+    background: none repeat scroll 0 0 #F9F9F9;
+    border: thin solid lightgray;
+    border-radius: 6px 6px 6px 6px;
+    padding: 10px 25px 5px 10px;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+#landingTwitter {
+    top: 5px;
+}
+
+#callouts, #callouts2 {
+    height: 250px;
+}
+
+#createText {
+    left: auto;
+    width: 90%;
+    position: static;
+}
+
+#createSpiffy {
+    height: 702px;
+}
+
+
+.landingCallout, .createForm, #createText {
+    -moz-transition: none;
+}
+
+iframe {
+    height: 400px;
+    width: 90%;
+}
+
+#landingMain {
+    margin-left: 0px;
+}

@@ -95,6 +95,22 @@ spsample = {
                 type: "text/css",
                 href: file
             });
+
+            return css;
+    },
+
+    addMobileStyle: function() {
+         if (!spsample.mobileCSS &&
+             $(window).width() < 701) {
+             spsample.mobileCSS = spsample.addCSSLink("spsample_mobile.css");
+             return;
+         }
+
+         if (spsample.mobileCSS && 
+             $(window).width() > 701) {
+             spsample.mobileCSS.remove();
+             spsample.mobileCSS = null;
+         }
     },
     
     init: function() {
@@ -132,6 +148,12 @@ spsample = {
              */
             spsample.addCSSLink('spsample_chromexp.css');
         }
+
+        spsample.addMobileStyle();
+
+        $(window).resize(function() {
+            spsample.addMobileStyle();
+        });
         
         $(window).scroll(function() {
             
