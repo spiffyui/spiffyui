@@ -465,7 +465,6 @@ public final class UnitTestPanel extends HTMLPanel
         fault.put("Detail", detail);
         detail.put("Value1", new JSONString("First Value"));
         detail.put("Value2", new JSONString("Second Value"));
-        JSUtil.println("obj.toString(): " + obj.toString());
         
         RESTException exception = JSONUtil.getRESTException(obj, -1, "url");
         
