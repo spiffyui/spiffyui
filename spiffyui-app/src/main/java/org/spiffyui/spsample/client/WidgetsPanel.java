@@ -600,5 +600,15 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         } else {
             m_refresh.setLoading(false);
         }
+    }
+
+    /**
+     * @return Returns the slideGridPanel.
+     */
+    public SlidingGridPanel getSlideGridPanel()
+    {
+        return m_slideGridPanel;
     }    
+    
+    
 }

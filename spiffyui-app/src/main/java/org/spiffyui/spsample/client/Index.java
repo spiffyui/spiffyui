@@ -18,6 +18,7 @@ package org.spiffyui.spsample.client;
 import java.util.HashMap;
 
 import org.spiffyui.client.JSDateUtil;
+import org.spiffyui.client.JSEffectCallback;
 import org.spiffyui.client.JSUtil;
 import org.spiffyui.client.MainFooter;
 import org.spiffyui.client.MainHeader;
@@ -425,14 +426,31 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         }
         
         if (!m_isSausage) {
-            for (NavItem key : m_panels.keySet()) {
+            for (final NavItem key : m_panels.keySet()) {
                 /*
                  We could hide and show these panels by just calling setVisible,
                  but that causes a redraw bug in IE 8 where the body extends for
                  for the total height of the page below the footer.
                  */
                 if (key.equals(item)) {
-                    JSUtil.show("#" + m_panels.get(key).getElement().getId());
+                    /*
+                     * The sliding grid on the widgets panel needs to be aligned
+                     * when it is set to visible, otherwise if the landing page
+                     * is the first page the browser's been to, the onLoad is too early
+                     * for the width of the sliding grid panel to be determined.
+                     */
+                    if (WIDGETS_NAV_ITEM_ID.equals(key.getElement().getId())) {
+                        JSUtil.show("#" + m_panels.get(key).getElement().getId(), "normal", new JSEffectCallback() {
+                            
+                            @Override
+                            public void effectComplete(String id)
+                            {
+                                ((WidgetsPanel) m_panels.get(key)).getSlideGridPanel().reAlignGrid();
+                            }
+                        });                        
+                    } else {
+                        JSUtil.show("#" + m_panels.get(key).getElement().getId());                        
+                    }
                 } else {
                     JSUtil.hide("#" + m_panels.get(key).getElement().getId(), "fast");
                 }
