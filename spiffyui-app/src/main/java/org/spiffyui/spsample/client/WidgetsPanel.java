@@ -202,7 +202,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         HTMLPanel p = addToSlidingGrid(m_refresh, "WidgetsRefreshAnchor", Index.getStrings().refreshAnchor(), STRINGS.RefreshAnchor_html(), TALL);
         Element h3 = p.getElementById("WID_WidgetsRefreshAnchor");
         //Set the title so that the TOC's list item for this isn't too long
-        h3.setTitle(Index.getStrings().refreshAnchorConfirmDialog_tt());
+        h3.setTitle(Index.getStrings().refreshAnchorConfirmDialog_toc());
         
         m_refresh.addClickHandler(new ClickHandler() {
 
