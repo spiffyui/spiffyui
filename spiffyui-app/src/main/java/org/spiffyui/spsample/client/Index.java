@@ -745,8 +745,11 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
     
     private static final boolean shouldShowTopLink()
     {
-        return !g_index.m_navBar.getSelectedItem().getId().equals(LANDING_NAV_ITEM_ID);
+        if (g_index.m_navBar.getSelectedItem() == null) {
+            return false;
+        } else {
+            return !g_index.m_navBar.getSelectedItem().getId().equals(LANDING_NAV_ITEM_ID);
+        }
     }
-    
     
 }
