@@ -400,8 +400,8 @@ spiffyui = {
             if (!spiffyui.History.enabled) {
                 /*
                  * Applications aren't required to use our history support and if
-                 * they haven't loaded the libraries then we don't want to load try
-                 * to call them.
+                 * they haven't loaded the libraries then we don't want to try
+                 * and call them.
                  */
                 return false;
             }
