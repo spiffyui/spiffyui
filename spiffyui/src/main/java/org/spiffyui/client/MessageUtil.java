@@ -119,8 +119,7 @@ public final class MessageUtil
      * 
      * This message has a default style of 
      * 
-     * @param msg
-     *        the message to show
+     * @param msg the message to show in HTML
      */
     public static void showFatalError(String msg)
     {
@@ -143,8 +142,7 @@ public final class MessageUtil
      * <li>.humanMsgErr</li>
      * </ul>
      * 
-     * @param msg
-     *        the message to show
+     * @param msg the message to show in HTML
      */
     public static void showWarning(String msg)
     {
@@ -171,8 +169,7 @@ public final class MessageUtil
      * <li>.humanMsgWarn</li>
      * </ul>
      * 
-     * @param msg
-     *                  the message to show
+     * @param msg the message to show in HTML
      * @param shouldLog indicates if this warning should be sent to the in-browser error log
      */
     public static void showWarning(String msg, boolean shouldLog)
@@ -204,8 +201,7 @@ public final class MessageUtil
      * <li>.humanMsgInfo</li>
      * </ul>
      * 
-     * @param msg
-     *        the message to show
+     * @param msg the message to show in HTML
      */
     public static native void showMessage(String msg) /*-{
         $wnd.humanMsg.setup();
@@ -228,8 +224,7 @@ public final class MessageUtil
      * <li>.humanMsgInfo</li>
      * </ul>
      * 
-     * @param msg
-     *        the message to show
+     * @param msg the message to show in HTML
      * 
      * @param className
      *        the name of the class to apply
@@ -243,8 +238,7 @@ public final class MessageUtil
     /**
      * Show a temporary error message and logs it to the client-side error log
      * 
-     * @param msg
-     *        the message to show
+     * @param msg the message to show in HTML
      */
     public static void showError(String msg)
     {
@@ -267,8 +261,8 @@ public final class MessageUtil
      * <li>.humanMsgErr</li>
      * </ul>
      * 
-     * @param errorMsg the error message for the alert
-     * @param logMsg   the message for the error log
+     * @param errorMsg the error message for the alert in HTML
+     * @param logMsg   the message for the error log in HTML
      */
     public static void showError(String errorMsg, String logMsg)
     {
@@ -285,8 +279,7 @@ public final class MessageUtil
     /**
      * Write a message to the error log
      * 
-     * @param msg
-     *        the message to show
+     * @param msg the message to show in HTML
      */
     public static void logError(String msg)
     {
@@ -296,8 +289,7 @@ public final class MessageUtil
     /**
      * Write a message to the error log
      * 
-     * @param msg
-     *        the message to show
+     * @param msg the message to show in HTML
      */
     public static void logWarning(String msg)
     {

@@ -18,6 +18,8 @@ package org.spiffyui.client.rest;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
+
 /**
  * <p>
  * This exception represents a successful return from a REST call with an error
@@ -121,9 +123,9 @@ public class RESTException extends Exception
                             Map<String, String> details, int responseCode,
                             String url)
     {
-        m_code = code;
-        m_subcode = subcode;
-        m_reason = reason;
+        m_code = SafeHtmlUtils.fromString(code).asString();
+        m_subcode = SafeHtmlUtils.fromString(subcode).asString();
+        m_reason = SafeHtmlUtils.fromString(reason).asString();
         m_details = details;
         m_responseCode = responseCode;
         m_url = url;
