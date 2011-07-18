@@ -21,6 +21,7 @@ import org.spiffyui.client.login.LoginPanel;
 import org.spiffyui.client.login.LoginStringHelper;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.http.client.Response;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
@@ -38,7 +39,7 @@ import com.google.gwt.user.client.Window;
  * scheme your application may require. 
  * </p> 
  */
-public class AuthUtil implements RESTAuthProvider
+public class AuthUtil implements org.spiffyui.client.rest.v2.RESTAuthProvider
 {
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
 
@@ -56,6 +57,38 @@ public class AuthUtil implements RESTAuthProvider
     {
         
     }
+    
+    /**
+     * <p>
+     * Show the login dialog.
+     * </p><p>
+     * <p>
+     * This method is called when a REST call results in a 401 which requires login.
+     * The default implementation of this method shows a login dialog, but it could
+     * redirect to another page or simply show an error message.
+     * </p>
+     * 
+     * @param callback  the callback for the original REST call
+     * @param tokenServerUrl
+     *                  the URL for the authentication server
+     * @param response  the server response that came with this 401
+     * @param exception the RESTException representation of the JSON response from the server if available
+     */
+    public void showLogin(RESTCallback callback, String tokenServerUrl, Response response, RESTException exception)
+    {
+        /*
+         We don't need to implement this method here because we don't use any of the extend objects,
+         but we want to implement this interface since this is a popular class to subclass and we
+         want to give those child classes access to the extended objects.
+         */
+        String code = null;
+        if (exception != null) {
+            code = exception.getSubcode();
+        }
+        
+        showLogin(callback, tokenServerUrl, code);
+    }
+
     /**
      * Show the login dialog.
      *

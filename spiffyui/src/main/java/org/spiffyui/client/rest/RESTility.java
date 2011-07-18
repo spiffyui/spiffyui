@@ -257,10 +257,27 @@ public final class RESTility
     public static void login(RESTCallback callback, Response response, String url, String errorCode)
         throws RESTException
     {
-        RESTILITY.doLogin(callback, response, url, errorCode);
+        RESTILITY.doLogin(callback, response, url, errorCode, null);
+    }
+    
+    /**
+     * Make a login request using RESTility authentication framework.
+     * 
+     * @param callback  the rest callback called when the login is complete
+     * @param response  the response from the server requiring the login
+     * @param url       the URL of the authentication server
+     * @param exception the RESTException which prompted this login
+     * 
+     * @exception RESTException
+     *                   if there was an exception when making the login request
+     */
+    public static void login(RESTCallback callback, Response response, String url, RESTException exception)
+        throws RESTException
+    {
+        RESTILITY.doLogin(callback, response, url, null, exception);
     }
 
-    private void doLogin(RESTCallback callback, Response response, String url, String errorCode)
+    private void doLogin(RESTCallback callback, Response response, String url, String errorCode, RESTException exception)
         throws RESTException
     {
         g_inLoginProcess = true;
@@ -326,7 +343,11 @@ public final class RESTility
         removeCookie(RESTILITY.m_sessionCookie);
         removeCookie(LOCALE_COOKIE);
         
-        g_authProvider.showLogin(callback, loginUri, errorCode);
+        if (g_authProvider instanceof org.spiffyui.client.rest.v2.RESTAuthProvider) {
+            ((org.spiffyui.client.rest.v2.RESTAuthProvider) g_authProvider).showLogin(callback, loginUri, response, exception);
+        } else {
+            g_authProvider.showLogin(callback, loginUri, errorCode);
+        }
     }
 
     /**
@@ -1059,7 +1080,7 @@ public final class RESTility
                         code = exception.getSubcode();
                     }
 
-                    doLogin(m_origCallback, response, struct.getUrl(), code);
+                    doLogin(m_origCallback, response, struct.getUrl(), code, exception);
                 } catch (RESTException e) {
                     RESTILITY.m_restCalls.remove(m_origCallback);
                     m_origCallback.onError(e);
