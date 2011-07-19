@@ -301,7 +301,7 @@ public final class RESTility
          *
          * The String should look like this:
          *
-         * X-OPAUQUE uri=<token server URI>,signoffUri=<token server logout url>
+         * X-OPAQUE uri=<token server URI>,signoffUri=<token server logout url>
          *
          * First we'll remove the token type
          */
