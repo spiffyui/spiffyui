@@ -86,6 +86,10 @@ public class AuthUtil implements org.spiffyui.client.rest.v2.RESTAuthProvider
             code = exception.getSubcode();
         }
         
+        if (tokenServerUrl == null) {
+            throw new IllegalArgumentException(STRINGS.invalidAuthHeader(response.getHeader("WWW-Authenticate")));
+        }
+        
         showLogin(callback, tokenServerUrl, code);
     }
 

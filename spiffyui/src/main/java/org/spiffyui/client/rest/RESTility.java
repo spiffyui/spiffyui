@@ -324,14 +324,6 @@ public final class RESTility
             }
         }
 
-        if (loginUri == null || logoutUri == null) {
-            throw new RESTException(RESTException.INVALID_AUTH_HEADER,
-                                    "", STRINGS.invalidAuthHeader(response.getHeader("WWW-Authenticate")),
-                                    new HashMap<String, String>(),
-                                    response.getStatusCode(),
-                                    url);
-        }
-
         if (logoutUri.trim().length() == 0) {
             logoutUri = loginUri;
         }
