@@ -437,7 +437,7 @@ public final class RESTility
      * need to run it again.  This call gets the same REST request information and
      * tries the request again.
      */
-    protected static void finishRESTCalls()
+    public static void finishRESTCalls()
     {
         for (RESTCallback callback : RESTILITY.m_restCalls.keySet()) {
             RESTCallStruct struct = RESTILITY.m_restCalls.get(callback);
@@ -475,7 +475,7 @@ public final class RESTility
      * Set the user token in JavaScript memory and and saves it in a cookie.
      * @param token  user token
      */
-    protected static void setUserToken(String token)
+    public static void setUserToken(String token)
     {
         g_inLoginProcess = false;
         RESTILITY.m_userToken = token;
@@ -486,7 +486,7 @@ public final class RESTility
      * Set the authentication server url in JavaScript memory and and saves it in a cookie.
      * @param url  authentication server url
      */
-    protected static void setTokenServerURL(String url)
+    public static void setTokenServerURL(String url)
     {
         RESTILITY.m_tokenServerUrl = url;
         setSessionToken();
@@ -495,7 +495,7 @@ public final class RESTility
     /**
      * Fire the login success event to all listeners if it hasn't been fired already.
      */
-    protected static void fireLoginSuccess()
+    public static void fireLoginSuccess()
     {
         RESTILITY.m_hasLoggedIn = true;
         if (!RESTILITY.m_logInListenerCalled) {
@@ -529,7 +529,7 @@ public final class RESTility
      * Set the user name in JavaScript memory and and saves it in a cookie.
      * @param username  user name
      */
-    protected static void setUsername(String username)
+    public static void setUsername(String username)
     {
         RESTILITY.m_username = username;
         setSessionToken();
@@ -539,7 +539,7 @@ public final class RESTility
      * Set the authentication server logout url in JavaScript memory and and saves it in a cookie.
      * @param url  authentication server logout url
      */
-    protected static void setTokenServerLogoutURL(String url)
+    public static void setTokenServerLogoutURL(String url)
     {
         RESTILITY.m_tokenServerLogoutUrl = url;
         setSessionToken();
@@ -739,7 +739,7 @@ public final class RESTility
      *
      * @return authentication server url
      */
-    protected static String getTokenServerUrl()
+    public static String getTokenServerUrl()
     {
         if (RESTILITY.m_tokenServerUrl == null) {
             checkSessionCookie();
@@ -752,7 +752,7 @@ public final class RESTility
      *
      * @return authentication server logout url
      */
-    protected static String getTokenServerLogoutUrl()
+    public static String getTokenServerLogoutUrl()
     {
         if (RESTILITY.m_tokenServerLogoutUrl == null) {
             checkSessionCookie();
@@ -779,7 +779,7 @@ public final class RESTility
      *
      * @return best matched locale
      */
-    protected static String getBestLocale()
+    public static String getBestLocale()
     {
         if (RESTILITY.m_bestLocale != null) {
             return RESTILITY.m_bestLocale;
@@ -862,7 +862,7 @@ public final class RESTility
      * @param etag     the option etag for this request
      *
      */
-    protected static void callREST(String url, String data, RESTility.HTTPMethod method,
+    public static void callREST(String url, String data, RESTility.HTTPMethod method,
                                    RESTCallback callback, boolean isLoginRequest, String etag)
     {
         callREST(url, data, method, callback, isLoginRequest, true, etag);
