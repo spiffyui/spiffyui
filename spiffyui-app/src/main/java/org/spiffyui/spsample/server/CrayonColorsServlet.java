@@ -220,8 +220,15 @@ public class CrayonColorsServlet extends HttpServlet
             }
             
             //get the partial array to be returned
-            int indexFrom = Integer.parseInt(request.getParameter("indexFrom"));
-            int indexTo = Integer.parseInt(request.getParameter("indexTo"));
+            int indexFrom = 0;
+            if (request.getParameter("indexFrom") != null) {
+                indexFrom = Integer.parseInt(request.getParameter("indexFrom"));
+            }
+            
+            int indexTo = fullColorArray.length() - 1;
+            if (request.getParameter("indexTo") != null) {
+                indexTo = Integer.parseInt(request.getParameter("indexTo"));
+            }
             
             JSONArray partial = new JSONArray();
             if (fullColorArray.length() > 0) {
