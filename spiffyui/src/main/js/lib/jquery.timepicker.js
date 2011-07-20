@@ -250,6 +250,8 @@
     var time = settings.timeFormat;
     time = time.replace('hh', hours);
     time = time.replace('h', hours);
+    time = time.replace('HH', hours);
+    time = time.replace('H', hours);
     time = time.replace('mm', formatNumber(minutes));
     time = time.replace('tt', (h < 12) ? settings.amDesignator : settings.pmDesignator);
     
