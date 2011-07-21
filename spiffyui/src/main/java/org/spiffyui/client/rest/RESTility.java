@@ -276,6 +276,25 @@ public final class RESTility
     {
         RESTILITY.doLogin(callback, response, url, null, exception);
     }
+    
+    private static String trimQuotes(String header)
+    {
+        if (header == null) {
+            return header;
+        }
+        
+        String ret = header;
+        
+        if (ret.startsWith("\"")) {
+            ret = ret.substring(1);
+        }
+        
+        if (ret.endsWith("\"")) {
+            ret = ret.substring(0, ret.length() - 1);
+        }
+        
+        return ret;
+    }
 
     private void doLogin(RESTCallback callback, Response response, String url, String errorCode, RESTException exception)
         throws RESTException
@@ -318,11 +337,14 @@ public final class RESTility
 
         for (String prop : props) {
             if (prop.trim().toLowerCase().startsWith(URI_KEY)) {
-                loginUri = prop.substring(prop.indexOf('=') + 2, prop.length() - 1).trim();
+                loginUri = prop.substring(prop.indexOf('=') + 1, prop.length()).trim();
             } else if (prop.trim().toLowerCase().startsWith(SIGNOFF_URI_KEY)) {
-                logoutUri = prop.substring(prop.indexOf('=') + 2, prop.length() - 1).trim();
+                logoutUri = prop.substring(prop.indexOf('=') + 1, prop.length()).trim();
             }
         }
+        
+        loginUri = trimQuotes(loginUri);
+        logoutUri = trimQuotes(logoutUri);
 
         if (logoutUri.trim().length() == 0) {
             logoutUri = loginUri;
