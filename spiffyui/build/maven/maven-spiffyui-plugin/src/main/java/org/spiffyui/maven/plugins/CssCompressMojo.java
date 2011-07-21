@@ -4,10 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Collection;
-
-import net_alchim31_maven_yuicompressor.SourceFile;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
@@ -62,6 +61,13 @@ public class CssCompressMojo extends AbstractMojo
      * @required
      */
     private File outputDirectory;
+    
+    /**
+     * The name of the generated compressed CSS file
+     * 
+     * @parameter default-value="SpiffyUi.min.css" 
+     */
+    private String outputFileName;
 
     @Override
     public void execute()
@@ -77,24 +83,81 @@ public class CssCompressMojo extends AbstractMojo
         String[] exts = new String[] {
             "css"
         };
-        Collection<File> files = FileUtils.listFiles(sourceDirectory, exts, true);
+        Collection<File> files = FileUtils.listFiles(sourceDirectory, exts, false);
 
         try {
-            for (File file : files) {
-                compress(file);
+            String name = outputFileName;
+            if (files.size() == 1) {
+                /*
+                 If there is only one file then we can use the
+                 name of that file as the name of our CSS file.
+                 We want this for backward compatability so existing
+                 projects don't have to change their HTML.
+                 */
+                name = files.iterator().next().getName();
             }
+            compress(concat(files), name);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new MojoExecutionException(e.getMessage());
         }
     }
-
-    private void compress(File inFile)
-        throws Exception
+    
+    /**
+     * This method concatenates the set of CSS source files since YUI requires a 
+     * single input file.
+     * 
+     * @param files  the files to concatenate
+     * 
+     * @return a temporary file containing the concatenated source files
+     * @exception IOException
+     */
+    private File concat(Collection<File> files)
+        throws IOException
     {
-        String shortname = inFile.getAbsolutePath().substring(sourceDirectory.getAbsolutePath().length());
-        SourceFile srcFile = new SourceFile(sourceDirectory, outputDirectory, shortname, false);
-        File outFile = srcFile.toDestFile(suffix);
+        File outFile = File.createTempFile("spiffy_", ".css");
+        OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(outFile), encoding);
+        try {
+            for (File file : files) {
+                InputStreamReader in = new InputStreamReader(new FileInputStream(file), encoding);
+                int read;
+                char[] buf = new char[1024];
+        
+                try {
+                    while ((read = in.read(buf)) > 0) {
+                        out.write(buf, 0, read);
+                    }
+                    
+                    out.write('\n');
+                } finally {
+                    if (in != null) {
+                        in.close();
+                    }
+                }
+            }
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+        }
+        
+        outFile.deleteOnExit();
+        return outFile;
+    }
 
+    /**
+     * Call the YUI compressor to compress our concatenated CSS file.
+     * 
+     * @param inFile the concatenated CSS file
+     * 
+     * @exception IOException
+     * @exception MojoExecutionException
+     */
+    private void compress(File inFile, String outFileName)
+        throws IOException, MojoExecutionException
+    {
+        File outFile = new File(outputDirectory, outFileName);
+        
         InputStreamReader in = null;
         OutputStreamWriter out = null;
 
