@@ -275,7 +275,14 @@ public class GwtCompileMojo extends AbstractMojo
             
             for (Artifact artifact : artifacts) {
                 if (compileScope.contains(artifact.getScope())) {
-                    add(artifact.getFile().getAbsolutePath());
+                    /*
+                     Some plugins add artifacts without associated JAR
+                     files in that case the file is null and we don't
+                     need to worry about adding it to the classpath.
+                     */
+                    if (artifact.getFile() != null) {
+                        add(artifact.getFile().getAbsolutePath());
+                    }
                 }
             }
         }
