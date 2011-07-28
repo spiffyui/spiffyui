@@ -230,6 +230,11 @@ public class JavaCompileMojo extends AbstractMojo
         ensureExists(generatedSourcesDirectory);
 
         JavaCompiler javac = ToolProvider.getSystemJavaCompiler();
+        
+        if (javac == null) {
+            throw new MojoExecutionException("The Java compiler could not be found.  " +
+                                             "Make sure to point your Maven build to a full Java development environment.");
+        }
 
         getLog().debug("Exec: javac " + args.toString());
         if (javac.run(null, null, null, args.get()) != 0) {
