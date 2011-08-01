@@ -165,7 +165,8 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         /*
          The landing panel
          */
-        NavItem item = new NavItem(LANDING_NAV_ITEM_ID, "", getStrings().landing_tt(), generateNavItemURL(LANDING_NAV_ITEM_ID));
+        NavItem item = new NavItem(LANDING_NAV_ITEM_ID, getStrings().landing(), 
+                                   getStrings().landing_tt(), generateNavItemURL(LANDING_NAV_ITEM_ID));
         m_navBar.add(item);
         m_panels.put(item, new LandingPanel());
 
