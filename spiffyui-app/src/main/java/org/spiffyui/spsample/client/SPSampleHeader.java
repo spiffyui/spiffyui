@@ -37,7 +37,7 @@ public class SPSampleHeader extends MainHeader
      */
     public SPSampleHeader()
     {
-        Anchor logout = new Anchor("Logout", "#");
+        Anchor logout = new Anchor(Index.getStrings().logout(), "#");
         logout.getElement().setId("header_logout");
         setLogout(logout);
         if (!Index.userLoggedIn()) {
@@ -47,9 +47,9 @@ public class SPSampleHeader extends MainHeader
             String token = RESTility.getUserToken();
             int dashIdx = token.indexOf('-');
             if (dashIdx != -1) {
-                setWelcomeString("Welcome " + token.substring(0, dashIdx));
+                setWelcomeString(Index.getStrings().welcome(token.substring(0, dashIdx)));
             } else {
-                setWelcomeString("Welcome " + token);
+                setWelcomeString(Index.getStrings().welcome(token));
             }
         }
         logout.addClickHandler(new ClickHandler() {

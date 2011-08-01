@@ -185,4 +185,5 @@ public interface SpiffyRsrc extends Messages
     public String buildWithAnt();
     public String buildTypes();
     public String helloSpiffySample();
+    public String logout();
 }
