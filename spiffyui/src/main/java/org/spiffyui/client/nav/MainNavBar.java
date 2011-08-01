@@ -23,6 +23,7 @@ import org.spiffyui.client.JSUtil;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -33,6 +34,8 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler, HistoryCallback
 {
+    private static final String TITLE = Window.getTitle();
+    
     private final List<NavItem> m_items = new ArrayList<NavItem>();
     private NavItem m_selectedItem = null;
     private boolean m_bookmarkable = false;
@@ -121,7 +124,7 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler,
      * button is pressed.  The default implementation will be to treat the supplied id
      * as a {@link NavItem} reference and select the one with the same ID.
      *
-     * If you subclass and overload the {@link #addHistoryItem(String)} routine, you
+     * If you subclass and overload the {@link #addHistoryItem(String,String)} routine, you
      * will probably need to overload this method as well, to ensure that the supplied id
      * (or history token) is translated correctly for your subclass.
      *
@@ -282,29 +285,58 @@ public class MainNavBar extends HasNavBarListenersPanel implements ClickHandler,
         super.fireEvent(item, addToHistory);
 
         if (isEnabled() && addToHistory) {
-            addHistoryItem(item.getElement().getId());
+            addHistoryItem(item.getElement().getId(), TITLE + " - " + item.getDisplayName());
         }
     }
 
     /**
      * A routine to store a history token that this Navbar can use when called
-     * in the future when the forward or back button's are called.
-     *
+     * in the future when the forward or back button's are called.<p>
      * This is available for subclasses to overload if they wish to store a token
      * that is not based on the NavItem's ID.  For instance the situation where
      * there are multiple types of identifiers being used to reconstitute a past application
-     * state.
-     *
+     * state.<p>
      * Please note that if you overload this method you will need to provide an alternative implementation
      * of the history callback routine {@link #historyChanged(String)}. That will need to translate the
      * stored token that your overloaded addHistoryItem routine stored.
-     *
-     * @param historyToken A string value that will server as a token about the applications state
+     * 
+     * @param historyToken
+     *               A string value that will server as a token about the applications state
+     * 
+     * @see MainNavBar.addHistoryItem
+     * @deprecated This method is deprecated and will not be called.  
      */
+    @Deprecated
     protected void addHistoryItem(String historyToken)
     {
+        /*
+         This method is a no-op and is just kept for backward compatability
+         */
+    }
+    
+    /**
+     * A routine to store a history token that this Navbar can use when called
+     * in the future when the forward or back button's are called.<p>
+     * This is available for subclasses to overload if they wish to store a token
+     * that is not based on the NavItem's ID.  For instance the situation where
+     * there are multiple types of identifiers being used to reconstitute a past application
+     * state.<p>
+     * Please note that if you overload this method you will need to provide an alternative implementation
+     * of the history callback routine {@link #historyChanged(String)}. That will need to translate the
+     * stored token that your overloaded addHistoryItem routine stored.
+     * 
+     * @param historyToken
+     *               A string value that will server as a token about the applications state
+     * @param title  the window title for this history item
+     */
+    protected void addHistoryItem(String historyToken, String title)
+    {
         if (historyToken != null && historyToken.length() > 0) {
-            JSUtil.addHistoryItem(this, historyToken, m_bookmarkable);
+            if (title == null) {
+                JSUtil.addHistoryItem(this, historyToken, m_bookmarkable);
+            } else {
+                JSUtil.addHistoryItem(this, historyToken, m_bookmarkable, title);
+            }
         }
     }
 
