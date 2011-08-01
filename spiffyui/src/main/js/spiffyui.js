@@ -288,8 +288,6 @@ spiffyui = {
                              /*boolean*/ bookmarkable, /*boolean*/ replace) {
          if (!bookmarkable) {
              url = '?-';
-         } else {
-             title = title + ' - ' + id;
          }
          
          if (replace) {

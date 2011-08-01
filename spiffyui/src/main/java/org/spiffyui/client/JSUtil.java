@@ -126,10 +126,44 @@ public final class JSUtil
      */
     public static void addHistoryItem(HistoryCallback callback, String id, boolean bookmarkable)
     {
+        addHistoryItem(callback, id, bookmarkable, TITLE + " - " + id);
+    }
+    
+    /**
+     * <p>
+     * Adds an item to the browser's history.
+     * </p><p>
+     * <p>
+     * History items can be added at any item with any unique ID.  When the user
+     * navigates the browser's history there will be a collection of items added
+     * programmatically and items representing traditional page changes.  When the
+     * item added with this method is reached the callback will be called with the
+     * specified ID.
+     * </p><p>
+     * <p>
+     * Spiffy UI uses this method to page changes in the main navigation bar to the
+     * browser's history so the user can use the browser forward and back buttons to move
+     * between pages in the application.  This method is called by the MainNavBar
+     * to add page changes.
+     * </p><p>
+     * <p>
+     * This method support bookmarking.  When a history item is bookmarkable it will cause
+     * a change in the URL which can then be bookmarked by the user to return to that
+     * specific history state.
+     * </p>
+     * 
+     * @param callback the history callback for this item
+     * @param id       the id of the item that was selected
+     * @param bookmarkable
+     *                 true if this history item should be bookmarkable and false otherwise
+     * @param title    the browser window title for this history item
+     */
+    public static void addHistoryItem(HistoryCallback callback, String id, boolean bookmarkable, String title)
+    {
         if (g_historyEnabled) {
             HIST_CALLBACKS.put(id, callback);
         }
-        addHistoryItemJS(id, "?" + id, TITLE, bookmarkable, false);
+        addHistoryItemJS(id, "?" + id, title, bookmarkable, false);
     }
     
     /**
@@ -164,9 +198,45 @@ public final class JSUtil
      */
     public static void replaceHistoryItem(HistoryCallback callback, String id, boolean bookmarkable)
     {
+        replaceHistoryItem(callback, id, bookmarkable, TITLE + " - " + id);
+    }
+    
+    /**
+     * <p>
+     * Replace the current item in the browser's history.
+     * </p>
+     *
+     * <p>
+     * History items can be added at any item with any unique ID.  When the user
+     * navigates the browser's history there will be a collection of items added
+     * programmatically and items representing traditional page changes.  When the
+     * item added with this method is reached the callback will be called with the
+     * specified ID.
+     * </p>
+     *
+     * <p>
+     * Spiffy UI uses this method to page changes in the main navigation bar to the
+     * browser's history so the user can use the browser forward and back buttons to move
+     * between pages in the application.  This method is called by the MainNavBar
+     * to add page changes.
+     * </p>
+     * 
+     * <p>
+     * This method support bookmarking.  When a history item is bookmarkable it will cause
+     * a change in the URL which can then be bookmarked by the user to return to that
+     * specific history state.
+     * </p>
+     *
+     * @param callback  the history callback for this item
+     * @param id     the id of the item that was selected
+     * @param bookmarkable  true if this history item should be bookmarkable and false otherwise 
+     * @param title    the browser window title for this history item 
+     */
+    public static void replaceHistoryItem(HistoryCallback callback, String id, boolean bookmarkable, String title)
+    {
         if (g_historyEnabled) {
             HIST_CALLBACKS.put(id, callback);
-            addHistoryItemJS(id, "?" + id, TITLE, bookmarkable, true);
+            addHistoryItemJS(id, "?" + id, title, bookmarkable, true);
         }
     }
     
