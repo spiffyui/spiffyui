@@ -11,8 +11,8 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.mojo.gwt.ClasspathBuilder;
 import org.codehaus.mojo.gwt.GwtModule;
 import org.codehaus.mojo.gwt.GwtModuleReader;
-import org.codehaus.mojo.gwt.utils.DefaultGwtModuleReader;
 
+import org.spiffyui.maven.plugins.utils.SpiffyGwtModuleReader;
 /**
  * Goal which initializes various default property values for the plugin
  * 
@@ -37,12 +37,31 @@ public class InitializeMojo extends AbstractMojo
      * @readonly
      */
     private File buildDirectory;
+    
+    /**
+     * User agents to compile for this application
+     * 
+     * @parameter default-value="${spiffyui.useragent}" 
+     */
+    private String userAgents;
+    
+    /**
+     * Locales to compile for this application
+     * 
+     * @parameter default-value="${spiffyui.locales}" 
+     */
+    private String locales;
 
     private static final String ATTR_WWW = "spiffyui.www";
     private static final String ATTR_HTMLPROPS = "spiffyui.htmlprops.path";
     private static final String ATTR_SOURCE = "maven.compiler.source";
     private static final String ATTR_TARGET = "maven.compiler.target";
     private static final Float MIN_COMPILER = new Float(1.6);
+    
+    /**
+     This is the string we use to name the temporary module created during compilation
+     */
+    public static final String SPIFFY_TMP_SUFFIX = "_spiffytmp";
     
     @Override
     public void execute()
@@ -60,10 +79,23 @@ public class InitializeMojo extends AbstractMojo
         
         setDefaultPath(ATTR_HTMLPROPS, "generated-sources/htmlprops");
         
-        GwtModuleReader gmr = new DefaultGwtModuleReader(project, getLog(), new ClasspathBuilder());
+        GwtModuleReader gmr = new SpiffyGwtModuleReader(project, getLog(), new ClasspathBuilder(), userAgents, locales);
         
         List<String> modules = gmr.getGwtModules();
-
+        
+        /*
+         Our module reader will create a new module with our special suffix.  That
+         means there will be two modules in the project, but we only want our new
+         one so we take the other one out of the list.
+         */
+        if (modules.size() > 1) {
+            for (int i = modules.size() - 1; i >= 0; i--) {
+                if (!modules.get(i).endsWith(SPIFFY_TMP_SUFFIX)) {
+                    modules.remove(modules.get(i));
+                }
+            }
+        }
+        
         /* ensure there is only one module, and record it for posterity */
         switch (modules.size()) {
             case 0:
@@ -72,11 +104,14 @@ public class InitializeMojo extends AbstractMojo
                 try {
                     GwtModule module = gmr.readModule(modules.get(0));
                     String[] sources = module.getSources();
-                    File path = new File(p.getProperty(ATTR_WWW), module.getPath());
- 
                     p.setProperty("spiffyui.gwt.module.name", module.getName());
-                    p.setProperty("spiffyui.gwt.module.path",  path.getAbsolutePath());
                     
+                    String path = new File(p.getProperty(ATTR_WWW), module.getPath()).getAbsolutePath();
+                    if (path.endsWith(SPIFFY_TMP_SUFFIX)) {
+                        path = path.substring(0, path.length() - SPIFFY_TMP_SUFFIX.length());
+                    }
+                    p.setProperty("spiffyui.gwt.module.path",  path);
+
                     if (sources != null && sources.length > 0) {
                         /*
                          Users can specify a different sources path in their module.
