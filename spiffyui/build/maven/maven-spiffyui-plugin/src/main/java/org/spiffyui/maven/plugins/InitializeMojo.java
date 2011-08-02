@@ -39,14 +39,50 @@ public class InitializeMojo extends AbstractMojo
     private File buildDirectory;
     
     /**
-     * User agents to compile for this application
+     * <p> 
+     * User agents to compile for this application .
+     * </p> 
+     *  
+     * <p> 
+     * This variable provides the option to override the user agents specified 
+     * in the GWT module file and build a different set of permutations for the 
+     * GWT project.   
+     * </p> 
+     *  
+     * <p> 
+     * The value of this variable is a list of user agents separated by commas. 
+     * For example, gecko1_8,safari 
+     * </p> 
+     *  
+     * <p> 
+     * By default this value is unspecified and the GWT compiler will just use the 
+     * user agents specified in the GWT module file. 
+     * </p> 
      * 
-     * @parameter default-value="${spiffyui.useragent}" 
+     * @parameter default-value="${spiffyui.useragents}" 
      */
     private String userAgents;
     
     /**
-     * Locales to compile for this application
+     * <p> 
+     * Locales to compile for this application. 
+     * </p> 
+     *  
+     * <p> 
+     * This variable provides the option to override the locales specified 
+     * in the GWT module file and build a different set of permutations for the 
+     * GWT project.   
+     * </p> 
+     *  
+     * <p> 
+     * The value of this variable is a list of user agents separated by commas. 
+     * For example, en_US,fr_FR 
+     * </p> 
+     *  
+     * <p> 
+     * By default this value is unspecified and the GWT compiler will just use the 
+     * locales specified in the GWT module file. 
+     * </p> 
      * 
      * @parameter default-value="${spiffyui.locales}" 
      */

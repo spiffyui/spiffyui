@@ -12,7 +12,4 @@
     <inherits name="org.spiffyui.spiffyui" />
 
     <set-property name="gwt.suppressNonStaticFinalFieldWarnings" value="true" /> 
-    
-    <entry-point class='org.spiffyui.hellospiffymaven.client.Index'/>
-    
 </module>
