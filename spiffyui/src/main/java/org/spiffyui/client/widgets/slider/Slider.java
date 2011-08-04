@@ -285,6 +285,7 @@ public class Slider extends Widget
      * 
      * @deprecated - typo, in future releases this will be removed.  Use getStringOption(SliderOption option)
      */
+    @Deprecated
     public String setStringOption(SliderOption option) 
     {
         return getStringOptionJS(getElement().getId(), option.toString());
