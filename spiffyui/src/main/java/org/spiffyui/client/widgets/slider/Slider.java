@@ -282,12 +282,24 @@ public class Slider extends Widget
      * Set an option string value
      * @param option the SliderOption
      * @return value the String
+     * 
+     * @deprecated - typo, in future releases this will be removed.  Use getStringOption(SliderOption option)
      */
     public String setStringOption(SliderOption option) 
     {
         return getStringOptionJS(getElement().getId(), option.toString());
     }
     
+    /**
+     * Set an option string value
+     * @param option the SliderOption
+     * @return value the String
+     */
+    public String getStringOption(SliderOption option) 
+    {
+        return getStringOptionJS(getElement().getId(), option.toString());
+    }
+
     /**
      * Add a SliderListener
      * @param l - SliderListener
