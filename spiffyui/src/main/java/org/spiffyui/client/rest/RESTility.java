@@ -954,28 +954,53 @@ public final class RESTility
      *                 in this map will override the default headers.  
      */
     public static void callREST(String url, String data, RESTility.HTTPMethod method,
-                                 RESTCallback callback, boolean isLoginRequest,
-                                 boolean shouldReplay, String etag, Map<String, String> headers)
+                                RESTCallback callback, boolean isLoginRequest,
+                                boolean shouldReplay, String etag, Map<String, String> headers)
     {
-        if (hasPotentialXss(data)) {
-            callback.onError(new RESTException(RESTException.XSS_ERROR,
-                                               "", STRINGS.noServerContact(),
-                                               new HashMap<String, String>(),
-                                               -1, url));
+        RESTOptions options = new RESTOptions();
+        options.setURL(url);
+        options.setData(JSONParser.parseStrict(data));
+        options.setMethod(method);
+        options.setCallback(callback);
+        options.setIsLoginRequest(isLoginRequest);
+        options.setShouldReplay(shouldReplay);
+        options.setEtag(etag);
+        options.setHeaders(headers);
+        
+        callREST(options);
+    }
+    
+    /**
+     * <p>
+     * Make an HTTP call and get the results as a JSON object.  This method handles
+     * cases like login, error parsing, and configuration requests.
+     *  </p>
+     * 
+     * @param options the options for the REST request
+     */
+    public static void callREST(RESTOptions options)
+    {
+        if (hasPotentialXss(options.getData().toString())) {
+            options.getCallback().onError(new RESTException(RESTException.XSS_ERROR,
+                                                            "", STRINGS.noServerContact(),
+                                                            new HashMap<String, String>(),
+                                                            -1, options.getURL()));
             return;
         }
 
-        RESTILITY.m_restCalls.put(callback, new RESTCallStruct(url, data, method, shouldReplay, etag));
+        RESTILITY.m_restCalls.put(options.getCallback(), new RESTCallStruct(options.getURL(), 
+                                                                            options.getData().toString(), options.getMethod(), 
+                                                                            options.shouldReplay(), options.getEtag()));
 
-        RequestBuilder builder = new RESTRequestBuilder(method.getMethod(), url);
+        RequestBuilder builder = new RESTRequestBuilder(options.getMethod().getMethod(), options.getURL());
         /*
          Set our headers
          */
         builder.setHeader("Accept", "application/json");
         builder.setHeader("Accept-Charset", "UTF-8");
-        if (headers != null) {
-            for (String k : headers.keySet()) {
-                builder.setHeader(k, headers.get(k));
+        if (options.getHeaders() != null) {
+            for (String k : options.getHeaders().keySet()) {
+                builder.setHeader(k, options.getHeaders().get(k));
             }
         }
 
@@ -996,21 +1021,21 @@ public final class RESTility
             builder.setHeader("TS-URL", getTokenServerUrl());
         }
 
-        if (etag != null) {
-            builder.setHeader("If-Match", etag);
+        if (options.getEtag() != null) {
+            builder.setHeader("If-Match", options.getEtag());
         }
 
-        if (data != null) {
+        if (options.getData() != null) {
             /*
              Set our request data
              */
-            builder.setRequestData(data);
+            builder.setRequestData(options.getData().toString());
 
             //b/c jaxb/jersey chokes when there is no data when content-type is json
             builder.setHeader("Content-Type", "application/json");
         }
 
-        builder.setCallback(RESTILITY.new RESTRequestCallback(callback));
+        builder.setCallback(RESTILITY.new RESTRequestCallback(options.getCallback()));
 
         try {
             /*
@@ -1019,7 +1044,7 @@ public final class RESTility
              is finished.  We want to delay those requests until
              the login is complete when we will replay all of them.
              */
-            if (isLoginRequest || !g_inLoginProcess) {
+            if (options.isLoginRequest() || !g_inLoginProcess) {
                 builder.send();
             }
         } catch (RequestException e) {
