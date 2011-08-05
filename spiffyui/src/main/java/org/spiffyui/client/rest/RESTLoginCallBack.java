@@ -29,11 +29,11 @@ public interface RESTLoginCallBack
      * Indicates that a login prompt happened.  This is 
      * separate from submitting the login or getting authenticated. 
      */
-    public void loginPrompt();
+    void loginPrompt();
 
     /**
      * Called when a login is successful
      *
      */
-    public void onLoginSuccess();
+    void onLoginSuccess();
 }

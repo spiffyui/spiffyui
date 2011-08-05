@@ -57,6 +57,6 @@ public interface AuthURLValidator
      * @exception MalformedURLException
      *                   if the specified URI is not a valid URI
      */
-    public boolean validateURI(HttpServletRequest request, String uri)
+    boolean validateURI(HttpServletRequest request, String uri)
         throws MalformedURLException;
 }

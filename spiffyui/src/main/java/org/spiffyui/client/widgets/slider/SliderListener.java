@@ -25,7 +25,7 @@ public interface SliderListener
      * This event is triggered when the user starts sliding
      * @param e SliderEvent
      */
-    public void onStart(SliderEvent e);
+    void onStart(SliderEvent e);
     
     /**
      * This event is triggered on every mouse move during slide. 
@@ -33,7 +33,7 @@ public interface SliderListener
      * @param e SliderEvent
      * @return boolean false to prevent the slide
      */
-    public boolean onSlide(SliderEvent e);
+    boolean onSlide(SliderEvent e);
     
     /**
      * This event is triggered on slide stop, or if the value is changed programmatically (by the value method). 
@@ -41,11 +41,11 @@ public interface SliderListener
      * it means the change was done programmatically. 
      * @param e SliderEvent
      */
-    public void onChange(SliderEvent e);
+    void onChange(SliderEvent e);
     
     /**
      * This event is triggered when the user stops sliding.
      * @param e SliderEvent
      */
-    public void onStop(SliderEvent e);
+    void onStop(SliderEvent e);
 }

@@ -361,7 +361,7 @@ public class ProjectCreatorPanel extends HTMLPanel implements KeyUpHandler, KeyP
             TYPE_ANT.equals(m_type) ? Index.getStrings().downloadProjInstr2a(name) : Index.getStrings().downloadProjInstr2(name));
     }
     
-    private static final String getHTML(String id) 
+    private static String getHTML(String id) 
     {
         return
     "<div class=\"createForm\" id=\"" + id + "createForm\">" +

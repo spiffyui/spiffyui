@@ -51,7 +51,7 @@ public interface RESTCallback
      * 
      * @param val    The JSON value from the REST call
      */
-    public void onSuccess(JSONValue val);
+    void onSuccess(JSONValue val);
     
     /**
      * <p>
@@ -68,7 +68,7 @@ public interface RESTCallback
      * @param errorResponse
      *                   the error message response from the REST endpoint
      */
-    public void onError(int statusCode, String errorResponse);
+    void onError(int statusCode, String errorResponse);
     
     /**
      * <p>
@@ -116,6 +116,6 @@ public interface RESTCallback
      * 
      * @param e      the RESTException
      */
-    public void onError(RESTException e);
+    void onError(RESTException e);
     
 }

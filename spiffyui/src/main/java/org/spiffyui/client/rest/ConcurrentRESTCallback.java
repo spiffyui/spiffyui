@@ -52,6 +52,6 @@ public interface ConcurrentRESTCallback extends RESTCallback
      *
      * @param tag    the etag
      */
-    public void setETag(String tag);
+    void setETag(String tag);
 }
 

@@ -29,5 +29,5 @@ public interface HistoryCallback
      * 
      * @param id     the id of this history event
      */
-    public void historyChanged(String id);
+    void historyChanged(String id);
 }

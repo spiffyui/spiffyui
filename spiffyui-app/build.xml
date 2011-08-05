@@ -125,6 +125,8 @@
         <mkdir dir="${sample.out}"/>
         <mkdir dir="${sample.out.classes}"/>
         <mkdir dir="${sample.out.www}"/>
+        
+        <property name="spiffy.root" location="${build.base}/../spiffyui"/>
     </target>
     
     <target name="checkstyle.compile.check">
@@ -151,7 +153,7 @@
              means the build will fail if there are any Checkstyle errors in 
              any of the source files in this application or the Spiffy UI framework.
         -->
-        <checkstyle config="${build.base}/build/checkstyle_checks.xml" failOnViolation="true">
+        <checkstyle config="${build.base}/../spiffyui/build/checkstyle_checks.xml" failOnViolation="true">
             <formatter type="plain"/>
             <formatter type="xml" toFile="checkstyle_errors.xml"/>
 

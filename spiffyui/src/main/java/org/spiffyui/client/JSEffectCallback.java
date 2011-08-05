@@ -34,5 +34,5 @@ public interface JSEffectCallback
      * 
      * @param id     the id of the element the effect was called on
      */
-    public void effectComplete(String id);
+    void effectComplete(String id);
 }

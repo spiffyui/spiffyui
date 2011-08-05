@@ -51,5 +51,5 @@ public interface RESTAuthProvider extends org.spiffyui.client.rest.RESTAuthProvi
      * @param response  the server response that came with this 401
      * @param exception the RESTException representation of the JSON response from the server if available
      */
-    public void showLogin(RESTCallback callback, String tokenServerUrl, Response response, RESTException exception);
+    void showLogin(RESTCallback callback, String tokenServerUrl, Response response, RESTException exception);
 }

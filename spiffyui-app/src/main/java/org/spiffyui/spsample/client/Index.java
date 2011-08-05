@@ -738,13 +738,13 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         $wnd.$("html,body").animate({scrollTop: y}, "slow");
     }-*/;
     
-    private static final native void bindJavaScript() /*-{ 
+    private static native void bindJavaScript() /*-{ 
         $wnd.spsample.shouldShowTopLink = function(id) {
             return @org.spiffyui.spsample.client.Index::shouldShowTopLink()();
         }
     }-*/;
     
-    private static final boolean shouldShowTopLink()
+    private static boolean shouldShowTopLink()
     {
         if (g_index.m_navBar.getSelectedItem() == null) {
             return false;

@@ -286,7 +286,7 @@ public final class JSUtil
         $wnd.spiffyui.addHistoryItem($wnd, id, url, title, bookmarkable, replace);
     }-*/;
 
-    private static final native void bindJavaScript() /*-{ 
+    private static native void bindJavaScript() /*-{ 
         $wnd.spiffyui.doHandleHistoryEvent = function(id) {
             @org.spiffyui.client.JSUtil::doHistory(Ljava/lang/String;)(id);
         }
@@ -298,7 +298,7 @@ public final class JSUtil
      *
      * @return the unique ID as a string
      */
-    public static final String generateUniqueId()
+    public static String generateUniqueId()
     {
         return Long.toHexString(new Date().getTime()) + "-" + g_uniqueCounter++;
     }

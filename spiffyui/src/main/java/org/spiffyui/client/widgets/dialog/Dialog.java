@@ -76,7 +76,7 @@ public abstract class Dialog extends DialogBox
         init(title, titleStyle);
     }
     
-    private final void init(String title, String titleStyle)
+    private void init(String title, String titleStyle)
     {
         final String captionDiv = 
             "<div class=\"spiffy-dialog-caption-close\"><a href=\"#\" id=\"" + m_id + "_close\" title=\"" + STRINGS.close() + "\">" +

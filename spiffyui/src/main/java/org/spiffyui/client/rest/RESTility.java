@@ -152,7 +152,7 @@ public final class RESTility
      * 
      * @see AuthUtil
      */
-    public static final void setAuthProvider(RESTAuthProvider authProvider)
+    public static void setAuthProvider(RESTAuthProvider authProvider)
     {
         g_authProvider = authProvider;
     }
@@ -175,7 +175,7 @@ public final class RESTility
      * 
      * @param name   the name of the cookie Spiffy UI session cookie
      */
-    public static final void setSessionCookieName(String name)
+    public static void setSessionCookieName(String name)
     {
         if (name == null) {
             throw new IllegalArgumentException("The session cookie name must not be null");
@@ -189,7 +189,7 @@ public final class RESTility
      * 
      * @return the name of the session cookie
      */
-    public static final String getSessionCookieName()
+    public static String getSessionCookieName()
     {
         return RESTILITY.m_sessionCookie;
     }
@@ -218,7 +218,7 @@ public final class RESTility
      * 
      * @param secure true if cookies should require SSL and false otherwise
      */
-    public static final void setRequireSecureCookies(boolean secure)
+    public static void setRequireSecureCookies(boolean secure)
     {
         RESTILITY.m_secureCookies = secure;
     }
@@ -228,7 +228,7 @@ public final class RESTility
      * 
      * @return true if cookies require SSL and false otherwise
      */
-    public static final boolean requiresSecureCookies()
+    public static boolean requiresSecureCookies()
     {
         return RESTILITY.m_secureCookies;
     }
@@ -238,7 +238,7 @@ public final class RESTility
      * 
      * @return The current auth provider
      */
-    public static final RESTAuthProvider getAuthProvider()
+    public static RESTAuthProvider getAuthProvider()
     {
         return g_authProvider;
     }

@@ -26,12 +26,12 @@ public interface NavBarListener
      * @param item   the item that was selected 
      * @return boolean true if NavBar should continue on to itemSelected, false to cancel
      */
-    public boolean preItemSelected(NavItem item);
+    boolean preItemSelected(NavItem item);
     
     /**
      * Called when a navigation item is selected
      * 
      * @param item   the item that was selected
      */
-    public void itemSelected(NavItem item);
+    void itemSelected(NavItem item);
 }

@@ -47,7 +47,7 @@ public interface RESTObjectCallBack<T>
      * 
      * @param o      The marshalled object from the REST call
      */
-    public void success(T o);
+    void success(T o);
 
     /**
      * <p>
@@ -62,7 +62,7 @@ public interface RESTObjectCallBack<T>
      * 
      * @param message The error message from the server
      */
-    public void error(String message);
+    void error(String message);
     
     /**
      * <p>
@@ -79,5 +79,5 @@ public interface RESTObjectCallBack<T>
      * 
      * @see RESTException
      */
-    public void error(RESTException e);
+    void error(RESTException e);
 }

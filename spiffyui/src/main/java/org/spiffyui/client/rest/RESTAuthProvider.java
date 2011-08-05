@@ -41,7 +41,7 @@ public interface RESTAuthProvider extends RESTAuthConstants
      *                 the URL for the authentication server
      * @param code the error code
      */
-    public void showLogin(RESTCallback callback, String tokenServerUrl, String code);
+    void showLogin(RESTCallback callback, String tokenServerUrl, String code);
     
     /**
      * <p> 
@@ -58,7 +58,7 @@ public interface RESTAuthProvider extends RESTAuthConstants
      * @param callBackKey
      *               the callback object of the original REST call
      */
-    public void finishRESTCall(Object callBackKey);
+    void finishRESTCall(Object callBackKey);
     
     /**
      * <p> 
@@ -73,7 +73,7 @@ public interface RESTAuthProvider extends RESTAuthConstants
      * 
      * @param callback the REST callback to indicate the call is completed
      */
-    public void logout(final RESTObjectCallBack<String> callback);
+    void logout(final RESTObjectCallBack<String> callback);
     
     /**
      * <p> 
@@ -90,7 +90,7 @@ public interface RESTAuthProvider extends RESTAuthConstants
      * @param authUrl  the URL of the authentication server
      * @param callback the REST callback for the original REST call
      */
-    public void login(final String username, final String password, final String authUrl,
+    void login(final String username, final String password, final String authUrl,
                       final RESTObjectCallBack<String> callback);
 
     /**
@@ -100,5 +100,5 @@ public interface RESTAuthProvider extends RESTAuthConstants
      *
      * @return the current server servlet context
      */
-    public String getServletContext();
+    String getServletContext();
 }

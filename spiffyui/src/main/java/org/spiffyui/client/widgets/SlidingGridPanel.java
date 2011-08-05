@@ -143,7 +143,11 @@ public class SlidingGridPanel extends ComplexPanel
 
     /**
      * the offset width of the grid in px
+     * 
      * @return the offset
+     * @deprecated The grid offset is now deprecated since the sliding grid will use the parent width
+     *             instead of the window width.  This field will be ignored and will be removed in the
+     *             next release.
      */
     @Deprecated
     public int getGridOffset()
