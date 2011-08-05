@@ -264,8 +264,11 @@ public final class NumberFormatter
         int decimalLength = decimalNumber.length();
         //truncate the decimal number to the size of the pattern
         if (decimalLength > decimalPatternLength) {
-            double rounded = Math.round(Double.valueOf(decimalNumber).doubleValue() / Math.pow(10, decimalLength - decimalPatternLength));
-            decimalNumber = String.valueOf(rounded);
+            double fullNumber = Double.valueOf(number);
+            //round by the full number, because the decimal might be .07 and that would make it .7 instead of .1
+            double fullRounded = Math.round(fullNumber * Math.pow(10, decimalPatternLength)) / Math.pow(10, decimalPatternLength);
+            String fullRoundedStr = String.valueOf(fullRounded);
+            decimalNumber = fullRoundedStr.substring(fullRoundedStr.indexOf('.') + 1);
         } 
         //if the decimal pattern ends in a 0 and the decimal number ends before it
         //continue to add zeroes until the length is the same as the pattern

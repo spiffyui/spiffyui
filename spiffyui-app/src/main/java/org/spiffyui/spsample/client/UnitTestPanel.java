@@ -156,7 +156,7 @@ public final class UnitTestPanel extends HTMLPanel
         boolean fr = NumberFormatter.LIKE_FR == likeLoc;
         boolean de = NumberFormatter.LIKE_DE == likeLoc;
         
-        expect(36); 
+        expect(37); 
         
         numberFormatOK(0.0, "0.0", fr || de ? "0,0" : "0.0");
         numberFormatOK(0.0, "0.#", "0");
@@ -197,6 +197,7 @@ public final class UnitTestPanel extends HTMLPanel
         numberFormatWithAbbrevOK(12345, fr || de ? STRINGS.kiloAbbrev("12,3") : STRINGS.kiloAbbrev("12.3"));
         numberFormatWithAbbrevOK(1234, fr || de ? STRINGS.kiloAbbrev("1,2") : STRINGS.kiloAbbrev("1.2"));
         numberFormatWithAbbrevOK(123, "123");
+        numberFormatWithAbbrevOK(1071161, fr || de ? STRINGS.megaAbbrev("1,07") : STRINGS.megaAbbrev("1.07"));
     }
     
     private static void numberFormatOK(double number, String pattern, String expected)
