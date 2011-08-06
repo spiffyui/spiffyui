@@ -213,8 +213,8 @@ public class JavaCompileMojo extends AbstractMojo
         List<String> sources = compileSourceRoots;
         sources.add(htmlPropsPath);
 
-        for (String source : sources) {
-            File path = new File(source);
+        for (String s : sources) {
+            File path = new File(s);
 
             if (!path.exists()) {
                 continue;

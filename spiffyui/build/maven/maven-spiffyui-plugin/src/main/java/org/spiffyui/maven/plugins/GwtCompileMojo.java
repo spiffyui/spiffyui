@@ -269,9 +269,9 @@ public class GwtCompileMojo extends AbstractMojo
     {
         private List<String> m_classes = new ArrayList<String>();
         
-        ClassBuilder(MavenProject project)
+        ClassBuilder(MavenProject proj)
         {
-            Set<Artifact> artifacts = project.getDependencyArtifacts();
+            Set<Artifact> artifacts = proj.getDependencyArtifacts();
             
             for (Artifact artifact : artifacts) {
                 if (compileScope.contains(artifact.getScope())) {

@@ -23,7 +23,7 @@
   <!--<module name="JavadocPackage">
     <property name="allowLegacy" value="true"/>
   </module>-->
-
+  
   <module name="Translation">
     <property name="severity" value="error"/>
   </module>
@@ -37,6 +37,7 @@
   </module>
 
   <module name="TreeWalker">
+    <module name="HiddenField"/>
     <property name="tabWidth" value="4" />
 
     <module name="AvoidStarImport"/>

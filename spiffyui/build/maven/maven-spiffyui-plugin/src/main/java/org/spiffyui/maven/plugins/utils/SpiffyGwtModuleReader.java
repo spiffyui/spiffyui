@@ -44,11 +44,11 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
 {
     private static final String GWT_MODULE_EXTENSION = ".gwt.xml";
 
-    private MavenProject mavenProject;
-    private ClasspathBuilder classpathBuilder;
-    private Log log;
-    private String userAgents;
-    private String locales;
+    private MavenProject m_mavenProject;
+    private ClasspathBuilder m_classpathBuilder;
+    private Log m_log;
+    private String m_userAgents;
+    private String m_locales;
 
     /**
      * Create a new SpiffyGwtModuleReader.
@@ -64,11 +64,11 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
     public SpiffyGwtModuleReader(MavenProject mavenProject, Log log, ClasspathBuilder classpathBuilder, 
                                  String userAgents, String locales)
     {
-        this.mavenProject = mavenProject;
-        this.log = log;
-        this.classpathBuilder = classpathBuilder;
-        this.userAgents = userAgents;
-        this.locales = locales;
+        m_mavenProject = mavenProject;
+        m_log = log;
+        m_classpathBuilder = classpathBuilder;
+        m_userAgents = userAgents;
+        m_locales = locales;
     }
 
     /**
@@ -83,7 +83,7 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
         // <resource>
         Set<String> mods = new HashSet<String>();
 
-        Collection<String> sourcePaths = (Collection<String>) mavenProject.getCompileSourceRoots();
+        Collection<String> sourcePaths = (Collection<String>) m_mavenProject.getCompileSourceRoots();
         for (String sourcePath : sourcePaths) {
             File sourceDirectory = new File(sourcePath);
             if (sourceDirectory.exists()) {
@@ -98,7 +98,7 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
             }
         }
 
-        Collection<Resource> resources = (Collection<Resource>) mavenProject.getResources();
+        Collection<Resource> resources = (Collection<Resource>) m_mavenProject.getResources();
         for (Resource resource : resources) {
             File resourceDirectoryFile = new File(resource.getDirectory());
             if (!resourceDirectoryFile.exists()) {
@@ -114,7 +114,7 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
         }
 
         if (mods.isEmpty()) {
-            log.warn("GWT plugin is configured to detect modules, but none were found.");
+            m_log.warn("GWT plugin is configured to detect modules, but none were found.");
         }
 
         List<String> modules = new ArrayList<String>(mods.size());
@@ -123,7 +123,7 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
             modules.add(path.replace(File.separatorChar, '.'));
         }
         if (modules.size() > 0) {
-            log.info("auto discovered modules " + modules);
+            m_log.info("auto discovered modules " + modules);
         }
         return modules;
     }
@@ -139,21 +139,21 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
     public GwtModule readModule(String name) throws GwtModuleReaderException
     {
         String modulePath = name.replace('.', '/') + GWT_MODULE_EXTENSION;
-        Collection<String> sourceRoots = mavenProject.getCompileSourceRoots();
+        Collection<String> sourceRoots = m_mavenProject.getCompileSourceRoots();
         for (String sourceRoot : sourceRoots) {
             File root = new File(sourceRoot);
             File xml = new File(root, modulePath);
             if (xml.exists()) {
-                log.debug("GWT module " + name + " found in " + root);
+                m_log.debug("GWT module " + name + " found in " + root);
                 return readModule(name, xml);
             }
         }
-        Collection<Resource> resources = (Collection<Resource>) mavenProject.getResources();
+        Collection<Resource> resources = (Collection<Resource>) m_mavenProject.getResources();
         for (Resource resource : resources) {
             File root = new File(resource.getDirectory());
             File xml = new File(root, modulePath);
             if (xml.exists()) {
-                log.debug("GWT module " + name + " found in " + root);
+                m_log.debug("GWT module " + name + " found in " + root);
                 return readModule(name, xml);
             }
         }
@@ -188,12 +188,12 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
                     "<module rename-to=\"" + name + "\">" + 
                     "<inherits name=\"" + name + "\"/>");
 
-            if (userAgents != null) {
-                tmp.append("<set-property name=\"user.agent\" value=\"" + userAgents + "\"/>");
+            if (m_userAgents != null) {
+                tmp.append("<set-property name=\"user.agent\" value=\"" + m_userAgents + "\"/>");
             }
 
-            if (locales != null) {
-                tmp.append("<extend-property name=\"locale\" values=\"" + locales + "\" />");
+            if (m_locales != null) {
+                tmp.append("<extend-property name=\"locale\" values=\"" + m_locales + "\" />");
             }
 
             tmp.append("</module>");
@@ -208,7 +208,7 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
             return new GwtModule(name, tmpDom, this);
         } catch (Exception e) {
             String error = "Failed to read module XML file " + xml;
-            log.error(error);
+            m_log.error(error);
             throw new GwtModuleReaderException(error, e);
         }
     }
