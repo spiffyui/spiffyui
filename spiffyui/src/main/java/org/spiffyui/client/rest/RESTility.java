@@ -959,14 +959,15 @@ public final class RESTility
     {
         RESTOptions options = new RESTOptions();
         options.setURL(url);
-        options.setData(JSONParser.parseStrict(data));
+        if (data != null && data.trim().length() > 0) {
+            options.setData(JSONParser.parseStrict(data));
+        }
         options.setMethod(method);
         options.setCallback(callback);
         options.setIsLoginRequest(isLoginRequest);
         options.setShouldReplay(shouldReplay);
         options.setEtag(etag);
         options.setHeaders(headers);
-        
         callREST(options);
     }
     
@@ -980,7 +981,7 @@ public final class RESTility
      */
     public static void callREST(RESTOptions options)
     {
-        if (hasPotentialXss(options.getData().toString())) {
+        if (hasPotentialXss(options.getDataString())) {
             options.getCallback().onError(new RESTException(RESTException.XSS_ERROR,
                                                             "", STRINGS.noServerContact(),
                                                             new HashMap<String, String>(),
@@ -989,7 +990,7 @@ public final class RESTility
         }
 
         RESTILITY.m_restCalls.put(options.getCallback(), new RESTCallStruct(options.getURL(), 
-                                                                            options.getData().toString(), options.getMethod(), 
+                                                                            options.getDataString(), options.getMethod(), 
                                                                             options.shouldReplay(), options.getEtag()));
 
         RequestBuilder builder = new RESTRequestBuilder(options.getMethod().getMethod(), options.getURL());
@@ -1029,7 +1030,7 @@ public final class RESTility
             /*
              Set our request data
              */
-            builder.setRequestData(options.getData().toString());
+            builder.setRequestData(options.getDataString());
 
             //b/c jaxb/jersey chokes when there is no data when content-type is json
             builder.setHeader("Content-Type", "application/json");

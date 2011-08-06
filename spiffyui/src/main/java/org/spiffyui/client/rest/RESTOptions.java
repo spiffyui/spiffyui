@@ -98,7 +98,7 @@ public final class RESTOptions
     
     /**
      * <p>
-     * Set the JSON data sent to the server during the REST request.
+     * Get the JSON data sent to the server during the REST request.
      * </p>
      * 
      * <p>
@@ -106,11 +106,27 @@ public final class RESTOptions
      * other request methods.
      * </p>
      * 
-     * @return the RESTOptions bean for method chaining
+     * @return the JSON data for this request
      */
     public JSONValue getData()
     {
         return m_data;
+    }
+    
+    /**
+     * <p>
+     * Get the JSON data sent to the server during the REST request as a string.
+     * </p>
+     * 
+     * @return the JSON data for this request as a string
+     */
+    public String getDataString()
+    {
+        if (m_data != null) {
+            return m_data.toString();
+        } else {
+            return "";
+        }
     }
     
     /**
