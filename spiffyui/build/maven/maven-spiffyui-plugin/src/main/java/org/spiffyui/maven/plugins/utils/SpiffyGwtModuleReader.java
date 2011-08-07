@@ -177,8 +177,16 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
     {
         try {
             Xpp3Dom dom = Xpp3DomBuilder.build(ReaderFactory.newXmlReader(xml));
+            
+            if (name.endsWith(InitializeMojo.SPIFFY_TMP_SUFFIX)) {
+                /*
+                 Then we've already created the temporary GWT module and we don't need
+                 to create another one.
+                 */
+                
+                return new GwtModule(name, dom, this);
+            }
 
-            // <set-property name="user.agent" value="gecko1_8"/>
             dom.addChild(new Xpp3Dom("set-property name=\"user.agent\" value=\"gecko1_8\""));
 
             StringBuffer tmp = new StringBuffer();
@@ -202,8 +210,8 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
 
             String fileName = name.substring(name.lastIndexOf(".") + 1) + InitializeMojo.SPIFFY_TMP_SUFFIX + ".gwt.xml";
             File f = new File(file.getParent(), fileName);
-            f.deleteOnExit();
             FileUtils.fileWrite(f.getAbsolutePath(), tmpDom.toString());
+            f.deleteOnExit();
             
             return new GwtModule(name, tmpDom, this);
         } catch (Exception e) {
