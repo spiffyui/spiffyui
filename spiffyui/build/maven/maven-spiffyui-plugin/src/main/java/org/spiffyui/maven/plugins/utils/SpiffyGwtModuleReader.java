@@ -181,13 +181,13 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
             if (name.endsWith(InitializeMojo.SPIFFY_TMP_SUFFIX)) {
                 /*
                  Then we've already created the temporary GWT module and we don't need
-                 to create another one.
+                 to create another one.  This happens if the user cancels the build before
+                 we had a chance to clean up.  In this case we can just use the one
+                 which is there, but we want to clean it up for the next time.
                  */
-                
+                file.deleteOnExit();
                 return new GwtModule(name, dom, this);
             }
-
-            dom.addChild(new Xpp3Dom("set-property name=\"user.agent\" value=\"gecko1_8\""));
 
             StringBuffer tmp = new StringBuffer();
             tmp.append(
