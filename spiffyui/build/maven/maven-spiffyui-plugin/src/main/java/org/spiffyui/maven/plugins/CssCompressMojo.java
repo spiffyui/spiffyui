@@ -94,7 +94,7 @@ public class CssCompressMojo extends AbstractMojo
                  We want this for backward compatability so existing
                  projects don't have to change their HTML.
                  */
-                name = files.iterator().next().getName();
+                name = files.iterator().next().getName().replace(".css", ".min.css");
             }
             compress(concat(files), name);
         } catch (Exception e) {
@@ -141,7 +141,7 @@ public class CssCompressMojo extends AbstractMojo
             }
         }
         
-        outFile.deleteOnExit();
+        //outFile.deleteOnExit();
         return outFile;
     }
 

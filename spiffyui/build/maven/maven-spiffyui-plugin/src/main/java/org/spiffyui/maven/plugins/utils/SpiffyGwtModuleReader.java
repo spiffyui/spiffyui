@@ -202,9 +202,9 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
 
             String fileName = name.substring(name.lastIndexOf(".") + 1) + InitializeMojo.SPIFFY_TMP_SUFFIX + ".gwt.xml";
             File f = new File(file.getParent(), fileName);
-            FileUtils.fileWrite(f.getAbsolutePath(), tmpDom.toString());
             f.deleteOnExit();
-
+            FileUtils.fileWrite(f.getAbsolutePath(), tmpDom.toString());
+            
             return new GwtModule(name, tmpDom, this);
         } catch (Exception e) {
             String error = "Failed to read module XML file " + xml;
