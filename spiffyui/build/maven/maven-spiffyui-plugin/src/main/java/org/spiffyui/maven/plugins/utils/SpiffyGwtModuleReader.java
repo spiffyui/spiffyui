@@ -104,13 +104,8 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
             if (!resourceDirectoryFile.exists()) {
                 continue;
             }
-            DirectoryScanner scanner = new DirectoryScanner();
-            scanner.setBasedir(resource.getDirectory());
-            scanner.setIncludes(new String[] {
-                "**/*" + AbstractGwtModuleMojo.GWT_MODULE_EXTENSION
-            });
-            scanner.scan();
-            mods.addAll(Arrays.asList(scanner.getIncludedFiles()));
+            mods.addAll(findGwtModuleFiles(resource.getDirectory()));
+            mods.addAll(findGwtModuleFiles(m_mavenProject.getProperties().getProperty("spiffyui.generated-source")));
         }
 
         if (mods.isEmpty()) {
@@ -127,6 +122,20 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
         }
         return modules;
     }
+    
+    private List<String> findGwtModuleFiles(String baseDir)
+    {
+        if (!new File(baseDir).exists()) {
+            return new ArrayList<String>();
+        }
+        DirectoryScanner scanner = new DirectoryScanner();
+        scanner.setBasedir(baseDir);
+        scanner.setIncludes(new String[] {
+            "**/*" + AbstractGwtModuleMojo.GWT_MODULE_EXTENSION
+        });
+        scanner.scan();
+        return Arrays.asList(scanner.getIncludedFiles());
+    }
 
     /**
      * Read a specified GWT module into the project.
@@ -140,12 +149,13 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
     {
         String modulePath = name.replace('.', '/') + GWT_MODULE_EXTENSION;
         Collection<String> sourceRoots = m_mavenProject.getCompileSourceRoots();
+        sourceRoots.add(m_mavenProject.getProperties().getProperty("spiffyui.generated-source"));
         for (String sourceRoot : sourceRoots) {
             File root = new File(sourceRoot);
             File xml = new File(root, modulePath);
             if (xml.exists()) {
                 m_log.debug("GWT module " + name + " found in " + root);
-                return readModule(name, xml);
+                return readModule(name, xml, modulePath);
             }
         }
         Collection<Resource> resources = (Collection<Resource>) m_mavenProject.getResources();
@@ -154,25 +164,25 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
             File xml = new File(root, modulePath);
             if (xml.exists()) {
                 m_log.debug("GWT module " + name + " found in " + root);
-                return readModule(name, xml);
+                return readModule(name, xml, modulePath);
             }
         }
 
         throw new GwtModuleReaderException("GWT Module " + name + " not found in project sources or resources.");
     }
 
-    private GwtModule readModule(String name, File file)
+    private GwtModule readModule(String name, File file, String modulePath)
         throws GwtModuleReaderException
 
     {
         try {
-            return readModule(name, new FileInputStream(file), file);
+            return readModule(name, new FileInputStream(file), file, modulePath);
         } catch (FileNotFoundException e) {
             throw new GwtModuleReaderException("Failed to read module file " + file);
         }
     }
 
-    private GwtModule readModule(String name, InputStream xml, File file)
+    private GwtModule readModule(String name, InputStream xml, File file, String modulePath)
         throws GwtModuleReaderException
     {
         try {
@@ -181,11 +191,8 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
             if (name.endsWith(InitializeMojo.SPIFFY_TMP_SUFFIX)) {
                 /*
                  Then we've already created the temporary GWT module and we don't need
-                 to create another one.  This happens if the user cancels the build before
-                 we had a chance to clean up.  In this case we can just use the one
-                 which is there, but we want to clean it up for the next time.
+                 to create another one.  
                  */
-                file.deleteOnExit();
                 return new GwtModule(name, dom, this);
             }
 
@@ -207,11 +214,13 @@ public class SpiffyGwtModuleReader implements GwtModuleReader
             tmp.append("</module>");
 
             Xpp3Dom tmpDom = Xpp3DomBuilder.build(new StringReader(tmp.toString()));
+            
+            File out = new File(m_mavenProject.getProperties().getProperty("spiffyui.generated-source"), 
+                                modulePath.substring(0, modulePath.lastIndexOf('/')));
+            out.mkdirs();
+            out = new File(out, name.substring(name.lastIndexOf(".") + 1) + InitializeMojo.SPIFFY_TMP_SUFFIX + ".gwt.xml");
 
-            String fileName = name.substring(name.lastIndexOf(".") + 1) + InitializeMojo.SPIFFY_TMP_SUFFIX + ".gwt.xml";
-            File f = new File(file.getParent(), fileName);
-            FileUtils.fileWrite(f.getAbsolutePath(), tmpDom.toString());
-            f.deleteOnExit();
+            FileUtils.fileWrite(out.getAbsolutePath(), tmpDom.toString());
             
             return new GwtModule(name, tmpDom, this);
         } catch (Exception e) {

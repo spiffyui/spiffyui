@@ -177,7 +177,7 @@ public class InitializeMojo extends AbstractMojo
                                 module.getPackage() + ".client");
                     }
                 } catch (Exception e) {
-                    throw new MojoExecutionException(e.getMessage());
+                    throw new MojoExecutionException(e.getMessage(), e);
                 }
                 break;
             default:
