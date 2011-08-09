@@ -280,6 +280,14 @@ spiffyui = {
         }
     },
     
+    /** 
+     * Format the date specified and return the results 
+     *
+     */
+    formatDate: function(/*int*/ epochDate, /*string*/ formatter) {
+         return new Date(epochDate).format(formatter);
+    },
+    
     /**
      * Add an item to the browser history.  This function is just
      * called from GWT.

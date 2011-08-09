@@ -506,7 +506,7 @@ public final class UnitTestPanel extends HTMLPanel
             return;
         }
         
-        expect(11);
+        expect(12);
         
         
         /*
@@ -548,6 +548,8 @@ public final class UnitTestPanel extends HTMLPanel
            "Getting the UTC offset shouldn't throw an exception and it returned: " + JSDateUtil.getUTCOffset());
         
         ok(JSDateUtil.getOrdinalNumber(date) == 359, "12/26/2010 is the 359th day of the year so the ordinal number is: " + JSDateUtil.getOrdinalNumber(date));        
+        
+        ok(JSDateUtil.format(date, "%w").equals("0"), "12/26/2010 is a Sunday so the day of the week is: " + JSDateUtil.format(date, "%w"));
     }
     
     private static Date getOffsetDate(Date date)

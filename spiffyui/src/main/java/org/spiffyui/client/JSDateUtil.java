@@ -116,7 +116,7 @@ public final class JSDateUtil
      * @return - the formatted string
      */    
     public static native String format(String epochDate, String format) /*-{
-        return new $wnd.Date(parseInt(epochDate, 10)).format(format);
+        return $wnd.spiffyui.formatDate(parseInt(epochDate, 10), format);
     }-*/;
 
     /**
