@@ -506,7 +506,7 @@ public final class UnitTestPanel extends HTMLPanel
             return;
         }
         
-        expect(10);
+        expect(11);
         
         
         /*
@@ -546,6 +546,8 @@ public final class UnitTestPanel extends HTMLPanel
         
         ok(JSDateUtil.getUTCOffset() < 20, 
            "Getting the UTC offset shouldn't throw an exception and it returned: " + JSDateUtil.getUTCOffset());
+        
+        ok(JSDateUtil.getOrdinalNumber(date) == 359, "12/26/2010 is the 359th day of the year so the ordinal number is: " + JSDateUtil.getOrdinalNumber(date));        
     }
     
     private static Date getOffsetDate(Date date)

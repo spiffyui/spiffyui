@@ -245,7 +245,7 @@ spiffyui = {
      */
     getOrdinalNumber: function(/*int*/ epochDate) {
         var date = new Date(epochDate);
-        return date.getOrdinalNumber();
+        return date.getDayOfYear();
     },
     
     /**
