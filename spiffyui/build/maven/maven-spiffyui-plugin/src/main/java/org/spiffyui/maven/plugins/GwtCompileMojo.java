@@ -337,7 +337,7 @@ public class GwtCompileMojo extends AbstractMojo
         CommandLine cmd = new CommandLine("java");
         ClassBuilder cb = new ClassBuilder(project);
 
-        cb.add(p.getProperty("spiffyui.htmlprops.path"));
+        cb.add(p.getProperty("spiffyui.generated-source"));
         cb.add(resources.getAbsolutePath());
 
         for (String sourceRoot : compileSourceRoots) {

@@ -48,7 +48,7 @@ public class HTMLPropsMojo extends AbstractMojo
     /**
      * Location where generated source will be written.
      * 
-     * @parameter expression="${spiffyui.htmlprops.path}"
+     * @parameter expression="${spiffyui.generated-source}"
      * @required
      */
     private File outputDirectory;

@@ -104,7 +104,7 @@ public class InitializeMojo extends AbstractMojo
     private String locales;
 
     private static final String ATTR_WWW = "spiffyui.www";
-    private static final String ATTR_HTMLPROPS = "spiffyui.htmlprops.path";
+    private static final String ATTR_GENERATEDSRC = "spiffyui.generated-source";
     private static final String ATTR_SOURCE = "maven.compiler.source";
     private static final String ATTR_TARGET = "maven.compiler.target";
     private static final Float MIN_COMPILER = new Float(1.6);
@@ -128,7 +128,7 @@ public class InitializeMojo extends AbstractMojo
             setDefaultPath(ATTR_WWW, project.getArtifactId() + "-" + project.getVersion());
         }
         
-        setDefaultPath(ATTR_HTMLPROPS, "generated-sources/htmlprops");
+        setDefaultPath(ATTR_GENERATEDSRC, "generated-sources/gwt");
         
         GwtModuleReader gmr = new SpiffyGwtModuleReader(project, getLog(), new ClasspathBuilder(), userAgents, locales);
         

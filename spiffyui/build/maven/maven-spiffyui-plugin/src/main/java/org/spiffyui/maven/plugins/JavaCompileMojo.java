@@ -111,13 +111,13 @@ public class JavaCompileMojo extends AbstractMojo
     private List<String> compileSourceRoots;
 
     /**
-     * The path to our generated htmlproperties
+     * The path to our generated source
      * 
-     * @parameter expression="${spiffyui.htmlprops.path}"
+     * @parameter expression="${spiffyui.generated-source}"
      * @required
      * @readonly
      */
-    private String htmlPropsPath;
+    private String generatedSourcePath;
 
     /**
      * Project classpath.
@@ -226,7 +226,7 @@ public class JavaCompileMojo extends AbstractMojo
         }
 
         List<String> sources = compileSourceRoots;
-        sources.add(htmlPropsPath);
+        sources.add(generatedSourcePath);
 
         for (String s : sources) {
             File path = new File(s);
