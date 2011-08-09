@@ -62,7 +62,7 @@ public class PackageMojo extends AbstractMojo
     /**
      * Name of archive
      * 
-     * @parameter default-value="${project.build.finalName}.spiffyui"
+     * @parameter default-value="${project.build.finalName}.spiffyui-client"
      * @required
      */
     private String archiveName;
