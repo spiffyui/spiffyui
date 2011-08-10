@@ -41,11 +41,11 @@
         </condition>
         
         <condition property="ivy.default.ivy.user.dir" 
-                   value="${env.ivy.default.ivy.user.dir}">
-          <isset property="${env.ivy.default.ivy.user.dir}"/>
+                   value="${env.spiffy_ivy_dir}">
+          <isset property="env.spiffy_ivy_dir"/>
         </condition>
-    	
-    	<!-- Establish a "run from maven" property so that conditional logic
+        
+        <!-- Establish a "run from maven" property so that conditional logic
     	     can be added when out-of-the box ant does not work in the same way
     	     as maven-antrun-plugin -->
     	<condition property="build.javac.fork" value="${build.from.maven}" else="false">
@@ -425,7 +425,7 @@
       <isset property="env.MVN_SETTINGS" />
     </condition>
     <property name="maven.settings" value="${user.home}/.m2/settings.xml" />
-
+    
     <target name="download-maven" unless="hasDownloadedMaven">
         <property name="hasDownloadedMaven" value="true" />
 

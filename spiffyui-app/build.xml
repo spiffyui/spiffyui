@@ -111,8 +111,8 @@
         </condition>
         
         <condition property="ivy.default.ivy.user.dir" 
-                   value="${env.ivy.default.ivy.user.dir}">
-          <isset property="${env.ivy.default.ivy.user.dir}"/>
+                   value="${env.spiffy_ivy_dir}">
+          <isset property="env.spiffy_ivy_dir"/>
         </condition>
 
         <property name="root" location="${build.base}"/>
