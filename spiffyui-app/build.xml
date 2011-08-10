@@ -107,8 +107,14 @@
         <!-- These are all the project relative paths.  Please add new paths
              here so they are easier to find when they change. -->
         <condition property="build.base" value="${env.SPSAMPLE_BASE}" else="${basedir}">
-          <isset property="${env.env.SPSAMPLE_BASE}"/>
+          <isset property="${env.SPSAMPLE_BASE}"/>
         </condition>
+        
+        <condition property="ivy.default.ivy.user.dir" 
+                   value="${env.ivy.default.ivy.user.dir}">
+          <isset property="${env.ivy.default.ivy.user.dir}"/>
+        </condition>
+
         <property name="root" location="${build.base}"/>
         <property name="spiffyui" location="${root}/../spiffyui"/>
     	<property name="template" location="${root}/../spiffyui-template"/>

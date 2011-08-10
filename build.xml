@@ -3,7 +3,7 @@
 
     <target name="setup">
         <condition property="build.base" value="${env.SPIFFY_BASE}" else="${basedir}">
-          <isset property="${env.env.SPIFFY_BASE}"/>
+          <isset property="${env.SPIFFY_BASE}"/>
         </condition>
     </target>
     

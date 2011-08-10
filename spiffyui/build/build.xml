@@ -39,6 +39,11 @@
         <condition property="build.spiffy.base" value="${env.SPIFFY_BASE}" else="${basedir}">
           <isset property="${env.SPIFFY_BASE}"/>
         </condition>
+        
+        <condition property="ivy.default.ivy.user.dir" 
+                   value="${env.ivy.default.ivy.user.dir}">
+          <isset property="${env.ivy.default.ivy.user.dir}"/>
+        </condition>
     	
     	<!-- Establish a "run from maven" property so that conditional logic
     	     can be added when out-of-the box ant does not work in the same way
@@ -417,7 +422,7 @@
     <property name="maven.jar.dir" value="${ant.extra.home}/lib" />
     <property name="maven.jar.file" value="${maven.jar.dir}/maven-ant-tasks.jar" />
     <condition property="maven.settings" value="${env.MVN_SETTINGS}">
-      <isset property="env.env.MVN_SETTINGS" />
+      <isset property="env.MVN_SETTINGS" />
     </condition>
     <property name="maven.settings" value="${user.home}/.m2/settings.xml" />
 
