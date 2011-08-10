@@ -164,23 +164,26 @@
     </target>
 
     <target name="install-anttask" depends="init-maven,compileAntTask">
-      <artifact:pom id="pom-tasks" file="${spiffy.root}/build/pom-tasks.xml" />
-
-      <artifact:install file="${spiffy.dist}/spiffytasks.jar">
-          <pom refid="pom-tasks"/>
-      </artifact:install>
+        <artifact:pom id="pom-tasks" file="${spiffy.root}/build/pom-tasks.xml" />
+        
+        <artifact:install file="${spiffy.dist}/spiffytasks.jar">
+            <pom refid="pom-tasks"/>
+            <localRepository path="${maven.lib.dir}" />
+        </artifact:install>
     </target>
 
     <target name="maven-plugin" depends="init-maven,install-anttask">
-      <artifact:mvn mavenVersion="3.0.2"
-		    pom="${spiffy.build}/maven/maven-spiffyui-plugin/pom.xml">
-          <arg value="install"/>
-      </artifact:mvn>
+        <artifact:mvn mavenVersion="3.0.2"
+                      pom="${spiffy.build}/maven/maven-spiffyui-plugin/pom.xml">
+            <arg value="install"/>
+            <localRepository path="${maven.lib.dir}" />
+        </artifact:mvn>
         
-      <artifact:mvn mavenVersion="3.0.2"
-		    pom="${spiffy.build}/maven/maven-spiffyui-plugin/pom.xml">
-          <arg value="site"/>
-      </artifact:mvn>
+        <artifact:mvn mavenVersion="3.0.2"
+                      pom="${spiffy.build}/maven/maven-spiffyui-plugin/pom.xml">
+            <arg value="site"/>
+            <localRepository path="${maven.lib.dir}" />
+        </artifact:mvn>
     </target>
 
     <target name="taskdefs">
@@ -436,6 +439,13 @@
     </target>
 
     <target name="init-maven" depends="download-maven">
+        <condition property="maven.lib.dir" 
+                   value="${env.spiffy_maven_dir}">
+          <isset property="env.spiffy_maven_dir"/>
+        </condition>
+        
+        <property name="maven.lib.dir" value="${user.home}/.m2" />
+
       <!-- try to load maven-ant-tasks here from ant-extra-home, in case the user has not already dropped
               it into ant's lib dir (note that the latter copy will always take precedence).
               We will not fail as long as local lib dir exists (it may be empty) and
