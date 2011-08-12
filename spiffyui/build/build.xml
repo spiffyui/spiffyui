@@ -164,9 +164,7 @@
     </target>
 
     <target name="install-anttask" depends="init-maven,compileAntTask">
-        <artifact:pom id="pom-tasks" file="${spiffy.root}/build/pom-tasks.xml">
-            <localRepository path="${maven.lib.dir}" />
-        </artifact:pom>
+        <artifact:pom id="pom-tasks" file="${spiffy.root}/build/pom-tasks.xml" />
         
         <artifact:install file="${spiffy.dist}/spiffytasks.jar">
             <pom refid="pom-tasks"/>
@@ -317,12 +315,10 @@
         <delete dir="${spiffy.root}/lib"/>
         <delete dir="${spiffy.root}/target"/>
         <delete file="${spiffy.root}/checkstyle_errors.xml"/>
-        
-        <artifact:mvn mavenVersion="3.0.2"
-                      pom="${spiffy.build}/maven/maven-spiffyui-plugin/pom.xml">
-            <arg value="clean"/>
-            <localRepository path="${maven.lib.dir}" />
-        </artifact:mvn>
+	<artifact:mvn mavenVersion="3.0.2"
+		      pom="${spiffy.build}/maven/maven-spiffyui-plugin/pom.xml">
+          <arg value="clean"/>
+	</artifact:mvn>
     </target>
     
     <target name="javadoc" description="Generate JavaDoc for the Spiffy UI framework">
@@ -435,7 +431,6 @@
     
     <target name="download-maven" unless="hasDownloadedMaven">
         <property name="hasDownloadedMaven" value="true" />
-
         <mkdir dir="${maven.jar.dir}"/>
         <!-- download maven-ant-tasks from web site so that it can be used even without any special installation -->
         <get src="http://repo2.maven.org/maven2/org/apache/maven/maven-ant-tasks/${maven.install.version}/maven-ant-tasks-${maven.install.version}.jar"
@@ -473,7 +468,6 @@
             <arg value="-Durl=https://oss.sonatype.org/content/repositories/snapshots/"/>
             <arg value="--settings"/>
             <arg value="${maven.settings}"/>
-            <localRepository path="${maven.lib.dir}" />
         </artifact:mvn>
         <!--    deploy spiffyui.jar -->
         <artifact:mvn mavenVersion="3.0.2" pom="${spiffy.root}/build/pom.xml">
@@ -486,14 +480,12 @@
             <arg value="-Durl=https://oss.sonatype.org/content/repositories/snapshots/"/>
             <arg value="--settings"/>
             <arg value="${maven.settings}"/>
-            <localRepository path="${maven.lib.dir}" />
         </artifact:mvn>
         <!--    deploy maven-spiffyui-plugin -->
         <artifact:mvn mavenVersion="3.0.2" pom="${spiffy.root}/build/maven/maven-spiffyui-plugin/pom.xml">
             <arg value="deploy"/>
             <arg value="--settings"/>
             <arg value="${maven.settings}"/>
-            <localRepository path="${maven.lib.dir}" />
         </artifact:mvn>
 
     </target>
@@ -509,7 +501,6 @@
             <arg value="-DpomFile=${spiffy.root}/build/pom-tasks.xml"/>
             <arg value="-Dfile=${spiffy.dist}/spiffytasks.jar"/>
             <arg value="-Pgpg"/>
-            <localRepository path="${maven.lib.dir}" />
         </artifact:mvn>
         <!--  sign and deploy spiffytasks javadoc artifact -->
         <artifact:mvn>
@@ -522,7 +513,6 @@
             <arg value="-Dfile=${spiffy.dist}/spiffytasks-javadoc.jar"/>
             <arg value="-Dclassifier=javadoc"/>
             <arg value="-Pgpg"/>
-            <localRepository path="${maven.lib.dir}" />
         </artifact:mvn>
         <!--  sign and deploy spiffytasks sources artifact -->
         <artifact:mvn>
@@ -535,7 +525,6 @@
             <arg value="-Dfile=${spiffy.dist}/spiffytasks-source.jar"/>
             <arg value="-Dclassifier=sources"/>
             <arg value="-Pgpg"/>
-            <localRepository path="${maven.lib.dir}" />
         </artifact:mvn>
         <!--  sign and deploy spiffyui main artifact -->
         <artifact:mvn>
@@ -547,7 +536,6 @@
             <arg value="-DpomFile=${spiffy.root}/build/pom.xml"/>
             <arg value="-Dfile=${spiffy.dist}/spiffyui.jar"/>
             <arg value="-Pgpg"/>
-            <localRepository path="${maven.lib.dir}" />
         </artifact:mvn>
         <!--  sign and deploy spiffyui javadoc artifact -->
         <artifact:mvn>
@@ -560,7 +548,6 @@
             <arg value="-Dfile=${spiffy.dist}/spiffyui-javadoc.jar"/>
             <arg value="-Dclassifier=javadoc"/>
             <arg value="-Pgpg"/>
-            <localRepository path="${maven.lib.dir}" />
         </artifact:mvn>
         <!--  sign and deploy spiffyui sources artifact -->
         <artifact:mvn>
@@ -573,7 +560,6 @@
             <arg value="-Dfile=${spiffy.dist}/spiffyui-source.jar"/>
             <arg value="-Dclassifier=sources"/>
             <arg value="-Pgpg"/>
-            <localRepository path="${maven.lib.dir}" />
         </artifact:mvn>
         <!--  sign and deploy maven-spiffyui-plugin main artifact -->
         <artifact:mvn>
@@ -585,7 +571,6 @@
             <arg value="-DpomFile=${spiffyui.plugin.path}/pom.xml"/>
             <arg value="-Dfile=${spiffyui.plugin.path}/target/maven-spiffyui-plugin-${spiffyui.plugin.version}.jar"/>
             <arg value="-Pgpg"/>
-            <localRepository path="${maven.lib.dir}" />
         </artifact:mvn>
         <!--  sign and deploy maven-spiffyui-plugin javadoc artifact -->
         <artifact:mvn>
@@ -598,7 +583,6 @@
             <arg value="-Dfile=${spiffyui.plugin.path}/target/maven-spiffyui-plugin-${spiffyui.plugin.version}-javadoc.jar"/>
             <arg value="-Dclassifier=javadoc"/>
             <arg value="-Pgpg"/>
-            <localRepository path="${maven.lib.dir}" />
         </artifact:mvn>
         <!--  sign and deploy maven-spiffyui-plugin sources artifact -->
         <artifact:mvn>
@@ -611,7 +595,6 @@
             <arg value="-Dfile=${spiffyui.plugin.path}/target/maven-spiffyui-plugin-${spiffyui.plugin.version}-sources.jar"/>
             <arg value="-Dclassifier=sources"/>
             <arg value="-Pgpg"/>
-            <localRepository path="${maven.lib.dir}" />
         </artifact:mvn>
     </target>
 
