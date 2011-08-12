@@ -248,7 +248,8 @@ public class DatePickerTextBox extends TextBox implements Event.NativePreviewHan
         /*
          * See if it is a child <A> tag of ui-datepicker-div because all the selectable dates are anchors
          */
-        if (DOM.isOrHasChild(DOM.getElementById("ui-datepicker-div"), target) &&
+        if (DOM.getElementById("ui-datepicker-div") != null &&
+            DOM.isOrHasChild(DOM.getElementById("ui-datepicker-div"), target) &&
                 "A".equalsIgnoreCase(target.getTagName())) {
 
             NativeEvent nativeEvent = Document.get().createChangeEvent();
