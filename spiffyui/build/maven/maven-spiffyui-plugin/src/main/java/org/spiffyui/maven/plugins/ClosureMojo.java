@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
@@ -125,6 +126,7 @@ public class ClosureMojo extends AbstractMojo
         }
 
         Compiler compiler = new Compiler();
+        compiler.setLoggingLevel(Level.WARNING);
         Result result = compiler.compile(new ArrayList<JSSourceFile>(), sources, compilerOptions);
 
         for (JSError warning : result.warnings) {
