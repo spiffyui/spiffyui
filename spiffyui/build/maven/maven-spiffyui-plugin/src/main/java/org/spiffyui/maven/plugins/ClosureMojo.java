@@ -118,11 +118,23 @@ public class ClosureMojo extends AbstractMojo
         compLevel.setOptionsForCompilationLevel(compilerOptions);
 
         List<JSSourceFile> sources = new ArrayList<JSSourceFile>();
+        
+        long lastMod = -1;
 
         /* spiffyui.min.js _must_ be first */
         sources.add(JSSourceFile.fromFile(new File(gwtModulePath, "spiffyui.min.js")));
         for (File file : files) {
+            lastMod = Math.max(lastMod, file.lastModified());
             sources.add(JSSourceFile.fromFile(file));
+        }
+        
+        if (outputFile.exists() && lastMod < outputFile.lastModified()) {
+            /*
+             If the newest source file is older then the output file then
+             everything is up to date and we don't need to compile anything.
+             */
+            getLog().info("Skipping JavaScript compilation. The compiled JavaScript file is up to date.");
+            return;
         }
 
         Compiler compiler = new Compiler();
