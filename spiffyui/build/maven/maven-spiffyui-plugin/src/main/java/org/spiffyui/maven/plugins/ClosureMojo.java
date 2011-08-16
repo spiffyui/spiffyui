@@ -94,7 +94,7 @@ public class ClosureMojo extends AbstractMojo
             MojoFailureException
     {
         if (!sourceDirectory.exists()) {
-            getLog().info("Source directory doesn't exist, skipping");
+            getLog().debug("Source directory doesn't exist, skipping");
             return;
         }
         
@@ -103,7 +103,7 @@ public class ClosureMojo extends AbstractMojo
         };
         List<File> files = new ArrayList<File>(FileUtils.listFiles(sourceDirectory, exts, true));
         if (files.size() == 0) {
-            getLog().info("No source files detected, skipping");
+            getLog().debug("No source files detected, skipping");
             return;
         }
         

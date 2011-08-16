@@ -131,7 +131,7 @@ public class HTMLPropsMojo extends AbstractMojo
 
         File outputFile = new File(packageDir, interfaceName + ".properties");
         
-        getLog().info("HTMLPROPS: Generating " + safePackageName);
+        getLog().debug("HTMLPROPS: Generating " + safePackageName);
 
         String[] exts = new String[] {
             "html"

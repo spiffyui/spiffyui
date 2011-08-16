@@ -326,7 +326,7 @@ public class GwtCompileMojo extends AbstractMojo
         Properties p = project.getProperties();
         
         if (skip || "pom".equals(project.getPackaging())) {
-            getLog().info("GWT compilation is skipped");
+            getLog().debug("GWT compilation is skipped");
             return;
         }
 

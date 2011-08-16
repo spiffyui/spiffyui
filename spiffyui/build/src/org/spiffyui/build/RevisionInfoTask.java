@@ -70,8 +70,6 @@ public class RevisionInfoTask extends Task
         try {
             RevisionInfoBean revInfo = RevisionInfoUtil.getRevisionInfo(m_rootDir);
             
-            System.out.println("revInfo.getRevNumber(): " + revInfo.getRevNumber());
-            
             getProject().setProperty("revision.number", revInfo.getRevNumber());
             getProject().setProperty("revision.date", revInfo.getRevDate());
         } catch (InterruptedException ie) {

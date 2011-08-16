@@ -91,7 +91,7 @@ public class CssCompressMojo extends AbstractMojo
     {
 
         if (!sourceDirectory.exists()) {
-            getLog().info("No sources, skipping");
+            getLog().debug("No sources, skipping");
             return;
         }
         
@@ -184,7 +184,7 @@ public class CssCompressMojo extends AbstractMojo
                 throw new MojoExecutionException("Cannot create resource output directory: " + outFile.getParentFile());
             }
 
-            getLog().info("YUICOMPRESS: " + inFile.getAbsolutePath() + " -> " + outFile.getAbsolutePath());
+            getLog().debug("YUICOMPRESS: " + inFile.getAbsolutePath() + " -> " + outFile.getAbsolutePath());
 
             try {
                 CssCompressor compressor = new CssCompressor(in);

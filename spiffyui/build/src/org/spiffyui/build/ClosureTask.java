@@ -278,9 +278,6 @@ public class ClosureTask extends Task
             return;
         }
 
-        System.out.println("Building " + m_destinationFile);
-
-
         i = c.iterator();
         while (i.hasNext()) {
             sb.append("--js ");
