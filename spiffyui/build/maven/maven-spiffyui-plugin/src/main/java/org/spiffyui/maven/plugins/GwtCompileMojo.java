@@ -332,11 +332,25 @@ public class GwtCompileMojo extends AbstractMojo
 
         if (!outputDirectory.exists()) {
             outputDirectory.mkdirs();
+        } else if (!force) {
+            String name = gwtModuleName;
+            if (name.endsWith(InitializeMojo.SPIFFY_TMP_SUFFIX)) {
+                name = name.substring(0, name.length() - InitializeMojo.SPIFFY_TMP_SUFFIX.length());
+            }
+
+            if (Math.max(getNewestModifiedTime(resources, -1), getNewestModifiedTime(new File(compileSourceRoots.get(0)), -1))
+                < getOldestModifiedTime(new File(outputDirectory, name), -1)) {
+                /*
+                 Then the GWT build is up to date and we can skip it
+                 */
+                getLog().info("GWT files are up to date. Skipping GWT build.");
+                return;
+            }
         }
-      
+        
         CommandLine cmd = new CommandLine("java");
         ClassBuilder cb = new ClassBuilder(project);
-
+        
         cb.add(p.getProperty("spiffyui.generated-source"));
         cb.add(resources.getAbsolutePath());
 
@@ -422,6 +436,44 @@ public class GwtCompileMojo extends AbstractMojo
             throw new MojoExecutionException(e.getMessage());
         }
         moveJSDir();
+    }
+    
+    private static long getOldestModifiedTime(File dir, long current)
+    {
+        if (dir == null || !dir.exists()) {
+            return current;
+        }
+        
+        for (File f : dir.listFiles()) {
+            if (f.isDirectory()) {
+                current = Math.min(getOldestModifiedTime(f, current), current);
+            } else if (f.getName().endsWith(".cache.html")) {
+                if (current == -1) {
+                    current = f.lastModified();
+                }
+                
+                current = Math.min(current, f.lastModified());
+            }
+        }
+        
+        return current;
+    }
+    
+    private static long getNewestModifiedTime(File dir, long current)
+    {
+        for (File f : dir.listFiles()) {
+            if (current == -1) {
+                current = f.lastModified();
+            }
+            
+            if (f.isDirectory()) {
+                current = Math.max(getNewestModifiedTime(f, current), current);
+            } else {
+                current = Math.max(current, f.lastModified());
+            }
+        }
+        
+        return current;
     }
     
     /**
