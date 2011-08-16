@@ -338,8 +338,8 @@ public class GwtCompileMojo extends AbstractMojo
                 name = name.substring(0, name.length() - InitializeMojo.SPIFFY_TMP_SUFFIX.length());
             }
 
-            if (Math.max(getNewestModifiedTime(resources, -1), getNewestModifiedTime(new File(compileSourceRoots.get(0)), -1))
-                < getOldestModifiedTime(new File(outputDirectory, name), -1)) {
+            if (Math.max(getNewestModifiedTime(resources, -1), getNewestModifiedTime(new File(compileSourceRoots.get(0)), -1)) < 
+                getOldestModifiedTime(new File(outputDirectory, name), -1)) {
                 /*
                  Then the GWT build is up to date and we can skip it
                  */

@@ -51,7 +51,7 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
     private LongMessage m_longMessage = new LongMessage("longMsg");
 
     /**
-     * The Index page constructor
+     * The Index page constructor - changed
      */
     public Index()
     {
