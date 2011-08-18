@@ -260,6 +260,14 @@ public class GwtCompileMojo extends AbstractMojo
     private File outputDirectory;
     
     /**
+     * Extra JVM arguments that are passed to the GWT-Maven generated scripts
+     * (for compiler, shell, etc - typically use -Xmx512m here, or -XstartOnFirstThread, etc)
+     * 
+     * @parameter expression="${gwt.extraJvmArgs}" default-value="-Xmx512m"
+     */
+    private String extraJvmArgs;
+    
+    /**
      * @parameter default-value="${spiffyui.gwt.module.name}"
      * @required
      * @readonly
@@ -359,6 +367,7 @@ public class GwtCompileMojo extends AbstractMojo
         }
         
         cmd.addArgument("-cp").addArgument(cb.toString())
+            .addArgument(extraJvmArgs)
             .addArgument("com.google.gwt.dev.Compiler")
             .addArgument("-gen").addArgument(gen.getAbsolutePath())
             .addArgument("-logLevel").addArgument(logLevel)
