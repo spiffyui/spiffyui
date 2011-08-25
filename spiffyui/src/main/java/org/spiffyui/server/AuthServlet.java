@@ -382,7 +382,15 @@ public final class AuthServlet extends HttpServlet
             ClientConnectionManager connMgr = httpclient.getConnectionManager();
             SchemeRegistry schemeReg = connMgr.getSchemeRegistry();
             schemeReg.unregister("https");
-            schemeReg.register(new Scheme("https", sslSocketFactory, port));
+            if (port != -1) {
+                schemeReg.register(new Scheme("https", sslSocketFactory, port));
+            } else {
+                /*
+                 If the port is -1 it means they were access the server without a port.
+                 443 is the default port for SSL so we fill that in when making the connection.
+                 */
+                schemeReg.register(new Scheme("https", sslSocketFactory, 443));
+            }
         } catch (NoSuchAlgorithmException nsae) {
             LOGGER.throwing(AuthServlet.class.getName(), "setupClientSSL", nsae);
         } catch (KeyManagementException mke) {
