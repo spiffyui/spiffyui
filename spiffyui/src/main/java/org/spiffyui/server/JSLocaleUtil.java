@@ -221,7 +221,7 @@ public final class JSLocaleUtil
     
     private static void calculateMinimumSupportedLocales(ServletContext context)
     {
-        synchronized (MINIMUM_LOCALES) {
+        synchronized (JSLocaleUtil.class) {
             populateMap(context);
             Map<Locale, String> map = null;
     
