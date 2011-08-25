@@ -54,8 +54,8 @@ h1 {
     color: #1795C6;
     font-size: 24px;
     line-height: 36px;
-    margin-bottom: 13px;
-    margin-top: -6px;
+    margin-bottom: 7px;
+    margin-top: 0px;
     width: 480px;
 }
 
@@ -91,6 +91,10 @@ h2 {
 
 .sectionTitle {
     margin-bottom: 24px;
+}
+
+#Page2Fields .sectionTitle {
+    margin-bottom: 27px;
 }
 
 .dialogformrow {
@@ -1078,7 +1082,7 @@ iframe {
     width: 204px;
     text-align: right;
     font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2",Sans-serif;
-    margin-top: 14px;
+    margin-top: 8px;
 }
 
 .toc li, .projectCreatorFields ol li {
@@ -1141,4 +1145,8 @@ iframe {
 
 #samplesList a {
     display: block;
+}
+
+.extratallformrow {
+    height: 70px;
 }
