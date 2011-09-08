@@ -306,6 +306,28 @@ spiffyui = {
     },
     
     /**
+     * Go forward in the history
+     */
+    forward: function() {
+         spiffyui.History.forward();
+    },
+    
+    /**
+     * Go backward in the history
+     */
+    back: function() {
+         spiffyui.History.back();
+    },
+    
+    /**
+     * If X is negative go back through history X times, if X is 
+     * positive go forwards through history X times 
+     */
+    go: function(/*int*/ x) {
+         spiffyui.History.go(x);
+    },
+    
+    /**
      * GWT often puts output files in a path with the module name.
      * We need to determine that path so we can figure out where to
      * reference our CSS files from.  There isn't a great way to do

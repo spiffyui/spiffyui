@@ -284,6 +284,32 @@ public final class JSUtil
         g_historyEnabled = enabled;
     }
     
+    /**
+     * Move forward one item in the browser history.  If the history is currently at the 
+     * end then this method doesn't do anything.
+     */
+    public static native void forward() /*-{ 
+        $wnd.spiffyui.forward();
+    }-*/;
+    
+    /**
+     * Move back one item in the browser history.  If the history is currently at the 
+     * beginning then this method doesn't do anything.
+     */
+    public static native void back() /*-{ 
+        $wnd.spiffyui.back();
+    }-*/;
+    
+    /**
+     * Move a variable number of items in the browser history.
+     * 
+     * @param steps  If steps is negative go back through history that number of times, otherwise
+     *               step forward in the history that number of times
+     */
+    public static native void go(int steps) /*-{ 
+        $wnd.spiffyui.go(steps);
+    }-*/;
+    
     private static native void addHistoryItemJS(String id, String url, String title, boolean bookmarkable, boolean replace) /*-{ 
         $wnd.spiffyui.addHistoryItem($wnd, id, url, title, bookmarkable, replace);
     }-*/;
