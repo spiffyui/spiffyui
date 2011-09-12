@@ -26,6 +26,7 @@ import org.spiffyui.client.widgets.SlidingGridPanel;
 import org.spiffyui.client.widgets.SmallLoadingIndicator;
 import org.spiffyui.client.widgets.StatusIndicator;
 import org.spiffyui.client.widgets.TimePickerTextBox;
+import org.spiffyui.client.widgets.Tooltip;
 import org.spiffyui.client.widgets.button.FancySaveButton;
 import org.spiffyui.client.widgets.button.RefreshAnchor;
 import org.spiffyui.client.widgets.button.SimpleButton;
@@ -38,6 +39,10 @@ import org.spiffyui.spsample.client.widgets.FancyAutocompleter;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.user.client.Element;
@@ -129,6 +134,8 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         
         addTimePicker();
         
+        addTooltip();
+        
         /*
          * Add the sliding grid here.  This call must go last so that the onAttach of the SlidingGridPanel can do its thing.
          */
@@ -160,6 +167,71 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
          */
         addToSlidingGrid(new TimePickerTextBox("timepicker"), "WidgetsTimePicker", Index.getStrings().timePicker(),
                          STRINGS.TimePicker_html());
+    }
+    
+    /**
+     * Create the tooltip and add it to the sliding grid
+     */
+    private void addTooltip()
+    {
+        /*
+         * Create a tooltip with a simple body.
+         * Add an anchor that will show the tooltip.
+         */
+        final Tooltip tooltip = new Tooltip();
+        tooltip.setBody(new HTML(Index.getStrings().tooltipBody()));
+        
+        final Anchor anchor = new Anchor(Index.getStrings().showTooltip(), "#");
+//        anchor.setTitle(Index.getStrings().showTooltip_tt());
+        anchor.addClickHandler(new ClickHandler() {
+            
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                event.preventDefault();
+                tooltip.showRelativeTo(anchor);
+            }
+        });
+        
+        final Timer showTooltip = new Timer() {
+            
+            @Override
+            public void run()
+            {
+                tooltip.showRelativeTo(anchor);
+            }
+        };
+        anchor.addMouseOverHandler(new MouseOverHandler() {
+            
+            @Override
+            public void onMouseOver(MouseOverEvent event)
+            {
+                /*
+                 * Show the tooltip after a delay
+                 */
+                showTooltip.schedule(tooltip.getAutoCloseTime());
+            }
+        });
+        anchor.addMouseOutHandler(new MouseOutHandler() {
+
+            @Override
+            public void onMouseOut(MouseOutEvent event)
+            {
+                if (tooltip.isShowing()) {
+                    /*
+                     * Autoclose the tooltip after a delay
+                     */
+                    tooltip.startAutoCloseTimer();
+                } else {
+                    /*
+                     * Cancel the delay to show the tooltip
+                     */
+                    showTooltip.cancel();
+                }
+            }
+        });
+        addToSlidingGrid(anchor, "WidgetsTooltip", Index.getStrings().tooltip(),
+                         STRINGS.Tooltip_html());
     }
     
     /**

@@ -71,6 +71,9 @@ public interface SpiffyRsrc extends Messages
     public String secData();
     public String slider();
     public String timePicker();
+    public String tooltip();
+    public String showTooltip();
+    public String showTooltip_tt();
     public String statusIndicator();
     public String smallLoadingIndicator();
     public String refreshAnchor();
@@ -188,4 +191,5 @@ public interface SpiffyRsrc extends Messages
     public String buildTypes();
     public String helloSpiffySample();
     public String logout();
+    public String tooltipBody();
 }

@@ -1170,3 +1170,30 @@ h3.subSectionTitle.expandable.expanded {
     padding: 10px;
 }
 
+/* For tooltip */
+.gwt-PopupPanel {
+    background-color: #FFFFE0;
+    border: 1px solid gray;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    padding: 5px;
+    z-index: 50;
+}
+
+.tooltipContent {
+    width: 155px;
+}
+
+.tooltipClose {
+    float: right;
+}
+.tooltipCloseIcon {
+    background: transparent url(images/spiffy_ui_images.png) no-repeat scroll 0 -12px;
+    height: 22px;
+    margin-right: -5px;
+    margin-top: 3px;
+    width: 22px;
+}
+
+.tooltipBody {
+}
