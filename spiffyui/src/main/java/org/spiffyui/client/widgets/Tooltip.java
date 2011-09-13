@@ -34,7 +34,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Tooltip is a PopupPanel that auto-hides when you click outside of it, click the X,
- * or when you let the auto-close time elapse.
+ * or when you let the auto-close time elapse (default is 1.5 seconds).
  */
 public class Tooltip extends PopupPanel implements MouseOutHandler, MouseOverHandler
 {
