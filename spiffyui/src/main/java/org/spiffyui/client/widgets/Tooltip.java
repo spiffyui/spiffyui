@@ -33,8 +33,8 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Tooltip that auto-hides when you click outside of it, click the X,
- * or let the auto-close time elapse
+ * Tooltip is a PopupPanel that auto-hides when you click outside of it, click the X,
+ * or when you let the auto-close time elapse.
  */
 public class Tooltip extends PopupPanel implements MouseOutHandler, MouseOverHandler
 {
@@ -108,8 +108,8 @@ public class Tooltip extends PopupPanel implements MouseOutHandler, MouseOverHan
     }
 
     /**
-     * Sets the body of the tooltip.
-     * Removes any widget previously set at the body
+     * Sets the body of the tooltip with any Widget.
+     * This will replace any widget previously set at the body.
      * @param w any Widget
      */
     public void setBody(Widget w)
@@ -137,7 +137,15 @@ public class Tooltip extends PopupPanel implements MouseOutHandler, MouseOverHan
         }
     }
     
-    @Override
+    /**
+     * We are overriding the show method
+     * so that we can cancel the auto close timer.
+     * The auto close timer should be started
+     * externally (like moving away from the anchor
+     * that originally shows the tooltip) or
+     * when the mouse moves out of the body
+     * of the focus panel.
+     */
     public void show()
     {
         super.show();
@@ -160,13 +168,21 @@ public class Tooltip extends PopupPanel implements MouseOutHandler, MouseOverHan
         m_autoCloseTimer.schedule(m_autoCloseTime);
     }
 
-    @Override
+    /**
+     * When the mouse is moved out of the
+     * focus panel, start the auto close timer.
+     * @param event - the MouseOutEvent
+     */
     public void onMouseOut(MouseOutEvent event)
     {
         m_autoCloseTimer.schedule(m_autoCloseTime);
     }
 
-    @Override
+    /**
+     * If the mouse is over the focus panel,
+     * cancel the auto close timer.
+     * @param event - the MouseOverEvent
+     */
     public void onMouseOver(MouseOverEvent event)
     {
         m_autoCloseTimer.cancel();

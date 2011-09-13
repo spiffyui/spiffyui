@@ -181,18 +181,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         final Tooltip tooltip = new Tooltip();
         tooltip.setBody(new HTML(Index.getStrings().tooltipBody()));
         
-        final Anchor anchor = new Anchor(Index.getStrings().showTooltip(), "#");
-//        anchor.setTitle(Index.getStrings().showTooltip_tt());
-        anchor.addClickHandler(new ClickHandler() {
-            
-            @Override
-            public void onClick(ClickEvent event)
-            {
-                event.preventDefault();
-                tooltip.showRelativeTo(anchor);
-            }
-        });
-        
+        final Anchor anchor = new Anchor(Index.getStrings().showTooltip());        
         final Timer showTooltip = new Timer() {
             
             @Override
