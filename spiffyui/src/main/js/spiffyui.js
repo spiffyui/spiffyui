@@ -318,6 +318,10 @@ spiffyui = {
     back: function() {
          spiffyui.History.back();
     },
+
+    getHistoryState: function() {
+         return spiffyui.History.getState().data.state;
+    },
     
     /**
      * If X is negative go back through history X times, if X is 

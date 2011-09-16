@@ -50,6 +50,8 @@ public final class JSUtil
     
     private static boolean g_historyEnabled = true;
 
+    private static String g_previousId;
+
     static {
         bindJavaScript();
     }
@@ -63,10 +65,25 @@ public final class JSUtil
      */
     private static void doHistory(String id)
     {
-        if (HIST_CALLBACKS.containsKey(id)) {
-            HIST_CALLBACKS.get(id).historyChanged(id);
+        if (g_previousId != null &&
+            !g_previousId.equals(getCurrentHistoryStateId())) {
+
+            if (HIST_CALLBACKS.containsKey(id)) {
+                HIST_CALLBACKS.get(id).historyChanged(id);
+            }
         }
+
+        g_previousId = id;
     }
+
+    /**
+     * Get the current Spiffy UI history id if it is available.
+     * 
+     * @return the current history id or null if it is unavailable
+     */
+    public static native String getCurrentHistoryStateId() /*-{ 
+        return $wnd.spiffyui.getHistoryState();
+    }-*/;
 
     /**
      * <p>
