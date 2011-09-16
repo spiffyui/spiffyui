@@ -146,7 +146,7 @@
         	        fork="${build.javac.fork}">
             <compilerarg value="-Xlint" />
             <classpath>
-                <pathelement location="${spiffy.build}/lib/closure-compiler-r1043.jar"/>
+                <fileset dir="${spiffy.build}/lib" includes="*.jar"/>
                 <pathelement path="${java.class.path}"/>
                 <!-- Adding this so that maven builds will include the necessary ant dependencies -->
                 <pathelement path="${compile_classpath}"/>
@@ -201,7 +201,7 @@
              to create a single file.  We need to specify the files for JQuery UI
              in a specific order since they have loading dependencies. -->
         <closure jsfile="${spiffy.www}/spiffyui.min.js" 
-                 closurejar="${spiffy.build}/lib/closure-compiler-r1043.jar"
+                 closurejar="${spiffy.build}/lib/closure-compiler-r1352.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="DEFAULT">
             <fileset dir="${spiffy.js}" includes="**/jquery.ui.core.js" />
@@ -223,7 +223,7 @@
         
         <!-- We also compile our own copy of JQuery -->
         <closure jsfile="${spiffy.www}/jquery.min.js" 
-                 closurejar="${spiffy.build}/lib/closure-compiler-r1043.jar"
+                 closurejar="${spiffy.build}/lib/closure-compiler-r1352.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="QUIET">
             <fileset dir="${spiffy.js}/lib" includes="jquery-1.6.4.js" />

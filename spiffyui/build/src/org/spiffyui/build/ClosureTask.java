@@ -251,7 +251,7 @@ public class ClosureTask extends Task
          */
         cmdl.getClasspath().add(new FileResource(m_closureJar));
         cmdl.getClasspath().add(new FileResource(new File(m_closureJar.getParent(), "args4j-2.0.12.jar")));
-        cmdl.getClasspath().add(new FileResource(new File(m_closureJar.getParent(), "guava-r08.jar")));
+        cmdl.getClasspath().add(new FileResource(new File(m_closureJar.getParent(), "guava-r09.jar")));
         
         Commandline.Argument arg = cmdl.createArgument();
         

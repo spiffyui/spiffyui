@@ -59,7 +59,7 @@
     <dependency>
       <groupId>com.google.javascript</groupId>
       <artifactId>closure-compiler</artifactId>
-      <version>r1043</version>
+      <version>r1352</version>
       <type>jar</type>
       <scope>compile</scope>
     </dependency>
