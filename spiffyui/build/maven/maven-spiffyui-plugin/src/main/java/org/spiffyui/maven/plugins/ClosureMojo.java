@@ -99,6 +99,19 @@ public class ClosureMojo extends AbstractMojo
             getLog().debug("Source directory doesn't exist, skipping");
             return;
         }
+
+        /*
+         * The first step is to copy the uncompressed files into the
+         * target directory so users can see the real source for debugging
+         */
+        File jsDir = new File(outputFile.getParentFile(), "js");
+        jsDir.mkdirs();
+
+        try {
+            FileUtils.copyDirectory(sourceDirectory, jsDir);
+        } catch (IOException ioe) {
+            throw new MojoFailureException("Unable to copy JavaScripot source" + ioe.getMessage());
+        }
         
         String[] exts = {
             "js"
