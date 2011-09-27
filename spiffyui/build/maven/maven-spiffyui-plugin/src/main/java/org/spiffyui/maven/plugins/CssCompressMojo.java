@@ -65,6 +65,15 @@ public class CssCompressMojo extends AbstractMojo
     private int linebreakpos;
 
     /**
+     * The CSS directory name under source.  This directory is added
+     * in addition to the source directory
+     * 
+     * @parameter expression="${spiffyui.css.directory}"
+     *            default-value="css"
+     */
+    private String css;
+
+    /**
      * Path to the project .css sources to compress
      *  
      * @parameter default-value="src/main/webapp"
@@ -101,6 +110,8 @@ public class CssCompressMojo extends AbstractMojo
             "css"
         };
         Collection<File> files = FileUtils.listFiles(sourceDirectory, exts, false);
+
+        files.addAll(FileUtils.listFiles(new File(sourceDirectory, css), exts, false));
 
         try {
             String name = outputFileName;
