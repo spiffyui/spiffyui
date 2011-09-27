@@ -111,7 +111,10 @@ public class CssCompressMojo extends AbstractMojo
         };
         Collection<File> files = FileUtils.listFiles(sourceDirectory, exts, false);
 
-        files.addAll(FileUtils.listFiles(new File(sourceDirectory, css), exts, false));
+        File cssDir = new File(sourceDirectory, css);
+        if (cssDir.exists()) {
+            files.addAll(FileUtils.listFiles(cssDir, exts, false));
+        };
 
         try {
             String name = outputFileName;
