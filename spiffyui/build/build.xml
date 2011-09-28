@@ -10,6 +10,7 @@
         <antcall target="javadoc"/>
         <antcall target="javadoc-tasks"/>
         <antcall target="package" />
+        <antcall target="install-snapshot" />
     </target>
     
     <target name="resolve" description="--> retrieve dependencies with ivy" unless="build.from.maven" depends="ivySettings">
@@ -475,6 +476,38 @@
             <arg value="-Dfile=${spiffy.dist}/spiffyui.jar"/>
             <arg value="-DpomFile=${spiffy.root}/build/pom.xml"/>
             <arg value="-DrepositoryId=sonatype-nexus-snapshots"/>
+            <arg value="-Dsources=${spiffy.dist}/spiffyui-source.jar"/>
+            <arg value="-Djavadoc=${spiffy.dist}/spiffyui-javadoc.jar"/>
+            <arg value="-Durl=https://oss.sonatype.org/content/repositories/snapshots/"/>
+            <arg value="--settings"/>
+            <arg value="${maven.settings}"/>
+        </artifact:mvn>
+        <!--    deploy maven-spiffyui-plugin -->
+        <artifact:mvn mavenVersion="3.0.2" pom="${spiffy.root}/build/maven/maven-spiffyui-plugin/pom.xml">
+            <arg value="deploy"/>
+            <arg value="--settings"/>
+            <arg value="${maven.settings}"/>
+        </artifact:mvn>
+
+    </target>
+    
+    <target name="install-snapshot" description="Install project artifacts to the local repository" depends="setup,init-maven,package">
+        <!--    deploy spiffytasks.jar -->
+        <artifact:mvn mavenVersion="3.0.2" pom="${spiffy.root}/build/pom-tasks.xml">
+            <arg value="install:install-file"/>
+            <arg value="-Dfile=${spiffy.dist}/spiffytasks.jar"/>
+            <arg value="-DpomFile=${spiffy.root}/build/pom-tasks.xml"/>
+            <arg value="-Dsources=${spiffy.dist}/spiffytasks-source.jar"/>
+            <arg value="-Djavadoc=${spiffy.dist}/spiffytasks-javadoc.jar"/>
+            <arg value="-Durl=https://oss.sonatype.org/content/repositories/snapshots/"/>
+            <arg value="--settings"/>
+            <arg value="${maven.settings}"/>
+        </artifact:mvn>
+        <!--    deploy spiffyui.jar -->
+        <artifact:mvn mavenVersion="3.0.2" pom="${spiffy.root}/build/pom.xml">
+            <arg value="install:install-file"/>
+            <arg value="-Dfile=${spiffy.dist}/spiffyui.jar"/>
+            <arg value="-DpomFile=${spiffy.root}/build/pom.xml"/>
             <arg value="-Dsources=${spiffy.dist}/spiffyui-source.jar"/>
             <arg value="-Djavadoc=${spiffy.dist}/spiffyui-javadoc.jar"/>
             <arg value="-Durl=https://oss.sonatype.org/content/repositories/snapshots/"/>
