@@ -68,7 +68,7 @@ public class CssCompressMojo extends AbstractMojo
      * The CSS directory name under source.  This directory is added
      * in addition to the source directory
      * 
-     * @parameter expression="${spiffyui.css.directory}"
+     * @parameter expression="${spiffyui.css.source}"
      *            default-value="css"
      */
     private String css;
@@ -83,7 +83,8 @@ public class CssCompressMojo extends AbstractMojo
     /**
      * The output directory to emit compressed artifacts
      * 
-     * @parameter default-value="${spiffyui.www}"
+     * @parameter expression="${spiffyui.css.output}"
+     *            default-value="${spiffyui.www}"
      * @required
      */
     private File outputDirectory;
@@ -187,6 +188,10 @@ public class CssCompressMojo extends AbstractMojo
     private void compress(File inFile, String outFileName)
         throws IOException, MojoExecutionException
     {
+        if (!outputDirectory.exists()) {
+            outputDirectory.mkdirs();
+        }
+
         File outFile = new File(outputDirectory, outFileName);
         
         InputStreamReader in = null;
