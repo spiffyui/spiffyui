@@ -210,7 +210,9 @@ public final class JSLocaleUtil
     public static List<Locale> getMinimumSupportedLocales(ServletContext context)
     {
         if (MINIMUM_LOCALES.size() == 0) {
-            calculateMinimumSupportedLocales(context);
+            synchronized (MINIMUM_LOCALES) {
+                calculateMinimumSupportedLocales(context);
+            }
         }
         
         /*
@@ -223,39 +225,37 @@ public final class JSLocaleUtil
     
     private static void calculateMinimumSupportedLocales(ServletContext context)
     {
-        synchronized (JSLocaleUtil.class) {
-            populateMap(context);
-            Map<Locale, String> map = null;
-    
-            for (String file : RESOURCES.keySet()) {
-                Map<Locale, String> m = RESOURCES.get(file);
-    
-                if (map == null) {
-                    map = m;
-                } else if (m.size() > 1 && m.size() < map.size()) {
-                    /*
-                     This method is looking for the minimum supported locales.  That means
-                     we want to find the file with the smallest number of supported locales
-                     and use the list of locales it supports.
-                     */
-                    map = m;
-                }
-            }
-    
+        populateMap(context);
+        Map<Locale, String> map = null;
+
+        for (String file : RESOURCES.keySet()) {
+            Map<Locale, String> m = RESOURCES.get(file);
+
             if (map == null) {
+                map = m;
+            } else if (m.size() > 1 && m.size() < map.size()) {
                 /*
-                 This means we couldn't load the files.  This is often
-                 caused by a configuration problem, but it is tricky for
-                 us to figure out what to do here.  The best we can do
-                 is return an empty list and let the servlet return a
-                 404.
+                 This method is looking for the minimum supported locales.  That means
+                 we want to find the file with the smallest number of supported locales
+                 and use the list of locales it supports.
                  */
-                return;
+                map = m;
             }
-    
-            for (Locale l : map.keySet()) {
-                MINIMUM_LOCALES.add(l);
-            }
+        }
+
+        if (map == null) {
+            /*
+             This means we couldn't load the files.  This is often
+             caused by a configuration problem, but it is tricky for
+             us to figure out what to do here.  The best we can do
+             is return an empty list and let the servlet return a
+             404.
+             */
+            return;
+        }
+
+        for (Locale l : map.keySet()) {
+            MINIMUM_LOCALES.add(l);
         }
     }
 
