@@ -117,5 +117,10 @@ public class RefreshAnchor extends Anchor
     {
         return m_loading;
     }
+
+    public String getId()
+    {
+        return getElement().getId();
+    }
     
 }
