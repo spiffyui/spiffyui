@@ -118,6 +118,10 @@ public class RefreshAnchor extends Anchor
         return m_loading;
     }
 
+    /**
+     *
+     * @return id of the refresh anchor
+     */
     public String getId()
     {
         return getElement().getId();
