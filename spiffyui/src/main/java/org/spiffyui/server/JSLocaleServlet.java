@@ -51,13 +51,11 @@ public class JSLocaleServlet extends HttpServlet
         throws ServletException, IOException
     {
         Locale bestMatchLocale = getBestMatchLocale(request, response, getServletConfig().getServletContext());
-        response.setContentType(CONTENT_TYPE_JS);
-
+        
         String resourceName = request.getServletPath().indexOf("jquery.ui.datepicker") > 0 ?
             "jquery.ui.datepicker" : "date";
         String file = JSLocaleUtil.getFile(resourceName, bestMatchLocale, getServletConfig().getServletContext());
-
-
+        
         if (file != null) {
             response.sendRedirect(file);
         }

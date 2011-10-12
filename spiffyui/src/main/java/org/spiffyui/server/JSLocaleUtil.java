@@ -124,6 +124,9 @@ public final class JSLocaleUtil
         Iterator iter = set.iterator();
         while (iter.hasNext()) {
             String file = iter.next().toString();
+            if (file.endsWith(".js.gz")) {
+                continue;
+            }
             file = file.substring(file.lastIndexOf('/') + 1);
             
             ALL_RESOURCES.add(file);
