@@ -10,7 +10,7 @@
   <groupId>org.spiffyui.maven.plugins</groupId>
   <artifactId>maven-spiffyui-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>0.5.4-SNAPSHOT</version>
+  <version>0.5.4</version>
   <name>Maven SpiffyUI Plugin</name>
   <licenses>
     <license>
@@ -59,7 +59,7 @@
     <dependency>
       <groupId>com.google.javascript</groupId>
       <artifactId>closure-compiler</artifactId>
-      <version>r1352</version>
+      <version>r1459</version>
       <type>jar</type>
       <scope>compile</scope>
     </dependency>
@@ -71,7 +71,7 @@
     <dependency>
       <groupId>org.spiffyui</groupId>
       <artifactId>spiffyuitasks</artifactId>
-      <version>0.7.7</version>
+      <version>0.7.8</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
@@ -83,7 +83,7 @@
     <dependency>
       <groupId>org.codehaus.mojo</groupId>
       <artifactId>gwt-maven-plugin</artifactId>
-      <version>2.3.0</version>
+      <version>2.4.0</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>

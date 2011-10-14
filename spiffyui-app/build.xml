@@ -176,7 +176,7 @@
     
     <target name="js-min" description="Minimize the JavaScript with the Closure compiler" depends="setup">
         <closure jsfile="${sample.out.www}/spsample.min.js" 
-                 closurejar="${spiffyui}/build/lib/closure-compiler-r1352.jar"
+                 closurejar="${spiffyui}/build/lib/closure-compiler-r1459.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="DEFAULT">
         
@@ -336,7 +336,7 @@
         <echo file="${sample.out.classes}/org/spiffyui/spsample/server/buildnum.properties">
 build.date=${builddate}
 build.user=${user.name}
-build.version=0.7.7
+build.version=0.7.8
 build.revision=${revision.number} 
 build.revision.date=${revision.date}
 build.dir=${root}

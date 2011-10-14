@@ -2,8 +2,8 @@
     <info organisation="MY_PACKAGE" module="MY_PROJECT-ivy"/>
     <dependencies>
         <!-- Spiffy UI JARs -->
-        <dependency org="org.spiffyui" name="spiffyui" rev="0.7.7"/>
-        <dependency org="org.spiffyui" name="spiffyuitasks" rev="0.7.7"/>
+        <dependency org="org.spiffyui" name="spiffyui" rev="0.7.8"/>
+        <dependency org="org.spiffyui" name="spiffyuitasks" rev="0.7.8"/>
         
         <!-- These are the JARs we need to make Spiffy UI run -->
         <dependency org="commons-logging" name="commons-logging" rev="1.1.1"/>
@@ -17,8 +17,8 @@
             <artifact name="validation-api"/> 
             <artifact name="validation-api" m:classifier="sources"/> 
         </dependency>
-        <dependency org="com.google.gwt" name="gwt-user" rev="2.3.0"/>
-        <dependency org="com.google.gwt" name="gwt-dev" rev="2.3.0"/>
+        <dependency org="com.google.gwt" name="gwt-user" rev="2.4.0"/>
+        <dependency org="com.google.gwt" name="gwt-dev" rev="2.4.0"/>
         
         <!-- We don't really need Jetty to build, but we use it to
              run the Jetty server in process. -->
