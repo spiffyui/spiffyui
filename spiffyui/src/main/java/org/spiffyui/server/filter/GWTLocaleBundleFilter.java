@@ -191,10 +191,14 @@ public abstract class GWTLocaleBundleFilter extends GWTLocaleFilter
 
             if (fileName == null) {
                 continue;
-            } else if (country == null) {
-                getMap(fileName).put(new Locale(language), file);
-            } else {
-                getMap(fileName).put(new Locale(language, country), file);
+            } 
+
+            if (language != null) {
+                if (country == null) {
+                    getMap(fileName).put(new Locale(language), file);
+                } else {
+                    getMap(fileName).put(new Locale(language, country), file);
+                }
             }
         }
     }
