@@ -514,13 +514,6 @@
             <arg value="--settings"/>
             <arg value="${maven.settings}"/>
         </artifact:mvn>
-        <!--    deploy maven-spiffyui-plugin -->
-        <artifact:mvn mavenVersion="3.0.2" pom="${spiffy.root}/build/maven/maven-spiffyui-plugin/pom.xml">
-            <arg value="deploy"/>
-            <arg value="--settings"/>
-            <arg value="${maven.settings}"/>
-        </artifact:mvn>
-
     </target>
 
     <target name="deploy-staging" description="Sign and Deploy artifacts to the spiffyui Sonatype release staging repository, ready for maven central syncing" depends="setup,init-maven,package">
