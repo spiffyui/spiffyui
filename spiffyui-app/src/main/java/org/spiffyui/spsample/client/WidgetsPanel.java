@@ -19,6 +19,7 @@ package org.spiffyui.spsample.client;
 
 import org.spiffyui.client.MessageUtil;
 import org.spiffyui.client.widgets.DatePickerTextBox;
+import org.spiffyui.client.widgets.ExpandingTextArea;
 import org.spiffyui.client.widgets.LongMessage;
 import org.spiffyui.client.widgets.ProgressBar;
 import org.spiffyui.client.widgets.SlideDownPrefsPanel;
@@ -105,6 +106,8 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
          */
 
         addDatePicker();
+        
+        addExpandingTextArea();
         
         addFancyButton();
 
@@ -673,5 +676,11 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         return m_slideGridPanel;
     }    
     
-    
+    private void addExpandingTextArea()
+    {
+        ExpandingTextArea eta = new ExpandingTextArea("expandingTextArea");
+        eta.setText(Index.getStrings().expandingTextAreaDefault());
+        addToSlidingGrid(eta, "WidgetsExpandingTextArea", Index.getStrings().expandingTextArea(), 
+                         STRINGS.ExpandingTextArea_html(), TALL);
+    }
 }

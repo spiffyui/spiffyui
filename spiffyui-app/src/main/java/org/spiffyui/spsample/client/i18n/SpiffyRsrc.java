@@ -83,6 +83,8 @@ public interface SpiffyRsrc extends Messages
     public String progressBar();
     public String slideDown();
     public String datePicker();
+    public String expandingTextArea();
+    public String expandingTextAreaDefault();
     public String navBar();
     public String sgp();
     public String simpleButton();
