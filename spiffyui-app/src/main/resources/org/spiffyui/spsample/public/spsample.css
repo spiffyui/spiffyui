@@ -1150,3 +1150,7 @@ iframe {
 .extratallformrow {
     height: 70px;
 }
+
+.expandingArea.active > pre {
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2";
+}

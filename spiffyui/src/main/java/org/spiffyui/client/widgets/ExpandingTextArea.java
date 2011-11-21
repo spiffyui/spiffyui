@@ -17,8 +17,6 @@
  ******************************************************************************/
 package org.spiffyui.client.widgets;
 
-import org.spiffyui.client.JSUtil;
-
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextArea;
 
@@ -65,13 +63,8 @@ public class ExpandingTextArea extends TextArea
          * So when this TextArea is attached
          * let's add the the other DOM elements
          */
-        try {
         String areaId = markupTextAreaJS(getElement().getId());
         makeExpandingAreaJS(areaId);
-        } catch (Exception e) {
-            JSUtil.printError(e.getLocalizedMessage());
-            JSUtil.printError(e.getCause() == null ? "no cause" : e.getCause().getLocalizedMessage());
-        }
     }
     
     private native String markupTextAreaJS(String textAreaId) /*-{
@@ -83,7 +76,7 @@ public class ExpandingTextArea extends TextArea
             //no previous siblings to come after, just wrap
             ta.wrap(container);
         } else {
-            //make next sibling of prev
+            //make next sibling of prev the container
             prev.after(container);
             container.append(ta);
         }
@@ -95,22 +88,23 @@ public class ExpandingTextArea extends TextArea
         var areas = $wnd.document.querySelectorAll("#" + contId);
         var container = areas[0];
     
-        $wnd.console.log("23 container  = " + container);
-        var area = container.querySelector('textarea');
-        var span = container.querySelector('span');
-        if (area.addEventListener) {
-            area.addEventListener('input', function() {
+        if (container) {
+            var area = container.querySelector('textarea');
+            var span = container.querySelector('span');
+            if (area.addEventListener) {
+                area.addEventListener('input', function() {
+                    span.textContent = area.value;
+                }, false);
                 span.textContent = area.value;
-            }, false);
-            span.textContent = area.value;
-        } else if (area.attachEvent) {
-            // IE8 compatibility
-            area.attachEvent('onpropertychange', function() {
+            } else if (area.attachEvent) {
+                // IE8 compatibility
+                area.attachEvent('onpropertychange', function() {
+                    span.innerText = area.value;
+                });
                 span.innerText = area.value;
-            });
-            span.innerText = area.value;
+            }
+            // Enable extra CSS
+            container.className += ' active';    
         }
-        // Enable extra CSS
-        container.className += ' active';    
     }-*/;
 }
