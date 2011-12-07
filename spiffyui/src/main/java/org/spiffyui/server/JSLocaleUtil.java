@@ -51,7 +51,7 @@ public final class JSLocaleUtil
     
     private static final List<String> ALL_RESOURCES = new ArrayList<String>();
     
-    private static final List<Locale> MINIMUM_LOCALES = new ArrayList<Locale>();
+    private static final ArrayList<Locale> MINIMUM_LOCALES = new ArrayList<Locale>();
 
     /**
      * Get the right file name for the specified resource name and the locale
@@ -222,7 +222,7 @@ public final class JSLocaleUtil
          The minimum list of locale doesn't change so we just return the
          cached version. 
          */
-        return MINIMUM_LOCALES;
+        return (List<Locale>) MINIMUM_LOCALES.clone();
         
     }
     
