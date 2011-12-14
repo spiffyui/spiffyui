@@ -53,7 +53,19 @@ public class ExpandingTextArea extends TextArea
     @Override
     public void setValue(String value)
     {
-        setText(value);
+        super.setValue(value);
+        if (m_areaId != null) {
+            manuallyUpdatePreJS(m_areaId);
+        }
+    }
+
+    @Override
+    public void setValue(String value, boolean fireEvents)
+    {
+        super.setValue(value, fireEvents);
+        if (m_areaId != null) {
+            manuallyUpdatePreJS(m_areaId);
+        }
     }
 
     @Override
