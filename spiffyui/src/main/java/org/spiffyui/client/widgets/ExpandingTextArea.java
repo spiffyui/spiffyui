@@ -30,6 +30,7 @@ import com.google.gwt.user.client.ui.TextArea;
  */
 public class ExpandingTextArea extends TextArea
 {
+    private String m_areaId;
     /**
      * Constructor
      * @param id - the text area's element ID
@@ -50,6 +51,21 @@ public class ExpandingTextArea extends TextArea
     }
 
     @Override
+    public void setValue(String value)
+    {
+        setText(value);
+    }
+
+    @Override
+    public void setText(String text)
+    {
+        super.setText(text);
+        if (m_areaId != null) {
+            manuallyUpdatePreJS(m_areaId);
+        }
+    }
+    
+    @Override
     protected void onLoad()
     {
         super.onLoad();
@@ -63,8 +79,8 @@ public class ExpandingTextArea extends TextArea
          * So when this TextArea is attached
          * let's add the the other DOM elements
          */
-        String areaId = markupTextAreaJS(getElement().getId());
-        makeExpandingAreaJS(areaId);
+        m_areaId = markupTextAreaJS(getElement().getId());
+        makeExpandingAreaJS(m_areaId);
     }
     
     private native String markupTextAreaJS(String textAreaId) /*-{
@@ -105,6 +121,22 @@ public class ExpandingTextArea extends TextArea
             }
             // Enable extra CSS
             container.className += ' active';    
+        }
+    }-*/;
+    
+    private native void manuallyUpdatePreJS(String contId) /*-{
+        var areas = $wnd.document.querySelectorAll("#" + contId);
+        var container = areas[0];
+    
+        if (container) {
+            var area = container.querySelector('textarea');
+            var span = container.querySelector('span');
+            if (area.addEventListener) {
+                span.textContent = area.value;
+            } else if (area.attachEvent) {
+                // IE8 compatibility
+                span.innerText = area.value;
+            }
         }
     }-*/;
 }
