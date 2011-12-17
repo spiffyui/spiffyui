@@ -17,6 +17,13 @@
  ******************************************************************************/
 package org.spiffyui.client.widgets;
 
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextArea;
 
@@ -28,9 +35,9 @@ import com.google.gwt.user.client.ui.TextArea;
  * 
  * 
  */
-public class ExpandingTextArea extends TextArea
+public class ExpandingTextArea extends TextArea implements ChangeHandler, KeyUpHandler, BlurHandler
 {
-    private String m_areaId;
+    private JavaScriptObject m_span;
     /**
      * Constructor
      * @param id - the text area's element ID
@@ -54,8 +61,8 @@ public class ExpandingTextArea extends TextArea
     public void setValue(String value)
     {
         super.setValue(value);
-        if (m_areaId != null) {
-            manuallyUpdatePreJS(m_areaId);
+        if (m_span != null) {
+            manuallyUpdateSpanJS(m_span, value);
         }
     }
 
@@ -63,8 +70,8 @@ public class ExpandingTextArea extends TextArea
     public void setValue(String value, boolean fireEvents)
     {
         super.setValue(value, fireEvents);
-        if (m_areaId != null) {
-            manuallyUpdatePreJS(m_areaId);
+        if (m_span != null) {
+            manuallyUpdateSpanJS(m_span, value);
         }
     }
 
@@ -72,8 +79,8 @@ public class ExpandingTextArea extends TextArea
     public void setText(String text)
     {
         super.setText(text);
-        if (m_areaId != null) {
-            manuallyUpdatePreJS(m_areaId);
+        if (m_span != null) {
+            manuallyUpdateSpanJS(m_span, text);
         }
     }
     
@@ -89,17 +96,24 @@ public class ExpandingTextArea extends TextArea
          * </div>
          *
          * So when this TextArea is attached
-         * let's add the the other DOM elements
+         * let's add the the other DOM elements.
+         * 
+         * Doing it this way instead of extending Composite
+         * or HTMLPanel allows us to inherit from TextArea.
          */
-        m_areaId = markupTextAreaJS(getElement().getId());
-        makeExpandingAreaJS(m_areaId);
+        m_span = markupTextAreaJS(getElement().getId());
+        addChangeHandler(this);
+        addKeyUpHandler(this);
+        addBlurHandler(this);
+        updateSpan();
     }
     
-    private native String markupTextAreaJS(String textAreaId) /*-{
-        var areaId = textAreaId + "Cont";
+
+    private native JavaScriptObject markupTextAreaJS(String textAreaId) /*-{
         var ta = $wnd.$("#" + textAreaId);    
         var prev = ta.prev();
-        var container = $wnd.$("<div id=\"" + areaId + "\" class=\"expandingArea\"></div>");
+        var contId = textAreaId + "Cont";
+        var container = $wnd.$("<div id=\"" + contId + "\" class=\"expandingArea active\"></div>");
         if (prev.length == 0) {
             //no previous siblings to come after, just wrap
             ta.wrap(container);
@@ -109,46 +123,40 @@ public class ExpandingTextArea extends TextArea
             container.append(ta);
         }
         ta.before("<pre><span></span><br></pre>");
-        return areaId;      
+        //Return the span as a JQuery object
+        return $wnd.$("#" + contId + " span");      
     }-*/;
-    
-    private native void makeExpandingAreaJS(String contId) /*-{
-        var areas = $wnd.document.querySelectorAll("#" + contId);
-        var container = areas[0];
-    
-        if (container) {
-            var area = container.querySelector('textarea');
-            var span = container.querySelector('span');
-            if (area.addEventListener) {
-                area.addEventListener('input', function() {
-                    span.textContent = area.value;
-                }, false);
-                span.textContent = area.value;
-            } else if (area.attachEvent) {
-                // IE8 compatibility
-                area.attachEvent('onpropertychange', function() {
-                    span.innerText = area.value;
-                });
-                span.innerText = area.value;
-            }
-            // Enable extra CSS
-            container.className += ' active';    
+        
+    private native void manuallyUpdateSpanJS(JavaScriptObject spanJQueryObject, String text) /*-{
+        //We are using JQuery for this because trying to wrap a span element in GWT has a history of not working in Dev Mode 
+        if (spanJQueryObject.length > 0) {
+            spanJQueryObject.html(text);
         }
+    
     }-*/;
-    
-    private native void manuallyUpdatePreJS(String contId) /*-{
-        var areas = $wnd.document.querySelectorAll("#" + contId);
-        var container = areas[0];
-    
-        if (container) {
-            var area = container.querySelector('textarea');
-            var span = container.querySelector('span');
-            if (area.addEventListener) {
-                span.textContent = area.value;
-            } else if (area.attachEvent) {
-                // IE8 compatibility
-                span.innerText = area.value;
-            }
+
+    private void updateSpan()
+    {
+        if (m_span != null) {
+            manuallyUpdateSpanJS(m_span, getValue());
         }
-    }-*/;
+    }
+    
+    @Override
+    public void onChange(ChangeEvent event)
+    {
+        updateSpan();
+    }
+
+    @Override
+    public void onBlur(BlurEvent event)
+    {
+        updateSpan();
+    }
+
+    @Override
+    public void onKeyUp(KeyUpEvent event)
+    {
+        updateSpan();
+    }
 }
