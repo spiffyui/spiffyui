@@ -17,8 +17,12 @@
  ******************************************************************************/
 package org.spiffyui.client.widgets;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.spiffyui.client.JSUtil;
 import org.spiffyui.client.i18n.SpiffyUIStrings;
+import org.spiffyui.client.widgets.listener.SlideDownPrefsPanelToggleListener;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -30,7 +34,8 @@ import com.google.gwt.user.client.ui.Panel;
 /**
  * The SlideDownPrefsPanel shows a tab that sticks to the bottom of the 
  * header of the page.  It slides down when clicked to reveal a preferences
- * panel for the current page.
+ * panel for the current page. It will also fire event and notify
+ * SlideDownPrefsPanelToggleListeners when the panel is toggled (expanded or collapsed)
  */
 public class SlideDownPrefsPanel extends HTMLPanel
 {
@@ -40,6 +45,12 @@ public class SlideDownPrefsPanel extends HTMLPanel
     private boolean m_visible = false;
 
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
+
+    /**
+     * List of listeners for the dropsownselection change widget specific event
+     */
+    private final List<SlideDownPrefsPanelToggleListener> m_listeners = new ArrayList<SlideDownPrefsPanelToggleListener>();
+
     
     /**
      * Creates a new panel with a randomly generated ID
@@ -109,8 +120,10 @@ public class SlideDownPrefsPanel extends HTMLPanel
         
         if (m_visible) {
             getElementById(SlideDownPrefsPanel.this.getElement().getId() + "-link").addClassName("prefspulltabexpanded");
+            fireSlideDownPrefsPanelToggleEvent(true);
         } else {
             getElementById(SlideDownPrefsPanel.this.getElement().getId() + "-link").removeClassName("prefspulltabexpanded");
+            fireSlideDownPrefsPanelToggleEvent(false);
         }
     }
 
@@ -142,6 +155,39 @@ public class SlideDownPrefsPanel extends HTMLPanel
     public void togglePanel()
     {
         toggle();
+    }
+
+
+    /**
+     * Adds a SlideDownPrefsPanelToggleListener to the list of listeners
+     *
+     * @param listener - the listener to add
+     */
+    public void addListener(SlideDownPrefsPanelToggleListener listener)
+    {
+        m_listeners.add(listener);
+    }
+
+    /**
+     * Removes a SlideDownPrefsPanelToggleListener from the list of listeners
+     *
+     * @param listener the listener to remove
+     */
+    public void removeListener(SlideDownPrefsPanelToggleListener listener)
+    {
+        m_listeners.remove(listener);
+    }
+
+    /**
+     * Fires SlideDownPrefsPanelToggle event, and invokes onSlideDownPrefsPanelToggle on all listeners
+     *
+     * @param expand - boolean flag indicating whether the panel is being expanded or collapsed
+     */
+    public void fireSlideDownPrefsPanelToggleEvent(boolean expand)
+    {
+        for (SlideDownPrefsPanelToggleListener listener : m_listeners) {
+            listener.onSlideDownPrefsPanelToggle(expand);
+        }
     }
 
 }
