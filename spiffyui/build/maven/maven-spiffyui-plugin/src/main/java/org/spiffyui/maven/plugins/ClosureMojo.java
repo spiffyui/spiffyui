@@ -70,7 +70,8 @@ public class ClosureMojo extends AbstractMojo
     /**
      * Path to the project .js source for compilation
      * 
-     * @parameter default-value="src/main/js"
+     * @parameter expression="${spiffyui.src.js}" 
+     *            default-value="${basedir}/src/main/js"
      * @required
      */
     private File sourceDirectory;

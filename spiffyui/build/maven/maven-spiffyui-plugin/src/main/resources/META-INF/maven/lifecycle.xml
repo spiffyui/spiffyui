@@ -29,7 +29,7 @@
  			<execution>
  				<goals>
  					<goal>css-compress</goal>
- 					<goal>net.alchim31.maven:yuicompressor-maven-plugin:jslint</goal>
+                    <goal>spiffy-jslint</goal>
  					<goal>resources</goal>
  				</goals>
  			</execution>

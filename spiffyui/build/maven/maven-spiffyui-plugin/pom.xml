@@ -107,7 +107,11 @@
       <artifactId>commons-exec</artifactId>
       <version>1.0.1</version>
     </dependency>
-    
+    <dependency>
+      <groupId>com.googlecode.jslint4java</groupId>
+      <artifactId>jslint4java-maven-plugin</artifactId>
+      <version>2.0.1</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -135,7 +139,7 @@
 	</executions>
       </plugin>
       <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
         <version>1.0</version>
         <executions>

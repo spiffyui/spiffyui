@@ -14,15 +14,20 @@
  *
  ******************************************************************************/
 
+/*jslint strict: false, plusplus: false, sub: true */
+/*global window: true, navigator: true, document: true, importScripts: false,
+  jQuery: true, $: true, clearInterval: false, setInterval: false, self: false,
+  setTimeout: false, opera: false */
+
 /*
  * The main JavaScript file for the SPSample framework
  */
- 
-spsample = {
+
+var spsample = {
     init: function() {
-        
+
         jQuery('#landingPanelText').remove();
-        
+
         /*
          * Almost all of our CSS is in spiffyui.css, but there are always a few
          * tweaks you need to add for IE.  This special style sheet is added only
@@ -37,7 +42,7 @@ spsample = {
                 href: 'spiffyui.ie.css'
             });
         }
-        
+
         /*
          * Now we add the spiffyui.min.css file.  If the URL ends with -debug.html
          * then we'll add the uncompressed version.  We add these files dynamically
@@ -54,11 +59,11 @@ spsample = {
                 href: 'spsample.min.css'
             });
         }
-        
+
         $(window).scroll(function() {
-            
+
             var offset = $(window).scrollTop();
-            
+
             /*
              * We only want to turn the back to top link on if we are scrolled down
              */
@@ -69,7 +74,7 @@ spsample = {
                  */
                 return;
             }
-            
+
             if (offset > 250) {
                 $('#backToTop').show();
             } else {
