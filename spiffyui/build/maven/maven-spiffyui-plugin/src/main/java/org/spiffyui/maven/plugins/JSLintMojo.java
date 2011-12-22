@@ -60,7 +60,8 @@ public class JSLintMojo extends AbstractMojo
      * Specifies the the source files to be excluded for JSLint (relative to
      * {@link #defaultSourceFolder}). Maven applies its own defaults.
      *
-     * @parameter property="excludes"
+     * @parameter expression="${jslint.excludes}" 
+     *            property="excludes"
      */
     private final List<String> excludes = new ArrayList<String>();
 
@@ -69,7 +70,8 @@ public class JSLintMojo extends AbstractMojo
      * {@link #defaultSourceFolder}). If none are given, defaults to
      * <code>**&#47;*.js</code>.
      *
-     * @parameter property="includes"
+     * @parameter expression="${jslint.includes}" 
+     *            property="includes"
      */
     private final List<String> includes = new ArrayList<String>();
 
@@ -87,7 +89,7 @@ public class JSLintMojo extends AbstractMojo
 
     /**
      * Which locations should JSLint look for JavaScript files in? Defaults to
-     * ${basedir}/src/main/webapp.
+     * ${basedir}/src/main/js.
      *
      * @parameter
      */
