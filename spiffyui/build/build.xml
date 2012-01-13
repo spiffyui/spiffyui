@@ -2,7 +2,6 @@
 <project name="Spiffy UI" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:artifact="antlib:org.apache.maven.artifact.ant" default="spiffy" basedir="..">
     <target name="spiffy" depends="setup,resolve">
         <antcall target="compile"/>
-        <antcall target="maven-plugin" />
         <antcall target="js-lint" />
         <antcall target="js-min" />
         <antcall target="css-min" />
@@ -11,6 +10,7 @@
         <antcall target="javadoc-tasks"/>
         <antcall target="package" />
         <antcall target="install-snapshot" />
+        <antcall target="maven-plugin" />
     </target>
     
     <target name="resolve" description="--> retrieve dependencies with ivy" unless="build.from.maven" depends="ivySettings">
@@ -316,7 +316,7 @@
         <delete dir="${spiffy.root}/lib"/>
         <delete dir="${spiffy.root}/target"/>
         <delete file="${spiffy.root}/checkstyle_errors.xml"/>
-	<artifact:mvn mavenVersion="3.0.2"
+	    <artifact:mvn mavenVersion="3.0.2"
 		      pom="${spiffy.build}/maven/maven-spiffyui-plugin/pom.xml">
           <arg value="clean"/>
 	</artifact:mvn>

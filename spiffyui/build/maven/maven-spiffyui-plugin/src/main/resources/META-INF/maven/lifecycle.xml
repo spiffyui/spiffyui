@@ -19,6 +19,7 @@
                 <goals>
                     <goal>build-info</goal>
                     <goal>htmlprops</goal>
+                    <goal>stubsprops</goal>
                 </goals>
             </execution>
         </executions>

@@ -246,6 +246,104 @@ public final class HTMLPropertiesUtil
         }
         
     }
+
+    /**
+     * <p>
+     * Generate the HTML properties file based on the input source files
+     * </p>
+     * 
+     * <p>
+     * GWT can server strings stored in GWT Java files and in Properties files if you use a
+     * Messages class.  These work well for short strings in forms, but aren't well suited to
+     * longer HTML strings.
+     * </p>
+     * 
+     * <p>
+     * This task takes a set of HTML files and creates a GWT Messages class and properties
+     * files where you can access these strings from a GWT class.
+     * </p>
+     * 
+     * <p>
+     * This task also supports localizations by looking at the locale in the file name.  For 
+     * example, a file named myFile.html is assumed to be English and a file named myFile_fr.html
+     * is stored as French.  This task hooks into the GWT localization framework in standard
+     * GWT.
+     * </p>
+     * 
+     * @param files  the HTML source files
+     * @param destinationFile
+     *               the destination properties file
+     * @param packageName
+     *               the name of the package for the Java file.  If the package
+     *               isn't specified the Java file won't be generated.
+     * 
+     * @throws IOException
+     *                if there is an error writing the file
+     */
+    public static void generateEmptyPropertiesFiles(final List<File> files, final File destinationFile, final String packageName)
+        throws IOException
+    {
+        if (destinationFile == null) {
+            throw new IllegalArgumentException("Must specify a Properties file destination");
+        }
+        
+        if (files == null ||
+            files.size() == 0) {
+            /*
+             If there are no input files then there is nothing to do
+             */
+            return;
+        }
+        
+        HashMap<String, Properties> props = new HashMap<String, Properties>();
+        ArrayList<String> methods = new ArrayList<String>();
+        
+        for (File f : files) {
+            Locale loc = findLocale(f.getName());
+            String name = f.getName();
+            if (loc != null) {
+                /*
+                 Then we want to take the locale out of the file name
+                 */
+                name = name.substring(0, name.lastIndexOf('.') - loc.toString().length() - 1) + 
+                    name.substring(name.lastIndexOf('.'), name.length());
+            }
+            
+            if (!methods.contains(name)) {
+                methods.add(name);
+            }
+            
+            getProperties(loc, props).setProperty(name.replace(' ', '_').replace('.', '_'), " ");
+                
+            if (packageName != null) {
+                File javaFile = new File(destinationFile.getParentFile(),
+                                         destinationFile.getName().substring(0, destinationFile.getName().lastIndexOf('.')) + ".java");
+                
+                generateJavaFile(methods, javaFile, packageName);
+            }
+        }
+        
+        /*
+         Now we need to write out all the properties files
+         */
+        for (String loc : props.keySet()) {
+            PrintWriter out = null;
+            try {
+                String name = destinationFile.getName();
+                name = name.substring(0, name.lastIndexOf('.')) + loc + 
+                    name.substring(name.lastIndexOf('.'), name.length());
+                
+                out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(
+                    new File(destinationFile.getParentFile(), name)), "UTF-8"));
+                props.get(loc).store(out, "");
+            } finally {
+                if (out != null) {
+                    out.close();
+                }
+            }
+        }
+        
+    }
     
     private static final String START = 
         "import com.google.gwt.i18n.client.Messages;\n\n" + 

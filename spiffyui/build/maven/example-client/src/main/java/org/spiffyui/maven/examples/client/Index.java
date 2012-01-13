@@ -32,6 +32,7 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
     private TextBox m_text = new TextBox();
     private LongMessage m_longMessage = new LongMessage("longMsg");
     private static final SpiffyUiHtml STRINGS = (SpiffyUiHtml) GWT.create(SpiffyUiHtml.class);
+    private static final SpiffyUiStubs STUBS = (SpiffyUiStubs) GWT.create(SpiffyUiStubs.class);
 
     /**
      * The Index page constructor
