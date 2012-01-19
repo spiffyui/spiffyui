@@ -148,7 +148,6 @@ public class StubsPropsMojo extends AbstractMojo
             "js", "json"
         };
         List<File> files = new ArrayList<File>(FileUtils.listFiles(sourceDirectory, exts, true));
-        System.out.println("files: " + files);
         
         if (!outputDirectory.exists()) {
             FileUtils.forceMkdir(outputDirectory);
