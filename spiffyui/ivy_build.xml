@@ -7,7 +7,7 @@
         <dependency org="com.google.gwt" name="gwt-dev" rev="2.4.0"/>
         <dependency org="com.googlecode.jslint4java" name="jslint4java" rev="1.4.7"/>
         <dependency org="com.googlecode.jslint4java" name="jslint4java-ant" rev="1.4.7"/>
-        <dependency org="com.google.javascript" name="closure-compiler" rev="r1459"/>
+        <dependency org="com.google.javascript" name="closure-compiler" rev="r1741"/>
         
         <!-- These dependencies are for Checkstyle -->
         <dependency org="com.puppycrawl.tools" name="checkstyle" rev="5.4">
