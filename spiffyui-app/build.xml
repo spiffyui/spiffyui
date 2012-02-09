@@ -66,7 +66,7 @@
         <ivy:retrieve log="download-only" />
     </target>
     
-    <property name="ivy.install.version" value="2.1.0-rc2" />
+    <property name="ivy.install.version" value="2.2.0" />
     <condition property="ivy.home" value="${env.IVY_HOME}">
       <isset property="env.IVY_HOME" />
     </condition>
