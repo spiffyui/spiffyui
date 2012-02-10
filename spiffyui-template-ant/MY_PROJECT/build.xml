@@ -13,10 +13,6 @@
         
         <!-- Then we make the strings from out HTML file available in our project. -->
         <mkdir dir="${target.classes}/MY_FILE_PATH/client"/>
-        <htmlprops properties="${target.classes}/MY_FILE_PATH/client/Strings.properties"
-                   package="MY_PACKAGE.client">
-            <fileset dir="${src}/MY_FILE_PATH/client" includes="**/*.html" />
-        </htmlprops>
         
         <!-- Now we compile and package our project. -->
         <antcall target="gwt-compile">

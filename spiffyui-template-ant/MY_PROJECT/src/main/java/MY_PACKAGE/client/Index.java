@@ -17,6 +17,8 @@
  ******************************************************************************/
 package MY_PACKAGE.client;
 
+import MY_PACKAGE.client.resources.HTMLResources;
+
 import org.spiffyui.client.JSONUtil;
 import org.spiffyui.client.MainFooter;
 import org.spiffyui.client.MainHeader;
@@ -46,8 +48,6 @@ import com.google.gwt.user.client.ui.TextBox;
  */
 public class Index implements EntryPoint, ClickHandler, KeyPressHandler 
 {
-    private static final Strings STRINGS = (Strings) GWT.create(Strings.class);
-
     private static Index g_index;
     private TextBox m_text = new TextBox();
     private LongMessage m_longMessage = new LongMessage("longMsgPanel");
@@ -82,7 +82,7 @@ public class Index implements EntryPoint, ClickHandler, KeyPressHandler
          MainPanel_html was built in the HTMLProps task from MainPanel.html, which allows you to use large passages of html
          without having to string escape them.
          */
-        HTMLPanel panel = new HTMLPanel(STRINGS.MainPanel_html())
+        HTMLPanel panel = new HTMLPanel(HTMLResources.INSTANCE.getMainPanelHTML().getText())
         {
             @Override
             public void onLoad()
