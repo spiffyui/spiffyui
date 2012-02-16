@@ -337,7 +337,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
         /*
          * Add the multivalue suggest box
          */
-        FancyAutocompleter msb = new FancyAutocompleter(new MultivalueSuggestRESTHelper("TotalSize", "Options", "DisplayName", "Value") {
+        final FancyAutocompleter msb = new FancyAutocompleter(new MultivalueSuggestRESTHelper("TotalSize", "Options", "DisplayName", "Value") {
             
             @Override
             public String buildUrl(String q, int indexFrom, int indexTo)
@@ -346,15 +346,45 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
             }
         }, true);
         msb.getFeedback().addStyleName("msg-feedback");
-        msb.setPageSize(8); //since each value takes up more space, let's cute the size.
+        msb.setPageSize(8); //since each value takes up more space, let's cut the size.
         
         String spanId = "WidgetsSuggestBox";
-        HTMLPanel panel = addToSlidingGrid(msb, spanId, Index.getStrings().mvsp(), STRINGS.MultiVal_html(), WIDE);
+        HTMLPanel panel = addToSlidingGrid(msb, spanId, Index.getStrings().mvsp(), STRINGS.MultiVal_html(), BIG);
         /*
          * so that spellcheck is not done on a selected crayon color of "Screamin' Green"
          */
         Element span = panel.getElementById(spanId);
         span.setAttribute("spellcheck", "false");
+        
+//        /*
+//         * temp to show how to get values and how to
+//         * have a default value of Electric Lime
+//         */
+//        Map<String, String> valueMap = new HashMap<String, String>();
+//        valueMap.put("Electric Lime", "#CEFF1D");
+//        msb.setValueMap(valueMap);
+//        
+//        final Button b = new Button("get values");
+//        panel.add(b);
+//        b.addClickHandler(new ClickHandler() {
+//            
+//            @Override
+//            public void onClick(ClickEvent event)
+//            {
+//                Map<String, String> values = msb.getValueMap();
+//                ConfirmDialog c = new ConfirmDialog("mvsb-results-dialog", "Results");
+//                StringBuffer sb = new StringBuffer();
+//                for (String key : values.keySet()) {
+//                    sb.append("<div style=\"background-color:" + values.get(key) + "\">" + key + "</div>");
+//                }
+//                c.replaceDialogBodyContents(new HTML(sb.toString()));
+//                c.addButton("mvsb-dialog-ok", "Close", "OK");
+//                c.showRelativeTo(b);
+//            }
+//        });
+//        /*
+//         * end temp
+//         */
         
     }
     

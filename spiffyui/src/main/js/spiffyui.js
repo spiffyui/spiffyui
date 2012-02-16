@@ -18,6 +18,17 @@
  * The main JavaScript file for the Spiffy UI framework
  */
  
+$.fn.textWidth = function(){
+    var val = $(this).val();
+    var span = $('<span>' + val + '</span>');
+    $(this).parent().append(span);
+    var width = span.width();
+    
+    span.remove();
+    
+    return width;
+};
+
 spiffyui = {
     
     /*

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import org.spiffyui.client.JSONUtil;
 import org.spiffyui.client.JSUtil;
@@ -30,6 +31,11 @@ import org.spiffyui.client.rest.RESTObjectCallBack;
 import org.spiffyui.client.widgets.FormFeedback;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
@@ -42,22 +48,23 @@ import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Focusable;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.SuggestOracle.Callback;
 import com.google.gwt.user.client.ui.SuggestOracle.Request;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
-import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.TextBoxBase;
 
 /**
 * A SuggestBox that allows for multiple values selection and autocomplete.
 */
-public abstract class MultivalueSuggestBoxBase extends Composite implements SelectionHandler<Suggestion>, Focusable, KeyUpHandler, HasValueChangeHandlers<String>
+public abstract class MultivalueSuggestBoxBase extends Composite implements SelectionHandler<Suggestion>, Focusable, KeyUpHandler, 
+    HasValueChangeHandlers<String>
 {
     private MultivalueSuggestHelper m_helper;
 
@@ -82,6 +89,13 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
 
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
 
+    private final String m_selectedItemsContainerId = HTMLPanel.createUniqueId();
+    private final String m_suggestBoxContainerId = HTMLPanel.createUniqueId();
+    private final Stack<SelectedItem> m_selectedItems = new Stack<SelectedItem>();
+    private int m_lastCurPos = 0;
+    
+    private HTMLPanel m_panel;
+    
     /**
      * Constructor that will place the FormFeedback for you.
      * 
@@ -104,36 +118,54 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         m_helper = helper;
         m_isMultivalued = isMultivalued;
 
-        FlowPanel panel = new FlowPanel();
-        TextBoxBase textfield;
-        if (isMultivalued) {
-            panel.addStyleName("textarearow");
-            textfield = new TextArea();
-        } else {
-            panel.addStyleName("textfieldrow");
-            textfield = new TextBox();
-        }
+        
+        m_panel = createMainPanel(isMultivalued, m_selectedItemsContainerId, m_suggestBoxContainerId);
+        m_panel.addStyleName("spiffy-mvsb");
+        
+        final TextBoxBase textfield = new TextBox();
+//        if (isMultivalued) {
+//            m_panel.addStyleName("textarearow");
+////            textfield = new TextArea();
+//        } else {
+//            m_panel.addStyleName("textfieldrow");
+////            textfield = new TextBox();
+//        }
 
         //Create our own SuggestOracle that queries REST endpoint
         SuggestOracle oracle = new RestSuggestOracle();
         //initialize the SuggestBox
         m_field = new SuggestBox(oracle, textfield);
+        m_feedback = new FormFeedback();
+        
         if (isMultivalued) {
+            m_panel.addStyleName("wideTextField");        
+            m_panel.addStyleName("multivalue");
             //have to do this here b/c gwt suggest box wipes 
             //style name if added in previous if
-            textfield.addStyleName("multivalue");            
+            textfield.addStyleName("multivalue"); 
+            
+            textfield.addKeyPressHandler(new KeyPressHandler()
+            {
+                @Override
+                public void onKeyPress(KeyPressEvent event)
+                {
+                    adjustTextWidth();
+                    m_lastCurPos = textfield.getCursorPos();
+                }
+            });
+        } else {
+            m_field.addStyleName("wideTextField");
         }
-        m_field.addStyleName("wideTextField");
         m_field.addSelectionHandler(this);
-        m_field.addKeyUpHandler(this);
-
-        panel.add(m_field);
-        m_feedback = new FormFeedback();
+        m_field.getTextBox().addKeyUpHandler(this);
+                
+        m_panel.add(m_field, m_suggestBoxContainerId);
+        
         if (placeFormFeedback) {
-            panel.add(m_feedback);
+            m_panel.add(m_feedback);
         }
-
-        initWidget(panel);
+        
+        initWidget(m_panel);
 
         /*
          * Create a Map that holds the values that should be stored.
@@ -148,6 +180,23 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         m_loadingText = STRINGS.loading();
     }
     
+    @Override
+    public void onLoad()
+    {
+        /*
+         * adjust the text width once this has been
+         * added to the DOM, for multivalued
+         */
+        if (m_isMultivalued) {
+            adjustTextWidth();
+        }
+    }
+    
+    private static HTMLPanel createMainPanel(boolean multivalued, String selectedContainerId, String mvsuggestContainerId)
+    {
+        return new HTMLPanel("<span class=\"spiffy-mvsb-selected-items\" id=\"" + selectedContainerId + "\"></span>" +
+                "<span class=\"spiffy-mvsb-input\" id=\"" + mvsuggestContainerId + "\"></span>");
+    }
     /**
      * Get the suggest helper for this suggest box.
      * 
@@ -192,8 +241,22 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         JSUtil.println("putting key = " + key + "; value = " + value);
         m_valueMap.put(key, value);
         ValueChangeEvent.fire(this, value);
+        
+        if (m_isMultivalued) {
+            addSelectedItem(key);
+        }
     }
 
+    private void removeValue(SelectedItem item)
+    {
+        String key = item.getDisplay();
+        String value = m_valueMap.get(key);
+        JSUtil.println("removing key = " + key + "; value = " + value);
+        m_valueMap.remove(key);
+        ValueChangeEvent.fire(this, value);    
+        
+        item.removeFromParent();
+    }
     /**
      * Get the value(s) as a String.  If allowing multivalues, separated by the VALUE_DELIM
      * @return value(s) as a String
@@ -206,10 +269,9 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
 
         String values = "";
         String invalids = "";
-        String newKeys = "";
+//        String newKeys = "";
         if (m_isMultivalued) {
-            String[] keys = text.split(m_displaySeparator);
-            for (String key : keys) {
+            for (String key : m_valueMap.keySet()) {
                 key = key.trim();
                 if (!key.isEmpty()) {
                     String v = m_valueMap.get(key);
@@ -217,7 +279,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
                     if (null != v) {
                         values += v + m_valueDelim;
                         //rebuild newKeys removing invalids and dups
-                        newKeys += key + m_displaySeparator;
+//                        newKeys += key + m_displaySeparator;
                     } else {
                         invalids += key + m_displaySeparator;
                     }
@@ -225,7 +287,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
             }
             values = trimLastDelimiter(values, m_valueDelim);
             //set the new display values
-            m_field.setText(newKeys);
+//            m_field.setText(newKeys);
         } else {
             values = m_valueMap.get(text);
         }
@@ -249,11 +311,36 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     }
 
     /**
+     * Call this method to set the default values.
+     * If it is multi-valued, SelectedItems
+     * will be added for each entry
      * @param valueMap the valueMap to set
      */
     public void setValueMap(Map<String, String> valueMap)
     {
         m_valueMap = valueMap;
+        
+        m_selectedItems.clear();
+            
+        for (String key : valueMap.keySet()) {
+            if (m_isMultivalued) {
+                addSelectedItem(key);
+                m_field.setText("");
+            } else {
+                m_field.setText(key);
+            }
+        }
+            
+    }
+    
+    private void addSelectedItem(String key)
+    {
+        /*
+         * Create span for this item
+         */        
+        SelectedItem item = new SelectedItem(HTMLPanel.createUniqueId(), key);
+        m_panel.add(item, m_selectedItemsContainerId);
+        m_selectedItems.push(item);
     }
 
     /**
@@ -339,13 +426,13 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         if (totSize == 1) {
             //an exact match was found, so place it in the value map
             Option option = optResults.getOptions()[0];                        
-            extactMatchFound(displayValue, position, option);
+            exactMatchFound(displayValue, position, option);
         } else {
             //try to find the exact matches within the results
             boolean found = false;
             for (Option option : optResults.getOptions()) {
                 if (displayValue.equalsIgnoreCase(option.getName())) {
-                    extactMatchFound(displayValue, position, option);
+                    exactMatchFound(displayValue, position, option);
                     found = true;
                     break;
                 }
@@ -359,21 +446,25 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
 
     }
 
-    private void extactMatchFound(String displayValue, final int position, Option option)
+    private void exactMatchFound(String displayValue, final int position, Option option)
     {
         putValue(option.getName(), option.getValue());
         JSUtil.println("extactMatchFound ! exact match found for displ = " + displayValue);
 
-        //and replace the text
-        String text = m_field.getText();
-        String[] keys = text.split(m_displaySeparator.trim());
-        keys[position] = option.getName();
-        String join = "";
-        for (String n : keys) {
-            join += n.trim() + m_displaySeparator;
+        //and replace the text if single valued, otherwise clear b/c a SelectedItem will be added
+        if (!m_isMultivalued) {
+            String text = m_field.getText();
+            String[] keys = text.split(m_displaySeparator.trim());
+            keys[position] = option.getName();
+            String join = "";
+            for (String n : keys) {
+                join += n.trim() + m_displaySeparator;
+            }
+            join = trimLastDelimiter(join, m_displaySeparator);
+            m_field.setText(join);
+        } else {
+            m_field.setText("");
         }
-        join = trimLastDelimiter(join, m_displaySeparator);
-        m_field.setText(join);
 
         m_findExactMatchesFound++;
     }
@@ -424,6 +515,15 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         return option;
     }
     
+    private void adjustTextWidth()
+    {
+        m_field.getTextBox().setWidth((getTextWidth("#" + m_suggestBoxContainerId + " > input") + 20) + "px");
+    }
+
+    private static native int getTextWidth(String textFieldSelector) /*-{
+        return $wnd.$(textFieldSelector).textWidth();
+    }-*/;
+    
     /**
      * Create and return a new OptionSuggestion with fields populated
      * @param o - the Option to get values to populate the OptionSuggestion
@@ -465,6 +565,9 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
                 //add the option's value to the value map            
                 putValue(osugg.getName(), value);
 
+                if (m_isMultivalued) {
+                    m_field.setText("");
+                }
                 //put the focus back into the textfield so user
                 //can enter more
                 m_field.setFocus(true);
@@ -551,7 +654,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
      */
     public HandlerRegistration addKeyUpHandler(KeyUpHandler handler)
     {
-        return m_field.addKeyUpHandler(handler);
+        return m_field.getTextBox().addKeyUpHandler(handler);
     }
 
     @Override
@@ -569,12 +672,29 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
          * Here, the FormFeedback is reset.
          */
         updateFormFeedback(FormFeedback.NONE, "");
-        deleteUnusedItems();
+
+        if (!m_isMultivalued) {
+            deleteUnusedItems();
+        } else {
+            if (m_lastCurPos == 0 && !m_selectedItems.empty() && KeyCodes.KEY_BACKSPACE == event.getNativeKeyCode()) {
+                /*
+                 * If there is nothing in the text field and user continues to press Backspace, 
+                 * pop off the last selected item
+                 */
+    
+                SelectedItem item = m_selectedItems.pop();
+                removeValue(item);
+                
+            }
+            m_lastCurPos = m_field.getTextBox().getCursorPos();
+            
+        }
     }
     
     /**
      * If the user is editing the field they may remove one or more items that are in our map.
-     * In that case we need to remove those values from our map.
+     * In that case we need to remove those values from our map.  This is still relevant
+     * for single valued.
      */
     private void deleteUnusedItems()
     {
@@ -631,7 +751,6 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     {
         m_delay = delay;
     }
-
 
     /**
      * Get the FormFeedback widget used.
@@ -855,8 +974,12 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
                 Option o = optResults.getOptions()[0];
                 String displ = o.getName();
 
-                //remove the last bit up to separator
-                m_field.setText(getFullReplaceText(displ, m_request.getQuery()));
+                if (!m_isMultivalued) {
+                    //remove the last bit up to separator
+                    m_field.setText(getFullReplaceText(displ, m_request.getQuery()));
+                } else {
+                    m_field.setText("");
+                }
 
                 JSUtil.println("RestSuggestCallback.success! exact match found for displ = " + displ);
 
@@ -1094,6 +1217,70 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         {
             return m_totalSize;
         }     
+    }
+    
+    /**
+     * This class represents a UI element for a selected item.
+     * It will have an anchor with an X to allow for this item to
+     * be dismissed
+     */
+    protected class SelectedItem extends HTMLPanel implements ClickHandler
+    {
+        private String m_display;
+        /**
+         * Constructor
+         * @param id - the elements unique id
+         * @param display - the string to display
+         */
+        public SelectedItem(String id, String display)
+        {
+            super("span", "<span class=\"spiffy-mvsb-item\" id=\"" + id + 
+                    "_main\">" + display +
+                    "</span>");
+            Anchor close = new Anchor();
+            close.setHref("#");
+            close.setTitle(STRINGS.close());
+            close.addStyleName("spiffy-mvsb-remove");
+            add(close, id + "_main");
+            close.addClickHandler(this);
+            
+            getElement().setId(id);
+            m_display = display;
+        }
+
+        @Override
+        public void onClick(ClickEvent event)
+        {
+            event.preventDefault();
+            remove();
+        }
+        
+        /**
+         * Remove this selected item
+         */
+        public void remove()
+        {
+            removeValue(this);
+            m_selectedItems.remove(this);
+        }
+
+        /**
+         * Get the display string
+         * @return the display string
+         */
+        public String getDisplay()
+        {
+            return m_display;
+        }
+//        @Override
+//        public boolean equals(Object o)
+//        {
+//            if (o instanceof SelectedItem) {
+//                SelectedItem si = (SelectedItem) o;
+//                return si.getElement().getId().equals(getElement().getId());
+//            }
+//            return false;
+//        }
     }
 
 }
