@@ -1153,4 +1153,5 @@ iframe {
 
 .expandingArea.active > pre {
     font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2";
+    width: 290px; /* same as computed width of .expandingArea > textarea so there's no lag in expanding */)
 }
