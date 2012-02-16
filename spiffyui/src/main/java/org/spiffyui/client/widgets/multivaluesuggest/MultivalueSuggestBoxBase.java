@@ -121,6 +121,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         
         m_panel = createMainPanel(isMultivalued, m_selectedItemsContainerId, m_suggestBoxContainerId);
         m_panel.addStyleName("spiffy-mvsb");
+        m_panel.getElement().setId(HTMLPanel.createUniqueId());
         
         final TextBoxBase textfield = new TextBox();
 //        if (isMultivalued) {
@@ -189,6 +190,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
          */
         if (m_isMultivalued) {
             adjustTextWidth();
+            bindFocusHandler(getElement().getId(), m_suggestBoxContainerId);
         }
     }
     
@@ -243,7 +245,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         ValueChangeEvent.fire(this, value);
         
         if (m_isMultivalued) {
-            addSelectedItem(key);
+            createAndPushSelectedItem(key);
         }
     }
 
@@ -324,7 +326,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
             
         for (String key : valueMap.keySet()) {
             if (m_isMultivalued) {
-                addSelectedItem(key);
+                createAndPushSelectedItem(key);
                 m_field.setText("");
             } else {
                 m_field.setText(key);
@@ -333,7 +335,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
             
     }
     
-    private void addSelectedItem(String key)
+    private void createAndPushSelectedItem(String key)
     {
         /*
          * Create span for this item
@@ -522,6 +524,12 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
 
     private static native int getTextWidth(String textFieldSelector) /*-{
         return $wnd.$(textFieldSelector).textWidth();
+    }-*/;
+    
+    private static native void bindFocusHandler(String panelId, String suggestBoxContainerId) /*-{
+        $wnd.$("#" + panelId).click(function(evt) {
+            $wnd.$("#" + suggestBoxContainerId + " > input").focus();
+        });
     }-*/;
     
     /**
@@ -1272,15 +1280,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         {
             return m_display;
         }
-//        @Override
-//        public boolean equals(Object o)
-//        {
-//            if (o instanceof SelectedItem) {
-//                SelectedItem si = (SelectedItem) o;
-//                return si.getElement().getId().equals(getElement().getId());
-//            }
-//            return false;
-//        }
+        
     }
 
 }
