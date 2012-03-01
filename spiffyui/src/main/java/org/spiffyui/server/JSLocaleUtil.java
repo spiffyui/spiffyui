@@ -121,6 +121,14 @@ public final class JSLocaleUtil
         }
 
         Set set = context.getResourcePaths("/js/lib/i18n");
+        if (set == null) {
+            /*
+             * This means that they didn't set up their build properly 
+             * and the localization files aren't in the right location.
+             */
+            throw new IllegalStateException("Unable to find JavaScript date localization files.  They must be available in the WAR at /js/lib/i18n");
+        }
+
         Iterator iter = set.iterator();
         while (iter.hasNext()) {
             String file = iter.next().toString();
