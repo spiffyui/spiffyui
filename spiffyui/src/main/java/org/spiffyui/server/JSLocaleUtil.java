@@ -53,6 +53,8 @@ public final class JSLocaleUtil
     
     private static final ArrayList<Locale> MINIMUM_LOCALES = new ArrayList<Locale>();
 
+    private static final String DEFAULT_RESOURCE_PATH = "/js/lib/i18n";
+
     /**
      * Get the right file name for the specified resource name and the locale
      * (which was already determined to be the best match locale).
@@ -69,7 +71,27 @@ public final class JSLocaleUtil
     public static String getFile(String resourceName, Locale locale, ServletContext context)
         throws ServletException
     {
-        populateMap(context);
+        return getFile(resourceName, locale, context, DEFAULT_RESOURCE_PATH);
+    }
+
+    /**
+     * Get the right file name for the specified resource name and the locale
+     * (which was already determined to be the best match locale).
+     * 
+     * @param resourceName
+     *                The resource name.  If your looking for a file like date-en-US.js the the resource name is date
+     * @param locale  The locale of the requested file
+     * @param context the servlet context
+     * @param resourcePath the path in the WAR to look for the JavaScript localization files
+     * 
+     * @return the file name
+     * @exception ServletException
+     *                   if there is an error accessing the servlet context
+     */
+    public static String getFile(String resourceName, Locale locale, ServletContext context, String resourcePath)
+        throws ServletException
+    {
+        populateMap(context, resourcePath);
 
         String resource = resourceName + "-" + locale.toString() + ".js";
         
@@ -111,7 +133,7 @@ public final class JSLocaleUtil
         }
     }
 
-    private static synchronized void populateMap(ServletContext context)
+    private static synchronized void populateMap(ServletContext context, String resourcePath)
     {
         if (RESOURCES.size() > 0) {
             /*
@@ -120,7 +142,7 @@ public final class JSLocaleUtil
             return;
         }
 
-        Set set = context.getResourcePaths("/js/lib/i18n");
+        Set set = context.getResourcePaths(resourcePath);
         if (set == null) {
             /*
              * This means that they didn't set up their build properly 
@@ -220,9 +242,23 @@ public final class JSLocaleUtil
      */
     public static List<Locale> getMinimumSupportedLocales(ServletContext context)
     {
+        return getMinimumSupportedLocales(context, DEFAULT_RESOURCE_PATH);
+    }
+
+    /**
+     * Get the list of minimum supported locales.  This list is the smallest number of
+     * locales supported by one of the JavaScript files is the js/lib/i18n directory.
+     * 
+     * @param context the servlet context for loading the available locales
+     * @param resourcePath the path in the WAR to look for the JavaScript localization files
+     * 
+     * @return The minimum list of supported locales
+     */
+    public static List<Locale> getMinimumSupportedLocales(ServletContext context, String resourcePath)
+    {
         if (MINIMUM_LOCALES.size() == 0) {
             synchronized (MINIMUM_LOCALES) {
-                calculateMinimumSupportedLocales(context);
+                calculateMinimumSupportedLocales(context, resourcePath);
             }
         }
         
@@ -234,9 +270,9 @@ public final class JSLocaleUtil
         
     }
     
-    private static void calculateMinimumSupportedLocales(ServletContext context)
+    private static void calculateMinimumSupportedLocales(ServletContext context, String resourcePath)
     {
-        populateMap(context);
+        populateMap(context, resourcePath);
         Map<Locale, String> map = null;
 
         for (String file : RESOURCES.keySet()) {
