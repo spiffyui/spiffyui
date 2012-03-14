@@ -218,10 +218,8 @@ public final class AuthServlet extends HttpServlet
      */
     private int getPort(URL url)
     {
-        if (url.getPort()  == -1 && "http".equals(url.getProtocol())) {
-            return 80;
-        } else if (url.getPort()  == -1 && "https".equals(url.getProtocol())) {
-            return 443;
+        if (url.getPort()  == -1) {
+            return url.getDefaultPort();
         } else {
             return url.getPort();
         }
