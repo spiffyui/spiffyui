@@ -199,10 +199,31 @@ public final class AuthServlet extends HttpServlet
             boolean isHostValid = tsUrl.getHost().equals(serverUrl.getHost()) ||
                 tsUrl.getHost().equals("localhost") ||
                 tsUrl.getHost().startsWith("127.0.0.");
-    
+            
             return isHostValid &&
-                tsUrl.getPort() == serverUrl.getPort() &&
+                getPort(tsUrl) == getPort(serverUrl) &&
                 tsUrl.getProtocol().equals(serverUrl.getProtocol());
+        }
+    }
+    
+    
+    /**
+     * The JDK will return -1 for the port number if no port is specified, but the URLs can 
+     * also have a default port.  This method handles getting the port number including the
+     * default ports for the URL.
+     * 
+     * @param url    the URL to get the port for
+     * 
+     * @return the port from the URL
+     */
+    private int getPort(URL url)
+    {
+        if (url.getPort()  == -1 && "http".equals(url.getProtocol())) {
+            return 80;
+        } else if (url.getPort()  == -1 && "https".equals(url.getProtocol())) {
+            return 443;
+        } else {
+            return url.getPort();
         }
     }
 
