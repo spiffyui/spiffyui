@@ -396,42 +396,42 @@ public class Slider extends Widget
      */
     
     private native void setIntOptionJS(String id, String option, int value) /*-{
-        $wnd.$("#" + id).slider("option", option, value);
+        $wnd.jQuery("#" + id).slider("option", option, value);
     }-*/;
     
     
     private native int getIntOptionJS(String id, String option) /*-{
-        return $wnd.$("#" + id).slider("option", option);
+        return $wnd.jQuery("#" + id).slider("option", option);
     }-*/;
 
     
     private native void setBooleanOptionJS(String id, String option, boolean value) /*-{
-        $wnd.$("#" + id).slider("option", option, value);
+        $wnd.jQuery("#" + id).slider("option", option, value);
     }-*/;
     
     
     private native boolean getBooleanOptionJS(String id, String option) /*-{
-        return $wnd.$("#" + id).slider("option", option);
+        return $wnd.jQuery("#" + id).slider("option", option);
     }-*/;
 
     
     private native void setStringOptionJS(String id, String option, String value) /*-{
-        $wnd.$("#" + id).slider("option", option, value);
+        $wnd.jQuery("#" + id).slider("option", option, value);
     }-*/;
     
     
     private native String getStringOptionJS(String id, String option) /*-{
-        return $wnd.$("#" + id).slider("option", option);
+        return $wnd.jQuery("#" + id).slider("option", option);
     }-*/;
 
     
     private native void setValuesJS(String id, JavaScriptObject values) /*-{
-        $wnd.$("#" + id).slider("option", "values", values);
+        $wnd.jQuery("#" + id).slider("option", "values", values);
     }-*/;
     
     
     private native int getValueJS(String id, int index) /*-{
-        return $wnd.$("#" + id).slider("values", index);
+        return $wnd.jQuery("#" + id).slider("values", index);
     }-*/;
     
     
@@ -450,11 +450,11 @@ public class Slider extends Widget
             x.@org.spiffyui.client.widgets.slider.Slider::fireOnStopEvent(Lcom/google/gwt/user/client/Event;Lcom/google/gwt/core/client/JsArrayInteger;)(event, ui.values);
         };
         
-        $wnd.$("#" + id).slider(options);
+        $wnd.jQuery("#" + id).slider(options);
     }-*/;
 
 
     private native void destroySliderJS(Slider x, String id) /*-{
-        $wnd.$("#" + id).slider("destroy");
+        $wnd.jQuery("#" + id).slider("destroy");
     }-*/;
 }

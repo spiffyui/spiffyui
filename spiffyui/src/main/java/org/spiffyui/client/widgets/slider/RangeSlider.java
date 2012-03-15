@@ -102,8 +102,8 @@ public class RangeSlider extends Slider
     }
     
     private native void addSliderClasses(String id) /*-{
-        $wnd.$("#" + id).children('a:first').addClass('spiffy-rangeSliderLeft');
-        $wnd.$("#" + id).children('a:last').addClass('spiffy-rangeSliderRight');
+        $wnd.jQuery("#" + id).children('a:first').addClass('spiffy-rangeSliderLeft');
+        $wnd.jQuery("#" + id).children('a:last').addClass('spiffy-rangeSliderRight');
     }-*/;
     
 }

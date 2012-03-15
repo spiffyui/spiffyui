@@ -79,7 +79,7 @@ public class TimePickerTextBox extends TextBox implements Event.NativePreviewHan
 
     private native void addTimePickerJS(String id, boolean is24Hour, String tpDivId) /*-{ 
         try {
-            $wnd.$("#" + id).timePicker({
+            $wnd.jQuery("#" + id).timePicker({
                 startTime: is24Hour ? "0:00" : "12:00", // Using string. Can take string or Date object.
                 show24Hours: is24Hour,
                 step: 30,

@@ -110,10 +110,10 @@ public class ExpandingTextArea extends TextArea implements ChangeHandler, KeyUpH
     
 
     private native JavaScriptObject markupTextAreaJS(String textAreaId) /*-{
-        var ta = $wnd.$("#" + textAreaId);    
+        var ta = $wnd.jQuery("#" + textAreaId);    
         var prev = ta.prev();
         var contId = textAreaId + "Cont";
-        var container = $wnd.$("<div id=\"" + contId + "\" class=\"expandingArea active\"></div>");
+        var container = $wnd.jQuery("<div id=\"" + contId + "\" class=\"expandingArea active\"></div>");
         if (prev.length == 0) {
             //no previous siblings to come after, just wrap
             ta.wrap(container);
@@ -124,7 +124,7 @@ public class ExpandingTextArea extends TextArea implements ChangeHandler, KeyUpH
         }
         ta.before("<pre><span></span><br></pre>");
         //Return the span as a JQuery object
-        return $wnd.$("#" + contId + " span");      
+        return $wnd.jQuery("#" + contId + " span");      
     }-*/;
         
     private native void manuallyUpdateSpanJS(JavaScriptObject spanJQueryObject, String text) /*-{

@@ -18,10 +18,10 @@
  * The main JavaScript file for the Spiffy UI framework
  */
  
-$.fn.textWidth = function(){
-    var val = $(this).val();
-    var span = $('<span>' + val + '</span>');
-    $(this).parent().append(span);
+jQuery.fn.textWidth = function(){
+    var val = jQuery(this).val();
+    var span = jQuery('<span>' + val + '</span>');
+    jQuery(this).parent().append(span);
     var width = span.width();
     
     span.remove();
@@ -401,7 +401,7 @@ spiffyui = {
              */
             if (navigator.appName === 'Microsoft Internet Explorer') {
                 jQuery('head').prepend('<link>');
-                css = $('head').children(':first');
+                css = jQuery('head').children(':first');
                 css.attr({
                     rel:  'stylesheet',
                     type: 'text/css',
@@ -418,7 +418,7 @@ spiffyui = {
              */
             if (window.location.href.indexOf('-debug.htm') > -1) {
                 jQuery('head').prepend('<link>');
-                css = $('head').children(':first');
+                css = jQuery('head').children(':first');
                 css.attr({
                     rel:  'stylesheet',
                     type: 'text/css',
@@ -426,7 +426,7 @@ spiffyui = {
                 });
             } else {
                 jQuery('head').prepend('<link>');
-                css = $('head').children(':first');
+                css = jQuery('head').children(':first');
                 css.attr({
                     rel:  'stylesheet',
                     type: 'text/css',

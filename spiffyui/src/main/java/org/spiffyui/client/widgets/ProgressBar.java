@@ -100,14 +100,14 @@ public class ProgressBar extends SimplePanel
     }
     
     private static native void setValueJS(String id, int barValue) /*-{
-        $wnd.$('#' + id).progressbar('destroy');
-        $wnd.$('#' + id).progressbar({
+        $wnd.jQuery('#' + id).progressbar('destroy');
+        $wnd.jQuery('#' + id).progressbar({
             value: barValue
         });
     }-*/;
     
     private static native void addProgressBarJS(String id, int barValue) /*-{
-        $wnd.$("#" + id).progressbar({
+        $wnd.jQuery("#" + id).progressbar({
             value: barValue
         });
     }-*/;

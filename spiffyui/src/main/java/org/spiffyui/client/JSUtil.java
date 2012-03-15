@@ -570,7 +570,7 @@ public final class JSUtil
     }
 
     private static native void doSlideDown(String id, String speed, JSEffectCallback callback) /*-{
-        $wnd.$($wnd.spiffyui.formatId(id)).slideDown(speed, function() {
+        $wnd.jQuery($wnd.spiffyui.formatId(id)).slideDown(speed, function() {
             @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
         });
     }-*/;
@@ -603,7 +603,7 @@ public final class JSUtil
     }
 
     private static native void doSlideUp(String id, String speed, JSEffectCallback callback) /*-{
-        $wnd.$($wnd.spiffyui.formatId(id)).slideUp(speed, function() {
+        $wnd.jQuery($wnd.spiffyui.formatId(id)).slideUp(speed, function() {
             @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
         });
     }-*/;
@@ -636,12 +636,12 @@ public final class JSUtil
     }
 
     private static native void doToggleSlide(String id, String speed, JSEffectCallback callback) /*-{
-        if ($wnd.$($wnd.spiffyui.formatId(id)).is(':visible')) {
-            $wnd.$($wnd.spiffyui.formatId(id)).slideUp(speed, function() {
+        if ($wnd.jQuery($wnd.spiffyui.formatId(id)).is(':visible')) {
+            $wnd.jQuery($wnd.spiffyui.formatId(id)).slideUp(speed, function() {
                 @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
             });
         } else {
-            $wnd.$($wnd.spiffyui.formatId(id)).slideDown(speed, function() {
+            $wnd.jQuery($wnd.spiffyui.formatId(id)).slideDown(speed, function() {
                 @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
             });
         }
@@ -664,7 +664,7 @@ public final class JSUtil
      */
 
     public static native void horizontalToggleSlide(String id, JSEffectCallback callback)  /*-{
-        $wnd.$($wnd.spiffyui.formatId(id)).animate({width: 'toggle'}, function() {
+        $wnd.jQuery($wnd.spiffyui.formatId(id)).animate({width: 'toggle'}, function() {
             @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
         });
     }-*/;
@@ -678,7 +678,7 @@ public final class JSUtil
      */
 
     public static native void horizontalToggleSlide(String id)  /*-{
-        $wnd.$($wnd.spiffyui.formatId(id)).animate({width: 'toggle'});
+        $wnd.jQuery($wnd.spiffyui.formatId(id)).animate({width: 'toggle'});
     }-*/;
 
     /**
@@ -691,7 +691,7 @@ public final class JSUtil
      * @param distance the distance in pixels to bounds the element - default is 20
      */
     public static native void bounce(String id, int times, int speed, int distance)  /*-{
-        $wnd.$($wnd.spiffyui.formatId(id)).effect("bounce", { times:times, distance: distance }, speed);
+        $wnd.jQuery($wnd.spiffyui.formatId(id)).effect("bounce", { times:times, distance: distance }, speed);
     }-*/;
 
     /**
@@ -705,7 +705,7 @@ public final class JSUtil
      * @param callback the callback called when the animation is complete
      */
     public static native void bounce(String id, int times, int speed, int distance, JSEffectCallback callback)  /*-{
-        $wnd.$($wnd.spiffyui.formatId(id)).effect("bounce", { times:times, distance: distance }, speed, function() {
+        $wnd.jQuery($wnd.spiffyui.formatId(id)).effect("bounce", { times:times, distance: distance }, speed, function() {
             @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
         });
     }-*/;
@@ -719,7 +719,7 @@ public final class JSUtil
      *        the speed to fade in. options are slow, normal, fast or a number
      */
     public static native void hide(String id, String speed) /*-{
-        $wnd.$($wnd.spiffyui.formatId(id)).hide(speed);
+        $wnd.jQuery($wnd.spiffyui.formatId(id)).hide(speed);
     }-*/;
 
     /**
@@ -732,7 +732,7 @@ public final class JSUtil
      * @param callback the callback called when the animation is complete
      */
     public static native void hide(String id, String speed, JSEffectCallback callback) /*-{
-        $wnd.$($wnd.spiffyui.formatId(id)).hide(speed, function() {
+        $wnd.jQuery($wnd.spiffyui.formatId(id)).hide(speed, function() {
             @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
         });
     }-*/;
@@ -745,7 +745,7 @@ public final class JSUtil
      *
      */
     public static native void hide(String id) /*-{
-        $wnd.$($wnd.spiffyui.formatId(id)).hide();
+        $wnd.jQuery($wnd.spiffyui.formatId(id)).hide();
     }-*/;
 
     /**
@@ -757,7 +757,7 @@ public final class JSUtil
      *        text to set for the element
      */
     public static native void setText(String id, String txt) /*-{
-        $wnd.$($wnd.spiffyui.formatId(id)).text(txt);
+        $wnd.jQuery($wnd.spiffyui.formatId(id)).text(txt);
     }-*/;
 
     /**
@@ -769,7 +769,7 @@ public final class JSUtil
      *        the speed to fade in. options are slow, normal, fast or a number
      */
     public static native void show(String id, String speed) /*-{
-        $wnd.$($wnd.spiffyui.formatId(id)).show(speed);
+        $wnd.jQuery($wnd.spiffyui.formatId(id)).show(speed);
     }-*/;
 
     /**
@@ -782,7 +782,7 @@ public final class JSUtil
      * @param callback the callback called when the animation is complete
      */
     public static native void show(String id, String speed, JSEffectCallback callback) /*-{
-        $wnd.$($wnd.spiffyui.formatId(id)).show(speed, function() {
+        $wnd.jQuery($wnd.spiffyui.formatId(id)).show(speed, function() {
             @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);
         });
     }-*/;
@@ -795,7 +795,7 @@ public final class JSUtil
      *
      */
     public static native void show(String id) /*-{
-        $wnd.$($wnd.spiffyui.formatId(id)).show();
+        $wnd.jQuery($wnd.spiffyui.formatId(id)).show();
     }-*/;
 
     /**
@@ -856,7 +856,7 @@ public final class JSUtil
      * @return true if any of the selected elements are visible and false otherwise
      */
     public static native boolean isVisible(String selector) /*-{
-        var visible = $wnd.$(selector + ":visible");
+        var visible = $wnd.jQuery(selector + ":visible");
         if (visible && visible.length > 0) {
             return true;
         } else {
@@ -1019,7 +1019,7 @@ public final class JSUtil
      * @return the height of the element
      */
     public static native int getHeight(String id) /*-{
-        return $wnd.$($wnd.spiffyui.formatId(id)).height();
+        return $wnd.jQuery($wnd.spiffyui.formatId(id)).height();
     }-*/;
 
     /**
@@ -1037,7 +1037,7 @@ public final class JSUtil
      * @return the width of the element
      */
     public static native int getWidth(String id) /*-{
-        return $wnd.$($wnd.spiffyui.formatId(id)).width();
+        return $wnd.jQuery($wnd.spiffyui.formatId(id)).width();
     }-*/;
 
     /**
@@ -1056,7 +1056,7 @@ public final class JSUtil
      * @return the JavaScript object representing the JSON string
      */
     public static native JavaScriptObject parseJSON(String jsonString) /*-{
-        return $wnd.$.parseJSON(jsonString);
+        return $wnd.jQuery.parseJSON(jsonString);
     }-*/;
 
 

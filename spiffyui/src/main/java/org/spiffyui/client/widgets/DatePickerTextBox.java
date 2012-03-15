@@ -174,19 +174,19 @@ public class DatePickerTextBox extends TextBox implements Event.NativePreviewHan
     
     private static native void setDateJS(String id, String mindate, String maxdate)  /*-{ 
         if (maxdate) {
-            $wnd.$('#' + id).datepicker('option', 'maxDate',
+            $wnd.jQuery('#' + id).datepicker('option', 'maxDate',
                    $wnd.Date.parseExact(maxdate, $wnd.Date.CultureInfo.formatPatterns.shortDate));
         }
      
         if (mindate) {
-            $wnd.$('#' + id).datepicker('option', 'minDate',
+            $wnd.jQuery('#' + id).datepicker('option', 'minDate',
                    $wnd.Date.parseExact(mindate, $wnd.Date.CultureInfo.formatPatterns.shortDate));
         }
     }-*/;
     
 
     private static native void addDatePickerJS(String id, String format) /*-{
-        $wnd.$('#' + id).datepicker({
+        $wnd.jQuery('#' + id).datepicker({
             dateFormat: format,
             changeMonth: true,
             changeYear: true

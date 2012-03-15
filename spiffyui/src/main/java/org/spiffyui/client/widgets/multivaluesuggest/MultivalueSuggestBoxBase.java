@@ -523,12 +523,12 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     }
 
     private static native int getTextWidth(String textFieldSelector) /*-{
-        return $wnd.$(textFieldSelector).textWidth();
+        return $wnd.jQuery(textFieldSelector).textWidth();
     }-*/;
     
     private static native void bindFocusHandler(String panelId, String suggestBoxContainerId) /*-{
-        $wnd.$("#" + panelId).click(function(evt) {
-            $wnd.$("#" + suggestBoxContainerId + " > input").focus();
+        $wnd.jQuery("#" + panelId).click(function(evt) {
+            $wnd.jQuery("#" + suggestBoxContainerId + " > input").focus();
         });
     }-*/;
     

@@ -184,7 +184,7 @@ public final class MessageUtil
     
     private static native void showWarningJS(String msg) /*-{
         $wnd.humanMsg.setup();
-        $wnd.$("#humanMsg").removeClass('humanMsgErr').removeClass('humanMsgInfo').addClass('humanMsgWarn');
+        $wnd.jQuery("#humanMsg").removeClass('humanMsgErr').removeClass('humanMsgInfo').addClass('humanMsgWarn');
         $wnd.humanMsg.displayMsg(msg, false);
     }-*/;
 
@@ -207,7 +207,7 @@ public final class MessageUtil
      */
     public static native void showMessage(String msg) /*-{
         $wnd.humanMsg.setup();
-        $wnd.$("#humanMsg").removeClass('humanMsgErr').removeClass('humanMsgWarn').addClass('humanMsgInfo');
+        $wnd.jQuery("#humanMsg").removeClass('humanMsgErr').removeClass('humanMsgWarn').addClass('humanMsgInfo');
         $wnd.humanMsg.displayMsg(msg, false);
     }-*/;
 
@@ -233,7 +233,7 @@ public final class MessageUtil
      */
     public static native void showMessage(String msg, String className) /*-{
         $wnd.humanMsg.setup();
-        $wnd.$("#humanMsg").removeClass('humanMsgErr').removeClass('humanMsgWarn').removeClass('humanMsgInfo').addClass(className);
+        $wnd.jQuery("#humanMsg").removeClass('humanMsgErr').removeClass('humanMsgWarn').removeClass('humanMsgInfo').addClass(className);
         $wnd.humanMsg.displayMsg(msg, false);
     }-*/;
 
@@ -274,7 +274,7 @@ public final class MessageUtil
 
     private static native void showErrorJS(String msg) /*-{
         $wnd.humanMsg.setup();
-        $wnd.$("#humanMsg").removeClass('humanMsgInfo').removeClass('humanMsgWarn').addClass('humanMsgErr');
+        $wnd.jQuery("#humanMsg").removeClass('humanMsgInfo').removeClass('humanMsgWarn').addClass('humanMsgErr');
         $wnd.humanMsg.displayMsg(msg, false);
     }-*/;
 
