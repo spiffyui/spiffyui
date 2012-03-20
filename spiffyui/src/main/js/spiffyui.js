@@ -161,7 +161,19 @@ spiffyui = {
         if (formattedString.indexOf("0:") === 0 && formattedString.indexOf("AM") === 5) {
             formattedString = formattedString.substring(2);
             formattedString = "12:" + formattedString;
-        }
+        } else if (Date.CultureInfo.amDesignator !== '' && Date.CultureInfo.amDesignator.toLowerCase() !== 'am' && formattedString.indexOf(' ' + Date.CultureInfo.amDesignator + ' 00:') === spaceLoc) {
+            formattedString = formattedString.replace(Date.CultureInfo.amDesignator + ' 00:', Date.CultureInfo.amDesignator + ' 12:');
+        } else {
+            //If the time is not the first part of the string but instead preceded by a space
+            var spaceLoc = formattedString.indexOf(' ');
+            
+            if (formattedString.indexOf(' 0:') === spaceLoc && formattedString.indexOf('AM') === spaceLoc + 6) {
+                formattedString = formattedString.replace(' 0:', ' 12:');
+            } else if (Date.CultureInfo.amDesignator !== '' && Date.CultureInfo.amDesignator.toLowerCase() !== 'am' && formattedString.indexOf(' ' + Date.CultureInfo.amDesignator + ' 00:') === spaceLoc) {
+                formattedString = formattedString.replace(Date.CultureInfo.amDesignator + ' 00:', Date.CultureInfo.amDesignator + ' 12:');
+            }
+        }        
+
         return formattedString;
     },
     
@@ -181,30 +193,57 @@ spiffyui = {
      */
     getDateFromShortTime: function(/*string*/ formattedTime) {
          
-         /*
+        /*
+            There is a bug in the date.js library where getting the time from a string with 'tt' that is not 'am' or 'pm'
+            (even though the amDesignator and pmDesignator are correct).  So we change them to 'am' or 'pm'
+            before parsing.  
+         */
+        if (Date.CultureInfo.amDesignator !== '' && 
+                Date.CultureInfo.amDesignator.toLowerCase() !== 'am' && 
+                formattedTime.indexOf(Date.CultureInfo.amDesignator) >= 0) {
+            formattedTime = formattedTime.replace(Date.CultureInfo.amDesignator, 'AM');
+        } 
+        if (Date.CultureInfo.pmDesignator !== '' &&
+                Date.CultureInfo.pmDesignator.toLowerCase() !== 'pm' && 
+                formattedTime.indexOf(Date.CultureInfo.pmDesignator) >= 0) {
+            formattedTime = formattedTime.replace(Date.CultureInfo.pmDesignator, 'PM');
+        } 
+
+        /*
             The date.js library has a bug where it gives the wrong
             24 hour value for 12AM and 12PM.  I've filed a bug report,
-            but we still need to work aorund the issue.  Hackito
+            but we still need to work around the issue.  Hackito
             ergo sum.
-          */
-         if (formattedTime === "12:00 PM") {
-             formattedTime = "12:00 AM";
-         } else if (formattedTime === "12:30 PM") {
-             formattedTime = "12:30 AM";
-         } else if (formattedTime === "12:00 AM") {
-             formattedTime = "12:00 PM";
-         } else if (formattedTime === "12:30 AM") {
-             formattedTime = "12:30 PM";
-         }
-         
+         */
+        if (formattedTime.match(/12:[0-5][0-9] PM/) || formattedTime.match(/PM 12:[0-5][0-9]/)) {
+            formattedTime = formattedTime.replace("PM", "AM");
+
+        } else if (formattedTime.match(/12:[0-5][0-9] AM/) || formattedTime.match(/AM 12:[0-5][0-9]/)) {
+            formattedTime = formattedTime.replace("AM", "PM");
+        } 
+        
+        /*
+            There is also a bug with the timePicker where even if time is hh, it will only show h if 
+            it's not 24 hour time.  This is bogus because 01:00 AM should be allowed as well as 01:00 PM.       
+            Let's make sure the hh is respected so Date.parseExact will be ok.  
+         */        
+        var hhLoc = timeFormatPattern.indexOf('hh:'); 
+        if (hhLoc >= 0) {
+            var colonLoc = formattedTime.indexOf(':');
+            if (colonLoc < hhLoc + 2) {
+                var hour = formattedTime.charAt(hhLoc);
+                formattedTime = formattedTime.replace(hour, '0' + hour);
+            }
+        }
+        
         /*
            We want to make the Date class parse our time, but it does
            like to parse time without the date so we put a bogus date
            in front of it because we are just interested in the hours
            and minutes.
          */
-        var date = Date.parseExact(new Date().toString("yyyy-mm-dd") + " " + formattedTime, 
-                                   "yyyy-mm-dd " + Date.CultureInfo.formatPatterns.shortTime);
+        var date = Date.parseExact(new Date().toString("yyyy-MM-dd") + " " + formattedTime, 
+                                   "yyyy-MM-dd " + Date.CultureInfo.formatPatterns.shortTime);
         return date;
     },
     /**
