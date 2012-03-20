@@ -194,4 +194,5 @@ public interface SpiffyRsrc extends Messages
     public String helloSpiffySample();
     public String logout();
     public String tooltipBody();
+    public String contact();
 }

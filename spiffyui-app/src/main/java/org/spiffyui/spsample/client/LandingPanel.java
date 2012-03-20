@@ -46,6 +46,7 @@ public class LandingPanel extends HTMLPanel
         
         addAnchor(Index.getStrings().documentation(), Index.OVERVIEW_NAV_ITEM_ID, "landingDoc");
         addAnchor(Index.getStrings().samples(), Index.SAMPLES_NAV_ITEM_ID, "landingSample");
+        addAnchor(Index.getStrings().contact(), Index.HELP_NAV_ITEM_ID, "landingHelp");
         addAnchor(Index.getStrings().download(), Index.GET_STARTED_NAV_ITEM_ID, "landingDownload");
         
         getElementById("mobileCalloutText").setInnerHTML(Index.getStrings().mobileCallout(
