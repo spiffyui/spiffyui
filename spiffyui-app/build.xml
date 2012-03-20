@@ -409,6 +409,12 @@ build.dir=${root}
                 <include name="**/*.html"/>
             </zipfileset>
             
+            <!-- We need to include the properties files for localization support -->
+            <zipfileset dir="${root}/src/main/java/org/spiffyui/spsample/client/i18n" 
+                        prefix="WEB-INF/classes/org/spiffyui/spsample/client/i18n" >
+                <include name="**/*.properties"/>
+            </zipfileset>
+            
             <!-- We also want to include the JavaDoc -->
             <zipfileset dir="${spiffyui}/target/classes/javadoc-all" prefix="javadoc" />
             

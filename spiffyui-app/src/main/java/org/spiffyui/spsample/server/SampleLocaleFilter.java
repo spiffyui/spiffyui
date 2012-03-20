@@ -37,7 +37,7 @@ public class SampleLocaleFilter extends GWTLocaleBundleFilter
     @Override
     protected String getResourcePath()
     {
-        return "/WEB-INF/classes/org/spiffyui/spsample/client";
+        return "/WEB-INF/classes/org/spiffyui/spsample/client/i18n";
     }
 }
 

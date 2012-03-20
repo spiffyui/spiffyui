@@ -104,6 +104,7 @@ public abstract class GWTLocaleBundleFilter extends GWTLocaleFilter
 
     private static synchronized void populateMap(ServletContext context, String resourcePath)
     {
+        System.out.println("populateMap(" + resourcePath + ")");
         if (RESOURCES.size() > 0) {
             /*
              * Then we have already populated the map
@@ -145,7 +146,7 @@ public abstract class GWTLocaleBundleFilter extends GWTLocaleFilter
             for (int i = dash + 1; i < file.length(); i++) {
                 char c = file.charAt(i);
 
-                if (c == '-') {
+                if (c == '-' || c == '_') {
                     if (dashCount == 0) {
                         /*
                          * Then we are after the first dash and before the second
@@ -188,10 +189,15 @@ public abstract class GWTLocaleBundleFilter extends GWTLocaleFilter
                     break;
                 }
             }
+            
+            System.out.println("fileName: " + fileName);
 
             if (fileName == null) {
                 continue;
             } 
+            
+            System.out.println("language: " + language);
+            System.out.println("country: " + country);
 
             if (language != null) {
                 if (country == null) {
