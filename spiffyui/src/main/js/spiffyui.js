@@ -158,6 +158,8 @@ spiffyui = {
      * Since we're still seeing the problem, applying hackito.
      */
     midnightWorkaround: function (/*String*/ formattedString) {
+        var spaceLoc = formattedString.indexOf(' ');
+        
         if (formattedString.indexOf("0:") === 0 && formattedString.indexOf("AM") === 5) {
             formattedString = formattedString.substring(2);
             formattedString = "12:" + formattedString;
@@ -165,8 +167,6 @@ spiffyui = {
             formattedString = formattedString.replace(Date.CultureInfo.amDesignator + ' 00:', Date.CultureInfo.amDesignator + ' 12:');
         } else {
             //If the time is not the first part of the string but instead preceded by a space
-            var spaceLoc = formattedString.indexOf(' ');
-            
             if (formattedString.indexOf(' 0:') === spaceLoc && formattedString.indexOf('AM') === spaceLoc + 6) {
                 formattedString = formattedString.replace(' 0:', ' 12:');
             } else if (Date.CultureInfo.amDesignator !== '' && Date.CultureInfo.amDesignator.toLowerCase() !== 'am' && formattedString.indexOf(' ' + Date.CultureInfo.amDesignator + ' 00:') === spaceLoc) {
