@@ -906,7 +906,7 @@ iframe {
 
 #createSpiffy {
     position: relative;
-    height: 302px;
+    height: 299px;
 }
 
 .landingCallout {
@@ -1157,11 +1157,8 @@ iframe {
 }
 
 #landingFooter {
-    background: none repeat scroll 0 0 #F9F9F9;
-    border-bottom: thin solid lightgray;
-    border-top: thin solid lightgray;
     margin-left: -10px;
-    padding: 15px 10px 15px 0px;
+    margin-top: 34px;
     text-align: center;
     width: 100%;
 }
