@@ -1155,3 +1155,19 @@ iframe {
     font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2";
     width: 290px; /* same as computed width of .expandingArea > textarea so there's no lag in expanding */)
 }
+
+#landingFooter {
+    background: none repeat scroll 0 0 #F9F9F9;
+    border-bottom: thin solid lightgray;
+    border-top: thin solid lightgray;
+    margin-left: -10px;
+    padding: 15px 10px 15px 0px;
+    text-align: center;
+    width: 100%;
+}
+
+#landingFooter .landingFooterItem {
+    border-right: thin dashed lightgray;
+    margin-right: 10px;
+    padding-right: 10px;
+}
