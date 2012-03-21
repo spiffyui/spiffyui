@@ -246,6 +246,69 @@ spiffyui = {
                                    "yyyy-MM-dd " + Date.CultureInfo.formatPatterns.shortTime);
         return date;
     },
+    
+    parseDateTime: function(/*String*/dateTimeString, /*String*/formatPattern) {
+
+        /*
+            There is a bug in the date.js library where getting the time from a string with 'tt' that is not 'am' or 'pm'
+            (even though the amDesignator and pmDesignator are correct).  So we change them to 'am' or 'pm'
+            before parsing.  
+         */
+        if (Date.CultureInfo.amDesignator !== '' && 
+                Date.CultureInfo.amDesignator.toLowerCase() !== 'am' && 
+                dateTimeString.indexOf(Date.CultureInfo.amDesignator) >= 0) {
+            dateTimeString = dateTimeString.replace(Date.CultureInfo.amDesignator, 'AM');
+        } 
+        if (Date.CultureInfo.pmDesignator !== '' &&
+                Date.CultureInfo.pmDesignator.toLowerCase() !== 'pm' && 
+                dateTimeString.indexOf(Date.CultureInfo.pmDesignator) >= 0) {
+            dateTimeString = dateTimeString.replace(Date.CultureInfo.pmDesignator, 'PM');
+        } 
+        /*
+            The date.js library has a bug where it gives the wrong
+            24 hour value for 12AM and 12PM.  I've filed a bug report,
+            but we still need to work around the issue.  Hackito
+            ergo sum.
+         */
+        var orig12AM = false;
+        if (dateTimeString.match(/12:[0-5][0-9] PM/) || dateTimeString.match(/PM 12:[0-5][0-9]/)) {
+            dateTimeString = dateTimeString.replace("PM", "AM");
+    
+        } else if (dateTimeString.match(/12:[0-5][0-9] AM/) || dateTimeString.match(/AM 12:[0-5][0-9]/)) {
+            dateTimeString = dateTimeString.replace("AM", "PM");
+            orig12AM = true;
+        } 
+    
+        /*
+            There is also a bug with the timePicker where even if time is hh, it will only show h if 
+            it's not 24 hour time.  This is bogus because 01:00 AM should be allowed as well as 01:00 PM.   
+            An example of this is zh-TW      
+         */ 
+        var hhLoc = formatPattern.indexOf('hh:'); 
+        if (hhLoc >= 0) {
+            var colonLoc = dateTimeString.indexOf(':');
+            if (colonLoc < hhLoc + 2) {
+                var hour = dateTimeString.charAt(hhLoc);
+                dateTimeString = dateTimeString.replace(' ' + hour + ':', ' 0' + hour + ':');
+            }
+        }
+        
+        var date = Date.parseExact(dateTimeString, formatPattern);
+        if (orig12AM) {
+
+            /*
+             * Another bug in Date.js.  Even after all the 12 am/pm workarounds,
+             * when it is originally 01/01/2012 12:00 AM
+             * we have to switch it to 01/01/2012 12:00 PM in order to get the time right
+             * but then it adds a whole other day!  so we actually have to subract the day if the time was 
+             * originally something 12:xx AM
+             */
+            date = date.addDays(-1);
+        }
+
+        return date;
+    },
+    
     /**
      * Gets a date that is set to the current date. The time is set to the start of the day (00:00 or 12:00 AM). 
      */
