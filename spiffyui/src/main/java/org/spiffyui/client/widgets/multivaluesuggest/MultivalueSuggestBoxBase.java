@@ -180,6 +180,16 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         m_validText = STRINGS.valid();
         m_loadingText = STRINGS.loading();
     }
+
+    /**
+     * Get the ID of the suggest box container.
+     * 
+     * @return the container ID
+     */
+    public String getSuggestBoxContainerId()
+    {
+        return m_suggestBoxContainerId;
+    }
     
     @Override
     public void onLoad()
@@ -527,6 +537,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     }-*/;
     
     private static native void bindFocusHandler(String panelId, String suggestBoxContainerId) /*-{
+        //$wnd.jQuery("#" + panelId).css('background', 'green');
         $wnd.jQuery("#" + panelId).click(function(evt) {
             $wnd.jQuery("#" + suggestBoxContainerId + " > input").focus();
         });
