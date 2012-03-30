@@ -22,6 +22,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -39,7 +41,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -230,7 +231,7 @@ public final class AuthServlet extends HttpServlet
         throws ServletException, IOException, JSONException
     {
         LOGGER.info("Making login request for " + user + " to server " + tsUrl);
-        ServletOutputStream out = response.getOutputStream();
+        OutputStreamWriter out = new OutputStreamWriter(response.getOutputStream(), "UTF-8");
         if (user == null || pwd == null || tsUrl == null) {
             returnError(response, "Login requires a username, password, and token server URL",
                         RESTAuthConstants.INVALID_LOGIN_REQUEST);
@@ -285,7 +286,7 @@ public final class AuthServlet extends HttpServlet
     }
     
     private void sendLoginResponse(HttpServletResponse response, HttpResponse authResponse, int status,
-                                   HttpPost httppost, ServletOutputStream out, HttpClient httpclient)
+                                   HttpPost httppost, Writer out, HttpClient httpclient)
         throws ServletException, IOException, JSONException
     {
 
@@ -341,7 +342,7 @@ public final class AuthServlet extends HttpServlet
             response.setStatus(status);
         }
         
-        out.print(authResponseData.toString());
+        out.write(authResponseData.toString());
 
         out.flush();
         out.close();
@@ -507,8 +508,8 @@ public final class AuthServlet extends HttpServlet
 
         //Now we write the response back to our client.
         response.setStatus(status);
-        ServletOutputStream out = response.getOutputStream();
-        out.print(authResponseData.toString());
+        OutputStreamWriter out = new OutputStreamWriter(response.getOutputStream(), "UTF-8");
+        out.write(authResponseData.toString());
 
         out.flush();
         out.close();
