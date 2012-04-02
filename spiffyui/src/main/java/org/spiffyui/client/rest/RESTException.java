@@ -114,20 +114,31 @@ public class RESTException extends Exception
      * Creates a new RESTException
      * 
      * @param code    the exception code
-     * @param subcode the exception subcode
-     * @param reason  the exception reason
-     * @param details the exception details
+     * @param subcode the optional exception subcode
+     * @param reason  the optional exception reason
+     * @param details the optional exception details
      * @param responseCode
      *                the HTTP response code
      * @param url     the URL for this exception
      */
     public RESTException(String code, String subcode, String reason, 
-                            Map<String, String> details, int responseCode,
-                            String url)
+                         Map<String, String> details, int responseCode,
+                         String url)
     {
+        if (m_code == null) {
+            throw new IllegalArgumentException("RESTException requires a code.");
+        }
+        
         m_code = SafeHtmlUtils.fromString(code).asString();
-        m_subcode = SafeHtmlUtils.fromString(subcode).asString();
-        m_reason = SafeHtmlUtils.fromString(reason).asString();
+        
+        if (m_subcode != null) {
+            m_subcode = SafeHtmlUtils.fromString(subcode).asString();
+        }
+        
+        if (m_reason != null) {
+            m_reason = SafeHtmlUtils.fromString(reason).asString();
+        }
+        
         m_details = details;
         m_responseCode = responseCode;
         m_url = url;
