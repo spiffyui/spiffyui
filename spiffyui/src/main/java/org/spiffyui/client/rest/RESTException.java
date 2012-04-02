@@ -125,7 +125,7 @@ public class RESTException extends Exception
                          Map<String, String> details, int responseCode,
                          String url)
     {
-        if (m_code == null) {
+        if (code == null) {
             throw new IllegalArgumentException("RESTException requires a code.");
         }
         
