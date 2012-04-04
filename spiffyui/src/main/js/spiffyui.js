@@ -227,7 +227,7 @@ spiffyui = {
             it's not 24 hour time.  This is bogus because 01:00 AM should be allowed as well as 01:00 PM.       
             Let's make sure the hh is respected so Date.parseExact will be ok.  
          */        
-        var hhLoc = timeFormatPattern.indexOf('hh:'); 
+        var hhLoc = Date.CultureInfo.formatPatterns.shortTime.indexOf('hh:'); 
         if (hhLoc >= 0) {
             var colonLoc = formattedTime.indexOf(':');
             if (colonLoc < hhLoc + 2) {

@@ -508,7 +508,7 @@ public final class UnitTestPanel extends HTMLPanel
             return;
         }
         
-        expect(12);
+        expect(14);
         
         
         /*
@@ -552,6 +552,12 @@ public final class UnitTestPanel extends HTMLPanel
         ok(JSDateUtil.getOrdinalNumber(date) == 359, "12/26/2010 is the 359th day of the year so the ordinal number is: " + JSDateUtil.getOrdinalNumber(date));        
         
         ok(JSDateUtil.format(date, "%w").equals("0"), "12/26/2010 is a Sunday so the day of the week is: " + JSDateUtil.format(date, "%w"));
+
+        ok(JSDateUtil.getHours("9:48 AM") == 9, "The hours of 9:48 AM should be 9 and it was: " + JSDateUtil.getHours("9:48 AM"));
+
+        ok(JSDateUtil.getMinutes("9:48 AM") == 48, "The minutes of 9:48 AM should be 48 and it was: " + JSDateUtil.getMinutes("9:48 AM"));
+
+        
     }
     
     private static Date getOffsetDate(Date date)
