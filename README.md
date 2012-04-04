@@ -25,3 +25,5 @@ Spiffy UI Community
 --------------------------------------
 
 Find out more and join the Spiffy UI community: [Spiffy UI at Google Code](http://code.google.com/p/spiffyui/).
+
+For more information about specific release please see the [Spiffy UI change log](http://code.google.com/p/spiffyui/wiki/ChangeLog?ts=1333556533&updated=ChangeLog).
