@@ -131,11 +131,11 @@ public class RESTException extends Exception
         
         m_code = SafeHtmlUtils.fromString(code).asString();
         
-        if (m_subcode != null) {
+        if (subcode != null) {
             m_subcode = SafeHtmlUtils.fromString(subcode).asString();
         }
         
-        if (m_reason != null) {
+        if (reason != null) {
             m_reason = SafeHtmlUtils.fromString(reason).asString();
         }
         
