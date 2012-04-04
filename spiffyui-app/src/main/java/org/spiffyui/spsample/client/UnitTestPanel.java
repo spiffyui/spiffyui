@@ -25,6 +25,8 @@ import org.spiffyui.client.JSUtil;
 import org.spiffyui.client.MessageUtil;
 import org.spiffyui.client.NumberFormatter;
 import org.spiffyui.client.i18n.SpiffyUIStrings;
+import org.spiffyui.client.widgets.DatePickerTextBox;
+import org.spiffyui.client.widgets.TimePickerTextBox;
 import org.spiffyui.client.rest.RESTCallback;
 import org.spiffyui.client.rest.RESTException;
 import org.spiffyui.client.rest.RESTObjectCallBack;
@@ -57,8 +59,11 @@ public final class UnitTestPanel extends HTMLPanel
     private static final int VALIDATION_TESTS = 5;
     private static final int REST_TESTS = 6;
     private static final int NUMBER_FORMAT_TESTS = 7;
+    private static final int WIDGET_TESTS = 8;
     
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
+
+    private static final String WIDGETS_ID = "unitTestWidgets";
     /**
      * Creates a new panel
      */
@@ -68,7 +73,7 @@ public final class UnitTestPanel extends HTMLPanel
          This panel doesn't have any contents because it is depending on
          contents added to by the index-test.html file.
          */
-        super("div", "");
+        super("div", "<div id=\"unitTestWidgets\"></div>");
         
         getElement().setId("unitTestPanel");
         
@@ -105,6 +110,7 @@ public final class UnitTestPanel extends HTMLPanel
         test("Validation and encoding tests", VALIDATION_TESTS);
         asynctest("REST tests", REST_TESTS);
         test("Number format tests (can be run in any language -- English, French, German and any language with country of Switzerland are distinct formats)", NUMBER_FORMAT_TESTS);
+        test("Widget tests", WIDGET_TESTS);
     }
     
     private static void runTest(int id)
@@ -142,6 +148,10 @@ public final class UnitTestPanel extends HTMLPanel
         case NUMBER_FORMAT_TESTS:
             numberFormatTests();
             return;
+
+        case WIDGET_TESTS:
+            widgetTests();
+            return;
             
         default:
             /*
@@ -149,6 +159,29 @@ public final class UnitTestPanel extends HTMLPanel
              */
         }
         
+    }
+
+    private static void widgetTests()
+    {
+        TimePickerTextBox tptb = new TimePickerTextBox();
+        g_panel.add(tptb, WIDGETS_ID);
+
+        tptb.setText("5:48 AM");
+
+        expect(6);
+
+        ok("5:48 AM".equals(tptb.getText()), "The time picker text box text should be 5:48 PM and it was " + tptb.getText());
+        ok(5 == tptb.getHours(), "The time picker text box hours should be 5 and it was " + tptb.getHours());
+        ok(48 == tptb.getMinutes(), "The time picker text box minutes should be 48 and it was " + tptb.getMinutes());
+        ok(!tptb.isEmpty(), "The time picker text box shouldn't be empty.");
+
+        DatePickerTextBox dptb = new DatePickerTextBox();
+        g_panel.add(dptb, WIDGETS_ID);
+
+        dptb.setText("12/26/2010");
+        ok("12/26/2010".equals(JSDateUtil.getDate(dptb.getDateValue())), 
+           "The date in the date picker text box date value should be 12/26/2010 and it was " + JSDateUtil.getDate(dptb.getDateValue()));
+        ok(!dptb.isEmpty(), "The date picker text box shouldn't be empty.");
     }
     
     private static void numberFormatTests()
@@ -508,7 +541,7 @@ public final class UnitTestPanel extends HTMLPanel
             return;
         }
         
-        expect(14);
+        expect(15);
         
         
         /*
@@ -538,6 +571,10 @@ public final class UnitTestPanel extends HTMLPanel
         ok("12/26/2010 9:30 AM".equals(JSDateUtil.getShortDateTime(getOffsetDate(date))), 
            "The short date and time should be 12/26/2010 9:30 AM and was " + 
            JSDateUtil.getShortDateTime(getOffsetDate(date)));
+
+        ok("12/26/2010".equals(JSDateUtil.getShortDate("1293373801745")), 
+           "The short date and time should be 12/26/2010 and was " + 
+           JSDateUtil.getShortDate("1293373801745"));
         
         ok("1293978601745".equals(JSDateUtil.dateAdd(date, 1, "WEEK").getTime() + ""), 
            "The time plus one week should be 1293978601745 and was " + JSDateUtil.dateAdd(date, 1, "WEEK").getTime());
