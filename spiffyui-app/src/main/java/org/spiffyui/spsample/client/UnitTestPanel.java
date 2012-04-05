@@ -27,6 +27,8 @@ import org.spiffyui.client.NumberFormatter;
 import org.spiffyui.client.i18n.SpiffyUIStrings;
 import org.spiffyui.client.widgets.DatePickerTextBox;
 import org.spiffyui.client.widgets.TimePickerTextBox;
+import org.spiffyui.client.widgets.slider.RangeSlider;
+import org.spiffyui.client.widgets.slider.Slider;
 import org.spiffyui.client.rest.RESTCallback;
 import org.spiffyui.client.rest.RESTException;
 import org.spiffyui.client.rest.RESTObjectCallBack;
@@ -168,7 +170,7 @@ public final class UnitTestPanel extends HTMLPanel
 
         tptb.setText("5:48 AM");
 
-        expect(6);
+        expect(12);
 
         ok("5:48 AM".equals(tptb.getText()), "The time picker text box text should be 5:48 PM and it was " + tptb.getText());
         ok(5 == tptb.getHours(), "The time picker text box hours should be 5 and it was " + tptb.getHours());
@@ -182,6 +184,26 @@ public final class UnitTestPanel extends HTMLPanel
         ok("12/26/2010".equals(JSDateUtil.getDate(dptb.getDateValue())), 
            "The date in the date picker text box date value should be 12/26/2010 and it was " + JSDateUtil.getDate(dptb.getDateValue()));
         ok(!dptb.isEmpty(), "The date picker text box shouldn't be empty.");
+
+        Slider s = new Slider(HTMLPanel.createUniqueId());
+        g_panel.add(s, WIDGETS_ID);
+        s.setValue(10);
+        ok(10 == s.getValue(), "The value of the slider should be 10 and it was " + s.getValue());
+
+        RangeSlider rs = new RangeSlider(HTMLPanel.createUniqueId(), 10, 100, 20, 90);
+        g_panel.add(rs, WIDGETS_ID);
+        ok(20 == rs.getValueMin(), "The minimum value for the slider should be 20 and it was " + rs.getValueMin());
+        ok(90 == rs.getValueMax(), "The maximum value for the slider should be 90 and it was " + rs.getValueMax());
+
+        rs.setMinimum(30);
+        rs.setMaximum(80);
+
+        ok(30 == rs.getValueMin(), "The new minimum value for the slider should be 30 and it was " + rs.getValueMin());
+        ok(80 == rs.getValueMax(), "The new maximum value for the slider should be 80 and it was " + rs.getValueMax());
+
+        rs.setMinimum(90);
+        ok(90 == rs.getValueMin(), "The new minimum value for the slider should be 90 and it was " + rs.getValueMin());
+
     }
     
     private static void numberFormatTests()
