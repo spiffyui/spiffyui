@@ -541,7 +541,7 @@ public final class UnitTestPanel extends HTMLPanel
             return;
         }
         
-        expect(15);
+        expect(17);
         
         
         /*
@@ -575,6 +575,10 @@ public final class UnitTestPanel extends HTMLPanel
         ok("12/26/2010".equals(JSDateUtil.getShortDate("1293373801745")), 
            "The short date and time should be 12/26/2010 and was " + 
            JSDateUtil.getShortDate("1293373801745"));
+
+        ok("Dec 26 9:30 AM".equals(JSDateUtil.getShortMonthDayTime("1293373801745")), 
+           "The short date and time should be Dec 26 9:30 AM and was " + 
+           JSDateUtil.getShortMonthDayTime("1293373801745"));
         
         ok("1293978601745".equals(JSDateUtil.dateAdd(date, 1, "WEEK").getTime() + ""), 
            "The time plus one week should be 1293978601745 and was " + JSDateUtil.dateAdd(date, 1, "WEEK").getTime());
@@ -585,6 +589,12 @@ public final class UnitTestPanel extends HTMLPanel
         
         ok(JSDateUtil.getUTCOffset() < 20, 
            "Getting the UTC offset shouldn't throw an exception and it returned: " + JSDateUtil.getUTCOffset());
+
+        ok("10:00 AM".equals(JSDateUtil.getShortTimeRounded("1356533280000")), 
+           "The short time rounded should be 10:00 AM and was " + 
+           JSDateUtil.getShortTimeRounded("1356533280000"));
+
+        
         
         ok(JSDateUtil.getOrdinalNumber(date) == 359, "12/26/2010 is the 359th day of the year so the ordinal number is: " + JSDateUtil.getOrdinalNumber(date));        
         
