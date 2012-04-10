@@ -19,6 +19,7 @@ package org.spiffyui.client.widgets.multivaluesuggest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -78,6 +79,8 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
 
     private String m_displaySeparator = ", ";
     private String m_valueDelim = ";"; 
+    private String m_selectedItemEq = "~";
+    
     private int m_pageSize = 15;    
     private int m_delay = 1000;
     private int m_findExactMatchQueryLimit = 20;
@@ -270,7 +273,8 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         item.removeFromParent();
     }
     /**
-     * Get the value(s) as a String.  If allowing multivalues, separated by the VALUE_DELIM
+     * Get the value(s) as a String.  If allowing multivalues, separated by the VALUE_DELIM.
+     * This is different from getValuesAsString, which includes the display text as well.
      * @return value(s) as a String
      */
     public String getValue()
@@ -314,6 +318,39 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     }
 
     /**
+     * Get the text and values combined as a string with each
+     * selected item starting with m_selectedItemStart and ending with
+     * m_selectedItemEnd, and the display text and value separated by
+     * m_selectedItemEq
+     * 
+     * @return the text representation of all the selected items
+     */
+    public String getValuesAsString()
+    {
+        if (!m_isMultivalued) {
+            StringBuffer sb = new StringBuffer();
+            sb.append(getText());
+            sb.append(m_selectedItemEq);
+            sb.append(getValue());
+            return sb.toString();
+        }
+        
+        if (m_selectedItems.size() == 0) {
+            return "";
+        }
+
+        StringBuffer sb = new StringBuffer();
+        for (SelectedItem si : m_selectedItems) {
+            sb.append(si.getDisplay());
+            sb.append(m_selectedItemEq);
+            sb.append(m_valueMap.get(si.getDisplay()));
+            sb.append(m_valueDelim);
+        }
+        
+        return JSUtil.trimLastDelimiter(sb.toString(), m_valueDelim);
+    }
+    
+    /**
      * Get the value map
      * @return value map
      */
@@ -343,6 +380,31 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
             }
         }
             
+    }
+    
+    /**
+     * Set the text of this compound search box
+     * 
+     * @param text   the text to use
+     */
+    public void setValuesAsString(String text)
+    {
+        /*
+         * tokenize based on m_valueDelim
+         */
+        String[] tokens = text.split(m_valueDelim);
+        Map<String, String> valMap = new LinkedHashMap<String, String>();
+        for (int i = 0, len = tokens.length; i < len; i++) {
+            String[] keyValue = tokens[i].split(m_selectedItemEq);
+            if (keyValue.length == 2) {
+                valMap.put(keyValue[0], keyValue[1]);                
+            } else if (keyValue.length == 1) {
+                valMap.put(keyValue[0], keyValue[0]);  
+            } else if (keyValue.length > 2) {
+                valMap.put(keyValue[0], tokens[i].substring(tokens[i].indexOf(m_selectedItemEq) + 1));
+            }
+        }
+        setValueMap(valMap);
     }
     
     private void createAndPushSelectedItem(String key)
@@ -727,6 +789,21 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
                 m_valueMap.remove(key);
             }
         }
+    }
+
+    /**
+     * @return Returns the selectedItemEq.
+     */
+    public String getSelectedItemEq()
+    {
+        return m_selectedItemEq;
+    }
+    /**
+     * @param selectedItemEq The selectedItemEq to set.
+     */
+    public void setSelectedItemEq(String selectedItemEq)
+    {
+        m_selectedItemEq = selectedItemEq;
     }
 
     /**

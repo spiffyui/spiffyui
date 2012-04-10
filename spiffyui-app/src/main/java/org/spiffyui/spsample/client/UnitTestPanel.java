@@ -18,6 +18,8 @@
 package org.spiffyui.spsample.client;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.spiffyui.client.JSDateUtil;
 import org.spiffyui.client.JSONUtil;
@@ -27,6 +29,8 @@ import org.spiffyui.client.NumberFormatter;
 import org.spiffyui.client.i18n.SpiffyUIStrings;
 import org.spiffyui.client.widgets.DatePickerTextBox;
 import org.spiffyui.client.widgets.TimePickerTextBox;
+import org.spiffyui.client.widgets.multivaluesuggest.MultivalueSuggestBox;
+import org.spiffyui.client.widgets.multivaluesuggest.MultivalueSuggestRESTHelper;
 import org.spiffyui.client.widgets.slider.RangeSlider;
 import org.spiffyui.client.widgets.slider.Slider;
 import org.spiffyui.client.rest.RESTCallback;
@@ -61,7 +65,9 @@ public final class UnitTestPanel extends HTMLPanel
     private static final int VALIDATION_TESTS = 5;
     private static final int REST_TESTS = 6;
     private static final int NUMBER_FORMAT_TESTS = 7;
-    private static final int WIDGET_TESTS = 8;
+    private static final int DATETIME_WIDGET_TESTS = 8;
+    private static final int SLIDER_WIDGET_TESTS = 9;
+    private static final int MVSB_WIDGET_TESTS = 10;
     
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
 
@@ -112,7 +118,9 @@ public final class UnitTestPanel extends HTMLPanel
         test("Validation and encoding tests", VALIDATION_TESTS);
         asynctest("REST tests", REST_TESTS);
         test("Number format tests (can be run in any language -- English, French, German and any language with country of Switzerland are distinct formats)", NUMBER_FORMAT_TESTS);
-        test("Widget tests", WIDGET_TESTS);
+        test("Date/Time Widget tests", DATETIME_WIDGET_TESTS);
+        test("Slider Widget tests", SLIDER_WIDGET_TESTS);
+        test("Multi-Valued Suggest Box Widget tests", MVSB_WIDGET_TESTS);
     }
     
     private static void runTest(int id)
@@ -151,8 +159,16 @@ public final class UnitTestPanel extends HTMLPanel
             numberFormatTests();
             return;
 
-        case WIDGET_TESTS:
-            widgetTests();
+        case DATETIME_WIDGET_TESTS:
+            dateTimeWidgetTests();
+            return;
+            
+        case SLIDER_WIDGET_TESTS:
+            sliderWidgetTests();
+            return;
+            
+        case MVSB_WIDGET_TESTS:
+            mvsbWidgetTests();
             return;
             
         default:
@@ -163,20 +179,25 @@ public final class UnitTestPanel extends HTMLPanel
         
     }
 
-    private static void widgetTests()
+    private static void dateTimeWidgetTests()
     {
+        expect(6);
+        /*
+         * Time Picker
+         */
         TimePickerTextBox tptb = new TimePickerTextBox();
         g_panel.add(tptb, WIDGETS_ID);
 
         tptb.setText("5:48 AM");
-
-        expect(12);
 
         ok("5:48 AM".equals(tptb.getText()), "The time picker text box text should be 5:48 PM and it was " + tptb.getText());
         ok(5 == tptb.getHours(), "The time picker text box hours should be 5 and it was " + tptb.getHours());
         ok(48 == tptb.getMinutes(), "The time picker text box minutes should be 48 and it was " + tptb.getMinutes());
         ok(!tptb.isEmpty(), "The time picker text box shouldn't be empty.");
 
+        /*
+         * Date Picker
+         */
         DatePickerTextBox dptb = new DatePickerTextBox();
         g_panel.add(dptb, WIDGETS_ID);
 
@@ -184,12 +205,22 @@ public final class UnitTestPanel extends HTMLPanel
         ok("12/26/2010".equals(JSDateUtil.getDate(dptb.getDateValue())), 
            "The date in the date picker text box date value should be 12/26/2010 and it was " + JSDateUtil.getDate(dptb.getDateValue()));
         ok(!dptb.isEmpty(), "The date picker text box shouldn't be empty.");
-
+    }
+    
+    private static void sliderWidgetTests()
+    {
+        expect(6);
+        /*
+         * Slider
+         */
         Slider s = new Slider(HTMLPanel.createUniqueId());
         g_panel.add(s, WIDGETS_ID);
         s.setValue(10);
         ok(10 == s.getValue(), "The value of the slider should be 10 and it was " + s.getValue());
 
+        /*
+         * Range Slider
+         */
         RangeSlider rs = new RangeSlider(HTMLPanel.createUniqueId(), 10, 100, 20, 90);
         g_panel.add(rs, WIDGETS_ID);
         ok(20 == rs.getValueMin(), "The minimum value for the slider should be 20 and it was " + rs.getValueMin());
@@ -203,7 +234,90 @@ public final class UnitTestPanel extends HTMLPanel
 
         rs.setMinimum(90);
         ok(90 == rs.getValueMin(), "The new minimum value for the slider should be 90 and it was " + rs.getValueMin());
+    }
+    
+    private static void mvsbWidgetTests()
+    {
+        expect(18);
+        
+        /*
+         * Single-Valued Suggest Box
+         */
+        final MultivalueSuggestBox ssb = new MultivalueSuggestBox(new MultivalueSuggestRESTHelper("TotalSize", "Options", "DisplayName", "Value") {
+            
+            @Override
+            public String buildUrl(String q, int indexFrom, int indexTo)
+            {
+                return "multivaluesuggestboxexample/colors?q=" + q + "&indexFrom=" + indexFrom + "&indexTo=" + indexTo;
+            }
+        }, false);
+        
+        g_panel.add(ssb, WIDGETS_ID);
+        
+        ok("".equals(ssb.getText()), "The text for the single-valued suggestbox should be '' and is '" + ssb.getText() + "'");
+        String newText = "non-existent color";
+        ssb.setText(newText);
+        ok(newText.equals(ssb.getText()), "The text for the single-valued suggestbox should be '" + newText + "' and is '" + ssb.getText() + "'");
 
+        Map<String, String> valueMap = new HashMap<String, String>();
+        valueMap.put("Electric Lime", "#CEFF1D");
+        ssb.setValueMap(valueMap);
+        ok("Electric Lime".equals(ssb.getText()), "The text for the single-valued suggestbox should be 'Electric Lime' and is '" + ssb.getText() + "'");
+        ok("#CEFF1D".equals(ssb.getValue()), "The value for the single-valued suggestbox should be '#CEFF1D' and is '" + ssb.getValue() + "'");
+        
+        Map<String, String> svm = ssb.getValueMap();
+        for (String key : svm.keySet()) {
+            ok("Electric Lime".equals(key), "The key in the value map for the single-valued suggestbox should be 'Electric Lime' and is '" + key + "'");
+            ok("#CEFF1D".equals(svm.get(key)), "The key in the value map for the single-valued suggestbox should be '#CEFF1D' and is '" + svm.get(key) + "'");
+        }
+        
+        ok("Electric Lime~#CEFF1D".equals(ssb.getValuesAsString()), "The values as string for the single-valued suggestbox should be 'Electric Lime~#CEFF1D' and is '" + ssb.getValuesAsString() + "'");
+        
+        ssb.setValuesAsString("Gold~#E7C697");
+        ok("Gold~#E7C697".equals(ssb.getValuesAsString()), "The values as string for the single-valued suggestbox should be 'Gold~#E7C697' and is '" + ssb.getValuesAsString() + "'");
+        
+        /*
+         * Multi-Valued Suggest Box
+         */
+        final MultivalueSuggestBox msb = new MultivalueSuggestBox(new MultivalueSuggestRESTHelper("TotalSize", "Options", "DisplayName", "Value") {
+            
+            @Override
+            public String buildUrl(String q, int indexFrom, int indexTo)
+            {
+                return "multivaluesuggestboxexample/colors?q=" + q + "&indexFrom=" + indexFrom + "&indexTo=" + indexTo;
+            }
+        }, true);
+        
+        ok("".equals(msb.getText()), "The text for the multi-valued suggestbox should be empty string and is '" + msb.getText() + "'");
+        msb.setText(newText);
+        //no value so text unchanged.
+        ok(newText.equals(msb.getText()), "The text for the multi-valued suggestbox should be '" + newText + "' and is '" + msb.getText() + "'");
+
+        valueMap.put("Almond", "#EFDECD");
+        msb.setValueMap(valueMap);
+        //colors have values, so they get converted to selectedItems and will not appear in the text box
+        ok("".equals(msb.getText()), "The text for the multi-valued suggestbox should be '' and is '" + msb.getText() + "'");
+        ok("#CEFF1D;#EFDECD".equals(msb.getValue()), "The value for the multi-valued suggestbox should be '#CEFF1D;#EFDECD' and is '" + msb.getValue() + "'");
+        
+        Map<String, String> mvm = msb.getValueMap();
+        int i = 0;
+        for (String key : mvm.keySet()) {
+            if (i == 0) {
+                ok("Electric Lime".equals(key), "The key in the value map for the multi-valued suggestbox should be 'Electric Lime' and is '" + key + "'");
+                ok("#CEFF1D".equals(mvm.get(key)), "The key in the value map for the multi-valued suggestbox should be '#CEFF1D' and is '" + mvm.get(key) + "'");                
+            } else {
+                ok("Almond".equals(key), "The key in the value map for the multi-valued suggestbox should be 'Almond' and is '" + key + "'");
+                ok("#EFDECD".equals(mvm.get(key)), "The key in the value map for the multi-valued suggestbox should be '#EFDECD' and is '" + mvm.get(key) + "'");
+            }
+            i++;
+        }
+        
+        ok("Electric Lime~#CEFF1D;Almond~#EFDECD".equals(msb.getValuesAsString()), "The values as string for the multi-valued suggestbox should be 'Electric Lime~#CEFF1D;Almond~#EFDECD' and is '" + msb.getValuesAsString() + "'");
+
+        msb.setValuesAsString("Gold~#E7C697;Red~#EE204D;Sky Blue~#80DAEB");
+        ok("Gold~#E7C697;Red~#EE204D;Sky Blue~#80DAEB".equals(msb.getValuesAsString()), "The values as string for the multi-valued suggestbox should be 'Gold~#E7C697;Red~#EE204D;Sky Blue~#80DAEB' and is '" + msb.getValuesAsString() + "'");
+        
+        g_panel.add(msb, WIDGETS_ID);
     }
     
     private static void numberFormatTests()
