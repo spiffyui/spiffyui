@@ -369,6 +369,10 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     {
         m_valueMap = valueMap;
         
+        JSUtil.println("remove from parent...");
+        for (SelectedItem si : m_selectedItems) {
+            si.removeFromParent();
+        }
         m_selectedItems.clear();
             
         for (String key : valueMap.keySet()) {
