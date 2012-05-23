@@ -95,6 +95,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public final class MessageUtil
 {
+    private static boolean g_shouldShow = true;
     
     /**
      * Making sure this class can't be instantiated.
@@ -125,7 +126,9 @@ public final class MessageUtil
      */
     public static void showFatalError(String msg)
     {
-        ERROR_PANEL.setErrorMessage(msg);
+        if (g_shouldShow) {
+            ERROR_PANEL.setErrorMessage(msg);
+        }
         logError(msg);
     }
 
@@ -181,6 +184,31 @@ public final class MessageUtil
             logWarning(msg);
         }
     }
+
+    /**
+     * Sets if the message helper should show messages at all.
+     * 
+     * @param shouldShow true if it should and false otherwise
+     */
+    public static void setShouldShowMessages(boolean shouldShow)
+    {
+        g_shouldShow = shouldShow;
+        setShouldShowMessagesJS(shouldShow);
+    }
+
+    /**
+     * Gets if the message util is showing messages.
+     * 
+     * @return true if messages are shown and false otherwise
+     */
+    public static boolean getShouldShowMessages()
+    {
+        return g_shouldShow;
+    }
+
+    private static native void setShouldShowMessagesJS(boolean shouldShow) /*-{
+        humanMsg.shouldShow = shouldShow;
+    }-*/;
     
     private static native void showWarningJS(String msg) /*-{
         $wnd.humanMsg.setup();

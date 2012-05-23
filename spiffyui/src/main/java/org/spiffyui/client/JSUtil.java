@@ -1059,5 +1059,19 @@ public final class JSUtil
         return $wnd.jQuery.parseJSON(jsonString);
     }-*/;
 
+    /**
+     * Reloads the current URL while hiding any error messages.
+     * 
+     * When you reload the window it causes any AJAX requests in process to
+     * fail and that can cause error messages to flash on the screen before
+     * the window reloads.  This methods hides all error messages before 
+     * reloading the window.
+     */
+    public static void reload()
+    {
+        MessageUtil.setShouldShowMessages(false);
+        Window.Location.reload();
+    }
+
 
 }

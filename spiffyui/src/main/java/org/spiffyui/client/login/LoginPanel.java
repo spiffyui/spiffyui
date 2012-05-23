@@ -24,7 +24,6 @@ import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -271,7 +270,7 @@ public class LoginPanel extends Composite implements KeyUpHandler
                      * At this point we are already logged out, so we
                      * just need to reload the window.
                      */
-                    Window.Location.reload();
+                    JSUtil.reload();
                 }
             });
         m_logout.setVisible(false);

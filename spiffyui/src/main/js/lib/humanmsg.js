@@ -5,6 +5,8 @@
 */
 
 var humanMsg = {
+    shouldShow: true,
+
 	setup: function(appendTo, logName, msgOpacity) {
         
         if (humanMsg.hasSetup) {
@@ -81,6 +83,10 @@ var humanMsg = {
 	},
 
 	displayMsg: function(msg, /*boolean*/doLog) {
+        if (!humanMsg.shouldShow) {
+            return;
+        }
+
 		if (msg == '')
 			return;
         
