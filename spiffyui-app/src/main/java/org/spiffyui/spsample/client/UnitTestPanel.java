@@ -17,8 +17,10 @@
  ******************************************************************************/
 package org.spiffyui.spsample.client;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.spiffyui.client.JSDateUtil;
@@ -30,6 +32,7 @@ import org.spiffyui.client.i18n.SpiffyUIStrings;
 import org.spiffyui.client.widgets.DatePickerTextBox;
 import org.spiffyui.client.widgets.TimePickerTextBox;
 import org.spiffyui.client.widgets.multivaluesuggest.MultivalueSuggestBox;
+import org.spiffyui.client.widgets.multivaluesuggest.MultivalueSuggestBoxBase.Option;
 import org.spiffyui.client.widgets.multivaluesuggest.MultivalueSuggestRESTHelper;
 import org.spiffyui.client.widgets.slider.RangeSlider;
 import org.spiffyui.client.widgets.slider.Slider;
@@ -238,7 +241,7 @@ public final class UnitTestPanel extends HTMLPanel
     
     private static void mvsbWidgetTests()
     {
-        expect(18);
+        expect(48);
         
         /*
          * Single-Valued Suggest Box
@@ -293,6 +296,10 @@ public final class UnitTestPanel extends HTMLPanel
         //no value so text unchanged.
         ok(newText.equals(msb.getText()), "The text for the multi-valued suggestbox should be '" + newText + "' and is '" + msb.getText() + "'");
 
+        /*
+         * get/set ValueMap
+         */
+        //add Almond to this local map which already has Electric Lime in it.
         valueMap.put("Almond", "#EFDECD");
         msb.setValueMap(valueMap);
         //colors have values, so they get converted to selectedItems and will not appear in the text box
@@ -303,19 +310,119 @@ public final class UnitTestPanel extends HTMLPanel
         int i = 0;
         for (String key : mvm.keySet()) {
             if (i == 0) {
-                ok("Electric Lime".equals(key), "The key in the value map for the multi-valued suggestbox should be 'Electric Lime' and is '" + key + "'");
-                ok("#CEFF1D".equals(mvm.get(key)), "The key in the value map for the multi-valued suggestbox should be '#CEFF1D' and is '" + mvm.get(key) + "'");                
+                ok("Electric Lime".equals(key), "The key in the value map at index " + i + " for the multi-valued suggestbox should be 'Electric Lime' and is '" + key + "'");
+                ok("#CEFF1D".equals(mvm.get(key)), "The key in the value map at index " + i + " for the multi-valued suggestbox should be '#CEFF1D' and is '" + mvm.get(key) + "'");                
             } else {
-                ok("Almond".equals(key), "The key in the value map for the multi-valued suggestbox should be 'Almond' and is '" + key + "'");
-                ok("#EFDECD".equals(mvm.get(key)), "The key in the value map for the multi-valued suggestbox should be '#EFDECD' and is '" + mvm.get(key) + "'");
+                ok("Almond".equals(key), "The key in the value map at index " + i + " for the multi-valued suggestbox should be 'Almond' and is '" + key + "'");
+                ok("#EFDECD".equals(mvm.get(key)), "The key in the value map at index " + i + " for the multi-valued suggestbox should be '#EFDECD' and is '" + mvm.get(key) + "'");
             }
             i++;
         }
         
-        ok("Electric Lime~#CEFF1D;Almond~#EFDECD".equals(msb.getValuesAsString()), "The values as string for the multi-valued suggestbox should be 'Electric Lime~#CEFF1D;Almond~#EFDECD' and is '" + msb.getValuesAsString() + "'");
+        /*
+         * get/set ValuesAsString
+         */
+        ok("Electric Lime~#CEFF1D;Almond~#EFDECD".equals(msb.getValuesAsString()), 
+            "The values as string for the multi-valued suggestbox should be 'Electric Lime~#CEFF1D;Almond~#EFDECD' and is '" + msb.getValuesAsString() + "'");
 
+        //Now set the values to Gold, Red, and Sky Blue 
         msb.setValuesAsString("Gold~#E7C697;Red~#EE204D;Sky Blue~#80DAEB");
-        ok("Gold~#E7C697;Red~#EE204D;Sky Blue~#80DAEB".equals(msb.getValuesAsString()), "The values as string for the multi-valued suggestbox should be 'Gold~#E7C697;Red~#EE204D;Sky Blue~#80DAEB' and is '" + msb.getValuesAsString() + "'");
+        ok("Gold~#E7C697;Red~#EE204D;Sky Blue~#80DAEB".equals(msb.getValuesAsString()), 
+            "The values as string for the multi-valued suggestbox should be 'Gold~#E7C697;Red~#EE204D;Sky Blue~#80DAEB' and is '" + msb.getValuesAsString() + "'");
+        
+        /*
+         * get/set/add SelectedOption
+         */
+        //Now set the values using setSelectedOptions with 3 new Options
+        List<Option> options = new ArrayList<Option>();
+        options.add(msb.new Option("Brick Red", "#CB4154"));
+        options.add(msb.new Option("Goldenrod", "#FCD975"));
+        options.add(msb.new Option("Cornflower", "#9ACEEB"));
+        msb.setSelectedOptions(options);
+        
+        //test getValuesAsString
+        ok("Brick Red~#CB4154;Goldenrod~#FCD975;Cornflower~#9ACEEB".equals(msb.getValuesAsString()), 
+            "The values as string after using setSelectedOptions for the multi-valued suggestbox should be 'Brick Red~#CB4154;Goldendrod~#FCD975;Cornflower~#9ACEEB' and is '" + msb.getValuesAsString() + "'");
+        
+        //test getValueMap
+        Map<String, String> mvmSO = msb.getValueMap();
+        int j = 0;
+        for (String key : mvmSO.keySet()) {
+            if (j == 0) {
+                ok("Brick Red".equals(key), "The key in the value map at index " + j + " for the multi-valued suggestbox should be 'Brick Red' and is '" + key + "'");
+                ok("#CB4154".equals(mvmSO.get(key)), "The value in the value map at index " + j + " for the multi-valued suggestbox should be '#CB4154' and is '" + mvmSO.get(key) + "'");                
+            } else if (j == 1) {
+                ok("Goldenrod".equals(key), "The key in the value map at index " + j + " for the multi-valued suggestbox should be 'Goldenrod' and is '" + key + "'");
+                ok("#FCD975".equals(mvmSO.get(key)), "The value in the value map at index " + j + " for the multi-valued suggestbox should be '#FCD975' and is '" + mvmSO.get(key) + "'");
+            } else {
+                ok("Cornflower".equals(key), "The key in the value map at index " + j + " for the multi-valued suggestbox should be 'Cornflower' and is '" + key + "'");
+                ok("#9ACEEB".equals(mvmSO.get(key)), "The value in the value map at index " + j + " for the multi-valued suggestbox should be '#9ACEEB' and is '" + mvmSO.get(key) + "'");
+            }
+            j++;
+        }
+        
+        //test getSelectedOptions
+        List<Option> selOpts = msb.getSelectedOptions();
+        for (int k = 0; k < 3; k++) {
+            Option selOpt = selOpts.get(k);
+            if (k == 0) {
+                ok("Brick Red".equals(selOpt.getName()), "The key in the selected options list at index " + k + " for the multi-valued suggestbox should be 'Brick Red' and is '" + selOpt.getName() + "'");
+                ok("#CB4154".equals(selOpt.getValue()), "The value in the selected options list at index " + k + " for the multi-valued suggestbox should be '#CB4154' and is '" + selOpt.getValue() + "'");                
+            } else if (k == 1) {
+                ok("Goldenrod".equals(selOpt.getName()), "The key in the selected options list at index " + k + " for the multi-valued suggestbox should be 'Goldenrod' and is '" + selOpt.getName() + "'");
+                ok("#FCD975".equals(selOpt.getValue()), "The value in the selected options list at index " + k + " for the multi-valued suggestbox should be '#FCD975' and is '" + selOpt.getValue() + "'");
+            } else {
+                ok("Cornflower".equals(selOpt.getName()), "The key in the selected options list at index " + k + " for the multi-valued suggestbox should be 'Cornflower' and is '" + selOpt.getName() + "'");
+                ok("#9ACEEB".equals(selOpt.getValue()), "The value in the selected options list at index " + k + " for the multi-valued suggestbox should be '#9ACEEB' and is '" + selOpt.getValue() + "'");
+            }
+        }
+        
+        //Now add Shamrock using addSelectedOption
+        Option shamrock = msb.new Option("Shamrock", "#45CEA2");
+        msb.addSelectedOption(shamrock);
+        //repeat tests of getValuesAsString, getValueMap and getSelectedOptions
+        //test getValuesAsString
+        ok("Brick Red~#CB4154;Goldenrod~#FCD975;Cornflower~#9ACEEB;Shamrock~#45CEA2".equals(msb.getValuesAsString()), 
+            "The values as string after using setSelectedOptions for the multi-valued suggestbox should be 'Brick Red~#CB4154;Goldendrod~#FCD975;Cornflower~#9ACEEB;Shamrock~#45CEA2' and is '" + msb.getValuesAsString() + "'");
+        
+        //test getValueMap
+        Map<String, String> mvmSO2 = msb.getValueMap();
+        int l = 0;
+        for (String key : mvmSO2.keySet()) {
+            if (l == 0) {
+                ok("Brick Red".equals(key), "The key in the value map at index " + l + " for the multi-valued suggestbox should be 'Brick Red' and is '" + key + "'");
+                ok("#CB4154".equals(mvmSO2.get(key)), "The value in the value map for the multi-valued suggestbox should be '#CB4154' and is '" + mvmSO2.get(key) + "'");                
+            } else if (l == 1) {
+                ok("Goldenrod".equals(key), "The key in the value map at index " + l + " for the multi-valued suggestbox should be 'Goldenrod' and is '" + key + "'");
+                ok("#FCD975".equals(mvmSO2.get(key)), "The value in the value map for the multi-valued suggestbox should be '#FCD975' and is '" + mvmSO2.get(key) + "'");
+            } else if (l == 2) {
+                ok("Cornflower".equals(key), "The key in the value map at index " + l + " for the multi-valued suggestbox should be 'Cornflower' and is '" + key + "'");
+                ok("#9ACEEB".equals(mvmSO2.get(key)), "The value in the value map for the multi-valued suggestbox should be '#9ACEEB' and is '" + mvmSO2.get(key) + "'");
+            } else {
+                ok("Shamrock".equals(key), "The key in the value map at index " + l + " for the multi-valued suggestbox should be 'Shamrock' and is '" + key + "'");
+                ok("#45CEA2".equals(mvmSO2.get(key)), "The value in the value map for the multi-valued suggestbox should be '#45CEA2' and is '" + mvmSO2.get(key) + "'");
+            }
+            l++;
+        }
+        
+        //test getSelectedOptions
+        List<Option> selOpts2 = msb.getSelectedOptions();
+        for (int m = 0; m < 4; m++) {
+            Option selOpt = selOpts2.get(m);
+            if (m == 0) {
+                ok("Brick Red".equals(selOpt.getName()), "The key in the selected options list at index " + m + " for the multi-valued suggestbox should be 'Brick Red' and is '" + selOpt.getName() + "'");
+                ok("#CB4154".equals(selOpt.getValue()), "The value in the selected options list at index " + m + " for the multi-valued suggestbox should be '#CB4154' and is '" + selOpt.getValue() + "'");                
+            } else if (m == 1) {
+                ok("Goldenrod".equals(selOpt.getName()), "The key in the selected options list at index " + m + " for the multi-valued suggestbox should be 'Goldenrod' and is '" + selOpt.getName() + "'");
+                ok("#FCD975".equals(selOpt.getValue()), "The value in the selected options list at index " + m + " for the multi-valued suggestbox should be '#FCD975' and is '" + selOpt.getValue() + "'");
+            } else if (m == 2) {
+                ok("Cornflower".equals(selOpt.getName()), "The key in the selected options list at index " + m + " for the multi-valued suggestbox should be 'Cornflower' and is '" + selOpt.getName() + "'");
+                ok("#9ACEEB".equals(selOpt.getValue()), "The value in the selected options list at index " + m + " for the multi-valued suggestbox should be '#9ACEEB' and is '" + selOpt.getValue() + "'");
+            } else {
+                ok("Shamrock".equals(selOpt.getName()), "The key in the selected options list at index " + m + " for the multi-valued suggestbox should be 'Shamrock' and is '" + selOpt.getName() + "'");
+                ok("#45CEA2".equals(selOpt.getValue()), "The value in the selected options list at index " + m + " for the multi-valued suggestbox should be '#45CEA2' and is '" + selOpt.getValue() + "'");               
+            }
+        }
         
         g_panel.add(msb, WIDGETS_ID);
     }

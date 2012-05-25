@@ -23,6 +23,7 @@ import org.spiffyui.client.widgets.multivaluesuggest.MultivalueSuggestBox;
 import org.spiffyui.client.widgets.multivaluesuggest.MultivalueSuggestRESTHelper;
 
 import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.user.client.ui.HTMLPanel;
 
 /**
  * A subclass of MultivalueSuggestBox that shows suggestions in a fancier way.
@@ -78,7 +79,17 @@ public class FancyAutocompleter extends MultivalueSuggestBox
      */
     protected OptionSuggestion createOptionSuggestion(Option o, String fullText, String query)
     {
-        return new FancyOptionSuggestion((FancyOption) o, o.getName(), o.getValue(), fullText, query);
+        return new FancyOptionSuggestion((FancyOption) o, fullText, query);
+    }
+    
+    /**
+     * Create and return a SelectedItem populated with the option
+     * @param option - an Option bean that will be down cast to a FancyOption
+     * @return the SelectedItem to be pushed
+     */
+    protected SelectedItem createSelectedItem(Option option)
+    {
+        return new FancySelectedItem(HTMLPanel.createUniqueId(), (FancyOption) option);
     }
     
     /**
@@ -124,12 +135,9 @@ public class FancyAutocompleter extends MultivalueSuggestBox
      */
     public class FancyOptionSuggestion extends OptionSuggestion
     {   
-        FancyOption m_option;
-        
-        FancyOptionSuggestion(FancyOption o, String displ, String val, String replacePre, String query) 
+        FancyOptionSuggestion(FancyOption o, String replacePre, String query) 
         {
-            super(displ, val, replacePre, query);
-            m_option = o;
+            super(o, replacePre, query);
         }
         
         @Override
@@ -143,15 +151,36 @@ public class FancyAutocompleter extends MultivalueSuggestBox
              * then also add the description and Base in separate divs
              */
             return "<div class=\"facItem\">" +
-                        "<div class=\"facRgb\" style=\"background-color: rgb" + m_option.getRgb() + "\">" +
+                        "<div class=\"facRgb\" style=\"background-color: rgb" + ((FancyOption) getOption()).getRgb() + "\">" +
                         "</div>" +
                         "<div class=\"facName\">" +
                             display +
                         "</div>" +
                         "<div class=\"facDesc\">" +
-                            m_option.getDescription() +
+                            ((FancyOption) getOption()).getDescription() +
                         "</div>" +
                     "</div>";
         }
+    }
+    
+    /**
+     * A subclass of SelectedItem that uses FancyOption to generate a fancy selected item bubble 
+     */
+    public class FancySelectedItem extends SelectedItem
+    {
+        /**
+         * Constructor
+         * @param id - the elements unique id
+         * @param option - a FancyOption to create the HTML
+         */
+        public FancySelectedItem(String id, FancyOption option)
+        {
+            super(id, option, "<span class=\"spiffy-mvsb-item\" id=\"" + id + 
+                    "_main\"><span  class=\"facSelectedRgb\" style=\"float: left; background-color: rgb" + option.getRgb() + "\"></span>" +
+                        option.getName() +
+                    "</span>");
+
+        }
+        
     }
 }

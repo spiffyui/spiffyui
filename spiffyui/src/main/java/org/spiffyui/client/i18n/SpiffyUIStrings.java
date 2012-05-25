@@ -67,5 +67,7 @@ public interface SpiffyUIStrings extends Messages
     public String kiloAbbrev(String number);
     public String megaAbbrev(String number);
     public String gigaAbbrev(String number);
+    public String next();
+    public String previous();
 
 }

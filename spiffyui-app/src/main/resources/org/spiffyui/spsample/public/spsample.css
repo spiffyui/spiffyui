@@ -887,6 +887,16 @@ iframe {
     margin-top: 5px;
 }
 
+.facSelectedRgb {
+    float: left;
+    width: 15px;
+    height: 15px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    margin-right: 2px;
+    margin-top: 3px;
+}
+
 #userGender {
     top: 3px;
 }

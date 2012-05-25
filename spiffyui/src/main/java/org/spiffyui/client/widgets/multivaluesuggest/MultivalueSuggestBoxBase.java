@@ -251,20 +251,22 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         }
     }
 
-    private void putValue(String key, String value)
-    {
+    private void putValue(Option option)
+    {        
+        String key = option.getName();
+        String value = option.getValue();
         JSUtil.println("putting key = " + key + "; value = " + value);
         m_valueMap.put(key, value);
         ValueChangeEvent.fire(this, value);
         
         if (m_isMultivalued) {
-            createAndPushSelectedItem(key);
+            createAndPushSelectedItem(option);
         }
     }
 
     private void removeValue(SelectedItem item)
     {
-        String key = item.getDisplay();
+        String key = item.getOption().getName();
         String value = m_valueMap.get(key);
         JSUtil.println("removing key = " + key + "; value = " + value);
         m_valueMap.remove(key);
@@ -341,9 +343,10 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
 
         StringBuffer sb = new StringBuffer();
         for (SelectedItem si : m_selectedItems) {
-            sb.append(si.getDisplay());
+            String displ = si.getOption().getName();
+            sb.append(displ);
             sb.append(m_selectedItemEq);
-            sb.append(m_valueMap.get(si.getDisplay()));
+            sb.append(m_valueMap.get(displ));
             sb.append(m_valueDelim);
         }
         
@@ -358,11 +361,66 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     {
         return m_valueMap;
     }
+        
 
+    /**
+     * Get the Options that were selected
+     * @return Returns the List of selected Option beans.
+     */
+    public List<Option> getSelectedOptions()
+    {
+        List<Option> options = new ArrayList<Option>();
+        for (SelectedItem si : m_selectedItems) {
+            options.add(si.getOption());
+        }
+        return options;
+    }
+    
+    /**
+     * This only applies when allowing multivalues.
+     * If single-valued, then this does nothing.
+     * (For single-valued, use setValueMap or setValuesAsString.)
+     * 
+     * @param option - the Option to add
+     */
+    public void addSelectedOption(Option option)
+    {
+        if (!m_isMultivalued) {
+            return;
+        }
+        createAndPushSelectedItem(option);
+        m_field.setText("");
+        m_valueMap.put(option.getName(), option.getValue());
+    }
+    
+    /**
+     * This only applies when allowing multivalues.
+     * If single-valued, then this method does nothing.
+     * (For single-valued, use setValueMap or setValuesAsString.)
+     * @param options - List of Option beans
+     */
+    public void setSelectedOptions(List<Option> options)
+    {
+        if (!m_isMultivalued) {
+            return;
+        }
+        m_valueMap.clear();
+        
+        for (SelectedItem si : m_selectedItems) {
+            si.removeFromParent();
+        }
+        m_selectedItems.clear();
+            
+        for (Option option : options) {
+            addSelectedOption(option);
+        }
+    }
     /**
      * Call this method to set the default values.
      * If it is multi-valued, SelectedItems
-     * will be added for each entry
+     * will be added for each entry.  Note: only Option base class
+     * will be used for SelectedItem objects.  To add SelectedItems with descendant
+     * of Option, use addSelectedOption or setSelectedOptions
      * @param valueMap the valueMap to set
      */
     public void setValueMap(Map<String, String> valueMap)
@@ -377,7 +435,8 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
             
         for (String key : valueMap.keySet()) {
             if (m_isMultivalued) {
-                createAndPushSelectedItem(key);
+                Option option = new Option(key, valueMap.get(key));
+                createAndPushSelectedItem(option);
                 m_field.setText("");
             } else {
                 m_field.setText(key);
@@ -411,16 +470,26 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         setValueMap(valMap);
     }
     
-    private void createAndPushSelectedItem(String key)
+    private void createAndPushSelectedItem(Option option)
     {
         /*
          * Create span for this item
          */        
-        SelectedItem item = new SelectedItem(HTMLPanel.createUniqueId(), key);
+        SelectedItem item = createSelectedItem(option);
         m_panel.add(item, m_selectedItemsContainerId);
         m_selectedItems.push(item);
     }
 
+    /**
+     * Create and return a SelectedItem populated with the option
+     * @param option - an Option bean
+     * @return the SelectedItem to be pushed
+     */
+    protected SelectedItem createSelectedItem(Option option)
+    {
+        return new SelectedItem(HTMLPanel.createUniqueId(), option);
+    }
+    
     /**
     * If there is more than one key in the text field,
     * check that every key has a value in the map.
@@ -526,7 +595,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
 
     private void exactMatchFound(String displayValue, final int position, Option option)
     {
-        putValue(option.getName(), option.getValue());
+        putValue(option);
         JSUtil.println("extactMatchFound ! exact match found for displ = " + displayValue);
 
         //and replace the text if single valued, otherwise clear b/c a SelectedItem will be added
@@ -618,7 +687,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
      */
     protected OptionSuggestion createOptionSuggestion(Option o, String fullText, String query)
     {
-        return new OptionSuggestion(o.getName(), o.getValue(), fullText, query);
+        return new OptionSuggestion(o, fullText, query);
     }
     
     @Override
@@ -628,7 +697,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         if (suggestion instanceof OptionSuggestion) {
             OptionSuggestion osugg = (OptionSuggestion) suggestion;
             //if NEXT or PREVIOUS were selected, requery but bypass the timer
-            String value = osugg.getValue();
+            String value = osugg.getOption().getValue();
             if (OptionSuggestion.NEXT_VALUE.equals(value)) {
                 m_indexFrom += m_pageSize;
                 m_indexTo += m_pageSize;
@@ -648,7 +717,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
                 updateFormFeedback(FormFeedback.VALID, m_validText);
 
                 //add the option's value to the value map            
-                putValue(osugg.getName(), value);
+                putValue(osugg.getOption());
 
                 if (m_isMultivalued) {
                     m_field.setText("");
@@ -1087,7 +1156,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
                 updateFormFeedback(FormFeedback.VALID, m_validText);
 
                 //set the value into the valueMap
-                putValue(displ, o.getValue());
+                putValue(o);
 
             } else {
                 //more than 1 so show the suggestions
@@ -1139,10 +1208,9 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
      */
     public class OptionSuggestion implements SuggestOracle.Suggestion
     {
+        private Option m_option;
         private String m_display;
         private String m_replace;
-        private String m_value;
-        private String m_name; 
 
         static final String NEXT_VALUE = "NEXT";
         static final String PREVIOUS_VALUE = "PREVIOUS";
@@ -1155,24 +1223,24 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         OptionSuggestion(String nav, String currentTextValue)
         {
             if (NEXT_VALUE.equals(nav)) {
-                m_display = "<div class=\"autocompleterNext\" title=\"Next\"></div>";
+                m_display = "<div class=\"autocompleterNext\" title=\"" + STRINGS.next() + "\"></div>";
+                m_option = new Option(STRINGS.next(), nav);
             } else {
-                m_display = "<div class=\"autocompleterPrev\" title=\"Previous\"></div>";
+                m_display = "<div class=\"autocompleterPrev\" title=\"" + STRINGS.previous() + "\"></div>";
+                m_option = new Option(STRINGS.previous(), nav);
             }
             m_replace = currentTextValue;
-            m_value = nav;
         }
 
         /**
          * Constructor for regular options
-         * @param displ - the name of the option
-         * @param val - the value of the option
+         * @param option - the Option bean
          * @param replacePre - the current contents of the text box
          * @param query - the query
          */
-        protected OptionSuggestion(String displ, String val, String replacePre, String query)
+        protected OptionSuggestion(Option option, String replacePre, String query)
         {
-            m_name = displ;
+            String displ = option.getName();            
             int begin = displ.toLowerCase().indexOf(query.toLowerCase());
             if (begin >= 0) {
                 int end = begin + query.length();
@@ -1183,7 +1251,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
                 m_display = displ;
             }
             m_replace = getFullReplaceText(displ, replacePre);
-            m_value = val;
+            m_option = option;
         }
 
         @Override
@@ -1199,22 +1267,12 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         }
 
         /**
-         * Get the value of the option
-         * @return value
+         * Return the Option bean
+         * @return the Option bean
          */
-        public String getValue()
+        public Option getOption()
         {
-            return m_value;
-        }
-
-        /**
-         * Get the name of the option.
-         * (when not multivalued, this will be the same as getReplacementString)
-         * @return name
-         */
-        public String getName()
-        {
-            return m_name;
+            return m_option;
         }
     }
 
@@ -1234,6 +1292,16 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
          */
         public Option()
         {
+        }
+        /**
+         * Constructor with default name and value
+         * @param name - the name of the option
+         * @param value - the value of the option
+         */
+        public Option(String name, String value)
+        {
+            m_name = name;
+            m_value = value;
         }
         /**
          * @return Returns the name.
@@ -1324,19 +1392,31 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
      * It will have an anchor with an X to allow for this item to
      * be dismissed
      */
-    protected class SelectedItem extends HTMLPanel implements ClickHandler
+    public class SelectedItem extends HTMLPanel implements ClickHandler
     {
-        private String m_display;
+        private Option m_option;
         /**
          * Constructor
          * @param id - the elements unique id
-         * @param display - the string to display
+         * @param option - the Option bean
          */
-        public SelectedItem(String id, String display)
+        public SelectedItem(String id, Option option)
         {
-            super("span", "<span class=\"spiffy-mvsb-item\" id=\"" + id + 
-                    "_main\">" + display +
+            this(id, option, "<span class=\"spiffy-mvsb-item\" id=\"" + id + 
+                    "_main\">" + option.getName() +
                     "</span>");
+        }
+
+        /**
+         * Constructor
+         * @param id - the elements unique id
+         * @param option - the Option bean
+         * @param html - the HTML string for the SelectedItem, which must include an id + "_main"
+         * to serve as the location where the close Anchor will go
+         */
+        public SelectedItem(String id, Option option, String html)
+        {
+            super("span", html);
             Anchor close = new Anchor();
             close.setHref("#");
             close.setTitle(STRINGS.close());
@@ -1345,9 +1425,9 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
             close.addClickHandler(this);
             
             getElement().setId(id);
-            m_display = display;
+            m_option = option;;
         }
-
+        
         @Override
         public void onClick(ClickEvent event)
         {
@@ -1363,14 +1443,14 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
             removeValue(this);
             m_selectedItems.remove(this);
         }
-
+        
         /**
-         * Get the display string
-         * @return the display string
+         * Get the Option bean
+         * @return the Option bean
          */
-        public String getDisplay()
+        public Option getOption()
         {
-            return m_display;
+            return m_option;
         }
         
     }
