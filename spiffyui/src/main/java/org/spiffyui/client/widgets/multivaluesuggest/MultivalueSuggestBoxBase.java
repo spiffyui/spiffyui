@@ -1233,7 +1233,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         }
 
         /**
-         * Constructor for regular options
+         * Constructor for suggested options
          * @param option - the Option bean
          * @param replacePre - the current contents of the text box
          * @param query - the query
@@ -1254,6 +1254,21 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
             m_option = option;
         }
 
+        /**
+         * Constructor for regular options with only name and value.
+         * @param displ - the name of the option
+         * @param val - the value of the option
+         * @param replacePre - the current contents of the text box
+         * @param query - the query
+         * 
+         * @deprecated This method is deprecated and will be removed in future releases. Use OptionSuggestion(Option, String, String) 
+         */
+        @Deprecated
+        protected OptionSuggestion(String displ, String val, String replacePre, String query)
+        {
+            this(new Option(displ, val), replacePre, query);
+        }
+        
         @Override
         public String getDisplayString()
         {
@@ -1273,6 +1288,25 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         public Option getOption()
         {
             return m_option;
+        }
+        
+        /**
+         * Get the value of the option
+         * @return value
+         */
+        public String getValue()
+        {
+            return m_option.getValue();
+        }
+
+        /**
+         * Get the name of the option.
+         * (when not multivalued, this will be the same as getReplacementString)
+         * @return name
+         */
+        public String getName()
+        {
+            return m_option.getName();
         }
     }
 
@@ -1451,6 +1485,16 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         public Option getOption()
         {
             return m_option;
+        }
+        
+        /**
+         * Get the display string,
+         * which is the same as the name of the Option
+         * @return the display string
+         */
+        public String getDisplay()
+        {
+            return m_option.getName();
         }
         
     }
