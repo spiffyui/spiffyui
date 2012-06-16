@@ -963,9 +963,9 @@ iframe {
 }
 
 .landingCallout:hover, .createForm:hover, #createText:hover {
-    -moz-box-shadow: 10px 10px 5px #888;
-    -webkit-box-shadow: 10px 10px 5px #888;
-    box-shadow: 10px 10px 5px #888;
+    -moz-box-shadow: 3px 3px 2px #888;
+    -webkit-box-shadow: 3px 3px 2px #888;
+    box-shadow: 3px 3px 2px #888;
 }
 
 #timeCallout, #licCallout {
