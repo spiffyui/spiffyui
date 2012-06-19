@@ -31,7 +31,7 @@ spsample = {
     getGitHubProjects: function() {
         jQuery.ajax({
              url: 'https://api.github.com/users/spiffyui/repos',
-             dataType: 'json',
+             dataType: 'jsonp',
              success: function(res) {
                  var info = '';
                  
@@ -39,7 +39,7 @@ spsample = {
                   * We are sorting the repos alphabetically by 
                   * name for now.
                   */
-                 res.sort(function(a, b) {
+                 res.data.sort(function(a, b) {
                      if (a.name < b.name) {
                          return -1;
                      }
@@ -52,10 +52,10 @@ spsample = {
 
                  });
                  
-                 for (var i = 0; i < res.length; i++) {
-                    var repo = res[i];
-
-                    info += '<li><a href="' + repo.url + '" id="' + spsample.genRepoId(repo.name) + '">' + repo.name + '</a>' + repo.description + '</li>';
+                 for (var i = 0; i < res.data.length; i++) {
+                    var repo = res.data[i];
+                    
+                    info += '<li><a href="' + repo.html_url + '" id="' + spsample.genRepoId(repo.name) + '">' + repo.name + '</a>' + repo.description + '</li>';
                  }
                  
                  info += '';
