@@ -176,7 +176,7 @@
     
     <target name="js-min" description="Minimize the JavaScript with the Closure compiler" depends="setup">
         <closure jsfile="${sample.out.www}/spsample.min.js" 
-                 closurejar="${spiffyui}/build/lib/closure-compiler-r1810.jar"
+                 closurejar="${spiffyui}/build/lib/closure-compiler-r1918.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="DEFAULT">
         

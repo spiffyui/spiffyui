@@ -202,7 +202,7 @@
              to create a single file.  We need to specify the files for JQuery UI
              in a specific order since they have loading dependencies. -->
         <closure jsfile="${spiffy.www}/spiffyui.min.js" 
-                 closurejar="${spiffy.build}/lib/closure-compiler-r1810.jar"
+                 closurejar="${spiffy.build}/lib/closure-compiler-r1918.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="DEFAULT">
             <fileset dir="${spiffy.js}" includes="**/jquery.ui.core.js" />
@@ -224,7 +224,7 @@
         
         <!-- We also compile our own copy of JQuery -->
         <closure jsfile="${spiffy.www}/jquery.min.js" 
-                 closurejar="${spiffy.build}/lib/closure-compiler-r1810.jar"
+                 closurejar="${spiffy.build}/lib/closure-compiler-r1918.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="QUIET">
             <fileset dir="${spiffy.js}/lib" includes="jquery-1.7.2.js" />
