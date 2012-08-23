@@ -503,16 +503,9 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
             VersionInfo.getVersionInfo(new RESTObjectCallBack<VersionInfo>() {
                 public void success(VersionInfo info)
                 {
-                    if ("-1".equals(info.getRevDate())) {
-                        m_footer.setFooterString(getStrings().footer(info.getVersion(), 
-                                                                     JSDateUtil.getLongDate(info.getDate()),
-                                                                     info.getRevision()));
-                    } else {
-                        m_footer.setFooterString(getStrings().footer2(info.getVersion(), 
-                                                                      JSDateUtil.getLongDate(info.getDate()),
-                                                                      info.getRevision(),
-                                                                      JSDateUtil.getLongDate(info.getRevDate())));
-                    }
+                    m_footer.setFooterString(getStrings().footer(info.getVersion(), 
+                                                                 JSDateUtil.getDate(info.getDate()),
+                                                                 info.getRevision()));
                 }
     
                 public void error(String message)
