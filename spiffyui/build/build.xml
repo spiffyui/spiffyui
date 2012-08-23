@@ -310,7 +310,7 @@
         <delete dir="${spiffy.classes}"/>
         <delete dir="${spiffy.dist}"/>
         <delete dir="${spiffy.build}/classes"/>
-        <delete>
+        <delete failonerror="false">
             <fileset dir="${spiffy.build}/lib" includes="*.jar"/>
         </delete>
         <delete dir="${spiffy.root}/lib"/>
