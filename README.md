@@ -9,7 +9,7 @@ Building and Running Spiffy UI
 
 Spiffy UI framework is built with [Apache Ant](http://ant.apache.org/) using [Apache Ivy](http://ant.apache.org/ivy/).  Once you've installed Ant go to your Spiffy UI working copy and run this command:
 
-        git://github.com/spiffyui/spiffyui.git
+        git clone git://github.com/spiffyui/spiffyui.git
         cd spiffyui
         <ANT HOME>/ant all run
         
