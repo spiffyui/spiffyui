@@ -257,11 +257,12 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         String value = option.getValue();
         JSUtil.println("putting key = " + key + "; value = " + value);
         m_valueMap.put(key, value);
-        ValueChangeEvent.fire(this, value);
         
         if (m_isMultivalued) {
             createAndPushSelectedItem(option);
         }
+        
+        ValueChangeEvent.fire(this, value);
     }
 
     private void removeValue(SelectedItem item)
@@ -270,9 +271,10 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         String value = m_valueMap.get(key);
         JSUtil.println("removing key = " + key + "; value = " + value);
         m_valueMap.remove(key);
-        ValueChangeEvent.fire(this, value);    
         
         item.removeFromParent();
+        
+        ValueChangeEvent.fire(this, value);    
     }
     /**
      * Get the value(s) as a String.  If allowing multivalues, separated by the VALUE_DELIM.
