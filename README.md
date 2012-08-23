@@ -16,6 +16,7 @@ Spiffy UI framework is built with [Apache Ant](http://ant.apache.org/) using [Ap
 This will download the required libraries, build the Spiffy UI framework, and run it with an embedded web server.  It will then provide intructions for accessing the running application.  
 
 For information on all the build options run:
+
         <ANT HOME>/ant -p
 
 License
