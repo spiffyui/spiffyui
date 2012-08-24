@@ -1,6 +1,6 @@
 /*******************************************************************************
  * 
- * Copyright 2011 Spiffy UI Team   
+ * Copyright 2011-2012 Spiffy UI Team   
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,24 +19,20 @@ package org.spiffyui.client.widgets;
 
 import java.util.Date;
 
+import org.spiffyui.client.JSDateUtil;
+
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.Event.NativePreviewEvent;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextBox;
-
-import org.spiffyui.client.JSDateUtil;
 
 /**
  * This widget uses a simple GWT TextBox and attaches the JQuery UI
  * date picker.  When the field gets focus the date picker will become
  * visible.
  */
-public class DatePickerTextBox extends TextBox implements Event.NativePreviewHandler
+public class DatePickerTextBox extends TextBox
 {
     private String m_minDate;
     private String m_maxDate;
@@ -73,21 +69,27 @@ public class DatePickerTextBox extends TextBox implements Event.NativePreviewHan
          */
         m_format = JSDateUtil.getShortDateFormat().replace('M', 'm').replaceAll("yyyy", "yy");
         
-        Event.addNativePreviewHandler(this);
     }
 
     @Override
-    public void onAttach()
+    public void onLoad()
     {
-        super.onAttach();
+        super.onLoad();
 
-        addDatePickerJS(getElement().getId(), m_format);
+        addDatePickerJS(this, getElement().getId(), m_format);
         if (m_minDate != null ||
             m_maxDate != null) {
             setDateJS(getElement().getId(), m_minDate, m_maxDate);
         }
     }
     
+    
+    @Override
+    protected void onUnload()
+    {
+        destroyDatePickerJS(getElement().getId());
+        super.onUnload();        
+    }
     /**
      * Set a minimum selectable date via a Date object or as a string in 
      * the current dateFormat, or a number of days from today (e.g. +7) 
@@ -172,6 +174,17 @@ public class DatePickerTextBox extends TextBox implements Event.NativePreviewHan
         return m_maxDate;
     }
     
+    private void fireOnChangeEvent()
+    {
+        /*
+         * This is necessary for IE since an onchange event is not fired when a calendar date is selected.
+         * This is cleaner than doing it the onPreviewNativeEvent way done in previous versions.
+         */
+        NativeEvent nativeEvent = Document.get().createChangeEvent();
+        ChangeEvent.fireNativeEvent(nativeEvent, this);
+
+    }
+    
     private static native void setDateJS(String id, String mindate, String maxdate)  /*-{ 
         if (maxdate) {
             $wnd.jQuery('#' + id).datepicker('option', 'maxDate',
@@ -185,12 +198,19 @@ public class DatePickerTextBox extends TextBox implements Event.NativePreviewHan
     }-*/;
     
 
-    private static native void addDatePickerJS(String id, String format) /*-{
+    private static native void addDatePickerJS(DatePickerTextBox x, String id, String format) /*-{
         $wnd.jQuery('#' + id).datepicker({
             dateFormat: format,
             changeMonth: true,
-            changeYear: true
+            changeYear: true,
+            onSelect: function(dateText, inst) {
+                return x.@org.spiffyui.client.widgets.DatePickerTextBox::fireOnChangeEvent()();
+            }
         });
+    }-*/;
+    
+    private native void destroyDatePickerJS(String id) /*-{
+        $wnd.jQuery("#" + id).datepicker("destroy");
     }-*/;
     
     /**
@@ -231,35 +251,5 @@ public class DatePickerTextBox extends TextBox implements Event.NativePreviewHan
         return getValue().length() == 0;
     }
 
-    @Override
-    public void onPreviewNativeEvent(NativePreviewEvent event)
-    {
-        /*
-         * This is necessary for IE since an onchange event is not fired when a calendar date is selected.
-         * And trying to add onSelect with JSNI would call the correct Java method, but it would not be able
-         * to fireEvent because it did not think it had any Handlers.  Even a call to getValue would not work,
-         * resulting in an AssertionError saying that the Widget may not have been initialized.
-         */
-        if (event.getTypeInt() != Event.ONCLICK) {
-            return;
-        }
-        Element target = (Element) com.google.gwt.dom.client.Element.as(event.getNativeEvent().getEventTarget());
-        if (null == target) {
-            return;
-        }
-        /*
-         * See if it is a child <A> tag of ui-datepicker-div because all the selectable dates are anchors
-         */
-        if (DOM.getElementById("ui-datepicker-div") != null &&
-            DOM.isOrHasChild(DOM.getElementById("ui-datepicker-div"), target) &&
-                "A".equalsIgnoreCase(target.getTagName())) {
-
-            NativeEvent nativeEvent = Document.get().createChangeEvent();
-            ChangeEvent.fireNativeEvent(nativeEvent, this);
-
-            return;
-        }
-    }
-    
 
 }
