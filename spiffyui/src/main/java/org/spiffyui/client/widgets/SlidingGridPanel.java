@@ -217,4 +217,14 @@ public class SlidingGridPanel extends ComplexPanel
     private static native void alignGrid(int cellWidth, int cellHeight, int padding, int gridOffset) /*-{
         $wnd.slidegrid.alignGrid(cellWidth, cellHeight, padding, gridOffset);
     }-*/;
+    
+    /**
+     * Set the slidegrid 'hasDrawn' property
+     * @param hasDrawn - property to set
+     */
+    public static native void setHasDrawn(boolean hasDrawn) /*-{
+        $wnd.slidegrid.hasDrawn = hasDrawn;
+    }-*/;
+    
+
 }
