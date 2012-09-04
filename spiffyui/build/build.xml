@@ -227,7 +227,7 @@
                  closurejar="${spiffy.build}/lib/closure-compiler-r1918.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="QUIET">
-            <fileset dir="${spiffy.js}/lib" includes="jquery-1.8.0.js" />
+            <fileset dir="${spiffy.js}/lib" includes="jquery-1.8.1.js" />
         </closure>
 
         <!-- Then we GZIP JQuery for web servers that support GZIP -->
