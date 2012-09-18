@@ -10,7 +10,7 @@
         <dependency org="com.google.javascript" name="closure-compiler" rev="r1918"/>
         
         <!-- These dependencies are for Checkstyle -->
-        <dependency org="com.puppycrawl.tools" name="checkstyle" rev="5.4">
+        <dependency org="com.puppycrawl.tools" name="checkstyle" rev="5.5">
             <exclude module="tools" />
         </dependency>
     </dependencies>
