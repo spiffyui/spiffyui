@@ -469,6 +469,75 @@ spiffyui = {
          
          return path;
     },
+
+    getCurrentUrl: function() {
+        var url = window.location.protocol;
+
+        if (url.indexOf('//', url.length - 2) === -1) {
+            url += '//';
+        }
+
+        url += window.location.host;
+        url += spiffyui.getRelativePath();
+
+        return url;
+    },
+
+    oAuthAuthenticate: function(/*String*/ url, /*String*/ clientId, /*String*/ scope, /*function*/ callback) {
+        spiffyui.oauthCallback = callback;
+
+        url += '?redirect_uri=' + spiffyui.getCurrentUrl() + '/oauth.html';
+
+        if (clientId) {
+            url += '&client_id=' + clientId;
+        }
+
+        if (scope) {
+            url += '&scope=' + clientId;
+        }
+
+        url += '&response_type=token';
+
+        spiffyui.oauthstate = 'spiffystate' + Math.random();
+        url += '&state=' + spiffyui.oauthstate;
+
+        var frame = $('<iframe id="spiffyuoauthframe" seamless="true" src="' + url + '"></iframe>');
+        frame.css({
+            'position': 'fixed',
+            'left': '0px',
+            'top': '0px',
+            'z-index': '99999',
+            'width': '100%',
+            'height': '100%'
+        });
+
+        body.append(frame);
+
+    },
+
+    oAuthAuthenticateComplete: function(/*String*/ response) {
+        var callback = spiffyui.oauthCallback;
+        spiffyui.oauthCallback = null;
+
+        $('#spiffyuoauthframe').remove();
+
+        // First, parse the query string
+        var params = {}, queryString = location.hash.substring(1),
+        regex = /([^&=]+)=([^&]*)/g, m;
+        m = regex.exec(queryString);
+        while (m) {
+            params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+            m = regex.exec(queryString);
+        }
+
+        if (spiffyui.oauthstate !== params.state) {
+            spiffyui.oauthstate = null;
+            callback("invalidstate", "null");
+        } else {
+            spiffyui.oauthstate = null;
+            callback(params.access_token, params.token_type);
+        }
+    },
     
     init: function() {
          

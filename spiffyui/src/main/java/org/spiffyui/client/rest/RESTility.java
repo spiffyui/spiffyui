@@ -26,6 +26,7 @@ import org.spiffyui.client.JSONUtil;
 import org.spiffyui.client.JSUtil;
 import org.spiffyui.client.MessageUtil;
 import org.spiffyui.client.i18n.SpiffyUIStrings;
+import org.spiffyui.client.rest.v2.RESTOAuthProvider;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptException;
@@ -84,6 +85,8 @@ public final class RESTility
     private String m_sessionCookie = "Spiffy_Session";
 
     private static RESTAuthProvider g_authProvider;
+
+    private static RESTOAuthProvider g_oAuthProvider;
     
     private String m_sessionCookiePath;
 
@@ -157,6 +160,17 @@ public final class RESTility
     public static void setAuthProvider(RESTAuthProvider authProvider)
     {
         g_authProvider = authProvider;
+    }
+
+    /**
+     * Set the OAuth provider for this application.
+     * 
+     * @param oAuthProvider
+     *               the oAuth provider
+     */
+    public static void setOAuthProvider(RESTOAuthProvider oAuthProvider)
+    {
+        g_oAuthProvider = oAuthProvider;
     }
     
     /**
@@ -358,13 +372,39 @@ public final class RESTility
 
         removeCookie(RESTILITY.m_sessionCookie);
         removeCookie(LOCALE_COOKIE);
-        
-        if (g_authProvider instanceof org.spiffyui.client.rest.v2.RESTAuthProvider) {
+
+        if (g_oAuthProvider != null && tokenType.equalsIgnoreCase("Bearer") || tokenType.equalsIgnoreCase("MAC")) {
+            handleOAuthRequest(callback, loginUri, response, exception);
+        } else if (g_authProvider instanceof org.spiffyui.client.rest.v2.RESTAuthProvider) {
             ((org.spiffyui.client.rest.v2.RESTAuthProvider) g_authProvider).showLogin(callback, loginUri, response, exception);
         } else {
             g_authProvider.showLogin(callback, loginUri, errorCode);
         }
     }
+
+    private void handleOAuthRequest(RESTCallback callback, String tokenServerUrl, Response response, RESTException exception)
+        throws RESTException
+    {
+        String authUrl = g_oAuthProvider.getAuthServerUrl(callback, tokenServerUrl, response, exception);
+        handleOAuthRequestJS(this, authUrl, g_oAuthProvider.getClientId(), g_oAuthProvider.getScope());
+    }
+
+    private void oAuthComplete(String token, String tokenType)
+    {
+        setTokenType(tokenType);
+        setUserToken(base64Encode(token));
+        finishRESTCalls();
+    }
+
+    private native String base64Encode(String s) /*-{
+        return $wnd.Base64.encode(s);
+    }-*/;
+
+    private native void handleOAuthRequestJS(RESTility callback, String authUrl, String cliendId, String scope) /*-{
+        $wnd.spiffyui.oAuthAuthenticate(authUrl, clientId, scope, function(token, tokenType) {
+            callback.@org.spiffyui.client.rest.RESTility::oAuthComplete(Ljava/lang/String;Ljava/lang/String;)(token,tokenType);
+        });
+    }-*/;
 
     /**
      * Returns HTTPMethod corresponding to method name.
