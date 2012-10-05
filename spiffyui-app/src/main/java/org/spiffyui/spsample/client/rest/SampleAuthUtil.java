@@ -17,19 +17,60 @@
  ******************************************************************************/
 package org.spiffyui.spsample.client.rest;
 
+import com.google.gwt.http.client.Response;
+
 import org.spiffyui.client.login.LoginStringHelper;
 import org.spiffyui.client.login.LoginStrings;
 import org.spiffyui.client.rest.AuthUtil;
+import org.spiffyui.client.rest.RESTCallback;
+import org.spiffyui.client.rest.RESTException;
+import org.spiffyui.client.rest.RESTility;
+import org.spiffyui.client.rest.RESTObjectCallBack;
+import org.spiffyui.client.rest.v2.RESTOAuthProvider;
 
 /**
  * This is a sample authentication helper to provide custom strings to the login panel
  */
-public class SampleAuthUtil extends AuthUtil
+public class SampleAuthUtil extends AuthUtil implements RESTOAuthProvider
 {
+    @Override
+    public String getAuthServerUrl(RESTCallback callback, String tokenServerUrl, Response response, RESTException exception)
+    {
+        return "/oauthserver";
+    }
+
+    @Override
+    public String getClientId()
+    {
+        return null;
+    }
+
+    @Override
+    public String getScope()
+    {
+        return null;
+    }
+
     @Override
     protected LoginStringHelper getStringHelper()
     {
         return new SPSampleStringHelper();
+    }
+
+    @Override
+    public void logout(final RESTObjectCallBack<String> callback)
+    {
+        if (RESTility.getTokenType().equals("Bearer")) {
+            /*
+             * This gives us a chance to call extra OAuth logout mechanisms,
+             * but we don't have those in this sample application so we 
+             * just clear the credentials from the client.
+             */
+            RESTility.doLocalLogout();
+            callback.success("");
+        } else {
+            super.logout(callback);
+        }
     }
 
     /**
