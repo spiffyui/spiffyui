@@ -130,6 +130,8 @@ public interface SpiffyRsrc extends Messages
     public String birthday_tt();
     public String formSaveMessage();
     public String authDataMsg(String s1, String s2, String s3);
+    public String oAuthDataMsg(String s1, String s2, String s3);
+    public String getSecOAuthData();
     public String mainTitle();
     public String mainSubtitle();
     public String overviewLink();

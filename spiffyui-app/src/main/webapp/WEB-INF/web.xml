@@ -76,6 +76,16 @@
     <servlet-name>SampleDataServlet</servlet-name>
     <servlet-class>org.spiffyui.spsample.server.SampleDataServlet</servlet-class>
   </servlet>
+
+  <servlet>
+    <servlet-name>SampleOAuthServer</servlet-name>
+    <servlet-class>org.spiffyui.spsample.server.SampleOAuthServer</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>SampleOAuthDataServlet</servlet-name>
+    <servlet-class>org.spiffyui.spsample.server.SampleOAuthDataServlet</servlet-class>
+  </servlet>
   
   <servlet>
     <servlet-name>SiteMapGenerator</servlet-name>
@@ -135,6 +145,16 @@
   <servlet-mapping>
     <servlet-name>SampleDataServlet</servlet-name>
     <url-pattern>/authdata</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SampleOAuthServer</servlet-name>
+    <url-pattern>/oauthserver/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SampleOAuthDataServlet</servlet-name>
+    <url-pattern>/oauthdata</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>

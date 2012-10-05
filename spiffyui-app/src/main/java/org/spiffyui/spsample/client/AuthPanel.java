@@ -32,6 +32,7 @@ import org.spiffyui.client.rest.RESTException;
 import org.spiffyui.client.rest.RESTObjectCallBack;
 import org.spiffyui.client.widgets.button.SimpleButton;
 import org.spiffyui.spsample.client.rest.SampleAuthBean;
+import org.spiffyui.spsample.client.rest.SampleOAuthBean;
 
 /**
  * This is the authentication documentation panel
@@ -53,6 +54,15 @@ public class AuthPanel extends HTMLPanel
         RootPanel.get("mainContent").add(this);
 
         setVisible(false);
+        setupBasicAuthTextButton();
+        setupOAuthTextButton();
+        
+        
+        Index.addToc(this);
+    }
+
+    private void setupBasicAuthTextButton()
+    {
         String buttonText = "";
         if (Index.userLoggedIn()) {
             buttonText = Index.getStrings().secData();
@@ -87,8 +97,39 @@ public class AuthPanel extends HTMLPanel
                 t.schedule(1000);
             }
         });
+    }
+
+    private void setupOAuthTextButton()
+    {
+        String buttonText = "";
+        if (Index.userLoggedIn()) {
+            buttonText = Index.getStrings().secData();
+        } else {
+            buttonText = Index.getStrings().getSecOAuthData();
+        }
+        final SimpleButton authTestButton = new SimpleButton(buttonText);
         
-        Index.addToc(this);
+        authTestButton.getElement().setId("oAuthTestBtn");
+        this.add(authTestButton, "testOAuth");
+
+        authTestButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                authTestButton.setInProgress(true);
+                //a little timer to simulate time it takes to set in progress back to false
+                Timer t = new Timer() {
+                    @Override
+                    public void run()
+                    {
+                        authTestButton.setInProgress(false);
+                        getOAuthData();
+                    }
+
+                };
+                t.schedule(1000);
+            }
+        });
     }
 
     /**
@@ -97,6 +138,18 @@ public class AuthPanel extends HTMLPanel
     public static void getData()
     {
         getData(false);
+    }
+
+    private static void showOAuthData(SampleOAuthBean info)
+    {
+        String data = Index.getStrings().oAuthDataMsg(DateTimeFormat.getFormat("h:mm:ss a").format(info.getDate()),
+                                                      info.getToken(), info.getMessage());
+        JSUtil.setText("#testOAuthResult", data);
+
+        /*
+         Add a yellow highlight to show that you've logged in
+         */
+        DOM.getElementById("loginSection2").addClassName("yellowHighlightSection");
     }
 
     private static void showAuthenticationData(SampleAuthBean info, boolean inWidgetPanel)
@@ -127,6 +180,26 @@ public class AuthPanel extends HTMLPanel
             public void success(SampleAuthBean info)
             {
                 showAuthenticationData(info, inWidgetPanel);
+            }
+
+            public void error(String message)
+            {
+                MessageUtil.showFatalError(message);
+            }
+
+            public void error(RESTException e)
+            {
+                MessageUtil.showFatalError(e.getReason());
+            }
+        });
+    }
+
+    private static void getOAuthData()
+    {
+        SampleOAuthBean.getSampleAuthData(new RESTObjectCallBack<SampleOAuthBean>() {
+            public void success(SampleOAuthBean info)
+            {
+                showOAuthData(info);
             }
 
             public void error(String message)

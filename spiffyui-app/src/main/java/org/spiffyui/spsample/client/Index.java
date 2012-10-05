@@ -36,6 +36,7 @@ import org.spiffyui.client.rest.RESTObjectCallBack;
 import org.spiffyui.client.rest.RESTility;
 import org.spiffyui.spsample.client.i18n.SpiffyRsrc;
 import org.spiffyui.spsample.client.rest.SampleAuthUtil;
+import org.spiffyui.spsample.client.rest.SampleOAuthProvider;
 import org.spiffyui.spsample.client.rest.VersionInfo;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -137,6 +138,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
          login panel
          */
         RESTility.setAuthProvider(new SampleAuthUtil());
+        RESTility.setOAuthProvider(new SampleOAuthProvider());
 
         m_header = new SPSampleHeader();
         Anchor title = new Anchor(getStrings().mainTitle(), "#");

@@ -341,29 +341,31 @@ public final class RESTility
          * First we'll remove the token type
          */
         
-        String tokenType = auth.substring(0, auth.indexOf(' ')).trim();
-        
-        auth = auth.substring(auth.indexOf(' ') + 1);
-
-        String props[] = auth.split(",");
-
-        
+        String tokenType = auth;
         String loginUri = null;
         String logoutUri = null;
 
-        for (String prop : props) {
-            if (prop.trim().toLowerCase().startsWith(URI_KEY)) {
-                loginUri = prop.substring(prop.indexOf('=') + 1, prop.length()).trim();
-            } else if (prop.trim().toLowerCase().startsWith(SIGNOFF_URI_KEY)) {
-                logoutUri = prop.substring(prop.indexOf('=') + 1, prop.length()).trim();
-            }
-        }
-        
-        loginUri = trimQuotes(loginUri);
-        logoutUri = trimQuotes(logoutUri);
+        JSUtil.println("auth: " + auth);
 
-        if (logoutUri.trim().length() == 0) {
-            logoutUri = loginUri;
+        if (tokenType.indexOf(' ') != -1) {
+            tokenType = tokenType.substring(0, tokenType.indexOf(' ')).trim();
+            auth = auth.substring(auth.indexOf(' ') + 1);
+            String props[] = auth.split(",");
+
+            for (String prop : props) {
+                if (prop.trim().toLowerCase().startsWith(URI_KEY)) {
+                    loginUri = prop.substring(prop.indexOf('=') + 1, prop.length()).trim();
+                } else if (prop.trim().toLowerCase().startsWith(SIGNOFF_URI_KEY)) {
+                    logoutUri = prop.substring(prop.indexOf('=') + 1, prop.length()).trim();
+                }
+            }
+            
+            loginUri = trimQuotes(loginUri);
+            logoutUri = trimQuotes(logoutUri);
+    
+            if (logoutUri.trim().length() == 0) {
+                logoutUri = loginUri;
+            }
         }
 
         setTokenType(tokenType);
@@ -372,6 +374,9 @@ public final class RESTility
 
         removeCookie(RESTILITY.m_sessionCookie);
         removeCookie(LOCALE_COOKIE);
+
+        JSUtil.println("g_oAuthProvider: " + g_oAuthProvider);
+        JSUtil.println("tokenType: " + tokenType);
 
         if (g_oAuthProvider != null && tokenType.equalsIgnoreCase("Bearer") || tokenType.equalsIgnoreCase("MAC")) {
             handleOAuthRequest(callback, loginUri, response, exception);
@@ -386,6 +391,7 @@ public final class RESTility
         throws RESTException
     {
         String authUrl = g_oAuthProvider.getAuthServerUrl(callback, tokenServerUrl, response, exception);
+        JSUtil.println("authUrl: " + authUrl);
         handleOAuthRequestJS(this, authUrl, g_oAuthProvider.getClientId(), g_oAuthProvider.getScope());
     }
 
@@ -400,7 +406,7 @@ public final class RESTility
         return $wnd.Base64.encode(s);
     }-*/;
 
-    private native void handleOAuthRequestJS(RESTility callback, String authUrl, String cliendId, String scope) /*-{
+    private native void handleOAuthRequestJS(RESTility callback, String authUrl, String clientId, String scope) /*-{
         $wnd.spiffyui.oAuthAuthenticate(authUrl, clientId, scope, function(token, tokenType) {
             callback.@org.spiffyui.client.rest.RESTility::oAuthComplete(Ljava/lang/String;Ljava/lang/String;)(token,tokenType);
         });
