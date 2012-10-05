@@ -54,8 +54,10 @@ public class AuthPanel extends HTMLPanel
         RootPanel.get("mainContent").add(this);
 
         setVisible(false);
-        setupBasicAuthTextButton();
-        setupOAuthTextButton();
+        if (!Index.isAppEngine()) {
+            setupBasicAuthTextButton();
+            setupOAuthTextButton();
+        }
         
         
         Index.addToc(this);
@@ -71,11 +73,6 @@ public class AuthPanel extends HTMLPanel
         }
         final SimpleButton authTestButton = new SimpleButton(buttonText);
         
-        if (Index.isAppEngine()) {
-            authTestButton.setText(Index.getStrings().installMessage());
-            authTestButton.setEnabled(false);
-        }
-
         authTestButton.getElement().setId("authTestBtn");
         this.add(authTestButton, "testAuth");
 
