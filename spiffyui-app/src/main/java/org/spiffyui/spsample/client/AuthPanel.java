@@ -57,8 +57,10 @@ public class AuthPanel extends HTMLPanel
         if (!Index.isAppEngine()) {
             setupBasicAuthTextButton();
             setupOAuthTextButton();
+        } else {
+            JSUtil.hide("loginSection");
+            JSUtil.hide("loginSection2");
         }
-        
         
         Index.addToc(this);
     }

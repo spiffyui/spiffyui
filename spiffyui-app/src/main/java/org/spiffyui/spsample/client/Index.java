@@ -506,8 +506,7 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
                 public void success(VersionInfo info)
                 {
                     m_footer.setFooterString(getStrings().footer(info.getVersion(), 
-                                                                 JSDateUtil.getDate(info.getDate()),
-                                                                 info.getRevision()));
+                                                                 JSDateUtil.getDate(info.getDate())));
                 }
     
                 public void error(String message)

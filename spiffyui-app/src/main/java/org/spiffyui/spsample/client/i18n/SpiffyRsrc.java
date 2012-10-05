@@ -65,8 +65,8 @@ public interface SpiffyRsrc extends Messages
     public String getInvolved_tt();
     public String lic();
     public String lic_tt();
-    public String footer(String s1, String s2, String s3);
-    public String footer2(String s1, String s2, String s3, String s4);
+    public String footer(String s1, String s2);
+    public String footer2(String s1, String s2);
     public String welcome(String s);
     public String secData();
     public String slider();
