@@ -1,0 +1,58 @@
+html {
+    background: #FBFBFB;
+}
+
+body {
+    font-family: Verdana,Sans-serif;
+    font-size: 12px;
+    line-height: 14px;
+    
+}
+
+label {
+    display: block;
+}
+
+form {
+    width: 425px;
+    margin: 25px auto;
+    background-color: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    box-shadow: 0 4px 10px -1px rgba(200, 200, 200, 0.7);
+    border-radius: 6px;
+    padding: 14px;
+}
+
+input.input {
+    
+    background: #FBFBFB;
+    border: 1px solid #E5E5E5;
+    box-shadow: 1px 1px 2px rgba(200, 200, 200, 0.2) inset;
+    color: #555555;
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 1;
+    margin-bottom: 16px;
+    margin-top: 2px;
+    outline: 0 none;
+    padding: 3px;
+    border-radius: 6px;
+    width: 98%;
+}
+
+p.submit {
+    width: 98%;
+    padding: 0px;
+    text-align: right;
+    margin-top: 14px;
+}
+
+div.loginRow {
+    width: 98%;
+}
+
+h2 {
+    font-size: 18px;
+    line-height: 28px;
+    margin-bottom: 14px;
+}

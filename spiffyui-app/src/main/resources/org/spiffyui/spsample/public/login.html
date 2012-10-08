@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<title>Spiffy UI Login</title>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <link href="js/lib/reset.css" rel="stylesheet" type="text/css">
+        <link href="login.css" rel="stylesheet" type="text/css">
+        
+	</head>
+    <body>
+        <form name="login" action="oauthserver" method="POST">
+            <h2>Log in with any username and password </h2>
+            <div class="loginRow">
+                <label for="username">Username</label>
+                <input type="text" name="user" class="input" id="username" placeholder="Enter your username" />
+            </div>
+    
+            <div class="loginRow">
+                <label for="password">Password</label>
+                <input type="password" name="pass" class="input" id="password" placeholder="Enter your password" />
+            </div>
+    
+            <input type="hidden" name="clientID" value="${clientID}"/>
+            <input type="hidden" name="state" value="${state}"/>
+            <input type="hidden" name="redirect_uri" value="${redirectURI}"/>
+
+            <p class="submit">
+                <input type="submit" value="Login" />
+            </p>
+        </form>
+
+    </body>
+</html>
