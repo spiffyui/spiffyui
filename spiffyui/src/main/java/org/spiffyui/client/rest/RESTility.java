@@ -398,7 +398,7 @@ public final class RESTility
     private void oAuthComplete(String token, String tokenType)
     {
         setTokenType(tokenType);
-        setUserToken(base64Encode(token));
+        setUserToken(token);
         finishRESTCalls();
     }
 
