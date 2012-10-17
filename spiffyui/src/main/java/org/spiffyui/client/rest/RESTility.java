@@ -315,6 +315,7 @@ public final class RESTility
     private void doLogin(RESTCallback callback, Response response, String url, String errorCode, RESTException exception)
         throws RESTException
     {
+        JSUtil.println("doLogin(" + url + ", " + errorCode + ")");
         g_inLoginProcess = true;
 
         /*
@@ -350,23 +351,28 @@ public final class RESTility
         if (tokenType.indexOf(' ') != -1) {
             tokenType = tokenType.substring(0, tokenType.indexOf(' ')).trim();
             auth = auth.substring(auth.indexOf(' ') + 1);
-            String props[] = auth.split(",");
-
-            for (String prop : props) {
-                if (prop.trim().toLowerCase().startsWith(URI_KEY)) {
-                    loginUri = prop.substring(prop.indexOf('=') + 1, prop.length()).trim();
-                } else if (prop.trim().toLowerCase().startsWith(SIGNOFF_URI_KEY)) {
-                    logoutUri = prop.substring(prop.indexOf('=') + 1, prop.length()).trim();
+            if (tokenType.indexOf(',') != -1) {
+                String props[] = auth.split(",");
+                JSUtil.println("props: " + props);
+    
+                for (String prop : props) {
+                    if (prop.trim().toLowerCase().startsWith(URI_KEY)) {
+                        loginUri = prop.substring(prop.indexOf('=') + 1, prop.length()).trim();
+                    } else if (prop.trim().toLowerCase().startsWith(SIGNOFF_URI_KEY)) {
+                        logoutUri = prop.substring(prop.indexOf('=') + 1, prop.length()).trim();
+                    }
+                }
+                
+                loginUri = trimQuotes(loginUri);
+                logoutUri = trimQuotes(logoutUri);
+        
+                if (logoutUri.trim().length() == 0) {
+                    logoutUri = loginUri;
                 }
             }
-            
-            loginUri = trimQuotes(loginUri);
-            logoutUri = trimQuotes(logoutUri);
-    
-            if (logoutUri.trim().length() == 0) {
-                logoutUri = loginUri;
-            }
         }
+
+        JSUtil.println("tokenType: " + tokenType);
 
         setTokenType(tokenType);
         setTokenServerURL(loginUri);
@@ -1154,6 +1160,8 @@ public final class RESTility
          */
         private boolean handleUnauthorized(RESTCallStruct struct, RESTException exception, Response response)
         {
+            JSUtil.println("response.getStatusCode(): " + response.getStatusCode());
+            JSUtil.println("struct.getUrl(): " + struct.getUrl());
             if (response.getStatusCode() == Response.SC_UNAUTHORIZED) {
                 /*
                  * For return values of 401 we need to show the login dialog
@@ -1182,6 +1190,9 @@ public final class RESTility
         @Override
         public void onResponseReceived(Request request, Response response)
         {
+            JSUtil.println("onResponseReceived.response.getStatusCode(): " + response.getStatusCode());
+            JSUtil.println("RESTILITY.m_restCalls.get(m_origCallback)..getUrl(): " + 
+                           RESTILITY.m_restCalls.get(m_origCallback).getUrl());
             if (response.getStatusCode() == 0) {
                 /*
                  This means we couldn't contact the server.  It might be that the
@@ -1196,13 +1207,19 @@ public final class RESTility
                 return;
             }
 
+            JSUtil.println("checkJSON(response.getText()): " + checkJSON(response.getText()));
+
             if (!checkJSON(response.getText())) {
-                RESTCallStruct struct = RESTILITY.m_restCalls.remove(m_origCallback);
-                m_origCallback.onError(new RESTException(RESTException.UNPARSABLE_RESPONSE,
-                                                         "", "", new HashMap<String, String>(),
-                                                         response.getStatusCode(),
-                                                         struct.getUrl()));
-                return;
+                if (handleUnauthorized(RESTILITY.m_restCalls.get(m_origCallback), null, response)) {
+                    return;
+                } else {
+                    RESTCallStruct struct = RESTILITY.m_restCalls.remove(m_origCallback);
+                    m_origCallback.onError(new RESTException(RESTException.UNPARSABLE_RESPONSE,
+                                                             "", "", new HashMap<String, String>(),
+                                                             response.getStatusCode(),
+                                                             struct.getUrl()));
+                    return;
+                }
             }
 
             JSONValue val = null;
