@@ -316,7 +316,6 @@ public final class RESTility
         throws RESTException
     {
         JSUtil.println("doLogin(" + url + ", " + errorCode + ")");
-        g_inLoginProcess = true;
 
         /*
          When the server returns a status code 401 they are required
@@ -1163,6 +1162,16 @@ public final class RESTility
             JSUtil.println("response.getStatusCode(): " + response.getStatusCode());
             JSUtil.println("struct.getUrl(): " + struct.getUrl());
             if (response.getStatusCode() == Response.SC_UNAUTHORIZED) {
+                if (g_inLoginProcess) {
+                    /*
+                     * If we're already in the process of logging in then it will complete
+                     * and this call will be replayed and we don't want to start a second
+                     * login process.
+                     */
+                    return true;
+                }
+
+                g_inLoginProcess = true;
                 /*
                  * For return values of 401 we need to show the login dialog
                  */
