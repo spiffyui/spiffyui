@@ -484,6 +484,8 @@ spiffyui = {
     },
 
     oAuthAuthenticate: function(/*String*/ url, /*String*/ clientId, /*String*/ scope, /*function*/ callback) {
+
+        window.addEventListener('message', spiffyui.oAuthAuthenticateCompleteEventListener, false);
         //spiffyui.log('oAuthAuthenticate(' + url + ', ' + clientId + ', ' + scope + ')');
 
         spiffyui.oauthCallback = callback;
@@ -518,8 +520,13 @@ spiffyui = {
         $('body').append(frame);
     },
 
+    oAuthAuthenticateCompleteEventListener: function(event) {
+        window.removeEventListener('message', spiffyui.oAuthAuthenticateCompleteEventListener, false);
+        spiffyui.oAuthAuthenticateComplete(event.data);
+    },
+
     oAuthAuthenticateComplete: function(/*String*/ response) {
-        //spiffyui.log('oAuthAuthenticateComplete(' + response + ')');
+        spiffyui.log('oAuthAuthenticateComplete(' + response + ')');
         var callback = spiffyui.oauthCallback;
         spiffyui.oauthCallback = null;
 
