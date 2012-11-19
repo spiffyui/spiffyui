@@ -526,7 +526,7 @@ spiffyui = {
     },
 
     oAuthAuthenticateComplete: function(/*String*/ response) {
-        spiffyui.log('oAuthAuthenticateComplete(' + response + ')');
+        //spiffyui.log('oAuthAuthenticateComplete(' + response + ')');
         var callback = spiffyui.oauthCallback;
         spiffyui.oauthCallback = null;
 
