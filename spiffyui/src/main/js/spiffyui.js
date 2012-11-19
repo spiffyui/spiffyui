@@ -484,7 +484,7 @@ spiffyui = {
     },
 
     oAuthAuthenticate: function(/*String*/ url, /*String*/ clientId, /*String*/ scope, /*function*/ callback) {
-        spiffyui.log('oAuthAuthenticate(' + url + ', ' + clientId + ', ' + scope + ')');
+        //spiffyui.log('oAuthAuthenticate(' + url + ', ' + clientId + ', ' + scope + ')');
 
         spiffyui.oauthCallback = callback;
         url += '?redirect_uri=' + spiffyui.getCurrentUrl() + '/oauth.html';
@@ -502,8 +502,8 @@ spiffyui = {
         spiffyui.oauthstate = 'spiffystate' + Math.random();
         url += '&state=' + spiffyui.oauthstate;
 
-        spiffyui.log('spiffyui.oauthstate: ' + spiffyui.oauthstate);
-        spiffyui.log('url: ' + url);
+        //spiffyui.log('spiffyui.oauthstate: ' + spiffyui.oauthstate);
+        //spiffyui.log('url: ' + url);
 
         var frame = $('<iframe id="spiffyuoauthframe" seamless="true" src="' + url + '"></iframe>');
         frame.css({
@@ -519,7 +519,7 @@ spiffyui = {
     },
 
     oAuthAuthenticateComplete: function(/*String*/ response) {
-        spiffyui.log('oAuthAuthenticateComplete(' + response + ')');
+        //spiffyui.log('oAuthAuthenticateComplete(' + response + ')');
         var callback = spiffyui.oauthCallback;
         spiffyui.oauthCallback = null;
 
@@ -528,19 +528,19 @@ spiffyui = {
         // First, parse the query string
         var params = {};
         var queryString = response.substring(1);
-        spiffyui.log('queryString: ' + queryString);
+        //spiffyui.log('queryString: ' + queryString);
         var regex = /([^&=]+)=([^&]*)/g;
         var m = regex.exec(queryString);
         while (m) {
-            spiffyui.log('m[1]: ' + m[1]);
-            spiffyui.log('m[2]: ' + m[2]);
+            //spiffyui.log('m[1]: ' + m[1]);
+            //spiffyui.log('m[2]: ' + m[2]);
             params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
             m = regex.exec(queryString);
         }
 
-        spiffyui.log('params.state: ' + params.state);
-        spiffyui.log('params.access_token: ' + params.access_token);
-        spiffyui.log('params.token_type: ' + params.token_type);
+        //spiffyui.log('params.state: ' + params.state);
+        //spiffyui.log('params.access_token: ' + params.access_token);
+        //spiffyui.log('params.token_type: ' + params.token_type);
 
         if (spiffyui.oauthstate !== params.state) {
             spiffyui.oauthstate = null;
