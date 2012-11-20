@@ -349,8 +349,9 @@ public final class RESTility
 
         if (tokenType.indexOf(' ') != -1) {
             tokenType = tokenType.substring(0, tokenType.indexOf(' ')).trim();
+            JSUtil.println("tokenType: " + tokenType);
             auth = auth.substring(auth.indexOf(' ') + 1);
-            if (tokenType.indexOf(',') != -1) {
+            if (auth.indexOf(',') != -1) {
                 String props[] = auth.split(",");
                 JSUtil.println("props: " + props);
     
