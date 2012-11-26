@@ -395,7 +395,7 @@ public final class RESTility
 
     private void handleNoPrivilege(RESTException exception) 
     {
-        if (g_oAuthProvider != null && exception != null && AuthUtil.NO_PRIVILEGE.equals(exception.getCode())) {
+        if (g_oAuthProvider != null && exception != null) {
             /*
              * This is a special OAuth state that Spiffy UI recognizes.  It means that
              * the user has supplied valid credentials, but they don't have access and
