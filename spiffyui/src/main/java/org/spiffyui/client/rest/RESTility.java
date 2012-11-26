@@ -393,12 +393,40 @@ public final class RESTility
         }
     }
 
+    private void handleNoPrivilege(RESTException exception) 
+    {
+        if (g_oAuthProvider != null && exception != null && AuthUtil.NO_PRIVILEGE.equals(exception.getCode())) {
+            /*
+             * This is a special OAuth state that Spiffy UI recognizes.  It means that
+             * the user has supplied valid credentials, but they don't have access and
+             * further calls will only result in a 401.  
+             * 
+             * There isn't much we can do in this case so we just pass the exception to 
+             * the OAuth provider to handle it.
+             */
+            g_oAuthProvider.error(exception);
+        }
+    }
+
     private void handleOAuthRequest(RESTCallback callback, String tokenServerUrl, Response response, RESTException exception)
         throws RESTException
     {
         String authUrl = g_oAuthProvider.getAuthServerUrl(callback, tokenServerUrl, response, exception);
         JSUtil.println("authUrl: " + authUrl);
-        handleOAuthRequestJS(this, authUrl, g_oAuthProvider.getClientId(), g_oAuthProvider.getScope());
+
+        if (exception != null && AuthUtil.NO_PRIVILEGE.equals(exception.getCode())) {
+            /*
+             * This is a special OAuth state that Spiffy UI recognizes.  It means that
+             * the user has supplied valid credentials, but they don't have access and
+             * further calls will only result in a 401.  
+             * 
+             * There isn't much we can do in this case so we just pass the exception to 
+             * the OAuth provider to handle it.
+             */
+            g_oAuthProvider.error(exception);
+        } else {
+            handleOAuthRequestJS(this, authUrl, g_oAuthProvider.getClientId(), g_oAuthProvider.getScope());
+        }
     }
 
     private void oAuthComplete(String token, String tokenType)
@@ -1191,6 +1219,9 @@ public final class RESTility
                     RESTILITY.m_restCalls.remove(m_origCallback);
                     m_origCallback.onError(e);
                 }
+                return true;
+            } else if (response.getStatusCode() == Response.SC_FORBIDDEN) {
+                handleNoPrivilege(exception);
                 return true;
             } else {
                 return false;

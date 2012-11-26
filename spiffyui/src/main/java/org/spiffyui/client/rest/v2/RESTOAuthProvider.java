@@ -60,4 +60,17 @@ public interface RESTOAuthProvider
      * @return the scope
      */
     String getScope();
+
+    /**
+     * <p>
+     * Called when the OAuth process ends with an error
+     * 
+     * </p>
+     * 
+     * @param e
+     *               the RESTException returned from the server
+     * 
+     * @see RESTException
+     */
+    void error(RESTException e);
 }

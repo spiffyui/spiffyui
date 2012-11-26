@@ -95,4 +95,12 @@ public class SampleAuthUtil extends AuthUtil implements RESTOAuthProvider
 
         }
     }
+
+    @Override
+    public void error(RESTException e) 
+    {
+        /*
+         * This sample doesn't need to handle any errors.
+         */
+    }
 }
