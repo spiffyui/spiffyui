@@ -294,7 +294,7 @@ spiffyui = {
         }
         
         var date = Date.parseExact(dateTimeString, formatPattern);
-        if (orig12AM) {
+        if (date && orig12AM) {
 
             /*
              * Another bug in Date.js.  Even after all the 12 am/pm workarounds,
