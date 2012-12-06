@@ -315,8 +315,6 @@ public final class RESTility
     private void doLogin(RESTCallback callback, Response response, String url, String errorCode, RESTException exception)
         throws RESTException
     {
-        JSUtil.println("doLogin(" + url + ", " + errorCode + ")");
-
         /*
          When the server returns a status code 401 they are required
          to send back the WWW-Authenticate header to tell us how to
@@ -345,16 +343,12 @@ public final class RESTility
         String loginUri = null;
         String logoutUri = null;
 
-        JSUtil.println("auth: " + auth);
-
         if (tokenType.indexOf(' ') != -1) {
             tokenType = tokenType.substring(0, tokenType.indexOf(' ')).trim();
-            JSUtil.println("tokenType: " + tokenType);
             auth = auth.substring(auth.indexOf(' ') + 1);
             if (auth.indexOf(',') != -1) {
                 String props[] = auth.split(",");
-                JSUtil.println("props: " + props);
-    
+                
                 for (String prop : props) {
                     if (prop.trim().toLowerCase().startsWith(URI_KEY)) {
                         loginUri = prop.substring(prop.indexOf('=') + 1, prop.length()).trim();
@@ -372,17 +366,12 @@ public final class RESTility
             }
         }
 
-        JSUtil.println("tokenType: " + tokenType);
-
         setTokenType(tokenType);
         setTokenServerURL(loginUri);
         setTokenServerLogoutURL(logoutUri);
 
         removeCookie(RESTILITY.m_sessionCookie);
         removeCookie(LOCALE_COOKIE);
-
-        JSUtil.println("g_oAuthProvider: " + g_oAuthProvider);
-        JSUtil.println("tokenType: " + tokenType);
 
         if (g_oAuthProvider != null && tokenType.equalsIgnoreCase("Bearer") || tokenType.equalsIgnoreCase("MAC")) {
             handleOAuthRequest(callback, loginUri, response, exception);
@@ -412,8 +401,7 @@ public final class RESTility
         throws RESTException
     {
         String authUrl = g_oAuthProvider.getAuthServerUrl(callback, tokenServerUrl, response, exception);
-        JSUtil.println("authUrl: " + authUrl);
-
+        
         if (exception != null && AuthUtil.NO_PRIVILEGE.equals(exception.getCode())) {
             /*
              * This is a special OAuth state that Spiffy UI recognizes.  It means that
@@ -1188,8 +1176,6 @@ public final class RESTility
          */
         private boolean handleUnauthorized(RESTCallStruct struct, RESTException exception, Response response)
         {
-            JSUtil.println("response.getStatusCode(): " + response.getStatusCode());
-            JSUtil.println("struct.getUrl(): " + struct.getUrl());
             if (response.getStatusCode() == Response.SC_UNAUTHORIZED) {
                 if (g_inLoginProcess) {
                     /*
@@ -1231,9 +1217,6 @@ public final class RESTility
         @Override
         public void onResponseReceived(Request request, Response response)
         {
-            JSUtil.println("onResponseReceived.response.getStatusCode(): " + response.getStatusCode());
-            JSUtil.println("RESTILITY.m_restCalls.get(m_origCallback)..getUrl(): " + 
-                           RESTILITY.m_restCalls.get(m_origCallback).getUrl());
             if (response.getStatusCode() == 0) {
                 /*
                  This means we couldn't contact the server.  It might be that the
@@ -1247,8 +1230,6 @@ public final class RESTility
                                                          struct.getUrl()));
                 return;
             }
-
-            JSUtil.println("checkJSON(response.getText()): " + checkJSON(response.getText()));
 
             if (!checkJSON(response.getText())) {
                 if (handleUnauthorized(RESTILITY.m_restCalls.get(m_origCallback), null, response)) {

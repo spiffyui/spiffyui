@@ -49,7 +49,6 @@ public class SampleOAuthDataServlet extends HttpServlet
 
         //check for Authorization request header, if it is not there, then need to login
         String authToken = request.getHeader("Authorization");
-        System.out.println("authToken: " + authToken);
         if (authToken == null || authToken.length() <= 0) {
             response.setHeader("WWW-Authenticate", "Bearer");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

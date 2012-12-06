@@ -104,7 +104,6 @@ public abstract class GWTLocaleBundleFilter extends GWTLocaleFilter
 
     private static synchronized void populateMap(ServletContext context, String resourcePath)
     {
-        System.out.println("populateMap(" + resourcePath + ")");
         if (RESOURCES.size() > 0) {
             /*
              * Then we have already populated the map
@@ -190,15 +189,10 @@ public abstract class GWTLocaleBundleFilter extends GWTLocaleFilter
                 }
             }
             
-            System.out.println("fileName: " + fileName);
-
             if (fileName == null) {
                 continue;
             } 
             
-            System.out.println("language: " + language);
-            System.out.println("country: " + country);
-
             if (language != null) {
                 if (country == null) {
                     getMap(fileName).put(new Locale(language), file);
