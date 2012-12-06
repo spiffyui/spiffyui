@@ -184,7 +184,7 @@ public final class JSONUtil
      * @param obj    the object with the value
      * @param key    the key for the object
      * 
-     * @return the value or null it could not be decoded
+     * @return the value or an empty array if it could not be decoded
      */
     public static JSONArray getJSONArray(JSONObject obj, String key) 
     {
