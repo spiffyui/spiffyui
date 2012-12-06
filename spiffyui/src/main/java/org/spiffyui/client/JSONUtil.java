@@ -196,7 +196,7 @@ public final class JSONUtil
             }
         }
         
-        return null;
+        return new JSONArray();
     }
     
     /**
