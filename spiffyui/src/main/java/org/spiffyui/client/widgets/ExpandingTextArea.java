@@ -130,7 +130,7 @@ public class ExpandingTextArea extends TextArea implements ChangeHandler, KeyUpH
     private native void manuallyUpdateSpanJS(JavaScriptObject spanJQueryObject, String text) /*-{
         //We are using JQuery for this because trying to wrap a span element in GWT has a history of not working in Dev Mode 
         if (spanJQueryObject.length > 0) {
-            spanJQueryObject.html(text);
+            spanJQueryObject.text(text);
         }
     
     }-*/;
