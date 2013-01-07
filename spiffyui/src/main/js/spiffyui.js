@@ -274,11 +274,17 @@ spiffyui = {
         if (dateTimeString.match(/12:[0-5][0-9] PM/) || dateTimeString.match(/PM 12:[0-5][0-9]/)) {
             dateTimeString = dateTimeString.replace("PM", "AM");
     
+        } else if (dateTimeString.match(/12:[0-5][0-9] P/)) {
+            dateTimeString = dateTimeString.replace("P", "AM");
+            
         } else if (dateTimeString.match(/12:[0-5][0-9] AM/) || dateTimeString.match(/AM 12:[0-5][0-9]/)) {
             dateTimeString = dateTimeString.replace("AM", "PM");
             orig12AM = true;
-        } 
-    
+            
+        } else if (dateTimeString.match(/12:[0-5][0-9] A/)) {
+            dateTimeString = dateTimeString.replace("A", "PM");
+            orig12AM = true;
+        }    
         /*
             There is also a bug with the timePicker where even if time is hh, it will only show h if 
             it's not 24 hour time.  This is bogus because 01:00 AM should be allowed as well as 01:00 PM.   
