@@ -1073,5 +1073,15 @@ public final class JSUtil
         Window.Location.reload();
     }
 
+    /**
+     * This method detects if the browser is running on a mobile device.
+     * 
+     * @return returns true if the browser is running on an iPhone, iPad, iPod, or
+     *         Android device and false otherwise.
+     */
+    public static native boolean isMobile() /*-{
+        return $wnd.spiffyui.isMobile;
+    }-*/;
+
 
 }

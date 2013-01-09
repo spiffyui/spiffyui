@@ -565,6 +565,12 @@ spiffyui = {
     },
     
     init: function() {
+
+        spiffyui.isMobile = navigator.userAgent.match(/iPad/i) !== null ||
+            navigator.userAgent.match(/iPhone/i) !== null ||
+            navigator.userAgent.match(/iPad/i) !== null ||
+            navigator.userAgent.match(/iPod/i) !== null ||
+            navigator.userAgent.match(/android/i) !== null;
          
         if (spiffyui.autoloadHTML) {
          

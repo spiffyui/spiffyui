@@ -241,13 +241,15 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
             m_feedback.setTitle(tooltip);
         }
 
-        TextBoxBase textBox = m_field.getTextBox();
-        if (FormFeedback.LOADING == status) {
-            textBox.setEnabled(false);
-        } else {
-            textBox.setEnabled(true);
-            textBox.setFocus(false); //Blur then focus b/c of a strange problem with the cursor or selection highlights no longer visible within the textfield (this is a workaround) 
-            textBox.setFocus(true);
+        if (!JSUtil.isMobile()) {
+            TextBoxBase textBox = m_field.getTextBox();
+            if (FormFeedback.LOADING == status) {
+                textBox.setEnabled(false);
+            } else {
+                textBox.setEnabled(true);
+                textBox.setFocus(false); //Blur then focus b/c of a strange problem with the cursor or selection highlights no longer visible within the textfield (this is a workaround) 
+                textBox.setFocus(true);
+            }
         }
     }
 
