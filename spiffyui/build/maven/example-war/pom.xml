@@ -10,7 +10,7 @@
   <name>Hello Spiffy Maven</name>
 
   <properties>
-    <gwt.version>2.4.0</gwt.version>
+    <gwt.version>2.5.0</gwt.version>
     <validation.version>1.0.0.GA</validation.version>
   </properties>
 
