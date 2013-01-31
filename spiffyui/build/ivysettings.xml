@@ -7,6 +7,7 @@
       <artifact pattern="http://oss.sonatype.org/service/local/repositories/central/content/[module]/[revision]/[artifact].[ext]" />
       <artifact pattern="http://oss.sonatype.org/service/local/repositories/central/content/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
       <artifact pattern="http://oss.sonatype.org/service/local/repositories/central/content/[organisation]/[module]/[revision]/[artifact].[ext]" />
+      <artifact pattern="http://oss.sonatype.org/service/local/repositories/google-releases/content/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
     </url>
     
     <ibiblio name="default" m2compatible="true"/>
