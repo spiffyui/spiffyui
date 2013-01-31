@@ -48,6 +48,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONValue;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
@@ -1215,6 +1216,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         private Option m_option;
         private String m_display;
         private String m_replace;
+        private String m_query;
 
         static final String NEXT_VALUE = "NEXT";
         static final String PREVIOUS_VALUE = "PREVIOUS";
@@ -1244,20 +1246,42 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
          */
         protected OptionSuggestion(Option option, String replacePre, String query)
         {
-            String displ = option.getName();            
-            int begin = displ.toLowerCase().indexOf(query.toLowerCase());
-            if (begin >= 0) {
-                int end = begin + query.length();
-                String match = displ.substring(begin, end);
-                m_display = displ.replaceFirst(match, "<b>" + match + "</b>");
-            } else {
-                //may not necessarily be a part of the query, for example if "*" was typed.
-                m_display = displ;
-            }
+            String displ = option.getName(); 
+            m_query = query;
+            m_display = safeBoldQueryWithinString(displ);
             m_replace = getFullReplaceText(displ, replacePre);
             m_option = option;
         }
 
+        /**
+         * Escape the html so that it is safe and add bold tags 
+         * around the display string where it matches the query string
+         * @param display - the display string
+         * @return a safe html version of the display string with bold tags around the query if found, otherwiseg
+         */
+        protected String safeBoldQueryWithinString(String display)
+        {
+            String safe = SafeHtmlUtils.htmlEscape(display);
+            /*
+             * Change ? to &#63; because it is a special character for RegExp 
+             * in both the display as well as the query
+             */
+            safe = safe.replaceAll("\\?", "&#63;");
+            
+            String escapedQuery = SafeHtmlUtils.htmlEscape(m_query);
+            escapedQuery = escapedQuery.replaceAll("\\?", "&#63;");
+            
+            int begin = safe.toLowerCase().indexOf(escapedQuery.toLowerCase());
+            if (begin >= 0) {
+                int end = begin + escapedQuery.length();
+                String match = safe.substring(begin, end);
+                return safe.replaceFirst(match, "<b>" + match + "</b>");
+            }
+            
+            //may not necessarily be a part of the query, if found in different field
+            return safe;
+            
+        }
         /**
          * Constructor for regular options with only name and value.
          * @param displ - the name of the option
