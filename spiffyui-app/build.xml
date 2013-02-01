@@ -66,7 +66,7 @@
         <ivy:retrieve log="download-only" />
     </target>
     
-    <property name="ivy.install.version" value="2.2.0" />
+    <property name="ivy.install.version" value="2.3.0" />
     <condition property="ivy.home" value="${env.IVY_HOME}">
       <isset property="env.IVY_HOME" />
     </condition>
@@ -282,6 +282,7 @@
             <arg value="OBF"/>
             <arg value="-localWorkers"/>
             <arg value="8"/>
+            <arg value="-strict"/>
             <arg value="-war"/>
             <arg value="${sample.out.www}"/>
             <arg value="${gwttarget}"/>
