@@ -1264,12 +1264,16 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
             String safe = SafeHtmlUtils.htmlEscape(display);
             /*
              * Change ? to &#63; because it is a special character for RegExp 
-             * in both the display as well as the query
+             * in both the display as well as the query.
+             * 
+             * Same for * to &#42;
              */
             safe = safe.replaceAll("\\?", "&#63;");
+            safe = safe.replaceAll("\\*", "&#42;");
             
             String escapedQuery = SafeHtmlUtils.htmlEscape(m_query);
             escapedQuery = escapedQuery.replaceAll("\\?", "&#63;");
+            escapedQuery = escapedQuery.replaceAll("\\*", "&#42;");
             
             int begin = safe.toLowerCase().indexOf(escapedQuery.toLowerCase());
             if (begin >= 0) {
