@@ -10,6 +10,7 @@
         <dependency org="javax.validation" name="validation-api" m:classifier="sources" rev="1.0.0.GA">
             <artifact name="validation-api" type="jar" m:classifier="sources" />
         </dependency>
+        <dependency org="javax.validation" name="validation-api" rev="1.0.0.GA"/>
         <dependency org="javax.servlet" name="javax.servlet-api" rev="3.0.1"/>
         <dependency org="com.google.gwt" name="gwt-user" rev="2.5.0"/>
         <dependency org="com.google.gwt" name="gwt-dev" rev="2.5.0"/>
