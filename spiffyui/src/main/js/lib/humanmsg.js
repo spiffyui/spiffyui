@@ -30,7 +30,7 @@ var humanMsg = {
 		}
 		
         // Opacity of the message
-		humanMsg.msgOpacity = 0.9;
+		humanMsg.msgOpacity = 0.8;
 
 		if (msgOpacity != undefined) 
 			humanMsg.msgOpacity = parseFloat(msgOpacity);
