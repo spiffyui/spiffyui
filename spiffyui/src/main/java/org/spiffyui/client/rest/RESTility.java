@@ -1246,7 +1246,7 @@ public final class RESTility
 
             JSONValue val = null;
             RESTException exception = null;
-            
+
             if (response.getText() != null &&
                 response.getText().trim().length() > 1) {
                 val = null;
@@ -1260,7 +1260,7 @@ public final class RESTility
                      */
                     RESTCallStruct struct = RESTILITY.m_restCalls.get(m_origCallback);
                     exception = new RESTException(RESTException.UNPARSABLE_RESPONSE,
-                                                  "", response.getText(), new HashMap<String, String>(),
+                                                  "", e.getMessage(), new HashMap<String, String>(),
                                                   response.getStatusCode(),
                                                   struct.getUrl());
                 }
