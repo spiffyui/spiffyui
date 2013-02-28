@@ -649,6 +649,7 @@ public final class RESTility
                  */
                 RESTILITY.m_bestLocale = locale;
                 setSessionToken();
+                JSUtil.hide("body", "");
                 JSUtil.reload();
             } else {
                 /*
