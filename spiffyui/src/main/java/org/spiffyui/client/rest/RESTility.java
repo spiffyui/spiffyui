@@ -650,7 +650,7 @@ public final class RESTility
                 RESTILITY.m_bestLocale = locale;
                 setSessionToken();
                 JSUtil.hide("body", "");
-                JSUtil.reload();
+                JSUtil.reload(true);
             } else {
                 /*
                  If the best locale from the server matches
@@ -674,7 +674,7 @@ public final class RESTility
              * page reloads.  Hiding the page makes those errors invisible.
              */
             JSUtil.hide("body", "");
-            JSUtil.reload();
+            JSUtil.reload(true);
         }
     }
     

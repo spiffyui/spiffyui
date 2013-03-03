@@ -1072,6 +1072,33 @@ public final class JSUtil
         MessageUtil.setShouldShowMessages(false);
         Window.Location.reload();
     }
+    
+    /**
+     * Reloads the current URL while hiding any error messages.
+     * 
+     * When you reload the window it causes any AJAX requests in process to
+     * fail and that can cause error messages to flash on the screen before
+     * the window reloads.  This methods hides all error messages before
+     * reloading the window.
+     * 
+     * @param force  true if the framework should force a refresh by adding a new parameter to the URL and
+     *               false if it should just use the current URL to refresh.
+     */
+    public static void reload(boolean force)
+    {
+        if (force) {
+            reload();
+        } else {
+            MessageUtil.setShouldShowMessages(false);
+            String url = Window.Location.getHref();
+            
+            if (url.indexOf('?') > 0) {
+                Window.Location.replace(url + "&d=" + new Date().getTime());
+            } else {
+                Window.Location.replace(url + "?d=" + new Date().getTime());
+            }
+        }
+    }
 
     /**
      * This method detects if the browser is running on a mobile device.
