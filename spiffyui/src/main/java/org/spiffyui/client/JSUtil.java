@@ -1087,8 +1087,11 @@ public final class JSUtil
     public static void reload(boolean force)
     {
         if (force) {
-            reload();
-        } else {
+            /*
+             There's no way to make the browser reload the current URL and not use the
+             cache.  The only way to make sure we don't get the page from the cache is
+             to change the URL.  We'll do that by adding a new parameter to the URL.
+             */
             MessageUtil.setShouldShowMessages(false);
             String url = Window.Location.getHref();
             
@@ -1097,6 +1100,8 @@ public final class JSUtil
             } else {
                 Window.Location.replace(url + "?d=" + new Date().getTime());
             }
+        } else {
+            reload();
         }
     }
 
