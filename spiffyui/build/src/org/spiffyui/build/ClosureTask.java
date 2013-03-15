@@ -250,8 +250,9 @@ public class ClosureTask extends Task
          We need to find a better way to load these items on the classpath.  Hackito ergo sum
          */
         cmdl.getClasspath().add(new FileResource(m_closureJar));
-        cmdl.getClasspath().add(new FileResource(new File(m_closureJar.getParent(), "args4j-2.0.12.jar")));
-        cmdl.getClasspath().add(new FileResource(new File(m_closureJar.getParent(), "guava-10.0.1.jar")));
+        cmdl.getClasspath().add(new FileResource(new File(m_closureJar.getParent(), "args4j-2.0.16.jar")));
+        cmdl.getClasspath().add(new FileResource(new File(m_closureJar.getParent(), "guava-14.0.jar")));
+        cmdl.getClasspath().add(new FileResource(new File(m_closureJar.getParent(), "json-20090211.jar")));
         
         Commandline.Argument arg = cmdl.createArgument();
         
