@@ -716,13 +716,14 @@ iframe {
 #gwtDebugTab { 
     background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -40px transparent;
     width: 572px; 
-    height: 456px;
+    height: 430px;
+    margin-bottom: 14px;
 } 
 
 #mainDebugTab { 
     background: url("images/hostedmode_sprites.png") no-repeat scroll 0 -522px transparent;
-    width: 554px; 
-    height: 442px; 
+    width: 570px; 
+    height: 390px; 
     margin-bottom: 14px;
 }
  
