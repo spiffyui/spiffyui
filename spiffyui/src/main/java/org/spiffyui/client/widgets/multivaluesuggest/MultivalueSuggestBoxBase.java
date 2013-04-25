@@ -1032,7 +1032,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     /**
      * A custom Suggest Oracle
      */
-    private class RestSuggestOracle extends SuggestOracle
+    public class RestSuggestOracle extends SuggestOracle
     {
         private SuggestOracle.Request m_request;
         private SuggestOracle.Callback m_callback;
@@ -1120,7 +1120,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     /**
      * A custom callback that has the original SuggestOracle.Request and SuggestOracle.Callback
      */
-    private class RestSuggestCallback implements RESTObjectCallBack<OptionResultSet>
+    public class RestSuggestCallback implements RESTObjectCallBack<OptionResultSet>
     {
         private SuggestOracle.Request m_request;
         private SuggestOracle.Callback m_callback;
@@ -1133,6 +1133,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
             m_query = query;
         }
 
+        @Override
         public void success(OptionResultSet optResults)
         {
             SuggestOracle.Response resp = new SuggestOracle.Response();
