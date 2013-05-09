@@ -684,12 +684,15 @@ public final class JSUtil
     /**
      * Causes the specified element to bounce the specified number of times
      * at the specified speed.
-     *
-     * @param id the ID of the element to bounce
-     * @param times the number of times to bounce the element
-     * @param speed the speed of the bounce animation in milliseconds
+     * 
+     * @param id       the ID of the element to bounce
+     * @param times    the number of times to bounce the element
+     * @param speed    the speed of the bounce animation in milliseconds
      * @param distance the distance in pixels to bounds the element - default is 20
+     * 
+     * @deprecated Deprecated in favor of directly usinng the new effects from jQuery 2.0
      */
+    @Deprecated
     public static native void bounce(String id, int times, int speed, int distance)  /*-{
         $wnd.jQuery($wnd.spiffyui.formatId(id)).effect("bounce", { times:times, distance: distance }, speed);
     }-*/;
@@ -697,13 +700,16 @@ public final class JSUtil
     /**
      * Causes the specified element to bounce the specified number of times
      * at the specified speed.
-     *
-     * @param id the ID of the element to bounce
-     * @param times the number of times to bounce the element
-     * @param speed the speed of the bounce animation in milliseconds
+     * 
+     * @param id       the ID of the element to bounce
+     * @param times    the number of times to bounce the element
+     * @param speed    the speed of the bounce animation in milliseconds
      * @param distance the distance in pixels to bounds the element - default is 20
      * @param callback the callback called when the animation is complete
+     * 
+     * @deprecated Deprecated in favor of directly usinng the new effects from jQuery 2.0
      */
+    @Deprecated
     public static native void bounce(String id, int times, int speed, int distance, JSEffectCallback callback)  /*-{
         $wnd.jQuery($wnd.spiffyui.formatId(id)).effect("bounce", { times:times, distance: distance }, speed, function() {
             @org.spiffyui.client.JSUtil::doCallback(Lorg/spiffyui/client/JSEffectCallback;Ljava/lang/String;)(callback, id);

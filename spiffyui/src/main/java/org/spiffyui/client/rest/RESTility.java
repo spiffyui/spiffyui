@@ -1031,7 +1031,7 @@ public final class RESTility
         RESTOptions options = new RESTOptions();
         options.setURL(url);
         if (data != null && data.trim().length() > 0) {
-            options.setData(JSONParser.parseStrict(data));
+            options.setDataString(data);
         }
         options.setMethod(method);
         options.setCallback(callback);
@@ -1104,7 +1104,7 @@ public final class RESTility
             builder.setRequestData(options.getDataString());
 
             //b/c jaxb/jersey chokes when there is no data when content-type is json
-            builder.setHeader("Content-Type", "application/json");
+            builder.setHeader("Content-Type", options.getContentType());
         }
 
         builder.setCallback(RESTILITY.new RESTRequestCallback(options.getCallback()));

@@ -19,6 +19,7 @@ package org.spiffyui.client.rest;
 
 import java.util.Map;
 
+import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
 
 /**
@@ -41,7 +42,7 @@ public final class RESTOptions
     /*
      the data to pass to the URL
      */
-    private JSONValue m_data;
+    private String m_data;
     
     /*
      the HTTP method, defaults to GET
@@ -68,6 +69,11 @@ public final class RESTOptions
      the option etag for this request;
      */
     private String m_etag;
+
+    /*
+     * the content type for this request
+     */
+    private String m_contentType = "application/json";
     
     /*
        a map containing the headers to the HTTP request.  Any item
@@ -112,7 +118,11 @@ public final class RESTOptions
      */
     public JSONValue getData()
     {
-        return m_data;
+        if (m_data == null) {
+            return null;
+        } else {
+            return JSONParser.parseStrict(m_data);
+        }
     }
     
     /**
@@ -147,7 +157,57 @@ public final class RESTOptions
      */
     public RESTOptions setData(JSONValue data)
     {
+        if (data != null) {
+            m_data = data.toString();
+        } else {
+            m_data = null;
+        }
+
+        return this;
+    }
+
+    /**
+     * <p>
+     * Set the data for this REST request as a string.
+     * </p> 
+     *  
+     * <p>
+     * Data can only be passed for POST and PUT requests and will be ignored for all
+     * other request methods.  If this data isn't JSON you must call setContentType
+     * to set the correct content type for your data.
+     * </p> 
+     * 
+     * @param data   the data to send to the server with this request
+     * 
+     * @return the RESTOptions bean for method chaining
+     */
+    public RESTOptions setDataString(String data)
+    {
         m_data = data;
+        return this;
+    }
+
+    /**
+     * Get the content type for this REST request.  The default is application/json
+     * 
+     * @return the content type
+     */
+    public String getContentType()
+    {
+        return m_contentType;
+    }
+
+    /**
+     * Set the content type for this request.
+     * 
+     * @param contentType
+     *               the content type to use
+     * 
+     * @return the RESTOptions bean for method chaining
+     */
+    public RESTOptions setContentType(String contentType) 
+    {
+        m_contentType = contentType;
         return this;
     }
     

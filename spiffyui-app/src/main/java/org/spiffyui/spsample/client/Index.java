@@ -23,7 +23,6 @@ import org.spiffyui.client.JSDateUtil;
 import org.spiffyui.client.JSEffectCallback;
 import org.spiffyui.client.JSUtil;
 import org.spiffyui.client.MainFooter;
-import org.spiffyui.client.MainHeader;
 import org.spiffyui.client.MessageUtil;
 import org.spiffyui.client.nav.MainNavBar;
 import org.spiffyui.client.nav.NavBarListener;
@@ -568,7 +567,6 @@ public class Index implements EntryPoint, NavBarListener, RESTLoginCallBack
         String token = RESTility.getUserToken();
         String name = token.substring(0, token.indexOf('-'));
         g_index.m_header.setWelcomeString(getStrings().welcome(name));
-        JSUtil.bounce("#" + MainHeader.HEADER_ACTIONS_BLOCK, 5, 500, 30);
         JSUtil.show("#header_logout", "fast");
     }
 
