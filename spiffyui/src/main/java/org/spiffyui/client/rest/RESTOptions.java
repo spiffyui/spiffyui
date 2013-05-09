@@ -422,8 +422,8 @@ public final class RESTOptions
      *     <li><code>TS-URL</code> - this custom token is set to the token server URL from
      *     the authenciation provider.</li>
      *     <li><code>If-Match</code> - set with the value from the ETag</li>
-     *     <li><code>Content-Type</code> - always sets the content type to use JSON since
-     *     RESTility requires JSON formatted data.
+     *     <li><code>Content-Type</code> - always sets the content type to the value from the
+     *     setContentType method.
      * </ul>
      * 
      * @param headers the HTTP headers for this REST request
