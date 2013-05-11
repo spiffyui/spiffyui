@@ -1063,7 +1063,6 @@ public final class RESTility
         RESTILITY.m_restCalls.put(options.getCallback(), new RESTCallStruct(options.getURL(), 
                                                                             options.getDataString(), options.getMethod(), 
                                                                             options.shouldReplay(), options.getEtag()));
-
         RequestBuilder builder = new RESTRequestBuilder(options.getMethod().getMethod(), options.getURL());
         /*
          Set our headers
@@ -1075,6 +1074,7 @@ public final class RESTility
                 builder.setHeader(k, options.getHeaders().get(k));
             }
         }
+
 
         if (RESTILITY.m_bestLocale != null) {
             /*
@@ -1097,10 +1097,11 @@ public final class RESTility
             builder.setHeader("If-Match", options.getEtag());
         }
 
-        if (options.getData() != null) {
+        if (options.getDataString() != null) {
             /*
              Set our request data
              */
+          
             builder.setRequestData(options.getDataString());
 
             //b/c jaxb/jersey chokes when there is no data when content-type is json
