@@ -484,6 +484,11 @@ spiffyui = {
         }
 
         url += window.location.host;
+        
+        if (url.indexOf('/', url.length - 1) !== -1) {
+            url += '/';
+        }
+        
         url += spiffyui.getRelativePath();
 
         return url;
