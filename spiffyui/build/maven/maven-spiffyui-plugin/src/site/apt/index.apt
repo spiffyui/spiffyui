@@ -23,12 +23,12 @@ maven-spiffyui-plugin
   General instructions on how to use the plugin can be found on the
   {{{./usage.html}usage page}}. Users may occasionally contribute
   additional examples, tips or errata to the
-  {{{http://code.google.com/p/spiffyui/wiki/MavenPlugin}plugin's wiki page}}.
+  {{{https://github.com/spiffyui/spiffyui/wiki/MavenPlugin}plugin's wiki page}}.
 
   If you feel like the plugin is missing a feature or has a defect, you can fill a feature request or bug report in our
-  {{{http://code.google.com/p/spiffyui/issues/list}issue tracker}}. When creating a new issue, please provide a comprehensive description of your
+  {{{https://github.com/spiffyui/spiffyui/issues}issue tracker}}. When creating a new issue, please provide a comprehensive description of your
   concern. Especially for fixing bugs it is crucial that the developers can reproduce your problem. For this reason,
   entire debug logs, POMs or most preferably little demo projects attached to the issue are very much appreciated.
   Of course, patches are welcome, too. Contributors can check out the project from our
-  {{{http://code.google.com/p/spiffyui/source/browse/trunk#trunk%2Fspiffyui%2Fbuild%2Fmaven%2Fmaven-spiffyui-plugin}source repository}} and will find supplementary information in the
+  {{{https://github.com/spiffyui/spiffyui/tree/master/spiffyui/build/maven/maven-spiffyui-plugin}source repository}} and will find supplementary information in the
   {{{http://maven.apache.org/guides/development/guide-helping.html}guide to helping with Maven}}. 
