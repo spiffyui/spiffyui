@@ -476,20 +476,28 @@ spiffyui = {
          return path;
     },
 
+    /**
+     * This method is a little tricky.  It needs to get the current URL of the application
+     * so we can build the right location to the oauth.html file for OAuth redirection.  To
+     * do that we combine the current protocol, host, and path with the relative URL for the
+     * nocache.js file so we can get the right location of where GWT will put the oauth.html
+     * file instead of where the GWT application front page is loaded from.
+     */
     getCurrentUrl: function() {
-        var url = window.location.protocol;
-
-        if (url.indexOf('//', url.length - 2) === -1) {
-            url += '//';
-        }
-
-        url += window.location.host;
+        var url = window.location.protocol + "//" + window.location.host + window.location.pathname;
         
-        if (url.indexOf('/', url.length - 1) !== -1) {
-            url += '/';
+        if (window.location.pathname.length > 0 && url.substring(url.length - 1) !== '/') {
+            /*
+             * Then the URL ends with something like index.html.
+             */
+            url = url.substring(0, url.lastIndexOf('/') + 1);
         }
         
         url += spiffyui.getRelativePath();
+        
+        if (url.substring(url.length - 1) !== '/') {
+            url += '/';
+        }
 
         return url;
     },
@@ -500,7 +508,7 @@ spiffyui = {
         //spiffyui.log('oAuthAuthenticate(' + url + ', ' + clientId + ', ' + scope + ')');
 
         spiffyui.oauthCallback = callback;
-        url += '?redirect_uri=' + spiffyui.getCurrentUrl() + '/oauth.html';
+        url += '?redirect_uri=' + spiffyui.getCurrentUrl() + 'oauth.html';
 
         if (clientId) {
             url += '&client_id=' + clientId;
