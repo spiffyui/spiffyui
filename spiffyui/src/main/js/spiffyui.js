@@ -54,6 +54,12 @@ spiffyui = {
      * not load. This value is true by default. 
      */
     autoloadHTML: true,
+    
+    /**
+     * This field controls the enabling of the Spiffy UI browser 
+     * history integration.
+     */
+    historyEnabled: true,
         
     /** 
      * This field gives users a chance to override the determined
@@ -661,7 +667,8 @@ spiffyui = {
          */
         (function(window) {
             spiffyui.History = window.History; // Note: We are using a capital H instead of a lower h
-            if (!spiffyui.History.enabled) {
+            if (!spiffyui.historyEnabled) {
+                spiffyui.log("SpiffyUI history integration is disabled.");
                 /*
                  * Applications aren't required to use our history support and if
                  * they haven't loaded the libraries then we don't want to try
