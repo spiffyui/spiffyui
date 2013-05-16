@@ -1311,3 +1311,11 @@ h3.subSectionTitle.expandable.expanded {
   visibility: hidden;
   width: 100%;
 }
+
+/*
+ * iFrames are transparent by default and if the page in the frame doesn't have
+ * a background color we want to make sure the page underneath doesn't show through.
+ */
+#spiffyuoauthframe {
+    background: white;
+}
