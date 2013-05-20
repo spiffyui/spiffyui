@@ -542,6 +542,17 @@ spiffyui = {
             'height': '100%'
         });
 
+        if (navigator.userAgent.match(/iPhone/i)) {
+            /*
+             * We show the OAuth login dialog with an iFrame and we use
+             * fixed positioning so the frame stays over the main screen.
+             * This works well almost everywhere, but iPhone doesn't allow
+             * you to scroll fixed position items so we use absolute
+             * positioning on iPhone.  What a hack.
+             */
+            frame.css('position', 'absolute');
+        }
+
         $('body').append(frame);
     },
 
