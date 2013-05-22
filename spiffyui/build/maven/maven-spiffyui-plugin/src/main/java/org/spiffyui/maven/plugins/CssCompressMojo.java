@@ -1,7 +1,7 @@
 /*******************************************************************************
- * 
- * Copyright 2011 Spiffy UI Team   
- * 
+ *
+ * Copyright 2011 Spiffy UI Team
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,37 +20,52 @@ package org.spiffyui.maven.plugins;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Collection;
+
+import com.yahoo.platform.yui.compressor.CssCompressor;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.IOUtil;
-
-import com.yahoo.platform.yui.compressor.CssCompressor;
 
 /**
  * Invokes the YUI Compressor for the project .css source
- * 
+ *
  * @goal css-compress
  * @phase process-resources
  */
 public class CssCompressMojo extends AbstractMojo
 {
     /**
+     * {@link MavenProject} to process.
+     *
+     * @parameter expression="${project}"
+     * @required
+     * @readonly
+     */
+    private MavenProject project;
+
+    /**
+     * @parameter expression="${spiffyui.yuicompressor.skip}" default-value="false"
+     */
+    private boolean skip;
+
+    /**
      * The character encoding scheme to be applied exporting the JSON document
-     * 
+     *
      * @parameter expression="${encoding}" default-value="UTF-8"
      */
     private String encoding;
 
     /**
      * The output filename suffix.
-     * 
+     *
      * @parameter expression="${spiffyui.yuicompressor.suffix}"
      *            default-value=".min"
      */
@@ -58,7 +73,7 @@ public class CssCompressMojo extends AbstractMojo
 
     /**
      * Insert line breaks in output after the specified column number.
-     * 
+     *
      * @parameter expression="${spiffyui.yuicompressor.linebreakpos}"
      *            default-value="0"
      */
@@ -67,7 +82,7 @@ public class CssCompressMojo extends AbstractMojo
     /**
      * The CSS directory name under source.  This directory is added
      * in addition to the source directory
-     * 
+     *
      * @parameter expression="${spiffyui.css.source}"
      *            default-value="css"
      */
@@ -75,24 +90,24 @@ public class CssCompressMojo extends AbstractMojo
 
     /**
      * Path to the project .css sources to compress
-     *  
+     *
      * @parameter default-value="src/main/webapp"
      */
     private File sourceDirectory;
 
     /**
      * The output directory to emit compressed artifacts
-     * 
+     *
      * @parameter expression="${spiffyui.css.output}"
      *            default-value="${spiffyui.www}"
      * @required
      */
     private File outputDirectory;
-    
+
     /**
      * The name of the generated compressed CSS file
-     * 
-     * @parameter default-value="SpiffyUi.min.css" 
+     *
+     * @parameter default-value="SpiffyUi.min.css"
      */
     private String outputFileName;
 
@@ -101,12 +116,16 @@ public class CssCompressMojo extends AbstractMojo
         throws MojoExecutionException,
             MojoFailureException
     {
+        if (skip || "pom".equals(project.getPackaging())) {
+            getLog().debug("CSS compression is skipped");
+            return;
+        }
 
         if (!sourceDirectory.exists()) {
             getLog().debug("No sources, skipping");
             return;
         }
-        
+
         String[] exts = new String[] {
             "css"
         };
@@ -134,13 +153,13 @@ public class CssCompressMojo extends AbstractMojo
             throw new MojoExecutionException(e.getMessage());
         }
     }
-    
+
     /**
-     * This method concatenates the set of CSS source files since YUI requires a 
+     * This method concatenates the set of CSS source files since YUI requires a
      * single input file.
-     * 
+     *
      * @param files  the files to concatenate
-     * 
+     *
      * @return a temporary file containing the concatenated source files
      * @exception IOException
      */
@@ -154,12 +173,12 @@ public class CssCompressMojo extends AbstractMojo
                 InputStreamReader in = new InputStreamReader(new FileInputStream(file), encoding);
                 int read;
                 char[] buf = new char[1024];
-        
+
                 try {
                     while ((read = in.read(buf)) > 0) {
                         out.write(buf, 0, read);
                     }
-                    
+
                     out.write('\n');
                 } finally {
                     if (in != null) {
@@ -172,16 +191,16 @@ public class CssCompressMojo extends AbstractMojo
                 out.close();
             }
         }
-        
+
         //outFile.deleteOnExit();
         return outFile;
     }
 
     /**
      * Call the YUI compressor to compress our concatenated CSS file.
-     * 
+     *
      * @param inFile the concatenated CSS file
-     * 
+     *
      * @exception IOException
      * @exception MojoExecutionException
      */
@@ -193,7 +212,7 @@ public class CssCompressMojo extends AbstractMojo
         }
 
         File outFile = new File(outputDirectory, outFileName);
-        
+
         InputStreamReader in = null;
         OutputStreamWriter out = null;
 

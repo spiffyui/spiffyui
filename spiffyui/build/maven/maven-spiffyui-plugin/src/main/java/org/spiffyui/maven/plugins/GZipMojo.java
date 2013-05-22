@@ -1,7 +1,7 @@
 /*******************************************************************************
- * 
- * Copyright 2011 Spiffy UI Team   
- * 
+ *
+ * Copyright 2011 Spiffy UI Team
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,7 +32,7 @@ import org.spiffyui.build.GzipListUtil;
 
 /**
  * GZip compresses specific web artifacts
- * 
+ *
  * @goal gzip
  * @phase process-classes
  */
@@ -41,7 +41,7 @@ public class GZipMojo extends AbstractMojo
 
     /**
      * {@link MavenProject} to process.
-     * 
+     *
      * @parameter expression="${project}"
      * @required
      * @readonly
@@ -49,13 +49,18 @@ public class GZipMojo extends AbstractMojo
     private MavenProject project;
 
     /**
+     * @parameter expression="${gzip.skip}" default-value="false"
+     */
+    private boolean skip;
+
+    /**
      * Path of artifacts to compress.
-     * 
+     *
      * @parameter default-value="${spiffyui.www}"
      * @required
      */
     private File directory;
-    
+
     /**
      * @parameter default-value="${spiffyui.gwt.module.path}"
      * @required
@@ -68,6 +73,11 @@ public class GZipMojo extends AbstractMojo
         throws MojoExecutionException,
             MojoFailureException
     {
+        if (skip || "pom".equals(project.getPackaging())) {
+            getLog().debug("GZIP is skipped");
+            return;
+        }
+
         File images = new File(gwtModulePath, "images");
         String[] baseExts = {
             "css", "png", "gif", "js"

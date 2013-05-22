@@ -7,8 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,36 +31,50 @@ import com.googlecode.jslint4java.maven.ReportWriter;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-
+import org.apache.maven.project.MavenProject;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
 import org.mozilla.javascript.ScriptableObject;
 
 /**
- * Validates JavaScript using jslint4java.  Initially copied from: 
- * https://github.com/happygiraffe/jslint4java/blob/master/jslint4java-maven-plugin/src/main/java/com/googlecode/jslint4java/maven/JSLintMojo.java 
+ * Validates JavaScript using jslint4java.  Initially copied from:
+ * https://github.com/happygiraffe/jslint4java/blob/master/jslint4java-maven-plugin/src/main/java/com/googlecode/jslint4java/maven/JSLintMojo.java
  *
  * @goal spiffy-jslint
  * @phase verify
  */
-public class JSLintMojo extends AbstractMojo 
+public class JSLintMojo extends AbstractMojo
 {
 
     private static final String DEFAULT_INCLUDES = "**/*.js";
 
     private static final String JSLINT_XML = "jslint.xml";
-    
+
     private static final String JSLINT_FILE = "org/spiffyui/maven/plugins/jslint.js";
-    
+
     private static final Charset UTF8 = Charset.forName("UTF-8");
-    
-    private ContextFactory contextFactory = new ContextFactory();
+
+    private final ContextFactory contextFactory = new ContextFactory();
+
+    /**
+     * {@link MavenProject} to process.
+     *
+     * @parameter expression="${project}"
+     * @required
+     * @readonly
+     */
+    private MavenProject project;
+
+    /**
+     * @parameter expression="${jslint.skip}" default-value="false"
+     */
+    private boolean skip;
 
     /**
      * Specifies the the source files to be excluded for JSLint (relative to
      * {@link #defaultSourceFolder}). Maven applies its own defaults.
      *
-     * @parameter expression="${jslint.excludes}" 
+     * @parameter expression="${jslint.excludes}"
      *            property="excludes"
      */
     private final List<String> excludes = new ArrayList<String>();
@@ -70,7 +84,7 @@ public class JSLintMojo extends AbstractMojo
      * {@link #defaultSourceFolder}). If none are given, defaults to
      * <code>**&#47;*.js</code>.
      *
-     * @parameter expression="${jslint.includes}" 
+     * @parameter expression="${jslint.includes}"
      *            property="includes"
      */
     private final List<String> includes = new ArrayList<String>();
@@ -81,8 +95,8 @@ public class JSLintMojo extends AbstractMojo
      * resolves the default value correctly. Anything you specify will override
      * it.
      *
-     * @parameter expression="${spiffyui.src.js}" 
-     *            default-value="${basedir}/src/main/js" 
+     * @parameter expression="${spiffyui.src.js}"
+     *            default-value="${basedir}/src/main/js"
      * @required
      */
     private File defaultSourceFolder;
@@ -108,7 +122,7 @@ public class JSLintMojo extends AbstractMojo
      * @parameter expression="${encoding}"
      *            default-value="${project.build.sourceEncoding}"
      */
-    private String encoding = "UTF-8";
+    private final String encoding = "UTF-8";
 
     /**
      * Base folder for report output.
@@ -116,14 +130,14 @@ public class JSLintMojo extends AbstractMojo
      * @parameter expression="${jslint.outputFolder}"
      *            default-value="${project.build.directory}"
      */
-    private File outputFolder = new File("target");
+    private final File outputFolder = new File("target");
 
     /**
      * Fail the build if JSLint detects any problems.
      *
      * @parameter expression="${jslint.failOnError}" default-value="true"
      */
-    private boolean failOnError = true;
+    private final boolean failOnError = true;
 
     /**
      * An alternative JSLint to use.
@@ -156,7 +170,7 @@ public class JSLintMojo extends AbstractMojo
             includes.add(DEFAULT_INCLUDES);
         }
         if (sourceFolders.length == 0) {
-            sourceFolders = new File[] { 
+            sourceFolders = new File[] {
                 defaultSourceFolder
             };
         }
@@ -176,7 +190,7 @@ public class JSLintMojo extends AbstractMojo
             }
             jsLint.addOption(option, entry.getValue());
         }
-        
+
         if (options.size() == 0) {
             jsLint.addOption(Option.UNDEF, "true");
             jsLint.addOption(Option.VARS, "true");
@@ -189,6 +203,11 @@ public class JSLintMojo extends AbstractMojo
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException
     {
+        if (skip || "pom".equals(project.getPackaging())) {
+            getLog().debug("JSLint is skipped");
+            return;
+        }
+
         JSLint jsLint = applyJSlintSource();
         applyDefaults();
         applyOptions(jsLint);
