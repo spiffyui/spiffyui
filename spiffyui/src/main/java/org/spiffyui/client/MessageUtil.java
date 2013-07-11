@@ -113,6 +113,11 @@ public final class MessageUtil
      */
     public static final ErrorPanel ERROR_PANEL = new ErrorPanel();
 
+    /**
+     * This is the singleton instance of the page warning panel.
+     */
+    public static final PageWarningPanel PAGE_WARNING_PANEL = new PageWarningPanel();
+
     static {
         setLogTitleJS("Error Log");
     }
@@ -130,6 +135,19 @@ public final class MessageUtil
             ERROR_PANEL.setErrorMessage(msg);
         }
         logError(msg);
+    }
+
+    /**
+     * This method shows a page level warning for the page.  These warnings
+     * are meant to indicate that the page is fundamentally broken or unavailable.
+     * The message shows up large in the middle of the page and hide all of
+     * the contents of the page except for the header and footer.
+     * 
+     * @param msg    the message to show in HTML
+     */
+    public static void showPageLevelWarning(String msg)
+    {
+        PAGE_WARNING_PANEL.setErrorMessage(msg);
     }
 
     /**
@@ -350,6 +368,10 @@ public final class MessageUtil
     }-*/;
     
     private static native void createJSFunctions() /*-{
+        $wnd.spiffyui.showPageLevelWarning = function(msg) {
+            @org.spiffyui.client.MessageUtil::showPageLevelWarning(Ljava/lang/String;)(msg);
+        }
+        
         $wnd.spiffyui.showFatalError = function(msg) {
             @org.spiffyui.client.MessageUtil::showFatalError(Ljava/lang/String;)(msg);
         }
@@ -466,6 +488,75 @@ class ErrorPanel extends Composite implements Event.NativePreviewHandler
         //any click on this will dismiss the panel
         if (DOM.isOrHasChild(m_panel.getElement(), target)) {
             JSUtil.slideUp("#" + m_panel.getElement().getId(), "fast");
+        }
+    }
+}
+
+/**
+ * The page warning shows page level warnings in the UI
+ */
+class PageWarningPanel extends Composite
+{
+
+    private Label m_label;
+    private FlowPanel m_panel;
+
+    public PageWarningPanel()
+    {
+        RootPanel root = RootPanel.get("main");
+        
+        if (root == null) {
+            throw new IllegalStateException("Unable to locate the warning panel element.  You must import spiffyui.min.js before using the MessageUtil.");
+        }
+        m_panel = new FlowPanel();
+        m_panel.getElement().setId("pagewarningpanel");
+
+        m_label = new Label("", true);
+        m_panel.add(m_label);
+
+        m_panel.setVisible(false);
+
+        root.add(m_panel);
+    }
+
+    /**
+     * Sets a message in the error panel and makes it visible
+     * 
+     * @param message
+     *        the message
+     */
+    public void setErrorMessage(String message)
+    {
+        makeVisible();
+        m_label.setText(message);
+    }
+
+    /**
+     * Appends a message to the error panel and makes it visible
+     * 
+     * @param message
+     *        the message
+     */
+    public void appendErrorMessage(String message)
+    {
+        makeVisible();
+        m_label.setText(m_label.getText() + message);
+    }
+
+    /**
+     * Clears the error panel. This method will make the panel invisible.
+     */
+    public void clear()
+    {
+        m_label.setText("");
+        m_panel.setVisible(false);
+    }
+
+    private void makeVisible()
+    {
+        if (!m_panel.isVisible()) {
+            JSUtil.slideDown("#" + m_panel.getElement().getId(), "normal");
+            JSUtil.hide("mainBody");
         }
     }
 }

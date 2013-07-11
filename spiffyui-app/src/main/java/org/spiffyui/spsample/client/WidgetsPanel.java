@@ -672,6 +672,18 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
             }
             
         });
+
+        b = new Button(Index.getStrings().showPageWarningMsg());
+        p.add(b, "WidgetsMessages");
+        b.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) 
+            {
+                MessageUtil.showPageLevelWarning(Index.getStrings().pageWarningMsg());
+            }
+            
+        });
         
     }
 

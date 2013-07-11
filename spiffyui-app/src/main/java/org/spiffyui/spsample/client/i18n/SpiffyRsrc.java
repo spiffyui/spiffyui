@@ -102,6 +102,8 @@ public interface SpiffyRsrc extends Messages
     public String showErrMsg();
     public String errMsg();
     public String showFatalErrMsg();
+    public String showPageWarningMsg();
+    public String pageWarningMsg();
     public String fatalErrMsg();
     public String refreshing();
     public String refreshSure();

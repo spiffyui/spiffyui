@@ -1068,6 +1068,22 @@ h3.subSectionTitle.expandable.expanded {
     text-decoration: none;
 }
 
+#pagewarningpanel {
+    background: #E6E6E6;
+    border: thin solid darkgray;
+    font-size: 18px;
+    line-height: 28px;
+    position: relative;
+    padding: 1.5em;
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;
+    border-radius:6px;
+    margin-right: 2em;
+    top: 50px;
+    display: none;
+}
+
+
 /*
   For Login -Begin
 */
