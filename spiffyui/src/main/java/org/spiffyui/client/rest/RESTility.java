@@ -370,7 +370,11 @@ public final class RESTility
         setTokenServerURL(loginUri);
         setTokenServerLogoutURL(logoutUri);
 
-        removeCookie(RESTILITY.m_sessionCookie);
+        if (RESTILITY.m_sessionCookiePath != null) {
+            removeCookie(RESTILITY.m_sessionCookie, RESTILITY.m_sessionCookiePath);
+        } else {
+            removeCookie(RESTILITY.m_sessionCookie);
+        }
         removeCookie(LOCALE_COOKIE);
 
         if (g_oAuthProvider != null && tokenType.equalsIgnoreCase("Bearer") || tokenType.equalsIgnoreCase("MAC")) {
@@ -468,7 +472,13 @@ public final class RESTility
         RESTILITY.m_tokenServerUrl = null;
         RESTILITY.m_tokenServerLogoutUrl = null;
         RESTILITY.m_username = null;
-        removeCookie(RESTILITY.m_sessionCookie);
+        
+        if (RESTILITY.m_sessionCookiePath != null) {
+            removeCookie(RESTILITY.m_sessionCookie, RESTILITY.m_sessionCookiePath);
+        } else {
+            removeCookie(RESTILITY.m_sessionCookie);
+        }
+        
         removeCookie(LOCALE_COOKIE);
     }
 
