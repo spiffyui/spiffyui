@@ -233,7 +233,7 @@ slidegrid = {
                         slidegrid.styleCell(children.eq(i), x, y, cellWidth, cellHeight, slidegrid.hasDrawn);
                     }
                 }
-                
+
                 if ((count % cols) === 0) {
                     /* 
                      * This means it is time to bump down to the next row
@@ -242,12 +242,13 @@ slidegrid = {
                     curRow++;
                     x = padding / 2;
                     y += cellHeight + padding;
-                    hasTallCell = false;
+                    if (i != children.length - 1) {
+                        hasTallCell = false;
+                    }
                 } else {
                     x += cellWidth + padding;
                     curCol++;
                 }
-                
                 count++;
             }
             
@@ -261,9 +262,9 @@ slidegrid = {
             } else {
                 height = y + padding;
             }
-            
+
             if (hasTallCell) {
-                height += cellHeight + padding;
+                height += (cellHeight + padding) * 2;
             }
 
             $(this).css('height', height + "px");
