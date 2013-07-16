@@ -264,7 +264,7 @@ slidegrid = {
             }
 
             if (hasTallCell) {
-                height += (cellHeight + padding) * 2;
+                height += cellHeight + padding;
             }
 
             $(this).css('height', height + "px");
