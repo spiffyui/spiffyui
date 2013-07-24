@@ -328,7 +328,7 @@ public final class RESTility
                                     response.getStatusCode(),
                                     url);
         }
-
+        
         /*
          * Now we have to parse out the token server URL and other information.
          *
@@ -1200,6 +1200,7 @@ public final class RESTility
                 }
 
                 g_inLoginProcess = true;
+                m_logInListenerCalled = false;
                 /*
                  * For return values of 401 we need to show the login dialog
                  */
