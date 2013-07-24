@@ -533,6 +533,7 @@ public final class RESTility
      */
     public static void finishRESTCalls()
     {
+        fireLoginSuccess();
         for (RESTCallback callback : RESTILITY.m_restCalls.keySet()) {
             RESTCallStruct struct = RESTILITY.m_restCalls.get(callback);
             if (struct != null && struct.shouldReplay()) {
