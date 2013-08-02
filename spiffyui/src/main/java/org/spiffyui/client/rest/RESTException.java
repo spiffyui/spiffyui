@@ -129,19 +129,34 @@ public class RESTException extends Exception
             throw new IllegalArgumentException("RESTException requires a code.");
         }
         
-        m_code = SafeHtmlUtils.fromString(code).asString();
+        m_code = semiUnescapeHtml(SafeHtmlUtils.fromString(code).asString());
         
         if (subcode != null) {
-            m_subcode = SafeHtmlUtils.fromString(subcode).asString();
+            m_subcode = semiUnescapeHtml(SafeHtmlUtils.fromString(subcode).asString());
         }
         
         if (reason != null) {
-            m_reason = SafeHtmlUtils.fromString(reason).asString();
+            m_reason = semiUnescapeHtml(SafeHtmlUtils.fromString(reason).asString());
         }
         
         m_details = details;
         m_responseCode = responseCode;
         m_url = url;
+    }
+
+    /**
+     * When an error response comes back from the server we want to encode it
+     * as safe HTML since it comes from an untrusted source.  However, the GWT
+     * safe HTML utilities encode an apostrophe as a &#39; character and we 
+     * need to undo that since it's a common character in error messages.
+     * 
+     * @param html   the HTML to unescape
+     * 
+     * @return the unescaped HTML
+     */
+    private String semiUnescapeHtml(String html)
+    {
+        return html.replace("&#39;", "'");
     }
     
     /**
