@@ -417,7 +417,8 @@ public final class RESTility
              */
             g_oAuthProvider.error(exception);
         } else {
-            handleOAuthRequestJS(this, authUrl, g_oAuthProvider.getClientId(), g_oAuthProvider.getScope());
+            handleOAuthRequestJS(this, authUrl, g_oAuthProvider.getClientId(), 
+                                 g_oAuthProvider.getScope(), g_oAuthProvider.shouldSendRedirectUrl());
         }
     }
 
@@ -432,8 +433,8 @@ public final class RESTility
         return $wnd.Base64.encode(s);
     }-*/;
 
-    private native void handleOAuthRequestJS(RESTility callback, String authUrl, String clientId, String scope) /*-{
-        $wnd.spiffyui.oAuthAuthenticate(authUrl, clientId, scope, function(token, tokenType) {
+    private native void handleOAuthRequestJS(RESTility callback, String authUrl, String clientId, String scope, boolean shouldRedirect) /*-{
+        $wnd.spiffyui.oAuthAuthenticate(authUrl, clientId, scope, shouldRedirect, function(token, tokenType) {
             callback.@org.spiffyui.client.rest.RESTility::oAuthComplete(Ljava/lang/String;Ljava/lang/String;)(token,tokenType);
         });
     }-*/;

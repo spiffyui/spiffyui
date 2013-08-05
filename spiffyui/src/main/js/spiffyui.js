@@ -508,13 +508,15 @@ spiffyui = {
         return url;
     },
 
-    oAuthAuthenticate: function(/*String*/ url, /*String*/ clientId, /*String*/ scope, /*function*/ callback) {
+    oAuthAuthenticate: function(/*String*/ url, /*String*/ clientId, /*String*/ scope, /*boolean*/ sendRedirect, /*function*/ callback) {
 
         window.addEventListener('message', spiffyui.oAuthAuthenticateCompleteEventListener, false);
         //spiffyui.log('oAuthAuthenticate(' + url + ', ' + clientId + ', ' + scope + ')');
 
         spiffyui.oauthCallback = callback;
-        url += '?redirect_uri=' + spiffyui.getCurrentUrl() + 'oauth.html';
+        if (sendRedirect) {
+            url += '?redirect_uri=' + spiffyui.getCurrentUrl() + 'oauth.html';
+        }
 
         if (clientId) {
             url += '&client_id=' + clientId;

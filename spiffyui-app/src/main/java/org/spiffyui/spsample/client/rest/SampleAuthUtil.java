@@ -52,6 +52,12 @@ public class SampleAuthUtil extends AuthUtil implements RESTOAuthProvider
     }
 
     @Override
+    public boolean shouldSendRedirectUrl()
+    {
+        return true;
+    }
+
+    @Override
     protected LoginStringHelper getStringHelper()
     {
         return new SPSampleStringHelper();

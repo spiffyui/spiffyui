@@ -61,6 +61,18 @@ public interface RESTOAuthProvider
      */
     String getScope();
 
+
+    /**
+     * Spiffy UI provides a mechanism to show the OAuth login page in an iFrame
+     * and close that frame when the login completes.  That mechanism requires
+     * a specific redirect URL so that Spiffy UI can close the iFrame and return
+     * to the page.  If the client doesn't want to use that mechanism then they
+     * can return false to this method to not pass a redirect URL.
+     * 
+     * @return true if the client should pass a redirect URL and false otherwise
+     */
+    boolean shouldSendRedirectUrl();
+
     /**
      * <p>
      * Called when the OAuth process ends with an error
