@@ -5,6 +5,11 @@
   <!-- POM file generated with SpiffyUI Project Creator -->
   <modelVersion>4.0.0</modelVersion>
   <groupId>MY_PACKAGE</groupId>
+
+  <!-- This artifact ID is used as the default name of the minimized
+      JavaScript file for this project.  If you change the project's artifact
+      ID make sure to update the reference to the min.js files in the HTML
+      files of the project. -->
   <artifactId>MY_PROJECT</artifactId>
   <packaging>spiffyui-war</packaging>
   <version>1.0-SNAPSHOT</version>
