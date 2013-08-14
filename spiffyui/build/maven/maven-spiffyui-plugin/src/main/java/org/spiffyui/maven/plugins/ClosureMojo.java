@@ -79,7 +79,8 @@ public class ClosureMojo extends AbstractMojo
     /**
      * The compressed/aggregate javascript output file
      * 
-     * @parameter default-value="${spiffyui.www}/${project.artifactId}.min.js"
+     * @parameter expression="${spiffyui.js.output.file}" 
+     *            default-value="${spiffyui.www}/${project.artifactId}.min.js"
      * @required
      */
     private File outputFile;

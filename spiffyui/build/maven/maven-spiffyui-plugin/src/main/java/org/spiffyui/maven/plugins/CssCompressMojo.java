@@ -92,7 +92,8 @@ public class CssCompressMojo extends AbstractMojo
     /**
      * The name of the generated compressed CSS file
      * 
-     * @parameter default-value="SpiffyUi.min.css" 
+     * @parameter expression="${spiffyui.css.output.filename}" 
+     *            default-value="SpiffyUi.min.css" 
      */
     private String outputFileName;
 
