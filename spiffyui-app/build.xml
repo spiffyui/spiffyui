@@ -337,7 +337,7 @@
         <echo file="${sample.out.classes}/org/spiffyui/spsample/server/buildnum.properties">
 build.date=${builddate}
 build.user=${user.name}
-build.version=1.2
+build.version=1.3-SNAPSHOT
 build.revision=${revision.number} 
 build.revision.date=${revision.date}
 build.dir=${root}
