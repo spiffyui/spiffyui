@@ -514,8 +514,11 @@ spiffyui = {
         //spiffyui.log('oAuthAuthenticate(' + url + ', ' + clientId + ', ' + scope + ')');
 
         spiffyui.oauthCallback = callback;
+        
+        url += '?response_type=token';
+                
         if (sendRedirect) {
-            url += '?redirect_uri=' + spiffyui.getCurrentUrl() + 'oauth.html';
+            url += '&redirect_uri=' + spiffyui.getCurrentUrl() + 'oauth.html';
         }
 
         if (clientId) {
@@ -525,8 +528,6 @@ spiffyui = {
         if (scope) {
             url += '&scope=' + clientId;
         }
-
-        url += '&response_type=token';
 
         spiffyui.oauthstate = 'spiffystate' + Math.random();
         url += '&state=' + spiffyui.oauthstate;
