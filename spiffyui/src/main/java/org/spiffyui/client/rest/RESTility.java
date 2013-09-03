@@ -1162,7 +1162,17 @@ public final class RESTility
         private RESTException handleNcacFault(JSONValue val, Response response)
         {
             RESTCallStruct struct = RESTILITY.m_restCalls.get(m_origCallback);
-            RESTException exception = JSONUtil.getRESTException(val, response.getStatusCode(), struct.getUrl());
+            int status = -1;
+            if (response != null) {
+                status = response.getStatusCode();
+            }
+            
+            String url = null;
+            if (struct != null) {
+                url = struct.getUrl();
+            }
+            
+            RESTException exception = JSONUtil.getRESTException(val, status, url);
             
             if (exception == null) {
                 return null;
