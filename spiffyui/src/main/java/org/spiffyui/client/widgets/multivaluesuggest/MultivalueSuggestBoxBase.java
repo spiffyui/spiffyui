@@ -319,7 +319,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         if (!invalids.isEmpty()) {
             //trim last separator
             invalids = trimLastDelimiter(invalids, m_displaySeparator);
-            updateFormFeedback(FormFeedback.ERROR, getInvalidText(invalids));
+            updateFormFeedback(FormFeedback.ERROR, getInvalidTitle(invalids));
         }
         return values;
     }
@@ -631,7 +631,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
                     join += val.trim() + m_displaySeparator;
                 }
                 join = trimLastDelimiter(join, m_displaySeparator);                                
-                updateFormFeedback(FormFeedback.ERROR, getInvalidText(join));
+                updateFormFeedback(FormFeedback.ERROR, getInvalidTitle(join));
             } else {
                 updateFormFeedback(FormFeedback.VALID, m_validText);
             }
@@ -947,45 +947,98 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
 
 
     /**
-     * Get the parameterized localized String for invalid values.
+     * Get the parameterized localized String for invalid values
+     * to display for a FormFeedback error.
      * This is the method to override with custom localization methods.
      * @param invalids - the value or values that are invalid.
      * @return Returns the invalidText.
+     * @deprecated use getInvalidTitle
      */
+    @Deprecated 
     public String getInvalidText(String invalids)
     {
         return STRINGS.invalidColon(invalids);
     }
 
     /**
-     * Get the parameterized localized String for invalid values.
+     * Get the parameterized localized String for invalid values
+     * to display for a FormFeedback error.
+     * This is the method to override with custom localization methods.
+     * @param invalids - the value or values that are invalid.
+     * @return Returns the invalidText.
+     */
+    public String getInvalidTitle(String invalids)
+    {
+        return STRINGS.invalidColon(invalids);
+    }
+    /** 
+     * Get the parameterized localized String for invalid values
+     * to display for a FormFeedback error when the response returned an error
      * This is the method to override with custom localization methods.
      * @param invalids - the value or values that are invalid.
      * @param reason - the reason or message returned about the invalid value
      * @return Returns the invalidText.
+     * @deprecated Use getInvalidReasonTitle.
      */
+    @Deprecated 
     public String getInvalidReason(String invalids, String reason)
     {
         return STRINGS.invalidColonReason(invalids, reason);
     }
 
     /**
-     * Sets the valid text String.
-     * @param validText The validText to set.
+     * Get the parameterized localized String for invalid values
+     * to display for a FormFeedback error when the response returned an error
+     * This is the method to override with custom localization methods.
+     * @param invalids - the value or values that are invalid.
+     * @param reason - the reason or message returned about the invalid value
+     * @return Returns the invalidText.
      */
+    public String getInvalidReasonTitle(String invalids, String reason)
+    {
+        return STRINGS.invalidColonReason(invalids, reason);
+    }
+
+    /**
+     * Sets the title of the FormFeedback when valid.
+     * @param validText The validText to set.
+     * @deprecated Use setValidTitle
+     */
+    @Deprecated 
     public void setValidText(String validText)
     {
         m_validText = validText;
     }
 
     /**
-     * Sets the loading text String
-     * @param loadingText The loadingText to set.
+     * Sets the title of the FormFeedback when valid.
+     * @param validText The validText to set.
      */
+    public void setValidTitle(String validText)
+    {
+        m_validText = validText;
+    }
+
+    /**
+     * Sets the title of the FormFeedback when loading
+     * @param loadingText The loadingText to set.
+     * @deprecated Use setLoadingTitle
+     */
+    @Deprecated 
     public void setLoadingText(String loadingText)
     {
         m_loadingText = loadingText;
     }
+    
+    /**
+     * Sets the title of the FormFeedback when loading
+     * @param loadingText The loadingText to set.
+     */
+    public void setLoadingTitle(String loadingText)
+    {
+        m_loadingText = loadingText;
+    }
+
     /**
      * Retrieve Options (name-value pairs) that are suggested
      * @param query - the String search term 
@@ -1142,7 +1195,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
 
             if (totSize < 1) {
                 //if there were no suggestions, then it's an invalid value
-                updateFormFeedback(FormFeedback.ERROR, getInvalidText(m_query));
+                updateFormFeedback(FormFeedback.ERROR, getInvalidTitle(m_query));
 
             } else if (totSize == 1) {
                 //it's an exact match, so do not bother with showing suggestions, 
@@ -1198,13 +1251,13 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         @Override
         public void error(String message) 
         {
-            updateFormFeedback(FormFeedback.ERROR, getInvalidReason(m_query, message));
+            updateFormFeedback(FormFeedback.ERROR, getInvalidReasonTitle(m_query, message));
         }
 
         @Override
         public void error(RESTException e) 
         {
-            updateFormFeedback(FormFeedback.ERROR, getInvalidReason(m_query, e.getReason()));
+            updateFormFeedback(FormFeedback.ERROR, getInvalidReasonTitle(m_query, e.getReason()));
         }      
     }
 
