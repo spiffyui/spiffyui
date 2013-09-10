@@ -1462,6 +1462,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     public class SelectedItem extends HTMLPanel implements ClickHandler
     {
         private Option m_option;
+        private Anchor m_close;
         /**
          * Constructor
          * @param id - the elements unique id
@@ -1484,12 +1485,12 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         public SelectedItem(String id, Option option, String html)
         {
             super("span", html);
-            Anchor close = new Anchor();
-            close.setHref("#");
-            close.setTitle(STRINGS.close());
-            close.addStyleName("spiffy-mvsb-remove");
-            add(close, id + "_main");
-            close.addClickHandler(this);
+            m_close = new Anchor();
+            m_close.setHref("#");
+            m_close.setTitle(STRINGS.close());
+            m_close.addStyleName("spiffy-mvsb-remove");
+            add(m_close, id + "_main");
+            m_close.addClickHandler(this);
             
             getElement().setId(id);
             m_option = option;;
@@ -1500,6 +1501,26 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         {
             event.preventDefault();
             remove();
+        }
+
+        /**
+         * Get the title of the close button in the selected item panel.
+         * 
+         * @return the close button title
+         */
+        public String getCloseTitle()
+        {
+            return m_close.getTitle();
+        }
+
+        /**
+         * Set the title of the close button in the selected item panel.
+         * 
+         * @param title  the new title
+         */
+        public void setCloseTitle(String title)
+        {
+            m_close.setTitle(title);
         }
         
         /**
