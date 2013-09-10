@@ -812,9 +812,22 @@ public final class RESTility
      */
     public static String getUserToken()
     {
-        if (RESTILITY.m_userToken == null) {
-            checkSessionCookie();
-        }
+        /*
+         * We want to make sure that we use the token that's stored in
+         * the cookie since we want to tell if the user logged out in
+         * another browser tab.
+         * We start by deleting the token from memory.
+         */
+        RESTILITY.m_userToken = null;
+        
+        /*
+         * Then we try to get the token from the cookie.
+         */
+        checkSessionCookie();
+        
+        /*
+         * Then we return the cookie from the token if it's available.
+         */
         return RESTILITY.m_userToken;
     }
     
@@ -1162,7 +1175,17 @@ public final class RESTility
         private RESTException handleNcacFault(JSONValue val, Response response)
         {
             RESTCallStruct struct = RESTILITY.m_restCalls.get(m_origCallback);
-            RESTException exception = JSONUtil.getRESTException(val, response.getStatusCode(), struct.getUrl());
+            int status = -1;
+            if (response != null) {
+                status = response.getStatusCode();
+            }
+            
+            String url = null;
+            if (struct != null) {
+                url = struct.getUrl();
+            }
+            
+            RESTException exception = JSONUtil.getRESTException(val, status, url);
             
             if (exception == null) {
                 return null;
