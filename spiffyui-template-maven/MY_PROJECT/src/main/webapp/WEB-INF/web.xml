@@ -5,6 +5,11 @@
 
 <web-app>
 
+  <mime-mapping>  
+    <extension>json</extension>  
+    <mime-type>application/json;encoding=UTF-8</mime-type>  
+  </mime-mapping>
+
   <!-- The localization filter -->
   <filter>
     <description>Filter to choose the best-match locale from the supported locales for GWT</description>
