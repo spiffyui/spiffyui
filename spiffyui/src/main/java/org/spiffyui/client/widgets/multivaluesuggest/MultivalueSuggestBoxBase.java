@@ -1581,8 +1581,8 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
          */
         public void remove()
         {
-            removeValue(this);
             m_selectedItems.remove(this);
+            removeValue(this);
         }
         
         /**
