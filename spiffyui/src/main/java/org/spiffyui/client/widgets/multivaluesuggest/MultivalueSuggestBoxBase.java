@@ -32,6 +32,8 @@ import org.spiffyui.client.rest.RESTObjectCallBack;
 import org.spiffyui.client.widgets.FormFeedback;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -148,11 +150,30 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
             //have to do this here b/c gwt suggest box wipes 
             //style name if added in previous if
             textfield.addStyleName("multivalue"); 
-            
+
+            /*
+             * We want to adjust the width of the text box so it will show all
+             * of the text in the box.  If the user is typing then we need to 
+             * get those events using key press events so we can grow and shrink
+             * the text box while the user is typing.  However, if the user pastes
+             * or cuts text from the box using the mouse context menu or the paste
+             * or cut keyboard shortcut then we need to use the change event since
+             * the new value won't be present when the key press is fired.
+             */
             textfield.addKeyPressHandler(new KeyPressHandler()
             {
                 @Override
                 public void onKeyPress(KeyPressEvent event)
+                {
+                    adjustTextWidth();
+                    m_lastCurPos = textfield.getCursorPos();
+                }
+            });
+
+            textfield.addChangeHandler(new ChangeHandler()
+            {
+                @Override
+                public void onChange(ChangeEvent event)
                 {
                     adjustTextWidth();
                     m_lastCurPos = textfield.getCursorPos();
