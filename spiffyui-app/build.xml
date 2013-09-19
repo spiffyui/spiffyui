@@ -378,6 +378,11 @@ build.dir=${root}
              twice as large so we remove them before building the WAR. -->
         <delete dir="${sample.out.www}/WEB-INF"/>
 
+        <!-- We want to include the Maven plugin documentation if it's available, 
+             but some systems, notably Macs, don't have the JavaDoc tool by default and
+             we don't want to make the build fail for this. -->
+        <mkdir dir="${spiffyui}/build/maven/maven-spiffyui-plugin/target/site/"/>
+
         <war destfile="${sample.out}/spsample.war" webxml="${sample.web.src}/WEB-INF/web.xml">
             <fileset dir="${sample.out.www}"/>
             <zipfileset dir="${sample.out.classes}" prefix="WEB-INF/classes" >
@@ -420,7 +425,7 @@ build.dir=${root}
             <zipfileset dir="${spiffyui}/target/classes/javadoc-all" prefix="javadoc" />
             
             <!-- We also want to include the JavaDoc -->
-            <zipfileset dir="${spiffyui}/build/maven/maven-spiffyui-plugin/target/site/" prefix="maven-plugin" />
+            <zipfileset dir="${spiffyui}/build/maven/maven-spiffyui-plugin/target/site/"  />
         </war>
     </target>
     
