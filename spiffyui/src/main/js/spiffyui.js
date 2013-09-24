@@ -20,7 +20,8 @@
  
 jQuery.fn.textWidth = function(){
     var val = jQuery(this).val();
-    var span = jQuery('<span>' + val + '</span>');
+    var span = jQuery('<span></span>');
+    span.text(val); //safe html
     jQuery(this).parent().append(span);
     var width = span.width();
     
