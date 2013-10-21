@@ -527,7 +527,7 @@ spiffyui = {
         }
 
         if (scope) {
-            url += '&scope=' + clientId;
+            url += '&scope=' + scope;
         }
 
         spiffyui.oauthstate = 'spiffystate' + Math.random();
