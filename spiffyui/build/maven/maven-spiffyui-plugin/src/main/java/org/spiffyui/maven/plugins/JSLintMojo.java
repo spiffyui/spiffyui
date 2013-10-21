@@ -98,7 +98,8 @@ public class JSLintMojo extends AbstractMojo
     /**
      * Which JSLint {@link Option}s to set.
      *
-     * @parameter
+     * @parameter expression="${jslint.options}" 
+     *            property="options"
      */
     private final Map<String, String> options = new HashMap<String, String>();
 
@@ -121,7 +122,9 @@ public class JSLintMojo extends AbstractMojo
     /**
      * Fail the build if JSLint detects any problems.
      *
-     * @parameter expression="${jslint.failOnError}" default-value="true"
+     * @parameter expression="${jslint.failOnError}" 
+     *            property="failOnError"
+     *            default-value="true"
      */
     private boolean failOnError = true;
 
