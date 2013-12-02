@@ -425,7 +425,7 @@ build.dir=${root}
             <zipfileset dir="${spiffyui}/target/classes/javadoc-all" prefix="javadoc" />
             
             <!-- We also want to include the JavaDoc -->
-            <zipfileset dir="${spiffyui}/build/maven/maven-spiffyui-plugin/target/site/"  />
+            <zipfileset dir="${spiffyui}/build/maven/maven-spiffyui-plugin/target/site/" prefix="maven-plugin"  />
         </war>
     </target>
     
