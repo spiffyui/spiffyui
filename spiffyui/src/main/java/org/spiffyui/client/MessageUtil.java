@@ -21,6 +21,7 @@ import java.util.Date;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
@@ -30,6 +31,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+
 
 /**
  * <p>
@@ -202,6 +204,35 @@ public final class MessageUtil
             logWarning(msg);
         }
     }
+    
+    /**
+     * <p>
+     * Show a warning message.
+     * </p>
+     * 
+     * <p> 
+     * This message has a default style of black text with a yellow background.
+     * </p>
+     * 
+     * <h3>CSS Style Ryles</h3>
+     * 
+     * <ul>
+     * <li>.humanMsgWarn</li>
+     * </ul>
+     * 
+     * @param msg the message to show in HTML
+     * @param shouldLog indicates if this warning should be sent to the in-browser error log
+     * @param isSafe if this field is true then this just calls showMessage, otherwise it
+     *               runs the specified message through the GWT SaveHtmlUtils
+     */
+    public static void showWarning(String msg, boolean shouldLog, boolean isSafe)
+    {
+        if (isSafe) {
+            showWarning(msg, shouldLog);
+        } else {
+            showWarning(SafeHtmlUtils.fromString(msg).asString(), shouldLog);
+        }        
+    }
 
     /**
      * Sets if the message helper should show messages at all.
@@ -256,6 +287,34 @@ public final class MessageUtil
         $wnd.jQuery("#humanMsg").removeClass('humanMsgErr').removeClass('humanMsgWarn').addClass('humanMsgInfo');
         $wnd.humanMsg.displayMsg(msg, false);
     }-*/;
+    
+    /**
+     * <p>
+     * Show an information message.
+     * </p>
+     * 
+     * <p> 
+     * This message has a default style of white text with a black background.
+     * </p>
+     * 
+     * <h3>CSS Style Ryles</h3>
+     * 
+     * <ul>
+     * <li>.humanMsgInfo</li>
+     * </ul>
+     * 
+     * @param msg the message to show in HTML
+     * @param isSafe if this field is true then this just calls showMessage, otherwise it
+     *               runs the specified message through the GWT SaveHtmlUtils
+     */
+    public static void showMessage(String msg, boolean isSafe) 
+    {
+        if (isSafe) {
+            showMessage(msg);
+        } else {
+            showMessage(SafeHtmlUtils.fromString(msg).asString());
+        }
+    }
 
     /**
      * <p>
@@ -316,6 +375,36 @@ public final class MessageUtil
     {
         showErrorJS(errorMsg);
         logError(logMsg);
+    }
+    
+    /**
+      * <p>
+      * Show aan error message.
+      * </p>
+      * 
+      * <p> 
+      * This message has a default style of black text with a red background.
+      * </p>
+      * 
+      * <h3>CSS Style Ryles</h3>
+      * 
+      * <ul>
+      * <li>.humanMsgErr</li>
+      * </ul>
+      * 
+      * @param errorMsg the error message for the alert in HTML
+      * @param logMsg   the message for the error log in HTML
+      * @param isSafe if this field is true then this just calls showMessage, otherwise it
+      *               runs the specified message through the GWT SaveHtmlUtils
+      */
+    public static void showError(String errorMsg, String logMsg, boolean isSafe) 
+    {
+        if (isSafe) {
+            showError(errorMsg, logMsg);
+        } else {
+            showError(SafeHtmlUtils.fromString(errorMsg).asString(),
+                      SafeHtmlUtils.fromString(logMsg).asString());
+        }
     }
 
     private static native void showErrorJS(String msg) /*-{
