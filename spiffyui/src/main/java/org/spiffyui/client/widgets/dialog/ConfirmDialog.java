@@ -17,7 +17,7 @@
  ******************************************************************************/
 package org.spiffyui.client.widgets.dialog;
 
-import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 
 /**
  * This is a generic Confirm Dialog, which is modal.  It can
@@ -43,11 +43,13 @@ public class ConfirmDialog extends Dialog
 
     /**
      * Set the text for the body of the confirm dialog.
-     * @param text - HTML is allowed
+     * If you want to use HTML, then use replaceDialogBodyContents
+     * directly.
+     * @param text - HTML is not allowed
      */
     public void setText(String text)
     {
-        replaceDialogBodyContents(new HTML(text));
+        replaceDialogBodyContents(new Label(text));
     }
     
 }
