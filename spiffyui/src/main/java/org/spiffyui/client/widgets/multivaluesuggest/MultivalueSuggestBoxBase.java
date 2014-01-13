@@ -1545,7 +1545,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         public SelectedItem(String id, Option option)
         {
             this(id, option, "<span class=\"spiffy-mvsb-item\" id=\"" + id + 
-                    "_main\">" + option.getName() +
+                    "_main\">" + SafeHtmlUtils.fromString(option.getName()).asString() +
                     "</span>");
         }
 
