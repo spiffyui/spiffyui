@@ -634,14 +634,13 @@ spiffyui = {
         }
         
         var path = spiffyui.getRelativePath();
-
         if (spiffyui.autoloadCSS) {
             /*
              * Almost all of our CSS is in spiffyui.css, but there are always a few
              * tweaks you need to add for IE.  This special style sheet is added only
              * if the browser is IE and contains just those tweaks.
              */
-            if (navigator.appName === 'Microsoft Internet Explorer') {
+            if (navigator.appName === 'Microsoft Internet Explorer' || navigator.userAgent.toLowerCase().match(/trident.+rv:11./)) {
                 jQuery('head').prepend('<link>');
                 css = jQuery('head').children(':first');
                 css.attr({
@@ -650,7 +649,6 @@ spiffyui = {
                     href: path + 'spiffyui.ie.css'
                 });
             }
-            
             /*
              * Now we add the spiffyui.min.css file.  If the URL ends with -debug.html
              * then we'll add the uncompressed version.  We add these files dynamically
@@ -664,7 +662,7 @@ spiffyui = {
                 css.attr({
                     rel:  'stylesheet',
                     type: 'text/css',
-                    href: 'spiffyui.css'
+                    href: path + 'spiffyui.css'
                 });
             } else {
                 jQuery('head').prepend('<link>');
