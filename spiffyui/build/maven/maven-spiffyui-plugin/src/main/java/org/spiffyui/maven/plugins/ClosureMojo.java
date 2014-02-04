@@ -95,7 +95,7 @@ public class ClosureMojo extends AbstractMojo
     /**
      * This property controls if the spiffyui.min.js file will be included in the 
      * compiled JavaScript or not.
-     * @parameter expression="${spiffyui.closure.inclusespiffyjs}" default-value="true"
+     * @parameter expression="${spiffyui.closure.includespiffyjs}" default-value="true"
      */
     private boolean includeSpiffyJS = true;
     
