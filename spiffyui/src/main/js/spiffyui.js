@@ -262,8 +262,8 @@ spiffyui = {
           * bugs from Date.js.  These objects should always be strings,
           * we want to code defensively.
           */
-         dateTimeString = '' + dateTimeString;
-         formatPattern = '' + formatPattern;
+         dateTimeString += '';
+         formatPattern += '';
 
         /*
             There is a bug in the date.js library where getting the time from a string with 'tt' that is not 'am' or 'pm'
