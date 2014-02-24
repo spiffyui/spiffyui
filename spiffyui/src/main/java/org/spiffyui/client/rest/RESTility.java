@@ -1129,8 +1129,10 @@ public final class RESTility
           
             builder.setRequestData(options.getDataString());
 
-            //b/c jaxb/jersey chokes when there is no data when content-type is json
-            builder.setHeader("Content-Type", options.getContentType());
+            if (builder.getHeader("Content-Type") == null) {
+                //b/c jaxb/jersey chokes when there is no data when content-type is json
+                builder.setHeader("Content-Type", options.getContentType());
+            }
         }
 
         builder.setCallback(RESTILITY.new RESTRequestCallback(options.getCallback()));
