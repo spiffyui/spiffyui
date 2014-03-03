@@ -851,7 +851,9 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
          * this key up handler is necessary for handling the case when there is an empty text field...
          * Here, the FormFeedback is reset.
          */
-        updateFormFeedback(FormFeedback.NONE, "");
+        if (m_field.getValue().isEmpty()) {
+            updateFormFeedback(FormFeedback.NONE, "");
+        }
 
         if (!m_isMultivalued) {
             deleteUnusedItems();
