@@ -1254,7 +1254,10 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
                 }
 
                 //if there are more pages, show NEXT
-                if (m_indexTo < totSize) {
+                /*
+                 * unless totSize is the same as the page size 
+                 */
+                if (m_indexTo < totSize && totSize > m_pageSize) {
                     OptionSuggestion next = new OptionSuggestion(OptionSuggestion.NEXT_VALUE, m_request.getQuery());
                     suggs.add(next);
                 }
