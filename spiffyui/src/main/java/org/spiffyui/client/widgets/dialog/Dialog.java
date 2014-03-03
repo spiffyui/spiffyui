@@ -23,6 +23,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
@@ -83,7 +84,7 @@ public abstract class Dialog extends DialogBox
         final String captionDiv = 
             "<div class=\"spiffy-dialog-caption-close\"><a href=\"#\" id=\"" + m_id + "_close\" title=\"" + STRINGS.close() + "\">" +
                 "<div class=\"spiffy-dialog-caption-close-icon\"></div></a></div>" +
-            "<div id=\"" + m_id + "_title\" class=\"spiffy-dialog-caption " + titleStyle + "\">" + title + "</div>"; 
+            "<div id=\"" + m_id + "_title\" class=\"spiffy-dialog-caption " + titleStyle + "\">" + SafeHtmlUtils.htmlEscape(title) + "</div>"; 
         setHTML(captionDiv);
         
         FlowPanel main = new FlowPanel();        

@@ -92,6 +92,14 @@ public class ClosureMojo extends AbstractMojo
      */
     private File gwtModulePath;
     
+    /**
+     * This property controls if the spiffyui.min.js file will be included in the 
+     * compiled JavaScript or not.
+     * @parameter expression="${spiffyui.closure.includespiffyjs}" default-value="true"
+     */
+    private boolean includeSpiffyJS = true;
+    
+    
     @Override
     public void execute()
         throws MojoExecutionException,
@@ -138,11 +146,16 @@ public class ClosureMojo extends AbstractMojo
         
         long lastMod = -1;
 
-        /* spiffyui.min.js _must_ be first */
-        sources.add(JSSourceFile.fromFile(new File(gwtModulePath, "spiffyui.min.js")));
+        if (includeSpiffyJS) {
+            /* spiffyui.min.js _must_ be first */
+            sources.add(JSSourceFile.fromFile(new File(gwtModulePath, "spiffyui.min.js")));
+            getLog().debug("Adding the spiffyui.min.js file to the closure compiler list.");
+        }
+        
         for (File file : files) {
             lastMod = Math.max(lastMod, file.lastModified());
             sources.add(JSSourceFile.fromFile(file));
+            getLog().debug("Adding to the closure compiler list: " + file);
         }
         
         if (outputFile.exists() && lastMod < outputFile.lastModified()) {

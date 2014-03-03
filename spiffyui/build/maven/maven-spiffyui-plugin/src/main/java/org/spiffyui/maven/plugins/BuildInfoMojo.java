@@ -38,7 +38,9 @@ import org.apache.maven.project.MavenProject;
 import org.json.JSONObject;
 
 /**
- * Generates a build-info descriptor
+ * Generates a build-info descriptor. It is necessary to use the rev-info mojo
+ * prior to invoking this mojo, since the rev-info populates the @{code revision.number}
+ * and the @{code revision.date} properties.
  * 
  * @goal build-info
  * @phase generate-resources
@@ -123,8 +125,10 @@ public class BuildInfoMojo extends AbstractMojo
             rev.put("date", p.getProperty("revision.date"));
             
             JSONObject components = new JSONObject();
-            components.put("spiffyui", deps.get("spiffyui").getVersion());
-            
+            Dependency spiffyUiDep = deps.get("spiffyui");
+            String spiffyVer = (spiffyUiDep != null) ? spiffyUiDep.getVersion() : "n/a";
+            components.put("spiffyui", spiffyVer);
+
             JSONObject info = new JSONObject();
             info.put("schema", 1);
             info.put("version", project.getVersion());
