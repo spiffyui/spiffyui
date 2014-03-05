@@ -123,7 +123,7 @@ public class NavSection extends ComplexPanel implements NavWidget
             m_navBar != null) {
             ((NavSection) w).setNavBar(m_navBar);
         }
-        add(w, (com.google.gwt.user.client.Element) getElement().getFirstChildElement().getNextSiblingElement());
+        add(w, getElement().getFirstChildElement().getNextSiblingElement());
         m_children.add(w);
     }
     
