@@ -538,7 +538,7 @@ public final class RESTility
         for (RESTCallback callback : RESTILITY.m_restCalls.keySet()) {
             RESTCallStruct struct = RESTILITY.m_restCalls.get(callback);
             if (struct != null && struct.shouldReplay()) {
-                callREST(struct.getUrl(), struct.getData(), struct.getMethod(), callback);
+                callREST(struct.getOptions());
             }
         }
     }
@@ -1085,10 +1085,9 @@ public final class RESTility
             return;
         }
 
-        RESTILITY.m_restCalls.put(options.getCallback(), new RESTCallStruct(options.getURL(), 
-                                                                            options.getDataString(), options.getMethod(), 
-                                                                            options.shouldReplay(), options.getEtag()));
+        RESTILITY.m_restCalls.put(options.getCallback(), new RESTCallStruct(options));
         RequestBuilder builder = new RESTRequestBuilder(options.getMethod().getMethod(), options.getURL());
+
         /*
          Set our headers
          */
@@ -1408,28 +1407,26 @@ public final class RESTility
  */
 class RESTCallStruct
 {
-    private String m_url;
-    private String m_data;
-    private RESTility.HTTPMethod m_method;
-    private boolean m_shouldReplay;
-    private String m_etag;
+    private RESTOptions m_options;
 
     /**
      * Creates a new RESTCallStruct
      *
-     * @param url    the URL for this REST call
-     * @param data   the data for this REST call
-     * @param method the method for this REST call
-     * @param shouldReplay should this request be repeated if we get a 401
+     * @param options    the options for this REST call
      */
-    protected RESTCallStruct(String url, String data, RESTility.HTTPMethod method,
-                             boolean shouldReplay, String etag)
+    protected RESTCallStruct(RESTOptions options)
     {
-        m_url = url;
-        m_data = data;
-        m_method = method;
-        m_shouldReplay = shouldReplay;
-        m_etag = etag;
+        m_options = options;
+    }
+    
+    /**
+     * Gets the options
+     *
+     * @return the options
+     */
+    public RESTOptions getOptions()
+    {
+        return m_options;
     }
 
     /**
@@ -1439,7 +1436,7 @@ class RESTCallStruct
      */
     public String getUrl()
     {
-        return m_url;
+        return m_options.getURL();
     }
 
     /**
@@ -1449,7 +1446,7 @@ class RESTCallStruct
      */
     public String getData()
     {
-         return m_data;
+         return m_options.getDataString();
     }
 
     /**
@@ -1459,7 +1456,7 @@ class RESTCallStruct
      */
     public RESTility.HTTPMethod getMethod()
     {
-        return m_method;
+        return m_options.getMethod();
     }
 
     /**
@@ -1469,7 +1466,7 @@ class RESTCallStruct
      */
     public String getETag()
     {
-        return m_etag;
+        return m_options.getEtag();
     }
 
     /**
@@ -1479,7 +1476,7 @@ class RESTCallStruct
      */
     public boolean shouldReplay()
     {
-        return m_shouldReplay;
+        return m_options.shouldReplay();
     }
 }
 

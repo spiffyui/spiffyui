@@ -17,6 +17,7 @@
  ******************************************************************************/
 package org.spiffyui.client.rest;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.json.client.JSONParser;
@@ -79,7 +80,7 @@ public final class RESTOptions
        a map containing the headers to the HTTP request.  Any item
        in this map will override the default headers.
      */
-    private Map<String, String> m_headers;
+    private Map<String, String> m_headers = new HashMap<String, String>();
     
     /**
      * Get the URL for this REST request.
@@ -432,7 +433,9 @@ public final class RESTOptions
      */
     public RESTOptions setHeaders(Map<String, String> headers)
     {
-        m_headers = headers;
+        if (headers != null) {
+            m_headers.putAll(headers);
+        }
         return this;
     }
 }
