@@ -55,6 +55,7 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Focusable;
+import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
@@ -62,7 +63,6 @@ import com.google.gwt.user.client.ui.SuggestOracle.Callback;
 import com.google.gwt.user.client.ui.SuggestOracle.Request;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.TextBoxBase;
 
 /**
 * A SuggestBox that allows for multiple values selection and autocomplete.
@@ -129,7 +129,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         m_panel.addStyleName("spiffy-mvsb");
         m_panel.getElement().setId(HTMLPanel.createUniqueId());
         
-        final TextBoxBase textfield = new TextBox();
+        final TextBox textfield = new TextBox();
 //        if (isMultivalued) {
 //            m_panel.addStyleName("textarearow");
 ////            textfield = new TextArea();
@@ -183,7 +183,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
             m_field.addStyleName("wideTextField");
         }
         m_field.addSelectionHandler(this);
-        m_field.getTextBox().addKeyUpHandler(this);
+        m_field.getValueBox().addKeyUpHandler(this);
                 
         m_panel.add(m_field, m_suggestBoxContainerId);
         
@@ -264,7 +264,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         }
 
         if (!JSUtil.isMobile()) {
-            TextBoxBase textBox = m_field.getTextBox();
+            FocusWidget textBox = m_field.getValueBox();
             if (FormFeedback.LOADING == status) {
                 textBox.setEnabled(false);
             } else {
@@ -690,7 +690,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     
     private void adjustTextWidth()
     {
-        m_field.getTextBox().setWidth((getTextWidth("#" + m_suggestBoxContainerId + " > input") + 20) + "px");
+        m_field.getValueBox().setWidth((getTextWidth("#" + m_suggestBoxContainerId + " > input") + 20) + "px");
     }
 
     private static native int getTextWidth(String textFieldSelector) /*-{
@@ -834,7 +834,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
      */
     public HandlerRegistration addKeyUpHandler(KeyUpHandler handler)
     {
-        return m_field.getTextBox().addKeyUpHandler(handler);
+        return m_field.getValueBox().addKeyUpHandler(handler);
     }
 
     @Override
@@ -868,7 +868,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
                 removeValue(item);
                 
             }
-            m_lastCurPos = m_field.getTextBox().getCursorPos();
+            m_lastCurPos = m_field.getValueBox().getCursorPos();
             
         }
     }

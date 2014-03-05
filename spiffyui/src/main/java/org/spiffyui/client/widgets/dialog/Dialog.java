@@ -297,8 +297,7 @@ public abstract class Dialog extends DialogBox
         if (Event.ONKEYPRESS == type && KeyCodes.KEY_ESCAPE == event.getNativeEvent().getKeyCode()) {
             hide();
         } else if (Event.ONCLICK == type && 
-            DOM.isOrHasChild(DOM.getElementById(m_id + "_close"), 
-                (Element) com.google.gwt.dom.client.Element.as(event.getNativeEvent().getEventTarget()))) {
+                   DOM.getElementById(m_id + "_close").isOrHasChild(Element.as(event.getNativeEvent().getEventTarget()))) {
             //clear button (Bug 585536)
             setButtonClicked("");
             hide();        

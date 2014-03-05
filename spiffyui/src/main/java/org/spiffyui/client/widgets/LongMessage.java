@@ -184,12 +184,12 @@ public class LongMessage extends FlowPanel implements Event.NativePreviewHandler
             return;
         }
         
-        Element target = (Element) com.google.gwt.dom.client.Element.as(event.getNativeEvent().getEventTarget());
+        Element target = Element.as(event.getNativeEvent().getEventTarget());
         if (null == target) {
             return;
         }
         //any click on this will dismiss the panel
-        if (DOM.isOrHasChild(DOM.getElementById(getElement().getId()), target)) {
+        if (DOM.getElementById(getElement().getId()).isOrHasChild(target)) {
             makeVisible(false);
         }
     }

@@ -99,7 +99,7 @@ public class SlidingGridPanel extends ComplexPanel
             div.addStyleName(style);
         }
         div.add(w);
-        add(div, getElement());
+        add(div, (Element) getElement());
     }
     
     /**

@@ -173,7 +173,7 @@ public class TimePickerTextBox extends TextBox implements Event.NativePreviewHan
         if (event.getTypeInt() != Event.ONCLICK) {
             return;
         }
-        Element target = (Element) com.google.gwt.dom.client.Element.as(event.getNativeEvent().getEventTarget());
+        Element target = Element.as(event.getNativeEvent().getEventTarget());
         if (null == target) {
             return;
         }
@@ -181,7 +181,7 @@ public class TimePickerTextBox extends TextBox implements Event.NativePreviewHan
         /*
          * See if it is a child LI tag within ui-timepicker-div because all times are in <LI>
          */
-        if (DOM.isOrHasChild(DOM.getElementById(m_timePickerDivId), target) &&
+        if (DOM.getElementById(m_timePickerDivId).isOrHasChild(target) &&
                 "LI".equalsIgnoreCase(target.getTagName())) {
 
             NativeEvent nativeEvent = Document.get().createChangeEvent();

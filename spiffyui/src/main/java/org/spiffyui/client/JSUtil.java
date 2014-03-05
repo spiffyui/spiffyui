@@ -27,7 +27,6 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTMLPanel;
 
@@ -880,8 +879,7 @@ public final class JSUtil
      */
     public static boolean toggleSection(Element target, HTMLPanel panel, String targetId, String sectionId)
     {
-        if (!((target != null) && DOM.isOrHasChild(panel.getElementById(targetId),
-                                                   target))) {
+        if (!((target != null) && panel.getElementById(targetId).isOrHasChild(target))) {
             return false;
         }
 

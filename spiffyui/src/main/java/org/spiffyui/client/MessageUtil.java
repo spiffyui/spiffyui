@@ -23,7 +23,6 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Event.NativePreviewEvent;
 import com.google.gwt.user.client.ui.Anchor;
@@ -569,13 +568,13 @@ class ErrorPanel extends Composite implements Event.NativePreviewHandler
             return;
         }
         
-        Element target = (Element) com.google.gwt.dom.client.Element.as(event.getNativeEvent().getEventTarget());
+        Element target = Element.as(event.getNativeEvent().getEventTarget());
         if (null == target) {
             return;
         }
         
         //any click on this will dismiss the panel
-        if (DOM.isOrHasChild(m_panel.getElement(), target)) {
+        if (m_panel.getElement().isOrHasChild(target)) {
             JSUtil.slideUp("#" + m_panel.getElement().getId(), "fast");
         }
     }
