@@ -148,10 +148,7 @@
     <target name="checkstyle" depends="setup,resolve,checkstyle.compile.check,checkstyle.nocompileError">
         <taskdef resource="checkstyletask.properties">
             <classpath>
-                <fileset dir="${build.base}/../spiffyui/build/lib" includes="checkstyle*.jar"/>
-                <fileset dir="${build.base}/../spiffyui/build/lib" includes="google*.jar"/>
-                <fileset dir="${build.base}/../spiffyui/build/lib" includes="commons*.jar"/>
-                <fileset dir="${build.base}/../spiffyui/build/lib" includes="antlr*.jar"/>
+                <fileset dir="${build.base}/../spiffyui/build/lib" includes="*.jar"/>
             </classpath>
         </taskdef>
 
