@@ -30,6 +30,7 @@ import org.apache.tools.ant.types.CommandlineJava;
 import org.apache.tools.ant.types.Environment;
 import org.apache.tools.ant.types.FileList;
 import org.apache.tools.ant.types.FileSet;
+import org.apache.tools.ant.types.Resource;
 import org.apache.tools.ant.types.ResourceCollection;
 import org.apache.tools.ant.types.resources.FileResource;
 import org.apache.tools.ant.types.resources.Resources;
@@ -191,11 +192,11 @@ public class ClosureTask extends Task
         Restrict noexistRc = new Restrict();
         noexistRc.add(NOT_EXISTS);
         noexistRc.add(m_rc);
-        for (Iterator i = noexistRc.iterator(); i.hasNext();) {
+        for (Iterator<Resource> i = noexistRc.iterator(); i.hasNext();) {
             log(i.next() + " does not exist.", Project.MSG_ERR);
         }
         if (m_destinationFile != null) {
-            for (Iterator i = m_rc.iterator(); i.hasNext();) {
+            for (Iterator<Resource> i = m_rc.iterator(); i.hasNext();) {
                 Object o = i.next();
                 if (o instanceof FileResource) {
                     File f = ((FileResource) o).getFile();
@@ -262,7 +263,7 @@ public class ClosureTask extends Task
         //sb.append(m_closureJar.getAbsolutePath() + " ");
         
         ResourceCollection c = getResources();
-        Iterator i = c.iterator();
+        Iterator<Resource> i = c.iterator();
 
         long lastMod = -1;
 

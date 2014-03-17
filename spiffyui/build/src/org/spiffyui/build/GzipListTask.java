@@ -27,6 +27,7 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.FileList;
 import org.apache.tools.ant.types.FileSet;
+import org.apache.tools.ant.types.Resource;
 import org.apache.tools.ant.types.ResourceCollection;
 import org.apache.tools.ant.types.resources.FileResource;
 import org.apache.tools.ant.types.resources.Resources;
@@ -119,11 +120,11 @@ public class GzipListTask extends Task
         Restrict noexistRc = new Restrict();
         noexistRc.add(NOT_EXISTS);
         noexistRc.add(m_rc);
-        for (Iterator i = noexistRc.iterator(); i.hasNext();) {
+        for (Iterator<Resource> i = noexistRc.iterator(); i.hasNext();) {
             log(i.next() + " does not exist.", Project.MSG_ERR);
         }
         if (m_destinationDir != null) {
-            for (Iterator i = m_rc.iterator(); i.hasNext();) {
+            for (Iterator<Resource> i = m_rc.iterator(); i.hasNext();) {
                 Object o = i.next();
                 if (o instanceof FileResource) {
                     File f = ((FileResource) o).getFile();
@@ -165,7 +166,7 @@ public class GzipListTask extends Task
         }
         
         ResourceCollection rc = getResources();
-        Iterator i = rc.iterator();
+        Iterator<Resource> i = rc.iterator();
         ArrayList<File> files = new ArrayList<File>();
         
         try {
