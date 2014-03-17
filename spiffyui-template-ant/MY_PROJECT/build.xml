@@ -117,7 +117,7 @@
     <target name="compile" description="Call the Java compiler for this project">
         <!-- Compile all the Java -->
         <javac srcdir="${src}/MY_FILE_PATH/server" destdir="${target.classes}" 
-               target="1.5" source="1.5" debug="true" deprecation="yes"
+               debug="true" deprecation="yes"
                includeantruntime="false">
             <compilerarg value="-Xlint" />
             <classpath>

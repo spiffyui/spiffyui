@@ -118,7 +118,7 @@
         <!-- Compile all the Java -->
         <javac
         srcdir="${spiffy.root}/src/main/java" destdir="${spiffy.classes}"
-               target="1.5" source="1.5" debug="true" deprecation="yes"
+               debug="true" deprecation="yes"
                includeantruntime="false">
             <compilerarg value="-Xlint" />
             <classpath>
@@ -138,9 +138,9 @@
     <!--  The compile Ant task. -->
     <target name="compileAntTask" depends="setup">
         <mkdir dir="${spiffy.build.classes}"/>
-        <javac srcdir="${spiffy.build}/src" destdir="${spiffy.build.classes}" target="1.5" 
+        <javac srcdir="${spiffy.build}/src" destdir="${spiffy.build.classes}" 
                     includes="org/spiffyui/build/**"
-                    source="1.5" debug="true" deprecation="yes" includeantruntime="false"
+                    debug="true" deprecation="yes" includeantruntime="false"
         	        fork="${build.javac.fork}">
             <compilerarg value="-Xlint" />
             <classpath>

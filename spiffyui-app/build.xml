@@ -344,7 +344,7 @@ build.dir=${root}
     <target name="compile" description="Call the Java compiler for this project">
         <!-- Compile all the Java -->
         <javac srcdir="${sample.src}/org/spiffyui/spsample/server" destdir="${sample.out.classes}" 
-               target="1.5" source="1.5" debug="true" deprecation="yes"
+               debug="true" deprecation="yes"
                includeantruntime="false">
             <compilerarg value="-Xlint" />
             <classpath>
