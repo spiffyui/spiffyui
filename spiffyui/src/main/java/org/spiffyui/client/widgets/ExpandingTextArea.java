@@ -38,6 +38,7 @@ import com.google.gwt.user.client.ui.TextArea;
 public class ExpandingTextArea extends TextArea implements ChangeHandler, KeyUpHandler, BlurHandler
 {
     private JavaScriptObject m_span;
+    private int m_maxHeight = -1;
     /**
      * Constructor
      * @param id - the text area's element ID
@@ -62,7 +63,7 @@ public class ExpandingTextArea extends TextArea implements ChangeHandler, KeyUpH
     {
         super.setValue(value);
         if (m_span != null) {
-            manuallyUpdateSpanJS(m_span, value);
+            manuallyUpdateSpanJS(m_span, value, m_maxHeight, getElement().getId());
         }
     }
 
@@ -71,7 +72,7 @@ public class ExpandingTextArea extends TextArea implements ChangeHandler, KeyUpH
     {
         super.setValue(value, fireEvents);
         if (m_span != null) {
-            manuallyUpdateSpanJS(m_span, value);
+            manuallyUpdateSpanJS(m_span, value, m_maxHeight, getElement().getId());
         }
     }
 
@@ -80,7 +81,7 @@ public class ExpandingTextArea extends TextArea implements ChangeHandler, KeyUpH
     {
         super.setText(text);
         if (m_span != null) {
-            manuallyUpdateSpanJS(m_span, text);
+            manuallyUpdateSpanJS(m_span, text, m_maxHeight, getElement().getId());
         }
     }
     
@@ -106,8 +107,57 @@ public class ExpandingTextArea extends TextArea implements ChangeHandler, KeyUpH
         addKeyUpHandler(this);
         addBlurHandler(this);
         updateSpan();
+        
+        if (m_maxHeight > -1) {
+            /*
+             * We need to set this here once the elements are created.
+             */
+            setMaxHeight(m_maxHeight);
+        }
     }
     
+    /**
+     * Set the maximum height of this text area.  The text area will
+     * grow to this height and will show vertical scroll bars after 
+     * that height.
+     *
+     * @param height the maximum height of this text area in pixels
+     */
+    public void setMaxHeight(int height)
+    {
+        m_maxHeight = height;
+        setMaxHeightJS(getElement().getId(), height);
+    }
+    
+    /**
+     * Get the maximum height of this text area.  
+     * 
+     * @return the maximum height of this text area or -1 if it hasn't been set
+     */
+    public int getMaxHeight()
+    {
+        return m_maxHeight;
+    }
+    
+    /**
+     * Clear out the maximum height setting for this text area so 
+     * the text area will grow as large as it has to to show the contents.
+     */
+    public void clearMaxHeight()
+    {
+        clearMaxHeightJS(getElement().getId());
+    }
+    
+    private native JavaScriptObject clearMaxHeightJS(String textAreaId) /*-{
+        $wnd.jQuery("#" + textAreaId).parent().children("pre").css("max-height", "");
+        $wnd.jQuery("#" + textAreaId).css("max-height", "");
+        $wnd.jQuery("#" + textAreaId).css("overflow-y", "");
+    }-*/;
+    
+    private native JavaScriptObject setMaxHeightJS(String textAreaId, int height) /*-{
+        $wnd.jQuery("#" + textAreaId).parent().children("pre").css("max-height", height + "px");
+        $wnd.jQuery("#" + textAreaId).css("max-height", height + "px");
+    }-*/;
 
     private native JavaScriptObject markupTextAreaJS(String textAreaId) /*-{
         var ta = $wnd.jQuery("#" + textAreaId);    
@@ -127,10 +177,16 @@ public class ExpandingTextArea extends TextArea implements ChangeHandler, KeyUpH
         return $wnd.jQuery("#" + contId + " span");      
     }-*/;
         
-    private native void manuallyUpdateSpanJS(JavaScriptObject spanJQueryObject, String text) /*-{
+    private native void manuallyUpdateSpanJS(JavaScriptObject spanJQueryObject, String text, int maxHeight, String textAreaId) /*-{
         //We are using JQuery for this because trying to wrap a span element in GWT has a history of not working in Dev Mode 
         if (spanJQueryObject.length > 0) {
             spanJQueryObject.text(text);
+            
+            if (maxHeight > -1 && $wnd.jQuery('#' + textAreaId).height() > maxHeight - 20) {
+                $wnd.jQuery("#" + textAreaId).css("overflow-y", "auto");
+            } else {
+                $wnd.jQuery("#" + textAreaId).css("overflow-y", "");
+            }
         }
     
     }-*/;
@@ -138,7 +194,7 @@ public class ExpandingTextArea extends TextArea implements ChangeHandler, KeyUpH
     private void updateSpan()
     {
         if (m_span != null) {
-            manuallyUpdateSpanJS(m_span, getValue());
+            manuallyUpdateSpanJS(m_span, getValue(), m_maxHeight, getElement().getId());
         }
     }
     

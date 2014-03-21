@@ -1309,7 +1309,8 @@ h3.subSectionTitle.expandable.expanded {
 
 .expandingArea.active > textarea {
   /* Hide any scrollbars */
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
   position: absolute;
   top: 0;
   left: 0;
