@@ -55,7 +55,6 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Focusable;
-import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
@@ -261,17 +260,6 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
         m_feedback.setStatus(status);
         if (tooltip != null) {
             m_feedback.setTitle(tooltip);
-        }
-
-        if (!JSUtil.isMobile()) {
-            FocusWidget textBox = m_field.getValueBox();
-            if (FormFeedback.LOADING == status) {
-                textBox.setEnabled(false);
-            } else {
-                textBox.setEnabled(true);
-                textBox.setFocus(false); //Blur then focus b/c of a strange problem with the cursor or selection highlights no longer visible within the textfield (this is a workaround) 
-                textBox.setFocus(true);
-            }
         }
     }
 
