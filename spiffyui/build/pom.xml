@@ -26,7 +26,7 @@
   </parent>
   <groupId>org.spiffyui</groupId>
   <artifactId>spiffyui</artifactId>
-  <version>1.4</version>
+  <version>1.5-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>spiffyui</name>
   <description>A UI/UX framework that can help build beautiful, fast, flexible, secure, maintainable applications with GWT and REST.</description>
