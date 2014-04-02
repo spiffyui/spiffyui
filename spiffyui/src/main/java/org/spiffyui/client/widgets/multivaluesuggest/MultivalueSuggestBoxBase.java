@@ -968,7 +968,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     @Deprecated 
     public String getInvalidText(String invalids)
     {
-        return STRINGS.invalidColon(invalids);
+        return getInvalidTitle(invalids);
     }
 
     /**
@@ -994,7 +994,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
     @Deprecated 
     public String getInvalidReason(String invalids, String reason)
     {
-        return STRINGS.invalidColonReason(invalids, reason);
+        return getInvalidReasonTitle(invalids, reason);
     }
 
     /**
@@ -1253,7 +1253,7 @@ public abstract class MultivalueSuggestBoxBase extends Composite implements Sele
                 }
 
                 //nothing has been picked yet, so let the feedback show an error (unsaveable)
-                updateFormFeedback(FormFeedback.ERROR, getInvalidText(m_query));
+                updateFormFeedback(FormFeedback.ERROR, getInvalidTitle(m_query));
             }
 
             //it's ok (and good) to pass an empty suggestion list back to the suggest box's callback method
