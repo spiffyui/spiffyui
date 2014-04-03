@@ -608,7 +608,7 @@ spiffyui = {
     },
 
     log: function(/*String*/ msg) {
-        if (console) {
+        if (console && console.log) {
             console.log(msg);
         }
     },
