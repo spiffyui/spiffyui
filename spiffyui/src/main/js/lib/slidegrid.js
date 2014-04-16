@@ -131,12 +131,9 @@ slidegrid = {
                          * This means it is time to bump down to the next row
                          */
                         curCol = 0;
-                        curRow++;
                         x = padding / 2;
-                        y += cellHeight + padding;
                         count++;
-                        
-                    }
+                    } 
 
                     if (cols > 1 && (slidegrid.isUsed(usedCells, curCol, curRow) ||
                         slidegrid.isUsed(usedCells, curCol + 1, curRow) ||
@@ -151,9 +148,8 @@ slidegrid = {
                          * backing up the counter. 
                          */
                         i--;
+                        hasTallCell = true;
                     } else {
-                        
-                        
                         slidegrid.styleCell(children.eq(i), x, y, (cellWidth * 2) + padding, (cellHeight * 2) + padding, slidegrid.hasDrawn);
                         /* 
                          * Big cells are twice as large as normal cells.  That means they 
@@ -165,10 +161,8 @@ slidegrid = {
                         slidegrid.setUsed(usedCells, curCol + 1, curRow);
                         slidegrid.setUsed(usedCells, curCol, curRow + 1);  
                         slidegrid.setUsed(usedCells, curCol + 1, curRow + 1); 
+                        hasTallCell = true;
                     }
-                    
-                    hasTallCell = true;
-                    
                 } else if (children.eq(i).hasClass("widecell")) {
                     if (slidegrid.isUsed(usedCells, curCol, curRow) ||
                         slidegrid.isUsed(usedCells, curCol + 1, curRow) ||
