@@ -1,4 +1,5 @@
 /*
+
 File:           slidegrid.js
 Description:    for more information see http://www.zackgrossbart.com/hackito/slidegrid/
 
@@ -114,6 +115,7 @@ slidegrid = {
         var curRow = 0;
         var usedCells = [];
         
+        
         $(".slidegrid").each(function() {
 
             var hasTallCell = false;
@@ -124,7 +126,7 @@ slidegrid = {
             
             var children = $(this).children("div");
             
-            for (var i = 0; i < children.length; i++) {
+            for (var i = 0; i < children.length; i++) {        
                 if (children.eq(i).hasClass("bigcell")) {
                     if (curCol === cols - 1) {
                         /* 
@@ -132,7 +134,6 @@ slidegrid = {
                          */
                         curCol = 0;
                         x = padding / 2;
-                        count++;
                     } 
 
                     if (cols > 1 && (slidegrid.isUsed(usedCells, curCol, curRow) ||
