@@ -142,7 +142,7 @@ public final class JSLocaleUtil
             return;
         }
 
-        Set set = context.getResourcePaths(resourcePath);
+        Set<String> set = context.getResourcePaths(resourcePath);
         if (set == null) {
             /*
              * This means that they didn't set up their build properly 
@@ -151,7 +151,7 @@ public final class JSLocaleUtil
             throw new IllegalStateException("Unable to find JavaScript date localization files.  They must be available in the WAR at /js/lib/i18n");
         }
 
-        Iterator iter = set.iterator();
+        Iterator<String> iter = set.iterator();
         while (iter.hasNext()) {
             String file = iter.next().toString();
             if (file.endsWith(".js.gz")) {
@@ -266,7 +266,7 @@ public final class JSLocaleUtil
          The minimum list of locale doesn't change so we just return the
          cached version. 
          */
-        return (List<Locale>) MINIMUM_LOCALES.clone();
+        return new ArrayList<Locale>(MINIMUM_LOCALES);
         
     }
     

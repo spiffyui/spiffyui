@@ -111,8 +111,8 @@ public abstract class GWTLocaleBundleFilter extends GWTLocaleFilter
             return;
         }
 
-        Set set = context.getResourcePaths(resourcePath);
-        Iterator iter = set.iterator();
+        Set<String> set = context.getResourcePaths(resourcePath);
+        Iterator<String> iter = set.iterator();
         while (iter.hasNext()) {
             String file = iter.next().toString();
             file = file.substring(file.lastIndexOf('/') + 1);
