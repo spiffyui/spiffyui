@@ -1282,6 +1282,27 @@ public final class RESTility
                     return;
                 }
             }
+            
+            if (response.getStatusCode() > 399 &&
+                (response.getText() == null || response.getText().trim().length() == 0)) {
+                /*
+                 * This is the case where the server returned an error response and didn't
+                 * include any content.  This is a bad thing to do, but we should handle this
+                 * case and we can't call success here because that doesn't give the calling
+                 * code access to the server response code.  Instead we want to give them a 
+                 * special type of RESTException that they can handle which will give them
+                 * access to the server response code and a simple path to handle this error.
+                 *
+                 * We only want to do this in the error case since many REST services will 
+                 * return a 200 or a 201 with no response content to indicate a simple success.
+                 */
+                RESTCallStruct struct = RESTILITY.m_restCalls.remove(m_origCallback);
+                m_origCallback.onError(new RESTException(RESTException.EMPTY_ERROR_RESPONSE,
+                                                         "", "", new HashMap<String, String>(),
+                                                         response.getStatusCode(),
+                                                         struct.getUrl()));
+                return;
+            }
 
             JSONValue val = null;
             RESTException exception = null;

@@ -100,6 +100,12 @@ public class RESTException extends Exception
      * the authentication server.
      */
     public static final String AUTH_SERVER_UNAVAILABLE = "AuthServerUnavailable";
+    
+    /**
+     * This constant indicates that the server returned an error code, something that
+     * wasn't in the 200 range, and didn't have any response.
+     */
+    public static final String EMPTY_ERROR_RESPONSE = "EmptyErrorResponse";
 
     private static final long serialVersionUID = -1L;
     
