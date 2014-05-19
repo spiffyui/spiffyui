@@ -28,7 +28,7 @@
   
   <properties>
     <project.build.java.target>1.6</project.build.java.target>
-    <gwt.version>2.6.0</gwt.version>
+    <gwt.version>2.6.1</gwt.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 

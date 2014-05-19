@@ -16,7 +16,8 @@
   <name>Hello Spiffy MY_PROJECT</name>
 
   <properties>
-    <gwt.version>2.6.0</gwt.version> </properties> 
+    <gwt.version>2.6.1</gwt.version>
+  </properties> 
 
   <dependencies>
     <dependency>
