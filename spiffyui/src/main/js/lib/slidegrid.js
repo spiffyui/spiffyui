@@ -1,5 +1,4 @@
 /*
-
 File:           slidegrid.js
 Description:    for more information see http://www.zackgrossbart.com/hackito/slidegrid/
 
@@ -115,7 +114,6 @@ slidegrid = {
         var curRow = 0;
         var usedCells = [];
         
-        
         $(".slidegrid").each(function() {
 
             var hasTallCell = false;
@@ -126,15 +124,20 @@ slidegrid = {
             
             var children = $(this).children("div");
             
-            for (var i = 0; i < children.length; i++) {        
+            for (var i = 0; i < children.length; i++) {
                 if (children.eq(i).hasClass("bigcell")) {
-                    if (curCol === cols - 1) {
+                    if (curCol > 0 && curCol === cols - 1) {
                         /* 
-                         * This means it is time to bump down to the next row
+                         * This means it is time to bump down to the next row because this cell
+						 * is too wide to fit in the one remaining space in the current row
                          */
                         curCol = 0;
+                        curRow++;
                         x = padding / 2;
-                    } 
+                        y += cellHeight + padding;
+                        count++;
+                        
+                    }
 
                     if (cols > 1 && (slidegrid.isUsed(usedCells, curCol, curRow) ||
                         slidegrid.isUsed(usedCells, curCol + 1, curRow) ||
@@ -149,7 +152,6 @@ slidegrid = {
                          * backing up the counter. 
                          */
                         i--;
-                        hasTallCell = true;
                     } else {
                         slidegrid.styleCell(children.eq(i), x, y, (cellWidth * 2) + padding, (cellHeight * 2) + padding, slidegrid.hasDrawn);
                         /* 
@@ -162,8 +164,10 @@ slidegrid = {
                         slidegrid.setUsed(usedCells, curCol + 1, curRow);
                         slidegrid.setUsed(usedCells, curCol, curRow + 1);  
                         slidegrid.setUsed(usedCells, curCol + 1, curRow + 1); 
-                        hasTallCell = true;
                     }
+                    
+                    hasTallCell = true;
+                    
                 } else if (children.eq(i).hasClass("widecell")) {
                     if (slidegrid.isUsed(usedCells, curCol, curRow) ||
                         slidegrid.isUsed(usedCells, curCol + 1, curRow) ||
