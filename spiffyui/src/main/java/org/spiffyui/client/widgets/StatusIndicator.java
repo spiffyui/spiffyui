@@ -46,6 +46,9 @@ public class StatusIndicator extends FlowPanel
     private static final SpiffyUIStrings STRINGS = (SpiffyUIStrings) GWT.create(SpiffyUIStrings.class);
     
     private int m_status;
+    private String m_inProgressTip = STRINGS.statusInProgress();
+    private String m_failedTip = STRINGS.statusFailed();
+    private String m_successTip = STRINGS.statusSucceeded();
     
     /** 
      * Show a generic status indicator
@@ -71,15 +74,15 @@ public class StatusIndicator extends FlowPanel
         switch (status) {
         case IN_PROGRESS:
             setStyleName("spiffy-status-inprogress");
-            tooltip = STRINGS.statusInProgress();
+            tooltip = m_inProgressTip;
             break;
         case FAILED:
             setStyleName("spiffy-status-failed");
-            tooltip = STRINGS.statusFailed();
+            tooltip = m_failedTip;
             break;
         case SUCCEEDED:
             setStyleName("spiffy-status-succeeded");
-            tooltip = STRINGS.statusSucceeded();
+            tooltip = m_successTip;
             break;
         default:
             tooltip = "";
@@ -87,6 +90,66 @@ public class StatusIndicator extends FlowPanel
             break;
         }
         setTitle(tooltip);
+    }
+    
+    /**
+     * Set the in progress tooltip
+     * 
+     * @param tip   the new in progress tooltip
+     */
+    public void setInProgressTip(String tip) 
+    {
+        m_inProgressTip = tip;
+    }
+    
+    /**
+     * Get the in progress tooltip
+     * 
+     * @return the in progress tooltip
+     */
+    public String getInProgressTip()
+    {
+        return m_inProgressTip;
+    }
+
+    /**
+     * Set the failed tooltip
+     * 
+     * @param tip   the new failed tooltip
+     */
+    public void setFailedTip(String tip)
+    {
+        m_failedTip = tip;
+    }
+    
+    /**
+     * Get the failed tooltip
+     * 
+     * @return the failed tooltip
+     */
+    public String getFailedTip()
+    {
+        return m_failedTip;
+    }
+
+    /**
+     * Set the success tooltip
+     * 
+     * @param tip   the new success tooltip
+     */
+    public void setSuccessTip(String tip)
+    {
+        m_successTip = tip;
+    }
+
+    /**
+     * Get the success tooltip
+     * 
+     * @return the success tooltip
+     */
+    public String getSuccessTip()
+    {
+        return m_successTip;
     }
     
     /**
