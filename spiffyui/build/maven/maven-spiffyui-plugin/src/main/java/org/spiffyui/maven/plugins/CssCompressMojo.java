@@ -152,6 +152,7 @@ public class CssCompressMojo extends AbstractMojo
         OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(outFile), encoding);
         try {
             for (File file : files) {
+                getLog().debug("Adding to the CSS compiler list: " + file);
                 InputStreamReader in = new InputStreamReader(new FileInputStream(file), encoding);
                 int read;
                 char[] buf = new char[1024];
