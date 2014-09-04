@@ -24,6 +24,9 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
@@ -148,6 +151,19 @@ public class CssCompressMojo extends AbstractMojo
     private File concat(Collection<File> files)
         throws IOException
     {
+        Comparator<File> comparator = new Comparator<File>() 
+        {
+            public int compare(File f1, File f2)
+            {
+                return f1.getAbsolutePath().compareTo(f2.getAbsolutePath());
+            }
+        };
+
+        List<File> filesList = (List<File>) files;
+
+        Collections.sort(filesList, comparator);
+
+
         File outFile = File.createTempFile("spiffy_", ".css");
         OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(outFile), encoding);
         try {
