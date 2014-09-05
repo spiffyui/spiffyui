@@ -70,7 +70,8 @@ public class ClosureMojo extends AbstractMojo
     private String compilationLevel;
 
     /**
-     * Path to the project .js source for compilation
+     * Path to the project .js source for compilation.  The files from
+     * this directory will be compressed in alphabetical order.
      * 
      * @parameter expression="${spiffyui.src.js}" 
      *            default-value="${basedir}/src/main/js"
@@ -154,6 +155,12 @@ public class ClosureMojo extends AbstractMojo
             getLog().debug("Adding the spiffyui.min.js file to the closure compiler list.");
         }
 
+        /*
+         * The order of the files in the final compressed CSS matters and we want to make
+         * sure that order is reproducible on all platforms.  Since some operating systems 
+         * will return these files in a sorted order and others in a random order we will
+         * always sort the files so they go in alphabetical order.
+         */
         Comparator<File> comparator = new Comparator<File>() 
         {
             public int compare(File f1, File f2)

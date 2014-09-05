@@ -77,7 +77,8 @@ public class CssCompressMojo extends AbstractMojo
     private String css;
 
     /**
-     * Path to the project .css sources to compress
+     * Path to the project .css sources to compress.  The files from this directory will be
+     * compressed in alphabetical order.
      *  
      * @parameter default-value="src/main/webapp"
      */
@@ -151,6 +152,12 @@ public class CssCompressMojo extends AbstractMojo
     private File concat(Collection<File> files)
         throws IOException
     {
+        /*
+         * The order of the files in the final compressed CSS matters and we want to make
+         * sure that order is reproducible on all platforms.  Since some operating systems 
+         * will return these files in a sorted order and others in a random order we will
+         * always sort the files so they go in alphabetical order.
+         */
         Comparator<File> comparator = new Comparator<File>() 
         {
             public int compare(File f1, File f2)
