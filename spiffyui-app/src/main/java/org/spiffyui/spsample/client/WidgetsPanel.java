@@ -46,6 +46,7 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
+import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Anchor;
@@ -342,7 +343,7 @@ public class WidgetsPanel extends HTMLPanel implements CloseHandler<PopupPanel>
             @Override
             public String buildUrl(String q, int indexFrom, int indexTo)
             {
-                return "multivaluesuggestboxexample/colors?q=" + q + "&indexFrom=" + indexFrom + "&indexTo=" + indexTo;
+                return "multivaluesuggestboxexample/colors?q=" + URL.encodeQueryString(q) + "&indexFrom=" + indexFrom + "&indexTo=" + indexTo;
             }
         }, true);
         msb.getFeedback().addStyleName("msg-feedback");
