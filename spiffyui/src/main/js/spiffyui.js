@@ -181,6 +181,8 @@ spiffyui = {
                 formattedString = formattedString.replace(' 0:', ' 12:');
             } else if (Date.CultureInfo.amDesignator !== '' && Date.CultureInfo.amDesignator.toLowerCase() !== 'am' && formattedString.indexOf(' ' + Date.CultureInfo.amDesignator + ' 00:') === spaceLoc) {
                 formattedString = formattedString.replace(Date.CultureInfo.amDesignator + ' 00:', Date.CultureInfo.amDesignator + ' 12:');
+            } else if (Date.CultureInfo.amDesignator.toLowerCase() === 'am') {
+                formattedString = formattedString.replace(' 00:', ' 12:').replace(' 0:', ' 12:');
             }
         }        
 
@@ -193,7 +195,7 @@ spiffyui = {
      */
     getDateTime: function(/*int*/ epoch) {
         var dateVal = new Date(epoch);
-        return spiffyui.chineseAposWorkaround(dateVal.toString(Date.CultureInfo.formatPatterns.fullDateTime));
+        return spiffyui.chineseAposWorkaround(spiffyui.midnightWorkaround(dateVal.toString(Date.CultureInfo.formatPatterns.fullDateTime)));
     },
     
     /**

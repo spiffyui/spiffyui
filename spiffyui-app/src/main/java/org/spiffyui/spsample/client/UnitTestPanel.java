@@ -784,7 +784,7 @@ public final class UnitTestPanel extends HTMLPanel
             return;
         }
         
-        expect(17);
+        expect(18);
         
         
         /*
@@ -846,6 +846,9 @@ public final class UnitTestPanel extends HTMLPanel
         ok(JSDateUtil.getHours("9:48 AM") == 9, "The hours of 9:48 AM should be 9 and it was: " + JSDateUtil.getHours("9:48 AM"));
 
         ok(JSDateUtil.getMinutes("9:48 AM") == 48, "The minutes of 9:48 AM should be 48 and it was: " + JSDateUtil.getMinutes("9:48 AM"));
+        
+        ok("Thursday, September 25, 2014 12:00:00 AM".equals(JSDateUtil.getFullDateTime("1411617600000")), 
+            "The full date time of epoch date 1411617600000 should be Thursday, September 25, 2014 12:00:00 AM and it was: " + JSDateUtil.getFullDateTime("1411617600000"));
 
         
     }
