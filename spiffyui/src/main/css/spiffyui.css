@@ -387,6 +387,10 @@ body > #mainWrap {
     width: 680px;
 }
 
+.spiffy-longmessage-panel > div {
+    padding-right: 15px;
+}
+
 .spiffy-longmessage-panel-hide {
     position: absolute;
     top: 5px;

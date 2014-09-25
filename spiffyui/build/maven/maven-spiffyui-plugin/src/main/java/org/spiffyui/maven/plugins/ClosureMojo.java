@@ -23,6 +23,8 @@ package org.spiffyui.maven.plugins;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -68,7 +70,8 @@ public class ClosureMojo extends AbstractMojo
     private String compilationLevel;
 
     /**
-     * Path to the project .js source for compilation
+     * Path to the project .js source for compilation.  The files from
+     * this directory will be compressed in alphabetical order.
      * 
      * @parameter expression="${spiffyui.src.js}" 
      *            default-value="${basedir}/src/main/js"
@@ -120,7 +123,7 @@ public class ClosureMojo extends AbstractMojo
         try {
             FileUtils.copyDirectory(sourceDirectory, jsDir);
         } catch (IOException ioe) {
-            throw new MojoFailureException("Unable to copy JavaScripot source" + ioe.getMessage());
+            throw new MojoFailureException("Unable to copy JavaScript source" + ioe.getMessage());
         }
         
         String[] exts = {
@@ -151,6 +154,22 @@ public class ClosureMojo extends AbstractMojo
             sources.add(JSSourceFile.fromFile(new File(gwtModulePath, "spiffyui.min.js")));
             getLog().debug("Adding the spiffyui.min.js file to the closure compiler list.");
         }
+
+        /*
+         * The order of the files in the final compressed CSS matters and we want to make
+         * sure that order is reproducible on all platforms.  Since some operating systems 
+         * will return these files in a sorted order and others in a random order we will
+         * always sort the files so they go in alphabetical order.
+         */
+        Comparator<File> comparator = new Comparator<File>() 
+        {
+            public int compare(File f1, File f2)
+            {
+                return f1.getAbsolutePath().compareTo(f2.getAbsolutePath());
+            }
+        };
+
+        Collections.sort(files, comparator);
         
         for (File file : files) {
             lastMod = Math.max(lastMod, file.lastModified());

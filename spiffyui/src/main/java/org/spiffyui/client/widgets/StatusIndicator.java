@@ -100,6 +100,7 @@ public class StatusIndicator extends FlowPanel
     public void setInProgressTip(String tip) 
     {
         m_inProgressTip = tip;
+        updateStatusStyles(m_status);
     }
     
     /**
@@ -120,6 +121,7 @@ public class StatusIndicator extends FlowPanel
     public void setFailedTip(String tip)
     {
         m_failedTip = tip;
+        updateStatusStyles(m_status);
     }
     
     /**
@@ -140,6 +142,7 @@ public class StatusIndicator extends FlowPanel
     public void setSuccessTip(String tip)
     {
         m_successTip = tip;
+        updateStatusStyles(m_status);
     }
 
     /**
