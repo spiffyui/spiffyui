@@ -295,6 +295,8 @@ public abstract class Dialog extends DialogBox
             return;
         }
         if (Event.ONKEYPRESS == type && KeyCodes.KEY_ESCAPE == event.getNativeEvent().getKeyCode()) {
+            //clear button (Bug 585536)
+            setButtonClicked("");
             hide();
         } else if (Event.ONCLICK == type && 
                    DOM.getElementById(m_id + "_close").isOrHasChild(Element.as(event.getNativeEvent().getEventTarget()))) {
