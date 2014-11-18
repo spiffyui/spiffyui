@@ -202,10 +202,6 @@
                  closurejar="${spiffy.build}/lib/closure-compiler-v20130227.jar"
                  compilationLevel="SIMPLE_OPTIMIZATIONS"
                  warninglevel="DEFAULT">
-            <fileset dir="${spiffy.js}" includes="**/jquery.ui.core.js" />
-            <fileset dir="${spiffy.js}" includes="**/jquery.ui.widget.js" />
-            <fileset dir="${spiffy.js}" includes="**/jquery.effects.core.js" />
-            <fileset dir="${spiffy.js}" includes="**/jquery.ui.mouse.js" />
             
             <fileset dir="${spiffy.js}" includes="**/amplify.store.js" />
             <fileset dir="${spiffy.js}" includes="**/history.adapter.jquery.js" />
@@ -213,7 +209,7 @@
             <fileset dir="${spiffy.js}" includes="**/history.html4.js" />
             
             <fileset dir="${spiffy.js}" includes="**/*.js" 
-                     excludes="**/jquery.min.js, **/jquery-2.*.js, **/unittest/**, **/lib/i18n/**, **/jquery.ui.core.js, **/jquery.ui.widget.js, **/jquery.effects.core.js, **/jquery.ui.mouse.js, **/history*.js, **/amplify*.js, **/json2.js" />
+                     excludes="**/jquery.min.js, **/jquery-2.*.js, **/unittest/**, **/lib/i18n/**, **/jquery.ui.js, **/history*.js, **/amplify*.js, **/json2.js" />
         </closure>
 
         <!-- Then we GZIP it for web servers that support GZIP -->
@@ -295,7 +291,7 @@
         
         <jslint>
             <formatter type="plain" />
-            <fileset dir="${spiffy.js}" includes="**/*.js" excludes="**/jquery.min.js,**/jquery-2.*.js, **/lib/**,**/unittest/**" />
+            <fileset dir="${spiffy.js}" includes="**/*.js" excludes="**/jquery.min.js,**/jquery-ui.js,**/jquery-2.*.js, **/lib/**,**/unittest/**" />
         </jslint>
     </target>
     
