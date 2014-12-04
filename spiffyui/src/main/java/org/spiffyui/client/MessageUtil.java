@@ -255,7 +255,7 @@ public final class MessageUtil
     }
 
     private static native void setShouldShowMessagesJS(boolean shouldShow) /*-{
-        humanMsg.shouldShow = shouldShow;
+        $wnd.humanMsg.shouldShow = shouldShow;
     }-*/;
     
     private static native void showWarningJS(String msg) /*-{
