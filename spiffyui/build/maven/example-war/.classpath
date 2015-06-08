@@ -4,6 +4,6 @@
     <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
     <classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
     <classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
-    <classpathentry kind="lib" path="target/hello-spiffy-maven-sample-1.0-SNAPSHOT/WEB-INF/lib/spiffyui-1.4.jar"/>
+    <classpathentry kind="lib" path="target/hello-spiffy-maven-sample-1.0-SNAPSHOT/WEB-INF/lib/spiffyui-1.4.1.jar"/>
     <classpathentry kind="output" path="eclipseout"/>
 </classpath>
