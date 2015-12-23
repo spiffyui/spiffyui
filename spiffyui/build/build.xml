@@ -63,7 +63,7 @@
         <property name="spiffy.www"  location="${build.spiffy.base}/target/dist"/>
         <property name="spiffy.classes"  location="${build.spiffy.base}/target/classes"/>
 
-        <property name="spiffyui.plugin.version" value="1.7-SNAPSHOT"/>
+        <property name="spiffyui.plugin.version" value="1.7"/>
         <property name="spiffyui.plugin.path" value="${spiffy.root}/build/maven/maven-spiffyui-plugin"/>
         
         <mkdir dir="${spiffy.www}"/>
