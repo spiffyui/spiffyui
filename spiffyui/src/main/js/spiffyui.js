@@ -1,6 +1,6 @@
 /******************************************************************************* 
  * 
- * Copyright 2011-2014 Spiffy UI Team 
+ * Copyright 2011-2018 Spiffy UI Team 
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -523,7 +523,7 @@ spiffyui = {
         return url;
     },
 
-    oAuthAuthenticate: function(/*String*/ url, /*String*/ clientId, /*String*/ scope, /*boolean*/ sendRedirect, /*function*/ callback) {
+    oAuthAuthenticate: function(/*String*/ url, /*String*/ clientId, /*String*/ scope, /*boolean*/ sendRedirect, /*object []*/ addlParams, /*function*/ callback) {
 
         window.addEventListener('message', spiffyui.oAuthAuthenticateCompleteEventListener, false);
         //spiffyui.log('oAuthAuthenticate(' + url + ', ' + clientId + ', ' + scope + ')');
@@ -546,6 +546,15 @@ spiffyui = {
 
         spiffyui.oauthstate = 'spiffystate' + Math.random();
         url += '&state=' + spiffyui.oauthstate;
+        
+        if (addlParams) {
+            for (i = 0; i < addlParams.length; i++) {
+                url += '&' + addlParams[i].name;
+                if (addlParams[i].value !== 'null') {
+                    url += '=' + addlParams[i].value;
+                }
+            }
+        }
 
         //spiffyui.log('spiffyui.oauthstate: ' + spiffyui.oauthstate);
         //spiffyui.log('url: ' + url);
