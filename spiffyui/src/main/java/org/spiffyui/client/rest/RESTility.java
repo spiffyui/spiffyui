@@ -1,6 +1,6 @@
 /*******************************************************************************
  * 
- * Copyright 2011-2014 Spiffy UI Team   
+ * Copyright 2011-2018 Spiffy UI Team   
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,8 @@ import org.spiffyui.client.rest.v2.RESTOAuthProvider;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptException;
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
@@ -417,8 +419,12 @@ public final class RESTility
              */
             g_oAuthProvider.error(exception);
         } else {
+            JsArray<JavaScriptObject> addlParams = null;
+            if (g_oAuthProvider instanceof org.spiffyui.client.rest.v3.RESTOAuthProvider) {
+                addlParams = ((org.spiffyui.client.rest.v3.RESTOAuthProvider) g_oAuthProvider).getAddlAuthParameters();
+            }
             handleOAuthRequestJS(this, authUrl, g_oAuthProvider.getClientId(), 
-                                 g_oAuthProvider.getScope(), g_oAuthProvider.shouldSendRedirectUrl());
+                                 g_oAuthProvider.getScope(), g_oAuthProvider.shouldSendRedirectUrl(), addlParams);
         }
     }
 
@@ -433,8 +439,8 @@ public final class RESTility
         return $wnd.Base64.encode(s);
     }-*/;
 
-    private native void handleOAuthRequestJS(RESTility callback, String authUrl, String clientId, String scope, boolean shouldRedirect) /*-{
-        $wnd.spiffyui.oAuthAuthenticate(authUrl, clientId, scope, shouldRedirect, function(token, tokenType) {
+    private native void handleOAuthRequestJS(RESTility callback, String authUrl, String clientId, String scope, boolean shouldRedirect, JsArray<JavaScriptObject> addlParams) /*-{
+        $wnd.spiffyui.oAuthAuthenticate(authUrl, clientId, scope, shouldRedirect, addlParams, function(token, tokenType) {
             callback.@org.spiffyui.client.rest.RESTility::oAuthComplete(Ljava/lang/String;Ljava/lang/String;)(token,tokenType);
         });
     }-*/;
